@@ -1,0 +1,7 @@
+pip>=20.3.3
+setuptools>=50
+wheel>=0.36
+invoke>=1.4.1,<=2.0
+gitpython>=3.1.9
+pytz>=2020.5
+mkdocs>=1.1.2
