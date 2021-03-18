@@ -1,0 +1,11 @@
+prospector
+hypothesis
+pytest
+pytest-cov
+allure-pytest
+pytest-flask
+flask
+selenium
+requests
+scikit-image
+psutil
