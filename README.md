@@ -4,7 +4,7 @@
 <img src="readme/images/hexagon.png" align="left" width="175"></a>
 
 <!-- Badge Location -->
-Bagdes TBD
+Badges TBD
 <!-- End Badges -->
 
 ***This package is late alpha / early beta in maturity.  Functionality will be completed quickly over spring 2021, and
