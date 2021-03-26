@@ -107,6 +107,8 @@ class CXEvent(CXJavascriptConvertable):
         :param id: The ID of the react, such as mousemove.
         :param script: The script logic for the react.
         """
+        super().__init__()
+
         self.id = id
         self.script = script
 

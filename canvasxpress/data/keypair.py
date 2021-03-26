@@ -150,11 +150,15 @@ class CXJSONData(CXDictData):
         elif not isinstance(value, dict):
             try:
                 candidate = json.loads(value)
-            except:
-                raise TypeError("value must be type JSON or compatible.")
+                super().data = candidate
+
+            except Exception as e:
+                raise TypeError(
+                    f"value must be type JSON or compatible: {e}"
+                )
 
         else:
-            CXDictData.data = json.loads(value)
+            super().data = json.loads(value)
 
     def __init__(self, data: Union[dict, str, None] = None) -> None:
         """

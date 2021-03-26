@@ -115,6 +115,8 @@ class CXEvents(CXJavascriptConvertable):
         Establishes a new CXEvents object.
         :param events: A list of CXEvents to associate.
         """
+        super().__init__()
+
         self.__events = list()
         if events:
             for event in events:
