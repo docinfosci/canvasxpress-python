@@ -12,6 +12,12 @@ class TestableRenderable(CXRenderable):
     A generic CXRenderable for testing the abstract base class.
     """
 
+    def __init__(
+            self,
+            cx: CanvasXpress
+    ):
+        super().__init__(cx)
+
     def render(self):
         """
         Calls the base render method, but otherwise does nothing.
@@ -58,7 +64,8 @@ def test_CXRenderable_init():
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
-    renderable: CXRenderable = TestableRenderable(chart)
+
+    TestableRenderable(chart)
 
 
 def test_CXRenderable_get_canvas(testable_renderable: CXRenderable):
