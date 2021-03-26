@@ -306,3 +306,5 @@ allure-report
 allure-results/
 
 setup.py
+
+coverage-results/
