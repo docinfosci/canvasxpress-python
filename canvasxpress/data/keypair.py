@@ -69,20 +69,14 @@ class CXDictData(CXData):
     ):
         return CXDictData(self.data)
 
-    def __hash__(self):
-        return hash(repr(self))
-
     def __lt__(
             self,
             other: 'CXDictData'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXDictData:
-            return False
-
-        if self is other:
+        if not isinstance(other, CXDictData):
             return False
 
         else:
@@ -94,20 +88,30 @@ class CXDictData(CXData):
             other_added: int = len(delta.get('dictionary_item_added', []))
             other_removed: int = len(delta.get('dictionary_item_removed', []))
 
-            return (other_added - other_removed) < 0
+            if (other_added - other_removed) == 0:
+                for skey in self.data.keys():
+                    if not skey in other.data.keys():
+                        for okey in other.data.keys():
+                            if skey < okey:
+                                return True
+
+                    elif self.data[skey] < other.data[skey]:
+                        return True
+
+                return False
+
+            else:
+                return (other_added - other_removed) > 0
 
     def __eq__(
             self,
             other: 'CXDictData'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXDictData:
+        if not isinstance(other, CXDictData):
             return False
-
-        if self is other:
-            return True
 
         else:
             delta: dict = DeepDiff(
@@ -118,7 +122,18 @@ class CXDictData(CXData):
             other_added: int = len(delta.get('dictionary_item_added', []))
             other_removed: int = len(delta.get('dictionary_item_removed', []))
 
-            return (other_added - other_removed) == 0
+            if (other_added - other_removed) == 0:
+                for skey in self.data.keys():
+                    if not skey in other.data.keys():
+                        return False
+
+                    elif self.data[skey] != other.data[skey]:
+                        return False
+
+                return True
+
+            else:
+                return False
 
     def __str__(self) -> str:
         return json.dumps(self.data)
@@ -138,7 +153,7 @@ class CXJSONData(CXDictData):
         A property accessor for the data managed by the object.
         """
         return json.dumps(
-            self.__data,
+            super().data,
             indent=4
         )
 
@@ -147,18 +162,18 @@ class CXJSONData(CXDictData):
         if value == None:
             raise TypeError("value cannot be None.")
 
-        elif not isinstance(value, dict):
+        elif isinstance(value, dict):
+            CXDictData.data.fset(self, value)
+
+        else:
             try:
                 candidate = json.loads(value)
-                super().data = candidate
+                CXDictData.data.fset(self, candidate)
 
             except Exception as e:
                 raise TypeError(
                     f"value must be type JSON or compatible: {e}"
                 )
-
-        else:
-            super().data = json.loads(value)
 
     def __init__(self, data: Union[dict, str, None] = None) -> None:
         """
@@ -176,61 +191,55 @@ class CXJSONData(CXDictData):
     ):
         return CXJSONData(self.data)
 
-    def __hash__(self):
-        return hash(repr(self))
-
     def __lt__(
             self,
             other: 'CXJSONData'
     ):
-        if not object:
+        if other is None:
             return False
 
         if not isinstance(other, CXJSONData):
             return False
 
-        if self is other:
-            return False
-
         else:
-            delta: dict = DeepDiff(
-                self.render_to_dict(),
-                other.render_to_dict(),
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
+            try:
+                self_CXDictData: CXDictData = CXDictData(
+                    self.render_to_dict()
+                )
+                other_CXDictData: CXDictData = CXDictData(
+                    other.render_to_dict()
+                )
+                return self_CXDictData < other_CXDictData
 
-            return (other_added - other_removed) < 0
+            except Exception as e:
+                return False
 
     def __eq__(
             self,
             other: 'CXJSONData'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXJSONData:
+        if not isinstance(other, CXJSONData):
             return False
-
-        if self is other:
-            return True
 
         else:
-            delta: dict = DeepDiff(
-                self.render_to_dict(),
-                other.render_to_dict(),
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
+            try:
+                self_CXDictData: CXDictData = CXDictData(
+                    self.render_to_dict()
+                )
+                other_CXDictData: CXDictData = CXDictData(
+                    other.render_to_dict()
+                )
+                return self_CXDictData == other_CXDictData
 
-            return (other_added - other_removed) == 0
+            except Exception as e:
+                return False
 
     def __str__(self) -> str:
         return json.dumps(
-            self.data,
-            indent=4
+            self.data
         )
 
     def __repr__(self) -> str:
