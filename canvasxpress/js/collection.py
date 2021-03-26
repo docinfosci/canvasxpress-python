@@ -137,29 +137,46 @@ class CXEvents(CXJavascriptConvertable):
             self,
             other: 'CXEvents'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXEvents:
+        if not isinstance(other, CXEvents):
             return False
 
         else:
-            return collections.Counter(self.events) < \
-                   collections.Counter(other.events)
+            if (len(self.events) + len(other.events)) == 0:
+                return False
+
+            if len(self.events) == len(other.events):
+                for event in self.events:
+                    for oevent in other.events:
+                        if not event < oevent:
+                            return False
+                return True
+
+            else:
+                return len(self.events) < len(other.events)
 
     def __eq__(
             self,
             other: 'CXEvents'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXEvents:
+        if not isinstance(other, CXEvents):
             return False
 
         else:
-            return collections.Counter(self.events) == \
-                   collections.Counter(other.events)
+            if len(self.events) == len(other.events):
+                for event in self.events:
+                    for oevent in other.events:
+                        if not event == oevent:
+                            return False
+                return True
+
+            else:
+                return len(self.events) == len(other.events)
 
     def __str__(self) -> str:
         return json.dumps(
