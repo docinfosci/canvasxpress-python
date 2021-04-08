@@ -1,7 +1,7 @@
 from typing import Set, List, Any
 
 from canvasxpress.config.type import CXType, CXString, CXInt, CXFloat, CXBool, \
-    CXList, CXDict, CXRGBColor
+    CXList, CXDict, CXRGBColor, CXRGBAColor
 from canvasxpress.data.convert import CXDictConvertable
 
 
@@ -10,10 +10,10 @@ class CXConfigs(CXDictConvertable):
     CXConfigs provides support for addressing CXType values.
     """
 
-    __configs: Set[CXType] = None
+    __configs: List[CXType] = None
 
     def __init__(self, *configs):
-        self.__configs: Set[CXType] = set()
+        self.__configs: List[CXType] = list()
         for config in configs:
             self.add(config)
 
@@ -25,7 +25,7 @@ class CXConfigs(CXDictConvertable):
             raise TypeError("config must be a type of CXType.")
 
         if config not in self.__configs:
-            self.__configs.add(config)
+            self.__configs.append(config)
 
         return self
 
@@ -75,13 +75,13 @@ class CXConfigs(CXDictConvertable):
                         label,
                         value
                     )
-                elif value_type is float:
-                    candidate = CXFloat(
-                        label,
-                        value
-                    )
                 elif value_type is dict:
-                    if CXRGBColor.is_color_dict(value):
+                    if CXRGBAColor.is_color_dict(value):
+                        candidate = CXRGBAColor(
+                            label,
+                            value
+                        )
+                    elif CXRGBColor.is_color_dict(value):
                         candidate = CXRGBColor(
                             label,
                             value
@@ -92,7 +92,12 @@ class CXConfigs(CXDictConvertable):
                             value
                         )
                 elif value_type is list:
-                    if CXRGBColor.is_color_list(value):
+                    if CXRGBAColor.is_color_list(value):
+                        candidate = CXRGBAColor(
+                            label,
+                            value
+                        )
+                    elif CXRGBColor.is_color_list(value):
                         candidate = CXRGBColor(
                             label,
                             value
@@ -109,7 +114,12 @@ class CXConfigs(CXDictConvertable):
                         list(set_persona)
                     )
                 else:
-                    if CXRGBColor.is_color_str(value):
+                    if CXRGBAColor.is_color_str(value):
+                        candidate = CXRGBAColor(
+                            label,
+                            value
+                        )
+                    elif CXRGBColor.is_color_str(value):
                         candidate = CXRGBColor(
                             label,
                             value

@@ -31,8 +31,11 @@ class CXDictData(CXData):
         if value == None:
             raise TypeError("value cannot be None.")
 
-        elif not isinstance(value, dict):
+        elif not type(value) in [dict, CXDictData]:
             raise TypeError("value must be type dict or compatible.")
+
+        elif isinstance(value, CXDictData):
+            self.__data = deepcopy(value.data)
 
         else:
             self.__data = deepcopy(value)
@@ -50,15 +53,10 @@ class CXDictData(CXData):
         types are accepted.
         """
         super().__init__(data)
+        self.__data = dict()
 
-        if data == None:
-            self.__data = dict()
-
-        elif not isinstance(data, dict):
-            raise TypeError("data must be of type dict or compatible")
-
-        else:
-            self.__data = deepcopy(data)
+        if data is not None:
+            self.data = data
 
     def __copy__(self):
         return CXDictData(self.data)
@@ -148,39 +146,33 @@ class CXJSONData(CXDictData):
     """
 
     @property
-    def data(self) -> str:
-        """
-        A property accessor for the data managed by the object.
-        """
-        return json.dumps(
-            super().data,
-            indent=4
-        )
+    def json(self) -> str:
+        return str(self)
+
+    @json.setter
+    def json(self, value: Union[dict, str]) -> None:
+        self.data = value
 
     @CXDictData.data.setter
     def data(self, value: Union[dict, str]) -> None:
-        if value == None:
-            raise TypeError("value cannot be None.")
+        if isinstance(value, CXJSONData):
+            CXDictData.data.fset(self, value.data)
 
-        elif isinstance(value, dict):
-            CXDictData.data.fset(self, value)
+        elif isinstance(value, str):
+            candidate = json.loads(value)
+            CXDictData.data.fset(self, candidate)
 
         else:
-            try:
-                candidate = json.loads(value)
-                CXDictData.data.fset(self, candidate)
-
-            except Exception as e:
-                raise TypeError(
-                    f"value must be type JSON or compatible: {e}"
-                )
+            CXDictData.data.fset(self, value)
 
     def __init__(self, data: Union[dict, str, None] = None) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
         types are accepted.
         """
-        super().__init__(data)
+        super().__init__()
+        if data is not None:
+            self.json = data
 
     def __copy__(self):
         return CXJSONData(self.data)
@@ -191,56 +183,5 @@ class CXJSONData(CXDictData):
     ):
         return CXJSONData(self.data)
 
-    def __lt__(
-            self,
-            other: 'CXJSONData'
-    ):
-        if other is None:
-            return False
-
-        if not isinstance(other, CXJSONData):
-            return False
-
-        else:
-            try:
-                self_CXDictData: CXDictData = CXDictData(
-                    self.render_to_dict()
-                )
-                other_CXDictData: CXDictData = CXDictData(
-                    other.render_to_dict()
-                )
-                return self_CXDictData < other_CXDictData
-
-            except Exception as e:
-                return False
-
-    def __eq__(
-            self,
-            other: 'CXJSONData'
-    ):
-        if other is None:
-            return False
-
-        if not isinstance(other, CXJSONData):
-            return False
-
-        else:
-            try:
-                self_CXDictData: CXDictData = CXDictData(
-                    self.render_to_dict()
-                )
-                other_CXDictData: CXDictData = CXDictData(
-                    other.render_to_dict()
-                )
-                return self_CXDictData == other_CXDictData
-
-            except Exception as e:
-                return False
-
-    def __str__(self) -> str:
-        return json.dumps(
-            self.data
-        )
-
     def __repr__(self) -> str:
-        return f"CXJSONData(data={json.dumps(self.data)})"
+        return f"CXJSONData(data={str(self.data)})"
