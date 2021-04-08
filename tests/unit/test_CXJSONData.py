@@ -8,7 +8,6 @@ from hypothesis import given
 from hypothesis.strategies import dictionaries, text
 
 from canvasxpress.data.keypair import CXJSONData
-from tests.util.hypothesis_support import everything_except
 
 
 @given(
@@ -20,21 +19,23 @@ from tests.util.hypothesis_support import everything_except
 )
 def test_CXJSONData_init_valid_input(sample):
     cxdata = CXJSONData(sample)
-    assert not DeepDiff(sample, cxdata.data)
+    assert not DeepDiff(
+        sample,
+        cxdata.render_to_dict()
+    )
 
 
-@given(everything_except(dict))
-def test_CXJSONData_init_invalid_input(sample):
-    if sample is not None:
+def test_CXJSONData_init_invalid_input():
+    for sample in [1, '1', [12, 13], 4.5, ]:
         with pytest.raises(TypeError):
             CXJSONData(sample)
 
 
-@given(everything_except(dict))
-def test_CXJSONData_set_data_invalid(sample):
-    dictdata = CXJSONData()
-    with pytest.raises(TypeError):
-        dictdata.data = sample
+def test_CXJSONData_set_data_invalid():
+    for sample in [1, '1', [12, 13], 4.5, ]:
+        with pytest.raises(TypeError):
+            subject: CXJSONData = CXJSONData({})
+            subject.data = sample
 
 
 @given(
@@ -48,6 +49,47 @@ def test_CXJSONData_get_valid_data(sample):
     cxdata = CXJSONData()
     cxdata.data = sample
     assert not DeepDiff(sample, cxdata.data)
+
+
+@given(
+    dictionaries(
+        keys=text(alphabet=string.ascii_letters, min_size=5),
+        values=text(alphabet=string.ascii_letters, min_size=5),
+        min_size=1
+    )
+)
+def test_CXJSONData_set_valid_json(sample):
+    candidate: CXJSONData = CXJSONData()
+    json_sample = json.dumps(sample)
+
+    candidate.json = json_sample
+    assert candidate.data == sample
+    assert candidate.json == json_sample
+
+    candidate.json = sample
+    assert candidate.data == sample
+    assert candidate.json == json_sample
+
+    candidate.data = CXJSONData(sample)
+    assert candidate.data == sample
+    assert candidate.json == json_sample
+
+
+@given(
+    dictionaries(
+        keys=text(alphabet=string.ascii_letters, min_size=5),
+        values=text(alphabet=string.ascii_letters, min_size=5),
+        min_size=1
+    )
+)
+def test_CXJSONData_set_valid_dict(sample):
+    candidate: CXJSONData = CXJSONData()
+
+    candidate.json = sample
+    assert json.loads(candidate.json) == sample
+
+    candidate.data = sample
+    assert candidate.data == sample
 
 
 @given(

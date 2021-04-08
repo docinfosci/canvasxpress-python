@@ -44,6 +44,23 @@ def test_CXDictData_set_data_invalid(sample):
         min_size=1
     )
 )
+def test_CXDictData_set_valid_dict(sample):
+    candidate: CXDictData = CXDictData()
+
+    candidate.data = sample
+    assert candidate.data == sample
+
+    candidate.data = CXDictData(sample)
+    assert candidate.data == sample
+
+
+@given(
+    dictionaries(
+        keys=text(alphabet=string.ascii_letters, min_size=5),
+        values=text(alphabet=string.ascii_letters, min_size=5),
+        min_size=1
+    )
+)
 def test_CXDictData_get_valid_data(sample):
     cxdata = CXDictData()
     cxdata.data = sample
