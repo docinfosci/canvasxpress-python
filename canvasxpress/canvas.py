@@ -2,8 +2,8 @@ import json
 import uuid
 from typing import Union, List
 
-from canvasxpress.config.type import CXType
 from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXType
 from canvasxpress.data.convert import CXHtmlConvertable
 from canvasxpress.data.keypair import CXData, CXDictData
 from canvasxpress.js.collection import CXEvents
@@ -23,9 +23,6 @@ class CanvasXpress(CXHtmlConvertable):
     renderable by CanvasXpress.
     """
 
-    DEFAULT_WIDTH: int = 600
-    DEFAULT_HEIGHT: int = 600
-
     __target_id: str = None
     """
     __target_id is used by the JS renderTo param.
@@ -39,19 +36,61 @@ class CanvasXpress(CXHtmlConvertable):
         """
         return self.__target_id
 
+    CANVAS_WIDTH_DEFAULT: int = 500
+    """
+    Default width in pixels of the canvas when rendered, such as into HTML.
+    """
+
+    __canvas_width: int = CANVAS_WIDTH_DEFAULT
+    """
+    Preferred width in pixels of the canvas when rendered, such as into HTML.
+    """
+
     @property
-    def width(self) -> int:
+    def canvas_width(self) -> int:
         """
         Provides the suggested canvas width.
         """
-        return self.DEFAULT_WIDTH
+        return self.__canvas_width
+
+    @canvas_width.setter
+    def canvas_width(self, value: int):
+        if value is None:
+            raise ValueError("canvas_width cannot be None")
+
+        elif value < 1:
+            raise ValueError("canvas_width cannot be less than 1 pixel")
+
+        else:
+            self.__canvas_width = value
+
+    CANVAS_HEIGHT_DEFAULT: int = 500
+    """
+    Default height in pixels of the canvas when rendered, such as into HTML.
+    """
+
+    __canvas_height: int = CANVAS_HEIGHT_DEFAULT
+    """
+    Preferred height in pixels of the canvas when rendered, such as into HTML.
+    """
 
     @property
-    def height(self) -> int:
+    def canvas_height(self) -> int:
         """
         Provides the suggested canvas height.
         """
-        return self.DEFAULT_HEIGHT
+        return self.__canvas_height
+
+    @canvas_height.setter
+    def canvas_height(self, value: int):
+        if value is None:
+            raise ValueError("canvas_height cannot be None")
+
+        elif value < 1:
+            raise ValueError("canvas_height cannot be less than 1 pixel")
+
+        else:
+            self.__canvas_height = value
 
     __data: CXData = None
     """
@@ -155,8 +194,6 @@ class CanvasXpress(CXHtmlConvertable):
         """
         Converts the CanvasXpress object into HTML5 complant script.
         """
-        config: dict = None
-
         canvasxpress = {
             'renderTo': self.target_id,
             'data': self.data.render_to_dict(),
@@ -183,8 +220,8 @@ class CanvasXpress(CXHtmlConvertable):
             CX_CANVAS_TEMPLATE,
             {
                 'cx_target_id': self.target_id,
-                'cx_canvas_width': self.DEFAULT_WIDTH,
-                'cx_canvas_height': self.DEFAULT_HEIGHT,
+                'cx_canvas_width': self.CANVAS_WIDTH_DEFAULT,
+                'cx_canvas_height': self.CANVAS_HEIGHT_DEFAULT,
                 'cx_canvas_ratio': "1:1",
             }
         )
