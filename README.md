@@ -164,7 +164,7 @@ chart_data = CXDictData(raw_data)
 
 # A chart configuration is managed distinct from the associated chart, and it
 # can be reused across multiple chart objects.  A CXConfig object can be
-# initialized with a set of CXType objects or, later, objects can be added via
+# initialized with a set of CXConfig objects or, later, objects can be added via
 # add() or set_param().  These functions support chaining.
 chart_configs = CXConfigs(
     CXGraphType(CXGraphTypeOptions.Scatter2D),
