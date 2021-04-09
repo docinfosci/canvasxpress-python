@@ -1,28 +1,31 @@
+import json
+from copy import deepcopy
+from functools import total_ordering
 from typing import Set, List, Any
 
-from canvasxpress.config.type import CXType, CXString, CXInt, CXFloat, CXBool, \
+from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool, \
     CXList, CXDict, CXRGBColor, CXRGBAColor
 from canvasxpress.data.convert import CXDictConvertable
 
-
+@total_ordering
 class CXConfigs(CXDictConvertable):
     """
-    CXConfigs provides support for addressing CXType values.
+    CXConfigs provides support for addressing CXConfig values.
     """
 
-    __configs: List[CXType] = None
+    __configs: List[CXConfig] = None
 
     def __init__(self, *configs):
-        self.__configs: List[CXType] = list()
+        self.__configs: List[CXConfig] = list()
         for config in configs:
             self.add(config)
 
-    def add(self, config: CXType) -> 'CXConfigs':
+    def add(self, config: CXConfig) -> 'CXConfigs':
         if config is None:
-            raise ValueError("config cannot be None.")
+            raise ValueError("configs cannot be None.")
 
-        if not isinstance(config, CXType):
-            raise TypeError("config must be a type of CXType.")
+        if not isinstance(config, CXConfig):
+            raise TypeError("configs must be a type of CXConfig.")
 
         if config not in self.__configs:
             self.__configs.append(config)
@@ -35,8 +38,8 @@ class CXConfigs(CXDictConvertable):
             value: Any
     ) -> 'CXConfigs':
         """
-        Adds a parameter to the config.  Attempts to infer the kind of param to
-        add, and if a type can be deduced then an appropriate CXType is used.
+        Adds a parameter to the configs.  Attempts to infer the kind of param to
+        add, and if a type can be deduced then an appropriate CXConfig is used.
         If a type cannot be inferred the a text type is assumed.
         """
         if (label is None) or (value is None):
@@ -136,7 +139,7 @@ class CXConfigs(CXDictConvertable):
 
 
     @property
-    def configs(self) -> Set[CXType]:
+    def configs(self) -> Set[CXConfig]:
         return self.__configs
 
     def render_to_dict(self) -> dict:
@@ -147,10 +150,10 @@ class CXConfigs(CXDictConvertable):
     @classmethod
     def merge_configs(
             cls,
-            configs: List[CXType]
+            configs: List[CXConfig]
     ) -> dict:
         """
-        Given a list of CXType objects, a dictionary of unique attributes is
+        Given a list of CXConfig objects, a dictionary of unique attributes is
         generated and provided.
         :returns: A dict of zero or more keys representing the CXConfigs.
         """
@@ -164,3 +167,73 @@ class CXConfigs(CXDictConvertable):
             dict_configs[config.label] = config.value
 
         return dict_configs
+
+    def __copy__(self):
+        return CXConfigs(
+            *self.configs
+        )
+
+    def __deepcopy__(
+            self,
+            memo
+    ):
+        return CXConfigs(
+            *([deepcopy(config) for config in self.configs])
+        )
+
+    def __lt__(
+            self,
+            other: 'CXConfigs'
+    ):
+        if other is None:
+            return False
+
+        if not isinstance(other, CXConfigs):
+            return False
+
+        else:
+            if (len(self.configs) + len(other.configs)) == 0:
+                return False
+
+            if len(self.configs) == len(other.configs):
+                for config in self.configs:
+                    for oconfig in other.configs:
+                        if not config < oconfig:
+                            return False
+                return True
+
+            else:
+                return len(self.configs) < len(other.configs)
+
+    def __eq__(
+            self,
+            other: 'CXConfigs'
+    ):
+        if other is None:
+            return False
+
+        if not isinstance(other, CXConfigs):
+            return False
+
+        else:
+            if len(self.configs) == len(other.configs):
+                for config in self.configs:
+                    for oconfig in other.configs:
+                        if not config == oconfig:
+                            return False
+                return True
+
+            else:
+                return len(self.configs) == len(other.configs)
+
+    def __str__(self) -> str:
+        return json.dumps(
+            self.render_to_dict()
+        )
+
+    def __repr__(self) -> str:
+        config_rep_list = ", ".join([repr(config) for config in self.configs])
+        rep_candidate = f'CXConfigs(' \
+                        f'{config_rep_list}' \
+                        f')'
+        return rep_candidate
