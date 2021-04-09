@@ -1,4 +1,3 @@
-import json
 from copy import copy, deepcopy
 
 import pytest
@@ -22,7 +21,7 @@ def test_CXBool_init():
     assert subject.value == False
 
     with pytest.raises(ValueError):
-        subject: CXBool = CXBool(
+        CXBool(
             label=None,
             value=True
         )
@@ -63,7 +62,7 @@ def test_CXBool_deepcopy():
 
 def test_CXBool_str():
     subject: CXBool = CXBool("1", True)
-    assert str(subject) == json.dumps(
+    assert str(subject) == str(
         {
             "label": subject.label,
             "value": subject.value,

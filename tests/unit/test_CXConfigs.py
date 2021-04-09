@@ -1,7 +1,10 @@
+import json
+from copy import copy, deepcopy
+
 import pytest
 
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXString, CXType, CXRGBColor, CXInt, \
+from canvasxpress.config.type import CXString, CXConfig, CXRGBColor, CXInt, \
     CXFloat, CXBool, CXDict, CXList, CXRGBAColor
 
 
@@ -9,8 +12,8 @@ def test_CXConfigs_init():
     cfgs: CXConfigs = CXConfigs()
     assert len(cfgs.configs) == 0
 
-    config1: CXType = CXString("test", "value")
-    config2: CXType = CXString("test1", "value2")
+    config1: CXConfig = CXString("test", "value")
+    config2: CXConfig = CXString("test1", "value2")
     cfgs: CXConfigs = CXConfigs(
         config1,
         config2
@@ -33,7 +36,7 @@ def test_CXConfigs_add_junk():
 
 def test_CXConfigs_add():
     cfgs: CXConfigs = CXConfigs()
-    config1: CXType = CXString("test", "value")
+    config1: CXConfig = CXString("test", "value")
 
     cfgs.add(config1)
     assert len(cfgs.configs) == 1
@@ -49,7 +52,7 @@ def test_CXConfigs_render_to_dict_empty():
 
 
 def test_CXConfigs_render_to_dict():
-    config1: CXType = CXString("test", "value")
+    config1: CXConfig = CXString("test", "value")
     cfgs: CXConfigs = CXConfigs(
         config1
     )
@@ -91,7 +94,7 @@ def test_CXConfigs_set_param():
         cfgs.set_param("1", None)
 
     cfgs: CXConfigs = CXConfigs()
-    config1: CXType = CXInt("test", 1)
+    config1: CXConfig = CXInt("test", 1)
     cfgs.add(config1)
     with pytest.raises(ValueError):
         cfgs.set_param(
@@ -155,3 +158,88 @@ def test_CXConfigs_set_param():
                    ) in cfg_items
         else:
             assert test_item in cfg_items
+
+
+def test_CXConfigs_copy():
+    configs1 = CXConfigs(
+        CXString(label="1", value="hi")
+    )
+    configs2 = copy(configs1)
+    assert configs1 == configs2
+
+
+def test_CXConfigs_deepcopy():
+    configs1 = CXConfigs(
+        CXString(label="1", value="hi")
+    )
+    configs2 = deepcopy(configs1)
+    assert configs1 == configs2
+
+
+def test_CXConfigs_str_perspective():
+    config = CXString(label="1", value="hi")
+    configs = CXConfigs(config)
+
+    configs_str = str(configs)
+    assert configs_str == json.dumps(configs.render_to_dict())
+
+
+def test_CXConfigs_repr_perspective():
+    config = CXString(label="1", value="hi")
+    configs = CXConfigs(config)
+
+    configs_repr = repr(configs)
+    configs_rep = eval(r"{}".format(configs_repr))
+    assert configs_rep == configs
+
+
+def test_CXConfigs_equality():
+    configs_a: CXConfigs = CXConfigs()
+    configs_b: CXConfigs = CXConfigs()
+
+    assert configs_a == configs_b
+    assert not configs_a < configs_b
+    assert not configs_a > configs_b
+
+    configs_c: CXConfigs = CXConfigs(
+        CXString("a", "a()")
+    )
+
+    assert configs_a != configs_c
+    assert configs_a < configs_c
+    assert configs_c > configs_a
+
+    configs_d: CXConfigs = CXConfigs(
+        CXString("a", "a()")
+    )
+
+    assert configs_c == configs_d
+    assert not configs_c < configs_d
+    assert not configs_c > configs_d
+
+    configs_e: CXConfigs = CXConfigs(
+        CXString("b", "b()")
+    )
+
+    assert configs_a != configs_e
+    assert configs_a < configs_e
+    assert configs_e > configs_a
+    assert not configs_a > configs_e
+
+    assert configs_d != configs_e
+    assert configs_d < configs_e
+    assert configs_e > configs_d
+    assert not configs_d > configs_e
+
+    configs: CXConfigs = CXConfigs()
+    assert configs != None
+    assert not configs < None
+    assert configs > None
+    assert None < configs
+
+    configs: CXConfig = CXConfigs()
+    junk_candidates: list = [0, "0", {"a": 0}, [0]]
+    for junk in junk_candidates:
+        assert configs != junk
+        assert not configs < junk
+        assert configs > junk

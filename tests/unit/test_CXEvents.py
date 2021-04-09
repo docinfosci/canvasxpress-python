@@ -163,19 +163,14 @@ def test_CXEvents_equality():
     assert events_e > events_d
     assert not events_d > events_e
 
-def test_CXEvents_equality_by_None():
     events: CXEvents = CXEvents()
-
     assert events != None
     assert not events < None
     assert events > None
     assert None < events
 
-
-def test_CXEvents_equality_by_junk():
     events: CXEvent = CXEvents()
     junk_candidates: list = [0, "0", {"a": 0}, [0]]
-
     for junk in junk_candidates:
         assert events != junk
         assert not events < junk

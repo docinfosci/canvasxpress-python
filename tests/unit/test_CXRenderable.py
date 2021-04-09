@@ -41,7 +41,7 @@ def testable_renderable() -> CXRenderable:
                 }
             }
         ),
-        config=CXConfigs(
+        configs=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
@@ -60,7 +60,7 @@ def test_CXRenderable_init():
                 }
             }
         ),
-        config=CXConfigs(
+        configs=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
@@ -86,7 +86,7 @@ def test_CXRenderable_set_canvas(testable_renderable: CXRenderable):
                 }
             }
         ),
-        config=CXConfigs(
+        configs=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Area)
         )
     )

@@ -19,7 +19,7 @@ def test_CXNoteBook_render():
                 }
             }
         ),
-        config=CXConfigs(
+        configs=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
