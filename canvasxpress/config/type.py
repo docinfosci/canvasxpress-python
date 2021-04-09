@@ -9,9 +9,9 @@ from deepdiff import DeepDiff
 
 
 @total_ordering
-class CXType(ABC):
+class CXConfig(ABC):
     """
-    CXType provides the means by which CanvasXpress objects can be configured for
+    CXConfig provides the means by which CanvasXpress objects can be configured for
     customized rendering and interaction.
     """
 
@@ -28,7 +28,7 @@ class CXType(ABC):
 
     @value.setter
     @abstractmethod
-    def value(self, value: object) -> None:
+    def value(self, value) -> None:
         pass
 
     def __init__(
@@ -58,7 +58,7 @@ class CXType(ABC):
 
     def __lt__(
             self,
-            other: 'CXType'
+            other: 'CXConfig'
     ):
         if other is None:
             return False
@@ -78,7 +78,7 @@ class CXType(ABC):
 
     def __eq__(
             self,
-            other: 'CXType'
+            other: 'CXConfig'
     ):
         if other is None:
             return False
@@ -98,12 +98,12 @@ class CXType(ABC):
 
     def __repr__(self) -> str:
         return f"{str(self.__class__).split('.')[-1][:-2]}(" \
-               f" label={json.dumps(self.label)}," \
-               f" value={str(self.value)}" \
+               f" label='{self.label}'," \
+               f" value={json.dumps(self.value)}" \
                f")"
 
 
-class CXString(CXType):
+class CXString(CXConfig):
     __value: str = ""
 
     @property
@@ -119,12 +119,10 @@ class CXString(CXType):
 
     def __init__(self, label: str, value: str):
         super().__init__(label, value)
-        self.__value = ""
-
         self.value = value
 
 
-class CXBool(CXType):
+class CXBool(CXConfig):
     __value: bool = False
 
     @property
@@ -140,12 +138,24 @@ class CXBool(CXType):
 
     def __init__(self, label: str, value: bool):
         super().__init__(label, value)
-        self.__value = False
-
         self.value = value
 
+    def __str__(self) -> str:
+        return str(
+            {
+                "label": self.label,
+                "value": self.value,
+            }
+        )
 
-class CXFloat(CXType):
+    def __repr__(self) -> str:
+        return f"{str(self.__class__).split('.')[-1][:-2]}(" \
+               f" label='{self.label}'," \
+               f" value={str(self.value)}" \
+               f")"
+
+
+class CXFloat(CXConfig):
     __value: float = 0.0
 
     @property
@@ -166,7 +176,7 @@ class CXFloat(CXType):
         self.value = value
 
 
-class CXInt(CXType):
+class CXInt(CXConfig):
     __value: int = 0
 
     @property
@@ -187,7 +197,7 @@ class CXInt(CXType):
         self.value = value
 
 
-class CXDict(CXType):
+class CXDict(CXConfig):
     __value: dict = dict()
 
     @property
@@ -299,7 +309,7 @@ class CXDict(CXType):
         return f"CXDict(label='{self.label}', value={json.dumps(self.value)})"
 
 
-class CXList(CXType):
+class CXList(CXConfig):
     __value: list = list()
 
     @property
