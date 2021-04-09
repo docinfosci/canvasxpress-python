@@ -47,7 +47,7 @@ class CXEvents(CXJavascriptConvertable):
         is raised if an react is already presenbt with the same ID.
         """
         if not event:
-            raise TypeError("react cannot be None.")
+            raise TypeError("event cannot be None.")
 
         if not isinstance(event, CXEvent):
             raise TypeError("react must be of type CXEvent.")
