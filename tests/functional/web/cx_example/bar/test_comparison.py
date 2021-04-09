@@ -51,7 +51,7 @@ def create_app() -> Flask:
         chart: dict = {
             "renderTo": "canvasId",
             "data": data,
-            "config": {
+            "configs": {
                 "graphType": "Bar"
             }
         }
@@ -72,7 +72,7 @@ def create_app() -> Flask:
         chart: CanvasXpress = CanvasXpress(
             target_id="canvasId",
             data=CXDictData(data),
-            config=CXConfigs(
+            configs=CXConfigs(
                 CXGraphType(CXGraphTypeOptions.Bar)
             )
         )

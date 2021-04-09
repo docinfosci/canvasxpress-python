@@ -80,5 +80,10 @@ def test(c):
     :return:
     """
     c.run(
-        "python -m pytest --alluredir=./allure-results ./tests"
+        "python -m pytest"
+        " --cov=canvasxpress"
+        " --cov-report term"
+        " --cov-report html:./coverage-results"
+        " --alluredir=./allure-results"
+        " ./tests"
     )

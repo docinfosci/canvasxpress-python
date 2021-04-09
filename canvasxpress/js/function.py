@@ -107,6 +107,8 @@ class CXEvent(CXJavascriptConvertable):
         :param id: The ID of the react, such as mousemove.
         :param script: The script logic for the react.
         """
+        super().__init__()
+
         self.id = id
         self.script = script
 
@@ -125,30 +127,32 @@ class CXEvent(CXJavascriptConvertable):
             script=deepcopy(self.script)
         )
 
-    def __hash__(self):
-        return hash(repr(self))
-
     def __lt__(
             self,
             other: 'CXEvent'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXEvent:
+        if not isinstance(other, CXEvent):
             return False
 
         else:
-            return (self.id < other.id) and (self.script < other.script)
+            if self.id < other.id:
+                return True
+            elif self.id == other.id:
+                return self.script < other.script
+            else:
+                return False
 
     def __eq__(
             self,
             other: 'CXEvent'
     ):
-        if not object:
+        if other is None:
             return False
 
-        if type(other) is not CXEvent:
+        if not isinstance(other, CXEvent):
             return False
 
         else:

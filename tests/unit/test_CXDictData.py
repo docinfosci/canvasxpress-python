@@ -18,20 +18,20 @@ from tests.util.hypothesis_support import everything_except
         min_size=1
     )
 )
-def test_cxdictdata_init_valid_input(sample):
+def test_CXDictData_init_valid_input(sample):
     cxdata = CXDictData(sample)
     assert not DeepDiff(sample, cxdata.data)
 
 
 @given(everything_except(dict))
-def test_cxdictdata_init_invalid_input(sample):
+def test_CXDictData_init_invalid_input(sample):
     if sample is not None:
         with pytest.raises(TypeError):
             CXDictData(sample)
 
 
 @given(everything_except(dict))
-def test_cxdictdata_set_data_invalid(sample):
+def test_CXDictData_set_data_invalid(sample):
     dictdata = CXDictData()
     with pytest.raises(TypeError):
         dictdata.data = sample
@@ -44,7 +44,24 @@ def test_cxdictdata_set_data_invalid(sample):
         min_size=1
     )
 )
-def test_cxdictdata_get_valid_data(sample):
+def test_CXDictData_set_valid_dict(sample):
+    candidate: CXDictData = CXDictData()
+
+    candidate.data = sample
+    assert candidate.data == sample
+
+    candidate.data = CXDictData(sample)
+    assert candidate.data == sample
+
+
+@given(
+    dictionaries(
+        keys=text(alphabet=string.ascii_letters, min_size=5),
+        values=text(alphabet=string.ascii_letters, min_size=5),
+        min_size=1
+    )
+)
+def test_CXDictData_get_valid_data(sample):
     cxdata = CXDictData()
     cxdata.data = sample
     assert not DeepDiff(sample, cxdata.data)
@@ -83,7 +100,7 @@ def test_deepcopy_cxdictdata(sample):
         min_size=1
     )
 )
-def test_cxdictdata_str_perspective(sample):
+def test_CXDictData_str_perspective(sample):
     cxdict1 = CXDictData(sample)
     cxdict1_str = str(cxdict1)
     assert cxdict1_str == json.dumps(cxdict1.data)
@@ -96,7 +113,7 @@ def test_cxdictdata_str_perspective(sample):
         min_size=1
     )
 )
-def test_cxdictdata_repr_perspective(sample):
+def test_CXDictData_repr_perspective(sample):
     cxdict1 = CXDictData(sample)
     cxdict1_repr = repr(cxdict1)
     assert isinstance(cxdict1_repr, str)
@@ -111,7 +128,84 @@ def test_cxdictdata_repr_perspective(sample):
         min_size=1
     )
 )
-def test_cxdictdata_render_to_dict(sample):
+def test_CXDictData_render_to_dict(sample):
     cxdict1 = CXDictData(sample)
     output = cxdict1.render_to_dict()
     assert output == cxdict1.data
+
+
+def test_CXDictData_equality_None():
+    sample_a: CXDictData = CXDictData(
+        {
+            "a": 1
+        }
+    )
+
+    assert sample_a != None
+    assert None < sample_a
+    assert sample_a > None
+
+
+def test_CXDictData_equality_junk():
+    sample_a: CXDictData = CXDictData(
+        {
+            "a": 1
+        }
+    )
+
+    for junk in [0, "0", [0]]:
+        assert sample_a != junk
+        assert junk < sample_a
+        assert sample_a > junk
+
+
+def test_CXDictData_equality():
+    sample_a: CXDictData = CXDictData(
+        {
+            "a": 1
+        }
+    )
+    sample_b: CXDictData = CXDictData(
+        {
+            "a": 1
+        }
+    )
+
+    assert sample_a == sample_b
+
+    sample_c: CXDictData = CXDictData(
+        {
+            "c": 1
+        }
+    )
+
+    assert sample_a != sample_c
+    assert sample_a < sample_c
+    assert sample_c > sample_a
+
+    sample_d: CXDictData = CXDictData()
+
+    assert sample_a != sample_d
+    assert sample_d < sample_a
+    assert sample_a > sample_d
+
+    sample_e: CXDictData = CXDictData(
+        {
+            "c": 2
+        }
+    )
+
+    assert sample_c != sample_e
+    assert sample_c < sample_e
+    assert sample_e > sample_c
+
+    sample_f: CXDictData = CXDictData(
+        {
+            "c": 2,
+            "d": 1
+        }
+    )
+
+    assert sample_c != sample_f
+    assert sample_c < sample_f
+    assert sample_f > sample_c

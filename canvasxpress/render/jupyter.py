@@ -47,8 +47,8 @@ class CXNoteBook(CXRenderable):
         display(
             IFrame(
                 temp_filename,
-                self.canvas.width + 10,
-                self.canvas.height + 10
+                self.canvas.chart_width + 10,
+                self.canvas.chart_height + 10
             ),
             metadata=dict(isolated=True)
         )

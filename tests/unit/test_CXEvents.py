@@ -7,17 +7,19 @@ from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 
 
-def test_events_init_blank():
+def test_CXEvents_init_blank():
     events = CXEvents()
     assert len(events.events) == 0
 
-def test_events_init_cxevent_list():
+
+def test_CXEvents_init_cxevent_list():
     events = CXEvents(
         CXEvent(id="1", script="hi")
     )
     assert len(events.events) == 1
 
-def test_events_init_junk():
+
+def test_CXEvents_init_junk():
     with pytest.raises(TypeError):
         events = CXEvents(
             [
@@ -25,21 +27,24 @@ def test_events_init_junk():
             ]
         )
 
-def test_events_copy():
+
+def test_CXEvents_copy():
     events1 = CXEvents(
         CXEvent(id="1", script="hi")
     )
     events2 = copy(events1)
     assert events1 == events2
 
-def test_events_deepcopy():
+
+def test_CXEvents_deepcopy():
     events1 = CXEvents(
         CXEvent(id="1", script="hi")
     )
     events2 = deepcopy(events1)
     assert events1 == events2
 
-def test_events_add_event():
+
+def test_CXEvents_add_event():
     event = CXEvent(id="1", script="hi")
     events = CXEvents()
     assert len(events.events) == 0
@@ -47,7 +52,8 @@ def test_events_add_event():
     events.add(event)
     assert len(events.events) == 1
 
-def test_events_add_duplicate_event_non_unique():
+
+def test_CXEvents_add_duplicate_event_non_unique():
     event = CXEvent(id="1", script="hi")
     events = CXEvents()
     assert len(events.events) == 0
@@ -58,7 +64,8 @@ def test_events_add_duplicate_event_non_unique():
     events.add(event, False)
     assert len(events.events) == 2
 
-def test_events_add_duplicate_event_unique():
+
+def test_CXEvents_add_duplicate_event_unique():
     event = CXEvent(id="1", script="hi")
     events = CXEvents()
     assert len(events.events) == 0
@@ -70,7 +77,17 @@ def test_events_add_duplicate_event_unique():
         events.add(event)
     assert len(events.events) == 1
 
-def test_events_add_junk():
+
+def test_CXEvents_add_None():
+    events = CXEvents()
+    assert len(events.events) == 0
+
+    with pytest.raises(TypeError):
+        events.add(None)
+    assert len(events.events) == 0
+
+
+def test_CXEvents_add_junk():
     events = CXEvents()
     assert len(events.events) == 0
 
@@ -78,7 +95,8 @@ def test_events_add_junk():
         events.add(123)
     assert len(events.events) == 0
 
-def test_events_remove_event():
+
+def test_CXEvents_remove_event():
     event = CXEvent(id="1", script="hi")
     events = CXEvents()
     assert len(events.events) == 0
@@ -89,7 +107,8 @@ def test_events_remove_event():
     events.remove(event)
     assert len(events.events) == 0
 
-def test_events_str_perspective():
+
+def test_CXEvents_str_perspective():
     event = CXEvent(id="1", script="hi")
     events = CXEvents(event)
 
@@ -97,7 +116,7 @@ def test_events_str_perspective():
     assert events_str == json.dumps(events.render_to_dict())
 
 
-def test_events_repr_perspective():
+def test_CXEvents_repr_perspective():
     event = CXEvent(id="1", script="hi")
     events = CXEvents(event)
 
@@ -105,17 +124,86 @@ def test_events_repr_perspective():
     events_rep = eval(r"{}".format(events_repr))
     assert events_rep == events
 
-def test_events_render_to_dict():
+
+def test_CXEvents_equality():
+    events_a: CXEvents = CXEvents()
+    events_b: CXEvents = CXEvents()
+
+    assert events_a == events_b
+    assert not events_a < events_b
+    assert not events_a > events_b
+
+    events_c: CXEvents = CXEvents(
+        CXEvent("a", "a()")
+    )
+
+    assert events_a != events_c
+    assert events_a < events_c
+    assert events_c > events_a
+
+    events_d: CXEvents = CXEvents(
+        CXEvent("a", "a()")
+    )
+
+    assert events_c == events_d
+    assert not events_c < events_d
+    assert not events_c > events_d
+
+    events_e: CXEvents = CXEvents(
+        CXEvent("b", "b()")
+    )
+
+    assert events_a != events_e
+    assert events_a < events_e
+    assert events_e > events_a
+    assert not events_a > events_e
+
+    assert events_d != events_e
+    assert events_d < events_e
+    assert events_e > events_d
+    assert not events_d > events_e
+
+    events: CXEvents = CXEvents()
+    assert events != None
+    assert not events < None
+    assert events > None
+    assert None < events
+
+    events: CXEvent = CXEvents()
+    junk_candidates: list = [0, "0", {"a": 0}, [0]]
+    for junk in junk_candidates:
+        assert events != junk
+        assert not events < junk
+        assert events > junk
+
+
+def test_CXEvents_render_to_dict():
     event1 = CXEvent("1", "x = 0")
     event2 = CXEvent("2", "x = 1")
 
     events = CXEvents(event1, event2)
     functions = events.render_to_dict()
 
-    assert type(functions) == dict
+    assert isinstance(functions, dict)
 
     for event_id in functions.keys():
         for event in events.events:
             if event_id == event.id:
                 assert event.render_to_js() == functions[event_id]
+                break
+
+
+def test_CXEvents_render_to_js():
+    event1 = CXEvent("1", "x = 0")
+    event2 = CXEvent("2", "x = 1")
+
+    events = CXEvents(event1, event2)
+    functions = events.render_to_js()
+
+    assert isinstance(functions, str)
+
+    for event_id in [event.id for event in events.events]:
+        for event in events.events:
+            if event_id == event.id:
+                assert event.render_to_js() in functions
                 break
