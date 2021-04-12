@@ -29,7 +29,7 @@ def _reduce_path_to_git_config_dir(dir: str) -> str:
 def _get_stage_from_working_branch() -> str:
     """
         Indicates whether the source is running as PRD or DEV.  If the source is
-        from the master branch then PRD is used, and for other branches DEV.
+        from the main branch then PRD is used, and for other branches DEV.
         :return: One of the STAGE_* constants.
         """
     working_path = _reduce_path_to_git_config_dir(
