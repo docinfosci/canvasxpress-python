@@ -2,6 +2,7 @@ from datetime import datetime
 from platform import python_version
 
 import pytz
+import requirements
 from git import Repo
 
 setup_instructions_template = """
@@ -12,25 +13,22 @@ setup(
     version='@PKG_VERSION@',
     packages=find_packages(exclude=['tests*']),
     package_dir={'': '.'},
-    install_requires=[
-        'deepdiff>=5.2.2',
-        'IPython>=7.20.0',
-        'gitpython>=3.1.12',
-        'pytz>=2020.5',
-    ],
-    url='https://github.com/Aggregate-Genius/tbio-pkg-cx-python.git',
+    install_requires=@PKG_REQUIREMENTS@,
+    url='https://github.com/docinfosci/canvasxpress-python.git',
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
-    author='CanvasXpress (original author) and Aggregate Genius Inc. (Python edition)',
-    author_email='info@aggregate-genius.com',
-    description='CanvasXpress via Python',
-    python_requires='>=@PY_VERSION_RQD@',
+    author='CanvasXpress (original author) and Dr. Todd C. Brett (Python edition)',
+    author_email='todd@aggregate-genius.com',
+    maintainer="Dr. Todd C. Brett",
+    maintainer_email='todd@aggregate-genius.com',
+    description='CanvasXpress for Python',
+    python_requires='>=3.6',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
+        'Environment :: Web Environment',
         'Topic :: Software Development :: Graphing',
-        'License :: Commercial',
+        'License :: MIT',
         'Programming Language :: Python :: @PY_VERSION_MJR@',
-        'Programming Language :: Python :: @PY_VERSION@',
     ]
 )
 """
@@ -42,17 +40,26 @@ def get_version() -> str:
     # PEP 44 sanctioned version format:
     # https://www.python.org/dev/peps/pep-0440/
 
-    repo = Repo('.')  # os.getcwd()
+    repo = Repo('.')
     branch = repo.active_branch
 
     return f"{buildtime.year}.{buildtime.month}.{buildtime.day}" \
-        f".{'dev' if branch.name != 'master' else ''}" \
-        f"{buildtime.hour}{buildtime.minute}{buildtime.second}" \
-        f"{buildtime.microsecond}"
+           f".{'dev' if branch.name not in ['main', 'master'] else ''}" \
+           f"{buildtime.strftime('%H%M%S')}"
+
+
+def get_requirements() -> list:
+    with open('requirements.txt') as reqs_file:
+        return [
+            f"'{req.name}" \
+            f"{','.join([f'{spec[0]}{spec[1]}' for spec in req.specs])}'"
+            for req in requirements.parse(reqs_file)
+        ]
 
 
 if __name__ == "__main__":
     package_version = get_version()
+    package_requirements = ',\n        '.join(get_requirements())
     python_version = python_version()
 
     setup_instructions = setup_instructions_template.replace(
@@ -61,23 +68,18 @@ if __name__ == "__main__":
     )
 
     setup_instructions = setup_instructions.replace(
+        '@PKG_REQUIREMENTS@',
+        f"[\n        {package_requirements}\n    ]"
+    )
+
+    setup_instructions = setup_instructions.replace(
         '@PRESENT_YEAR@',
         str(buildtime.year)
     )
 
     setup_instructions = setup_instructions.replace(
-        '@PY_VERSION@',
-        python_version
-    )
-
-    setup_instructions = setup_instructions.replace(
         '@PY_VERSION_MJR@',
         python_version[:1]
-    )
-
-    setup_instructions = setup_instructions.replace(
-        '@PY_VERSION_RQD@',
-        python_version[:3]
     )
 
     setup_py_file = open("setup.py", "w")
