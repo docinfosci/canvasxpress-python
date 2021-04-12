@@ -2,7 +2,7 @@
 
 # Track which profile should be used for work
 GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
-if [ $GIT_WORKING_BRANCH = "master" ]
+if [ $GIT_WORKING_BRANCH = "main" ]
 then
     BRANCH_STAGE=${BRANCH_STAGE:="master"}
 else
