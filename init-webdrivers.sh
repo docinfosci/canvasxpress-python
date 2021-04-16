@@ -22,11 +22,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Install the Chrome browser and webdriver
     sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium
     sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-driver
-    sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-chromedriver
-    sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-browser
 
-    which chromium-browser
-    chromium-browser --version
+    which chromium
+    chromium --version
     which chromedriver
     chromedriver --version
 
