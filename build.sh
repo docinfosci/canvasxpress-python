@@ -47,7 +47,7 @@ prospector \
     --zero-exit \
     --show-profile \
     --no-autodetect \
-    --strictness high \
+    --strictness low \
     -o text \
     ./canvasxpress
 PROSPECTOR_EXIT=$?
