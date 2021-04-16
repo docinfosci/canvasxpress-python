@@ -6,6 +6,7 @@ orbs:
 
 jobs:
     install-browsers:
+        executor: python/default
         steps:
             - browser-tools/install-firefox
             - browser-tools/install-geckodriver
