@@ -25,9 +25,12 @@ setup(
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
         'Environment :: Web Environment',
-        'Topic :: Software Development :: Graphing',
-        'License :: MIT',
+        'Topic :: Multimedia :: Graphics',
+        'Topic :: Scientific/Engineering :: Information Analysis',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: @PY_VERSION_MJR@',
     ]
 )
