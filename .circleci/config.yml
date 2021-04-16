@@ -5,9 +5,18 @@ orbs:
     browser-tools: circleci/browser-tools@1.1.3
 
 jobs:
-    install-browsers:
+    build-test-release:
         executor: python/default
         steps:
+            # Acquire source
+            - checkout
+
+            # Python config
+            - python/load-cache
+            - python/install-deps
+            - python/save-cache
+
+            # Browser installations
             - browser-tools/install-firefox
             - browser-tools/install-geckodriver
             - browser-tools/install-chrome
@@ -18,13 +27,7 @@ jobs:
                     chromedriver --version
                 name: Check install
 
-    build-and-test:
-        executor: python/default
-        steps:
-            - checkout
-            - python/load-cache
-            - python/install-deps
-            - python/save-cache
+            # Project build, test, and release
             - run:
                 command: chmod +x ./build.sh
                 name: prep-build-script
@@ -35,5 +38,4 @@ jobs:
 workflows:
     main:
         jobs:
-            - install-browsers
-            - build-and-test
+            - build-test-release
