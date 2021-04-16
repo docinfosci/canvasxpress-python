@@ -20,35 +20,13 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     geckodriver --version
 
     # Install the Chrome browser and webdriver
-    sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-browser
-    CHROMIUM_BROWSER_INSTALL_EXIT=$?
-
-    # If chromium-browser is not available try for older chromium
-    if (("CHROMIUM_BROWSER_INSTALL_EXIT" != 0)); then
-        echo "Cannot install chromium-browser, attempting to install chromium..."
-        sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium
-        CHROMIUM_BROWSER_INSTALL_EXIT=$?
-
-        # If chromium is also not available there's no point to continuing
-        if (("CHROMIUM_BROWSER_INSTALL_EXIT" != 0)); then
-            echo "Cannot install chromium, exiting build"
-            exit 1
-        
-        # Otherwise verify the chromium installation
-        else
-            which chromium
-            chromium --version
-
-        fi
-
-    # Otherwise verify the chromium-browser installation
-    else
-        which chromium-browser
-        chromium-browser --version
-
-    fi
-
+    sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium
+    sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-driver
     sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-chromedriver
+    sudo apt-get -yq update; sudo apt-get -yq install --fix-missing chromium-browser
+
+    which chromium-browser
+    chromium-browser --version
     which chromedriver
     chromedriver --version
 
