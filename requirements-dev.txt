@@ -2,7 +2,6 @@ prospector
 hypothesis
 pytest
 pytest-cov
-allure-pytest
 pytest-flask
 coveralls
 flask
