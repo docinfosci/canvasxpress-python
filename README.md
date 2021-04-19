@@ -4,18 +4,15 @@
 <img src="readme/images/hexagon.png" align="left" width="175"></a>
 
 <!-- PRD Badge Location -->
-### Production Repository Status
+### Project Status
 
-| Topic | Status |
-|---|---|
-| Tests | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) |
-
-<!-- DEV Badge Location -->
-### Develop Repository Status
-| Topic | Status |
-|---|---|
-| Tests | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=develop)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=develop) |
-
+| Topic | _main_ | _develop_ |
+|---|---|---|
+| **Version Info** | TBD | TBD |
+| **Compatibility** | TBD | TBD |
+| **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=develop) |
+| **Test Status** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=develop)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=develop) |
+| **Documentation Status** | TBD | TBD |
 <!-- End Badges -->
 
 ## About CanvasXpress for Python
