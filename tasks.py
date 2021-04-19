@@ -58,8 +58,12 @@ def test(c):
     c.run(
         "python -m pytest"
         " --cov=canvasxpress"
+        " --cov-fail-under=90"
+        " --cov-report xml"
         " --cov-report term"
         " --cov-report html:./coverage-results"
-        " --alluredir=./allure-results"
         " ./tests"
+    )
+    c.run(
+        "coveralls"
     )
