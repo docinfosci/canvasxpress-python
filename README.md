@@ -3,9 +3,22 @@
 <a href="https://www.canvasxpress.org">
 <img src="readme/images/hexagon.png" align="left" width="175"></a>
 
-<!-- Badge Location -->
-Badges TBD
+<!-- PRD Badge Location -->
+### Production Repository Status
+
+| Topic | Status |
+|---|---|
+| Tests | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) |
+
+<!-- DEV Badge Location -->
+### Develop Repository Status
+| Topic | Status |
+|---|---|
+| Tests | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=develop)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=develop) |
+
 <!-- End Badges -->
+
+## About CanvasXpress for Python
 
 ***This package is late alpha / early beta in maturity.  Functionality will be completed quickly over spring 2021, and
 until completed the API will be subject to change without warning.  Thank you for your patience, and please check back
