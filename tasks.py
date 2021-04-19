@@ -56,10 +56,14 @@ def test(c):
     :return:
     """
     c.run(
-        "python -m pytest"
+        "coverage run"
+        " --source=canvasxpress"
+        " -m pytest"
         " --cov=canvasxpress"
         " --cov-report term"
         " --cov-report html:./coverage-results"
-        " --alluredir=./allure-results"
         " ./tests"
+    )
+    c.run(
+        "coveralls"
     )
