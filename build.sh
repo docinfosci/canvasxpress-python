@@ -30,10 +30,6 @@ mkdocs build
 invoke test
 TEST_EXIT=$?
 
-# Capture test results
-cp -r ./allure-report/history ./allure-results/history
-allure generate ./allure-results/ -o ./allure-report/ --clean
-
 # Static analysis: goal is PEP compliance
 prospector \
     --zero-exit \
