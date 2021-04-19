@@ -4,6 +4,7 @@ pytest
 pytest-cov
 allure-pytest
 pytest-flask
+coveralls
 flask
 selenium
 requests
