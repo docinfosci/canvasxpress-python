@@ -10,7 +10,7 @@
 |---|---|---|
 | **Version Info** | TBD | TBD |
 | **Compatibility** | TBD | TBD |
-| **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=develop) |
+| **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/develop.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=develop) |
 | **Test Status** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=develop)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=develop) |
 | **Documentation Status** | TBD | TBD |
 <!-- End Badges -->
