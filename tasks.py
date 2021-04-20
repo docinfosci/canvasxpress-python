@@ -64,12 +64,7 @@ def test(c):
         " --cov-report html:./coverage-results"
         " ./tests"
     )
-    c.run(
-        "coveralls"
-    )
-    c.run(
-        "requires.io update-site -r canvasxpress-python"
-    )
+
 
 @task
 def report(c):
