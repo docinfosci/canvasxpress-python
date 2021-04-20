@@ -159,3 +159,22 @@ def test_CanvasXpress_config():
         subject.configs = -1
 
 
+def test_CanvasXpress_license():
+    subject: CanvasXpress = CanvasXpress()
+
+    assert not subject.license_available
+    with pytest.raises(ValueError):
+        subject.license_url = "junk"
+
+    assert not subject.license_available
+    subject.license_url = "CanvasXpressLicense.js"
+    assert subject.license_available
+
+    assert subject.license_available
+    subject.license_url = None
+    assert not subject.license_available
+
+    assert not subject.render_to_html_parts().get('cx_license')
+    subject.license_url = "CanvasXpressLicense.js"
+    assert subject.render_to_html_parts().get('cx_license')
+    assert "CanvasXpressLicense.js" in subject.render_to_html_parts().get('cx_license')

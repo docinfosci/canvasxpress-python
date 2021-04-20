@@ -1,0 +1,31 @@
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Flask CanvasXpress Example</title>
+
+</head>
+
+<body>
+
+<!-- 1. DOM element where the visualization will be displayed -->
+{{canvas_element|safe}}
+
+<!-- 2. License file inclusion -->
+{{canvasxpress_license|safe}}
+
+<!-- 3. Include the CanvasXpress library -->
+<link href='https://www.canvasxpress.org/dist/canvasXpress.css' rel='stylesheet' type='text/css'/>
+<script src='https://www.canvasxpress.org/dist/canvasXpress.min.js' type='text/javascript'></script>
+
+<!-- 4. Include script to initialize object -->
+<script type="text/javascript">
+    onReady(function () {
+        {{bar_graph|safe}}
+    })
+</script>
+
+</body>
+
+</html>
