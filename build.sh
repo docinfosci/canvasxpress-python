@@ -24,7 +24,7 @@ pip install -U -r ./requirements-project.txt
 invoke init --dev --list
 
 # Document the project
-mkdocs build
+mkdocs build --clean --site-dir _build/html --config-file mkdocs.yml
 
 # Test the project: goal is >= 90% coverage
 invoke test
