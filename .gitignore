@@ -308,3 +308,5 @@ allure-results/
 setup.py
 
 coverage-results/
+
+_build/**
