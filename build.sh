@@ -30,6 +30,9 @@ mkdocs build --clean --site-dir _build/html --config-file mkdocs.yml
 invoke test
 TEST_EXIT=$?
 
+# Report results to SAAS platforms
+invoke report
+
 # Static analysis: goal is PEP compliance
 prospector \
     --zero-exit \

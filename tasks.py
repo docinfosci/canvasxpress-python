@@ -70,3 +70,17 @@ def test(c):
     c.run(
         "requires.io update-site -r canvasxpress-python"
     )
+
+@task
+def report(c):
+    """
+    Report to SAAS platforms
+    :param c:
+    :return:
+    """
+    c.run(
+        "coveralls"
+    )
+    c.run(
+        "requires.io update-site -r canvasxpress-python"
+    )
