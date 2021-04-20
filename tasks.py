@@ -67,3 +67,6 @@ def test(c):
     c.run(
         "coveralls"
     )
+    c.run(
+        "requires.io update-site -r canvasxpress-python"
+    )
