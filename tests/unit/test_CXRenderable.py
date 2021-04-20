@@ -7,7 +7,7 @@ from canvasxpress.data.keypair import CXDictData
 from canvasxpress.render.base import CXRenderable
 
 
-class TestableRenderable(CXRenderable):
+class SampleRenderable(CXRenderable):
     """
     A generic CXRenderable for testing the abstract base class.
     """
@@ -45,7 +45,7 @@ def testable_renderable() -> CXRenderable:
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
-    return TestableRenderable(chart)
+    return SampleRenderable(chart)
 
 
 def test_CXRenderable_init():
@@ -65,7 +65,7 @@ def test_CXRenderable_init():
         )
     )
 
-    TestableRenderable(chart)
+    SampleRenderable(chart)
 
 
 def test_CXRenderable_get_canvas(testable_renderable: CXRenderable):

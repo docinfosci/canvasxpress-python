@@ -1,7 +1,7 @@
 from canvasxpress.config.type import CXConfig
 
 
-class TestableConfig(CXConfig):
+class SampleConfig(CXConfig):
     """
     A generic CXConfig for testing the abstract base class.
     """
@@ -30,7 +30,7 @@ class TestableConfig(CXConfig):
 
 
 def test_CXConfig_value():
-    testable_data: TestableConfig = TestableConfig(
+    testable_data: SampleConfig = SampleConfig(
         "label",
         "value"
     )

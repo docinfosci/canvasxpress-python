@@ -1,7 +1,7 @@
 from canvasxpress.data.base import CXData
 
 
-class TestableData(CXData):
+class SampleData(CXData):
     """
     A generic CXData for testing the abstract base class.
     """
@@ -37,7 +37,7 @@ def test_CXData_get_data():
         }
     }
 
-    testable_data: TestableData = TestableData(
+    testable_data: SampleData = SampleData(
         sample_data
     )
 
