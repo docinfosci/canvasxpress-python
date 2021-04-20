@@ -26,7 +26,8 @@ class CXNoteBook(CXRenderable):
 
         html_template = \
             """
-            @canvas@                  
+            @canvas@
+            @canvasxpress_license@       
             <link href='https://www.canvasxpress.org/dist/canvasXpress.css' rel='stylesheet' type='text/css'/>
             <script src='https://www.canvasxpress.org/dist/canvasXpress.min.js' type='text/javascript'></script>
             <script type="text/javascript">
@@ -38,6 +39,7 @@ class CXNoteBook(CXRenderable):
 
         html = html_template \
             .replace("@canvas@", html_parts["cx_canvas"]) \
+            .replace("@canvasxpress_license@", html_parts.get("cx_license", "")) \
             .replace("@code@", html_parts["cx_js"])
 
         temp_filename = f"temp_{str(uuid.uuid4())}.html"

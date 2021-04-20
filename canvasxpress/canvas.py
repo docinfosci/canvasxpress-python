@@ -17,6 +17,9 @@ CX_CANVAS_TEMPLATE = \
     "<canvas id='@cx_target_id@' width='@cx_canvas_width@' height=" \
     "'@cx_canvas_height@' aspectRatio='@cx_canvas_ratio@' responsive='true'>"
 
+CX_LICENSE_TEMPLATE = \
+    "<script src='@cx_license@' type='text/javascript'></script>"
+
 
 class CanvasXpress(CXHtmlConvertable):
     """
@@ -53,6 +56,32 @@ class CanvasXpress(CXHtmlConvertable):
 
         else:
             self.__target_id = value
+
+    __license_location: str = None
+    """
+    Location of the CanvasXpressLicense.js file for use in rendering.
+    """
+
+    @property
+    def license_available(self) -> bool:
+        return self.__license_location is not None
+
+    @property
+    def license_url(self) -> str:
+        return self.__license_location
+
+    @license_url.setter
+    def license_url(self, value) -> None:
+        if value is None:
+            self.__license_location = None
+
+        else:
+            candidate = str(value)
+            if "CanvasXpressLicense.js" not in candidate:
+                raise ValueError("CanvasXpress license files must be named 'CanvasXpressLicense.js'")
+
+            else:
+                self.__license_location = candidate
 
     CHART_WIDTH_DEFAULT: int = 500
     """
@@ -250,7 +279,17 @@ class CanvasXpress(CXHtmlConvertable):
             }
         )
 
-        return {
-            'cx_js': cx_js,
-            'cx_canvas': cx_canvas
-        }
+        cx_license = render_from_template(
+            CX_LICENSE_TEMPLATE,
+            {
+                'cx_license': self.license_url
+            }
+        )
+
+        cx_web_data = dict()
+        cx_web_data['cx_js'] = cx_js
+        cx_web_data['cx_canvas'] = cx_canvas
+        if self.license_available:
+            cx_web_data['cx_license'] = cx_license
+
+        return cx_web_data
