@@ -25,7 +25,6 @@ setup(
     long_description_content_type='text/markdown; charset=UTF-8; variant=GFM',
     python_requires='>=3.6',
     classifiers=[
-        'Metadata-Version: 2.2',
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
