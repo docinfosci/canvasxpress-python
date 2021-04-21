@@ -23,35 +23,35 @@ source ./venv/bin/activate
 pip install -U -r ./requirements-project.txt
 invoke init --dev --list
 
-# Document the project
-mkdocs build --clean --site-dir _build/html --config-file mkdocs.yml
-
-# Test the project: goal is >= 90% coverage
-invoke test
-TEST_EXIT=$?
-
-# Report results to SAAS platforms
-invoke report
-
-# Static analysis: goal is PEP compliance
-prospector \
-    --zero-exit \
-    --show-profile \
-    --no-autodetect \
-    --strictness low \
-    -o text \
-    ./canvasxpress
-PROSPECTOR_EXIT=$?
-
-# Alert user at end of build as to failures preventing distribution
-if (("$TEST_EXIT" != 0)); then
-    echo "Tests failed with code ${TEST_EXIT}"
-    exit 1
-fi
-if (("PROSPECTOR_EXIT" != 0)); then
-  echo "Static analysis failed with code ${PROSPECTOR_EXIT}"
-  exit 1
-fi
+## Document the project
+#mkdocs build --clean --site-dir _build/html --config-file mkdocs.yml
+#
+## Test the project: goal is >= 90% coverage
+#invoke test
+#TEST_EXIT=$?
+#
+## Report results to SAAS platforms
+#invoke report
+#
+## Static analysis: goal is PEP compliance
+#prospector \
+#    --zero-exit \
+#    --show-profile \
+#    --no-autodetect \
+#    --strictness low \
+#    -o text \
+#    ./canvasxpress
+#PROSPECTOR_EXIT=$?
+#
+## Alert user at end of build as to failures preventing distribution
+#if (("$TEST_EXIT" != 0)); then
+#    echo "Tests failed with code ${TEST_EXIT}"
+#    exit 1
+#fi
+#if (("PROSPECTOR_EXIT" != 0)); then
+#  echo "Static analysis failed with code ${PROSPECTOR_EXIT}"
+#  exit 1
+#fi
 
 # If tests and static analysis pass then build and deploy
 ./distribute_package.sh
