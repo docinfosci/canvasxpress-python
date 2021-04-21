@@ -3,9 +3,6 @@
 <a href="https://www.canvasxpress.org">
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175"></a>
 
-<a href="https://www.canvasxpress.org">
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="300"></a>
-
 <!-- PRD Badge Location -->
 ### Project Status
 
@@ -108,7 +105,7 @@ their versions:
 https://tools-prd.aggregate-genius.com/python-packages/#/package/canvasxpress
 
 <a href="https://tools-prd.aggregate-genius.com/python-packages/#/package/canvasxpress">
-<img src="readme/images/pypicloud_canvasxpress_index.png" align="center" width="800"></a>
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/pypicloud_canvasxpress_index.png" align="center" width="800"></a>
 
 ### Examples
 
