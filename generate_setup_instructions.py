@@ -8,6 +8,8 @@ from git import Repo
 setup_instructions_template = """
 from setuptools import setup, find_packages
 
+long_description = '''@PKG_DESCRIPTION@'''
+
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
@@ -19,11 +21,11 @@ setup(
     author='CanvasXpress (original author) and Dr. Todd C. Brett (Python edition)',
     author_email='todd@aggregate-genius.com',
     description='CanvasXpress for Python',
+    long_description=long_description,
+    long_description_content_type='text/markdown; charset=UTF-8; variant=GFM',
     python_requires='>=3.6',
     classifiers=[
         'Metadata-Version: 2.2',
-        'Description: README.md',
-        'Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM',
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
@@ -61,6 +63,11 @@ def get_requirements() -> list:
         ]
 
 
+def get_description() -> str:
+    with open('README.md') as readme_file:
+        return readme_file.read()
+
+
 if __name__ == "__main__":
     package_version = get_version()
     package_requirements = ',\n        '.join(get_requirements())
@@ -79,6 +86,11 @@ if __name__ == "__main__":
     setup_instructions = setup_instructions.replace(
         '@PRESENT_YEAR@',
         str(buildtime.year)
+    )
+
+    setup_instructions = setup_instructions.replace(
+        '@PKG_DESCRIPTION@',
+        get_description()
     )
 
     setup_instructions = setup_instructions.replace(
