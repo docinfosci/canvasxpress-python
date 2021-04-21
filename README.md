@@ -1,5 +1,7 @@
 # CanvasXpress Python Library
 
+![](https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png=250x250)
+![](https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png=100x400)
 <a href="https://www.canvasxpress.org">
 <img src="readme/images/hexagon.png" align="left" width="175"></a>
 
