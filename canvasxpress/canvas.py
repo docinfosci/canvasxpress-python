@@ -337,7 +337,8 @@ class CanvasXpress(CXHtmlConvertable):
         Initializes a new CanvasXpress object.  Default values are provided for
         all parameters if values are not specified; otherwise the arguments are
         treated as if an appropriate setter were used.
-        :param target_id: See `target_id` property
+        :param target_id: See `target_id` property, except that on default
+            initialization the object will be assigned an UUID4 value.
         :param data: See `data` property
         :param events: See `events` property
         :param configs: See `configs` property
