@@ -17,6 +17,9 @@ setup(
     package_dir={'': '.'},
     install_requires=@PKG_REQUIREMENTS@,
     url='https://github.com/docinfosci/canvasxpress-python.git',
+    project_urls={
+        'Documentation': 'https://canvasxpress-python.readthedocs.io',
+    },
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
     author='CanvasXpress (original author) and Dr. Todd C. Brett (Python edition)',
     author_email='todd@aggregate-genius.com',
