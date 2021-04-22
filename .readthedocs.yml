@@ -4,6 +4,7 @@ python:
   version: 3.8
   install:
   - method: pip
+  - path: build
   - requirements: requirements-project.txt
   - requirements: requirements-dev.txt
   - requirements: requirements.txt
