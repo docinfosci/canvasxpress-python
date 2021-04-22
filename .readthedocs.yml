@@ -2,7 +2,8 @@ version: 2
 mkdocs: {}  # tell readthedocs to use mkdocs
 python:
   version: 3.8
+  pip_install: true
   install:
-  - requirements: requirements-project.txt
-  - requirements: requirements-dev.txt
-  - requirements: requirements.txt
+    - requirements: requirements-project.txt
+    - requirements: requirements-dev.txt
+    - requirements: requirements.txt
