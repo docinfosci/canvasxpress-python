@@ -1,4 +1,0 @@
-steps:
-- pydoc-markdown --build --render-toc --site-dir $SITE_DIR -vv
-- mv build/docs/content docs
-- mv build/docs/mkdocs.yml mkdocs.yml
