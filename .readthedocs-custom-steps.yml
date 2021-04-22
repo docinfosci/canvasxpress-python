@@ -1,2 +1,4 @@
 steps:
-- pydoc-markdown --build --render-toc --site-dir ../../site
+- pydoc-markdown --build --render-toc --site-dir site
+- mv build/docs docs
+- mkdocs build

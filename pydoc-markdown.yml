@@ -10,16 +10,15 @@ renderer:
   type: mkdocs
   site_name: CanvasXpress for Python
   pages:
-    - title: Home
+    - title: Overview
       name: index
       source: README.md
     - title: API Documentation
       contents:
         - '*'
   mkdocs_config:
-    mkdocs_config:
-      docs_dir: build/docs
-      site_dir: site
-      site_name: CanvasXpress for Python
-      theme:
-        name: 'rtd-dropdown'
+    docs_dir: build/docs
+    site_dir: site
+    site_name: CanvasXpress for Python
+    theme:
+      name: 'rtd-dropdown'
