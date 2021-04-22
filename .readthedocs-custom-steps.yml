@@ -1,2 +1,2 @@
 steps:
-- pydoc-markdown --build --site-dir $SITE_DIR
+- pydoc-markdown --build --render-toc --site-dir $SITE_DIR

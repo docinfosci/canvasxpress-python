@@ -19,4 +19,5 @@ renderer:
   mkdocs_config:
     mkdocs_config:
       site_name: CanvasXpress for Python
-      theme: readthedocs
+      theme:
+        name: 'rtd-dropdown'
