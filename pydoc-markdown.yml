@@ -18,7 +18,7 @@ renderer:
         - '*'
   mkdocs_config:
     mkdocs_config:
-      docs_dir: docs
+      docs_dir: build/docs
       site_dir: site
       site_name: CanvasXpress for Python
       theme:
