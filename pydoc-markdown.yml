@@ -17,8 +17,8 @@ renderer:
       contents:
         - '*'
   mkdocs_config:
-    docs_dir: build/docs
+    docs_dir: docs
     site_dir: site
     site_name: CanvasXpress for Python
     theme:
-      name: 'rtd-dropdown'
+      name: 'readthedocs'
