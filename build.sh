@@ -23,13 +23,12 @@ source ./venv/bin/activate
 pip install -U -r ./requirements-project.txt
 invoke init --dev --list
 
-# Document the project
-export SITE_DIR="../../docs"
-pydoc-markdown --build --site-dir $SITE_DIR
-
 # Test the project: goal is >= 90% coverage
 invoke test
 TEST_EXIT=$?
+
+# Generate documentation
+./generate_docs.sh
 
 # Report results to SAAS platforms
 invoke report
