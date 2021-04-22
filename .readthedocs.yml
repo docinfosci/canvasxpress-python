@@ -3,8 +3,6 @@ mkdocs: {}  # tell readthedocs to use mkdocs
 python:
   version: 3.8
   install:
-  - method: pip
-  - path: .
   - requirements: requirements-project.txt
   - requirements: requirements-dev.txt
   - requirements: requirements.txt
