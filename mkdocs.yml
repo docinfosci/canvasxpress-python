@@ -1,0 +1,8 @@
+docs_dir: docs
+nav:
+- Overview: index.md
+- API Documentation: api-documentation.md
+site_dir: site
+site_name: CanvasXpress for Python
+theme:
+  name: readthedocs

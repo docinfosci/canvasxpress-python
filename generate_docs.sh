@@ -1,6 +1,8 @@
 # Document the project
+rm -rf build docs site mkdocs.yml
 export SITE_DIR="site"
 pydoc-markdown --build --site-dir $SITE_DIR
-mv build/docs/content docs
-mv build/docs/mkdocs.yml mkdocs.yml
+cp -R build/docs/content docs
+cp build/docs/mkdocs.yml mkdocs.yml
+sed -i 's/docs_dir: content/docs_dir: docs/' mkdocs.yml
 mkdocs build
