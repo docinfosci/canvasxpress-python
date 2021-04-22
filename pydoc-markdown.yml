@@ -9,6 +9,10 @@ processors:
 renderer:
   type: mkdocs
   site_name: CanvasXpress for Python
+  markdown:
+    source_linker:
+      type: github
+      repo: docinfosci/canvasxpress-python
   pages:
     - title: Overview
       name: index
