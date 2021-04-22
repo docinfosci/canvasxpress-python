@@ -27,9 +27,6 @@ invoke init --dev --list
 invoke test
 TEST_EXIT=$?
 
-# Report results to SAAS platforms
-invoke report
-
 # Static analysis: goal is PEP compliance
 prospector \
     --zero-exit \
@@ -50,12 +47,7 @@ if (("PROSPECTOR_EXIT" != 0)); then
   exit 1
 fi
 
-# If tests and static analysis pass then build and deploy
-./distribute_package.sh
-DISTRIBUTE_EXIT=$?
-if (("$DISTRIBUTE_EXIT" != 0)); then
-    echo "Deployment failed with code ${DISTRIBUTE_EXIT}"
-    exit 1
-fi
+# Generate documentation
+./generate_docs.sh
 
 deactivate

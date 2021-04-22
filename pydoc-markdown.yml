@@ -1,0 +1,23 @@
+loaders:
+  - type: python
+    packages:
+      - canvasxpress
+processors:
+  - type: filter
+  - type: smart
+  - type: crossref
+renderer:
+  type: mkdocs
+  site_name: CanvasXpress for Python
+  pages:
+    - title: Overview
+      name: index
+      source: README.md
+    - title: API Documentation
+      contents:
+        - '*'
+  mkdocs_config:
+    site_dir: site
+    site_name: CanvasXpress for Python
+    theme:
+      name: 'readthedocs'

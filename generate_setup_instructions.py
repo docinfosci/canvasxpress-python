@@ -8,6 +8,8 @@ from git import Repo
 setup_instructions_template = """
 from setuptools import setup, find_packages
 
+long_description = '''@PKG_DESCRIPTION@'''
+
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
@@ -15,12 +17,15 @@ setup(
     package_dir={'': '.'},
     install_requires=@PKG_REQUIREMENTS@,
     url='https://github.com/docinfosci/canvasxpress-python.git',
+    project_urls={
+        'Documentation': 'https://canvasxpress-python.readthedocs.io',
+    },
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
     author='CanvasXpress (original author) and Dr. Todd C. Brett (Python edition)',
     author_email='todd@aggregate-genius.com',
-    maintainer="Dr. Todd C. Brett",
-    maintainer_email='todd@aggregate-genius.com',
     description='CanvasXpress for Python',
+    long_description=long_description,
+    long_description_content_type='text/markdown; charset=UTF-8; variant=GFM',
     python_requires='>=3.6',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -60,6 +65,11 @@ def get_requirements() -> list:
         ]
 
 
+def get_description() -> str:
+    with open('README.md') as readme_file:
+        return readme_file.read()
+
+
 if __name__ == "__main__":
     package_version = get_version()
     package_requirements = ',\n        '.join(get_requirements())
@@ -78,6 +88,11 @@ if __name__ == "__main__":
     setup_instructions = setup_instructions.replace(
         '@PRESENT_YEAR@',
         str(buildtime.year)
+    )
+
+    setup_instructions = setup_instructions.replace(
+        '@PKG_DESCRIPTION@',
+        get_description()
     )
 
     setup_instructions = setup_instructions.replace(
