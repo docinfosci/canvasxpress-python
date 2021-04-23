@@ -1,4 +1,3 @@
-import collections
 import json
 from copy import copy, deepcopy
 from functools import total_ordering
