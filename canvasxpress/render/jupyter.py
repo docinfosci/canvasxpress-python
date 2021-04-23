@@ -9,18 +9,27 @@ from canvasxpress.render.base import CXRenderable
 
 
 class CXNoteBook(CXRenderable):
+    """
+    CXNoteBook is a `CXRenderable` that renders `CanvasXpress` objects into
+    `IPython` containers (Jupyter Notebooks).
+    """
 
     def __init__(
             self,
             cx: CanvasXpress
     ):
+        """
+        Initializes a new CXNoteBook object.
+        :praram cx:
+            The `CanvasXpress` object to be tracked.  See the `canvas`
+            property, except that on initialization cx can be `None`.
+        """
         super().__init__(cx)
 
     def render(self):
         """
-        Renders the provided CanvasXpress object appropriate for display in
+        Renders the associated CanvasXpress object appropriate for display in
         an IPython (e.g., Jupyter NoteBook/Lab) environment.
-        :param cx: A valid CanvasXpress object.
         """
         html_parts: dict = self.canvas.render_to_html_parts()
 
