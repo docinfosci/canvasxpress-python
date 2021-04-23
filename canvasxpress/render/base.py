@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Union
 
 from canvasxpress.canvas import CanvasXpress
 
@@ -11,13 +10,26 @@ class CXRenderable(ABC):
     """
 
     __cx: CanvasXpress = None
+    """
+    The CanvasXpress object to be managed by this CXRenderable.
+    """
 
     @property
     def canvas(self) -> CanvasXpress:
+        """
+        Provides the tracked CanvasXpress object.
+        :returns: The `CanvasXpress` object if tracked, or `None` if not object
+            is yet associated with the CXRenderable.
+        """
         return self.__cx
 
     @canvas.setter
     def canvas(self, value: CanvasXpress):
+        """
+        Sets the CanvasXpress object to be tracked.
+        :praram value:
+            The `CanvasXpress` object to be tracked.  Cannot be `None`.
+        """
         if value is None:
             raise ValueError("value cannot be None")
 
@@ -31,12 +43,20 @@ class CXRenderable(ABC):
             self,
             cx: CanvasXpress
     ):
-        __cx = None
-        self.canvas = cx
+        """
+        Initializes a new CXRenderable object.
+        :praram cx:
+            The `CanvasXpress` object to be tracked.  See the `canvas`
+            property, except that on initialization cx can be `None`.
+        """
+        self.__cx = cx
+        if cx is not None:
+            self.__cx = cx
 
     @abstractmethod
     def render(self):
         """
         Renders the associated CanvasXpress object appropriate to the target.
+        Not implemented.
         """
         pass

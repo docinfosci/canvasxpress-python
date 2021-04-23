@@ -7,3 +7,4 @@ pytz>=2020.5
 mkdocs>=1.1.2
 requirements-parser>=0.2.0
 pydoc-markdown
+mkdocs-bootswatch

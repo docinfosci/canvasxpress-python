@@ -8,7 +8,7 @@ source ./venv/bin/activate
 
 # Establish package components
 rm -rf ./dist
-python ./generate_setup_instructions.py
+python ./build_pkg_setup.py
 python setup.py sdist
 python setup.py bdist_wheel
 

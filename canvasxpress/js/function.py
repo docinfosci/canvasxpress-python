@@ -5,15 +5,14 @@ from functools import total_ordering
 from canvasxpress.data.convert import CXJavascriptConvertable
 from canvasxpress.util.template import render_from_template
 
-CX_EVENT_TEMPLATE = "function(o, e, t){@cx_js_script@}"
-
+_CX_EVENT_TEMPLATE = "function(o, e, t){@cx_js_script@}"
+"""
+_CX_EVENT_TEMPLATE provides the function format expected by CanvasXpress.
+"""
 
 @total_ordering
 class CXEvent(CXJavascriptConvertable):
-    """
-    CXEvent represents a Javascript script that can be associated with a
-    CanvasXpress object.
-    """
+
 
     __id: str = ""
     """
@@ -90,7 +89,7 @@ class CXEvent(CXJavascriptConvertable):
         """
         cx_js = self.script
         cx_js_func = render_from_template(
-            CX_EVENT_TEMPLATE,
+            _CX_EVENT_TEMPLATE,
             {
                 'cx_js_script': cx_js,
             }

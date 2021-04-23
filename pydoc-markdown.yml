@@ -24,4 +24,4 @@ renderer:
     site_dir: site
     site_name: CanvasXpress for Python
     theme:
-      name: 'readthedocs'
+      name: 'lux'
