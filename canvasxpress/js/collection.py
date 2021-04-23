@@ -10,29 +10,52 @@ from canvasxpress.js.function import CXEvent
 @total_ordering
 class CXEvents(CXJavascriptConvertable):
     """
-    CXEvents represents a set of CXEvent objects and can render them properly
-    for inclusion with a CanvasXpress object.
+    CXEvents represents a Javascript script that can be associated with a
+    CanvasXpress object.
+
+    For example, when defining a CanvasXpress object Javascript could be
+    added for reactive feedback via:
+
+    ```python
+    chart_events = CXEvents(
+        CXEvent(
+            "click",
+            '''
+            var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0];
+            t.showInfoSpan(e, s);
+            '''
+        )
+    )
+    chart = CanvasXpress(
+        events=chart_events
+    )
+    ```
+
+    Also see the [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#events)
+    or `CXEvent` for additional information.
     """
 
     __events: List[CXEvent] = list()
     """
-    The react objects tracked by this instance.
+    The `CXEvent` objects tracked by this instance.
     """
 
     @property
     def events(self) -> List[CXEvent]:
         """
-        A non-associated list of the CXEvents associated with this object.
+        Provides a non-associated list of the associated CXEvents.
+        :returns: `List[CXEvent]` A list of zero or more CXEvent objects.
         """
         return copy(self.__events)
 
     def has(
             self,
             event: CXEvent
-    ):
+    ) -> bool:
         """
-        Indicates if the react is a member.
-        :param event: The object to consider
+        Indicates if the `CXEvent` is a member.
+        :param event: The `CXEvent` to consider.
+        :returns: `bool` True if `event` is a member.
         """
         return event in self.events
 
@@ -42,8 +65,12 @@ class CXEvents(CXJavascriptConvertable):
             unique: bool = True
     ) -> None:
         """
-        Adds the specified react.  If the react must be unique then an Error
+        Adds the specified CXEvent.  If the CXEvent must be unique then an Error
         is raised if an react is already presenbt with the same ID.
+        :param event:
+            `CXEvent` The event to add to the collection.  Cannot be `None`.
+        :param unique:
+            `bool` True if `event` must not already be a part of the collection.
         """
         if not event:
             raise TypeError("event cannot be None.")
@@ -67,20 +94,36 @@ class CXEvents(CXJavascriptConvertable):
         Removes the specified object from the list.
         :param event: The CXEvent object to remove from the list if it is
             already included.
-        :returns: True if the react was removed.  False indicates that the
+        :returns: True if the CXEvent was removed.  False indicates that the
             object was not a member.
         """
-        event_removed = False
-        for associated_event in self.__events:
-            if associated_event == event:
-                self.__events.remove(event)
-                event_removed = True
+        if self.has(event):
+            for associated_event in self.__events:
+                if associated_event == event:
+                    self.__events.remove(event)
+            return True
 
-        return event_removed
+        else:
+            return False
 
     def render_to_dict(self) -> dict:
         """
         Provides a dict with each js properly formatted as JS within.
+        :returns: `dict`
+        Given:
+        ```python
+        event1 = CXEvent("f1", "x = 0")
+        event2 = CXEvent("f2", "x = 1")
+        events = CXEvents(event1, event2)
+        functions = events.render_to_dict()
+        ```
+        Then the value of `functions` would be:
+        ```python
+        {
+            "f1": function(o, e, t){x = 0},
+            "f2": function(o, e, t){x = 1}
+        }
+        ```
         """
 
         events = dict()
@@ -92,6 +135,21 @@ class CXEvents(CXJavascriptConvertable):
     def render_to_js(self) -> str:
         """
         Converts the object into HTML5 complant script.
+        :returns: 'str'
+        Given:
+        ```python
+        event1 = CXEvent("f1", "x = 0")
+        event2 = CXEvent("f2", "x = 1")
+        events = CXEvents(event1, event2)
+        functions = events.render_to_js()
+        ```
+        Then the value of `functions` would be:
+        ```text
+        {
+            'f1': 'function(o, e, t){x = 0}',
+            'f2': 'function(o, e, t){x = 1}',
+        }
+        ```
         """
         events = dict()
         for event in self.events:
@@ -111,8 +169,18 @@ class CXEvents(CXJavascriptConvertable):
 
     def __init__(self, *events):
         """
-        Establishes a new CXEvents object.
-        :param events: A list of CXEvents to associate.
+        Initializes a new CXEvents object.
+        :param events:
+            A multiple value parameter by which zero or more `CXEvent` objects
+            may be provided.  Also see `add()` for how individual objects are
+            processed.
+
+            For example:
+        ```python
+        event1 = CXEvent("f1", "x = 0")
+        event2 = CXEvent("f2", "x = 1")
+        events = CXEvents(event1, event2)
+        ```
         """
         super().__init__()
 
@@ -122,6 +190,10 @@ class CXEvents(CXJavascriptConvertable):
                 self.add(event)
 
     def __copy__(self):
+        """
+        *copy* constructor.  Returns the `CXEvent` objects within a new `CXEvents`
+        object.
+        """
         return CXEvents(
             *self.events
         )
@@ -130,6 +202,10 @@ class CXEvents(CXJavascriptConvertable):
             self,
             memo
     ):
+        """
+        *deepcopy* constructor.  Returns a deep copy of `CXEvent` objects within
+        a new `CXEvents` object.
+        """
         return CXEvents(
             *([deepcopy(event) for event in self.events])
         )
@@ -138,6 +214,18 @@ class CXEvents(CXJavascriptConvertable):
             self,
             other: 'CXEvents'
     ):
+        """
+        *less than* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXEvent` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXEvents` object then False
+            <li> If `other` is a `CXEvents` object then True of all `CXEvent`
+                objects are also less than the events tracked by `self`.
+            </ul>
+        """
         if other is None:
             return False
 
@@ -162,6 +250,18 @@ class CXEvents(CXJavascriptConvertable):
             self,
             other: 'CXEvents'
     ):
+        """
+        *equals* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXEvent` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXEvents` object then False
+            <li> If `other` is a `CXEvents` object then True of all `CXEvent`
+                objects are also equal to the events tracked by `self`.
+            </ul>
+        """
         if other is None:
             return False
 
@@ -180,11 +280,21 @@ class CXEvents(CXJavascriptConvertable):
                 return len(self.events) == len(other.events)
 
     def __str__(self) -> str:
+        """
+        *str* function.  Converts the CXEvents object into a JSON list of
+        `CXEvent` objects also converted into JSON representations.
+        :returns" `str` JSON form of the collection.
+        """
         return json.dumps(
             self.render_to_dict()
         )
 
     def __repr__(self) -> str:
+        """
+        *repr* function.  Converts the CXEvents object into a pickle string
+        that can be used with `eval` to establish a copy of the object.
+        :returns: `str` An evaluatable representation of the object.
+        """
         event_rep_list = ", ".join([repr(event) for event in self.events])
         rep_candidate = f'CXEvents(' \
                         f'{event_rep_list}' \
