@@ -5,7 +5,7 @@ from io import StringIO
 from typing import Union
 
 import pandas
-from pandas import DataFrame, read_sql_query
+from pandas import DataFrame
 
 from canvasxpress.data.base import CXData
 
