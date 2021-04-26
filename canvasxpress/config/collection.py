@@ -7,6 +7,7 @@ from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool,
     CXList, CXDict, CXRGBColor, CXRGBAColor
 from canvasxpress.data.convert import CXDictConvertable
 
+
 @total_ordering
 class CXConfigs(CXDictConvertable):
     """
@@ -136,7 +137,6 @@ class CXConfigs(CXDictConvertable):
                 self.add(candidate)
 
             return self
-
 
     @property
     def configs(self) -> Set[CXConfig]:
