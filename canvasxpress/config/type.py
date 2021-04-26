@@ -226,7 +226,7 @@ class CXDict(CXConfig):
         """
         super().__init__(label, value)
         self.value = value
-        
+
     def __lt__(
             self,
             other: 'CXDict'
@@ -386,7 +386,7 @@ class CXRGBAColor(CXDict):
                 return True
 
             except:
-                    return False
+                return False
 
         else:
             return False
@@ -580,7 +580,7 @@ class CXRGBColor(CXDict):
         if isinstance(value, dict):
             list_len = len(value.keys())
             all_rgb_elements = all(
-                x in ['r', 'g', 'b',] for x in value.keys()
+                x in ['r', 'g', 'b', ] for x in value.keys()
             )
             all_rgb_elements_int = all(
                 isinstance(value[x], int) for x in value.keys()
