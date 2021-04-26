@@ -1,7 +1,7 @@
 import json
 from copy import deepcopy
 from functools import total_ordering
-from typing import Set, List, Any
+from typing import List, Any
 
 from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool, \
     CXList, CXDict, CXRGBColor, CXRGBAColor
@@ -11,17 +11,42 @@ from canvasxpress.data.convert import CXDictConvertable
 @total_ordering
 class CXConfigs(CXDictConvertable):
     """
-    CXConfigs provides support for addressing CXConfig values.
+    CXConfigs provides support for addressing a collection of `CXConfig` values.
     """
 
     __configs: List[CXConfig] = None
+    """
+    The `CXConfig` objects associated with this collection.
+    """
 
-    def __init__(self, *configs):
+    def __init__(self, *configs: CXConfig):
+        """
+        Initializes a new `CXConfigs` object with zero or more `CXConfig`
+        objects.
+        :param configs: `CXConfig, ...`
+            A list of zero or more `CXConfig` objects to associate.
+        """
         self.__configs: List[CXConfig] = list()
         for config in configs:
             self.add(config)
 
     def add(self, config: CXConfig) -> 'CXConfigs':
+        """
+        Adds the specified configuration to the collection.  This method
+        supports chaining for efficient additions of `CXConfig` objects.
+
+        Example:
+        ```python
+        configs = CXConfigs()
+        configs \
+            .add(CXString("1", "one") \
+            .add(CXString("2", "two") \
+            .add(CXString("3", "three")
+        ```
+
+        :param config: `CXConfig`
+            The `CXConfig` to associate.  Cannot be `None`.
+        """
         if config is None:
             raise ValueError("configs cannot be None.")
 
@@ -41,7 +66,21 @@ class CXConfigs(CXDictConvertable):
         """
         Adds a parameter to the configs.  Attempts to infer the kind of param to
         add, and if a type can be deduced then an appropriate CXConfig is used.
-        If a type cannot be inferred the a text type is assumed.
+        If a type cannot be inferred the a text type is assumed. This method
+        supports chaining for efficient additions of `CXConfig` objects.
+
+        Example:
+        ```python
+        configs = CXConfigs()
+        configs \
+            .set_param("1", "rgb(3, 172, 198)") \
+            .set_param("2", 2) \
+            .set_param("3", True)
+        ```
+
+        :param value: `Any`
+            The parameter to infer and associate.  Cannot be `None`.  Defaults
+            to `str` if the type cannot otherwise be deduced.
         """
         if (label is None) or (value is None):
             raise ValueError("Neither label nor value can be None.")
@@ -139,10 +178,38 @@ class CXConfigs(CXDictConvertable):
             return self
 
     @property
-    def configs(self) -> Set[CXConfig]:
+    def configs(self) -> List[CXConfig]:
+        """
+        Provides access to the list of associated `CXConfig` objects.
+        :returns: `List[CXConfig]`
+        """
         return self.__configs
 
     def render_to_dict(self) -> dict:
+        """
+        Provides a `dict` representation of the configuration values.
+        :returns: `dict`
+            A `dict` representing the configuration values arranged as a map
+            of keys and values.
+
+            Given:
+            ```python
+            configs = CXConfigs()
+            configs \
+                .set_param("1", "rgb(3, 172, 198)") \
+                .set_param("2", 2) \
+                .set_param("3", True)
+            ```
+
+            Then `render_to_dict()` results in:
+            ```python
+            {
+                "1": "rgb(3, 172, 198)",
+                "2": 2,
+                "3": True,
+            }
+            ```
+        """
         return CXConfigs.merge_configs(
             list(self.__configs)
         )
@@ -155,7 +222,8 @@ class CXConfigs(CXDictConvertable):
         """
         Given a list of CXConfig objects, a dictionary of unique attributes is
         generated and provided.
-        :returns: A dict of zero or more keys representing the CXConfigs.
+        :returns: `dict`
+            A dict of zero or more keys representing the CXConfigs.
         """
         if configs is None:
             unique_configs = set()
@@ -168,7 +236,11 @@ class CXConfigs(CXDictConvertable):
 
         return dict_configs
 
-    def __copy__(self):
+    def __copy__(self) -> 'CXConfigs':
+        """
+        *copy* constructor.  Returns the `CXConfig` objects within a new
+        `CXConfigs` object.
+        """
         return CXConfigs(
             *self.configs
         )
@@ -176,7 +248,11 @@ class CXConfigs(CXDictConvertable):
     def __deepcopy__(
             self,
             memo
-    ):
+    ) -> 'CXConfigs':
+        """
+        *deepcopy* constructor.  Returns a deepcopy of the `CXConfig` objects
+         within a new `CXConfigs` object.
+        """
         return CXConfigs(
             *([deepcopy(config) for config in self.configs])
         )
@@ -184,7 +260,19 @@ class CXConfigs(CXDictConvertable):
     def __lt__(
             self,
             other: 'CXConfigs'
-    ):
+    ) -> bool:
+        """
+        *less than* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXConfigs` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXConfigs` object then False
+            <li> If `other` is a `CXConfigs` object then True of all `CXConfig`
+                objects are also less than the events tracked by `self`.
+            </ul>
+        """
         if other is None:
             return False
 
@@ -208,7 +296,19 @@ class CXConfigs(CXDictConvertable):
     def __eq__(
             self,
             other: 'CXConfigs'
-    ):
+    ) -> bool:
+        """
+        *equals* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXConfigs` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXConfigs` object then False
+            <li> If `other` is a `CXConfigs` object then True of all `CXConfig`
+                objects are also equal to the events tracked by `self`.
+            </ul>
+        """
         if other is None:
             return False
 
@@ -227,11 +327,22 @@ class CXConfigs(CXDictConvertable):
                 return len(self.configs) == len(other.configs)
 
     def __str__(self) -> str:
+        """
+        *str* function.  Converts the `CXConfigs` object into a JSON
+         representation.
+        :returns" `str`
+            JSON form of the collection.
+        """
         return json.dumps(
             self.render_to_dict()
         )
 
     def __repr__(self) -> str:
+        """
+        *repr* function.  Converts the `CXConfigs` object into a pickle string
+        that can be used with `eval` to establish a copy of the object.
+        :returns: `str` An evaluatable representation of the object.
+        """
         config_rep_list = ", ".join([repr(config) for config in self.configs])
         rep_candidate = f'CXConfigs(' \
                         f'{config_rep_list}' \
