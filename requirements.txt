@@ -1,5 +1,5 @@
 deepdiff>=5.2.2
 IPython>=7.20.0
-gitpython>=3.1.12
-pytz>=2020.5
-pandas>=1.2.3
+gitpython==3.1.14
+pytz==2021.1
+pandas==1.2.4

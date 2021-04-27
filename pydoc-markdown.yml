@@ -17,6 +17,12 @@ renderer:
     - title: Overview
       name: index
       source: README.md
+    - title: Status
+      name: status
+      source: readme/status.md
+    - title: Examples
+      name: examples
+      source: readme/examples.md
     - title: API Documentation
       contents:
         - '*'

@@ -29,8 +29,9 @@ def test_CXCSVData_init_invalid_input(sample):
 @given(everything_except(dict, str))
 def test_CXCSVData_set_data_invalid(sample):
     csvdata = CXCSVData()
-    with pytest.raises(TypeError):
-        csvdata.csv = sample
+    if sample is not None:
+        with pytest.raises(TypeError):
+            csvdata.csv = sample
 
 
 @given(

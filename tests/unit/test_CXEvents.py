@@ -107,6 +107,9 @@ def test_CXEvents_remove_event():
     events.remove(event)
     assert len(events.events) == 0
 
+    event2 = CXEvent(id="f2", script="x=0")
+    assert not events.remove(event2)
+
 
 def test_CXEvents_str_perspective():
     event = CXEvent(id="1", script="hi")

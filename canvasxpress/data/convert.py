@@ -7,9 +7,13 @@ class CXHtmlConvertable(ABC):
     """
 
     @abstractmethod
-    def render_to_html_parts(self) -> str:
+    def render_to_html_parts(self) -> dict:
         """
-        Converts the object into HTML5 complant script.
+        Converts the object into HTML5 compliant script.
+        :returns: `dict`
+            A `dict` representation of the object with each component of the
+            necessary HTML indicated by a key.  For example, there might be
+            a `div` element and a `script` import.
         """
         pass
 
@@ -22,7 +26,10 @@ class CXDictConvertable(ABC):
     @abstractmethod
     def render_to_dict(self) -> dict:
         """
-        Converts the object into HTML5 complant script.
+        Converts the object into a dict representation.
+        :returns: `dict`
+            A dictionary representation of the object, such as what might be
+            needed for a JSON export.
         """
         pass
 
@@ -36,5 +43,8 @@ class CXJavascriptConvertable(ABC):
     def render_to_js(self) -> str:
         """
         Converts the object into HTML5 complant script.
+        :returns: `str`
+            A string representation of the object in a form that can be used
+            within HTML or Javascript.
         """
         pass

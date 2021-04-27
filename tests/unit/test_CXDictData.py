@@ -33,8 +33,9 @@ def test_CXDictData_init_invalid_input(sample):
 @given(everything_except(dict))
 def test_CXDictData_set_data_invalid(sample):
     dictdata = CXDictData()
-    with pytest.raises(TypeError):
-        dictdata.data = sample
+    if sample is not None:
+        with pytest.raises(TypeError):
+            dictdata.data = sample
 
 
 @given(
@@ -52,6 +53,9 @@ def test_CXDictData_set_valid_dict(sample):
 
     candidate.data = CXDictData(sample)
     assert candidate.data == sample
+
+    candidate.data = None
+    assert len(candidate.data.keys()) == 0
 
 
 @given(

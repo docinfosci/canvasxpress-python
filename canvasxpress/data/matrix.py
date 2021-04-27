@@ -5,7 +5,7 @@ from io import StringIO
 from typing import Union
 
 import pandas
-from pandas import DataFrame, read_sql_query
+from pandas import DataFrame
 
 from canvasxpress.data.base import CXData
 
@@ -25,21 +25,29 @@ class CXDataframeData(CXData):
     @property
     def dataframe(self) -> DataFrame:
         """
-        A property accessor for the data managed by the object.
+        Provides the data managed by the object.
+        :returns: `DataFrame` The managed data.
         """
         return self.__data
 
     @dataframe.setter
     def dataframe(
             self,
-            value: Union[DataFrame] = None
+            value: Union[DataFrame, None] = None
     ) -> None:
+        """
+        Sets the dataframe managed by the object.
+        :param value: `Union[DataFrame, None]`
+            `None` results in an empty `DataFrame`.  A deepcopy will be made of
+            `DataFrame` values.
+        """
         self.data = value
 
     @property
     def data(self) -> dict:
         """
-        A property accessor for the data managed by the object.
+        Provides the data managed by the object.
+        :returns: `DataFrame` The managed data.
         """
         return self.render_to_dict()
 
@@ -48,8 +56,14 @@ class CXDataframeData(CXData):
             self,
             value: Union['CXDataframeData', DataFrame, dict, str, None] = None
     ) -> None:
-        if (not isinstance(value, DataFrame)) and (value is None):
-            raise TypeError("value cannot be None.")
+        """
+        Sets the dataframe managed by the object.
+        :param value: `Union['CXDataframeData', DataFrame, dict, str, None]`
+            `None` results in an empty `DataFrame`.  A deepcopy will be made of
+            `DataFrame` or equivalent values.
+        """
+        if value is None:
+            self.__data = DataFrame()
 
         elif not type(value) in [CXDataframeData, DataFrame, dict, str]:
             raise TypeError("value must be type DataFrame or compatible.")
@@ -88,7 +102,8 @@ class CXDataframeData(CXData):
     def render_to_dict(self) -> dict:
         """
         Provides a dict representation of the data.
-        :return: The JSON as a str
+        :returns: `dict`
+            The data in `dict` form.
         """
         return self.__data.to_dict(orient="list")
 
@@ -97,27 +112,51 @@ class CXDataframeData(CXData):
             data: Union['CXDataframeData', DataFrame, dict, str, None] = None
     ) -> None:
         """
-        Initializes the CXData object with data.  Only DataFrame or compatible
+        Initializes the CXData object with data.  Only `DataFrame` or compatible
          data types are accepted.
+        :param data: `Union['CXDataframeData', DataFrame, dict, str, None]`
+            `None` to initialize with an empty `DataFrame`, or a `DataFrame`
+            like object to assign mapped data.
         """
         super().__init__(data)
-        self.__data = DataFrame()
-        if data is not None:
-            self.dataframe = data
+        self.dataframe = data
 
-    def __copy__(self):
+    def __copy__(self) -> 'CXDataframeData':
+        """
+        *copy constructor* that returns a copy of the CXDataframeData object.
+        :returns: `CXDataframeData`
+            A copy of the wrapping object.
+        """
         return CXDataframeData(self.data)
 
     def __deepcopy__(
             self,
             memo
-    ):
+    ) -> 'CXDataframeData':
+        """
+        *deepcopy constructor* that returns a copy of the CXDataframeData object.
+        :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
+            the tracked data.
+        """
         return CXDataframeData(self.data)
 
     def __lt__(
             self,
             other: 'CXDataframeData'
-    ):
+    ) -> bool:
+        """
+        *less than* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXDataframeData` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXDataframeData` object then False
+            <li> If `other` is a `CXDataframeData` object then True of all
+                `CXDataframeData` aspects are also less than the data tracked by
+                `self`.
+            </ul>
+        """
         if other is None:
             return False
 
@@ -146,7 +185,20 @@ class CXDataframeData(CXData):
     def __eq__(
             self,
             other: 'CXDataframeData'
-    ):
+    ) -> bool:
+        """
+        *equals* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXDataframeData` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXDataframeData` object then False
+            <li> If `other` is a `CXDataframeData` object then True of all
+                `CXDataframeData` aspects are also less than the data tracked by
+                `self`.
+            </ul>
+        """
         if other is None:
             return False
 
@@ -168,9 +220,19 @@ class CXDataframeData(CXData):
             )
 
     def __str__(self) -> str:
+        """
+        *str* function.  Converts the CXDataframeData object into a JSON
+        representation.
+        :returns" `str` JSON form of the `CXDataframeData`.
+        """
         return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
+        """
+        *repr* function.  Converts the CXDataframeData object into a pickle
+         string that can be used with `eval` to establish a copy of the object.
+        :returns: `str` An evaluatable representation of the object.
+        """
         candidate = f"CXDataframeData(" \
                     f"data=DataFrame.from_dict(" \
                     f"{json.dumps(self.render_to_dict())}, orient='columns'))"
@@ -189,7 +251,8 @@ class CXCSVData(CXDataframeData):
     @property
     def csv(self) -> str:
         """
-        A property accessor for the data managed by the object.
+        Provides the data managed by the object.
+        :returns: `str` The managed data.
         """
         candidate = self.dataframe.to_csv(
             index=False,
@@ -203,20 +266,39 @@ class CXCSVData(CXDataframeData):
             self,
             value: str = None
     ) -> None:
+        """
+        Sets the CSV data managed by the object.
+        :param value: `str`
+            `None` results in an empty CSV.  A deepcopy will be made of
+            valid CSV `str` values.
+        """
         self.data = value
 
     def __init__(
             self,
-            data: Union['CXDataframeData', DataFrame, dict, str, None] = None
+            data: Union['CXCSVData', DataFrame, dict, str, None] = None
     ) -> None:
         """
-        Initializes the CXData object with data.  Only DataFrame or compatible
+        Initializes the CXData object with data.  Only CSV `str` or compatible
          data types are accepted.
+        :param data: `Union['CXCSVData', DataFrame, dict, str, None]`
+            `None` to initialize with an empty CSV, or a CSV `str`
+            like object to assign mapped data.
         """
         super().__init__(data)
 
     def __str__(self) -> str:
+        """
+        *str* function.  Converts the CXCSVData object into a JSON
+        representation.
+        :returns" `str` JSON form of the `CXCSVData`.
+        """
         return self.csv
 
     def __repr__(self) -> str:
+        """
+        *repr* function.  Converts the CXCSVData object into a pickle
+         string that can be used with `eval` to establish a copy of the object.
+        :returns: `str` An evaluatable representation of the object.
+        """
         return f"CXCSVData(data={self.data})"
