@@ -33,8 +33,9 @@ def test_CXDataframeData_init_invalid_input(sample):
 @given(everything_except(dict, str))
 def test_CXDataframeData_set_data_invalid(sample):
     dictdata = CXDataframeData()
-    with pytest.raises(TypeError):
-        dictdata.data = sample
+    if sample is not None:
+        with pytest.raises(TypeError):
+            dictdata.data = sample
 
 
 @given(
