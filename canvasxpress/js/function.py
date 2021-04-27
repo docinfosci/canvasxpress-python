@@ -190,7 +190,7 @@ class CXEvent(CXJavascriptConvertable):
     def __lt__(
             self,
             other: 'CXEvent'
-    ):
+    ) -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -220,7 +220,7 @@ class CXEvent(CXJavascriptConvertable):
     def __eq__(
             self,
             other: 'CXEvent'
-    ):
+    ) -> bool:
         """
         *equal* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
