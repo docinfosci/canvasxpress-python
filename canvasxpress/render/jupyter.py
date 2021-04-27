@@ -1,5 +1,7 @@
 import uuid
 from os import unlink
+from os.path import join
+from tempfile import gettempdir
 from time import sleep
 
 from IPython.display import display, IFrame
@@ -51,7 +53,10 @@ class CXNoteBook(CXRenderable):
             .replace("@canvasxpress_license@", html_parts.get("cx_license", "")) \
             .replace("@code@", html_parts["cx_js"])
 
-        temp_filename = f"temp_{str(uuid.uuid4())}.html"
+        temp_filename = join(
+            gettempdir(),
+            f"temp_{str(uuid.uuid4())}.html"
+        )
         with open(temp_filename, "w") as temp_file:
             temp_file.write(html)
 
@@ -63,6 +68,3 @@ class CXNoteBook(CXRenderable):
             ),
             metadata=dict(isolated=True)
         )
-
-        sleep(1)
-        unlink(temp_filename)
