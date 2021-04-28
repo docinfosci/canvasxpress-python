@@ -60,8 +60,8 @@ This package is activity developed and maintained.  Our focus for spring 2021:
 ### Documentation
 
 The [documentation site](https://canvasxpress-python.readthedocs.io) contains thorough 
-[examples](https://canvasxpress-python.readthedocs.io/examples/) and 
-[API documentation](https://canvasxpress-python.readthedocs.io/api-documentation/).
+[examples](https://canvasxpress-python.readthedocs.io/en/latest/examples/) and 
+[API documentation](https://canvasxpress-python.readthedocs.io/en/latest/api-documentation/).
 Be sure to read these resources, as well as the wealth of additional information, including full Javascript 
 API documentation, at [https://www.canvasxpress.org](https://www.canvasxpress.org).
 
