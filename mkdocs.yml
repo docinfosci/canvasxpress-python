@@ -3,7 +3,8 @@ nav:
 - Overview: index.md
 - Status: status.md
 - Examples: examples.md
-- API Documentation: api-documentation.md
+- API: api.md
+- License: license.md
 site_dir: site
 site_name: CanvasXpress for Python
 theme:

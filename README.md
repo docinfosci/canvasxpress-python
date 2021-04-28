@@ -5,9 +5,8 @@
 
 ## About CanvasXpress for Python
 
-***This package is late alpha / early beta in maturity.  Functionality will be completed quickly over spring 2021, and
-until completed the API will be subject to change without warning.  Thank you for your patience, and please check back
-often for updates!***
+***This package is recently release for general use.  We maintain thorough code coverage and use the package ourselves,
+but it remains possible that edge use cases can be refined.  We appreciate your feedback and patience.***
 
 ***canvasXpress*** was developed as the core visualization component for bioinformatics and systems biology analysis
 at Bristol-Myers Squibb. It supports a large number of [visualizations ](https://www.canvasxpress.org/examples.html) 
@@ -33,219 +32,179 @@ team.
 
 The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
 
+### Project Status
+
+| Topic | Status | 
+|---|---|
+| **Version Info** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
+| **Compatibility** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
+| **Implementations** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
+| **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | 
+| **Test Status** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | 
+| **Requirements Status** | [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=main)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=main) | 
+| **Documentation Status** | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) | 
+| **Activity** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) | 
+<!-- End Badges -->
+
 ### Roadmap
 
-This package will evolve quickly over spring 2021, with the following enhancements anticipated:
-* Completion of the API
-* Comprehensive documentation for the API
-* Comprehensive automated tests for the API
-* Examples illustrating API use
-* Tutorial for Flask-style applications
-* Tutorial for Jupyter Notebooks
-* Third party contributor guidelines
-* Publication to PyPI.org the 1.0 package
-* Updates to this ReadMe
+This package is activity developed and maintained.  Our focus for spring 2021:
 
-### Installation
+- Keeping pace with the original Javascript library
+- Ongoing stability and security
+- Additional examples and tutorials
+- Platform integrations
 
-To install the `canvasxpress` package the `pip` system can be used.
+## Getting Started
 
-Manual execution of `pip`:
+### Documentation
 
-    pip install canvasxpress
+The [documentation site](https://canvasxpress-python.readthedocs.io) contains thorough 
+[examples](https://canvasxpress-python.readthedocs.io/examples/) and 
+[API documentation](https://canvasxpress-python.readthedocs.io/api-documentation/).
+Be sure to read these resources, as well as the wealth of additional information, including full Javascript 
+API documentation, at [https://www.canvasxpress.org](https://www.canvasxpress.org).
 
-Or via a `requirements.txt` file.  Standard `pip` parameters for package
-version specification, upgrade, etc. work as expected.
+### A Quick Sample
 
-#### Temporary Instructions for Pre-Release Packages
+[flask](https://palletsprojects.com/p/flask/) is a popular lean Web development 
+framework for Python based applications.  flask applications can serve Web 
+pages, RESTful APIs, and similar backend service concepts.  This example shows
+how to create a basic flask application that provides a basic Web page with a
+CanvasXpress chart composed using Python in the backend.
 
-Until publication on PyPI, `pip` will need to know about the AG PyPI server in 
-order to locate the package.  This can be performed using a profile—see _Config file_ at:
+The concepts in this example equally apply to other frameworks that can serve 
+Web pages, such as Django and Tornado.
 
-https://pip.pypa.io/en/stable/user_guide/
+### Create a Basic flask App
 
-An index is where `pip` searches for packages, and an extra index must be specified.  
-An example that permits both the private and public PyPI hosts to be used is:
+A basic flask app provides a means by which:
 
-    pip3 install --pre --extra-index-url https://tools-prd.aggregate-genius.com/python-packages/simple 'canvasxpress==version'
+1. A local, development server can be started
+1. A function can respond to a URL
 
-pip requires that development versions be explicity stated, such as `'canvasxpress==2021.3.17.dev143314816320'`.
+First install flask and CanvasXpress for Python:
+```terminal
+pip install -U flask canvasxpress
+```
 
-Jupyter supports package installation via the sys package:
+Then create a demo file, such as `app.py`, and insert:
 
 ```python
-# Import canvasxpress into the current IPython workspace.  canvasxpress is not installed by default at this time.
-import sys
-!{sys.executable} -m pip install --pre --upgrade --force-reinstall --extra-index-url https://tools-prd.aggregate-genius.com/python-packages/simple/ "canvasxpress==version"
+# save this as app.py
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def canvasxpress_example():
+    return "Hello!"
+```
+
+On the command line, execute:
+
+```terminal
+flask run
+```
+
+And output similar to the following will be provided:
+
+```terminal
+Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+Browsing to `http://127.0.0.1:5000/` will result in a page with the text 
+*Hello!*.
+
+### Add a Chart
+
+CanvasXpress for Python can be used to define a chart with various attributes
+and then generate the necessary HTML and Javascript for proper display in the
+browser.
+
+Add a `templates` directory to the same location as the `app.py` file, and 
+inside add a file called `canvasxpress_example.html`.  Inside the file add:
+
+```html
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Flask CanvasXpress Example</title>
+    </head>
+    <body>
     
-# Once public in PyPI, if not pre-installed by admins:
-!{sys.executable} -m pip install -U canvasxpress
+        <!-- 1. DOM element where the visualization will be displayed -->
+        {{canvas_element|safe}}
+        
+        <!-- 2. Include the CanvasXpress library -->
+        <link 
+                href='https://www.canvasxpress.org/dist/canvasXpress.css' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='https://www.canvasxpress.org/dist/canvasXpress.min.js' 
+                type='text/javascript'>
+        </script>
+        
+        <!-- 3. Include script to initialize object -->
+        <script type="text/javascript">
+            onReady(function () {
+                {{bar_graph|safe}}
+            })
+        </script>
+    
+    </body>
+</html>
 ```
 
-*development* or *pre-release* editions of the canvasxpress package are created
-with each code commit and deployed to the Aggregate Genius Inc. PyPI server.
-Visit the following URL to see a list of canvasxpress package editions and 
-their versions:
+The HTML file, which uses [Jinja syntax](https://palletsprojects.com/p/jinja/) achieves three things:
 
-https://tools-prd.aggregate-genius.com/python-packages/#/package/canvasxpress
+1. Provides a location for a `<div>` element that marks where the chart will be placed.
+1. References the CanvasXpress CSS and JS files needed to illustrate and operate the charts.
+1. Provides a location for the Javascript that will replace the chart `<div>` with a working element on page load.
 
-<a href="https://tools-prd.aggregate-genius.com/python-packages/#/package/canvasxpress">
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/pypicloud_canvasxpress_index.png" align="center" width="800"></a>
+Going back to our flask app, we can add a basic chart definition with some data to our example function:
 
-### Examples
-
-These are included to get you started on basic charting - there are many more
-examples (including complex and compound visualizations) with Python code 
-~~available in the Examples section of the main website at 
-[https://www.canvasxpress.org](https://www.canvasxpress.org)~~
-
-### Test Examples
-
-This package is validated and verified through the use of automated tests.  A functional test comparing Javascript and 
-Python editions of a canvasXpress chart via a simple flask service is available at 
-[Bar Chart Example](tests/functional/web/cx_example/bar).
-
-The essential Python code is:
 ```python
-from flask import render_template
+from flask import Flask, render_template
 
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
-from canvasxpress.config.collection import CXConfigs
-from canvasxpress.canvas import CanvasXpress
 from canvasxpress.data.keypair import CXDictData
 
-@app.route('/python')
-    def get_canvasxpress_python_chart() -> str:
-        """
-        Renders a CanvasXpress example using Python that adapts a Javascript
-        examples from the canvasxpress.org site.
-        """
-        chart: CanvasXpress = CanvasXpress(
-            target_id="canvasId",
-            data=CXDictData(data),
-            config=CXConfigs(
-                CXGraphType(CXGraphTypeOptions.Bar)
-            )
+app = Flask(__name__)
+
+@app.route('/')
+def canvasxpress_example():
+    # Define a CX bar chart with some basic data
+    chart: CanvasXpress = CanvasXpress(
+        target_id="example_chart",
+        data=CXDictData(
+            {
+                "y": {
+                    "vars": ["Gene1"],
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                }
+            }
+        ),
+        configs=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Bar)
         )
-
-        html_parts = chart.render_to_html_parts()
-        return render_template(
-            "bar.html",
-            canvas_element=html_parts["cx_canvas"],
-            bar_graph=html_parts["cx_js"]
-        )
-```
-
-### Jupyter Notebook Example
-
-CanvasXpress for Python supports Jupyter Notebooks, with an example notebook provided in this project at 
-[Jupyter Example](examples/jupyter/demo.ipynb).
-
-The essential Python code is:
-
-```python
-from canvasxpress.canvas import CanvasXpress
-from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions, CXString, CXBool, CXList
-from canvasxpress.data.keypair import CXDictData
-from canvasxpress.js.collection import CXEvents
-from canvasxpress.js.function import CXEvent
-from canvasxpress.render.jupyter import CXNoteBook
-
-# =====
-# Example converted from https://canvasxpress.org/examples
-# =====
-
-# Dictionary data is used here.  This could also have been JSON in string
-# form via CXJSONData
-chart_data = CXDictData(raw_data)
-
-# A chart configuration is managed distinct from the associated chart, and it
-# can be reused across multiple chart objects.  A CXConfig object can be
-# initialized with a set of CXConfig objects or, later, objects can be added via
-# add() or set_param().  These functions support chaining.
-chart_configs = CXConfigs(
-    CXGraphType(CXGraphTypeOptions.Scatter2D),
-    CXString("axisAlgorithm", "rPretty"),
-    CXString("backgroundType", "window"),
-    CXString("backgroundWindow", "rgb(238,238,238)"),
-    CXString("colorBy", "Group"),
-    CXList("colors", ["rgba(0,104,139,0.5)","rgba(205,0,0,0.5)","rgba(64,64,64,0.5)"]),
-    CXBool("showTransition", False),
-    CXString("theme", "CanvasXpress"),
-    CXString("showLoessFit", True),
-    CXBool("legendBox", True),
-    CXString("legendBoxColor", "rgb(0,0,0)"),
-    CXBool("legendInside", True),
-    CXString("legendPosition", "bottomRight"),
-    CXBool("showConfidenceIntervals", False),
-    CXBool("showDecorations", True),
-    CXBool("showTransition", False),
-    CXString(
-        "title", 
-        "Average weekly household spending, in British pounds, on tobacco products"
-        "\\nand alcoholic beverages for each of the 11 regions of Great Britain."
-    ),
-    CXList("xAxis", ["Alcohol"]),
-    CXList("yAxis", ["Tobacco"]),
-)
-
-# Continued configuration via add().
-chart_configs.add(CXList("sizes", [4,14,16,18]))
-
-# Continued configuration via set_param().
-chart_configs \
-    .set_param("sizeBy", "FC") \
-    .set_param("plotBox", False)
-
-# An example event showing some information as the mouse moves
-chart_events = CXEvents(
-    CXEvent(
-        "click",
-        """
-        var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0];
-        t.showInfoSpan(e, s);
-        """
     )
-)
 
-# The canvas, which uses earlier work
-chart = CanvasXpress(
-    target_id="example_scatter2d",
-    data=chart_data,
-    config=chart_configs,
-    events=chart_events
-)
+    # Get the HTML parts for use in our Web page:
+    html_parts: dict = chart.render_to_html_parts()
 
-# Jupyter notebook requires components to render in their own containers -- so we provide one
-demo_nb = CXNoteBook(chart)
-demo_nb.render()
+    # Return a Web page based on canvasxpress_example.html and our HTML parts
+    return render_template(
+        "canvasxpress_example.html",
+        canvas_element=html_parts["cx_canvas"],
+        bar_graph=html_parts["cx_js"]
+    )
 ```
 
-
-#### Scatter 3D Plot
-
-TBD
-
-#### Scatter 2D Matrix Plot
-
-TBD
-
-#### Boxplot
-
-TBD
-
-#### Heatmap (Multi-dimensional)
-
-TBD
-
-#### Four way Venn Diagram
-
-TBD
-
-### More Examples and Resources
-
-TBD
-
-There is also a wealth of additional information including full API documentation 
-and extensive R and JavaScript examples at [https://www.canvasxpress.org](https://www.canvasxpress.org).
+Rerun the flask app on the command line and browse to the indicated IP and URL.  Congratulations!
+You have created your first Python-driven CanvasXpress app!
