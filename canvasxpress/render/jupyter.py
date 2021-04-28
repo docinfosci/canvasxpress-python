@@ -1,13 +1,43 @@
 import uuid
 from os import unlink
-from os.path import join
-from tempfile import gettempdir
 from time import sleep
 
 from IPython.display import display, IFrame
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
+
+_cx_html_template = """
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Flask CanvasXpress Example</title>
+    </head>
+    <body>
+        <!-- 1. DOM element where the visualization will be displayed -->
+        @canvas@
+
+        <!-- 2. Include the CanvasXpress library -->
+        @canvasxpress_license@
+        <link 
+                href='https://www.canvasxpress.org/dist/canvasXpress.css' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='https://www.canvasxpress.org/dist/canvasXpress.min.js' 
+                type='text/javascript'>
+        </script>
+
+        <!-- 3. Include script to initialize object -->
+        <script type="text/javascript">
+            onReady(function () {
+                @code@
+            })
+        </script>
+     </body>
+</html>
+"""
 
 
 class CXNoteBook(CXRenderable):
@@ -35,36 +65,22 @@ class CXNoteBook(CXRenderable):
         """
         html_parts: dict = self.canvas.render_to_html_parts()
 
-        html_template = \
-            """
-            @canvas@
-            @canvasxpress_license@       
-            <link href='https://www.canvasxpress.org/dist/canvasXpress.css' rel='stylesheet' type='text/css'/>
-            <script src='https://www.canvasxpress.org/dist/canvasXpress.min.js' type='text/javascript'></script>
-            <script type="text/javascript">
-                onReady(function () {
-                    @code@
-                })
-            </script>
-            """
-
-        html = html_template \
+        html = _cx_html_template \
             .replace("@canvas@", html_parts["cx_canvas"]) \
             .replace("@canvasxpress_license@", html_parts.get("cx_license", "")) \
             .replace("@code@", html_parts["cx_js"])
 
-        temp_filename = join(
-            gettempdir(),
-            f"temp_{str(uuid.uuid4())}.html"
-        )
+        temp_filename = f"temp_{str(uuid.uuid4())}.html"
         with open(temp_filename, "w") as temp_file:
             temp_file.write(html)
 
         display(
             IFrame(
                 temp_filename,
-                self.canvas.chart_width + 10,
-                self.canvas.chart_height + 10
-            ),
-            metadata=dict(isolated=True)
+                self.canvas.chart_width + 20,
+                self.canvas.chart_height + 20
+            )
         )
+
+        sleep(2)
+        unlink(temp_filename)
