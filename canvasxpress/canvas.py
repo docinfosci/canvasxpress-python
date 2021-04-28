@@ -416,7 +416,7 @@ class CanvasXpress(CXHtmlConvertable):
         canvasxpress = {
             'renderTo': self.target_id,
             'data': self.data.render_to_dict(),
-            'configs': self.configs.render_to_dict(),
+            'config': self.configs.render_to_dict(),
             'events': "js_events"
         }
 
