@@ -5,7 +5,7 @@ import pytest
 
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXString, CXConfig, CXRGBColor, CXInt, \
-    CXFloat, CXBool, CXDict, CXList, CXRGBAColor
+    CXFloat, CXBool, CXDict, CXList, CXRGBAColor, CXGraphType, CXGraphTypeOptions
 
 
 def test_CXConfigs_init():
