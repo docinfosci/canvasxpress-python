@@ -16,16 +16,19 @@ renderer:
   pages:
     - title: Overview
       name: index
-      source: README.md
+      source: readme/readme.md
     - title: Status
       name: status
       source: readme/status.md
     - title: Examples
       name: examples
       source: readme/examples.md
-    - title: API Documentation
+    - title: API
       contents:
         - '*'
+    - title: License
+      name: license
+      source: readme/license.md
   mkdocs_config:
     site_dir: site
     site_name: CanvasXpress for Python

@@ -153,7 +153,7 @@ def canvasxpress_example():
 Rerun the flask app on the command line and browse to the indicated IP and URL.
 A page similar to the following will be displayed:
 
-<img src="flask_bar_chart_basic.png" align="center" width="500"></a>
+<img src="flask_bar_chart_basic.png" align="center" width="600"></a>
 
 Congratulations!  You have created your first Python-driven CanvasXpress app!
 
@@ -201,7 +201,7 @@ can be used to render the chart as part of the cell's output.
 Taking the essential chart logic from the flask example, the import for `CXNoteBook` is added
 and that component's `render()` function is used:
 
-```jupyterpython
+```python
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
@@ -231,11 +231,11 @@ demo_nb.render()
 
 Executing that cell will result in output similar to:
 
-<img src="flask_bar_chart_basic.png" align="center" width="500"></a>
+<img src="jupyter_bar_chart_basic.png" align="center" width="600"></a>
 
 Congratulations!  You have created your first IPython-driven CanvasXpress chart!
 
-## Extended Functionality
+## Tips and Tricks
 
 ### Javascript Events
 
@@ -273,7 +273,7 @@ to the function body.  The CXEvents object manages collections of CXEvent object
 renders them correctly for use with CanvasXpress in the browser.  Using the Jupyter example,
 we can add the above event as follows:
 
-```jupyterpython
+```python
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
@@ -314,7 +314,7 @@ demo_nb.render()
 
 Now a click on the chart displays some information per our function:
 
-<img src="flask_bar_chart_basic.png" align="center" width="500"></a>
+<img src="jupyter_bar_chart_click_event.png" align="center" width="600"></a>
 
 ### Adding Numerous Parameters at Once
 
@@ -324,13 +324,70 @@ of options.
 
 Option lists using specific data types can be used during `CXConfigs` initialization:
 
+```python
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXString, CXBool
+
+configs: CXConfigs = CXConfigs(
+    CXString("legendPosition", "bottomRight"),
+    CXString("axisAlgorithm", "rPretty"),
+    CXBool("legendBox", True)
+)
+```
 
 Chaining can be performed using specific data types:
 
+```python
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXString, CXBool
+
+configs: CXConfigs = CXConfigs()
+
+# ...
+
+configs \
+    .add(CXString("legendPosition", "bottomRight")) \
+    .add(CXString("axisAlgorithm", "rPretty")) \
+    .add(CXBool("legendBox", True))
+```
 
 Chaining can also be performed using inferred data types:
 
+```python
+from canvasxpress.config.collection import CXConfigs
+
+configs: CXConfigs = CXConfigs()
+
+# ...
+
+configs \
+    .set_param("legendPosition", "bottomRight") \
+    .set_param("axisAlgorithm", "rPretty") \
+    .set_param("legendBox", True)
+```
 
 ### Using Cloud Data
 
-TBD
+CanvasXpress for Python does not directly support non-local data, such as that
+obtained from a URL; however, it does support the [pandas](https://pandas.pydata.org) 
+package.  pandas supports loading data from URLs and databases.
+
+```python
+import pandas as pd
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
+from canvasxpress.data.matrix import CXDataframeData
+
+chart: CanvasXpress = CanvasXpress(
+    target_id="example_chart",
+    data=CXDataframeData(
+        pd.read_csv("https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv")
+    ),
+    configs=CXConfigs(
+        CXGraphType(CXGraphTypeOptions.Bar)
+    )
+)
+
+# ...
+```
