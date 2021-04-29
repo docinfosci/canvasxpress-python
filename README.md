@@ -61,7 +61,7 @@ This package is actively maintained and developed.  Our focus for 2021:
 ### Documentation
 
 The [documentation site](https://canvasxpress-python.readthedocs.io/en/latest/) 
-contains complete[examples](https://canvasxpress-python.readthedocs.io/en/latest/examples/) 
+contains complete [examples](https://canvasxpress-python.readthedocs.io/en/latest/examples/) 
 and [API documentation](https://canvasxpress-python.readthedocs.io/en/latest/api/).
 Be sure to read these resources, as well as the wealth of additional information, 
 including full Javascript API documentation, at 
