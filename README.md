@@ -75,7 +75,7 @@ CanvasXpress chart composed using Python in the backend.
 
 The concepts in this example equally apply to other frameworks that can serve 
 Web pages, such as Django and Tornado.
-
+ 
 ### Create a Basic flask App
 
 A basic flask app provides a means by which:
