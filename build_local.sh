@@ -48,6 +48,6 @@ if (("PROSPECTOR_EXIT" != 0)); then
 fi
 
 # Generate documentation
-./generate_docs.sh
+./build_docs.sh
 
 deactivate

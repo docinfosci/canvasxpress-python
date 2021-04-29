@@ -32,7 +32,7 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ## Getting Started
 
-This documentation site contains thorough [examples](examples/) and [API documentation](api-documentation/).
+This documentation site contains thorough [examples](examples/) and [API documentation](api/).
 Be sure to read these resources, as well as the wealth of additional information, including full Javascript 
 API documentation, at [https://www.canvasxpress.org](https://www.canvasxpress.org).
 
