@@ -17,18 +17,19 @@ echo $TWINE_USERNAME
 # Acquire twine
 pip install twine
 
+
 # Only publish non-dev editions to PyPI
 GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
 if [ $GIT_WORKING_BRANCH = "main" ]
 then
-  # Production deployment
-  twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
-  TWINE_EXIT=$?
+    # Production deployment
+    twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository pypi ./dist/*
+    TWINE_EXIT=$?
 
 else
-  # Development deployment
-  twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
-  TWINE_EXIT=$?
+    # Development deployment
+    twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
+    TWINE_EXIT=$?
 
 fi
 
