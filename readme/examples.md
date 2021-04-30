@@ -182,10 +182,15 @@ The install command for canvasxpress in Jupyter Notebooks is:
 
 ```jupyterpython
 import sys
+# Install canvasxpress and its required packages
 !{sys.executable} -m pip install -U canvasxpress
+# List all packages in the environment to confirm installation
+!{sys.executable} -m pip list
 ```
 
-(`!{sys.executable}` invokes the python3 application running the session.)
+**Caution:** The Jupyter Notebook kernel might not load the installed packages,
+depending on the system's configuration.  Reloading the kernel will ensure
+that the updated or new packages can be used.
 
 <hr style="border-top: 1px dashed #8c8b8b" />
 ### Draw a Chart
