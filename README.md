@@ -5,31 +5,32 @@
 
 ## About CanvasXpress for Python
 
-***This package is recently released for general use.  We maintain thorough code coverage and use the package ourselves,
+***This package was recently released for general use.  We maintain thorough code coverage and use the package ourselves,
 but it remains possible that edge use cases can be refined.  We appreciate your feedback and patience.***
 
-***CanvasXpress*** was developed as the core visualization component for bioinformatics and systems biology analysis
+[***CanvasXpress***](https://www.canvasxpress.org) was developed as the core visualization component for bioinformatics and systems biology analysis
 at Bristol-Myers Squibb. It supports a large number of [visualizations ](https://www.canvasxpress.org/examples.html) 
 to display scientific and non-scientific data. ***CanvasXpress*** also includes a simple and unobtrusive
 [user interface](https://www.canvasxpress.org/docs/interface.html) to explore complex data sets, a sophisticated and
 unique mechanism to keep track of all user customization for
 [Reproducible Research ](https://www.canvasxpress.org/docs/audit.html) purposes, as well as an 'out of the box'
-broadcasting capability to synchronize selected data points in all ***CanvasXpress*** plots in a page. Data can
+broadcasting capability to synchronize selected data points across all ***CanvasXpress*** plots in a page. Data can
 be easily sorted, grouped, transposed, transformed or clustered dynamically. The fully customizable mouse events
 as well as the zooming, panning and drag-and-drop capabilities are features that make this library unique in its
 class.
 
 ***CanvasXpress*** can be now be used within Python for native integration into
-IPython and Web environments, such as;
-or seamlessly embedded in applications, such as:
-* [Jupyter](https://jupyter.org/)
-* [flask](https://flask.palletsprojects.com/en/1.1.x/)
-* [Django](https://www.djangoproject.com/)
+IPython and Web environments, such as:
 
-Complete examples of the ***CanvasXpress*** library including the mouse events, zooming, 
-and broadcasting capabilities are included in this package.  This ***CanvasXpress*** Python 
-package was created by Dr. Todd C. Brett, with support from 
-[Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with the ***CanvasXpress*** team.
+- [Jupyter](https://jupyter.org/)
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+- [Django](https://www.djangoproject.com/)
+
+Complete examples using the ***CanvasXpress*** library including the mouse events,
+zooming, and broadcasting capabilities are included in this package.  This 
+***CanvasXpress*** Python package was created by Dr. Todd C. Brett, with support from 
+[Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with the 
+***CanvasXpress*** team.
 
 The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
 
@@ -49,9 +50,9 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Roadmap
 
-This package is actively maintained and developed.  Our focus for 2021:
+This package is actively maintained and developed.  Our focus for 2021 is:
 
-- Continued alignment with the [CanvasXpress Javascript library](https://www.canvasxpress.org)
+- Continued alignment with the CanvasXpress Javascript library
 - Continued stability and security, if/as needed
 - Expanded examples and tutorials
 - Expanded platform integrations
@@ -63,31 +64,30 @@ This package is actively maintained and developed.  Our focus for 2021:
 The [documentation site](https://canvasxpress-python.readthedocs.io/en/latest/) 
 contains complete [examples](https://canvasxpress-python.readthedocs.io/en/latest/examples/) 
 and [API documentation](https://canvasxpress-python.readthedocs.io/en/latest/api/).
-Be sure to read these resources, as well as the wealth of additional information, 
-including full Javascript API documentation, at 
-[https://www.canvasxpress.org](https://www.canvasxpress.org).
+There is also a wealth of additional information, including full Javascript API 
+documentation, at [https://www.canvasxpress.org](https://www.canvasxpress.org).
 
-### A Quick Sample
+### A Quick Flask Example
 
-[flask](https://palletsprojects.com/p/flask/) is a popular lean Web development 
-framework for Python based applications.  flask applications can serve Web 
+[Flask](https://palletsprojects.com/p/flask/) is a popular lean Web development 
+framework for Python based applications.  Flask applications can serve Web 
 pages, RESTful APIs, and similar backend service concepts.  This example shows
-how to create a basic flask application that provides a basic Web page with a
+how to create a basic Flask application that provides a basic Web page with a
 CanvasXpress chart composed using Python in the backend.
 
 The concepts in this example equally apply to other frameworks that can serve 
 Web pages, such as Django and Tornado.
 
-### Create a Basic flask App
+### Create a Basic Flask App
 
-A basic flask app provides a means by which:
+A basic Flask app provides a means by which:
 
-1. A local, development server can be started
+1. A local development server can be started
 1. A function can respond to a URL
 
-First install flask and CanvasXpress for Python:
+First install Flask and CanvasXpress for Python:
 ```terminal
-pip install -U flask canvasxpress
+pip install -U Flask canvasxpress
 ```
 
 Then create a demo file, such as `app.py`, and insert:
@@ -166,7 +166,7 @@ The HTML file, which uses [Jinja syntax](https://palletsprojects.com/p/jinja/) a
 1. References the CanvasXpress CSS and JS files needed to illustrate and operate the charts.
 1. Provides a location for the Javascript that will replace the chart `<div>` with a working element on page load.
 
-Going back to our flask app, we can add a basic chart definition with some data to our example function:
+Going back to our Flask app, we can add a basic chart definition with some data to our example function:
 
 ```python
 from flask import Flask, render_template
@@ -208,5 +208,9 @@ def canvasxpress_example():
     )
 ```
 
-Rerun the flask app on the command line and browse to the indicated IP and URL.  Congratulations!
-You have created your first Python-driven CanvasXpress app!
+Rerun the flask app on the command line and browse to the indicated IP and URL. A page similar to the following will be
+displayed:
+
+<img src="flask_bar_chart_basic.png" align="center" width="600"></a>
+
+Congratulations!  You have created your first Python-driven CanvasXpress app!
