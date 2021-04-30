@@ -205,11 +205,23 @@ class CXJSONData(CXDictData):
 
     @property
     def json(self) -> str:
+        """
+        Provides a copy of the JSON tracked by the object.
+        :returns: `str`
+            The associated JSON, with zero or more keys as appropriate.
+        """
         return str(self)
 
     @json.setter
     def json(self, value: Union[dict, str]) -> None:
-        if isinstance(value, str) and value.startswith("http"):
+        """
+        Sets the data associated with the object.
+        :param value: `str`
+            The JSON to be tracked by the object.  `None` will result in
+            an empty JSON.  If `value` is URL beginning with *http/s*
+            then `json` will attempt to download the data.
+        """
+        if isinstance(value, str) and value.lower().startswith("http"):
             try:
                 result = requests.get(
                     value,
