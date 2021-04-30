@@ -98,7 +98,7 @@ Inside add a file called `canvasxpress_example.html`. Inside the file add:
 <!-- 3. Include script to initialize object -->
 <script type="text/javascript">
     onReady(function () {
-        {{bar_graph|safe}}
+        {{canvas_source|safe}}
     })
 </script>
 
@@ -151,7 +151,7 @@ def canvasxpress_example():
     return render_template(
         "canvasxpress_example.html",
         canvas_element=html_parts["cx_canvas"],
-        bar_graph=html_parts["cx_js"]
+        canvas_source=html_parts["cx_js"]
     )
 ```
 
