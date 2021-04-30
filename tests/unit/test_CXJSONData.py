@@ -2,6 +2,8 @@ import json
 import string
 from copy import copy, deepcopy
 
+import requests
+
 import pytest
 from deepdiff import DeepDiff
 from hypothesis import given
@@ -50,6 +52,23 @@ def test_CXJSONData_get_valid_data(sample):
     cxdata.data = sample
     assert not DeepDiff(sample, cxdata.data)
 
+
+def test_CXJSONData_set_invalid_url():
+    sample_url = "http://toddsbadurl.com/data.json"
+    with pytest.raises(ValueError):
+        candidate: CXJSONData = CXJSONData()
+        candidate.json = sample_url
+
+
+def test_CXJSONData_set_url():
+    sample_url = "https://raw.githubusercontent.com/docinfosci/" \
+                 "canvasxpress-python/develop/readme/examples/iris.json"
+
+    candidate: CXJSONData = CXJSONData()
+    sample = requests.get(sample_url).json()
+
+    candidate.json = sample_url
+    assert candidate.json == json.dumps(sample)
 
 @given(
     dictionaries(
