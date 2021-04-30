@@ -23,7 +23,7 @@ GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
 if [ $GIT_WORKING_BRANCH = "main" ]
 then
     # Production deployment
-    twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository pypi ./dist/*
+    twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
     TWINE_EXIT=$?
 
 else
