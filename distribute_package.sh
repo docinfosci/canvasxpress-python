@@ -10,7 +10,6 @@ source ./venv/bin/activate
 rm -rf ./dist
 python ./build_pkg_setup.py
 python setup.py sdist
-python setup.py bdist_wheel
 
 # Confirm the installation user account
 echo $TWINE_USERNAME
