@@ -61,6 +61,8 @@ Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 Browsing to `http://127.0.0.1:5000/` will result in a page with the text
 *Hello!*.
 
+Cancel the flask application's execution using `ctrl+c`.
+
 <hr style="border-top: 1px dashed #8c8b8b" />
 ### Add a Chart
 
@@ -96,11 +98,7 @@ Inside add a file called `canvasxpress_example.html`. Inside the file add:
 <!-- 3. Include script to initialize object -->
 <script type="text/javascript">
     onReady(function () {
-        {
-            {
-                bar_graph | safe
-            }
-        }
+        {{bar_graph|safe}}
     })
 </script>
 
@@ -252,8 +250,7 @@ from canvasxpress.render.jupyter import CXNoteBook
 iris_data = CXDataframeData(
     pd.read_csv(
         "https://raw.githubusercontent.com/docinfosci/"
-        "canvasxpress-python/tree/develop/readme/"
-        "examples/iris.json"
+        "canvasxpress-python/develop/readme/examples/iris.json"
     )
 ),
 
