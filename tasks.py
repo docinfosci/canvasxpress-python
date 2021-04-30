@@ -1,28 +1,4 @@
-from os import path
-
-import git
 from invoke import task
-
-
-def git_project_working_version():
-    working_path = path.dirname(path.abspath(__file__))
-    repo = git.Repo(working_path)
-    active_branch = repo.active_branch
-    commit_hash = repo.head.commit
-    commit_dirty = repo.is_dirty()
-    return f"{active_branch if active_branch != 'master' else ''}" \
-           f"{'.' if active_branch != 'master' else ''}" \
-           f"{'dirty.' if commit_dirty else ''}{commit_hash}"
-
-
-@task
-def project_version(c):
-    """
-    States the version of the project.
-    :param c:
-    :return:
-    """
-    print(git_project_working_version())
 
 
 @task
@@ -80,5 +56,26 @@ def test(c):
     :return:
     """
     c.run(
-        "python -m pytest --alluredir=./allure-results ./tests"
+        "python -m pytest"
+        " --cov=canvasxpress"
+        " --cov-fail-under=90"
+        " --cov-report xml"
+        " --cov-report term"
+        " --cov-report html:./coverage-results"
+        " ./tests"
+    )
+
+
+@task
+def report(c):
+    """
+    Report to SAAS platforms
+    :param c:
+    :return:
+    """
+    c.run(
+        "coveralls"
+    )
+    c.run(
+        "requires.io update-site -r canvasxpress-python"
     )

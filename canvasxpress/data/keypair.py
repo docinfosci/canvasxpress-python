@@ -3,6 +3,7 @@ from copy import deepcopy
 from functools import total_ordering
 from typing import Union
 
+import requests
 from deepdiff import DeepDiff
 
 from canvasxpress.data.base import CXData
@@ -22,17 +23,29 @@ class CXDictData(CXData):
     @property
     def data(self) -> dict:
         """
-        A property accessor for the data managed by the object.
+        Provides a reference to the dict tracked by the object.
+        :returns: `dict`
+            The associated dictionary, with zero or more keys as appropriate.
         """
         return self.__data
 
     @data.setter
     def data(self, value: dict) -> None:
+        """
+        Sets the data associated with the object.
+        :param value: `dict`
+            The dictionary to be tracked by the object.  `None` will result in
+            an empty dict.  A deep copy will be made of a valid `CXDict` or
+            `dict` provided.
+        """
         if value == None:
-            raise TypeError("value cannot be None.")
+            self.__data = dict()
 
-        elif not isinstance(value, dict):
+        elif not type(value) in [dict, CXDictData]:
             raise TypeError("value must be type dict or compatible.")
+
+        elif isinstance(value, CXDictData):
+            self.__data = deepcopy(value.data)
 
         else:
             self.__data = deepcopy(value)
@@ -40,7 +53,8 @@ class CXDictData(CXData):
     def render_to_dict(self) -> dict:
         """
         Provides a dict representation of the data.
-        :return: The JSON as a str
+        :returns: `dict`
+            The data in `dict` form.
         """
         return deepcopy(self.data)
 
@@ -48,41 +62,54 @@ class CXDictData(CXData):
         """
         Initializes the CXData object with data.  Only dict or compatible data
         types are accepted.
+        :param data: `Union[dict, None]`
+            `None` to initialize with an empty dictionary, or a `dict`-like
+            object to assign mapped data.
         """
         super().__init__(data)
+        self.data = data
 
-        if data == None:
-            self.__data = dict()
-
-        elif not isinstance(data, dict):
-            raise TypeError("data must be of type dict or compatible")
-
-        else:
-            self.__data = deepcopy(data)
-
-    def __copy__(self):
+    def __copy__(self) -> 'CXDictData':
+        """
+        *copy constructor* that returns a copy of the CXDictData object.
+        :returns: `CXDictData` A copy of the wrapping object.
+        """
         return CXDictData(self.data)
 
     def __deepcopy__(
             self,
             memo
-    ):
-        return CXDictData(self.data)
-
-    def __hash__(self):
-        return hash(repr(self))
+    ) -> 'CXDictData':
+        """
+        *deepcopy constructor* that returns a copy of the CXDictData object.
+        :returns: `CXDictData` A copy of the wrapping object and deepcopy of
+            the tracked data.
+        """
+        return CXDictData(
+            deepcopy(self.data)
+        )
 
     def __lt__(
             self,
             other: 'CXDictData'
-    ):
-        if not object:
+    ) -> bool:
+        """
+        *less than* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXDictData` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXDictData` object then False
+            <li> If `other` is a `CXDictData` object then True of all
+                `CXDictData` objects are also less than the data tracked by
+                `self`.
+            </ul>
+        """
+        if other is None:
             return False
 
-        if type(other) is not CXDictData:
-            return False
-
-        if self is other:
+        if not isinstance(other, CXDictData):
             return False
 
         else:
@@ -94,20 +121,43 @@ class CXDictData(CXData):
             other_added: int = len(delta.get('dictionary_item_added', []))
             other_removed: int = len(delta.get('dictionary_item_removed', []))
 
-            return (other_added - other_removed) < 0
+            if (other_added - other_removed) == 0:
+                for skey in self.data.keys():
+                    if not skey in other.data.keys():
+                        for okey in other.data.keys():
+                            if skey < okey:
+                                return True
+
+                    elif self.data[skey] < other.data[skey]:
+                        return True
+
+                return False
+
+            else:
+                return (other_added - other_removed) > 0
 
     def __eq__(
             self,
             other: 'CXDictData'
-    ):
-        if not object:
+    ) -> bool:
+        """
+        *equals* comparison.  Also see `@total_ordering` in `functools`.
+        :param other:
+            `CXDictData` The object to compare.
+        :returns: `bool`
+            <ul>
+            <li> If `other` is `None` then `False`
+            <li> If `other` is not a `CXDictData` object then False
+            <li> If `other` is a `CXDictData` object then True of all
+                `CXDictData` objects are also equal to the data tracked by
+                `self`.
+            </ul>
+        """
+        if other is None:
             return False
 
-        if type(other) is not CXDictData:
+        if not isinstance(other, CXDictData):
             return False
-
-        if self is other:
-            return True
 
         else:
             delta: dict = DeepDiff(
@@ -118,12 +168,33 @@ class CXDictData(CXData):
             other_added: int = len(delta.get('dictionary_item_added', []))
             other_removed: int = len(delta.get('dictionary_item_removed', []))
 
-            return (other_added - other_removed) == 0
+            if (other_added - other_removed) == 0:
+                for skey in self.data.keys():
+                    if not skey in other.data.keys():
+                        return False
+
+                    elif self.data[skey] != other.data[skey]:
+                        return False
+
+                return True
+
+            else:
+                return False
 
     def __str__(self) -> str:
+        """
+        *str* function.  Converts the CXDictData object into a JSON
+        representation.
+        :returns" `str` JSON form of the `CXDictData`.
+        """
         return json.dumps(self.data)
 
     def __repr__(self) -> str:
+        """
+        *repr* function.  Converts the CXDictData object into a pickle string
+        that can be used with `eval` to establish a copy of the object.
+        :returns: `str` An evaluatable representation of the object.
+        """
         return f"CXDictData(data={json.dumps(self.data)})"
 
 
@@ -133,101 +204,84 @@ class CXJSONData(CXDictData):
     """
 
     @property
-    def data(self) -> str:
+    def json(self) -> str:
         """
-        A property accessor for the data managed by the object.
+        Provides a copy of the JSON tracked by the object.
+        :returns: `str`
+            The associated JSON, with zero or more keys as appropriate.
         """
-        return json.dumps(
-            self.__data,
-            indent=4
-        )
+        return str(self)
+
+    @json.setter
+    def json(self, value: Union[dict, str]) -> None:
+        """
+        Sets the data associated with the object.
+        :param value: `str`
+            The JSON to be tracked by the object.  `None` will result in
+            an empty JSON.  If `value` is URL beginning with *http/s*
+            then `json` will attempt to download the data.
+        """
+        if isinstance(value, str) and value.lower().startswith("http"):
+            try:
+                result = requests.get(
+                    value,
+                    allow_redirects=True
+                )
+                self.data = result.json()
+
+            except Exception as e:
+                raise ValueError(
+                    "Detected URL but cannot access JSON data at endpoint."
+                )
+
+        else:
+            self.data = value
 
     @CXDictData.data.setter
     def data(self, value: Union[dict, str]) -> None:
-        if value == None:
-            raise TypeError("value cannot be None.")
+        if isinstance(value, CXJSONData):
+            CXDictData.data.fset(self, value.data)
 
-        elif not isinstance(value, dict):
-            try:
-                candidate = json.loads(value)
-            except:
-                raise TypeError("value must be type JSON or compatible.")
+        elif isinstance(value, str):
+            candidate = json.loads(value)
+            CXDictData.data.fset(self, candidate)
 
         else:
-            CXDictData.data = json.loads(value)
+            CXDictData.data.fset(self, value)
 
     def __init__(self, data: Union[dict, str, None] = None) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
         types are accepted.
+        :param data: `Union[dict, str, None]`
+            `None` to initialize with an empty JSON, or a JSON/`dict`-like
+            object to assign mapped data.
         """
-        super().__init__(data)
+        super().__init__()
+        self.json = data
 
-    def __copy__(self):
+    def __copy__(self) -> 'CXJSONData':
+        """
+        *copy constructor* that returns a copy of the CXDictData objct.
+        :returns: `CXDictData` A copy of the wrapping object.
+        """
         return CXJSONData(self.data)
 
     def __deepcopy__(
             self,
             memo
-    ):
+    ) -> 'CXJSONData':
+        """
+        *deepcopy constructor* that returns a copy of the CXJSONData object.
+        :returns: `CXJSONData` A copy of the wrapping object and deepcopy of
+            the tracked data.
+        """
         return CXJSONData(self.data)
 
-    def __hash__(self):
-        return hash(repr(self))
-
-    def __lt__(
-            self,
-            other: 'CXJSONData'
-    ):
-        if not object:
-            return False
-
-        if not isinstance(other, CXJSONData):
-            return False
-
-        if self is other:
-            return False
-
-        else:
-            delta: dict = DeepDiff(
-                self.render_to_dict(),
-                other.render_to_dict(),
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
-
-            return (other_added - other_removed) < 0
-
-    def __eq__(
-            self,
-            other: 'CXJSONData'
-    ):
-        if not object:
-            return False
-
-        if type(other) is not CXJSONData:
-            return False
-
-        if self is other:
-            return True
-
-        else:
-            delta: dict = DeepDiff(
-                self.render_to_dict(),
-                other.render_to_dict(),
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
-
-            return (other_added - other_removed) == 0
-
-    def __str__(self) -> str:
-        return json.dumps(
-            self.data,
-            indent=4
-        )
-
     def __repr__(self) -> str:
-        return f"CXJSONData(data={json.dumps(self.data)})"
+        """
+        *repr* function.  Converts the CXJSONData object into a pickle string
+        that can be used with `eval` to establish a copy of the object.
+        :returns: `str` An evaluatable representation of the object.
+        """
+        return f"CXJSONData(data={str(self.data)})"

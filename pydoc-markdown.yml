@@ -1,0 +1,36 @@
+loaders:
+  - type: python
+    packages:
+      - canvasxpress
+processors:
+  - type: filter
+  - type: smart
+  - type: crossref
+renderer:
+  type: mkdocs
+  site_name: CanvasXpress for Python
+  markdown:
+    source_linker:
+      type: github
+      repo: docinfosci/canvasxpress-python
+  pages:
+    - title: Overview
+      name: index
+      source: readme/readme.md
+    - title: Status
+      name: status
+      source: readme/status.md
+    - title: Examples
+      name: examples
+      source: readme/examples.md
+    - title: API
+      contents:
+        - '*'
+    - title: License
+      name: license
+      source: readme/license.md
+  mkdocs_config:
+    site_dir: site
+    site_name: CanvasXpress for Python
+    theme:
+      name: 'lux'

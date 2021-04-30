@@ -4,8 +4,8 @@ def render_from_template(
 ) -> str:
     """
     Updates the template text with the provided data.
-    :param template: The name of the template file
-    :param data: the dict of str values with which to update the template text
+    :param template: `str` The name of the template file
+    :param data: The `dict` of str values with which to update the template text
     :returns The adjusted template text
     """
     template_text = template

@@ -4,8 +4,11 @@ pytest
 pytest-cov
 allure-pytest
 pytest-flask
+coveralls
 flask
 selenium
 requests
 scikit-image
 psutil
+requires.io
+

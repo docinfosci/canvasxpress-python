@@ -1,5 +1,7 @@
-deepdiff>=5.2.2
-IPython>=7.20.0
-gitpython>=3.1.12
-pytz>=2020.5
-pandas>=1.2.3
+deepdiff>=5
+IPython>=7
+gitpython>=3
+pytz>=2020.1
+pandas>=1.1.5
+requests>=2
+

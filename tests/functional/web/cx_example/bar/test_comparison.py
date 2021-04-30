@@ -1,6 +1,4 @@
 import json
-import multiprocessing
-import platform
 from pathlib import Path
 
 import pkg_resources
@@ -8,17 +6,12 @@ import pytest
 from flask import Flask, render_template
 from flask import url_for
 
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
-from canvasxpress.config.collection import CXConfigs
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
 from canvasxpress.data.keypair import CXDictData
 from tests.util.visual.image import image_files_match
 from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
-
-if platform.system() == 'Darwin':
-    # https://stackoverflow.com/questions/64305197/getting-a-cant-pickle-local-
-    # object-liveservertestcase-error-when-trying-torm.system() == 'Darwin':
-    multiprocessing.set_start_method("fork")
 
 
 def create_app() -> Flask:
@@ -51,7 +44,7 @@ def create_app() -> Flask:
         chart: dict = {
             "renderTo": "canvasId",
             "data": data,
-            "config": {
+            "configs": {
                 "graphType": "Bar"
             }
         }
@@ -72,7 +65,7 @@ def create_app() -> Flask:
         chart: CanvasXpress = CanvasXpress(
             target_id="canvasId",
             data=CXDictData(data),
-            config=CXConfigs(
+            configs=CXConfigs(
                 CXGraphType(CXGraphTypeOptions.Bar)
             )
         )
@@ -87,7 +80,7 @@ def create_app() -> Flask:
     return app
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def app() -> Flask:
     app = create_app()
     return app
