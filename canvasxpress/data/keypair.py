@@ -3,6 +3,7 @@ from copy import deepcopy
 from functools import total_ordering
 from typing import Union
 
+import requests
 from deepdiff import DeepDiff
 
 from canvasxpress.data.base import CXData
@@ -208,7 +209,21 @@ class CXJSONData(CXDictData):
 
     @json.setter
     def json(self, value: Union[dict, str]) -> None:
-        self.data = value
+        if isinstance(value, str) and value.startswith("http"):
+            try:
+                result = requests.get(
+                    value,
+                    allow_redirects=True
+                )
+                self.data = result.json()
+
+            except Exception as e:
+                raise ValueError(
+                    "Detected URL but cannot access JSON data at endpoint."
+                )
+
+        else:
+            self.data = value
 
     @CXDictData.data.setter
     def data(self, value: Union[dict, str]) -> None:

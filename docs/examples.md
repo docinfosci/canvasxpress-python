@@ -239,21 +239,13 @@ the exact same chart as produced by the example. You can learn more about the
 options used in this example, in addition to others, in our [API Documentation](../api/).
 
 ```python
-import pandas as pd
-
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
-from canvasxpress.data.matrix import CXDataframeData
+from canvasxpress.data.keypair import CXJSONData
 from canvasxpress.render.jupyter import CXNoteBook
 
-iris_data = CXDataframeData(
-    pd.read_csv(
-        "https://raw.githubusercontent.com/docinfosci/"
-        "canvasxpress-python/develop/readme/examples/iris.json"
-    )
-),
-
+# Configure a Scatter3D chart
 chart_options = CXConfigs()
 chart_options \
     .add(CXGraphType(CXGraphTypeOptions.Scatter3D)) \
@@ -266,12 +258,17 @@ chart_options \
     .set_param('yAxis', ['Sepal.Width']) \
     .set_param('zAxis', ['Petal.Length']) 
 
+# Create the chart
 chart = CanvasXpress(
     target_id="iris_scatter3d_example",
-    data=iris_data,
+    data=CXJSONData(
+        "https://raw.githubusercontent.com/docinfosci/canvasxpress-python/"
+        "develop/readme/examples/iris.json"
+    ),
     configs=chart_options
 )
 
+# Render into Jupyter
 iris_scatter3d_nb = CXNoteBook(chart)
 iris_scatter3d_nb.render()
 ```
