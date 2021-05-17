@@ -11,7 +11,7 @@ from canvasxpress.render.jupyter import CXNoteBook
 
 def test_CXNoteBook_render():
     chart: CanvasXpress = CanvasXpress(
-        target_id="canvasId",
+        render_to="canvasId",
         data=CXDictData(
             {
                 "y": {
@@ -21,7 +21,7 @@ def test_CXNoteBook_render():
                 }
             }
         ),
-        configs=CXConfigs(
+        config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
@@ -94,9 +94,9 @@ def test_CXNoteBook_render_complex():
 
     # The canvas, which uses earlier work
     chart = CanvasXpress(
-        target_id="example_scatter2d",
+        render_to="example_scatter2d",
         data=chart_data,
-        configs=chart_configs,
+        config=chart_configs,
         events=chart_events
     )
 
