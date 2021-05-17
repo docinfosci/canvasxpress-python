@@ -194,8 +194,8 @@ class CXConfigs(CXDictConvertable):
 
             Given:
             ```python
-            config = CXConfigs()
-            config \
+            configs = CXConfigs()
+            configs \
                 .set_param("1", "rgb(3, 172, 198)") \
                 .set_param("2", 2) \
                 .set_param("3", True)
