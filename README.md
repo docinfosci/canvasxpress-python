@@ -48,6 +48,32 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 | **Activity** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) | 
 <!-- End Badges -->
 
+### Recent Enhancements
+
+#### 2021 May 17: Adjusted property names
+To better align with CanvasXpress for Javascript, or otherwise avoid confusion, 
+some property names were changed in the `CanvasXpress` class:
+
+* `target_id` has been replaced with `render_to` to align with the JS 
+  `renderTo` attribute.  Functionality is identical.  `target_id` will 
+  remain as a deprecated property through May, after which it will be removed
+  per team convenience.
+  
+* `configs` has been replaced with `config` to align with the JS 
+  `config` attribute.  Functionality is identical.  `configs` will 
+  remain as a deprecated property through May, after which it will be removed
+  per team convenience.
+  
+* `chart_width` and `chart_height` are replaced with `element_width` and 
+  `element_height`, respectively.  These properties dictate the container
+  size at the Python tier in application, such as the render window provided
+  for Jupyter Notebooks.  The actual CanvasXpress chart continues to use the
+  `width` and `height` attributes per the JS documentation, and if these values
+  result in a rendered chart larger than the element window then depending on
+  the application context aspects such as scrollbars might appear to provide
+  full access.  The distinction is maintained for applications with non-reactive
+  user interfaces, such as what might be typical of QT apps.
+
 ### Roadmap
 
 This package is actively maintained and developed.  Our focus for 2021 is:
@@ -182,7 +208,7 @@ app = Flask(__name__)
 def canvasxpress_example():
     # Define a CX bar chart with some basic data
     chart: CanvasXpress = CanvasXpress(
-        target_id="example_chart",
+        render_to="example_chart",
         data=CXDictData(
             {
                 "y": {
@@ -192,7 +218,7 @@ def canvasxpress_example():
                 }
             }
         ),
-        configs=CXConfigs(
+        config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
