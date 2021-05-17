@@ -38,9 +38,9 @@ def create_app() -> Flask:
         examples from the canvasxpress.org site.
         """
         chart: CanvasXpress = CanvasXpress(
-            target_id="canvasId",
+            render_to="canvasId",
             data=CXDictData(data),
-            configs=CXConfigs(
+            config=CXConfigs(
                 CXGraphType(CXGraphTypeOptions.Bar)
             )
         )

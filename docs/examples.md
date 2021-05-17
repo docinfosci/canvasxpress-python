@@ -129,7 +129,7 @@ app = Flask(__name__)
 def canvasxpress_example():
     # Define a CX bar chart with some basic data
     chart: CanvasXpress = CanvasXpress(
-        target_id="example_chart",
+        render_to="example_chart",
         data=CXDictData(
             {
                 "y": {
@@ -139,7 +139,7 @@ def canvasxpress_example():
                 }
             }
         ),
-        configs=CXConfigs(
+        config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
@@ -207,7 +207,7 @@ from canvasxpress.render.jupyter import CXNoteBook
 
 # Define a CX bar chart with some basic data
 chart: CanvasXpress = CanvasXpress(
-    target_id="example_chart",
+    render_to="example_chart",
     data=CXDictData(
         {
             "y": {
@@ -217,7 +217,7 @@ chart: CanvasXpress = CanvasXpress(
             }
         }
     ),
-    configs=CXConfigs(
+    config=CXConfigs(
         CXGraphType(CXGraphTypeOptions.Bar)
     )
 )
@@ -265,12 +265,12 @@ chart_options \
 
 # Create the chart
 chart = CanvasXpress(
-    target_id="iris_scatter3d_example",
+    render_to="iris_scatter3d_example",
     data=CXJSONData(
         "https://raw.githubusercontent.com/docinfosci/canvasxpress-python/"
         "develop/readme/examples/iris.json"
     ),
-    configs=chart_options
+    config=chart_options
 )
 
 # Render into Jupyter
@@ -296,11 +296,11 @@ from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
 from canvasxpress.data.matrix import CXDataframeData
 
 chart: CanvasXpress = CanvasXpress(
-    target_id="example_chart",
+    render_to="example_chart",
     data=CXDataframeData(
         pd.read_csv("https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv")
     ),
-    configs=CXConfigs(
+    config=CXConfigs(
         CXGraphType(CXGraphTypeOptions.Bar)
     )
 )
@@ -356,7 +356,7 @@ from canvasxpress.render.jupyter import CXNoteBook
 
 # Define a CX bar chart with some basic data
 chart: CanvasXpress = CanvasXpress(
-    target_id="example_chart",
+    render_to="example_chart",
     data=CXDictData(
         {
             "y": {
@@ -366,7 +366,7 @@ chart: CanvasXpress = CanvasXpress(
             }
         }
     ),
-    configs=CXConfigs(
+    config=CXConfigs(
         CXGraphType(CXGraphTypeOptions.Bar)
     ),
     events=CXEvents(
@@ -401,7 +401,7 @@ Option lists using specific data types can be used during `CXConfigs` initializa
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXString, CXBool
 
-configs: CXConfigs = CXConfigs(
+config: CXConfigs = CXConfigs(
     CXString("legendPosition", "bottomRight"),
     CXString("axisAlgorithm", "rPretty"),
     CXBool("legendBox", True)
@@ -414,11 +414,11 @@ Chaining can be performed using specific data types:
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXString, CXBool
 
-configs: CXConfigs = CXConfigs()
+config: CXConfigs = CXConfigs()
 
 # ...
 
-configs \
+config \
     .add(CXString("legendPosition", "bottomRight")) \
     .add(CXString("axisAlgorithm", "rPretty")) \
     .add(CXBool("legendBox", True))
@@ -429,11 +429,11 @@ Chaining can also be performed using inferred data types:
 ```python
 from canvasxpress.config.collection import CXConfigs
 
-configs: CXConfigs = CXConfigs()
+config: CXConfigs = CXConfigs()
 
 # ...
 
-configs \
+config \
     .set_param("legendPosition", "bottomRight") \
     .set_param("axisAlgorithm", "rPretty") \
     .set_param("legendBox", True)

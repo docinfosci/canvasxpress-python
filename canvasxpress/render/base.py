@@ -56,7 +56,7 @@ class CXRenderable(ABC):
     @abstractmethod
     def render(self):
         """
-        Renders the associated CanvasXpress object appropriate to the target.
+        Renders the associated CanvasXpress object appropriate to the render_to.
         Not implemented.
         """
         pass
