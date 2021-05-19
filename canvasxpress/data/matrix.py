@@ -7,11 +7,12 @@ from typing import Union
 import pandas
 from pandas import DataFrame
 
-from canvasxpress.data.base import CXData
+from canvasxpress.data.base import CXDataProfile, CXMatrixData
+from canvasxpress.data.profile import CXStandardProfile
 
 
 @total_ordering
-class CXDataframeData(CXData):
+class CXDataframeData(CXMatrixData):
     """
     A CXData class dedicated to processing Python DataFrame, matrix-structured
      data.
@@ -99,17 +100,40 @@ class CXDataframeData(CXData):
 
             self.__data = DataFrame(candidate)
 
+    def get_raw_dict_form(self) -> dict:
+        """"
+        Provides a simple dict perspective of the data with no metadata or other
+        contextual transformations performed.  For example, if the data is
+        natively in `dict` form then it would be passed-through with no
+        modification or enhancement.
+
+        This implementation provides matrix data formatted in a `dict` object
+        with `DataFrame.to_dict('split')` behaviour.
+
+        :returns: `dict`
+            The `dict` perspective of the data with as little modification or
+            interpretation as is reasonable.
+        """
+        return self.__data.to_dict(orient="split")
+
     def render_to_dict(self) -> dict:
         """
         Provides a dict representation of the data.
         :returns: `dict`
             The data in `dict` form.
         """
-        return self.__data.to_dict(orient="list")
+        if self.profile:
+            candidate = self.profile.render_to_profiled_dict(self)
+
+        else:
+            candidate = self.get_raw_dict_form()
+
+        return candidate
 
     def __init__(
             self,
-            data: Union['CXDataframeData', DataFrame, dict, str, None] = None
+            data: Union['CXDataframeData', DataFrame, dict, str, None] = None,
+            profile: Union[CXDataProfile, None] = CXStandardProfile()
     ) -> None:
         """
         Initializes the CXData object with data.  Only `DataFrame` or compatible
@@ -117,9 +141,13 @@ class CXDataframeData(CXData):
         :param data: `Union['CXDataframeData', DataFrame, dict, str, None]`
             `None` to initialize with an empty `DataFrame`, or a `DataFrame`
             like object to assign mapped data.
+        :param profile: `Union[CXDataProfile, None]`
+            Omit to initialize with CXStandardProfile, or specify the desired
+            profile object to facilitate transformation of data into a
+            CanvasXpress JSON data object.  `None` to avoid use of a profile.
         """
-        super().__init__(data)
-        self.dataframe = data
+        super().__init__(data, profile)
+        self.data = data
 
     def __copy__(self) -> 'CXDataframeData':
         """
@@ -276,7 +304,8 @@ class CXCSVData(CXDataframeData):
 
     def __init__(
             self,
-            data: Union['CXCSVData', DataFrame, dict, str, None] = None
+            data: Union['CXCSVData', DataFrame, dict, str, None] = None,
+            profile: Union[CXDataProfile, None] = CXStandardProfile()
     ) -> None:
         """
         Initializes the CXData object with data.  Only CSV `str` or compatible
@@ -284,8 +313,12 @@ class CXCSVData(CXDataframeData):
         :param data: `Union['CXCSVData', DataFrame, dict, str, None]`
             `None` to initialize with an empty CSV, or a CSV `str`
             like object to assign mapped data.
+        :param profile: `Union[CXDataProfile, None]`
+            Omit to initialize with CXStandardProfile, or specify the desired
+            profile object to facilitate transformation of data into a
+            CanvasXpress JSON data object.  `None` to avoid use of a profile.
         """
-        super().__init__(data)
+        super().__init__(data, profile)
 
     def __str__(self) -> str:
         """
