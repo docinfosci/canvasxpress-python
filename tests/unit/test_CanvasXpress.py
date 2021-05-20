@@ -10,9 +10,9 @@ from canvasxpress.js.function import CXEvent
 
 def test_CanvasXpress_init():
     subject: CanvasXpress = CanvasXpress(
-        target_id="this_is_a_test"
+        render_to="this_is_a_test"
     )
-    assert subject.target_id == "this_is_a_test"
+    assert subject.render_to == "this_is_a_test"
 
     raw_sample = {'a': [1]}
     data_sample = CXDictData(raw_sample)
@@ -39,67 +39,67 @@ def test_CanvasXpress_init():
     raw_sample = CXString("label", "value")
     data_sample = CXConfigs(raw_sample)
     subject: CanvasXpress = CanvasXpress(
-        configs=[raw_sample]
+        config=[raw_sample]
     )
-    assert subject.configs == data_sample
+    assert subject.config == data_sample
     subject: CanvasXpress = CanvasXpress(
-        configs=data_sample
+        config=data_sample
     )
-    assert subject.configs == data_sample
+    assert subject.config == data_sample
 
 
-def test_CanvasXpress_target_id():
+def test_CanvasXpress_render_to():
     subject: CanvasXpress = CanvasXpress()
-    subject.target_id = "this_is_a_test"
-    assert subject.target_id == "this_is_a_test"
+    subject.render_to = "this_is_a_test"
+    assert subject.render_to == "this_is_a_test"
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.target_id = None
+        subject.render_to = None
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
-        subject.target_id = 1
+        subject.render_to = 1
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.target_id = "%*&*("
+        subject.render_to = "%*&*("
 
 
 def test_CanvasXpress_chart_width():
     subject: CanvasXpress = CanvasXpress()
-    subject.chart_width = 10
-    assert subject.chart_width == 10
+    subject.element_width = 10
+    assert subject.element_width == 10
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.chart_width = None
+        subject.element_width = None
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
-        subject.chart_width = "test"
+        subject.element_width = "test"
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.chart_width = -1
+        subject.element_width = -1
 
 
 def test_CanvasXpress_chart_height():
     subject: CanvasXpress = CanvasXpress()
-    subject.chart_height = 10
-    assert subject.chart_height == 10
+    subject.element_height = 10
+    assert subject.element_height == 10
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.chart_height = None
+        subject.element_height = None
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
-        subject.chart_height = "test"
+        subject.element_height = "test"
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.chart_height = -1
+        subject.element_height = -1
 
 
 def test_CanvasXpress_data():
@@ -145,18 +145,18 @@ def test_CanvasXpress_config():
     raw_sample = CXString("label", "value")
     data_sample = CXConfigs(raw_sample)
 
-    subject.configs = data_sample
-    assert subject.configs == data_sample
+    subject.config = data_sample
+    assert subject.config == data_sample
 
-    subject.configs = [raw_sample]
-    assert subject.configs == data_sample
+    subject.config = [raw_sample]
+    assert subject.config == data_sample
 
-    subject.configs = None
-    assert subject.configs == CXConfigs()
+    subject.config = None
+    assert subject.config == CXConfigs()
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
-        subject.configs = -1
+        subject.config = -1
 
 
 def test_CanvasXpress_license():

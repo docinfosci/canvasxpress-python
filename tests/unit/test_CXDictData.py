@@ -132,9 +132,9 @@ def test_CXDictData_repr_perspective(sample):
         min_size=1
     )
 )
-def test_CXDictData_render_to_dict(sample):
+def test_CXDictData_get_raw_dict_form(sample):
     cxdict1 = CXDictData(sample)
-    output = cxdict1.render_to_dict()
+    output = cxdict1.get_raw_dict_form()
     assert output == cxdict1.data
 
 

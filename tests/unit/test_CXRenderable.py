@@ -31,7 +31,7 @@ def testable_renderable() -> CXRenderable:
     Provides a generic CXRenderable useful for testin the base class.
     """
     chart: CanvasXpress = CanvasXpress(
-        target_id="canvasId",
+        render_to="canvasId",
         data=CXDictData(
             {
                 "y": {
@@ -41,7 +41,7 @@ def testable_renderable() -> CXRenderable:
                 }
             }
         ),
-        configs=CXConfigs(
+        config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
@@ -50,7 +50,7 @@ def testable_renderable() -> CXRenderable:
 
 def test_CXRenderable_init():
     chart: CanvasXpress = CanvasXpress(
-        target_id="canvasId",
+        render_to="canvasId",
         data=CXDictData(
             {
                 "y": {
@@ -60,7 +60,7 @@ def test_CXRenderable_init():
                 }
             }
         ),
-        configs=CXConfigs(
+        config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
     )
@@ -76,7 +76,7 @@ def test_CXRenderable_set_canvas(testable_renderable: CXRenderable):
     original_canvas = testable_renderable.canvas
 
     chart: CanvasXpress = CanvasXpress(
-        target_id="canvasId2",
+        render_to="canvasId2",
         data=CXDictData(
             {
                 "y": {
@@ -86,7 +86,7 @@ def test_CXRenderable_set_canvas(testable_renderable: CXRenderable):
                 }
             }
         ),
-        configs=CXConfigs(
+        config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Area)
         )
     )

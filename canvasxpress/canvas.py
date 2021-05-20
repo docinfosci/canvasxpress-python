@@ -2,10 +2,13 @@ import json
 import uuid
 from typing import Union, List
 
+from deprecated import deprecated
+
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig
+from canvasxpress.data.base import CXData
 from canvasxpress.data.convert import CXHtmlConvertable
-from canvasxpress.data.keypair import CXData, CXDictData
+from canvasxpress.data.keypair import CXDictData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
@@ -45,7 +48,7 @@ class CanvasXpress(CXHtmlConvertable):
     @app.route('/pythonexample')
     def get_simple_chart() -> str:
         chart: CanvasXpress = CanvasXpress(
-            target_id="example_chart",
+            render_to="example_chart",
             data=CXDictData(
                 {
                     "y": {
@@ -54,7 +57,7 @@ class CanvasXpress(CXHtmlConvertable):
                     "data": [[10, 35, 88]],
                 }
             ),
-            configs=CXConfigs(
+            config=CXConfigs(
                 CXGraphType(CXGraphTypeOptions.Bar)
             )
         )
@@ -75,7 +78,29 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     @property
+    @deprecated(
+        reason="As part of improved alignment with CanvasXpress for JS, use the"
+               " render_to property instead."
+    )
     def target_id(self) -> str:
+        """
+        DEPRECATED - Use render_to instead.
+        """
+        return self.render_to
+
+    @target_id.setter
+    @deprecated(
+        reason="As part of improved alignment with CanvasXpress for JS, use the"
+               " render_to property instead."
+    )
+    def target_id(self, value: str) -> None:
+        """
+        DEPRECATED - Use render_to instead.
+        """
+        self.render_to = value
+
+    @property
+    def render_to(self) -> str:
         """
         The ID of the CanvasXpress object's associated HTML components, such as
         the render canvas element.
@@ -83,10 +108,10 @@ class CanvasXpress(CXHtmlConvertable):
         """
         return self.__target_id
 
-    @target_id.setter
-    def target_id(self, value: str) -> None:
+    @render_to.setter
+    def render_to(self, value: str) -> None:
         """
-        Sets the target_id of the CanvasXpress instance.
+        Sets the render_to of the CanvasXpress instance.
         :param value:
             `str` The ID to be associated.  Cannot be `None`, and
             must be alphanumeric.
@@ -103,7 +128,7 @@ class CanvasXpress(CXHtmlConvertable):
         else:
             self.__target_id = value
 
-    __license_url: str = None
+    __license_url: Union[str, None] = None
     """
     Location of the CanvasXpressLicense.js file for use in rendering.
     """
@@ -156,28 +181,53 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     @property
+    @deprecated(
+        reason="To avoid confusion with CanvasXpress JS attributes, this"
+               "property has been renamed.  Use element_width instead."
+    )
     def chart_width(self) -> int:
         """
-        Indicates the preferred canvas width when rendered.
+        DEPRECATED - use element_width.
+        """
+        return self.element_width
+
+    @chart_width.setter
+    @deprecated(
+        reason="To avoid confusion with CanvasXpress JS attributes, this"
+               "property has been renamed.  Use element_width instead."
+    )
+    def chart_width(self, value: int):
+        """
+        DEPRECATED - use element_width.
+        """
+        self.element_width = value
+
+    @property
+    def element_width(self) -> int:
+        """
+        Indicates the preferred Web element width when rendered.  This is
+        distinct from the CanvasXpress JS `width` attribute; the Python
+        property is used to facilitate integration with Web containers such
+        as Jupyter notebooks.
         :returns: `int` The pixel count
         """
         return self.__chart_width
 
-    @chart_width.setter
-    def chart_width(self, value: int):
+    @element_width.setter
+    def element_width(self, value: int):
         """
-        Sets the preferred canvas width when rendered.
+        Sets the preferred Web element width when rendered.
         :param value:
             `int` The pixel count.  Cannot be `None` or less than `1`.
         """
         if value is None:
-            raise ValueError("chart_width cannot be None")
+            raise ValueError("element_width cannot be None")
 
         elif not isinstance(value, int):
             raise TypeError("value must be of type int")
 
         elif value < 1:
-            raise ValueError("chart_width cannot be less than 1 pixel")
+            raise ValueError("element_width cannot be less than 1 pixel")
 
         else:
             self.__chart_width = value
@@ -193,28 +243,53 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     @property
+    @deprecated(
+        reason="To avoid confusion with CanvasXpress JS attributes, this"
+               "property has been renamed.  Use element_height instead."
+    )
     def chart_height(self) -> int:
         """
-        Indicates the preferred canvas height when rendered.
+        DEPRECATED - use element_height.
+        """
+        return self.element_height
+
+    @chart_height.setter
+    @deprecated(
+        reason="To avoid confusion with CanvasXpress JS attributes, this"
+               "property has been renamed.  Use element_height instead."
+    )
+    def chart_height(self, value: int):
+        """
+        DEPRECATED - use element_height.
+        """
+        self.element_height = value
+
+    @property
+    def element_height(self) -> int:
+        """
+        Indicates the preferred Web element height when rendered.  This is
+        distinct from the CanvasXpress JS `height` attribute; the Python
+        property is used to facilitate integration with Web containers such
+        as Jupyter notebooks.
         :returns: `int` The pixel count
         """
         return self.__chart_height
 
-    @chart_height.setter
-    def chart_height(self, value: int):
+    @element_height.setter
+    def element_height(self, value: int):
         """
-        Sets the preferred canvas height when rendered.
+        Sets the preferred Web element height when rendered.
         :param value:
             `int` The pixel count.  Cannot be `None` or less than `1`.
         """
         if value is None:
-            raise ValueError("chart_height cannot be None")
+            raise ValueError("element_height cannot be None")
 
         elif not isinstance(value, int):
             raise TypeError("value must be of type int")
 
         elif value < 1:
-            raise ValueError("chart_height cannot be less than 1 pixel")
+            raise ValueError("element_height cannot be less than 1 pixel")
 
         else:
             self.__chart_height = value
@@ -273,7 +348,7 @@ class CanvasXpress(CXHtmlConvertable):
     def events(self, events: Union[CXEvents, List[CXEvent], None]) -> None:
         """
         Sets the CXEvents associated with this CanvasXpress chart.
-        :param value:
+        :param events:
             `CXEvents, List[CXEvent], None` An object translatable into a
             CXEvents type.  If the object is an instance of CXEvents then it
             will be tracked by the CanvasXpress object; otherwise, a new
@@ -293,19 +368,41 @@ class CanvasXpress(CXHtmlConvertable):
 
     __config: CXConfigs = None
     """
-    __config is used to compose the configs settings for the CanvasXpress object.
+    __config is used to compose the config settings for the CanvasXpress object.
     """
 
     @property
+    @deprecated(
+        reason="As part of improved alignment with CanvasXpress for JS, use the"
+               " config property instead."
+    )
     def configs(self) -> CXConfigs:
         """
+        DEPRECATED - Use config instead.
+        """
+        return self.config
+
+    @configs.setter
+    @deprecated(
+        reason="As part of improved alignment with CanvasXpress for JS, use the"
+               " config property instead."
+    )
+    def configs(self, value: Union[List[CXConfig], CXConfigs]):
+        """
+        DEPRECATED - Use config instead.
+        """
+        self.config = value
+
+    @property
+    def config(self) -> CXConfigs:
+        """
         Provides access to the CXConfigs associated with this CanvasXpress chart.
-        :returns: `CXConfigs` The configs to be associated with the chart.
+        :returns: `CXConfigs` The config to be associated with the chart.
         """
         return self.__config
 
-    @configs.setter
-    def configs(self, value: Union[List[CXConfig], CXConfigs]):
+    @config.setter
+    def config(self, value: Union[List[CXConfig], CXConfigs]):
         """
         Sets the CXConfigs associated with this CanvasXpress chart.
         :param value:
@@ -329,30 +426,41 @@ class CanvasXpress(CXHtmlConvertable):
     def __init__(
             self,
             target_id: str = None,
+            render_to: str = None,
             data: Union[CXData, dict] = None,
             events: Union[List[CXEvent], CXEvents] = None,
-            configs: Union[List[CXConfig], CXConfigs] = None
+            configs: Union[List[CXConfig], CXConfigs] = None,
+            config: Union[List[CXConfig], CXConfigs] = None
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
         all parameters if values are not specified; otherwise the arguments are
         treated as if an appropriate setter were used.
-        :param target_id: See `target_id` property, except that on default
+        :param target_id: See `render_to` param.
+            DEPRECATED.  If `render_to` is also used that will be preferred.
+        :param render_to: See `render_to` property, except that on default
             initialization the object will be assigned an UUID4 value.
         :param data: See `data` property
         :param events: See `events` property
-        :param configs: See `configs` property
+        :param configs: See `config` param.
+            DEPRECATED.  If `config` is also used that will be preferred.
+        :param config: See `config` property
         """
 
         super().__init__()
 
-        self.__target_id = str(uuid.uuid4())
-        if target_id:
+        if render_to:
+            self.__target_id = render_to
+
+        elif target_id:
             self.__target_id = target_id
+
+        else:
+            self.__target_id = str(uuid.uuid4())
 
         self.data = data
         self.events = events
-        self.configs = configs
+        self.config = config if config else configs
 
     def render_to_html_parts(self) -> dict:
         """
@@ -390,7 +498,7 @@ class CanvasXpress(CXHtmlConvertable):
         @app.route('/pythonexample')
         def get_simple_chart() -> str:
             chart: CanvasXpress = CanvasXpress(
-                target_id="example_chart",
+                render_to="example_chart",
                 data=CXDictData(
                     {
                         "y": {
@@ -399,7 +507,7 @@ class CanvasXpress(CXHtmlConvertable):
                         "data": [[10, 35, 88]],
                     }
                 ),
-                configs=CXConfigs(
+                config=CXConfigs(
                     CXGraphType(CXGraphTypeOptions.Bar)
                 )
             )
@@ -414,16 +522,16 @@ class CanvasXpress(CXHtmlConvertable):
         ```
         """
         canvasxpress = {
-            'renderTo': self.target_id,
+            'renderTo': self.render_to,
             'data': self.data.render_to_dict(),
-            'config': self.configs.render_to_dict(),
+            'config': self.config.render_to_dict(),
             'events': "js_events"
         }
 
         cx_js = render_from_template(
             _CX_JS_TEMPLATE,
             {
-                'cx_target_id': self.target_id,
+                'cx_target_id': self.render_to,
                 'cx_json': json.dumps(
                     canvasxpress,
                     indent=4
@@ -438,9 +546,9 @@ class CanvasXpress(CXHtmlConvertable):
         cx_canvas = render_from_template(
             _CX_CANVAS_TEMPLATE,
             {
-                'cx_target_id': self.target_id,
-                'cx_canvas_width': self.chart_width,
-                'cx_canvas_height': self.chart_height,
+                'cx_target_id': self.render_to,
+                'cx_canvas_width': self.element_width,
+                'cx_canvas_height': self.element_height,
                 'cx_canvas_ratio': "1:1",
             }
         )

@@ -23,6 +23,9 @@ renderer:
     - title: Examples
       name: examples
       source: readme/examples.md
+    - title: Data
+      name: data
+      source: readme/data.md
     - title: API
       contents:
         - '*'
