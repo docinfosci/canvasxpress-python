@@ -1,4 +1,7 @@
-from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, CXDataProfileException, CXMatrixData, Y, DATA, \
+from typing import Union
+
+from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
+    CXDataProfileException, CXMatrixData, Y, DATA, \
     CXKeyPairData
 
 
@@ -49,6 +52,24 @@ class CXStandardProfile(CXDataProfile):
         """
         return self.__y[VARS]
 
+    @vars.setter
+    def vars(self, variables: Union[list, None]) -> None:
+        """
+        Sets the variable labels to be used for rows of data.
+        :param variables: `Union[list, None]`
+            The list of var values.  Each must be convertable to `str`, and
+            the number of var elements must match the row count.  `None` will
+            reset the var list.
+        """
+        if variables:
+            if not isinstance(variables, list):
+                raise TypeError("variables must be a list or None")
+            else:
+                self.__y[VARS] = variables
+
+        else:
+            self.__y[VARS] = list()
+
     @property
     def smps(self) -> list:
         """
@@ -73,6 +94,24 @@ class CXStandardProfile(CXDataProfile):
             A list of samples, for which there should be one per column.
         """
         return self.__y[SMPS]
+
+    @smps.setter
+    def smps(self, samples: Union[list, None]) -> None:
+        """
+        Sets the sample labels to be used for columns of data.
+        :param samples: `Union[list, None]`
+            The list of smps values.  Each must be convertable to `str`, and
+            the number of var elements must match the column count.  `None` will
+            reset the smps list.
+        """
+        if samples:
+            if not isinstance(samples, list):
+                raise TypeError("samples must be a list or None")
+            else:
+                self.__y[SMPS] = samples
+
+        else:
+            self.__y[SMPS] = list()
 
     def render_to_profiled_dict(
             self,
