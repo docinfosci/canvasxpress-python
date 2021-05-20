@@ -425,31 +425,42 @@ class CanvasXpress(CXHtmlConvertable):
 
     def __init__(
             self,
+            target_id: str = None,
             render_to: str = None,
             data: Union[CXData, dict] = None,
             events: Union[List[CXEvent], CXEvents] = None,
+            configs: Union[List[CXConfig], CXConfigs] = None,
             config: Union[List[CXConfig], CXConfigs] = None
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
         all parameters if values are not specified; otherwise the arguments are
         treated as if an appropriate setter were used.
+        :param target_id: See `render_to` param.
+            DEPRECATED.  If `render_to` is also used that will be preferred.
         :param render_to: See `render_to` property, except that on default
             initialization the object will be assigned an UUID4 value.
         :param data: See `data` property
         :param events: See `events` property
+        :param configs: See `config` param.
+            DEPRECATED.  If `config` is also used that will be preferred.
         :param config: See `config` property
         """
 
         super().__init__()
 
-        self.__target_id = str(uuid.uuid4())
         if render_to:
             self.__target_id = render_to
 
+        elif target_id:
+            self.__target_id = target_id
+
+        else:
+            self.__target_id = str(uuid.uuid4())
+
         self.data = data
         self.events = events
-        self.config = config
+        self.config = config if config else configs
 
     def render_to_html_parts(self) -> dict:
         """
