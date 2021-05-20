@@ -3,6 +3,7 @@ nav:
 - Overview: index.md
 - Status: status.md
 - Examples: examples.md
+- Data: data.md
 - API: api.md
 - License: license.md
 site_dir: site

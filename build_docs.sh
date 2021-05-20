@@ -9,6 +9,7 @@ pydoc-markdown --build --site-dir $SITE_DIR
 
 # Move mkdocs templates to expected build locations for readthedocs.io build
 cp -R build/docs/content docs
+cp -R readme/data docs/data
 cp -R readme/examples docs/examples
 cp -R readme/images docs/images
 cp build/docs/mkdocs.yml mkdocs.yml
