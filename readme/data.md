@@ -2,6 +2,7 @@
 
 This section explores data management in CanvasXpress for Python in detail.
 Specifically, there are two perspectives that need to be understood:
+
 1. [CanvasXpress for Javascript JSON data objects](https://www.canvasxpress.org/docs.html#data)
 1. Python data objects and their transformation into JSON data objects
 
@@ -80,8 +81,8 @@ chart orientation.
 The row index, in this case not specifically assigned but ordinally implied as 
 0..N from top to bottom, indicates variables designated as the `vars` attribute.
 
-Each row of data—a variable— is plotted aligned with the proper column of data—
-the sample—and marked accordingly.
+Each row of data (a variable) is plotted aligned with the proper column of data
+(the sample) and marked accordingly.
 
 The following code will generate a matrix, print the matrix, print the JSON
 data object, and then plot the chart:
@@ -156,6 +157,7 @@ The above code illustrates a line chart, such as:
 ## Python Data
 
 CanvasXpress for Python provides two perspectives into data at the Python tier:
+
 1. The data itself, which can be matrix or key-pair in nature
 1. A data profile, which understands JSON data object requirements can provides
    the metadata necessary to make the data useable by CanvasXpress Javascript
@@ -212,7 +214,16 @@ elements that can be used directly or for a calculation to create proxies.
 
 It is also possible to override the `vars` and `smps` values in the data
 objects by assigning new values to `vars` and `smps` properties for the 
-profile.
+profile.  For example, in the initial example on this page the sample object
+provides default `vars` values of `[0, 1]` because that's the implied row 
+index.  Instead, those values could be replaced:
+
+```python
+sample.profile.vars = ['A', 'B']
+```
+
+In which case, the legend in the screenshot would update to using the letters 
+instead of the numbers.
 
 Although data and profile components do their best to create appropriate
 transformations to satisfy CanvasXpress at the Javascript tier, it is up
