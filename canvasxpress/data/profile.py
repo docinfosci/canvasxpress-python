@@ -186,29 +186,82 @@ class CXStandardProfile(CXDataProfile):
         # Handle key-pair data
         elif isinstance(data, CXKeyPairData):
 
-            candidate = data.get_raw_dict_form()
+            cx_data = data.get_raw_dict_form()
 
             # Handle if a y section is already defined
-            if candidate.get(Y):
-                cx_data[Y] = candidate[Y]
+            if cx_data.get(Y):
 
                 # If the user has specified vars OR vars is missing from Y
                 # then override the data's copy
-                if (not cx_data[Y].get(VARS)) or (len(self.vars) != 0):
+                if len(self.vars) != 0:
                     cx_data[Y][VARS] = self.vars
-
+                
+                elif cx_data[Y].get(VARS) is None:
+                    cx_data[Y][VARS] = list()
+                    if cx_data[Y].get(DATA):
+                        if isinstance(cx_data[Y].get(DATA), list):
+                            for i, r in enumerate(cx_data[Y].get(DATA)):
+                                cx_data[Y][VARS].append(i)
+                    
+                else:
+                    # Preserve the specified values
+                    pass
+                
                 # If the user has specified smps OR smps is missing from Y
                 # then override the data's copy
-                if (not cx_data[Y].get(SMPS)) or (len(self.smps) != 0):
+                if len(self.smps) != 0:
                     cx_data[Y][SMPS] = self.smps
 
+                elif cx_data[Y].get(SMPS) is None:
+                    cx_data[Y][SMPS] = list()
+                    if cx_data[Y].get(DATA):
+                        if isinstance(cx_data[Y].get(DATA), list):
+                            if len(cx_data[Y].get(DATA)) > 0:
+                                if isinstance(cx_data[Y][DATA][0], list):
+                                    for i, c in enumerate(cx_data[Y][DATA][0]):
+                                        cx_data[Y][SMPS].append(i)
+
+                else:
+                    # Preserve the specified values
+                    pass
+
             else:
-                cx_data[Y] = {
-                    VARS: self.vars,
-                    SMPS: self.smps,
-                    DATA: candidate.get(DATA, [])
+                cx_rev_data = {
+                    Y: {
+                        VARS: self.vars,
+                        SMPS: self.smps,
+                        DATA: cx_data.get(DATA, [])
+                    }
                 }
 
+                if cx_data.get('x'):
+                    cx_rev_data['x'] = cx_data['x']
+
+                if cx_data.get('z'):
+                    cx_rev_data['z'] = cx_data['z']
+
+                for key in cx_data.keys():
+                    if key not in ['x', 'z']:
+                        if key == DATA:
+                            cx_rev_data[DATA] = cx_data[key]
+
+                        elif key == VARS:
+                            cx_rev_data[VARS] = cx_data[key]
+
+                        elif key == SMPS:
+                            cx_rev_data[SMPS] = cx_data[key]
+
+                        elif isinstance(cx_data[key], list):
+                            if not cx_rev_data.get(DATA):
+                                cx_rev_data[DATA] = cx_data[key]
+
+                        else:
+                            continue
+
+                # Swap objects
+                cx_data = cx_rev_data
+
+                # Validate essentials
                 if not isinstance(cx_data[Y][DATA], list):
                     raise CXDataProfileException(
                         f"data must be a list of sub-list where each sub-list"
@@ -223,6 +276,8 @@ class CXStandardProfile(CXDataProfile):
                             f" master list of type {type(cx_data[Y][DATA])}"
                         )
 
+                # Establish minimal var and smps values per data if that has
+                # yet to be accomplished.
                 if len(cx_data[Y][VARS]) == 0:
                     cx_data[Y][VARS] = [
                         str(index + 1)
