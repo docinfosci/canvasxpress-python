@@ -6,8 +6,9 @@ from deprecated import deprecated
 
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig
+from canvasxpress.data.base import CXData
 from canvasxpress.data.convert import CXHtmlConvertable
-from canvasxpress.data.keypair import CXData, CXDictData
+from canvasxpress.data.keypair import CXDictData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
