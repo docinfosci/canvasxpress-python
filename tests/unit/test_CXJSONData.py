@@ -23,7 +23,7 @@ def test_CXJSONData_init_valid_input(sample):
     cxdata = CXJSONData(sample)
     assert not DeepDiff(
         sample,
-        cxdata.render_to_dict()
+        cxdata.get_raw_dict_form()
     )
 
 
@@ -172,9 +172,9 @@ def test_CXJSONData_repr_perspective(sample):
         min_size=1
     )
 )
-def test_CXJSONData_render_to_dict(sample):
+def test_CXJSONData_get_raw_dict_form(sample):
     cxdict1 = CXJSONData(sample)
-    output = cxdict1.render_to_dict()
+    output = cxdict1.get_raw_dict_form()
     assert output == cxdict1.data
 
 

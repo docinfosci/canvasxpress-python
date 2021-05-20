@@ -21,6 +21,12 @@ class SampleData(CXData):
             result = self.__data
         return result
 
+    def get_raw_dict_form(self) -> dict:
+        result = super().render_to_dict()
+        if not result:
+            result = self.__data
+        return result
+
     def render_to_dict(self) -> dict:
         result = super().render_to_dict()
         if not result:
