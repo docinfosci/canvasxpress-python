@@ -105,7 +105,7 @@ class CXDictData(CXKeyPairData):
         *copy constructor* that returns a copy of the CXDictData object.
         :returns: `CXDictData` A copy of the wrapping object.
         """
-        return CXDictData(self.data)
+        return self.__class__(self.data)
 
     def __deepcopy__(
             self,
@@ -116,7 +116,7 @@ class CXDictData(CXKeyPairData):
         :returns: `CXDictData` A copy of the wrapping object and deepcopy of
             the tracked data.
         """
-        return CXDictData(
+        return self.__class__(
             deepcopy(self.data)
         )
 

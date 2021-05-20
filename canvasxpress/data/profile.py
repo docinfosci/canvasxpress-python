@@ -144,8 +144,6 @@ class CXStandardProfile(CXDataProfile):
                 DATA: raw_dict['data']
             }
 
-            x = 0
-
         # Handle key-pair data
         elif isinstance(data, CXKeyPairData):
 
@@ -169,7 +167,7 @@ class CXStandardProfile(CXDataProfile):
                 cx_data[Y] = {
                     VARS: self.vars,
                     SMPS: self.smps,
-                    DATA: candidate[DATA] if candidate.get(DATA) else candidate
+                    DATA: candidate.get(DATA, [])
                 }
 
                 if not isinstance(cx_data[Y][DATA], list):

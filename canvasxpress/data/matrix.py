@@ -50,7 +50,7 @@ class CXDataframeData(CXMatrixData):
         Provides the data managed by the object.
         :returns: `DataFrame` The managed data.
         """
-        return self.render_to_dict()
+        return self.dataframe.to_dict(orient="list")
 
     @data.setter
     def data(
@@ -88,15 +88,19 @@ class CXDataframeData(CXMatrixData):
                 # Try to load a CSV or read it from memory
                 try:
                     candidate = pandas.read_csv(
-                        value,
-                        index_col=False
+                        value
                     )
 
                 except:
-                    candidate = pandas.read_csv(
-                        StringIO(value),
-                        index_col=False
-                    )
+                    if value.strip().startswith(","):
+                        candidate = pandas.read_csv(
+                            StringIO(value),
+                            index_col=0
+                        )
+                    else:
+                        candidate = pandas.read_csv(
+                            StringIO(value)
+                        )
 
             self.__data = DataFrame(candidate)
 
@@ -155,7 +159,7 @@ class CXDataframeData(CXMatrixData):
         :returns: `CXDataframeData`
             A copy of the wrapping object.
         """
-        return CXDataframeData(self.data)
+        return self.__class__(self.data)
 
     def __deepcopy__(
             self,
@@ -166,7 +170,7 @@ class CXDataframeData(CXMatrixData):
         :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
             the tracked data.
         """
-        return CXDataframeData(self.data)
+        return self.__class__(self.data)
 
     def __lt__(
             self,
@@ -188,7 +192,7 @@ class CXDataframeData(CXMatrixData):
         if other is None:
             return False
 
-        if type(other) is not CXDataframeData:
+        if not isinstance(other, CXDataframeData):
             return False
 
         else:
@@ -230,7 +234,7 @@ class CXDataframeData(CXMatrixData):
         if other is None:
             return False
 
-        if type(other) is not CXDataframeData:
+        if not isinstance(other, CXDataframeData):
             return False
 
         else:
@@ -261,9 +265,10 @@ class CXDataframeData(CXMatrixData):
          string that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        candidate = f"CXDataframeData(" \
-                    f"data=DataFrame.from_dict(" \
-                    f"{json.dumps(self.render_to_dict())}, orient='columns'))"
+        candidate = f'CXDataframeData(' \
+                    f'data=pandas.read_csv(' \
+                    f'StringIO("""{self.dataframe.to_csv(index=True)}"""),' \
+                    f'index_col=0))'
         candidate = candidate.replace("Infinity", "float('inf')")
         candidate = candidate.replace("NaN", "float('nan')")
 
@@ -334,4 +339,4 @@ class CXCSVData(CXDataframeData):
          string that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        return f"CXCSVData(data={self.data})"
+        return f'CXCSVData(data="""{self.dataframe.to_csv(index=True)}""")'
