@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Union
 
 from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
@@ -243,17 +244,17 @@ class CXStandardProfile(CXDataProfile):
                 for key in cx_data.keys():
                     if key not in ['x', 'z']:
                         if key == DATA:
-                            cx_rev_data[DATA] = cx_data[key]
+                            cx_rev_data[Y][DATA] = cx_data[key]
 
                         elif key == VARS:
-                            cx_rev_data[VARS] = cx_data[key]
+                            cx_rev_data[Y][VARS] = cx_data[key]
 
                         elif key == SMPS:
-                            cx_rev_data[SMPS] = cx_data[key]
+                            cx_rev_data[Y][SMPS] = cx_data[key]
 
                         elif isinstance(cx_data[key], list):
-                            if not cx_rev_data.get(DATA):
-                                cx_rev_data[DATA] = cx_data[key]
+                            if len(cx_rev_data.get(DATA, [])) == 0:
+                                cx_rev_data[Y][DATA] = cx_data[key]
 
                         else:
                             continue
@@ -261,37 +262,43 @@ class CXStandardProfile(CXDataProfile):
                 # Swap objects
                 cx_data = cx_rev_data
 
-                # Validate essentials
-                if not isinstance(cx_data[Y][DATA], list):
+            # Clean up the root of the JSON data object
+            cx_data = deepcopy(cx_data)
+            for key in reversed(cx_data.keys()):
+                if key not in [Y, 'x', 'z']:
+                    del cx_data[key]
+
+            # Validate essentials
+            if not isinstance(cx_data[Y][DATA], list):
+                raise CXDataProfileException(
+                    f"data must be a list of sub-list where each sub-list"
+                    f" is a row of data.  Found {type(cx_data[Y][DATA])}"
+                )
+
+            for row in cx_data[Y][DATA]:
+                if not isinstance(row, list):
                     raise CXDataProfileException(
-                        f"data must be a list of sub-list where each sub-list"
-                        f" is a row of data.  Found {type(cx_data[Y][DATA])}"
+                        f"data must be a list of sub-list where each"
+                        f" sub-list is a row of data.  Found element in"
+                        f" master list of type {type(cx_data[Y][DATA])}"
                     )
 
-                for row in cx_data[Y][DATA]:
-                    if not isinstance(row, list):
-                        raise CXDataProfileException(
-                            f"data must be a list of sub-list where each"
-                            f" sub-list is a row of data.  Found element in"
-                            f" master list of type {type(cx_data[Y][DATA])}"
-                        )
+            # Establish minimal var and smps values per data if that has
+            # yet to be accomplished.
+            if len(cx_data[Y][VARS]) == 0:
+                cx_data[Y][VARS] = [
+                    str(index + 1)
+                    for index
+                    in range(len(cx_data[Y][DATA]))
+                ]
 
-                # Establish minimal var and smps values per data if that has
-                # yet to be accomplished.
-                if len(cx_data[Y][VARS]) == 0:
-                    cx_data[Y][VARS] = [
+            if len(cx_data[Y][SMPS]) == 0:
+                if len(cx_data[Y][DATA]) > 0:
+                    cx_data[Y][SMPS] = [
                         str(index + 1)
                         for index
-                        in range(len(cx_data[Y][DATA]))
+                        in range(len(cx_data[Y][DATA][0]))
                     ]
-
-                if len(cx_data[Y][SMPS]) == 0:
-                    if len(cx_data[Y][DATA]) > 0:
-                        cx_data[Y][SMPS] = [
-                            str(index + 1)
-                            for index
-                            in range(len(cx_data[Y][DATA][0]))
-                        ]
 
         # Reject any other data type
         else:
