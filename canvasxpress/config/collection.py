@@ -225,10 +225,11 @@ class CXConfigs(CXDictConvertable):
         :returns: `dict`
             A dict of zero or more keys representing the CXConfigs.
         """
-        if configs is None:
-            unique_configs = set()
-        else:
-            unique_configs = set(configs)
+        unique_configs = list()
+        if not configs is None:
+            for config in configs:
+                if not config in unique_configs:
+                    unique_configs.append(config)
 
         dict_configs = dict()
         for config in unique_configs:
