@@ -39,6 +39,7 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 | Topic | Status | 
 |---|---|
 | **Version Info** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
+| **Popularity** | ![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress) |
 | **Compatibility** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
 | **Implementations** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
 | **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | 
@@ -49,6 +50,12 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 <!-- End Badges -->
 
 ### Recent Enhancements
+
+#### 2021 May 21: CXUrlData added
+CanvasXpress accepts URL references to files or endpoints with properly 
+formatted JSON data.  `CXUrlData` has been added to support URL passthrough 
+to the CanvasXpress Javascript, along with some validation ability at the
+Python tier.
 
 #### 2021 May 18: CXDataProfile added
 CanvasXpress has specific requirements for data organization within a JSON so 

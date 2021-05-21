@@ -4,6 +4,7 @@
 | Topic | _main branch_ | _develop branch_ |
 |---|---|---|
 | **Version Info** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | [No Badge Available for test.pypi.org](https://test.pypi.org/project/canvasxpress) |
+| **Popularity** | ![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress) | [No Badge Available for test.pypi.org](https://test.pypi.org/project/canvasxpress) |
 | **Compatibility** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | [No Badge Available for test.pypi.org](https://test.pypi.org/project/canvasxpress) |
 | **Implementations** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | [No Badge Available for test.pypi.org](https://test.pypi.org/project/canvasxpress) |
 | **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/develop.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=develop) |

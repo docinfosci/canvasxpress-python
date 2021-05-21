@@ -154,6 +154,11 @@ The above code illustrates a line chart, such as:
 
 <img src="line_plot_data_tutorial.png" align="center" width="556"></a>
 
+## URL Data
+
+In addition to specifying a JSON data object, CanvasXpress will also accept a 
+URL referencing a file or endpoint with such information.
+
 ## Python Data
 
 CanvasXpress for Python provides two perspectives into data at the Python tier:
@@ -172,6 +177,7 @@ suitable for the `y -> data` portion of the JSON object.
 Members of this framework include:
 
 - CXData
+    - CXUrlData
     - CXProfiledData
         - CXMatrixData
             - CXDataframeData
@@ -179,12 +185,48 @@ Members of this framework include:
         - CXKeyPairData
             - CXDictData
             - CXJSONData
-    
+
+### CXUrlData 
+
+`CXUrlData` Accepts a URL (which must begin with a scheme, such as `file://`, 
+`https://`, etc.).  Basic validation is performed to ensure the validity of
+the URL format at the Python tier, but otherwise the URL is passed as-is to
+the CanvasXpress Javascript object.
+
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.data.url import CXUrlData
+from canvasxpress.render.jupyter import CXNoteBook
+
+# Configure a set of spark lines
+chart_options = CXConfigs()
+chart_options \
+    .set_param("title", "Tooth Growth") \
+    .set_param("smpLabelRotate", 90) \
+    .set_param("graphType", "Boxplot") \
+    .set_param("graphOrientation", "vertical") \
+    .set_param("metaData", {"dose": True}) \
+    .set_param("groupingFactors", [ "dose" ]) 
+
+# Create the chart
+chart = CanvasXpress(
+    render_to="sample_chart",
+    data=CXUrlData("https://raw.githubusercontent.com/neuhausi/Rdatasets/master/csv/datasets/ToothGrowth.csv"),
+    config=chart_options
+)
+
+# Render into Jupyter
+nb = CXNoteBook(chart)
+nb.render()
+```
+
 ### CXDataProfile
 
-The simplest means of getting started with CanvasXpress for Python is to use one
-of the `CXKeyPairData` components and format the context exactly as how the
-Javascript library prefers.  In fact, if working with example data from the 
+The simplest means of getting started with CanvasXpress for Python in terms of 
+data preparation and application is to use one of the `CXKeyPairData` components
+and format the context exactly as how the Javascript library prefers.  
+In fact, if working with example data from the 
 [CanvasXpress](https://www.canvasxpress.org) site this is the faster way to
 begin using the framework.
 
