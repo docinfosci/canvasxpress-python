@@ -1,6 +1,7 @@
 import pytest
 
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
 from canvasxpress.data.url import CXUrlData
 
 
@@ -77,6 +78,18 @@ def test_set_url():
 def test_canvasxpress_conversion():
     url_data = CXUrlData("https://www.pypi.org")
 
-    chart = CanvasXpress(data=url_data)
+    chart_options = CXConfigs()
+    chart_options \
+        .set_param("title", "Tooth Growth") \
+        .set_param("smpLabelRotate", 90) \
+        .set_param("graphType", "Boxplot") \
+        .set_param("graphOrientation", "vertical") \
+        .set_param("metaData", {"dose": True}) \
+        .set_param("groupingFactors", ["dose"])
+
+    chart = CanvasXpress(
+        data=url_data,
+        config=chart_options
+    )
     parts = chart.render_to_html_parts()
     assert '"data": "https://www.pypi.org"' in parts['cx_js']
