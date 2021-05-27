@@ -203,7 +203,7 @@ class CanvasXpress(CXHtmlConvertable):
             raise ValueError("element_width cannot be None")
 
         elif not isinstance(value, int):
-            raise ValueError("element_width must be an int.")
+            raise TypeError("element_width must be an int.")
 
         elif value < 1:
             raise ValueError("element_width cannot be less than 1 pixel")
@@ -241,7 +241,7 @@ class CanvasXpress(CXHtmlConvertable):
             raise ValueError("element_height cannot be None")
 
         elif not isinstance(value, int):
-            raise ValueError("element_height must be an int.")
+            raise TypeError("element_height must be an int.")
         
         elif value < 1:
             raise ValueError("element_height cannot be less than 1 pixel")
