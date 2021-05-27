@@ -8,7 +8,7 @@ from flask import url_for
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions, CXString
 from canvasxpress.data.keypair import CXDictData
 from tests.util.visual.image import image_files_match
 from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
@@ -52,7 +52,7 @@ def create_app() -> Flask:
         return render_template(
             "bar.html",
             canvas_element="<canvas id='canvasId' width='600' height='600'"
-                           " aspectRatio='1:1' responsive='true'>",
+                           " responsive='true'>",
             bar_graph=f"var cXcanvasId = new CanvasXpress({json.dumps(chart)});"
         )
 
