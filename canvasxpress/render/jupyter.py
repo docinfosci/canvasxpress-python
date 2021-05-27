@@ -77,8 +77,8 @@ class CXNoteBook(CXRenderable):
         display(
             IFrame(
                 temp_filename,
-                self.canvas.element_width + 20,
-                self.canvas.element_height + 20
+                self.canvas.element_width,
+                self.canvas.element_height
             )
         )
 
