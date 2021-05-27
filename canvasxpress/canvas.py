@@ -551,9 +551,9 @@ class CanvasXpress(CXHtmlConvertable):
             _CX_CANVAS_TEMPLATE,
             {
                 'cx_target_id': self.render_to,
-                'cx_canvas_width': self.element_width,
-                'cx_canvas_height': self.element_height,
-                'cx_canvas_ratio': "1:1",
+                # 'cx_canvas_width': self.element_width,
+                # 'cx_canvas_height': self.element_height,
+                # 'cx_canvas_ratio': "1:1",
             }
         )
 
