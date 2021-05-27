@@ -21,8 +21,10 @@ from the Python edition.
 """
 
 _CX_CANVAS_TEMPLATE = \
-    "<canvas id='@cx_target_id@' width='@cx_canvas_width@' height=" \
-    "'@cx_canvas_height@' aspectRatio='@cx_canvas_ratio@' responsive='true'>"
+    "<canvas id='@cx_target_id@'" \
+    " width=@cx_element_width@ height=@cx_element_height@" \
+    " style='width: @cx_style_width@px; height: @cx_style_height@px;'" \
+    " responsive='true'>"
 """
 The template for declaring an HTML div element that will be replaced with a
 CanvasXpress chart on HTML execution.
@@ -172,44 +174,21 @@ class CanvasXpress(CXHtmlConvertable):
 
     CHART_WIDTH_DEFAULT: int = 500
     """
-    Default width in pixels of the chart when rendered, such as into HTML.
+    Default width of the chart when rendered, such as into HTML.
     """
 
     __chart_width: int = CHART_WIDTH_DEFAULT
     """
-    Preferred width in pixels of the chart when rendered, such as into HTML.
+    Preferred width of the chart when rendered, such as into HTML.
     """
-
-    @property
-    @deprecated(
-        reason="To avoid confusion with CanvasXpress JS attributes, this"
-               "property has been renamed.  Use element_width instead."
-    )
-    def chart_width(self) -> int:
-        """
-        DEPRECATED - use element_width.
-        """
-        return self.element_width
-
-    @chart_width.setter
-    @deprecated(
-        reason="To avoid confusion with CanvasXpress JS attributes, this"
-               "property has been renamed.  Use element_width instead."
-    )
-    def chart_width(self, value: int):
-        """
-        DEPRECATED - use element_width.
-        """
-        self.element_width = value
 
     @property
     def element_width(self) -> int:
         """
-        Indicates the preferred Web element width when rendered.  This is
-        distinct from the CanvasXpress JS `width` attribute; the Python
+        Indicates the preferred <canvas> Web element width when rendered.  This
         property is used to facilitate integration with Web containers such
         as Jupyter notebooks.
-        :returns: `int` The pixel count
+        :returns: `int` The width
         """
         return self.__chart_width
 
@@ -217,14 +196,14 @@ class CanvasXpress(CXHtmlConvertable):
     def element_width(self, value: int):
         """
         Sets the preferred Web element width when rendered.
-        :param value:
-            `int` The pixel count.  Cannot be `None` or less than `1`.
+        :param value: `int`
+            The pixel count.  Cannot be `None` or less than `1`.
         """
         if value is None:
             raise ValueError("element_width cannot be None")
 
         elif not isinstance(value, int):
-            raise TypeError("value must be of type int")
+            raise ValueError("element_width must be an int.")
 
         elif value < 1:
             raise ValueError("element_width cannot be less than 1 pixel")
@@ -234,41 +213,18 @@ class CanvasXpress(CXHtmlConvertable):
 
     CHART_HEIGHT_DEFAULT: int = 500
     """
-    Default height in pixels of the chart when rendered, such as into HTML.
+    Default height of the chart in pixels when rendered, such as into HTML.
     """
 
     __chart_height: int = CHART_HEIGHT_DEFAULT
     """
-    Preferred height in pixels of the chart when rendered, such as into HTML.
+    Preferred height of the chart in pixels when rendered, such as into HTML.
     """
-
-    @property
-    @deprecated(
-        reason="To avoid confusion with CanvasXpress JS attributes, this"
-               "property has been renamed.  Use element_height instead."
-    )
-    def chart_height(self) -> int:
-        """
-        DEPRECATED - use element_height.
-        """
-        return self.element_height
-
-    @chart_height.setter
-    @deprecated(
-        reason="To avoid confusion with CanvasXpress JS attributes, this"
-               "property has been renamed.  Use element_height instead."
-    )
-    def chart_height(self, value: int):
-        """
-        DEPRECATED - use element_height.
-        """
-        self.element_height = value
 
     @property
     def element_height(self) -> int:
         """
-        Indicates the preferred Web element height when rendered.  This is
-        distinct from the CanvasXpress JS `height` attribute; the Python
+        Indicates the preferred Web element height when rendered.  This
         property is used to facilitate integration with Web containers such
         as Jupyter notebooks.
         :returns: `int` The pixel count
@@ -278,16 +234,15 @@ class CanvasXpress(CXHtmlConvertable):
     @element_height.setter
     def element_height(self, value: int):
         """
-        Sets the preferred Web element height when rendered.
-        :param value:
-            `int` The pixel count.  Cannot be `None` or less than `1`.
+        Sets the preferred Web element height when rendered.  
+        :param value: `int`
         """
         if value is None:
             raise ValueError("element_height cannot be None")
 
         elif not isinstance(value, int):
-            raise TypeError("value must be of type int")
-
+            raise ValueError("element_height must be an int.")
+        
         elif value < 1:
             raise ValueError("element_height cannot be less than 1 pixel")
 
@@ -551,9 +506,8 @@ class CanvasXpress(CXHtmlConvertable):
             _CX_CANVAS_TEMPLATE,
             {
                 'cx_target_id': self.render_to,
-                # 'cx_canvas_width': self.element_width,
-                # 'cx_canvas_height': self.element_height,
-                # 'cx_canvas_ratio': "1:1",
+                'cx_element_width': self.element_width,
+                'cx_element_height': self.element_height,
             }
         )
 
