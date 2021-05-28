@@ -23,6 +23,16 @@ class CXConfigs(CXDictConvertable):
         """
         Initializes a new `CXConfigs` object with zero or more `CXConfig`
         objects.
+
+        Example:
+        ```python
+        configs = CXConfigs(
+            CXString("colorScheme", "ColorSpectrum"),
+            ("lineType", "spline"),
+            { "objectColorTransparency": 0.3 }
+        )
+        ```
+
         :param configs: `Union[CXConfig, tuple, dict], ...`
             A list of zero or more `CXConfig` objects to associate.
         """
