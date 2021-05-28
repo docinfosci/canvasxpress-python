@@ -1,7 +1,7 @@
 import json
 from copy import deepcopy
 from functools import total_ordering
-from typing import List, Any
+from typing import List, Any, Union
 
 from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool, \
     CXList, CXDict, CXRGBColor, CXRGBAColor
@@ -19,18 +19,18 @@ class CXConfigs(CXDictConvertable):
     The `CXConfig` objects associated with this collection.
     """
 
-    def __init__(self, *configs: CXConfig):
+    def __init__(self, *configs: Union[CXConfig, tuple, dict]):
         """
         Initializes a new `CXConfigs` object with zero or more `CXConfig`
         objects.
-        :param configs: `CXConfig, ...`
+        :param configs: `Union[CXConfig, tuple, dict], ...`
             A list of zero or more `CXConfig` objects to associate.
         """
         self.__configs: List[CXConfig] = list()
         for config in configs:
             self.add(config)
 
-    def add(self, config: CXConfig) -> 'CXConfigs':
+    def add(self, config: Union[CXConfig, tuple, dict]) -> 'CXConfigs':
         """
         Adds the specified configuration to the collection.  This method
         supports chaining for efficient additions of `CXConfig` objects.
@@ -39,22 +39,39 @@ class CXConfigs(CXDictConvertable):
         ```python
         configs = CXConfigs()
         configs \
-            .add(CXString("1", "one") \
-            .add(CXString("2", "two") \
-            .add(CXString("3", "three")
+            .add(CXString("colorScheme", "ColorSpectrum") \
+            .add(("lineType", "spline")) \
+            .add({ "objectColorTransparency": 0.3 })
         ```
 
-        :param config: `CXConfig`
+        :param config: `Union[CXConfig, tuple, dict]`
             The `CXConfig` to associate.  Cannot be `None`.
         """
         if config is None:
             raise ValueError("configs cannot be None.")
 
-        if not isinstance(config, CXConfig):
-            raise TypeError("configs must be a type of CXConfig.")
+        elif isinstance(config, dict):
+            for param in config.keys():
+                self.set_param(
+                    str(param),
+                    config.get(param)
+                )
 
-        if config not in self.__configs:
-            self.__configs.append(config)
+        elif isinstance(config, tuple):
+            if len(config) < 2:
+                raise ValueError("tuple configs must have two elements.")
+
+            self.set_param(
+                str(config[0]),
+                config[1]
+            )
+
+        elif isinstance(config, CXConfig):
+            if config not in self.__configs:
+                self.__configs.append(config)
+
+        else:
+            raise TypeError("configs must be a type of CXConfig.")
 
         return self
 
