@@ -40,6 +40,24 @@ class CXConfigs(CXDictConvertable):
         for config in configs:
             self.add(config)
 
+    def remove(self, label: str) -> Union[CXConfig, None]:
+        """
+        Removes the CXConfig if found, and if found the removed config is
+        provided.
+        :param label: 'str`
+            The label of the CXConfig to remove.
+        :returns: `Union[CXConfig, None]`
+            If a CXConfig is removed then it is returned, otherwise None.
+        """
+        candidate = None
+        for config in self.configs:
+            if str(label) == config.label:
+                candidate = config
+                self.configs.remove(config)
+                break
+
+        return candidate
+
     def add(self, config: Union[CXConfig, tuple, dict]) -> 'CXConfigs':
         """
         Adds the specified configuration to the collection.  This method
