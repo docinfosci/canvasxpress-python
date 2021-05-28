@@ -51,6 +51,29 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Recent Enhancements
 
+#### 2021 May 28: width, height, and canvas properties
+The `CanvasXpress` object now accepts dedicated `width`, `height`, `canvas` 
+properties.  
+
+`width` and `height` replace the now-deprecated `element_width` and 
+`element_height` properties, and these are expected to be the final 
+names used for each.  Values for each are used in the `<canvas>` element
+generated for use in HTML, and they affect the render container sizes when
+used in conjunction with contexts such as Jupyter Notebooks.
+
+`canvas` tracks `CXConfig` values that become attributes of the generated
+`<canvas>` element.  In this manner attributes such as `class` or `style`
+can be calculated and managed at the Python tier.
+
+See the documentation and examples for detailed usage.
+
+#### 2021 May 28: dict and tuple values now supported for CXConfigs
+The `CanvasXpress` class uses `CXConfigs` to track configuration parameters 
+for the chart and `<canvas>` element.  These now accept `dict` and `tuple`
+values for more convenient initialization of the `CanvasXpress` object.
+
+See the documentation and examples for detailed usage.
+
 #### 2021 May 21: CXUrlData added
 CanvasXpress accepts URL references to files or endpoints with properly 
 formatted JSON data.  `CXUrlData` has been added to support URL passthrough 
@@ -123,6 +146,7 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 - Enhanced examples and documentation for CXDataProfile components
 - Support CanvasXpress JSON data object `x` and `z` attributes in profiles
 - Support alternate CanvasXpress data objects for venn (etc.)
+- An exhaustive Jupyter Notebook tutorial for all aspects of the package
 
 #### General Focus
 
