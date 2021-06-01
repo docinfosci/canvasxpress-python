@@ -1,7 +1,7 @@
 <a name="canvasxpress"></a>
 # canvasxpress
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/__init__.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/__init__.py#L1)
 
 The CanvasXpress package provides Python friendly management of the Javascript-
 based [CanvasXpress](https://www.canvasxpress.org) library.  For an overview
@@ -10,12 +10,12 @@ and detailed instructions about CanvasXpress specifically please visit the site.
 <a name="canvasxpress.util"></a>
 # canvasxpress.util
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/util/__init__.py#L2)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/util/__init__.py#L2)
 
 <a name="canvasxpress.util.template"></a>
 # canvasxpress.util.template
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/util/template.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/util/template.py#L1)
 
 <a name="canvasxpress.util.template.render_from_template"></a>
 #### render\_from\_template
@@ -24,20 +24,20 @@ and detailed instructions about CanvasXpress specifically please visit the site.
 render_from_template(template: str, data: dict) -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/util/template.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/util/template.py#L1)
 
 Updates the template text with the provided data.
 
 **Arguments**:
 
+:returns The adjusted template text
 - `template`: `str` The name of the template file
 - `data`: The `dict` of str values with which to update the template text
-:returns The adjusted template text
 
 <a name="canvasxpress.config"></a>
 # canvasxpress.config
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/__init__.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/__init__.py#L1)
 
 The config package provides functionality for managing or assigning
 configuration values associated with CanvasXpress objects.
@@ -45,7 +45,7 @@ configuration values associated with CanvasXpress objects.
 <a name="canvasxpress.config.type"></a>
 # canvasxpress.config.type
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1)
 
 <a name="canvasxpress.config.type.CXConfig"></a>
 ## CXConfig Objects
@@ -55,7 +55,7 @@ configuration values associated with CanvasXpress objects.
 class CXConfig(ABC)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L12)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L12)
 
 CXConfig provides the means by which CanvasXpress objects can be configured for
 customized rendering and interaction.
@@ -68,7 +68,7 @@ customized rendering and interaction.
  | label() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L24)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L24)
 
 Provides the label for the configuration.
 
@@ -85,7 +85,7 @@ Provides the label for the configuration.
  | value() -> Any
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L33)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L33)
 
 Provides the value for the configuration.  Must be implemented by
 concrete classes.
@@ -93,7 +93,6 @@ concrete classes.
 **Returns**:
 
 `Any`
-    The relevant type of value.
 
 <a name="canvasxpress.config.type.CXConfig.value"></a>
 #### value
@@ -104,16 +103,16 @@ concrete classes.
  | value(value: Any) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L44)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L44)
 
 Sets the value of the configuration.  Must be implemented by concrete
 classes.
 
 **Arguments**:
 
-- `value`: `Any`
     The value to be accepted.  Will be more specific with concrete
     implementations, such as `str` for string configurations.
+- `value`: `Any`
 
 <a name="canvasxpress.config.type.CXConfig.__init__"></a>
 #### \_\_init\_\_
@@ -122,17 +121,17 @@ classes.
  | __init__(label: str, value: Any)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L54)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L54)
 
 Initializes a new CXConfig object with a label and value.
 
 **Arguments**:
 
-- `label`: `str`
     The label for the configuration.
-- `value`: `Any`
     The value for the configuration.  See the `value` property for the
     concrete implementation for allowed types.
+- `label`: `str`
+- `value`: `Any`
 
 <a name="canvasxpress.config.type.CXConfig.__copy__"></a>
 #### \_\_copy\_\_
@@ -141,7 +140,7 @@ Initializes a new CXConfig object with a label and value.
  | __copy__() -> 'CXConfig'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L71)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L71)
 
 *copy constructor* that provides a new CXConfig of the same type with
 the data referenced.
@@ -157,7 +156,7 @@ the data referenced.
  | __deepcopy__(memo)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L82)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L82)
 
 *deepcopy constructor* that provides a new CXConfig of the same type with
 the a deepcopy of the data.
@@ -173,7 +172,7 @@ the a deepcopy of the data.
  | __hash__() -> int
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L96)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L96)
 
 Provides a hash proxy for the object as converted into its `repr` form.
 
@@ -188,24 +187,18 @@ Provides a hash proxy for the object as converted into its `repr` form.
  | __lt__(other: 'CXConfig') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L103)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L103)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXConfig` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXConfig` object then `False`
-    <li> If `other` is a `CXConfig` object then True if label and value
-        of `other` are less than that of `self`.
-    </ul>
 
 <a name="canvasxpress.config.type.CXConfig.__eq__"></a>
 #### \_\_eq\_\_
@@ -214,24 +207,18 @@ Provides a hash proxy for the object as converted into its `repr` form.
  | __eq__(other: 'CXConfig') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L135)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L135)
 
 *equals* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXConfig` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXConfig` object then `False`
-    <li> If `other` is a `CXConfig` object then True if label and value
-        of `other` are equal to that of `self`.
-    </ul>
 
 <a name="canvasxpress.config.type.CXConfig.__str__"></a>
 #### \_\_str\_\_
@@ -240,7 +227,7 @@ Provides a hash proxy for the object as converted into its `repr` form.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L159)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L159)
 
 *str* function.  Converts the object into a JSON string.
 
@@ -251,7 +238,7 @@ Provides a hash proxy for the object as converted into its `repr` form.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L170)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L170)
 
 *repr* function.  Converts the CXConfig object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -267,7 +254,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXString(CXConfig)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L182)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L182)
 
 A `CXConfig` object that manages `str` values.
 
@@ -279,7 +266,7 @@ A `CXConfig` object that manages `str` values.
  | value() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L192)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L192)
 
 Provides the value for the configuration.
 
@@ -295,14 +282,14 @@ Provides the value for the configuration.
  | value(value: Union[object, str]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L200)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L200)
 
 Sets the value of the configuration.
 
 **Arguments**:
 
-- `value`: `str`
     If `None` then an empty `str` will be used.
+- `value`: `str`
 
 <a name="canvasxpress.config.type.CXString.__init__"></a>
 #### \_\_init\_\_
@@ -311,7 +298,7 @@ Sets the value of the configuration.
  | __init__(label: str, value: str)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L211)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L211)
 
 Initializes the configuration with a `str` value.
 
@@ -322,7 +309,7 @@ Initializes the configuration with a `str` value.
 class CXBool(CXConfig)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L219)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L219)
 
 A `CXConfig` object that manages `bool` values.
 
@@ -334,7 +321,7 @@ A `CXConfig` object that manages `bool` values.
  | value() -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L229)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L229)
 
 Provides the value for the configuration.
 
@@ -350,14 +337,14 @@ Provides the value for the configuration.
  | value(value: Union[object, bool]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L237)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L237)
 
 Sets the value of the configuration.
 
 **Arguments**:
 
-- `value`: `bool`
     If `None` then `False` will be used.
+- `value`: `bool`
 
 <a name="canvasxpress.config.type.CXBool.__init__"></a>
 #### \_\_init\_\_
@@ -366,7 +353,7 @@ Sets the value of the configuration.
  | __init__(label: str, value: bool)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L248)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L248)
 
 Initializes the configuration with a `bool` value.
 
@@ -377,7 +364,7 @@ Initializes the configuration with a `bool` value.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L255)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L255)
 
 *str* function.  Converts the object into a Javascript statement.
 
@@ -388,7 +375,7 @@ Initializes the configuration with a `bool` value.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L266)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L266)
 
 *repr* function.  Converts the CXBool object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -404,7 +391,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXFloat(CXConfig)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L278)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L278)
 
 A `CXConfig` object that manages `float` values.
 
@@ -416,7 +403,7 @@ A `CXConfig` object that manages `float` values.
  | value() -> float
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L288)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L288)
 
 Provides the value for the configuration.
 
@@ -432,14 +419,14 @@ Provides the value for the configuration.
  | value(value: Union[object, float]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L296)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L296)
 
 Sets the value of the configuration.
 
 **Arguments**:
 
-- `value`: `float`
     If `None` then `float(0.0)` will be used.
+- `value`: `float`
 
 <a name="canvasxpress.config.type.CXFloat.__init__"></a>
 #### \_\_init\_\_
@@ -448,7 +435,7 @@ Sets the value of the configuration.
  | __init__(label: str, value: float)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L307)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L307)
 
 Initializes the configuration with a `float` value.
 
@@ -459,7 +446,7 @@ Initializes the configuration with a `float` value.
 class CXInt(CXConfig)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L317)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L317)
 
 A `CXConfig` object that manages `int` values.
 
@@ -471,7 +458,7 @@ A `CXConfig` object that manages `int` values.
  | value() -> int
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L327)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L327)
 
 Provides the value for the configuration.
 
@@ -487,14 +474,14 @@ Provides the value for the configuration.
  | value(value: Union[object, int]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L335)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L335)
 
 Sets the value of the configuration.
 
 **Arguments**:
 
-- `value`: `int`
     If `None` then `int(0)` will be used.
+- `value`: `int`
 
 <a name="canvasxpress.config.type.CXInt.__init__"></a>
 #### \_\_init\_\_
@@ -503,7 +490,7 @@ Sets the value of the configuration.
  | __init__(label: str, value: int)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L346)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L346)
 
 Initializes the configuration with an `int` value.
 
@@ -514,7 +501,7 @@ Initializes the configuration with an `int` value.
 class CXDict(CXConfig)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L356)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L356)
 
 A `CXConfig` object that manages `dict` values.
 
@@ -526,7 +513,7 @@ A `CXConfig` object that manages `dict` values.
  | value() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L366)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L366)
 
 Provides the value for the configuration.
 
@@ -542,14 +529,14 @@ Provides the value for the configuration.
  | value(value: Union[dict, str, None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L374)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L374)
 
 Sets the value of the configuration.
 
 **Arguments**:
 
-- `value`: `dict`
     If `None` then `dict()` will be used.
+- `value`: `dict`
 
 <a name="canvasxpress.config.type.CXDict.__init__"></a>
 #### \_\_init\_\_
@@ -558,7 +545,7 @@ Sets the value of the configuration.
  | __init__(label: str, value: Union[dict, str, None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L393)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L393)
 
 Initializes the CXData object with data.  Only dict or compatible data
 types are accepted.
@@ -570,24 +557,18 @@ types are accepted.
  | __lt__(other: 'CXDict') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L401)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L401)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXDict` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXDict` object then `False`
-    <li> If `other` is a `CXDict` object then True if the label and
-        value parts are less than that of self.
-    </ul>
 
 <a name="canvasxpress.config.type.CXDict.__eq__"></a>
 #### \_\_eq\_\_
@@ -596,24 +577,18 @@ types are accepted.
  | __eq__(other: 'CXDict') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L453)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L453)
 
 *equals* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXDict` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXDict` object then `False`
-    <li> If `other` is a `CXDict` object then True if the label and
-        value parts are equal to that of self.
-    </ul>
 
 <a name="canvasxpress.config.type.CXDict.__repr__"></a>
 #### \_\_repr\_\_
@@ -622,7 +597,7 @@ types are accepted.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L503)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L503)
 
 *repr* function.  Converts the CXDict object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -638,7 +613,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXList(CXConfig)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L512)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L512)
 
 A `CXConfig` object that manages `list` values.
 
@@ -650,7 +625,7 @@ A `CXConfig` object that manages `list` values.
  | value() -> list
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L522)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L522)
 
 Provides the value for the configuration.
 
@@ -666,14 +641,14 @@ Provides the value for the configuration.
  | value(value: Union[object, list]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L530)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L530)
 
 Sets the value of the configuration.
 
 **Arguments**:
 
-- `value`: `list`
     If `None` then `list()` will be used.
+- `value`: `list`
 
 <a name="canvasxpress.config.type.CXList.__init__"></a>
 #### \_\_init\_\_
@@ -682,7 +657,7 @@ Sets the value of the configuration.
  | __init__(label: str, value: list)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L541)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L541)
 
 Initializes the configuration with a `list` value.
 
@@ -693,7 +668,7 @@ Initializes the configuration with a `list` value.
 class CXRGBAColor(CXDict)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L551)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L551)
 
 A `CXConfig` object that manages `str` Javascript rgba() values.
 
@@ -705,22 +680,21 @@ A `CXConfig` object that manages `str` Javascript rgba() values.
  | is_color_str(value: str)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L557)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L557)
 
 A static method that evaluates a given string to see if it represents a
 Javascript rgba() statement.
 
 **Arguments**:
 
-- `value`: `str`
     A string to evaluate.  A valid Javascript value has the form
     `rgba(r, g, b, a)` where RGB values are `int` from 0-255 and A is a
     `float` from 0.0 to 1.0.
+- `value`: `str`
 
 **Returns**:
 
 `bool`
-    True if the string represents a Javascript rgba() statement.
 
 <a name="canvasxpress.config.type.CXRGBAColor.is_color_list"></a>
 #### is\_color\_list
@@ -730,22 +704,21 @@ Javascript rgba() statement.
  | is_color_list(value: list)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L598)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L598)
 
 A static method that evaluates a given list to see if it represents a
 Javascript rgba() statement.
 
 **Arguments**:
 
-- `value`: `list`
     A list to evaluate.  A valid Javascript value has the form
     `rgba(r, g, b, a)` where RGB values are `int` from 0-255 and A is a
     `float` from 0.0 to 1.0.
+- `value`: `list`
 
 **Returns**:
 
 `bool`
-    True if the list represents a Javascript rgba() statement.
 
 <a name="canvasxpress.config.type.CXRGBAColor.is_color_dict"></a>
 #### is\_color\_dict
@@ -755,23 +728,22 @@ Javascript rgba() statement.
  | is_color_dict(value: dict)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L636)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L636)
 
 A static method that evaluates a given dict to see if it represents a
 Javascript rgba() statement.
 
 **Arguments**:
 
-- `value`: `dict`
     A dict to evaluate.  A valid Javascript value has the form
     `rgba(r, g, b, a)` where RGB values are `int` from 0-255 and A is a
     `float` from 0.0 to 1.0.  For the dict to be valid its keys must be
     lower case r, g, b, and a characters.
+- `value`: `dict`
 
 **Returns**:
 
 `bool`
-    True if the dict represents a Javascript rgba() statement.
 
 <a name="canvasxpress.config.type.CXRGBAColor.value"></a>
 #### value
@@ -781,16 +753,16 @@ Javascript rgba() statement.
  | value(value: Union['CXRGBAColor', dict, list, str]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L680)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L680)
 
 Sets the RGBA value from an existing `CXRGBAColor` object, or a `dict`,
 `list`, or `string` following the Javascript `rgba()` format.
 
 **Arguments**:
 
-- `value`: `Union['CXRGBAColor', dict, list, str]`
     The value to be accepted.  See the `is_color_*()` methods for
     acceptable formats.
+- `value`: `Union['CXRGBAColor', dict, list, str]`
 
 <a name="canvasxpress.config.type.CXRGBAColor.__init__"></a>
 #### \_\_init\_\_
@@ -799,7 +771,7 @@ Sets the RGBA value from an existing `CXRGBAColor` object, or a `dict`,
  | __init__(label: str, value: Union['CXRGBAColor', dict, list, str])
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L758)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L758)
 
 Initializes a new CXRGBAColor object using the RGBA value from an
 existing `CXRGBAColor` object, or a `dict`, `list`, or `string`
@@ -807,9 +779,9 @@ following the Javascript `rgba()` format.
 
 **Arguments**:
 
-- `value`: `Union['CXRGBAColor', dict, list, str]`
     The value to be accepted.  See the `is_color_*()` methods for
     acceptable formats.
+- `value`: `Union['CXRGBAColor', dict, list, str]`
 
 <a name="canvasxpress.config.type.CXRGBAColor.__str__"></a>
 #### \_\_str\_\_
@@ -818,7 +790,7 @@ following the Javascript `rgba()` format.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L774)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L774)
 
 *str* function.  Converts the object into a JSON string.
 
@@ -829,7 +801,7 @@ following the Javascript `rgba()` format.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L789)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L789)
 
 *repr* function.  Converts the CXRGBAColor object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -845,7 +817,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXRGBColor(CXDict)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L805)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L805)
 
 A `CXConfig` object that manages `str` Javascript rgb() values.
 
@@ -857,21 +829,20 @@ A `CXConfig` object that manages `str` Javascript rgb() values.
  | is_color_str(value: str)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L811)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L811)
 
 A static method that evaluates a given string to see if it represents a
 Javascript rgb() statement.
 
 **Arguments**:
 
-- `value`: `str`
     A string to evaluate.  A valid Javascript value has the form
     `rgb(r, g, b)` where RGB values are `int` from 0-255.
+- `value`: `str`
 
 **Returns**:
 
 `bool`
-    True if the string represents a Javascript rgb() statement.
 
 <a name="canvasxpress.config.type.CXRGBColor.is_color_list"></a>
 #### is\_color\_list
@@ -881,21 +852,20 @@ Javascript rgb() statement.
  | is_color_list(value: list)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L847)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L847)
 
 A static method that evaluates a given list to see if it represents a
 Javascript rgb() statement.
 
 **Arguments**:
 
-- `value`: `list`
     A list to evaluate.  A valid Javascript value has the form
     `rgb(r, g, b)` where RGB values are `int` from 0-255.
+- `value`: `list`
 
 **Returns**:
 
 `bool`
-    True if the list represents a Javascript rgb() statement.
 
 <a name="canvasxpress.config.type.CXRGBColor.is_color_dict"></a>
 #### is\_color\_dict
@@ -905,22 +875,21 @@ Javascript rgb() statement.
  | is_color_dict(value: dict)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L875)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L875)
 
 A static method that evaluates a given dict to see if it represents a
 Javascript rgb() statement.
 
 **Arguments**:
 
-- `value`: `dict`
     A dict to evaluate.  A valid Javascript value has the form
     `rgba(r, g, b)` where RGB values are `int` from 0-255.  For the dict
      to be valid its keys must be lower case r, g, and b characters.
+- `value`: `dict`
 
 **Returns**:
 
 `bool`
-    True if the dict represents a Javascript rgb() statement.
 
 <a name="canvasxpress.config.type.CXRGBColor.value"></a>
 #### value
@@ -930,16 +899,16 @@ Javascript rgb() statement.
  | value(value: Union['CXRGBColor', dict, list, str]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L913)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L913)
 
 Sets the RGB value from an existing `CXRGBColor` object, or a `dict`,
 `list`, or `string` following the Javascript `rgb()` format.
 
 **Arguments**:
 
-- `value`: `Union['CXRGBColor', dict, list, str]`
     The value to be accepted.  See the `is_color_*()` methods for
     acceptable formats.
+- `value`: `Union['CXRGBColor', dict, list, str]`
 
 <a name="canvasxpress.config.type.CXRGBColor.__init__"></a>
 #### \_\_init\_\_
@@ -948,7 +917,7 @@ Sets the RGB value from an existing `CXRGBColor` object, or a `dict`,
  | __init__(label: str, value: Union['CXRGBColor', dict, list, str])
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L987)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L987)
 
 Initializes a new CXRGBColor object using the RGB value from an
 existing `CXRGBColor` object, or a `dict`, `list`, or `string`
@@ -956,9 +925,9 @@ following the Javascript `rgb()` format.
 
 **Arguments**:
 
-- `value`: `Union['CXRGBColor', dict, list, str]`
     The value to be accepted.  See the `is_color_*()` methods for
     acceptable formats.
+- `value`: `Union['CXRGBColor', dict, list, str]`
 
 <a name="canvasxpress.config.type.CXRGBColor.__str__"></a>
 #### \_\_str\_\_
@@ -967,7 +936,7 @@ following the Javascript `rgb()` format.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1003)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1003)
 
 *str* function.  Converts the object into a JSON string.
 
@@ -978,7 +947,7 @@ following the Javascript `rgb()` format.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1017)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1017)
 
 *repr* function.  Converts the CXRGBColor object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -994,7 +963,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXGraphTypeOptions(Enum)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1032)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1032)
 
 A set of known chart types permitted for use with CanvasXpress objects.  If
 a chart not yet identified in this list is required then use a `CXString`
@@ -1008,7 +977,7 @@ chart to be used.
 class CXGraphType(CXString)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1091)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1091)
 
 A CXString that is aware of CanvasXpress types of graphs, such as 'Bar'.
 
@@ -1020,7 +989,7 @@ A CXString that is aware of CanvasXpress types of graphs, such as 'Bar'.
  | value(value: Union[CXGraphTypeOptions, str]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1099)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1099)
 
 Sets the value using a known CanvasXpress option.
 
@@ -1031,15 +1000,15 @@ Sets the value using a known CanvasXpress option.
  | set_custom_value(value: str)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1115)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1115)
 
 Permits a js value to be set, such as if a new option is recently
 made available that the Python framework is yet to be aware of.
 
 **Arguments**:
 
-- `value`: `str`
     The string value to set.
+- `value`: `str`
 
 <a name="canvasxpress.config.type.CXGraphType.__init__"></a>
 #### \_\_init\_\_
@@ -1048,7 +1017,7 @@ made available that the Python framework is yet to be aware of.
  | __init__(type: Union[CXGraphTypeOptions, str] = CXGraphTypeOptions.Bar)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/type.py#L1124)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/type.py#L1124)
 
 Initializes a new CXGraphType object with a value corresponding to one
 of the values provided by `CXGraphTypeOptions`.
@@ -1056,7 +1025,7 @@ of the values provided by `CXGraphTypeOptions`.
 <a name="canvasxpress.config.collection"></a>
 # canvasxpress.config.collection
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L1)
 
 <a name="canvasxpress.config.collection.CXConfigs"></a>
 ## CXConfigs Objects
@@ -1066,7 +1035,7 @@ of the values provided by `CXGraphTypeOptions`.
 class CXConfigs(CXDictConvertable)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L12)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L12)
 
 CXConfigs provides support for addressing a collection of `CXConfig` values.
 
@@ -1077,7 +1046,7 @@ CXConfigs provides support for addressing a collection of `CXConfig` values.
  | __init__(*configs: Union[CXConfig, tuple, dict])
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L22)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L22)
 
 Initializes a new `CXConfigs` object with zero or more `CXConfig`
 objects.
@@ -1093,8 +1062,8 @@ configs = CXConfigs(
 
 **Arguments**:
 
-- `configs`: `Union[CXConfig, tuple, dict], ...`
     A list of zero or more `CXConfig` objects to associate.
+- `configs`: `Union[CXConfig, tuple, dict], ...`
 
 <a name="canvasxpress.config.collection.CXConfigs.remove"></a>
 #### remove
@@ -1103,20 +1072,19 @@ configs = CXConfigs(
  | remove(label: str) -> Union[CXConfig, None]
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L43)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L43)
 
 Removes the CXConfig if found, and if found the removed config is
 provided.
 
 **Arguments**:
 
-- `label`: 'str`
     The label of the CXConfig to remove.
+- `label`: 'str`
 
 **Returns**:
 
 `Union[CXConfig, None]`
-    If a CXConfig is removed then it is returned, otherwise None.
 
 <a name="canvasxpress.config.collection.CXConfigs.add"></a>
 #### add
@@ -1125,7 +1093,7 @@ provided.
  | add(config: Union[CXConfig, tuple, dict]) -> 'CXConfigs'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L61)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L61)
 
 Adds the specified configuration to the collection.  This method
 supports chaining for efficient additions of `CXConfig` objects.
@@ -1141,8 +1109,8 @@ configs \
 
 **Arguments**:
 
-- `config`: `Union[CXConfig, tuple, dict]`
     The `CXConfig` to associate.  Cannot be `None`.
+- `config`: `Union[CXConfig, tuple, dict]`
 
 <a name="canvasxpress.config.collection.CXConfigs.set_param"></a>
 #### set\_param
@@ -1151,7 +1119,7 @@ configs \
  | set_param(label: str, value: Any) -> 'CXConfigs'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L106)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L106)
 
 Adds a parameter to the configs.  Attempts to infer the kind of param to
 add, and if a type can be deduced then an appropriate CXConfig is used.
@@ -1169,9 +1137,9 @@ configs \
 
 **Arguments**:
 
-- `value`: `Any`
     The parameter to infer and associate.  Cannot be `None`.  Defaults
     to `str` if the type cannot otherwise be deduced.
+- `value`: `Any`
 
 <a name="canvasxpress.config.collection.CXConfigs.configs"></a>
 #### configs
@@ -1181,7 +1149,7 @@ configs \
  | configs() -> List[CXConfig]
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L226)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L226)
 
 Provides access to the list of associated `CXConfig` objects.
 
@@ -1196,33 +1164,13 @@ Provides access to the list of associated `CXConfig` objects.
  | render_to_dict() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L233)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L233)
 
 Provides a `dict` representation of the configuration values.
 
 **Returns**:
 
 `dict`
-    A `dict` representing the configuration values arranged as a map
-    of keys and values.
-
-    Given:
-    ```python
-    configs = CXConfigs()
-    configs \
-        .set_param("1", "rgb(3, 172, 198)") \
-        .set_param("2", 2) \
-        .set_param("3", True)
-    ```
-
-    Then `render_to_dict()` results in:
-    ```python
-    {
-        "1": "rgb(3, 172, 198)",
-        "2": 2,
-        "3": True,
-    }
-    ```
 
 <a name="canvasxpress.config.collection.CXConfigs.merge_configs"></a>
 #### merge\_configs
@@ -1232,7 +1180,7 @@ Provides a `dict` representation of the configuration values.
  | merge_configs(cls, configs: List[CXConfig]) -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L263)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L263)
 
 Given a list of CXConfig objects, a dictionary of unique attributes is
 generated and provided.
@@ -1240,7 +1188,6 @@ generated and provided.
 **Returns**:
 
 `dict`
-    A dict of zero or more keys representing the CXConfigs.
 
 <a name="canvasxpress.config.collection.CXConfigs.__copy__"></a>
 #### \_\_copy\_\_
@@ -1249,7 +1196,7 @@ generated and provided.
  | __copy__() -> 'CXConfigs'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L285)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L285)
 
 *copy* constructor.  Returns the `CXConfig` objects within a new
 `CXConfigs` object.
@@ -1261,7 +1208,7 @@ generated and provided.
  | __deepcopy__(memo) -> 'CXConfigs'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L294)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L294)
 
 *deepcopy* constructor.  Returns a deepcopy of the `CXConfig` objects
  within a new `CXConfigs` object.
@@ -1273,24 +1220,18 @@ generated and provided.
  | __lt__(other: 'CXConfigs') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L306)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L306)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXConfigs` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXConfigs` object then False
-    <li> If `other` is a `CXConfigs` object then True of all `CXConfig`
-        objects are also less than the events tracked by `self`.
-    </ul>
 
 <a name="canvasxpress.config.collection.CXConfigs.__eq__"></a>
 #### \_\_eq\_\_
@@ -1299,24 +1240,18 @@ generated and provided.
  | __eq__(other: 'CXConfigs') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L342)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L342)
 
 *equals* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXConfigs` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXConfigs` object then False
-    <li> If `other` is a `CXConfigs` object then True of all `CXConfig`
-        objects are also equal to the events tracked by `self`.
-    </ul>
 
 <a name="canvasxpress.config.collection.CXConfigs.__str__"></a>
 #### \_\_str\_\_
@@ -1325,7 +1260,7 @@ generated and provided.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L375)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L375)
 
 *str* function.  Converts the `CXConfigs` object into a JSON
 representation.
@@ -1339,7 +1274,7 @@ representation.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/config/collection.py#L386)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/config/collection.py#L386)
 
 *repr* function.  Converts the `CXConfigs` object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -1351,7 +1286,7 @@ that can be used with `eval` to establish a copy of the object.
 <a name="canvasxpress.js"></a>
 # canvasxpress.js
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/__init__.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/__init__.py#L1)
 
 The js package provides functionality for integrating custom Javascript with
 CanvasXpress charts.
@@ -1359,7 +1294,7 @@ CanvasXpress charts.
 <a name="canvasxpress.js.collection"></a>
 # canvasxpress.js.collection
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L1)
 
 <a name="canvasxpress.js.collection.CXEvents"></a>
 ## CXEvents Objects
@@ -1369,7 +1304,7 @@ CanvasXpress charts.
 class CXEvents(CXJavascriptConvertable)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L11)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L11)
 
 CXEvents represents a Javascript script that can be associated with a
 CanvasXpress object.
@@ -1403,7 +1338,7 @@ or `CXEvent` for additional information.
  | events() -> List[CXEvent]
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L44)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L44)
 
 Provides a non-associated list of the associated CXEvents.
 
@@ -1418,7 +1353,7 @@ Provides a non-associated list of the associated CXEvents.
  | has(event: CXEvent) -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L51)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L51)
 
 Indicates if the `CXEvent` is a member.
 
@@ -1437,17 +1372,17 @@ Indicates if the `CXEvent` is a member.
  | add(event: CXEvent, unique: bool = True) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L62)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L62)
 
 Adds the specified CXEvent.  If the CXEvent must be unique then an Error
 is raised if an react is already presenbt with the same ID.
 
 **Arguments**:
 
-- `event`: 
     `CXEvent` The event to add to the collection.  Cannot be `None`.
-- `unique`: 
     `bool` True if `event` must not already be a part of the collection.
+- `event`: 
+- `unique`: 
 
 <a name="canvasxpress.js.collection.CXEvents.remove"></a>
 #### remove
@@ -1456,19 +1391,18 @@ is raised if an react is already presenbt with the same ID.
  | remove(event: CXEvent) -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L89)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L89)
 
 Removes the specified object from the list.
 
 **Arguments**:
 
-- `event`: The CXEvent object to remove from the list if it is
     already included.
+- `event`: The CXEvent object to remove from the list if it is
 
 **Returns**:
 
 True if the CXEvent was removed.  False indicates that the
-    object was not a member.
 
 <a name="canvasxpress.js.collection.CXEvents.render_to_dict"></a>
 #### render\_to\_dict
@@ -1477,27 +1411,13 @@ True if the CXEvent was removed.  False indicates that the
  | render_to_dict() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L109)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L109)
 
 Provides a dict with each js properly formatted as JS within.
 
 **Returns**:
 
 `dict`
-Given:
-```python
-event1 = CXEvent("f1", "x = 0")
-event2 = CXEvent("f2", "x = 1")
-events = CXEvents(event1, event2)
-functions = events.render_to_dict()
-```
-Then the value of `functions` would be:
-```python
-{
-    "f1": function(o, e, t){x = 0},
-    "f2": function(o, e, t){x = 1}
-}
-```
 
 <a name="canvasxpress.js.collection.CXEvents.render_to_js"></a>
 #### render\_to\_js
@@ -1506,27 +1426,13 @@ Then the value of `functions` would be:
  | render_to_js() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L135)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L135)
 
 Converts the object into HTML5 complant script.
 
 **Returns**:
 
 'str'
-Given:
-```python
-event1 = CXEvent("f1", "x = 0")
-event2 = CXEvent("f2", "x = 1")
-events = CXEvents(event1, event2)
-functions = events.render_to_js()
-```
-Then the value of `functions` would be:
-```text
-{
-    'f1': 'function(o, e, t){x = 0}',
-    'f2': 'function(o, e, t){x = 1}',
-}
-```
 
 <a name="canvasxpress.js.collection.CXEvents.__init__"></a>
 #### \_\_init\_\_
@@ -1535,13 +1441,12 @@ Then the value of `functions` would be:
  | __init__(*events)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L170)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L170)
 
 Initializes a new CXEvents object.
 
 **Arguments**:
 
-- `events`: 
     A multiple value parameter by which zero or more `CXEvent` objects
     may be provided.  Also see `add()` for how individual objects are
     processed.
@@ -1552,6 +1457,7 @@ event1 = CXEvent("f1", "x = 0")
 event2 = CXEvent("f2", "x = 1")
 events = CXEvents(event1, event2)
 ```
+- `events`: 
 
 <a name="canvasxpress.js.collection.CXEvents.__copy__"></a>
 #### \_\_copy\_\_
@@ -1560,7 +1466,7 @@ events = CXEvents(event1, event2)
  | __copy__()
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L192)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L192)
 
 *copy* constructor.  Returns the `CXEvent` objects within a new `CXEvents`
 object.
@@ -1572,7 +1478,7 @@ object.
  | __deepcopy__(memo)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L201)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L201)
 
 *deepcopy* constructor.  Returns a deep copy of `CXEvent` objects within
 a new `CXEvents` object.
@@ -1584,24 +1490,18 @@ a new `CXEvents` object.
  | __lt__(other: 'CXEvents')
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L213)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L213)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXEvent` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXEvents` object then False
-    <li> If `other` is a `CXEvents` object then True of all `CXEvent`
-        objects are also less than the events tracked by `self`.
-    </ul>
 
 <a name="canvasxpress.js.collection.CXEvents.__eq__"></a>
 #### \_\_eq\_\_
@@ -1610,24 +1510,18 @@ a new `CXEvents` object.
  | __eq__(other: 'CXEvents')
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L249)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L249)
 
 *equals* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXEvent` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXEvents` object then False
-    <li> If `other` is a `CXEvents` object then True of all `CXEvent`
-        objects are also equal to the events tracked by `self`.
-    </ul>
 
 <a name="canvasxpress.js.collection.CXEvents.__str__"></a>
 #### \_\_str\_\_
@@ -1636,7 +1530,7 @@ a new `CXEvents` object.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L282)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L282)
 
 *str* function.  Converts the CXEvents object into a JSON list of
 `CXEvent` objects also converted into JSON representations.
@@ -1649,7 +1543,7 @@ a new `CXEvents` object.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/collection.py#L292)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/collection.py#L292)
 
 *repr* function.  Converts the CXEvents object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -1661,7 +1555,7 @@ that can be used with `eval` to establish a copy of the object.
 <a name="canvasxpress.js.function"></a>
 # canvasxpress.js.function
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L1)
 
 <a name="canvasxpress.js.function.CXEvent"></a>
 ## CXEvent Objects
@@ -1671,7 +1565,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXEvent(CXJavascriptConvertable)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L15)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L15)
 
 CXEvent is a `CXJavascriptConvertable` that represents Javascript source to
 be associated with a CanvasXpress object.
@@ -1718,7 +1612,7 @@ for additional information.  Also see `CXEvents`.
  | id() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L71)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L71)
 
 Provides access to the react ID.
 
@@ -1734,14 +1628,14 @@ The ID as a string.
  | id(value: str) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L79)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L79)
 
 Sets the react ID, which is a keyword recognized by CanvasXpress.
 
 **Arguments**:
 
-- `value`: `str`
     The ID, which must be a string compliant object.  Cannot be `None`.
+- `value`: `str`
 
 <a name="canvasxpress.js.function.CXEvent.script"></a>
 #### script
@@ -1751,7 +1645,7 @@ Sets the react ID, which is a keyword recognized by CanvasXpress.
  | script() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L94)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L94)
 
 Provides access to the react script.
 
@@ -1767,7 +1661,7 @@ Provides access to the react script.
  | script(value: str) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L102)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L102)
 
 Sets the react script, which is logic that goes inside of the react
 function.  Functions take the form:
@@ -1785,8 +1679,8 @@ for additional information.
 
 **Arguments**:
 
-- `value`: `str`
     The ID, which must be a UTF-8 string compliant object.
+- `value`: `str`
 
 <a name="canvasxpress.js.function.CXEvent.render_to_js"></a>
 #### render\_to\_js
@@ -1795,22 +1689,13 @@ for additional information.
  | render_to_js() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L129)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L129)
 
 Converts the object into HTML5 complant script.
 
 **Returns**:
 
 'str'
-Given:
-```python
-event1 = CXEvent("f1", "x = 0")
-function = event1.render_to_js()
-```
-Then the value of `function` would be:
-```text
-'f1': 'function(o, e, t){x = 0}
-```
 
 <a name="canvasxpress.js.function.CXEvent.__init__"></a>
 #### \_\_init\_\_
@@ -1819,16 +1704,16 @@ Then the value of `function` would be:
  | __init__(id: str = "", script: str = "")
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L152)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L152)
 
 Initializes a new CXEvent object.
 
 **Arguments**:
 
-- `id`: `str`
     The ID of the react, such as mousemove.  Also see property `id`.
-- `script`: `str`
     The script logic for the react.  Also see property `script`.
+- `id`: `str`
+- `script`: `str`
 
 <a name="canvasxpress.js.function.CXEvent.__copy__"></a>
 #### \_\_copy\_\_
@@ -1837,7 +1722,7 @@ Initializes a new CXEvent object.
  | __copy__()
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L169)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L169)
 
 *copy* constructor.  Returns a new `CXEvent` object.
 
@@ -1848,7 +1733,7 @@ Initializes a new CXEvent object.
  | __deepcopy__(memo)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L178)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L178)
 
 *deepcopy* constructor.  Returns a new `CXEvent` object.
 
@@ -1859,24 +1744,18 @@ Initializes a new CXEvent object.
  | __lt__(other: 'CXEvent') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L190)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L190)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXEvent` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXEvent` object then `False`
-    <li> If `other` is a `CXEvent` object then True if id and string of
-        `other` are less than that of `self`.
-    </ul>
 
 <a name="canvasxpress.js.function.CXEvent.__eq__"></a>
 #### \_\_eq\_\_
@@ -1885,24 +1764,18 @@ Initializes a new CXEvent object.
  | __eq__(other: 'CXEvent') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L220)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L220)
 
 *equal* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXEvent` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXEvent` object then `False`
-    <li> If `other` is a `CXEvent` object then True if id and string of
-        `other` are equal to that of `self`.
-    </ul>
 
 <a name="canvasxpress.js.function.CXEvent.__str__"></a>
 #### \_\_str\_\_
@@ -1911,7 +1784,7 @@ Initializes a new CXEvent object.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L245)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L245)
 
 *str* function.  Converts the object into a Javascript statement.
 
@@ -1922,7 +1795,7 @@ Initializes a new CXEvent object.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/js/function.py#L270)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/js/function.py#L270)
 
 *repr* function.  Converts the CXEvent object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -1934,7 +1807,7 @@ that can be used with `eval` to establish a copy of the object.
 <a name="canvasxpress.render"></a>
 # canvasxpress.render
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/__init__.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/__init__.py#L1)
 
 The render package provides functionality for rendering CanvasXpress objects in
 containers or environments
@@ -1942,7 +1815,7 @@ containers or environments
 <a name="canvasxpress.render.base"></a>
 # canvasxpress.render.base
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/base.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/base.py#L1)
 
 <a name="canvasxpress.render.base.CXRenderable"></a>
 ## CXRenderable Objects
@@ -1951,7 +1824,7 @@ containers or environments
 class CXRenderable(ABC)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/base.py#L6)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/base.py#L6)
 
 CXRenderable is capable of rendering a CanvasXpress object to some kind of
 output or display device.
@@ -1964,14 +1837,13 @@ output or display device.
  | canvas() -> CanvasXpress
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/base.py#L18)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/base.py#L18)
 
 Provides the tracked CanvasXpress object.
 
 **Returns**:
 
 The `CanvasXpress` object if tracked, or `None` if not object
-    is yet associated with the CXRenderable.
 
 <a name="canvasxpress.render.base.CXRenderable.canvas"></a>
 #### canvas
@@ -1981,7 +1853,7 @@ The `CanvasXpress` object if tracked, or `None` if not object
  | canvas(value: CanvasXpress)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/base.py#L27)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/base.py#L27)
 
 Sets the CanvasXpress object to be tracked.
 :praram value:
@@ -1994,7 +1866,7 @@ Sets the CanvasXpress object to be tracked.
  | __init__(cx: CanvasXpress)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/base.py#L42)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/base.py#L42)
 
 Initializes a new CXRenderable object.
 :praram cx:
@@ -2009,7 +1881,7 @@ Initializes a new CXRenderable object.
  | render()
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/base.py#L57)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/base.py#L57)
 
 Renders the associated CanvasXpress object appropriate to the render_to.
 Not implemented.
@@ -2017,7 +1889,7 @@ Not implemented.
 <a name="canvasxpress.render.jupyter"></a>
 # canvasxpress.render.jupyter
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/jupyter.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/jupyter.py#L1)
 
 <a name="canvasxpress.render.jupyter.CXNoteBook"></a>
 ## CXNoteBook Objects
@@ -2026,7 +1898,7 @@ Not implemented.
 class CXNoteBook(CXRenderable)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/jupyter.py#L43)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/jupyter.py#L43)
 
 CXNoteBook is a `CXRenderable` that renders `CanvasXpress` objects into
 `IPython` containers (Jupyter Notebooks).
@@ -2038,7 +1910,7 @@ CXNoteBook is a `CXRenderable` that renders `CanvasXpress` objects into
  | __init__(cx: CanvasXpress)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/jupyter.py#L49)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/jupyter.py#L49)
 
 Initializes a new CXNoteBook object.
 :praram cx:
@@ -2052,7 +1924,7 @@ Initializes a new CXNoteBook object.
  | render()
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/render/jupyter.py#L61)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/render/jupyter.py#L61)
 
 Renders the associated CanvasXpress object appropriate for display in
 an IPython (e.g., Jupyter NoteBook/Lab) environment.
@@ -2060,7 +1932,7 @@ an IPython (e.g., Jupyter NoteBook/Lab) environment.
 <a name="canvasxpress.data"></a>
 # canvasxpress.data
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/__init__.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/__init__.py#L1)
 
 The data package provides functionality for integrating different kinds of data
 structures and sources into a CanvasXpress object.  A balance is provided
@@ -2070,7 +1942,7 @@ what can be performed via `pandas`.
 <a name="canvasxpress.data.matrix"></a>
 # canvasxpress.data.matrix
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L1)
 
 <a name="canvasxpress.data.matrix.CXDataframeData"></a>
 ## CXDataframeData Objects
@@ -2080,7 +1952,7 @@ what can be performed via `pandas`.
 class CXDataframeData(CXMatrixData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L15)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L15)
 
 A CXData class dedicated to processing Python DataFrame, matrix-structured
  data.
@@ -2093,7 +1965,7 @@ A CXData class dedicated to processing Python DataFrame, matrix-structured
  | dataframe() -> DataFrame
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L27)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L27)
 
 Provides the data managed by the object.
 
@@ -2109,15 +1981,15 @@ Provides the data managed by the object.
  | dataframe(value: Union[DataFrame, None] = None) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L35)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L35)
 
 Sets the dataframe managed by the object.
 
 **Arguments**:
 
-- `value`: `Union[DataFrame, None]`
     `None` results in an empty `DataFrame`.  A deepcopy will be made of
     `DataFrame` values.
+- `value`: `Union[DataFrame, None]`
 
 <a name="canvasxpress.data.matrix.CXDataframeData.data"></a>
 #### data
@@ -2127,7 +1999,7 @@ Sets the dataframe managed by the object.
  | data() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L48)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L48)
 
 Provides the data managed by the object.
 
@@ -2143,15 +2015,15 @@ Provides the data managed by the object.
  | data(value: Union['CXDataframeData', DataFrame, dict, str, None] = None) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L56)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L56)
 
 Sets the dataframe managed by the object.
 
 **Arguments**:
 
-- `value`: `Union['CXDataframeData', DataFrame, dict, str, None]`
     `None` results in an empty `DataFrame`.  A deepcopy will be made of
     `DataFrame` or equivalent values.
+- `value`: `Union['CXDataframeData', DataFrame, dict, str, None]`
 
 <a name="canvasxpress.data.matrix.CXDataframeData.get_raw_dict_form"></a>
 #### get\_raw\_dict\_form
@@ -2160,7 +2032,7 @@ Sets the dataframe managed by the object.
  | get_raw_dict_form() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L107)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L107)
 
 "
 Provides a simple dict perspective of the data with no metadata or other
@@ -2174,8 +2046,6 @@ with `DataFrame.to_dict('split')` behaviour.
 **Returns**:
 
 `dict`
-    The `dict` perspective of the data with as little modification or
-    interpretation as is reasonable.
 
 <a name="canvasxpress.data.matrix.CXDataframeData.render_to_dict"></a>
 #### render\_to\_dict
@@ -2184,14 +2054,13 @@ with `DataFrame.to_dict('split')` behaviour.
  | render_to_dict() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L123)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L123)
 
 Provides a dict representation of the data.
 
 **Returns**:
 
 `dict`
-    The data in `dict` form.
 
 <a name="canvasxpress.data.matrix.CXDataframeData.__init__"></a>
 #### \_\_init\_\_
@@ -2200,20 +2069,20 @@ Provides a dict representation of the data.
  | __init__(data: Union['CXDataframeData', DataFrame, dict, str, None] = None, profile: Union[CXDataProfile, None] = CXStandardProfile()) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L137)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L137)
 
 Initializes the CXData object with data.  Only `DataFrame` or compatible
 data types are accepted.
 
 **Arguments**:
 
-- `data`: `Union['CXDataframeData', DataFrame, dict, str, None]`
     `None` to initialize with an empty `DataFrame`, or a `DataFrame`
     like object to assign mapped data.
-- `profile`: `Union[CXDataProfile, None]`
     Omit to initialize with CXStandardProfile, or specify the desired
     profile object to facilitate transformation of data into a
     CanvasXpress JSON data object.  `None` to avoid use of a profile.
+- `data`: `Union['CXDataframeData', DataFrame, dict, str, None]`
+- `profile`: `Union[CXDataProfile, None]`
 
 <a name="canvasxpress.data.matrix.CXDataframeData.__copy__"></a>
 #### \_\_copy\_\_
@@ -2222,14 +2091,13 @@ data types are accepted.
  | __copy__() -> 'CXDataframeData'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L156)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L156)
 
 *copy constructor* that returns a copy of the CXDataframeData object.
 
 **Returns**:
 
 `CXDataframeData`
-    A copy of the wrapping object.
 
 <a name="canvasxpress.data.matrix.CXDataframeData.__deepcopy__"></a>
 #### \_\_deepcopy\_\_
@@ -2238,14 +2106,13 @@ data types are accepted.
  | __deepcopy__(memo) -> 'CXDataframeData'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L164)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L164)
 
 *deepcopy constructor* that returns a copy of the CXDataframeData object.
 
 **Returns**:
 
 `CXDataframeData` A copy of the wrapping object and deepcopy of
-    the tracked data.
 
 <a name="canvasxpress.data.matrix.CXDataframeData.__lt__"></a>
 #### \_\_lt\_\_
@@ -2254,25 +2121,18 @@ data types are accepted.
  | __lt__(other: 'CXDataframeData') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L175)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L175)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXDataframeData` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXDataframeData` object then False
-    <li> If `other` is a `CXDataframeData` object then True of all
-        `CXDataframeData` aspects are also less than the data tracked by
-        `self`.
-    </ul>
 
 <a name="canvasxpress.data.matrix.CXDataframeData.__eq__"></a>
 #### \_\_eq\_\_
@@ -2281,25 +2141,18 @@ data types are accepted.
  | __eq__(other: 'CXDataframeData') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L217)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L217)
 
 *equals* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXDataframeData` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXDataframeData` object then False
-    <li> If `other` is a `CXDataframeData` object then True of all
-        `CXDataframeData` aspects are also less than the data tracked by
-        `self`.
-    </ul>
 
 <a name="canvasxpress.data.matrix.CXDataframeData.__str__"></a>
 #### \_\_str\_\_
@@ -2308,7 +2161,7 @@ data types are accepted.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L254)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L254)
 
 *str* function.  Converts the CXDataframeData object into a JSON
 representation.
@@ -2321,7 +2174,7 @@ representation.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L262)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L262)
 
 *repr* function.  Converts the CXDataframeData object into a pickle
 string that can be used with `eval` to establish a copy of the object.
@@ -2337,7 +2190,7 @@ string that can be used with `eval` to establish a copy of the object.
 class CXCSVData(CXDataframeData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L278)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L278)
 
 A CXData class dedicated to processing Python CSV-based, matrix-structured
  data.
@@ -2350,7 +2203,7 @@ A CXData class dedicated to processing Python CSV-based, matrix-structured
  | csv() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L285)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L285)
 
 Provides the data managed by the object.
 
@@ -2366,15 +2219,15 @@ Provides the data managed by the object.
  | csv(value: str = None) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L298)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L298)
 
 Sets the CSV data managed by the object.
 
 **Arguments**:
 
-- `value`: `str`
     `None` results in an empty CSV.  A deepcopy will be made of
     valid CSV `str` values.
+- `value`: `str`
 
 <a name="canvasxpress.data.matrix.CXCSVData.__init__"></a>
 #### \_\_init\_\_
@@ -2383,20 +2236,20 @@ Sets the CSV data managed by the object.
  | __init__(data: Union['CXCSVData', DataFrame, dict, str, None] = None, profile: Union[CXDataProfile, None] = CXStandardProfile()) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L310)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L310)
 
 Initializes the CXData object with data.  Only CSV `str` or compatible
 data types are accepted.
 
 **Arguments**:
 
-- `data`: `Union['CXCSVData', DataFrame, dict, str, None]`
     `None` to initialize with an empty CSV, or a CSV `str`
     like object to assign mapped data.
-- `profile`: `Union[CXDataProfile, None]`
     Omit to initialize with CXStandardProfile, or specify the desired
     profile object to facilitate transformation of data into a
     CanvasXpress JSON data object.  `None` to avoid use of a profile.
+- `data`: `Union['CXCSVData', DataFrame, dict, str, None]`
+- `profile`: `Union[CXDataProfile, None]`
 
 <a name="canvasxpress.data.matrix.CXCSVData.__str__"></a>
 #### \_\_str\_\_
@@ -2405,7 +2258,7 @@ data types are accepted.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L328)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L328)
 
 *str* function.  Converts the CXCSVData object into a JSON
 representation.
@@ -2418,7 +2271,7 @@ representation.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/matrix.py#L336)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/matrix.py#L336)
 
 *repr* function.  Converts the CXCSVData object into a pickle
 string that can be used with `eval` to establish a copy of the object.
@@ -2430,7 +2283,7 @@ string that can be used with `eval` to establish a copy of the object.
 <a name="canvasxpress.data.convert"></a>
 # canvasxpress.data.convert
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L1)
 
 <a name="canvasxpress.data.convert.CXHtmlConvertable"></a>
 ## CXHtmlConvertable Objects
@@ -2439,7 +2292,7 @@ string that can be used with `eval` to establish a copy of the object.
 class CXHtmlConvertable(ABC)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L4)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L4)
 
 CXHtmlConvertable represents an object that can be converted into HTML.
 
@@ -2451,16 +2304,13 @@ CXHtmlConvertable represents an object that can be converted into HTML.
  | render_to_html_parts() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L10)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L10)
 
 Converts the object into HTML5 compliant script.
 
 **Returns**:
 
 `dict`
-    A `dict` representation of the object with each component of the
-    necessary HTML indicated by a key.  For example, there might be
-    a `div` element and a `script` import.
 
 <a name="canvasxpress.data.convert.CXDictConvertable"></a>
 ## CXDictConvertable Objects
@@ -2469,7 +2319,7 @@ Converts the object into HTML5 compliant script.
 class CXDictConvertable(ABC)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L21)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L21)
 
 CXDictConvertable represents an object that can be converted into a dict.
 
@@ -2481,15 +2331,13 @@ CXDictConvertable represents an object that can be converted into a dict.
  | render_to_dict() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L27)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L27)
 
 Converts the object into a dict representation.
 
 **Returns**:
 
 `dict`
-    A dictionary representation of the object, such as what might be
-    needed for a JSON export.
 
 <a name="canvasxpress.data.convert.CXJavascriptConvertable"></a>
 ## CXJavascriptConvertable Objects
@@ -2498,7 +2346,7 @@ Converts the object into a dict representation.
 class CXJavascriptConvertable(ABC)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L37)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L37)
 
 CXJavascriptConvertable represents an object that can be converted into JS.
 
@@ -2510,20 +2358,18 @@ CXJavascriptConvertable represents an object that can be converted into JS.
  | render_to_js() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/convert.py#L43)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/convert.py#L43)
 
 Converts the object into HTML5 complant script.
 
 **Returns**:
 
 `str`
-    A string representation of the object in a form that can be used
-    within HTML or Javascript.
 
 <a name="canvasxpress.data.profile"></a>
 # canvasxpress.data.profile
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L1)
 
 <a name="canvasxpress.data.profile.CXStandardProfile"></a>
 ## CXStandardProfile Objects
@@ -2532,7 +2378,7 @@ Converts the object into HTML5 complant script.
 class CXStandardProfile(CXDataProfile)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L9)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L9)
 
 `CXStandardProfile` provides standard chart data profile functionality,
 by which the topics of `y`, `x`, and `z` are handled in conversions.
@@ -2545,7 +2391,7 @@ by which the topics of `y`, `x`, and `z` are handled in conversions.
  | vars() -> list
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L35)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L80)
 
 Provides the `y["vars"]` CanvasXPress JSON data topic.  `vars` are used
 to describe the rows of data.  For example:
@@ -2564,7 +2410,6 @@ Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#dat
 **Returns**:
 
 `list`
-    A list of variables, for which there should be one per row.
 
 <a name="canvasxpress.data.profile.CXStandardProfile.vars"></a>
 #### vars
@@ -2574,16 +2419,16 @@ Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#dat
  | vars(variables: Union[list, None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L57)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L102)
 
 Sets the variable labels to be used for rows of data.
 
 **Arguments**:
 
-- `variables`: `Union[list, None]`
     The list of var values.  Each must be convertable to `str`, and
     the number of var elements must match the row count.  `None` will
     reset the var list.
+- `variables`: `Union[list, None]`
 
 <a name="canvasxpress.data.profile.CXStandardProfile.smps"></a>
 #### smps
@@ -2593,7 +2438,7 @@ Sets the variable labels to be used for rows of data.
  | smps() -> list
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L75)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L120)
 
 Provides the `y["smps"]` CanvasXPress JSON data topic.  `smps` are used
 to describe the columns of data.  For example:
@@ -2615,7 +2460,6 @@ Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#dat
 **Returns**:
 
 `list`
-    A list of samples, for which there should be one per column.
 
 <a name="canvasxpress.data.profile.CXStandardProfile.smps"></a>
 #### smps
@@ -2625,25 +2469,89 @@ Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#dat
  | smps(samples: Union[list, None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L100)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L145)
 
 Sets the sample labels to be used for columns of data.
 
 **Arguments**:
 
-- `samples`: `Union[list, None]`
     The list of smps values.  Each must be convertable to `str`, and
     the number of var elements must match the column count.  `None` will
     reset the smps list.
+- `samples`: `Union[list, None]`
+
+<a name="canvasxpress.data.profile.CXStandardProfile.y"></a>
+#### y
+
+```python
+ | @y.setter
+ | y(value: Union[dict, None]) -> None
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L167)
+
+Sets the `y` attribute for the data, which is the primary data for the
+chart.  At a minimum `vars` and `smps` should be present, and if those
+are not provided then defaults will be provided.
+A deepcopy of the provided dict is made.
+
+**Arguments**:
+
+    A dict value of list attributes, for which `vars` and `smps` values
+    will be provided if none are specified.  Provide `None` to set
+    default values.
+- `value`: `Union[dict, None]`
+
+<a name="canvasxpress.data.profile.CXStandardProfile.x"></a>
+#### x
+
+```python
+ | @x.setter
+ | x(value: Union[dict, None]) -> None
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L203)
+
+Sets the `x` attribute for the data, which corresponds to the
+annotations for each `smps` element.  Quantities should match.
+A deepcopy of the provided dict is made.
+
+**Arguments**:
+
+    A dict value of list attributes that should each contain one
+    element per list for each `smps` element.  Provide `None` to
+    reset the `x` attributes.
+- `value`: `Union[dict, None]`
+
+<a name="canvasxpress.data.profile.CXStandardProfile.z"></a>
+#### z
+
+```python
+ | @z.setter
+ | z(value: Union[dict, None]) -> None
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L231)
+
+Sets the `z` attribute for the data, which corresponds to the
+annotations for each `vars` element.  Quantities should match.
+A deepcopy of the provided dict is made.
+
+**Arguments**:
+
+    A dict value of list attributes that should each contain one
+    element per list for each `vars` element.  Provide `None` to
+    reset the `z` attributes.
+- `value`: `Union[dict, None]`
 
 <a name="canvasxpress.data.profile.CXStandardProfile.render_to_profiled_dict"></a>
 #### render\_to\_profiled\_dict
 
 ```python
- | render_to_profiled_dict(data: CXData, match_vars_to_rows: bool = False, match_smps_to_cols: bool = False) -> dict
+ | render_to_profiled_dict(data: CXData, match_vars_to_rows: bool = False, match_smps_to_cols: bool = False, match_x_to_smps: bool = False, match_z_to_vars: bool = False) -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L117)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L254)
 
 Converts a given `CXData` instance into a dict suitable for use by
 `CanvasXpress` when creating data instructions for the JS object.
@@ -2665,28 +2573,37 @@ If `smps` are not set then `data` will be inspected:
 - If y[smps] is not provided then smps will be assigned numerically
 for each row in data.
 
+`x` and `z` values are passed-through to the rendered JSON data.
+
 **Arguments**:
 
-- `data`: `CXData`
     The data object to introspect to create an enveloping profile.
 
-- `match_vars_to_rows`: `bool`
     Indicates whether the number `y[vars]` must equal the number of
     rows specified in `y[data]`.  If `True` then an exception will be
     raised should the number of vars and rows of data not match.
 
-- `match_smps_to_cols`: `bool`
     Indicates whether the number `y[smps]` must equal the number of
     columns specified in `y[data]`.  If `True` then an exception will be
     raised should the number of smps and columns of data not match.
 
+    Indicates whether for each attribute of `x` the number of list
+    elements should match the number of `smps` elements.  If `True`
+    then an exception will be raised if the counts do not align.
+
+    Indicates whether for each attribute of `z` the number of list
+    elements should match the number of `vars` elements.  If `True`
+    then an exception will be raised if the counts do not align.
+
+- `data`: `CXData`
+- `match_vars_to_rows`: `bool`
+- `match_smps_to_cols`: `bool`
+- `match_x_to_smps`: `bool`
+- `match_z_to_vars`: `bool`
+
 **Returns**:
 
 `dict`
-    A CanvasXpress compliant JSON data object in the form of a `dict`
-    with topics such as `y['vars'] properly completed.  If an issue
-    is found with the data then a `CXDataProfileException` will be
-    raised.
 
 <a name="canvasxpress.data.profile.CXStandardProfile.__init__"></a>
 #### \_\_init\_\_
@@ -2695,14 +2612,14 @@ for each row in data.
  | __init__()
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/profile.py#L333)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/profile.py#L536)
 
 Initializes the CXStandardProfile object.
 
 <a name="canvasxpress.data.url"></a>
 # canvasxpress.data.url
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L1)
 
 <a name="canvasxpress.data.url.CXUrlData"></a>
 ## CXUrlData Objects
@@ -2711,7 +2628,7 @@ Initializes the CXStandardProfile object.
 class CXUrlData(CXData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L6)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L6)
 
 CXUrlData provides the ability to accept a URL and pass it properly to the
 CanvasXpress object.
@@ -2724,15 +2641,13 @@ CanvasXpress object.
  | url() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L18)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L18)
 
 Provides the URL formatted as a string.
 
 **Returns**:
 
 `str`
-    A string representation of the URL, similer to the data that will
-    be provided to the CanvasXpress object.
 
 <a name="canvasxpress.data.url.CXUrlData.url"></a>
 #### url
@@ -2742,16 +2657,16 @@ Provides the URL formatted as a string.
  | url(url: str) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L28)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L28)
 
 Tracks the specified URL. `ValueError` will be raised if the URL is
 malformed.
 
 **Arguments**:
 
-- `url`: `str`
     A string form of the URL, which must be in a stanard format for
     files, http resources, ftp resources, etc.
+- `url`: `str`
 
 <a name="canvasxpress.data.url.CXUrlData.data"></a>
 #### data
@@ -2761,7 +2676,7 @@ malformed.
  | data() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L40)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L40)
 
 A property accessor for the data managed by the object.  Regardless of
 the input data the returned data structure will be a dict-type for use
@@ -2770,7 +2685,6 @@ with CanvasXpress.
 **Returns**:
 
 `dict`
-    A dictionary representing a data map suitable for use with a chart.
 
 <a name="canvasxpress.data.url.CXUrlData.data"></a>
 #### data
@@ -2780,7 +2694,7 @@ with CanvasXpress.
  | data(data: dict) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L52)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L52)
 
 Sets the URL using a data dict with the following attributes:
 `scheme`, `netloc`, `path`, `query`, `fragment`, `username`,
@@ -2789,9 +2703,9 @@ raised if the URL is malformed.
 
 **Arguments**:
 
-- `data`: `dict`
     The URL as broken into a dict with the above attributes set to a
     valid string for the topic or an empty string.
+- `data`: `dict`
 
 <a name="canvasxpress.data.url.CXUrlData.get_raw_dict_form"></a>
 #### get\_raw\_dict\_form
@@ -2800,7 +2714,7 @@ raised if the URL is malformed.
  | get_raw_dict_form() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L74)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L74)
 
 "
 Provides a simple dict perspective of the data with no metadata or other
@@ -2811,8 +2725,6 @@ modification or enhancement.
 **Returns**:
 
 `dict`
-    The `dict` perspective of the data with as little modification or
-    interpretation as is reasonable.
 
 <a name="canvasxpress.data.url.CXUrlData.render_to_dict"></a>
 #### render\_to\_dict
@@ -2821,15 +2733,13 @@ modification or enhancement.
  | render_to_dict() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L88)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L88)
 
 Converts the object into a dict representation.
 
 **Returns**:
 
 `dict`
-    A dictionary representation of the object, such as what might be
-    needed for a JSON export.
 
 <a name="canvasxpress.data.url.CXUrlData.validate_url"></a>
 #### validate\_url
@@ -2839,26 +2749,23 @@ Converts the object into a dict representation.
  | validate_url(cls, url: str, detail_errors: bool = True) -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L98)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L98)
 
 Validates that the URL conforms to a recognized standard.  URLs must
 begin with a valid scheme such as `file://` or `http://`.
 
 **Arguments**:
 
-- `url`: `str`
     The string form of the URL to be validated.
-- `detail_errors`: `bool`
     True (default) if an exception should be raised with information
     detailing issues or errors, or `False` if the method should
     return `False` upon encountering issues.
+- `url`: `str`
+- `detail_errors`: `bool`
 
 **Returns**:
 
 `bool`
-    `True` if the URL is valid, or `False` if issues are found in the
-     URL.  If `detail_errors` is `True` then a ValueError will instead
-     be raised with information pertaining to the rejection.
 
 <a name="canvasxpress.data.url.CXUrlData.__init__"></a>
 #### \_\_init\_\_
@@ -2867,7 +2774,7 @@ begin with a valid scheme such as `file://` or `http://`.
  | __init__(data: str) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/url.py#L132)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/url.py#L132)
 
 Initializes the CXUrlData object with a valid URL.  URLs must begin with
 a valid scheme such as `file://` or `http://`.  `ValueError` will be
@@ -2875,14 +2782,14 @@ raised if the URL is malformed.
 
 **Arguments**:
 
-- `data`: `str`
     A string form of the URL, which must be in a stanard format for
     files, http resources, ftp resources, etc.
+- `data`: `str`
 
 <a name="canvasxpress.data.keypair"></a>
 # canvasxpress.data.keypair
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L1)
 
 <a name="canvasxpress.data.keypair.CXDictData"></a>
 ## CXDictData Objects
@@ -2892,7 +2799,7 @@ raised if the URL is malformed.
 class CXDictData(CXKeyPairData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L14)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L14)
 
 A CXData class dedicated to processing Python dict-structured data.
 
@@ -2904,14 +2811,13 @@ A CXData class dedicated to processing Python dict-structured data.
  | data() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L25)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L25)
 
 Provides a reference to the dict tracked by the object.
 
 **Returns**:
 
 `dict`
-    The associated dictionary, with zero or more keys as appropriate.
 
 <a name="canvasxpress.data.keypair.CXDictData.data"></a>
 #### data
@@ -2921,16 +2827,16 @@ Provides a reference to the dict tracked by the object.
  | data(value: dict) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L34)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L34)
 
 Sets the data associated with the object.
 
 **Arguments**:
 
-- `value`: `dict`
     The dictionary to be tracked by the object.  `None` will result in
     an empty dict.  A deep copy will be made of a valid `CXDict` or
     `dict` provided.
+- `value`: `dict`
 
 <a name="canvasxpress.data.keypair.CXDictData.get_raw_dict_form"></a>
 #### get\_raw\_dict\_form
@@ -2939,7 +2845,7 @@ Sets the data associated with the object.
  | get_raw_dict_form() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L54)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L54)
 
 "
 Provides a simple dict perspective of the data with no metadata or other
@@ -2953,8 +2859,6 @@ with `DataFrame.to_dict('split')` behaviour.
 **Returns**:
 
 `dict`
-    The `dict` perspective of the data with as little modification or
-    interpretation as is reasonable.
 
 <a name="canvasxpress.data.keypair.CXDictData.render_to_dict"></a>
 #### render\_to\_dict
@@ -2963,14 +2867,13 @@ with `DataFrame.to_dict('split')` behaviour.
  | render_to_dict() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L70)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L70)
 
 Provides a dict representation of the data.
 
 **Returns**:
 
 `dict`
-    The data in `dict` form.
 
 <a name="canvasxpress.data.keypair.CXDictData.__init__"></a>
 #### \_\_init\_\_
@@ -2979,20 +2882,20 @@ Provides a dict representation of the data.
  | __init__(data: Union[dict, None] = None, profile: Union[CXDataProfile, None] = CXStandardProfile()) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L84)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L84)
 
 Initializes the CXData object with data.  Only dict or compatible data
 types are accepted.
 
 **Arguments**:
 
-- `data`: `Union[dict, None]`
     `None` to initialize with an empty dictionary, or a `dict`-like
     object to assign mapped data.
-- `profile`: `Union[CXDataProfile, None]`
     Omit to initialize with CXStandardProfile, or specify the desired
     profile object to facilitate transformation of data into a
     CanvasXpress JSON data object.  `None` to avoid use of a profile.
+- `data`: `Union[dict, None]`
+- `profile`: `Union[CXDataProfile, None]`
 
 <a name="canvasxpress.data.keypair.CXDictData.__copy__"></a>
 #### \_\_copy\_\_
@@ -3001,7 +2904,7 @@ types are accepted.
  | __copy__() -> 'CXDictData'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L103)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L103)
 
 *copy constructor* that returns a copy of the CXDictData object.
 
@@ -3016,14 +2919,13 @@ types are accepted.
  | __deepcopy__(memo) -> 'CXDictData'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L110)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L110)
 
 *deepcopy constructor* that returns a copy of the CXDictData object.
 
 **Returns**:
 
 `CXDictData` A copy of the wrapping object and deepcopy of
-    the tracked data.
 
 <a name="canvasxpress.data.keypair.CXDictData.__lt__"></a>
 #### \_\_lt\_\_
@@ -3032,25 +2934,18 @@ types are accepted.
  | __lt__(other: 'CXDictData') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L123)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L123)
 
 *less than* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXDictData` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXDictData` object then False
-    <li> If `other` is a `CXDictData` object then True of all
-        `CXDictData` objects are also less than the data tracked by
-        `self`.
-    </ul>
 
 <a name="canvasxpress.data.keypair.CXDictData.__eq__"></a>
 #### \_\_eq\_\_
@@ -3059,25 +2954,18 @@ types are accepted.
  | __eq__(other: 'CXDictData') -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L170)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L170)
 
 *equals* comparison.  Also see `@total_ordering` in `functools`.
 
 **Arguments**:
 
-- `other`: 
     `CXDictData` The object to compare.
+- `other`: 
 
 **Returns**:
 
 `bool`
-    <ul>
-    <li> If `other` is `None` then `False`
-    <li> If `other` is not a `CXDictData` object then False
-    <li> If `other` is a `CXDictData` object then True of all
-        `CXDictData` objects are also equal to the data tracked by
-        `self`.
-    </ul>
 
 <a name="canvasxpress.data.keypair.CXDictData.__str__"></a>
 #### \_\_str\_\_
@@ -3086,7 +2974,7 @@ types are accepted.
  | __str__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L215)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L215)
 
 *str* function.  Converts the CXDictData object into a JSON
 representation.
@@ -3099,7 +2987,7 @@ representation.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L223)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L223)
 
 *repr* function.  Converts the CXDictData object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -3115,7 +3003,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXJSONData(CXDictData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L232)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L232)
 
 A CXData class dedicated to processing JSON data.
 
@@ -3127,14 +3015,13 @@ A CXData class dedicated to processing JSON data.
  | json() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L238)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L238)
 
 Provides a copy of the JSON tracked by the object.
 
 **Returns**:
 
 `str`
-    The associated JSON, with zero or more keys as appropriate.
 
 <a name="canvasxpress.data.keypair.CXJSONData.json"></a>
 #### json
@@ -3144,16 +3031,16 @@ Provides a copy of the JSON tracked by the object.
  | json(value: Union[dict, str]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L247)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L247)
 
 Sets the data associated with the object.
 
 **Arguments**:
 
-- `value`: `str`
     The JSON to be tracked by the object.  `None` will result in
     an empty JSON.  If `value` is URL beginning with *http/s*
     then `json` will attempt to download the data.
+- `value`: `str`
 
 <a name="canvasxpress.data.keypair.CXJSONData.__init__"></a>
 #### \_\_init\_\_
@@ -3162,20 +3049,20 @@ Sets the data associated with the object.
  | __init__(data: Union[dict, str, None] = None, profile: Union[CXDataProfile, None] = CXStandardProfile()) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L283)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L283)
 
 Initializes the CXData object with data.  Only dict or compatible data
 types are accepted.
 
 **Arguments**:
 
-- `data`: `Union[dict, str, None]`
     `None` to initialize with an empty JSON, or a JSON/`dict`-like
     object to assign mapped data.
-- `profile`: `Union[CXDataProfile, None]`
     Omit to initialize with CXStandardProfile, or specify the desired
     profile object to facilitate transformation of data into a
     CanvasXpress JSON data object.  `None` to avoid use of a profile.
+- `data`: `Union[dict, str, None]`
+- `profile`: `Union[CXDataProfile, None]`
 
 <a name="canvasxpress.data.keypair.CXJSONData.__copy__"></a>
 #### \_\_copy\_\_
@@ -3184,7 +3071,7 @@ types are accepted.
  | __copy__() -> 'CXJSONData'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L301)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L301)
 
 *copy constructor* that returns a copy of the CXDictData objct.
 
@@ -3199,14 +3086,13 @@ types are accepted.
  | __deepcopy__(memo) -> 'CXJSONData'
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L308)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L308)
 
 *deepcopy constructor* that returns a copy of the CXJSONData object.
 
 **Returns**:
 
 `CXJSONData` A copy of the wrapping object and deepcopy of
-    the tracked data.
 
 <a name="canvasxpress.data.keypair.CXJSONData.__repr__"></a>
 #### \_\_repr\_\_
@@ -3215,7 +3101,7 @@ types are accepted.
  | __repr__() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/keypair.py#L319)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/keypair.py#L319)
 
 *repr* function.  Converts the CXJSONData object into a pickle string
 that can be used with `eval` to establish a copy of the object.
@@ -3227,7 +3113,7 @@ that can be used with `eval` to establish a copy of the object.
 <a name="canvasxpress.data.base"></a>
 # canvasxpress.data.base
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L1)
 
 <a name="canvasxpress.data.base.CXData"></a>
 ## CXData Objects
@@ -3236,7 +3122,7 @@ that can be used with `eval` to establish a copy of the object.
 class CXData(CXDictConvertable)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L15)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L15)
 
 CXData defines an essential data class for managing data acquisiton,
 transformation, and introspection as required by the `CanvasXPress` class.
@@ -3250,7 +3136,7 @@ transformation, and introspection as required by the `CanvasXPress` class.
  | data() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L23)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L23)
 
 A property accessor for the data managed by the object.  Regardless of
 the input data the returned data structure will be a dict-type for use
@@ -3259,7 +3145,6 @@ with CanvasXpress.
 **Returns**:
 
 `dict`
-    A dictionary representing a data map suitable for use with a chart.
 
 <a name="canvasxpress.data.base.CXData.get_raw_dict_form"></a>
 #### get\_raw\_dict\_form
@@ -3269,7 +3154,7 @@ with CanvasXpress.
  | get_raw_dict_form() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L34)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L34)
 
 "
 Provides a simple dict perspective of the data with no metadata or other
@@ -3280,8 +3165,6 @@ modification or enhancement.
 **Returns**:
 
 `dict`
-    The `dict` perspective of the data with as little modification or
-    interpretation as is reasonable.
 
 <a name="canvasxpress.data.base.CXData.__init__"></a>
 #### \_\_init\_\_
@@ -3291,15 +3174,15 @@ modification or enhancement.
  | __init__(data: Union[object, None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L47)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L47)
 
 Initializes the CXData object with data.
 
 **Arguments**:
 
-- `data`: `Union[object, None]`
     Given an object or no data prepares a new CXData instance ready for
     use by a `CanvasXpress` object.
+- `data`: `Union[object, None]`
 
 <a name="canvasxpress.data.base.CXDataProfileException"></a>
 ## CXDataProfileException Objects
@@ -3308,7 +3191,7 @@ Initializes the CXData object with data.
 class CXDataProfileException(ValueError)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L57)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L57)
 
 CXDataProfileException is used by CXDataProfile to describe validation
 errors when considering CXData objects in the context of CXDataProfile
@@ -3321,7 +3204,7 @@ objects.
 class CXDataProfile(ABC)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L66)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L66)
 
 CXDataProfile assists with CXData translations into CanvasXpress JSON data
 formats, such as documented at
@@ -3335,7 +3218,7 @@ formats, such as documented at
  | render_to_profiled_dict(data: CXData) -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L74)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L74)
 
 Converts a given `CXData` instance into a dict suitable for use by
 `CanvasXpress` when creating data instructions for the JS object.
@@ -3347,7 +3230,7 @@ Converts a given `CXData` instance into a dict suitable for use by
 class CXProfiledData(CXData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L85)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L85)
 
 CXData defines an essential data class for managing data acquisiton,
 transformation, and introspection as required by the `CanvasXPress` class.
@@ -3360,14 +3243,13 @@ transformation, and introspection as required by the `CanvasXPress` class.
  | profile() -> Union[None, CXDataProfile]
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L98)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L98)
 
 Provides the `CXDataProfile` associated with the `CXData` instance.
 
 **Returns**:
 
 `Union[None, CXDataProfile]`
-    The `CXDataProfile` if one is associated, otherwise `None`.
 
 <a name="canvasxpress.data.base.CXProfiledData.profile"></a>
 #### profile
@@ -3377,7 +3259,7 @@ Provides the `CXDataProfile` associated with the `CXData` instance.
  | profile(profile: Union[None, CXDataProfile]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L107)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L107)
 
 Sets the `CXDataProfile` associated with the `CXData` instance.  The
 default associated profile is `CXStandardProfile`, which supports the
@@ -3387,12 +3269,12 @@ to CanvasXpress set the profile to `None`.
 
 **Arguments**:
 
-- `profile`: `Union[None, CXDataProfile]`
     The profile to use when transforming the `CXData` instance into a
     CanvasXpress JSON data object.  Use `None` to avoid any
     transformation beyond the essential conversion of the instance into
     a JSON-like form.  For example, with `None` if the data tracked is
     a dict then the renderer would simply pass the data through.
+- `profile`: `Union[None, CXDataProfile]`
 
 <a name="canvasxpress.data.base.CXProfiledData.data"></a>
 #### data
@@ -3403,7 +3285,7 @@ to CanvasXpress set the profile to `None`.
  | data() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L129)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L129)
 
 A property accessor for the data managed by the object.  Regardless of
 the input data the returned data structure will be a dict-type for use
@@ -3412,7 +3294,6 @@ with CanvasXpress.
 **Returns**:
 
 `dict`
-    A dictionary representing a data map suitable for use with a chart.
 
 <a name="canvasxpress.data.base.CXProfiledData.__init__"></a>
 #### \_\_init\_\_
@@ -3421,19 +3302,19 @@ with CanvasXpress.
  | __init__(data: Union[object, None], profile: Union[CXDataProfile, None] = None) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L139)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L139)
 
 Initializes the CXData object with data.
 
 **Arguments**:
 
-- `data`: `Union[object, None]`
     Given an object or no data prepares a new CXData instance ready for
     use by a `CanvasXpress` object.
-- `profile`: `Union[CXDataProfile, None]`
     `None` to initialize with CXStandardProfile, or specify the desired
     profile object to facilitate transformation of data into a
     CanvasXpress JSON data object.
+- `data`: `Union[object, None]`
+- `profile`: `Union[CXDataProfile, None]`
 
 <a name="canvasxpress.data.base.CXKeyPairData"></a>
 ## CXKeyPairData Objects
@@ -3442,7 +3323,7 @@ Initializes the CXData object with data.
 class CXKeyPairData(CXProfiledData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L157)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L157)
 
 CXKeyPairData is a marker class to indicate that the data managed will be
 generally of the structure key-pair.  A `dict` is an example of key-pair
@@ -3455,7 +3336,7 @@ data.
 class CXMatrixData(CXProfiledData)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/data/base.py#L166)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/data/base.py#L166)
 
 CXMatrixData is a marker class to indicate that the data management will be
 generally of the structure matrix or tabular.  A spreadsheet is an example
@@ -3464,7 +3345,7 @@ of matrix data.
 <a name="canvasxpress.canvas"></a>
 # canvasxpress.canvas
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L1)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L1)
 
 <a name="canvasxpress.canvas.CanvasXpress"></a>
 ## CanvasXpress Objects
@@ -3473,7 +3354,7 @@ of matrix data.
 class CanvasXpress(CXHtmlConvertable)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L31)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L31)
 
 CanvasXpress acts as a proxy to the Javascript CanvasXpress object, and in
 general use remains similar to its Javascript counterpart.
@@ -3516,7 +3397,7 @@ def get_simple_chart() -> str:
  | render_to() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L73)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L73)
 
 The ID of the CanvasXpress object's associated HTML components, such as
 the render canvas element.  Sets the `id` attribute of the `<canvas>`
@@ -3534,16 +3415,16 @@ element.
  | render_to(value: str) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L83)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L83)
 
 Sets the render_to of the CanvasXpress instance.  Sets the `id`
 attribute of the `<canvas>` element.
 
 **Arguments**:
 
-- `value`: 
     `str` The ID to be associated.  Cannot be `None`, and
     must be alphanumeric.
+- `value`: 
 
 <a name="canvasxpress.canvas.CanvasXpress.license_available"></a>
 #### license\_available
@@ -3553,7 +3434,7 @@ attribute of the `<canvas>` element.
  | license_available() -> bool
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L109)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L109)
 
 Indicates if a license is associated with the CanvasXpress object.
 
@@ -3569,7 +3450,7 @@ Indicates if a license is associated with the CanvasXpress object.
  | license_url() -> str
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L117)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L117)
 
 Returns the location of the license file associated with the
 CanvasXpress object.
@@ -3586,21 +3467,21 @@ CanvasXpress object.
  | license_url(value: str) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L126)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L126)
 
 Sets the location of the license file to be associated with the
 CanvasXpress object.
 
 **Arguments**:
 
-- `value`: 
     `str` The path to the license file or `None` if a previously set URL
     is no longer valid.
+- `value`: 
 
 <a name="canvasxpress.canvas.CanvasXpress.CHART_WIDTH_DEFAULT"></a>
 #### CHART\_WIDTH\_DEFAULT
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L145)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L145)
 
 Default width of the chart when rendered, such as into HTML.
 
@@ -3616,7 +3497,7 @@ Default width of the chart when rendered, such as into HTML.
  | element_width() -> int
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L160)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L160)
 
 DEPRECATED - USE  `width`
 
@@ -3632,7 +3513,7 @@ DEPRECATED - USE  `width`
  | element_width(value: int)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L171)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L171)
 
 DEPRECATED - USE  `width`
 
@@ -3644,7 +3525,7 @@ DEPRECATED - USE  `width`
  | width() -> int
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L178)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L178)
 
 Indicates the preferred <canvas> Web element width when rendered.  This
 property is used to facilitate integration with Web containers such
@@ -3663,7 +3544,7 @@ influences render containers for contexts such as Jupyter Notebooks.
  | width(value: int)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L189)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L189)
 
 Sets the preferred Web element width when rendered. Added to the
 `<canvas>` element, and also influences render containers for contexts
@@ -3671,13 +3552,13 @@ such as Jupyter Notebooks.
 
 **Arguments**:
 
-- `value`: `int`
     The pixel count.  Cannot be `None` or less than `1`.
+- `value`: `int`
 
 <a name="canvasxpress.canvas.CanvasXpress.CHART_HEIGHT_DEFAULT"></a>
 #### CHART\_HEIGHT\_DEFAULT
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L209)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L209)
 
 Default height of the chart in pixels when rendered, such as into HTML.
 
@@ -3693,7 +3574,7 @@ Default height of the chart in pixels when rendered, such as into HTML.
  | element_height() -> int
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L224)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L224)
 
 DEPRECATED - USE `height`
 
@@ -3709,7 +3590,7 @@ DEPRECATED - USE `height`
  | element_height(value: int)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L235)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L235)
 
 DEPRECATED - USE `height`
 
@@ -3721,7 +3602,7 @@ DEPRECATED - USE `height`
  | height() -> int
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L242)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L242)
 
 Indicates the preferred Web element height when rendered.  This
 property is used to facilitate integration with Web containers such
@@ -3740,7 +3621,7 @@ influences render containers for contexts such as Jupyter Notebooks.
  | height(value: int)
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L253)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L253)
 
 Sets the preferred Web element height when rendered.  Added to the
 `<canvas>` element, and also influences render containers for contexts
@@ -3758,7 +3639,7 @@ such as Jupyter Notebooks.
  | data() -> CXData
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L280)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L280)
 
 Provides access to the CXData associated with this CanvasXpress chart.
 
@@ -3774,17 +3655,17 @@ Provides access to the CXData associated with this CanvasXpress chart.
  | data(value: Union[CXData, dict, None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L288)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L288)
 
 Sets the CXData associated with this CanvasXpress chart.
 
 **Arguments**:
 
-- `value`: 
     `CXData, dict, None` An object translatable into a CXData type.
     If the object is an instance of CXData then it will be tracked
     by the CanvasXpress object; otherwise, a new CXData object will
     be created to manage the content.
+- `value`: 
 
 <a name="canvasxpress.canvas.CanvasXpress.events"></a>
 #### events
@@ -3794,7 +3675,7 @@ Sets the CXData associated with this CanvasXpress chart.
  | events() -> CXEvents
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L315)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L315)
 
 Provides access to the CXEvents associated with this CanvasXpress chart.
 
@@ -3810,17 +3691,17 @@ Provides access to the CXEvents associated with this CanvasXpress chart.
  | events(events: Union[CXEvents, List[CXEvent], None]) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L323)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L323)
 
 Sets the CXEvents associated with this CanvasXpress chart.
 
 **Arguments**:
 
-- `events`: 
     `CXEvents, List[CXEvent], None` An object translatable into a
     CXEvents type.  If the object is an instance of CXEvents then it
     will be tracked by the CanvasXpress object; otherwise, a new
     CXEvents object will be created to manage the content.
+- `events`: 
 
 <a name="canvasxpress.canvas.CanvasXpress.config"></a>
 #### config
@@ -3830,7 +3711,7 @@ Sets the CXEvents associated with this CanvasXpress chart.
  | config() -> CXConfigs
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L350)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L350)
 
 Provides access to the CXConfigs associated with this CanvasXpress chart.
 
@@ -3848,17 +3729,17 @@ Provides access to the CXConfigs associated with this CanvasXpress chart.
  |             ])
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L358)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L358)
 
 Sets the CXConfigs associated with this CanvasXpress chart.
 
 **Arguments**:
 
-- `value`: `Union[List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs]`
     An object translatable into a CXConfigs
     type.  If the object is an instance of CXConfigs then it will be
     tracked by the CanvasXpress object; otherwise, a new CXConfigs
     object will be created to manage the content.
+- `value`: `Union[List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs]`
 
 <a name="canvasxpress.canvas.CanvasXpress.canvas"></a>
 #### canvas
@@ -3868,7 +3749,7 @@ Sets the CXConfigs associated with this CanvasXpress chart.
  | canvas() -> CXConfigs
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L396)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L396)
 
 Provides access to the attributes to be used with the `<canvas>`
 element generated by this object.  Each element is tracked as a CXConfig
@@ -3879,8 +3760,6 @@ the respective `id`, `width`, and `height` properties of this
 **Returns**:
 
 `CXConfigs`
-    The element attributes as CXConfig entries to be associated with
-    the `<canvas>` element.
 
 <a name="canvasxpress.canvas.CanvasXpress.canvas"></a>
 #### canvas
@@ -3892,7 +3771,7 @@ the respective `id`, `width`, and `height` properties of this
  |             ])
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L410)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L410)
 
 Sets the attributes to be incorporated into the `<canvas>` element
 generated by this object.  Each element is tracked as a CXConfig
@@ -3904,11 +3783,11 @@ will not be kept in the `canvas` configs.
 
 **Arguments**:
 
-- `value`: `Union[List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs]`
     An object translatable into a CXConfigs
     type.  If the object is an instance of CXConfigs then it will be
     tracked by the CanvasXpress object; otherwise, a new CXConfigs
     object will be created to manage the content.
+- `value`: `Union[List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs]`
 
 <a name="canvasxpress.canvas.CanvasXpress.__init__"></a>
 #### \_\_init\_\_
@@ -3917,7 +3796,7 @@ will not be kept in the `canvas` configs.
  | __init__(render_to: str = None, data: Union[CXData, dict] = None, events: Union[List[CXEvent], CXEvents] = None, config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None, canvas: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None, width: int = CHART_WIDTH_DEFAULT, height: int = CHART_HEIGHT_DEFAULT) -> None
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L454)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L454)
 
 Initializes a new CanvasXpress object.  Default values are provided for
 all parameters if values are not specified; otherwise the arguments are
@@ -3925,8 +3804,8 @@ treated as if an appropriate setter were used.
 
 **Arguments**:
 
-- `render_to`: See `render_to` property, except that on default
     initialization the object will be assigned an UUID4 value.
+- `render_to`: See `render_to` property, except that on default
 - `data`: See the `data` property
 - `events`: See the `events` property
 - `config`: See the `config` property
@@ -3941,65 +3820,11 @@ treated as if an appropriate setter were used.
  | render_to_html_parts() -> dict
 ```
 
-[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/aed49e577399282d306afe22b8e8329fd906fa69/canvasxpress/canvas.py#L493)
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/413b77a05844c7b59c1e47f60e6b51262be91899/canvasxpress/canvas.py#L493)
 
 Converts the CanvasXpress object into HTML5 complant script.
 
 **Returns**:
 
 `dict` A map of values appropriate for use in HTML, such as
-    via a jinja template typical of flask apps.
-
-Assuming a jinja template such as this:
-```html
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Flask CanvasXpress Example</title>
-    </head>
-    <body>
-        <!-- 1. DOM element where the visualization will be displayed -->
-        {{canvas_element|safe}}
-
-        <!-- 2. Include the CanvasXpress library -->
-        <link href='https://www.canvasxpress.org/dist/canvasXpress.css' rel='stylesheet' type='text/css'/>
-        <script src='https://www.canvasxpress.org/dist/canvasXpress.min.js' type='text/javascript'></script>
-
-        <!-- 3. Include script to initialize object -->
-        <script type="text/javascript">
-            onReady(function () {
-                {{bar_graph|safe}}
-            })
-        </script>
-    </body>
-</html>
-```
-
-A flask function could render a page with a chart such as:
-```python
-@app.route('/pythonexample')
-def get_simple_chart() -> str:
-    chart: CanvasXpress = CanvasXpress(
-        render_to="example_chart",
-        data=CXDictData(
-            {
-                "y": {
-                "vars": ["Gene1"],
-                "smps": ["Smp1", "Smp2", "Smp3"],
-                "data": [[10, 35, 88]],
-            }
-        ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
-    )
-
-    html_parts = chart.render_to_html_parts()
-
-    return render_template(
-        "bar.html",
-        canvas_element=html_parts["cx_canvas"],
-        bar_graph=html_parts["cx_js"]
-    )
-```
 
