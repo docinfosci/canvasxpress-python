@@ -249,6 +249,54 @@ def test_render_to_profiled_dict_keypair():
     result = candidate.render_to_profiled_dict(
         CXDictData(
             {
+                "vars": ["Variable1", "Variable2"],
+                "smps": ["Sample1", "Sample2", "Sample3"],
+                "cors": [[10, 20, 30],
+                         [35, 25, 15]]
+            }
+        ),
+        match_vars_to_rows=True,
+        match_smps_to_cols=True,
+        match_x_to_smps=True,
+        match_z_to_vars=True
+    )
+    assert result == {
+        "y": {
+            "vars": ["Variable1", "Variable2"],
+            "smps": ["Sample1", "Sample2", "Sample3"],
+            "cors": [[10, 20, 30],
+                     [35, 25, 15]]
+        },
+        "x": {},
+        "z": {}
+    }
+
+    result = candidate.render_to_profiled_dict(
+        CXDictData(
+            {
+                "cors": [[10, 20, 30],
+                         [35, 25, 15]]
+            }
+        ),
+        match_vars_to_rows=True,
+        match_smps_to_cols=True,
+        match_x_to_smps=True,
+        match_z_to_vars=True
+    )
+    assert result == {
+        "y": {
+            "vars": [0, 1],
+            "smps": [0, 1, 2],
+            "cors": [[10, 20, 30],
+                     [35, 25, 15]]
+        },
+        "x": {},
+        "z": {}
+    }
+
+    result = candidate.render_to_profiled_dict(
+        CXDictData(
+            {
                 "y": {
                     "smps": ["Sample1", "Sample2", "Sample3"],
                     "data": [[10, 20, 30],

@@ -2,7 +2,7 @@ from copy import deepcopy
 from typing import Union
 
 from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
-    CXDataProfileException, CXMatrixData, Y, DATA, \
+    CXDataProfileException, CXMatrixData, Y, DATA, CORS, \
     CXKeyPairData, X, Z
 
 
@@ -457,6 +457,9 @@ class CXStandardProfile(CXDataProfile):
                         if key == DATA:
                             cx_rev_data[Y][DATA] = cx_data[key]
 
+                        elif key == CORS:
+                            cx_rev_data[Y][CORS] = cx_data[key]
+
                         elif key == VARS:
                             cx_rev_data[Y][VARS] = cx_data[key]
 
@@ -500,18 +503,44 @@ class CXStandardProfile(CXDataProfile):
                 del cx_data[key]
 
         # Valid data format
-        if not isinstance(cx_data[Y][DATA], list):
-            raise CXDataProfileException(
-                f"data must be a list of sub-list where each sub-list"
-                f" is a row of data.  Found {type(cx_data[Y][DATA])}"
-            )
-        for row in cx_data[Y][DATA]:
-            if not isinstance(row, list):
+        if cx_data[Y].get(DATA):
+            if not isinstance(cx_data[Y][DATA], list):
                 raise CXDataProfileException(
-                    f"data must be a list of sub-list where each"
-                    f" sub-list is a row of data.  Found element in"
-                    f" master list of type {type(cx_data[Y][DATA])}"
+                    f"data must be a list of sub-list where each sub-list"
+                    f" is a row of data.  Found {type(cx_data[Y][DATA])}"
                 )
+            for row in cx_data[Y][DATA]:
+                if not isinstance(row, list):
+                    raise CXDataProfileException(
+                        f"data must be a list of sub-list where each"
+                        f" sub-list is a row of data.  Found element in"
+                        f" master list of type {type(cx_data[Y][DATA])}"
+                    )
+
+        # Minor examination of cors (this is an extension to standard data
+        # with correlation data pre-calculated for correlation diagrams).
+        if cx_data[Y].get(CORS):
+            if not isinstance(cx_data[Y][CORS], list):
+                raise CXDataProfileException(
+                    f"cors must be a list of sub-list where each sub-list"
+                    f" is a row of data.  Found {type(cx_data[Y][CORS])}"
+                )
+            for row in cx_data[Y][CORS]:
+                if not isinstance(row, list):
+                    raise CXDataProfileException(
+                        f"cors must be a list of sub-list where each"
+                        f" sub-list is a row of data.  Found element in"
+                        f" master list of type {type(cx_data[Y][CORS])}"
+                    )
+
+        # Get a data proxy for data and cors for use in var and smps defaults
+        data_proxy = cx_data[Y].get(DATA, [])
+        if len(data_proxy) == 0:
+            data_proxy = cx_data[Y].get(CORS, [])
+
+            # Also remove redundant data key
+            if cx_data[Y].get(DATA) is not None:
+                del cx_data[Y][DATA]
 
         # Establish minimal var values per data
         if not isinstance(cx_data[Y][VARS], list):
@@ -520,9 +549,9 @@ class CXStandardProfile(CXDataProfile):
             )
         if len(cx_data[Y][VARS]) == 0:
             cx_data[Y][VARS] = [
-                str(index + 1)
+                index
                 for index
-                in range(len(cx_data[Y][DATA]))
+                in range(len(data_proxy))
             ]
 
         # Establish minimal smps values per data
@@ -531,15 +560,17 @@ class CXStandardProfile(CXDataProfile):
                 f"smps must be a list. Found {type(cx_data[Y][SMPS])}"
             )
         if len(cx_data[Y][SMPS]) == 0:
-            if len(cx_data[Y][DATA]) > 0:
+            if len(data_proxy) > 0:
                 cx_data[Y][SMPS] = [
-                    str(index + 1)
+                    index
                     for index
-                    in range(len(cx_data[Y][DATA][0]))
+                    in range(
+                        len(data_proxy[0])
+                    )
                 ]
 
         if match_vars_to_rows:
-            row_count = len(cx_data[Y][DATA])
+            row_count = len(data_proxy)
             var_count = len(cx_data[Y][VARS])
             if not row_count == var_count:
                 raise CXDataProfileException(
@@ -549,7 +580,10 @@ class CXStandardProfile(CXDataProfile):
                 )
 
         if match_smps_to_cols:
-            col_count = len(cx_data[Y][DATA][0])
+            if len(data_proxy) > 0:
+                col_count = len(data_proxy[0])
+            else:
+                col_count = 0
             smps_count = len(cx_data[Y][SMPS])
             if not col_count == smps_count:
                 raise CXDataProfileException(
