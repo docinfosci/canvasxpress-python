@@ -45,7 +45,14 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Recent Enhancements
 
-#### 2021 June 3: cors JSON data now recognized
+#### 2021 June 3: x, z, and cors JSON data now supported
+The CanvasXpress JSON data format allows for `x` and `z` attributes to provide
+metadata for columns and rows, respectively.  Correlation diagrams also accept
+the `y[cors]` attribute for pre-calculated correlation data.
+
+The `CXStandardProfile` now explicity supports `x` and `z` attributes, and will
+provide essential verification for alignment with respective `y` components.
+
 The `CXStandardProfile` now explicity supports `y[cors]` data in addition to
 `y[data]` and will handle metadata defaults for `y[vars]` and `y[smps]` 
 accordingly.  This brings `cxStandardProfile` into full compliance with 
@@ -124,7 +131,6 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 #### Immediate Focus
 
 - Enhanced examples and documentation for CXDataProfile components
-- Support CanvasXpress JSON data object `x` and `z` attributes in profiles
 - Support alternate CanvasXpress data objects for venn (etc.)
 - An exhaustive Jupyter Notebook tutorial for all aspects of the package
 
