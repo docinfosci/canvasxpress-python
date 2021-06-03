@@ -10,6 +10,7 @@ Z = "z"
 VARS = "vars"
 SMPS = "smps"
 DATA = "data"
+CORS = "cors"
 
 
 class CXData(CXDictConvertable):
