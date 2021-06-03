@@ -182,11 +182,21 @@ class CXStandardProfile(CXDataProfile):
             raise TypeError("value must be a dict or None.")
 
         else:
-            if Y in value.keys():
-                self.__y = deepcopy(value[Y])
+            candidate = value
+            if Y in candidate.keys():
+                candidate = value[Y]
+                if not isinstance(candidate, dict):
+                    raise TypeError(
+                        "The JSON data Y attribute must be a dict of lists."
+                    )
 
-            else:
-                self.__y = deepcopy(value)
+            for i in candidate.keys():
+                if not isinstance(candidate[i], list):
+                    raise TypeError(
+                        "The JSON data Y attribute must be a dict of lists."
+                    )
+
+            self.__y = deepcopy(candidate)
 
         # Ensure essential values are provided.
         if not self.__y.get(VARS):
@@ -217,11 +227,21 @@ class CXStandardProfile(CXDataProfile):
             raise TypeError("value must be a dict or None.")
 
         else:
-            if X in value.keys():
-                self.__x = deepcopy(value[X])
+            candidate = value
+            if X in candidate.keys():
+                candidate = value[X]
+                if not isinstance(candidate, dict):
+                    raise TypeError(
+                        "The JSON data X attribute must be a dict of lists."
+                    )
 
-            else:
-                self.__x = deepcopy(value)
+            for i in candidate.keys():
+                if not isinstance(candidate[i], list):
+                    raise TypeError(
+                        "The JSON data X attribute must be a dict of lists."
+                    )
+
+            self.__x = deepcopy(candidate)
 
     @property
     def z(self):
@@ -245,11 +265,56 @@ class CXStandardProfile(CXDataProfile):
             raise TypeError("value must be a dict or None.")
 
         else:
-            if Z in value.keys():
-                self.__z = deepcopy(value[Z])
+            candidate = value
+            if Z in candidate.keys():
+                candidate = value[Z]
+                if not isinstance(candidate, dict):
+                    raise TypeError(
+                        "The JSON data Z attribute must be a dict of lists."
+                    )
+
+            for i in candidate.keys():
+                if not isinstance(candidate[i], list):
+                    raise TypeError(
+                        "The JSON data Z attribute must be a dict of lists."
+                    )
+
+            self.__z = deepcopy(candidate)
+
+    def add_data_section(
+            self,
+            section: str,
+            source: dict,
+            target: dict,
+
+    ) -> None:
+        """
+        Adds a source data section, such as X, to the target if such a section
+        does not yet exist.
+        :param section: `str`
+            The name of the section, such as X.
+        :param source: `dict`
+            The dict of lists to add.
+        :param target: `dict`
+            The dict to which source should be added.
+        """
+        if not target.get(section):
+            target[section] = source
+
+        else:
+            if not isinstance(target[section], dict):
+                target[section] = source
+
+            elif len(target[section].keys()) == 0:
+                target[section] = source
 
             else:
-                self.__z = deepcopy(value)
+                # Preserve user provided section
+                pass
+
+        for key in target[section].keys():
+            if not isinstance(target[section][key], list):
+                raise TypeError(f"data[{section}][{key}] must be of type list")
 
     def render_to_profiled_dict(
             self,
@@ -377,6 +442,7 @@ class CXStandardProfile(CXDataProfile):
                     # Preserve the specified values
                     pass
 
+            # Missing y section
             else:
                 cx_rev_data = {
                     Y: {
@@ -386,14 +452,8 @@ class CXStandardProfile(CXDataProfile):
                     }
                 }
 
-                if cx_data.get('x'):
-                    cx_rev_data['x'] = cx_data['x']
-
-                if cx_data.get('z'):
-                    cx_rev_data['z'] = cx_data['z']
-
                 for key in cx_data.keys():
-                    if key not in ['x', 'z']:
+                    if key not in [X, Z]:
                         if key == DATA:
                             cx_rev_data[Y][DATA] = cx_data[key]
 
@@ -413,51 +473,71 @@ class CXStandardProfile(CXDataProfile):
                 # Swap objects
                 cx_data = cx_rev_data
 
-            # Clean up the root of the JSON data object
-            cx_data = deepcopy(cx_data)
-            for key in reversed(cx_data.keys()):
-                if key not in [Y, X, Z]:
-                    del cx_data[key]
-
-            # Validate essentials
-            if not isinstance(cx_data[Y][DATA], list):
-                raise CXDataProfileException(
-                    f"data must be a list of sub-list where each sub-list"
-                    f" is a row of data.  Found {type(cx_data[Y][DATA])}"
-                )
-
-            for row in cx_data[Y][DATA]:
-                if not isinstance(row, list):
-                    raise CXDataProfileException(
-                        f"data must be a list of sub-list where each"
-                        f" sub-list is a row of data.  Found element in"
-                        f" master list of type {type(cx_data[Y][DATA])}"
-                    )
-
-            # Establish minimal var and smps values per data if that has
-            # yet to be accomplished.
-            if len(cx_data[Y][VARS]) == 0:
-                cx_data[Y][VARS] = [
-                    str(index + 1)
-                    for index
-                    in range(len(cx_data[Y][DATA]))
-                ]
-
-            if len(cx_data[Y][SMPS]) == 0:
-                if len(cx_data[Y][DATA]) > 0:
-                    cx_data[Y][SMPS] = [
-                        str(index + 1)
-                        for index
-                        in range(len(cx_data[Y][DATA][0]))
-                    ]
-
         # Reject any other data type
         else:
             raise CXDataProfileException(
                 f"data is of an unknown type: {type(data)}."
             )
 
-        # Validate vars vs data rows
+        ### X
+        self.add_data_section(
+            X,
+            self.x,
+            cx_data
+        )
+
+        ### Z
+        self.add_data_section(
+            Z,
+            self.z,
+            cx_data
+        )
+
+        # Clean up the root of the JSON data object
+        cx_data = deepcopy(cx_data)
+        for key in reversed(cx_data.keys()):
+            if key not in [Y, X, Z]:
+                del cx_data[key]
+
+        # Valid data format
+        if not isinstance(cx_data[Y][DATA], list):
+            raise CXDataProfileException(
+                f"data must be a list of sub-list where each sub-list"
+                f" is a row of data.  Found {type(cx_data[Y][DATA])}"
+            )
+        for row in cx_data[Y][DATA]:
+            if not isinstance(row, list):
+                raise CXDataProfileException(
+                    f"data must be a list of sub-list where each"
+                    f" sub-list is a row of data.  Found element in"
+                    f" master list of type {type(cx_data[Y][DATA])}"
+                )
+
+        # Establish minimal var values per data
+        if not isinstance(cx_data[Y][VARS], list):
+            raise CXDataProfileException(
+                f"vars must be a list. Found {type(cx_data[Y][VARS])}"
+            )
+        if len(cx_data[Y][VARS]) == 0:
+            cx_data[Y][VARS] = [
+                str(index + 1)
+                for index
+                in range(len(cx_data[Y][DATA]))
+            ]
+
+        # Establish minimal smps values per data
+        if not isinstance(cx_data[Y][SMPS], list):
+            raise CXDataProfileException(
+                f"smps must be a list. Found {type(cx_data[Y][SMPS])}"
+            )
+        if len(cx_data[Y][SMPS]) == 0:
+            if len(cx_data[Y][DATA]) > 0:
+                cx_data[Y][SMPS] = [
+                    str(index + 1)
+                    for index
+                    in range(len(cx_data[Y][DATA][0]))
+                ]
+
         if match_vars_to_rows:
             row_count = len(cx_data[Y][DATA])
             var_count = len(cx_data[Y][VARS])
@@ -468,7 +548,6 @@ class CXStandardProfile(CXDataProfile):
                     f" {var_count} vars."
                 )
 
-        # Validate smps vs data columns
         if match_smps_to_cols:
             col_count = len(cx_data[Y][DATA][0])
             smps_count = len(cx_data[Y][SMPS])
@@ -479,57 +558,21 @@ class CXStandardProfile(CXDataProfile):
                     f" columns and {smps_count} smps."
                 )
 
-        ### X
-        if not cx_data.get(X):
-            cx_data[X] = self.x
-
-        else:
-            if not isinstance(cx_data[X], dict):
-                cx_data[X] = self.x
-
-            elif len(cx_data[X].keys()) == 0:
-                cx_data[X] = self.x
-
-            else:
-                # Preserve user provided X
-                pass
-
         if match_x_to_smps:
             for key in cx_data[X].keys():
-                if not isinstance(cx_data[X][key], list):
-                    raise TypeError(f"cx_data[X][{key}] must be of type list")
-                else:
-                    if len(cx_data[X][key]) != len(cx_data[Y][SMPS]):
-                        raise ValueError(
-                            f"cx_data[X][{key}] must be the same length as"
-                            f" cx_data[Y][SMPS]"
-                        )
-
-        ###
-        if not cx_data.get(Z):
-            cx_data[Z] = self.z
-
-        else:
-            if not isinstance(cx_data[Z], dict):
-                cx_data[Z] = self.z
-
-            elif len(cx_data[Z].keys()) == 0:
-                cx_data[Z] = self.z
-
-            else:
-                # Preserve user provided Z
-                pass
+                if len(cx_data[X][key]) != len(cx_data[Y][SMPS]):
+                    raise ValueError(
+                        f"cx_data[X][{key}] must be the same length as"
+                        f" cx_data[Y][SMPS]"
+                    )
 
         if match_z_to_vars:
             for key in cx_data[Z].keys():
-                if not isinstance(cx_data[Z][key], list):
-                    raise TypeError(f"cx_data[Z][{key}] must be of type list")
-                else:
-                    if len(cx_data[Z][key]) != len(cx_data[Y][VARS]):
-                        raise ValueError(
-                            f"cx_data[Z][{key}] must be the same length as"
-                            f" cx_data[Y][VARS]"
-                        )
+                if len(cx_data[Z][key]) != len(cx_data[Y][VARS]):
+                    raise ValueError(
+                        f"cx_data[Z][{key}] must be the same length as"
+                        f" cx_data[Y][VARS]"
+                    )
 
         return cx_data
 
@@ -538,3 +581,6 @@ class CXStandardProfile(CXDataProfile):
         Initializes the CXStandardProfile object.
         """
         super().__init__()
+        self.x = None
+        self.y = None
+        self.z = None
