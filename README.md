@@ -38,18 +38,29 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 | Topic | Status | 
 |---|---|
-| **Version Info** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
-| **Popularity** | ![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress) |
-| **Compatibility** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
-| **Implementations** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
-| **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | 
-| **Test Status** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | 
-| **Requirements Status** | [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=main)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=main) | 
-| **Documentation Status** | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) | 
-| **Activity** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) | 
+| **Version and Platform** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
+| **Popularity** | [![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress) |
+| **Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=main)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=main) [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) |
 <!-- End Badges -->
 
 ### Recent Enhancements
+
+#### 2021 June 3: x, z, and cors JSON data now supported
+The CanvasXpress JSON data format allows for `x` and `z` attributes to provide
+metadata for columns and rows, respectively.  Correlation diagrams also accept
+the `y[cors]` attribute for pre-calculated correlation data.
+
+The `CXStandardProfile` now explicity supports `x` and `z` attributes, and will
+provide essential verification for alignment with respective `y` components.
+
+The `CXStandardProfile` now explicity supports `y[cors]` data in addition to
+`y[data]` and will handle metadata defaults for `y[vars]` and `y[smps]` 
+accordingly.  This brings `cxStandardProfile` into full compliance with 
+typical JSON data objects.  
+
+Note that correlation data is not calculated for matrix data types, but 
+CanvasXpress for Javasxcript will calculate those values for the referenced 
+matrix in the JSON data if a correlation chart is indicated.
 
 #### 2021 May 28: width, height, and canvas properties
 The `CanvasXpress` object now accepts dedicated `width`, `height`, `canvas` 
@@ -113,30 +124,6 @@ and exploration where `y` attributes are not present in the source data.
 ***Additional** functionality will be added soon, such as to support `x` and `z`
 CanvasXpress JSON data profiles.  Expect rapid enhancements in this area.*
 
-#### 2021 May 17: Adjusted property names
-To better align with CanvasXpress for Javascript, or otherwise avoid confusion, 
-some property names were changed in the `CanvasXpress` class:
-
-* `target_id` has been replaced with `render_to` to align with the JS 
-  `renderTo` attribute.  Functionality is identical.  `target_id` will 
-  remain as a deprecated property through May, after which it will be removed
-  per team convenience.
-  
-* `configs` has been replaced with `config` to align with the JS 
-  `config` attribute.  Functionality is identical.  `configs` will 
-  remain as a deprecated property through May, after which it will be removed
-  per team convenience.
-  
-* `chart_width` and `chart_height` are replaced with `element_width` and 
-  `element_height`, respectively.  These properties dictate the container
-  size at the Python tier in application, such as the render window provided
-  for Jupyter Notebooks.  The actual CanvasXpress chart continues to use the
-  `width` and `height` attributes per the JS documentation, and if these values
-  result in a rendered chart larger than the element window then depending on
-  the application context aspects such as scrollbars might appear to provide
-  full access.  The distinction is maintained for applications with non-reactive
-  user interfaces, such as what might be typical of QT apps.
-
 ### Roadmap
 
 This package is actively maintained and developed.  Our focus for 2021 is:
@@ -144,7 +131,6 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 #### Immediate Focus
 
 - Enhanced examples and documentation for CXDataProfile components
-- Support CanvasXpress JSON data object `x` and `z` attributes in profiles
 - Support alternate CanvasXpress data objects for venn (etc.)
 - An exhaustive Jupyter Notebook tutorial for all aspects of the package
 

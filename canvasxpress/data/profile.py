@@ -2,8 +2,8 @@ from copy import deepcopy
 from typing import Union
 
 from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
-    CXDataProfileException, CXMatrixData, Y, DATA, \
-    CXKeyPairData
+    CXDataProfileException, CXMatrixData, Y, DATA, CORS, \
+    CXKeyPairData, X, Z
 
 
 class CXStandardProfile(CXDataProfile):
@@ -30,6 +30,51 @@ class CXStandardProfile(CXDataProfile):
     ```
     Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#data).
     """
+
+    __x: dict = {}
+    """
+        Tracks the `x` CanvasXPress JSON data topic.  For example:
+        ```python
+        "y": {
+            "vars": [ "Variable1", Variable2 ],
+            "smps": [ "Sample1", "Sample2", "Sample3" ],
+            "data": [
+                [ 10, 20, 30 ],  
+                [ 40, 50, 60 ]  
+            ]
+        },
+        "x": {
+            "sample-annotations": [
+                "Sample1-annotation", 
+                "Sample2-annotation", 
+                "Sample3-annotation"
+            ]
+        }
+        ```
+        Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#data).
+        """
+
+    __z: dict = {}
+    """
+        Tracks the `z` CanvasXPress JSON data topic.  For example:
+        ```python
+        "y": {
+            "vars": [ "Variable1", Variable2 ],
+            "smps": [ "Sample1", "Sample2", "Sample3" ],
+            "data": [
+                [ 10, 20, 30 ],  
+                [ 40, 50, 60 ]  
+            ]
+        },
+        "z": {
+            "variable-annotations": [
+                "Variable1-annotation", 
+                "Variable2-annotation"
+            ]
+        }
+        ```
+        Also see [CanvasXpress documentation](https://www.canvasxpress.org/docs.html#data).
+        """
 
     @property
     def vars(self) -> list:
@@ -114,11 +159,170 @@ class CXStandardProfile(CXDataProfile):
         else:
             self.__y[SMPS] = list()
 
+    @property
+    def y(self):
+        return self.__y
+
+    @y.setter
+    def y(self, value: Union[dict, None]) -> None:
+        """
+        Sets the `y` attribute for the data, which is the primary data for the
+        chart.  At a minimum `vars` and `smps` should be present, and if those
+        are not provided then defaults will be provided.
+        A deepcopy of the provided dict is made.
+        :param value: `Union[dict, None]`
+            A dict value of list attributes, for which `vars` and `smps` values
+            will be provided if none are specified.  Provide `None` to set
+            default values.
+        """
+        if value is None:
+            self.__y = dict()
+
+        elif not isinstance(value, dict):
+            raise TypeError("value must be a dict or None.")
+
+        else:
+            candidate = value
+            if Y in candidate.keys():
+                candidate = value[Y]
+                if not isinstance(candidate, dict):
+                    raise TypeError(
+                        "The JSON data Y attribute must be a dict of lists."
+                    )
+
+            for i in candidate.keys():
+                if not isinstance(candidate[i], list):
+                    raise TypeError(
+                        "The JSON data Y attribute must be a dict of lists."
+                    )
+
+            self.__y = deepcopy(candidate)
+
+        # Ensure essential values are provided.
+        if not self.__y.get(VARS):
+            self.__y[VARS] = list()
+
+        if not self.__y.get(SMPS):
+            self.__y[SMPS] = list()
+
+    @property
+    def x(self):
+        return self.__x
+
+    @x.setter
+    def x(self, value: Union[dict, None]) -> None:
+        """
+        Sets the `x` attribute for the data, which corresponds to the
+        annotations for each `smps` element.  Quantities should match.
+        A deepcopy of the provided dict is made.
+        :param value: `Union[dict, None]`
+            A dict value of list attributes that should each contain one
+            element per list for each `smps` element.  Provide `None` to
+            reset the `x` attributes.
+        """
+        if value is None:
+            self.__x = dict()
+
+        elif not isinstance(value, dict):
+            raise TypeError("value must be a dict or None.")
+
+        else:
+            candidate = value
+            if X in candidate.keys():
+                candidate = value[X]
+                if not isinstance(candidate, dict):
+                    raise TypeError(
+                        "The JSON data X attribute must be a dict of lists."
+                    )
+
+            for i in candidate.keys():
+                if not isinstance(candidate[i], list):
+                    raise TypeError(
+                        "The JSON data X attribute must be a dict of lists."
+                    )
+
+            self.__x = deepcopy(candidate)
+
+    @property
+    def z(self):
+        return self.__z
+
+    @z.setter
+    def z(self, value: Union[dict, None]) -> None:
+        """
+        Sets the `z` attribute for the data, which corresponds to the
+        annotations for each `vars` element.  Quantities should match.
+        A deepcopy of the provided dict is made.
+        :param value: `Union[dict, None]`
+            A dict value of list attributes that should each contain one
+            element per list for each `vars` element.  Provide `None` to
+            reset the `z` attributes.
+        """
+        if value is None:
+            self.__z = dict()
+
+        elif not isinstance(value, dict):
+            raise TypeError("value must be a dict or None.")
+
+        else:
+            candidate = value
+            if Z in candidate.keys():
+                candidate = value[Z]
+                if not isinstance(candidate, dict):
+                    raise TypeError(
+                        "The JSON data Z attribute must be a dict of lists."
+                    )
+
+            for i in candidate.keys():
+                if not isinstance(candidate[i], list):
+                    raise TypeError(
+                        "The JSON data Z attribute must be a dict of lists."
+                    )
+
+            self.__z = deepcopy(candidate)
+
+    def add_data_section(
+            self,
+            section: str,
+            source: dict,
+            target: dict,
+
+    ) -> None:
+        """
+        Adds a source data section, such as X, to the target if such a section
+        does not yet exist.
+        :param section: `str`
+            The name of the section, such as X.
+        :param source: `dict`
+            The dict of lists to add.
+        :param target: `dict`
+            The dict to which source should be added.
+        """
+        if not target.get(section):
+            target[section] = source
+
+        else:
+            if not isinstance(target[section], dict):
+                target[section] = source
+
+            elif len(target[section].keys()) == 0:
+                target[section] = source
+
+            else:
+                # Preserve user provided section
+                pass
+
+        for key in target[section].keys():
+            if not isinstance(target[section][key], list):
+                raise TypeError(f"data[{section}][{key}] must be of type list")
+
     def render_to_profiled_dict(
             self,
             data: CXData,
             match_vars_to_rows: bool = False,
-            match_smps_to_cols: bool = False
+            match_smps_to_cols: bool = False,
+            match_x_to_smps: bool = False,
+            match_z_to_vars: bool = False,
     ) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
@@ -141,6 +345,8 @@ class CXStandardProfile(CXDataProfile):
         - If y[smps] is not provided then smps will be assigned numerically
           for each row in data.
 
+        `x` and `z` values are passed-through to the rendered JSON data.
+
         :param data: `CXData`
             The data object to introspect to create an enveloping profile.
 
@@ -153,6 +359,16 @@ class CXStandardProfile(CXDataProfile):
             Indicates whether the number `y[smps]` must equal the number of
             columns specified in `y[data]`.  If `True` then an exception will be
             raised should the number of smps and columns of data not match.
+
+        :param match_x_to_smps: `bool`
+            Indicates whether for each attribute of `x` the number of list
+            elements should match the number of `smps` elements.  If `True`
+            then an exception will be raised if the counts do not align.
+
+        :param match_z_to_vars: `bool`
+            Indicates whether for each attribute of `z` the number of list
+            elements should match the number of `vars` elements.  If `True`
+            then an exception will be raised if the counts do not align.
 
         :returns: `dict`
             A CanvasXpress compliant JSON data object in the form of a `dict`
@@ -226,6 +442,7 @@ class CXStandardProfile(CXDataProfile):
                     # Preserve the specified values
                     pass
 
+            # Missing y section
             else:
                 cx_rev_data = {
                     Y: {
@@ -235,16 +452,13 @@ class CXStandardProfile(CXDataProfile):
                     }
                 }
 
-                if cx_data.get('x'):
-                    cx_rev_data['x'] = cx_data['x']
-
-                if cx_data.get('z'):
-                    cx_rev_data['z'] = cx_data['z']
-
                 for key in cx_data.keys():
-                    if key not in ['x', 'z']:
+                    if key not in [X, Z]:
                         if key == DATA:
                             cx_rev_data[Y][DATA] = cx_data[key]
+
+                        elif key == CORS:
+                            cx_rev_data[Y][CORS] = cx_data[key]
 
                         elif key == VARS:
                             cx_rev_data[Y][VARS] = cx_data[key]
@@ -262,19 +476,39 @@ class CXStandardProfile(CXDataProfile):
                 # Swap objects
                 cx_data = cx_rev_data
 
-            # Clean up the root of the JSON data object
-            cx_data = deepcopy(cx_data)
-            for key in reversed(cx_data.keys()):
-                if key not in [Y, 'x', 'z']:
-                    del cx_data[key]
+        # Reject any other data type
+        else:
+            raise CXDataProfileException(
+                f"data is of an unknown type: {type(data)}."
+            )
 
-            # Validate essentials
+        ### X
+        self.add_data_section(
+            X,
+            self.x,
+            cx_data
+        )
+
+        ### Z
+        self.add_data_section(
+            Z,
+            self.z,
+            cx_data
+        )
+
+        # Clean up the root of the JSON data object
+        cx_data = deepcopy(cx_data)
+        for key in reversed(cx_data.keys()):
+            if key not in [Y, X, Z]:
+                del cx_data[key]
+
+        # Valid data format
+        if cx_data[Y].get(DATA):
             if not isinstance(cx_data[Y][DATA], list):
                 raise CXDataProfileException(
                     f"data must be a list of sub-list where each sub-list"
                     f" is a row of data.  Found {type(cx_data[Y][DATA])}"
                 )
-
             for row in cx_data[Y][DATA]:
                 if not isinstance(row, list):
                     raise CXDataProfileException(
@@ -283,32 +517,60 @@ class CXStandardProfile(CXDataProfile):
                         f" master list of type {type(cx_data[Y][DATA])}"
                     )
 
-            # Establish minimal var and smps values per data if that has
-            # yet to be accomplished.
-            if len(cx_data[Y][VARS]) == 0:
-                cx_data[Y][VARS] = [
-                    str(index + 1)
+        # Minor examination of cors (this is an extension to standard data
+        # with correlation data pre-calculated for correlation diagrams).
+        if cx_data[Y].get(CORS):
+            if not isinstance(cx_data[Y][CORS], list):
+                raise CXDataProfileException(
+                    f"cors must be a list of sub-list where each sub-list"
+                    f" is a row of data.  Found {type(cx_data[Y][CORS])}"
+                )
+            for row in cx_data[Y][CORS]:
+                if not isinstance(row, list):
+                    raise CXDataProfileException(
+                        f"cors must be a list of sub-list where each"
+                        f" sub-list is a row of data.  Found element in"
+                        f" master list of type {type(cx_data[Y][CORS])}"
+                    )
+
+        # Get a data proxy for data and cors for use in var and smps defaults
+        data_proxy = cx_data[Y].get(DATA, [])
+        if len(data_proxy) == 0:
+            data_proxy = cx_data[Y].get(CORS, [])
+
+            # Also remove redundant data key
+            if cx_data[Y].get(DATA) is not None:
+                del cx_data[Y][DATA]
+
+        # Establish minimal var values per data
+        if not isinstance(cx_data[Y][VARS], list):
+            raise CXDataProfileException(
+                f"vars must be a list. Found {type(cx_data[Y][VARS])}"
+            )
+        if len(cx_data[Y][VARS]) == 0:
+            cx_data[Y][VARS] = [
+                index
+                for index
+                in range(len(data_proxy))
+            ]
+
+        # Establish minimal smps values per data
+        if not isinstance(cx_data[Y][SMPS], list):
+            raise CXDataProfileException(
+                f"smps must be a list. Found {type(cx_data[Y][SMPS])}"
+            )
+        if len(cx_data[Y][SMPS]) == 0:
+            if len(data_proxy) > 0:
+                cx_data[Y][SMPS] = [
+                    index
                     for index
-                    in range(len(cx_data[Y][DATA]))
+                    in range(
+                        len(data_proxy[0])
+                    )
                 ]
 
-            if len(cx_data[Y][SMPS]) == 0:
-                if len(cx_data[Y][DATA]) > 0:
-                    cx_data[Y][SMPS] = [
-                        str(index + 1)
-                        for index
-                        in range(len(cx_data[Y][DATA][0]))
-                    ]
-
-        # Reject any other data type
-        else:
-            raise CXDataProfileException(
-                f"data is of an unknown type: {type(data)}."
-            )
-
-        # Validate vars vs data rows
         if match_vars_to_rows:
-            row_count = len(cx_data[Y][DATA])
+            row_count = len(data_proxy)
             var_count = len(cx_data[Y][VARS])
             if not row_count == var_count:
                 raise CXDataProfileException(
@@ -317,9 +579,11 @@ class CXStandardProfile(CXDataProfile):
                     f" {var_count} vars."
                 )
 
-        # Validate smps vs data columns
         if match_smps_to_cols:
-            col_count = len(cx_data[Y][DATA][0])
+            if len(data_proxy) > 0:
+                col_count = len(data_proxy[0])
+            else:
+                col_count = 0
             smps_count = len(cx_data[Y][SMPS])
             if not col_count == smps_count:
                 raise CXDataProfileException(
@@ -328,6 +592,22 @@ class CXStandardProfile(CXDataProfile):
                     f" columns and {smps_count} smps."
                 )
 
+        if match_x_to_smps:
+            for key in cx_data[X].keys():
+                if len(cx_data[X][key]) != len(cx_data[Y][SMPS]):
+                    raise ValueError(
+                        f"cx_data[X][{key}] must be the same length as"
+                        f" cx_data[Y][SMPS]"
+                    )
+
+        if match_z_to_vars:
+            for key in cx_data[Z].keys():
+                if len(cx_data[Z][key]) != len(cx_data[Y][VARS]):
+                    raise ValueError(
+                        f"cx_data[Z][{key}] must be the same length as"
+                        f" cx_data[Y][VARS]"
+                    )
+
         return cx_data
 
     def __init__(self):
@@ -335,3 +615,6 @@ class CXStandardProfile(CXDataProfile):
         Initializes the CXStandardProfile object.
         """
         super().__init__()
+        self.x = None
+        self.y = None
+        self.z = None
