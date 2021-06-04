@@ -6,9 +6,10 @@ from deprecated import deprecated
 
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig
-from canvasxpress.data.base import CXData
+from canvasxpress.data.base import CXData, CXProfiledData
 from canvasxpress.data.convert import CXHtmlConvertable
 from canvasxpress.data.keypair import CXDictData
+from canvasxpress.data.profile import CXVennProfile, CXStandardProfile
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
@@ -493,6 +494,11 @@ class CanvasXpress(CXHtmlConvertable):
     def render_to_html_parts(self) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.
+
+        If the associated `CXData` is a type of `CXProfiledData` and a profile
+        has yet to be assigned then a profile is assigned according to the
+        `CXConfig` labelled `graphType`.
+
         :returns: `dict` A map of values appropriate for use in HTML, such as
             via a jinja template typical of flask apps.
 
@@ -549,9 +555,19 @@ class CanvasXpress(CXHtmlConvertable):
             )
         ```
         """
+        if isinstance(self.data, CXProfiledData):
+            if not self.data.profile:
+                if self.config.get_param("graphType"):
+                    if self.config.get_param("graphType").value == "Venn":
+                        self.data.profile = CXVennProfile()
+                    else:
+                        self.data.profile = CXStandardProfile()
+
         canvasxpress = {
             'renderTo': self.render_to,
-            'data': self.data.render_to_dict(),
+            'data': self.data.render_to_dict(
+                config=self.config
+            ),
             'config': self.config.render_to_dict(),
             'events': "js_events"
         }
