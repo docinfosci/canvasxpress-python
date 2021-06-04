@@ -3,7 +3,7 @@ from typing import Union
 
 from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
     CXDataProfileException, CXMatrixData, Y, DATA, CORS, \
-    CXKeyPairData, X, Z
+    CXKeyPairData, X, Z, VENN, LEGEND
 
 
 class CXStandardProfile(CXDataProfile):
@@ -319,10 +319,11 @@ class CXStandardProfile(CXDataProfile):
     def render_to_profiled_dict(
             self,
             data: CXData,
-            match_vars_to_rows: bool = False,
-            match_smps_to_cols: bool = False,
-            match_x_to_smps: bool = False,
-            match_z_to_vars: bool = False,
+            match_vars_to_rows: bool = True,
+            match_smps_to_cols: bool = True,
+            match_x_to_smps: bool = True,
+            match_z_to_vars: bool = True,
+            **kwargs,
     ) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
@@ -412,18 +413,18 @@ class CXStandardProfile(CXDataProfile):
                 # then override the data's copy
                 if len(self.vars) != 0:
                     cx_data[Y][VARS] = self.vars
-                
+
                 elif cx_data[Y].get(VARS) is None:
                     cx_data[Y][VARS] = list()
                     if cx_data[Y].get(DATA):
                         if isinstance(cx_data[Y].get(DATA), list):
                             for i, r in enumerate(cx_data[Y].get(DATA)):
                                 cx_data[Y][VARS].append(i)
-                    
+
                 else:
                     # Preserve the specified values
                     pass
-                
+
                 # If the user has specified smps OR smps is missing from Y
                 # then override the data's copy
                 if len(self.smps) != 0:
@@ -618,3 +619,246 @@ class CXStandardProfile(CXDataProfile):
         self.x = None
         self.y = None
         self.z = None
+
+
+class CXVennProfile(CXDataProfile):
+    """
+    `CXVennProfile` provides Venn diagram chart data profile functionality,
+    by which the topics of `venn` and `legend` are handled in conversions.
+    """
+
+    __legend: dict = dict()
+    """
+    The legend key-pair for use with the diagram.
+    """
+
+    @property
+    def legend(self) -> dict:
+        """
+        Returns the values to be used for the legend if such are not defined
+        in the data.
+
+        :returns: `dict`
+            The key-pair data that will be used in the legend.
+        """
+        return self.__legend
+
+    @legend.setter
+    def legend(
+            self,
+            value: Union[dict, None]
+    ) -> None:
+        """
+        Sets the values to be used for the legend.  Overrides legend values in
+        the data if available.
+
+        "param value: `Union[dict, None]`
+            The key-pair values to be used for the legend.  Use None to reset
+            the key-pair values.
+        """
+        if value is None:
+            self.__legend = dict()
+
+        elif isinstance(value, dict):
+            self.__legend = deepcopy(value)
+
+        else:
+            raise TypeError("value must be of type dict or None.")
+
+    def render_to_profiled_dict(
+            self,
+            data: CXData,
+            **kwargs
+    ) -> dict:
+        """
+        Converts a given `CXData` instance into a dict suitable for use by
+        `CanvasXpress` when creating data instructions for the JS object.
+
+        *For matrix data:*<br>
+        Data must be one column with numeric values plus one index. `legend`
+        values will be provided as set for the profile.
+
+        ```python
+        df = DataFrame.from_dict(
+            {
+                "A": 340,
+                "B": 562,
+                "C": 620,
+                "AB": 639,
+                "AC": 456,
+                "BC": 915,
+                "ABC": 552
+            },
+            orient="index"
+        )
+        ```
+
+        If an index is not specified then the implicit index is used.
+
+        *For key-pair data:*<br>
+        Data must be a dict with the attribute `venn` with child attributes
+        `data` and `legend`.  Or, `venn` can be ommitted.  `legend` is
+        optional, and if values are set for the profile these will override
+        those in the JSON data.
+
+        ```python
+        {
+            "venn": {
+                "data": {
+                    "A": 340,
+                    "B": 562,
+                    "C": 620,
+                    "AB": 639,
+                    "AC": 456,
+                    "BC": 915,
+                    "ABC": 552
+                },
+                "legend": {
+                    "A": "List1",
+                    "B": "List2",
+                    "C": "List3"
+                }
+            }
+        }
+        ```
+
+        If a legend value needs to be calculated then `kwargs` is examined for
+        `config`, which is expected to be of type `CXConfigs`.  If `config` is
+        available then the CXConfig labelled `vennGroups` is sought.  The value
+        assigned to `vennGroups` is used to count out an index of legend labels.
+
+        :param data: `CXData`
+            The data object to introspect to create an enveloping profile.
+        """
+        # Reject None values
+        if data is None:
+            raise CXDataProfileException(
+                "data cannot be None."
+            )
+
+        # Determine the number of elements that start the diagram.  We need
+        # this count for legend processing.
+        legend_count = 0
+        if kwargs.get("config"):
+            config = kwargs['config'].get_param("vennGroups")
+            if config:
+                legend_count = int(config.value)
+
+        # cx_data is the object to be returned after being appropriately
+        # populated with matrix or key-pair data and metadata.
+        cx_data = dict()
+
+        # Handle matrix data
+        if isinstance(data, CXMatrixData):
+
+            raw_dict = data.get_raw_dict_form()
+
+            if not raw_dict.get(DATA):
+                raw_dict[DATA] = []
+
+            if not raw_dict.get('index'):
+                raw_dict['index'] = [i for i in range(len(raw_dict['data']))]
+
+            cx_data[VENN] = {
+                DATA: {
+                    raw_dict['index'][e] : raw_dict['data'][e][0]
+                    for e in range(len(raw_dict['index']))
+                },
+                LEGEND: {
+                    str(raw_dict['index'][l]): f"Group {l+1}"
+                    for l in range(legend_count)
+                }
+            }
+
+        # Handle key-pair data
+        elif isinstance(data, CXKeyPairData):
+
+            cx_data = data.get_raw_dict_form()
+            cx_rev_data = dict()
+
+            # If attribute venn is present
+            if cx_data.get('VENN'):
+                cx_rev_data[VENN] = deepcopy(cx_data[VENN])
+
+            else:
+                cx_rev_data[VENN] = dict()
+                cx_rev_data[VENN][DATA] = deepcopy(cx_data.get(DATA, {}))
+                if cx_data.get(LEGEND):
+                    cx_rev_data[VENN][LEGEND] = deepcopy(cx_data[LEGEND])
+
+            if not isinstance(cx_rev_data[VENN], dict):
+                raise TypeError("attribute venn must be a dict of dicts")
+
+            if cx_rev_data[VENN].get(DATA) is None:
+                raise ValueError(
+                    "attribute veen must have child attribute data, and"
+                    "data must be a dict"
+                )
+
+            if not isinstance(cx_rev_data[VENN].get(DATA, {}), dict):
+                raise ValueError(
+                    "attribute veen must have child attribute data, and"
+                    "data must be a dict"
+                )
+
+            if cx_rev_data[VENN].get(LEGEND) is None:
+                legend_candidates = cx_rev_data[VENN][DATA].keys()
+                cx_rev_data[VENN][LEGEND] = {
+                    legend_candidates[l]: f"Group {l+1}"
+                    for l in range(legend_count)
+                    if l < len(legend_candidates)
+                }
+
+            if not isinstance(cx_rev_data[VENN].get(LEGEND, {}), dict):
+                raise ValueError(
+                    "attribute veen must have child attribute legend, and"
+                    "legend must be a dict aligned with vennGroups"
+                )
+
+            cx_data = cx_rev_data
+
+        return cx_data
+
+
+class CXNetworkProfile(CXDataProfile):
+    def render_to_profiled_dict(
+            self,
+            data: CXData,
+            **kwargs
+    ) -> dict:
+        """
+        Converts a given `CXData` instance into a dict suitable for use by
+        `CanvasXpress` when creating data instructions for the JS object.
+
+        *For matrix data:*<br>
+        TBD
+
+        *For key-pair data:*<br>
+        TBD
+
+        :param data: `CXData`
+            The data object to introspect to create an enveloping profile.
+        """
+        raise NotImplementedError("Yet to be implemented.")
+
+
+class CXGenomeProfile(CXDataProfile):
+    def render_to_profiled_dict(
+            self,
+            data: CXData,
+            **kwargs
+    ) -> dict:
+        """
+        Converts a given `CXData` instance into a dict suitable for use by
+        `CanvasXpress` when creating data instructions for the JS object.
+
+        *For matrix data:*<br>
+        TBD
+
+        *For key-pair data:*<br>
+        TBD
+
+        :param data: `CXData`
+            The data object to introspect to create an enveloping profile.
+        """
+        raise NotImplementedError("Yet to be implemented.")
