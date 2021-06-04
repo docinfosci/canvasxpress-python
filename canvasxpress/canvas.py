@@ -555,6 +555,7 @@ class CanvasXpress(CXHtmlConvertable):
             )
         ```
         """
+        # For profiled data types, ensure a profile is assigned for rendering
         if isinstance(self.data, CXProfiledData):
             if not self.data.profile:
                 if self.config.get_param("graphType"):
