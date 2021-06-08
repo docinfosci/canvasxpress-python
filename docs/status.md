@@ -16,6 +16,14 @@
 
 ### Recent Enhancements
 
+#### 2021 June 7: Venn JSON data now supported
+The CanvasXpress JSON data format allows for venn diagram specific data.
+`CXVennProfile` has been added to support venn JSON data.
+
+Additionally, `render_to_html_parts` now checks as to whether a profile has 
+been assigned to data objects, and if not then per the `graphType` config
+parameter assigns a render profile.
+
 #### 2021 June 3: x, z, and cors JSON data now supported
 The CanvasXpress JSON data format allows for `x` and `z` attributes to provide
 metadata for columns and rows, respectively.  Correlation diagrams also accept

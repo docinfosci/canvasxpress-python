@@ -120,7 +120,10 @@ class CXDataframeData(CXMatrixData):
         """
         return self.__data.to_dict(orient="split")
 
-    def render_to_dict(self) -> dict:
+    def render_to_dict(
+            self,
+            **kwargs
+    ) -> dict:
         """
         Provides a dict representation of the data.
         :returns: `dict`
@@ -137,7 +140,7 @@ class CXDataframeData(CXMatrixData):
     def __init__(
             self,
             data: Union['CXDataframeData', DataFrame, dict, str, None] = None,
-            profile: Union[CXDataProfile, None] = CXStandardProfile()
+            profile: Union[CXDataProfile, None] = None
     ) -> None:
         """
         Initializes the CXData object with data.  Only `DataFrame` or compatible
@@ -310,7 +313,7 @@ class CXCSVData(CXDataframeData):
     def __init__(
             self,
             data: Union['CXCSVData', DataFrame, dict, str, None] = None,
-            profile: Union[CXDataProfile, None] = CXStandardProfile()
+            profile: Union[CXDataProfile, None] = None
     ) -> None:
         """
         Initializes the CXData object with data.  Only CSV `str` or compatible

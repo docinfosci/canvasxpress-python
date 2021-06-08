@@ -85,7 +85,10 @@ class CXUrlData(CXData):
             'raw': self.url
         }
 
-    def render_to_dict(self) -> dict:
+    def render_to_dict(
+            self,
+            **kwargs
+    ) -> dict:
         """
         Converts the object into a dict representation.
         :returns: `dict`

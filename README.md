@@ -43,7 +43,20 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 | **Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=main)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=main) [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) |
 <!-- End Badges -->
 
+#### Notes
+1. This project uses older versions of `mkdoc` and `pydoc-markdown` due to a 
+conflict between these packages.  Once the conflict is resolved they will be
+upgraded to current release editions.  This only affects doc builds.
+
 ### Recent Enhancements
+
+#### 2021 June 7: Venn JSON data now supported
+The CanvasXpress JSON data format allows for venn diagram specific data.
+`CXVennProfile` has been added to support venn JSON data.
+
+Additionally, `render_to_html_parts` now checks as to whether a profile has 
+been assigned to data objects, and if not then per the `graphType` config
+parameter assigns a render profile.
 
 #### 2021 June 3: x, z, and cors JSON data now supported
 The CanvasXpress JSON data format allows for `x` and `z` attributes to provide

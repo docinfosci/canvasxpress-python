@@ -24,9 +24,15 @@ class CXDictConvertable(ABC):
     """
 
     @abstractmethod
-    def render_to_dict(self) -> dict:
+    def render_to_dict(
+            self,
+            **kwargs
+    ) -> dict:
         """
         Converts the object into a dict representation.
+        :param kwargs:
+            Keyword arguments that can be supplied to facilitate rendering
+            decisions.
         :returns: `dict`
             A dictionary representation of the object, such as what might be
             needed for a JSON export.
