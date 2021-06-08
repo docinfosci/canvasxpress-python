@@ -103,6 +103,25 @@ class CXConfigs(CXDictConvertable):
 
         return self
 
+    def get_param(
+            self,
+            label: str
+    ) -> Union[CXConfig, None]:
+        """
+        Provides the CXConfig with the indicated label.
+        :param label: `str`
+            The name of the congig to find.
+        :returns: `Union[CXConfig, None]`
+            The CXConfig or None if such a labelled item is not associated.
+        """
+        candidate = None
+        for config in self.configs:
+            if config.label == label:
+                candidate = config
+                break
+
+        return candidate
+
     def set_param(
             self,
             label: str,

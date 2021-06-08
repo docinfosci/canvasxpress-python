@@ -20,7 +20,7 @@ fi
 source ./venv/bin/activate
 
 # Bootstrap Python
-pip install -U -r ./requirements-project.txt
+pip install --no-cache-dir -U -r ./requirements-project.txt
 invoke init --dev --list
 
 # Test the project: goal is >= 90% coverage

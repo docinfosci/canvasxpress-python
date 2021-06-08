@@ -6,11 +6,13 @@ from canvasxpress.data.convert import CXDictConvertable
 Y = "y"
 X = "x"
 Z = "z"
+VENN = "venn"
 
 VARS = "vars"
 SMPS = "smps"
 DATA = "data"
 CORS = "cors"
+LEGEND = "legend"
 
 
 class CXData(CXDictConvertable):
@@ -74,7 +76,8 @@ class CXDataProfile(ABC):
     @abstractmethod
     def render_to_profiled_dict(
             self,
-            data: CXData
+            data: CXData,
+            **kwargs
     ) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by

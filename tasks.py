@@ -38,11 +38,11 @@ def init(c, dev=False, list=False):
     :param list: True if a list of all installed requirements should be printed
     :return:
     """
-    c.run("pip install -U -r ./requirements-project.txt")
-    c.run("pip install -U -r ./requirements.txt")
+    c.run("pip install --no-cache-dir -U -r ./requirements-project.txt")
+    c.run("pip install --no-cache-dir -U -r ./requirements.txt")
 
     if dev:
-        c.run("pip install -U -r ./requirements-dev.txt")
+        c.run("pip install --no-cache-dir -U -r ./requirements-dev.txt")
 
     if list:
         c.run("pip list")

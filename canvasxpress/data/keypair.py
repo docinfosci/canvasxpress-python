@@ -67,7 +67,10 @@ class CXDictData(CXKeyPairData):
         """
         return deepcopy(self.data)
 
-    def render_to_dict(self) -> dict:
+    def render_to_dict(
+            self,
+            **kwargs
+    ) -> dict:
         """
         Provides a dict representation of the data.
         :returns: `dict`
@@ -84,7 +87,7 @@ class CXDictData(CXKeyPairData):
     def __init__(
             self,
             data: Union[dict, None] = None,
-            profile: Union[CXDataProfile, None] = CXStandardProfile()
+            profile: Union[CXDataProfile, None] = None
     ) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
@@ -283,7 +286,7 @@ class CXJSONData(CXDictData):
     def __init__(
             self,
             data: Union[dict, str, None] = None,
-            profile: Union[CXDataProfile, None] = CXStandardProfile()
+            profile: Union[CXDataProfile, None] = None
     ) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
