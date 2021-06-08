@@ -5,7 +5,7 @@ from typing import Union, List
 from deprecated import deprecated
 
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXConfig
+from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
 from canvasxpress.data.base import CXData, CXProfiledData
 from canvasxpress.data.convert import CXHtmlConvertable
 from canvasxpress.data.keypair import CXDictData
@@ -138,7 +138,8 @@ class CanvasXpress(CXHtmlConvertable):
         else:
             candidate = str(value)
             if "CanvasXpressLicense.js" not in candidate:
-                raise ValueError("CanvasXpress license files must be named 'CanvasXpressLicense.js'")
+                raise ValueError(
+                    "CanvasXpress license files must be named 'CanvasXpressLicense.js'")
 
             else:
                 self.__license_url = candidate
@@ -558,8 +559,11 @@ class CanvasXpress(CXHtmlConvertable):
         # For profiled data types, ensure a profile is assigned for rendering
         if isinstance(self.data, CXProfiledData):
             if not self.data.profile:
-                if self.config.get_param("graphType"):
-                    if self.config.get_param("graphType").value == "Venn":
+                graphType = self.config.get_param("graphType")
+                if not graphType:
+                    self.data.profile = CXStandardProfile()
+                else:
+                    if graphType.value == CXGraphTypeOptions.Venn.value:
                         self.data.profile = CXVennProfile()
                     else:
                         self.data.profile = CXStandardProfile()

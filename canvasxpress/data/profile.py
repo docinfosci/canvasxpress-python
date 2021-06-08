@@ -765,7 +765,7 @@ class CXVennProfile(CXDataProfile):
                     for e in range(len(raw_dict['index']))
                 },
                 LEGEND: {
-                    str(raw_dict['index'][l]): f"Group {l+1}"
+                    str(raw_dict['index'][l]): f"Group {l + 1}"
                     for l in range(legend_count)
                 }
             }
@@ -777,7 +777,7 @@ class CXVennProfile(CXDataProfile):
             cx_rev_data = dict()
 
             # If attribute venn is present
-            if cx_data.get('VENN'):
+            if cx_data.get(VENN):
                 cx_rev_data[VENN] = deepcopy(cx_data[VENN])
 
             else:
@@ -802,20 +802,32 @@ class CXVennProfile(CXDataProfile):
                 )
 
             if cx_rev_data[VENN].get(LEGEND) is None:
-                legend_candidates = cx_rev_data[VENN][DATA].keys()
+                legend_candidates = sorted(
+                    [
+                        str(k)
+                        for k in cx_rev_data[VENN][DATA].keys()
+                    ],
+                    key=len
+                )
                 cx_rev_data[VENN][LEGEND] = {
                     legend_candidates[l]: f"Group {l+1}"
                     for l in range(legend_count)
                     if l < len(legend_candidates)
                 }
 
-            if not isinstance(cx_rev_data[VENN].get(LEGEND, {}), dict):
-                raise ValueError(
-                    "attribute veen must have child attribute legend, and"
-                    "legend must be a dict aligned with vennGroups"
-                )
-
             cx_data = cx_rev_data
+
+        # Override legend values if user specified
+        if len(self.legend.keys()) > 0:
+            if cx_data[VENN].get(LEGEND) is not None:
+                del cx_data[VENN][LEGEND]
+            cx_data[VENN][LEGEND] = deepcopy(self.legend)
+
+        if not isinstance(cx_data[VENN].get(LEGEND, {}), dict):
+            raise ValueError(
+                "attribute veen must have child attribute legend, and"
+                "legend must be a dict aligned with vennGroups"
+            )
 
         return cx_data
 
