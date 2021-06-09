@@ -434,33 +434,31 @@ def test_render_to_profiled_dict_keypair():
     with pytest.raises(ValueError):
         bad_sample = deepcopy(good_sample)
         bad_sample[Z]['Pathway'] = ["P1"]
+        candidate.match_z_to_vars = True
         candidate.render_to_profiled_dict(
-            CXDictData(bad_sample),
-            match_z_to_vars=True
+            CXDictData(bad_sample)
         )
 
     with pytest.raises(ValueError):
         bad_sample = deepcopy(good_sample)
         bad_sample[X]['Donor'] = ["D1", "D2"]
+        candidate.match_x_to_smps = True
         candidate.render_to_profiled_dict(
-            CXDictData(bad_sample),
-            match_x_to_smps=True
+            CXDictData(bad_sample)
         )
 
     with pytest.raises(ValueError):
         bad_sample = deepcopy(good_sample)
         bad_sample[Y][VARS] = ["Variable1"]
         candidate.render_to_profiled_dict(
-            CXDictData(bad_sample),
-            match_vars_to_rows=True
+            CXDictData(bad_sample)
         )
 
     with pytest.raises(ValueError):
         bad_sample = deepcopy(good_sample)
         bad_sample[Y][SMPS] = ["Sample1", "Sample2"]
         candidate.render_to_profiled_dict(
-            CXDictData(bad_sample),
-            match_smps_to_cols=True
+            CXDictData(bad_sample)
         )
 
 
