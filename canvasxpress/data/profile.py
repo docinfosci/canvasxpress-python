@@ -3,7 +3,7 @@ from typing import Union
 
 from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
     CXDataProfileException, CXMatrixData, Y, DATA, CORS, \
-    CXKeyPairData, X, Z, VENN, LEGEND
+    CXKeyPairData, X, Z, VENN, LEGEND, NODES
 
 
 class CXStandardProfile(CXDataProfile):
@@ -761,7 +761,7 @@ class CXVennProfile(CXDataProfile):
 
             cx_data[VENN] = {
                 DATA: {
-                    raw_dict['index'][e] : raw_dict['data'][e][0]
+                    raw_dict['index'][e]: raw_dict['data'][e][0]
                     for e in range(len(raw_dict['index']))
                 },
                 LEGEND: {
@@ -810,7 +810,7 @@ class CXVennProfile(CXDataProfile):
                     key=len
                 )
                 cx_rev_data[VENN][LEGEND] = {
-                    legend_candidates[l]: f"Group {l+1}"
+                    legend_candidates[l]: f"Group {l + 1}"
                     for l in range(legend_count)
                     if l < len(legend_candidates)
                 }
@@ -843,15 +843,32 @@ class CXNetworkProfile(CXDataProfile):
         `CanvasXpress` when creating data instructions for the JS object.
 
         *For matrix data:*<br>
-        TBD
+        Not supported.  A TypeError will be raised.
 
         *For key-pair data:*<br>
-        TBD
+        Data must be provided in key-pair form.  Multiple data structures
+        typical of network diagrams are supported by the Javascript library,
+        so only a minimal check is performed for conformance at the Python tier.
+        Generally, data is shaped via nodes and edges.  Nodes describe points,
+        whereas edges describe links between nodes.
 
         :param data: `CXData`
             The data object to introspect to create an enveloping profile.
         """
-        raise NotImplementedError("Yet to be implemented.")
+        if data is None:
+            raise TypeError(
+                "Network data must be a dict with a nodes attribute."
+            )
+
+        elif isinstance(data, CXMatrixData):
+            raise TypeError("Network data must be provided in key-pair form.")
+
+        else:
+            cx_data = deepcopy(data.get_raw_dict_form())
+            if not cx_data.get(NODES):
+                raise ValueError("Network data must have a nodes attribute.")
+
+            return cx_data
 
 
 class CXGenomeProfile(CXDataProfile):
@@ -865,12 +882,72 @@ class CXGenomeProfile(CXDataProfile):
         `CanvasXpress` when creating data instructions for the JS object.
 
         *For matrix data:*<br>
-        TBD
+        Not supported.  A TypeError will be raised.
 
         *For key-pair data:*<br>
-        TBD
+        Data is provided as-is, but it is validated to ensure that a top-tier
+        `tracks` attribute of type `list` is present, and that child elements
+        are `dict` types with `type` attributes specified.
 
         :param data: `CXData`
             The data object to introspect to create an enveloping profile.
         """
-        raise NotImplementedError("Yet to be implemented.")
+        if data is None:
+            raise TypeError("Genome data must be provided in key-pair form.")
+
+        elif isinstance(data, CXMatrixData):
+            raise TypeError("Genome data must be provided in key-pair form.")
+
+        elif isinstance(data, CXKeyPairData):
+            cx_data = deepcopy(data.get_raw_dict_form())
+            if not cx_data.get("tracks"):
+                raise ValueError(
+                    "Genome data must provide top level tracks attribute."
+                )
+            else:
+                if not isinstance(cx_data.get("tracks"), list):
+                    raise ValueError(
+                        "Genome data tracks attribute must be a list."
+                    )
+                else:
+                    for track in cx_data.get("tracks"):
+                        if not isinstance(track, dict):
+                            raise ValueError(
+                                "Genome data track elements must be a dict."
+                            )
+                        else:
+                            if not track.get("type"):
+                                raise ValueError(
+                                    "Genome data track elements must have the "
+                                    "type attribute."
+                                )
+
+            return cx_data
+
+        else:
+            raise TypeError("Genome data must be provided in key-pair form.")
+
+
+class CXRawProfile(CXDataProfile):
+    def render_to_profiled_dict(
+            self,
+            data: CXData,
+            **kwargs
+    ) -> dict:
+        """
+        Passes the raw `dict` form of the `CXData` object with no modification.
+
+        *For matrix data:*<br>
+        Converted by the `CXData` object to `dict` form.
+
+        *For key-pair data:*<br>
+        Converted by the `CXData` object to `dict` form.
+
+        :param data: `CXData`
+            The data object to introspect to create an enveloping profile.
+        """
+        if data is None:
+            return dict()
+
+        else:
+            return deepcopy(data.get_raw_dict_form())

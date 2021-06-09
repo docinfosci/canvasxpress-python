@@ -7,7 +7,6 @@ import requests
 from deepdiff import DeepDiff
 
 from canvasxpress.data.base import CXKeyPairData, CXDataProfile
-from canvasxpress.data.profile import CXStandardProfile
 
 
 @total_ordering
@@ -96,9 +95,9 @@ class CXDictData(CXKeyPairData):
             `None` to initialize with an empty dictionary, or a `dict`-like
             object to assign mapped data.
         :param profile: `Union[CXDataProfile, None]`
-            Omit to initialize with CXStandardProfile, or specify the desired
-            profile object to facilitate transformation of data into a
-            CanvasXpress JSON data object.  `None` to avoid use of a profile.
+            Specify the desired profile object to facilitate transformation of
+            data into a CanvasXpress JSON data object.  `None` to avoid use of
+            a profile.
         """
         super().__init__(data, profile)
         self.data = data
@@ -295,9 +294,9 @@ class CXJSONData(CXDictData):
             `None` to initialize with an empty JSON, or a JSON/`dict`-like
             object to assign mapped data.
         :param profile: `Union[CXDataProfile, None]`
-            Omit to initialize with CXStandardProfile, or specify the desired
-            profile object to facilitate transformation of data into a
-            CanvasXpress JSON data object.  `None` to avoid use of a profile.
+            Specify the desired profile object to facilitate transformation of
+            data into a CanvasXpress JSON data object.  `None` to avoid use of
+            a profile.
         """
         super().__init__(data, profile)
 
