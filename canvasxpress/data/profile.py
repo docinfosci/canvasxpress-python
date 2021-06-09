@@ -281,6 +281,128 @@ class CXStandardProfile(CXDataProfile):
 
             self.__z = deepcopy(candidate)
 
+    __match_vars_to_rows: bool = True
+    """
+    Tracks whether vars will be matched to rows when formatting data.
+    """
+
+    @property
+    def match_vars_to_rows(self) -> bool:
+        """
+        Indicates whether vars will be match to rows when formatting data.
+        :returns: `bool`
+            True if an error will be raised if the number of `vars` does not
+            match the number of `data` rows.
+        """
+        return self.__match_vars_to_rows
+
+    @match_vars_to_rows.setter
+    def match_vars_to_rows(self, value: bool) -> None:
+        """
+        Sets whether vars will be match to rows when formatting data.
+        :param value: `bool`
+            True if an error shall be raised if the number of `vars` does not
+            match the number of `data` rows.
+        """
+        if value is None:
+            self.__match_vars_to_rows = False
+
+        else:
+            self.__match_vars_to_rows = value
+
+    __match_smps_to_cols: bool = True
+    """
+    Tracks whether smps will be matched to columns when formatting data.
+    """
+
+    @property
+    def match_smps_to_cols(self) -> bool:
+        """
+        Indicates whether smps will be match to columns when formatting data.
+        :returns: `bool`
+            True if an error will be raised if the number of `smps` does not
+            match the number of `data` columns.
+        """
+        return self.__match_smps_to_cols
+
+    @match_smps_to_cols.setter
+    def match_smps_to_cols(self, value: bool) -> None:
+        """
+        Sets whether smps will be match to rows when formatting data.
+        :param value: `bool`
+            True if an error shall be raised if the number of `smps` does not
+            match the number of `data` columns.
+        """
+        if value is None:
+            self.__match_smps_to_cols = False
+
+        else:
+            self.__match_smps_to_cols = value
+
+    __match_x_to_smps: bool = False
+    """
+    Tracks whether x member attribute elements will be matched to smps when 
+    formatting data.
+    """
+
+    @property
+    def match_x_to_smps(self) -> bool:
+        """
+        Indicates whether x member attribute elements will be matched to smps
+         when formatting data.
+        :returns: `bool`
+            True if an error will be raised if the number of `x` member 
+            attribute elements does not match the number of `smps` elements.
+        """
+        return self.__match_x_to_smps
+
+    @match_x_to_smps.setter
+    def match_x_to_smps(self, value: bool) -> None:
+        """
+        Sets whether x member attribute elements will be matched to smps
+         when formatting data.
+        :param value: `bool`
+            True if an error shall be raised if the number of `x` member 
+            attribute elements does not match the number of `smps` elements.
+        """
+        if value is None:
+            self.__match_x_to_smps = False
+
+        else:
+            self.__match_x_to_smps = value
+
+    __match_z_to_vars: bool = False
+    """
+    Tracks whether z member attribute elements will be matched to vars when 
+    formatting data.
+    """
+
+    @property
+    def match_z_to_vars(self) -> bool:
+        """
+        Indicates whether z member attribute elements will be matched to vars
+         when formatting data.
+        :returns: `bool`
+            True if an error will be raised if the number of `z` member
+            attribute elements does not match the number of `vars` elements.
+        """
+        return self.__match_z_to_vars
+
+    @match_z_to_vars.setter
+    def match_z_to_vars(self, value: bool) -> None:
+        """
+        Sets whether z member attribute elements will be matched to vars
+         when formatting data.
+        :param value: `bool`
+            True if an error shall be raised if the number of `z` member
+            attribute elements does not match the number of `vars` elements.
+        """
+        if value is None:
+            self.__match_z_to_vars = False
+
+        else:
+            self.__match_z_to_vars = value
+    
     def add_data_section(
             self,
             section: str,
@@ -319,10 +441,6 @@ class CXStandardProfile(CXDataProfile):
     def render_to_profiled_dict(
             self,
             data: CXData,
-            match_vars_to_rows: bool = True,
-            match_smps_to_cols: bool = True,
-            match_x_to_smps: bool = True,
-            match_z_to_vars: bool = True,
             **kwargs,
     ) -> dict:
         """
@@ -570,7 +688,7 @@ class CXStandardProfile(CXDataProfile):
                     )
                 ]
 
-        if match_vars_to_rows:
+        if self.match_vars_to_rows:
             row_count = len(data_proxy)
             var_count = len(cx_data[Y][VARS])
             if not row_count == var_count:
@@ -580,7 +698,7 @@ class CXStandardProfile(CXDataProfile):
                     f" {var_count} vars."
                 )
 
-        if match_smps_to_cols:
+        if self.match_smps_to_cols:
             if len(data_proxy) > 0:
                 col_count = len(data_proxy[0])
             else:
@@ -593,7 +711,7 @@ class CXStandardProfile(CXDataProfile):
                     f" columns and {smps_count} smps."
                 )
 
-        if match_x_to_smps:
+        if self.match_x_to_smps:
             for key in cx_data[X].keys():
                 if len(cx_data[X][key]) != len(cx_data[Y][SMPS]):
                     raise ValueError(
@@ -601,7 +719,7 @@ class CXStandardProfile(CXDataProfile):
                         f" cx_data[Y][SMPS]"
                     )
 
-        if match_z_to_vars:
+        if self.match_z_to_vars:
             for key in cx_data[Z].keys():
                 if len(cx_data[Z][key]) != len(cx_data[Y][VARS]):
                     raise ValueError(
@@ -619,6 +737,10 @@ class CXStandardProfile(CXDataProfile):
         self.x = None
         self.y = None
         self.z = None
+        self.match_vars_to_rows = True
+        self.match_smps_to_cols = True
+        self.match_z_to_vars = False
+        self.match_x_to_smps = False
 
 
 class CXVennProfile(CXDataProfile):
