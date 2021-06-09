@@ -437,7 +437,7 @@ class CXDict(CXConfig):
 
             if (other_added - other_removed) == 0:
                 for skey in self.value.keys():
-                    if not skey in other.value.keys():
+                    if skey not in other.value.keys():
                         for okey in other.value.keys():
                             if skey < okey:
                                 return True
@@ -489,7 +489,7 @@ class CXDict(CXConfig):
 
             if (other_added - other_removed) == 0:
                 for skey in self.value.keys():
-                    if not skey in other.value.keys():
+                    if skey not in other.value.keys():
                         return False
 
                     elif self.value[skey] != other.value[skey]:

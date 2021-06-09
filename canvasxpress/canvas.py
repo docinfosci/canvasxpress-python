@@ -9,7 +9,8 @@ from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
 from canvasxpress.data.base import CXData, CXProfiledData
 from canvasxpress.data.convert import CXHtmlConvertable
 from canvasxpress.data.keypair import CXDictData
-from canvasxpress.data.profile import CXVennProfile, CXStandardProfile
+from canvasxpress.data.profile import CXVennProfile, CXStandardProfile, \
+    CXNetworkProfile, CXGenomeProfile, CXRawProfile
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
@@ -492,13 +493,86 @@ class CanvasXpress(CXHtmlConvertable):
         self.width = width
         self.height = height
 
-    def render_to_html_parts(self) -> dict:
+    def update_data_profile(
+            self,
+            data: CXData,
+            fix_missing_profile: bool,
+            match_profile_to_graphtype: bool
+    ):
+        """
+        Inspects the `CXData` object to see if it is a `CXProfiledData` object.
+        If so, then `fix_missing_profile` and `match_profile_to_graphtype` are
+        evaluated to determine if profile adjustments are to be made, and then
+        applied if/as appropriate.
+
+        :param data: `CXData`
+            The data to inspect.  Only `CXProfiledData` objects will be 
+            modified.
+            
+        :param fix_missing_profile: `bool`
+            Defaults to `True`.  If `True` then CXData used for the chart will
+            be provided with a data profile appropriate to the `graphType`
+            (or CXStandardProfile if no graphType is provided).  If `False`
+            then no profile will be applied to those data objects without
+            profiles.
+
+        :param match_profile_to_graphtype: `bool`
+            Defaults to `True`.  If `True` then the `graphType` will be
+            inspected and an appropriate data profile will be applied to
+            the data object.  If a profile of an appropriate type is already
+            associated then nothing is changed.  If a CXRawProfile is associated
+            then no change is made regardless of the paranmeter value.
+            Missing profiles are ignored unless fix_missing_profile is also
+            `True`.  If `False` then no change to the data profile will be made
+            if a profile is already associated with the data object.
+        """
+        if isinstance(data, CXProfiledData):
+            if fix_missing_profile and not data.profile:
+                data.profile = CXStandardProfile
+
+            if match_profile_to_graphtype and data.profile:
+                if not isinstance(data.profile, CXRawProfile):
+                    graphType = self.config.get_param("graphType")
+                    if not graphType:
+                        if not isinstance(data.profile, CXStandardProfile):
+                            data.profile = CXStandardProfile()
+
+                    else:
+                        special_types = {
+                            CXGraphTypeOptions.Venn.value:
+                                CXVennProfile(),
+                            CXGraphTypeOptions.Network.value:
+                                CXNetworkProfile(),
+                            CXGraphTypeOptions.Genome.value:
+                                CXGenomeProfile()
+                        }
+
+                        if special_types.get(graphType.value):
+                            if not isinstance(
+                                    data.profile,
+                                    type(special_types[graphType.value])
+                            ):
+                                data.profile = special_types[
+                                    graphType.value
+                                ]
+
+                        else:
+                            if not isinstance(data.profile, CXStandardProfile):
+                                data.profile = CXStandardProfile()
+                                
+    def render_to_html_parts(
+            self,
+            fix_missing_profile: bool = True,
+            match_profile_to_graphtype: bool = True
+    ) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.
 
         If the associated `CXData` is a type of `CXProfiledData` and a profile
-        has yet to be assigned then a profile is assigned according to the
-        `CXConfig` labelled `graphType`.
+        has yet to be assigned then a profile can be assigned according to the
+        `CXConfig` labelled `graphType`.  If a profile is assigned but is not
+        `CXRawProfile` then the `graphType` can be reassessed, and if
+        appropriate a new profile better aligned to the data can be provided.
 
         :returns: `dict` A map of values appropriate for use in HTML, such as
             via a jinja template typical of flask apps.
@@ -555,18 +629,30 @@ class CanvasXpress(CXHtmlConvertable):
                 bar_graph=html_parts["cx_js"]
             )
         ```
+
+        :param fix_missing_profile: `bool`
+            Defaults to `True`.  If `True` then CXData used for the chart will
+            be provided with a data profile appropriate to the `graphType`
+            (or CXStandardProfile if no graphType is provided).  If `False`
+            then no profile will be applied to those data objects without
+            profiles.
+
+        :param match_profile_to_graphtype: `bool`
+            Defaults to `True`.  If `True` then the `graphType` will be
+            inspected and an appropriate data profile will be applied to
+            the data object.  If a profile of an appropriate type is already
+            associated then nothing is changed.  If a CXRawProfile is associated
+            then no change is made regardless of the paranmeter value.
+            Missing profiles are ignored unless fix_missing_profile is also
+            `True`.  If `False` then no change to the data profile will be made
+            if a profile is already associated with the data object.
         """
         # For profiled data types, ensure a profile is assigned for rendering
-        if isinstance(self.data, CXProfiledData):
-            if not self.data.profile:
-                graphType = self.config.get_param("graphType")
-                if not graphType:
-                    self.data.profile = CXStandardProfile()
-                else:
-                    if graphType.value == CXGraphTypeOptions.Venn.value:
-                        self.data.profile = CXVennProfile()
-                    else:
-                        self.data.profile = CXStandardProfile()
+        self.update_data_profile(
+            self.data,
+            fix_missing_profile,
+            match_profile_to_graphtype
+        )
 
         canvasxpress = {
             'renderTo': self.render_to,
