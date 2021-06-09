@@ -4,6 +4,8 @@ from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXString
 from canvasxpress.data.keypair import CXDictData
+from canvasxpress.data.profile import CXStandardProfile, CXVennProfile, \
+    CXNetworkProfile, CXGenomeProfile, CXRawProfile
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 
@@ -68,38 +70,38 @@ def test_CanvasXpress_render_to():
 
 def test_CanvasXpress_chart_width():
     subject: CanvasXpress = CanvasXpress()
-    subject.element_width = 10
-    assert subject.element_width == 10
+    subject.width = 10
+    assert subject.width == 10
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.element_width = None
+        subject.width = None
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
-        subject.element_width = "test"
+        subject.width = "test"
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.element_width = -1
+        subject.width = -1
 
 
 def test_CanvasXpress_chart_height():
     subject: CanvasXpress = CanvasXpress()
-    subject.element_height = 10
-    assert subject.element_height == 10
+    subject.height = 10
+    assert subject.height == 10
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.element_height = None
+        subject.height = None
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
-        subject.element_height = "test"
+        subject.height = "test"
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
-        subject.element_height = -1
+        subject.height = -1
 
 
 def test_CanvasXpress_data():
@@ -178,3 +180,68 @@ def test_CanvasXpress_license():
     subject.license_url = "CanvasXpressLicense.js"
     assert subject.render_to_html_parts().get('cx_license')
     assert "CanvasXpressLicense.js" in subject.render_to_html_parts().get('cx_license')
+
+def test_update_data_profile():
+    canvas = CanvasXpress(
+        data = CXDictData(
+            {
+                "y": {
+                    "vars": ["Variable1", "Variable2"],
+                    "smps": ["Sample1", "Sample2", "Sample3"],
+                    "data": [[10, 20, 30],
+                             [35, 25, 15]]
+                },
+                "x": {
+                    "Tissue": ["Kidney", "Lung", "Heart"],
+                    "Donor": ["D1", "D1", "D2"]
+                },
+                "z": {
+                    "Symbol": ["AAA", "BBB"],
+                    "Pathway": ["P1", "P2"]
+                }
+            }
+        )
+    )
+
+    assert canvas.data.profile == None
+
+    canvas.config.set_param("graphType", "Bar")
+    canvas.update_data_profile(
+        canvas.data,
+        fix_missing_profile = True,
+        match_profile_to_graphtype=True
+    )
+    assert isinstance(canvas.data.profile, CXStandardProfile)
+
+    canvas.config.set_param("graphType", "Venn")
+    canvas.update_data_profile(
+        canvas.data,
+        fix_missing_profile=True,
+        match_profile_to_graphtype=True
+    )
+    assert isinstance(canvas.data.profile, CXVennProfile)
+
+    canvas.config.set_param("graphType", "Network")
+    canvas.update_data_profile(
+        canvas.data,
+        fix_missing_profile=True,
+        match_profile_to_graphtype=True
+    )
+    assert isinstance(canvas.data.profile, CXNetworkProfile)
+
+    canvas.config.set_param("graphType", "Genome")
+    canvas.update_data_profile(
+        canvas.data,
+        fix_missing_profile=True,
+        match_profile_to_graphtype=True
+    )
+    assert isinstance(canvas.data.profile, CXGenomeProfile)
+
+    canvas.data.profile = CXRawProfile()
+    canvas.config.set_param("graphType", "Network")
+    canvas.update_data_profile(
+        canvas.data,
+        fix_missing_profile=True,
+        match_profile_to_graphtype=True
+    )
+    assert isinstance(canvas.data.profile, CXRawProfile)
