@@ -129,11 +129,17 @@ class CXNoteBook(CXRenderable):
                 chart_count = chart_count - 1
             canvas_table += "</tr>"
 
+        js_functions = "\n".join(
+            [
+                _cx_fx_template.replace("@code@", fx)
+                for fx in functions
+            ]
+        )
 
         html = _cx_html_template \
             .replace("@canvases@", canvas_table) \
             .replace("@canvasxpress_license@", license) \
-            .replace("@code@", "\n".join(functions))
+            .replace("@js_functions@", js_functions)
 
         temp_filename = f"temp_{str(uuid.uuid4())}.html"
         with open(temp_filename, "w") as temp_file:
