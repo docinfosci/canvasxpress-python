@@ -8,7 +8,6 @@ import pandas
 from pandas import DataFrame
 
 from canvasxpress.data.base import CXDataProfile, CXMatrixData
-from canvasxpress.data.profile import CXStandardProfile
 
 
 @total_ordering
@@ -149,9 +148,9 @@ class CXDataframeData(CXMatrixData):
             `None` to initialize with an empty `DataFrame`, or a `DataFrame`
             like object to assign mapped data.
         :param profile: `Union[CXDataProfile, None]`
-            Omit to initialize with CXStandardProfile, or specify the desired
-            profile object to facilitate transformation of data into a
-            CanvasXpress JSON data object.  `None` to avoid use of a profile.
+            Specify the desired profile object to facilitate transformation of
+            data into a CanvasXpress JSON data object.  `None` to avoid use of
+            a profile.
         """
         super().__init__(data, profile)
         self.data = data
@@ -322,9 +321,9 @@ class CXCSVData(CXDataframeData):
             `None` to initialize with an empty CSV, or a CSV `str`
             like object to assign mapped data.
         :param profile: `Union[CXDataProfile, None]`
-            Omit to initialize with CXStandardProfile, or specify the desired
-            profile object to facilitate transformation of data into a
-            CanvasXpress JSON data object.  `None` to avoid use of a profile.
+            Specify the desired profile object to facilitate transformation of
+            data into a CanvasXpress JSON data object.  `None` to avoid use of
+            a profile.
         """
         super().__init__(data, profile)
 

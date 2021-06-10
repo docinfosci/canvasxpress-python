@@ -13,6 +13,7 @@ SMPS = "smps"
 DATA = "data"
 CORS = "cors"
 LEGEND = "legend"
+NODES = "nodes"
 
 
 class CXData(CXDictConvertable):
@@ -151,9 +152,9 @@ class CXProfiledData(CXData):
             Given an object or no data prepares a new CXData instance ready for
             use by a `CanvasXpress` object.
         :param profile: `Union[CXDataProfile, None]`
-            `None` to initialize with CXStandardProfile, or specify the desired
-            profile object to facilitate transformation of data into a
-            CanvasXpress JSON data object.
+            Specify the desired profile object to facilitate transformation of
+            data into a CanvasXpress JSON data object.  `None` to avoid use of
+            a profile.
         """
         self.profile = profile
 
