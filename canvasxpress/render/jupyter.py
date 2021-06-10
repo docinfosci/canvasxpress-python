@@ -73,7 +73,9 @@ class CXNoteBook(CXRenderable):
     ):
         """
         Renders the associated CanvasXpress object appropriate for display in
-        an IPython (e.g., Jupyter NoteBook/Lab) environment.
+        an IPython (e.g., Jupyter NoteBook/Lab) environment.  Charts cannot
+        have the same name, so render_to will be updated with a uuid for each
+        conflicting chart.
         :param kwargs: `Any`
             Supports `columns` for any positive `int` of `1` or greater, with a
             default value of `1`.  Values less that `1` are ignored.  `columns`
@@ -90,6 +92,17 @@ class CXNoteBook(CXRenderable):
 
         else:
             render_targets.extend(self.canvas)
+
+        used_render_targets = list()
+        for target in render_targets:
+            original_render_target = target.render_to
+            if original_render_target in used_render_targets:
+                target.render_to = original_render_target + \
+                                   "_" + \
+                                   str(uuid.uuid4()).replace('-', '_')
+
+            used_render_targets.append(target.render_to)
+
 
         html_parts = [
             target.render_to_html_parts()
