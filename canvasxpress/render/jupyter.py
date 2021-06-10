@@ -117,16 +117,33 @@ class CXNoteBook(CXRenderable):
         if len(canvases) < columns:
             columns = len(canvases)
 
+        iframe_width = 0
+        iframe_height = 0
         chart_count = len(canvases)
         canvas_table = '<table style="width:100%">'
+
         while chart_count > 0:
+            candidate_width = 0
+            candidate_height = 0
+
             canvas_table += "<tr>"
             for c in range(columns):
                 canvas_table += "<td>"
                 if chart_count > 0:
                     canvas_table += canvases[chart_count - 1]
+
+                    candidate_width += render_targets[chart_count - 1].width
+                    if render_targets[chart_count - 1].height > candidate_height:
+                        candidate_height = render_targets[chart_count - 1].height
+
                 canvas_table += "</td>"
+
                 chart_count = chart_count - 1
+
+                if candidate_width > iframe_width:
+                    iframe_width = candidate_width
+                iframe_height += candidate_height
+
             canvas_table += "</tr>"
 
         js_functions = "\n".join(
@@ -148,8 +165,8 @@ class CXNoteBook(CXRenderable):
         display(
             IFrame(
                 temp_filename,
-                f"{self.canvas.element_width + _cx_iframe_padding}px",
-                f"{self.canvas.element_height + _cx_iframe_padding}px"
+                f"{iframe_width + _cx_iframe_padding}px",
+                f"{iframe_height + _cx_iframe_padding}px"
             )
         )
 
