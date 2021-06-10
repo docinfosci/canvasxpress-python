@@ -73,7 +73,7 @@ class CXRenderable(ABC):
             Multiple CanvasXpress objects are supported provided that
             they have distinct `render_to` targets.
         """
-        self.__cx = cx
+        self.canvas = cx
 
     @abstractmethod
     def render(
