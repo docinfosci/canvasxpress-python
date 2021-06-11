@@ -150,14 +150,13 @@ class CXNoteBook(CXRenderable):
                         candidate_height = render_targets[chart_count - 1].height
 
                 canvas_table += "</td>"
-
                 chart_count = chart_count - 1
 
-                if candidate_width > iframe_width:
-                    iframe_width = candidate_width
-                iframe_height += candidate_height
-
             canvas_table += "</tr>"
+
+            if candidate_width > iframe_width:
+                iframe_width = candidate_width
+            iframe_height += candidate_height
 
         js_functions = "\n".join(
             [
