@@ -2,7 +2,7 @@ import pytest
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXString
+from canvasxpress.config.type import CXString, CXList
 from canvasxpress.data.keypair import CXDictData
 from canvasxpress.data.profile import CXStandardProfile, CXVennProfile, \
     CXNetworkProfile, CXGenomeProfile, CXRawProfile
@@ -142,9 +142,28 @@ def test_CanvasXpress_events():
         subject.events = -1
 
 
+def test_CanvasXpress_after_render():
+    subject: CanvasXpress = CanvasXpress()
+    raw_sample = CXList("label", ["Gender"])
+    data_sample = CXConfigs(raw_sample)
+
+    subject.after_render = data_sample
+    assert subject.after_render == data_sample
+
+    subject.after_render = [raw_sample]
+    assert subject.after_render == data_sample
+
+    subject.after_render = None
+    assert subject.after_render == CXConfigs()
+
+    with pytest.raises(TypeError):
+        subject: CanvasXpress = CanvasXpress()
+        subject.after_render = -1
+
+
 def test_CanvasXpress_config():
     subject: CanvasXpress = CanvasXpress()
-    raw_sample = CXString("label", "value")
+    raw_sample = CXString("createPie", "value")
     data_sample = CXConfigs(raw_sample)
 
     subject.config = data_sample
