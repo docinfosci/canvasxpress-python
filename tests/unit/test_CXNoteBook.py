@@ -2,7 +2,8 @@ import pytest
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions, CXString, CXList, CXBool
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions, CXString, \
+    CXList, CXBool
 from canvasxpress.data.keypair import CXDictData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
@@ -46,7 +47,8 @@ def test_CXNoteBook_render_complex():
         CXString("backgroundType", "window"),
         CXString("backgroundWindow", "rgb(238,238,238)"),
         CXString("colorBy", "Group"),
-        CXList("colors", ["rgba(0,104,139,0.5)", "rgba(205,0,0,0.5)", "rgba(64,64,64,0.5)"]),
+        CXList("colors", ["rgba(0,104,139,0.5)", "rgba(205,0,0,0.5)",
+                          "rgba(64,64,64,0.5)"]),
         CXBool("showTransition", False),
         CXString("theme", "CanvasXpress"),
         CXString("showLoessFit", True),
@@ -103,3 +105,75 @@ def test_CXNoteBook_render_complex():
     # Jupyter notebook requires components to render in their own containers -- so we provide one
     demo_nb = CXNoteBook(chart)
     demo_nb.render()
+
+
+def test_complex_chart_arrangements():
+    # Define a CX bar chart with some basic data
+    chart1 = CanvasXpress(
+        render_to="dict_chart",
+        data=CXDictData(
+            {
+                "y": {
+                    "vars": ["Gene1"],
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                },
+            }
+        ),
+        config=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Area)
+        )
+    )
+
+    chart2 = CanvasXpress(
+        render_to="dict_chart",
+        data=CXDictData(
+            {
+                "y": {
+                    "vars": ["Gene1"],
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                },
+            }
+        ),
+        config=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Bar)
+        )
+    )
+
+    chart3 = CanvasXpress(
+        render_to="dict_chart",
+        data=CXDictData(
+            {
+                "y": {
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                },
+            }
+        ),
+        config=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Area)
+        )
+    )
+
+    chart4 = CanvasXpress(
+        render_to="dict_chart",
+        data=CXDictData(
+            {
+                "vars": ["Gene1"],
+                "smps": ["Smp1", "Smp2", "Smp3"],
+                "data": [[10, 35, 88]]
+            }
+        ),
+        config=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Bar)
+        )
+    )
+
+    nb = CXNoteBook([chart1, chart2, chart3, chart4])
+    nb.render()
+    nb.render(columns=1)
+    nb.render(columns=2)
+    nb.render(columns=3)
+    nb.render(columns=4)
+    nb.render(columns=5)

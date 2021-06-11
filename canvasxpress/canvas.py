@@ -96,7 +96,7 @@ class CanvasXpress(CXHtmlConvertable):
         elif not isinstance(value, str):
             raise TypeError("value must be of type str")
 
-        elif any(not s.isidentifier() for s in value):
+        elif not value.isidentifier():
             raise ValueError("value must be only alpha numeric")
 
         else:

@@ -14,9 +14,9 @@ class SampleRenderable(CXRenderable):
 
     def __init__(
             self,
-            cx: CanvasXpress
+            *cx: CanvasXpress
     ):
-        super().__init__(cx)
+        super().__init__(*cx)
 
     def render(self):
         """
@@ -98,12 +98,12 @@ def test_CXRenderable_set_canvas(testable_renderable: CXRenderable):
 
 
 def test_CXRenderable_set_canvas_None(testable_renderable: CXRenderable):
-    with pytest.raises(ValueError):
-        testable_renderable.canvas = None
+    testable_renderable.canvas = None
+    assert testable_renderable.canvas is None
 
 
 def test_CXRenderable_set_canvas_junk(testable_renderable: CXRenderable):
-    for candidate in [0, "0", dict(), list()]:
+    for candidate in [0, "0", dict()]:
         with pytest.raises(TypeError):
             testable_renderable.canvas = candidate
 

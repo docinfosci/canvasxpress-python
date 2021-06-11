@@ -5,9 +5,6 @@
 
 ## About CanvasXpress for Python
 
-***This package was recently released for general use.  We maintain thorough code coverage and use the package ourselves,
-but it remains possible that edge use cases can be refined.  We appreciate your feedback and patience.***
-
 [***CanvasXpress***](https://www.canvasxpress.org) was developed as the core visualization component for bioinformatics and systems biology analysis
 at Bristol-Myers Squibb. It supports a large number of [visualizations ](https://www.canvasxpress.org/examples.html) 
 to display scientific and non-scientific data. ***CanvasXpress*** also includes a simple and unobtrusive
@@ -50,83 +47,40 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
-#### 2021 June 9: Network, Genome, and Raw JSON data now supported
-The CanvasXpress JSON data format allows for network diagram specific data.
-`CXNetworkProfile` has been added to support network JSON data.  A minimum
-verification of data type (only key-pair is permitted) is provided for a 
-Python tier sanity check.  Multiple network data formats are allowed by the
-Javascript library and enhanced validation will be built over time.
+#### 2021 June 11: Jupyter rendering supports bundled charts
+CanvasXpress supports data broadcasting, which permits charts on the same Web
+page with the same data references to synchronize data selections and refreshes
+with no or minimal work on the developer's part.  When used with Jupyter 
+Notebooks, CanvasXpress for Python rendered each chart in its own Web container,
+which prevented broadcasting from working.  With this release, `CXNoteBook` 
+now permits multiple charts to be included in the same Web container. 
 
-The CanvasXPress JSON data format allows for genome diagram specific data.
-`CXGenomeProfile` has been added to support genome JSON data.  Only key-pair
-data is permitted, and it is verified for the `tracks` and `type` attributes
-in terms of presence and data type.  Variations for track elements are
-permitted by the Javascript library and enhanced validation will be built
-over time.
-
-`CXProfiledData` defaults to using no profile, and upon being used in the 
-`CanvasXpress` `render_to_html()` function are assigned a profile if none
-is associated per the `graphType` configuration if present.  A `CXData` 
-object with no profile provides its `dict`-form of data as-is.  To avoid
-profile assignment, the `CXRawProfile` can be assigned to data objects.  This
-profile will pass-through the `dict`-form unmodified and avoid default profile
-assignment by the `CanvasXpress` object.  This allows advanced data formatting
-or support for unknown data formats by advanced users or development releases
-of the CanvasXpress Javascript library.
-
-#### 2021 June 7: Venn JSON data now supported
-The CanvasXpress JSON data format allows for venn diagram specific data.
-`CXVennProfile` has been added to support venn JSON data.
-
-Additionally, `render_to_html_parts` now checks as to whether a profile has 
-been assigned to data objects, and if not then per the `graphType` config
-parameter assigns a render profile.
-
-#### 2021 June 3: x, z, and cors JSON data now supported
-The CanvasXpress JSON data format allows for `x` and `z` attributes to provide
-metadata for columns and rows, respectively.  Correlation diagrams also accept
-the `y[cors]` attribute for pre-calculated correlation data.
-
-The `CXStandardProfile` now explicity supports `x` and `z` attributes, and will
-provide essential verification for alignment with respective `y` components.
-
-The `CXStandardProfile` now explicity supports `y[cors]` data in addition to
-`y[data]` and will handle metadata defaults for `y[vars]` and `y[smps]` 
-accordingly.  This brings `cxStandardProfile` into full compliance with 
-typical JSON data objects.  
-
-Note that correlation data is not calculated for matrix data types, but 
-CanvasXpress for Javasxcript will calculate those values for the referenced 
-matrix in the JSON data if a correlation chart is indicated.
-
-#### 2021 May 28: width, height, and canvas properties
-The `CanvasXpress` object now accepts dedicated `width`, `height`, `canvas` 
-properties.  
-
-`width` and `height` replace the now-deprecated `element_width` and 
-`element_height` properties, and these are expected to be the final 
-names used for each.  Values for each are used in the `<canvas>` element
-generated for use in HTML, and they affect the render container sizes when
-used in conjunction with contexts such as Jupyter Notebooks.
-
-`canvas` tracks `CXConfig` values that become attributes of the generated
-`<canvas>` element.  In this manner attributes such as `class` or `style`
-can be calculated and managed at the Python tier.
-
-See the documentation and examples for detailed usage.
-
-#### 2021 May 28: dict and tuple values now supported for CXConfigs
-The `CanvasXpress` class uses `CXConfigs` to track configuration parameters 
-for the chart and `<canvas>` element.  These now accept `dict` and `tuple`
-values for more convenient initialization of the `CanvasXpress` object.
-
-See the documentation and examples for detailed usage.
-
-#### 2021 May 21: CXUrlData added
-CanvasXpress accepts URL references to files or endpoints with properly 
-formatted JSON data.  `CXUrlData` has been added to support URL passthrough 
-to the CanvasXpress Javascript, along with some validation ability at the
-Python tier.
+#### 2021 May, June Prior Release Summary
+* All JSON data formats now generally supported:
+    1. URL:
+        * Data path with standard URI formatting (e.g., http, sftp, etc.)
+    1. Standard:
+        * Matrix and key-pair data
+        * `x`, `y`, and `z` attributes
+        * Missing attributes calculated for easier data integration
+    1. Venn:
+        * Matrix and key-pair data 
+        * `venn` and `legend` attributes
+        * Missing attributes calculated for easier data integration
+    1. Network 
+        * key-pair data
+        * `node` attributes and general `dict`/`list` structure
+    1. Genome
+        * key-pair data
+        * `tracks` and `type` attributes and general `dict`/`list` structure
+    1. RAW / Passthrough
+        * Matrix and key-pair
+        * Beyond conversion of data to JSON, effective pass-through of data
+* Python `dict` data direct reference in `CanvasXpress.data` parameter with
+  auto-coonversion to `CXDictData`.
+* Introduction of `CXDataProfile` and profiled formatting of incomplete
+  data per `graphType` configuration.
+* Minor bug fixes and expansion of automated tests.
 
 ### Roadmap
 
@@ -134,16 +88,14 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 #### Immediate Focus
 
-- Enhanced examples and documentation for CXDataProfile components
-- Support alternate CanvasXpress data objects for venn (etc.)
-- An exhaustive Jupyter Notebook tutorial for all aspects of the package
+- Detailed documentation and working examples of all Python functionality
+- Pop-up HTML renderer for viewing charts in traditional Python sessions
 
 #### General Focus
 
+- Integraton with dashboard frameworks for easier applet creation
 - Continued alignment with the CanvasXpress Javascript library
 - Continued stability and security, if/as needed
-- Expanded examples and tutorials
-- Expanded platform integrations
 
 ## Getting Started
 
@@ -299,6 +251,6 @@ def canvasxpress_example():
 Rerun the flask app on the command line and browse to the indicated IP and URL. A page similar to the following will be
 displayed:
 
-<img src="flask_bar_chart_basic.png" align="center" width="600"></a>
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
 
 Congratulations!  You have created your first Python-driven CanvasXpress app!
