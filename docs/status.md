@@ -21,6 +21,14 @@ upgraded to current release editions.  This only affects doc builds.
    
 ## Recent Enhancements
 
+#### 2021 June 11: Jupyter rendering supports bundled charts
+CanvasXpress supports data broadcasting, which permits charts on the same Web
+page with the same data references to synchronize data selections and refreshes
+with no or minimal work on the developer's part.  When used with Jupyter 
+Notebooks, CanvasXpress for Python rendered each chart in its own Web container,
+which prevented broadcasting from working.  With this release, `CXNoteBook` 
+now permits multiple charts to be included in the same Web container.
+
 ### 2021 June 9: Network, Genome, and Raw JSON data now supported
 The CanvasXpress JSON data format allows for network diagram specific data.
 `CXNetworkProfile` has been added to support network JSON data.  A minimum
@@ -160,15 +168,12 @@ some property names were changed in the `CanvasXpress` class:
 
 This package is actively maintained and developed.  Our focus for 2021 is:
 
-### Immediate Focus
+#### Immediate Focus
 
-- Enhanced examples and documentation for CXDataProfile components
-- Support alternate CanvasXpress data objects for venn (etc.)
-- An exhaustive Jupyter Notebook tutorial for all aspects of the package
+- Detailed documentation and working examples of all Python functionality
+- Integraton with dashboard frameworks for easier applet creation
 
-### General Focus
+#### General Focus
 
 - Continued alignment with the CanvasXpress Javascript library
 - Continued stability and security, if/as needed
-- Expanded examples and tutorials
-- Expanded platform integrations
