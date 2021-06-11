@@ -179,11 +179,6 @@ inside add a file called `canvasxpress_example.html`.  Inside the file add:
     <head>
         <meta charset="UTF-8">
         <title>Flask CanvasXpress Example</title>
-    </head>
-    <body>
-    
-        <!-- 1. DOM element where the visualization will be displayed -->
-        {{canvas_element|safe}}
         
         <!-- 2. Include the CanvasXpress library -->
         <link 
@@ -202,6 +197,12 @@ inside add a file called `canvasxpress_example.html`.  Inside the file add:
                 {{canvas_source|safe}}
             })
         </script>
+        
+    </head>
+    <body>
+    
+        <!-- 1. DOM element where the visualization will be displayed -->
+        {{canvas_element|safe}}
     
     </body>
 </html>
