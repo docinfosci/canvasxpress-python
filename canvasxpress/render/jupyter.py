@@ -55,17 +55,17 @@ class CXNoteBook(CXRenderable):
 
     def __init__(
             self,
-            cx: Union[List[CanvasXpress], CanvasXpress, None]
+            *cx: Union[List[CanvasXpress], CanvasXpress, None]
     ):
         """
         Initializes a new `CXNoteBook` object.
-        :praram cx: `value: Union[List[CanvasXpress], CanvasXpress, None]`
+        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
             The `CanvasXpress` object(s) to be tracked.  See the `canvas`
             property, except that on initialization cx can be `None`.
             Multiple CanvasXpress objects are supported provided that
             they have distinct `render_to` targets.
         """
-        super().__init__(cx)
+        super().__init__(*cx)
 
     def render(
             self,

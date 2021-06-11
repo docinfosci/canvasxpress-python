@@ -56,24 +56,46 @@ class CXRenderable(ABC):
                 if not isinstance(v, CanvasXpress):
                     raise TypeError("value must of type CanvasXpress")
 
-            self.__cx = value
+            self.__cx = copy(value)
 
         else:
             raise TypeError("value must of type CanvasXpress")
 
     def __init__(
             self,
-            cx: Union[List[CanvasXpress], CanvasXpress, None]
+            *cx: Union[List[CanvasXpress], CanvasXpress, None]
     ):
         """
         Initializes a new `CXRenderable` object.
-        :praram cx: `value: Union[List[CanvasXpress], CanvasXpress, None]`
+        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
             The `CanvasXpress` object(s) to be tracked.  See the `canvas`
             property, except that on initialization cx can be `None`.
             Multiple CanvasXpress objects are supported provided that
             they have distinct `render_to` targets.
         """
-        self.canvas = cx
+        charts = list()
+        for arg in cx:
+            if arg is None:
+                pass
+
+            if isinstance(arg, (list, tuple)):
+                for item in arg:
+                    if not isinstance(item, CanvasXpress):
+                        raise TypeError(
+                            "All cx members must be of type CanvasXpress"
+                        )
+                    else:
+                        charts.append(item)
+
+            elif isinstance(arg, CanvasXpress):
+                charts.append(arg)
+
+            else:
+                raise TypeError(
+                    "All cx members must be of type CanvasXpress"
+                )
+
+        self.canvas = charts
 
     @abstractmethod
     def render(

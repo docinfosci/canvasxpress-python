@@ -14,9 +14,9 @@ class SampleRenderable(CXRenderable):
 
     def __init__(
             self,
-            cx: CanvasXpress
+            *cx: CanvasXpress
     ):
-        super().__init__(cx)
+        super().__init__(*cx)
 
     def render(self):
         """
