@@ -8,7 +8,7 @@ from IPython.display import display, IFrame
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
-_cx_iframe_padding = 20
+_cx_iframe_padding = 25
 
 _cx_fx_template = """
 <script type="text/javascript">
