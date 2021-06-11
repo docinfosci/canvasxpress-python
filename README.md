@@ -88,14 +88,15 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 #### Immediate Focus
 
-- Detailed documentation and working examples of all Python functionality
-- Pop-up HTML renderer for viewing charts in traditional Python sessions
+* Detailed documentation and working examples of all Python functionality
+* Support for DOE dashboards
+* Pop-up HTML renderer for viewing charts in traditional Python sessions
 
 #### General Focus
 
-- Integraton with dashboard frameworks for easier applet creation
-- Continued alignment with the CanvasXpress Javascript library
-- Continued stability and security, if/as needed
+* Integraton with dashboard frameworks for easier applet creation
+* Continued alignment with the CanvasXpress Javascript library
+* Continued stability and security, if/as needed
 
 ## Getting Started
 
