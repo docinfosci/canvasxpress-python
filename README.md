@@ -47,6 +47,12 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
+#### 2021 June 11: afterRender support
+CanvasXpress objects accept the `afterRender` property, which defines a list
+of functions and parameters for each function.  This list is executed once
+the canvas element has been updated by the creation Javascript.  CanvasXpress
+for Python now supports this with the addition of the `after_render` property.
+
 #### 2021 June 11: Jupyter rendering supports bundled charts
 CanvasXpress supports data broadcasting, which permits charts on the same Web
 page with the same data references to synchronize data selections and refreshes
