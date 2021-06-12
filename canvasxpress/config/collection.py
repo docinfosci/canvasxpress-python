@@ -5,11 +5,14 @@ from typing import List, Any, Union
 
 from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool, \
     CXList, CXDict, CXRGBColor, CXRGBAColor
-from canvasxpress.data.convert import CXDictConvertable
+from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
 
 @total_ordering
-class CXConfigs(CXDictConvertable):
+class CXConfigs(
+    CXDictConvertable,
+    CXListConvertable
+):
     """
     CXConfigs provides support for addressing a collection of `CXConfig` values.
     """
@@ -277,6 +280,20 @@ class CXConfigs(CXDictConvertable):
         return CXConfigs.merge_configs(
             list(self.__configs)
         )
+
+    def render_to_list(
+            self,
+            **kwargs
+    ) -> list:
+        configs = self.render_to_dict()
+        return [
+            [
+                str(key),               # function name
+                list([configs[key]])    # list of parameter values
+            ]
+            for key in configs.keys()
+        ]
+
 
     @classmethod
     def merge_configs(
