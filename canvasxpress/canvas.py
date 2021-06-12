@@ -156,28 +156,6 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     @property
-    @deprecated(
-        reason="As part of improved alignment with CanvasXpress for JS, use the"
-               " width property instead."
-    )
-    def element_width(self) -> int:
-        """
-        DEPRECATED - USE  `width`
-        """
-        return self.width
-
-    @element_width.setter
-    @deprecated(
-        reason="As part of improved alignment with CanvasXpress for JS, use the"
-               " width property instead."
-    )
-    def element_width(self, value: int):
-        """
-        DEPRECATED - USE  `width`
-        """
-        self.width = value
-
-    @property
     def width(self) -> int:
         """
         Indicates the preferred <canvas> Web element width when rendered.  This
@@ -218,28 +196,6 @@ class CanvasXpress(CXHtmlConvertable):
     """
     Preferred height of the chart in pixels when rendered, such as into HTML.
     """
-
-    @property
-    @deprecated(
-        reason="As part of improved alignment with CanvasXpress for JS, use the"
-               " height property instead."
-    )
-    def element_height(self) -> int:
-        """
-        DEPRECATED - USE `height`
-        """
-        return self.height
-
-    @element_height.setter
-    @deprecated(
-        reason="As part of improved alignment with CanvasXpress for JS, use the"
-               " height property instead."
-    )
-    def element_height(self, value: int):
-        """
-        DEPRECATED - USE `height`
-        """
-        self.height = value
 
     @property
     def height(self) -> int:
