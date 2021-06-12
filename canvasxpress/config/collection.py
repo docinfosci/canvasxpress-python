@@ -285,6 +285,30 @@ class CXConfigs(
             self,
             **kwargs
     ) -> list:
+        """
+        Provides a `list` representation of the configuration values.
+        :returns: `list`
+            A `list` representing the configuration values arranged as a map
+            of keys and values.
+
+            Given:
+            ```python
+            configs = CXConfigs()
+            configs \
+                .set_param("1", "rgb(3, 172, 198)") \
+                .set_param("2", 2) \
+                .set_param("3", True)
+            ```
+
+            Then `render_to_list()` results in:
+            ```python
+            [
+                ["1", ["rgb(3, 172, 198)"]],
+                ["2": [2]],
+                ["3": [True]],
+            ]
+            ```
+        """
         configs = self.render_to_dict()
         return [
             [
