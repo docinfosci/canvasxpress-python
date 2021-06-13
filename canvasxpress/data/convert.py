@@ -40,6 +40,28 @@ class CXDictConvertable(ABC):
         pass
 
 
+class CXListConvertable(ABC):
+    """
+    CXListConvertable represents an object that can be converted into a list.
+    """
+
+    @abstractmethod
+    def render_to_list(
+            self,
+            **kwargs
+    ) -> list:
+        """
+        Converts the object into a list representation.
+        :param kwargs:
+            Keyword arguments that can be supplied to facilitate rendering
+            decisions.
+        :returns: `list`
+            A list representation of the object, such as what might be
+            needed for a JSON export.
+        """
+        pass
+
+
 class CXJavascriptConvertable(ABC):
     """
     CXJavascriptConvertable represents an object that can be converted into JS.

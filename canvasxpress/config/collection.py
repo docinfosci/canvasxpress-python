@@ -5,11 +5,14 @@ from typing import List, Any, Union
 
 from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool, \
     CXList, CXDict, CXRGBColor, CXRGBAColor
-from canvasxpress.data.convert import CXDictConvertable
+from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
 
 @total_ordering
-class CXConfigs(CXDictConvertable):
+class CXConfigs(
+    CXDictConvertable,
+    CXListConvertable
+):
     """
     CXConfigs provides support for addressing a collection of `CXConfig` values.
     """
@@ -277,6 +280,44 @@ class CXConfigs(CXDictConvertable):
         return CXConfigs.merge_configs(
             list(self.__configs)
         )
+
+    def render_to_list(
+            self,
+            **kwargs
+    ) -> list:
+        """
+        Provides a `list` representation of the configuration values.
+        :returns: `list`
+            A `list` representing the configuration values arranged as a map
+            of keys and values.
+
+            Given:
+            ```python
+            configs = CXConfigs()
+            configs \
+                .set_param("1", "rgb(3, 172, 198)") \
+                .set_param("2", 2) \
+                .set_param("3", True)
+            ```
+
+            Then `render_to_list()` results in:
+            ```python
+            [
+                ["1", ["rgb(3, 172, 198)"]],
+                ["2": [2]],
+                ["3": [True]],
+            ]
+            ```
+        """
+        configs = self.render_to_dict()
+        return [
+            [
+                str(key),               # function name
+                list([configs[key]])    # list of parameter values
+            ]
+            for key in configs.keys()
+        ]
+
 
     @classmethod
     def merge_configs(

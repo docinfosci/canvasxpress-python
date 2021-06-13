@@ -47,6 +47,12 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
+#### 2021 June 11: afterRender support
+CanvasXpress objects accept the `afterRender` property, which defines a list
+of functions and parameters for each function.  This list is executed once
+the canvas element has been updated by the creation Javascript.  CanvasXpress
+for Python now supports this with the addition of the `after_render` property.
+
 #### 2021 June 11: Jupyter rendering supports bundled charts
 CanvasXpress supports data broadcasting, which permits charts on the same Web
 page with the same data references to synchronize data selections and refreshes
@@ -88,14 +94,15 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 #### Immediate Focus
 
-- Detailed documentation and working examples of all Python functionality
-- Pop-up HTML renderer for viewing charts in traditional Python sessions
+* Detailed documentation and working examples of all Python functionality
+* Support for DOE dashboards
+* Pop-up HTML renderer for viewing charts in traditional Python sessions
 
 #### General Focus
 
-- Integraton with dashboard frameworks for easier applet creation
-- Continued alignment with the CanvasXpress Javascript library
-- Continued stability and security, if/as needed
+* Integraton with dashboard frameworks for easier applet creation
+* Continued alignment with the CanvasXpress Javascript library
+* Continued stability and security, if/as needed
 
 ## Getting Started
 
@@ -172,11 +179,6 @@ inside add a file called `canvasxpress_example.html`.  Inside the file add:
     <head>
         <meta charset="UTF-8">
         <title>Flask CanvasXpress Example</title>
-    </head>
-    <body>
-    
-        <!-- 1. DOM element where the visualization will be displayed -->
-        {{canvas_element|safe}}
         
         <!-- 2. Include the CanvasXpress library -->
         <link 
@@ -195,6 +197,12 @@ inside add a file called `canvasxpress_example.html`.  Inside the file add:
                 {{canvas_source|safe}}
             })
         </script>
+        
+    </head>
+    <body>
+    
+        <!-- 1. DOM element where the visualization will be displayed -->
+        {{canvas_element|safe}}
     
     </body>
 </html>

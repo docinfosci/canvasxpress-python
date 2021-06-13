@@ -78,29 +78,30 @@ Inside add a file called `canvasxpress_example.html`. Inside the file add:
 <head>
     <meta charset="UTF-8">
     <title>Flask CanvasXpress Example</title>
+    
+    <!-- 2. Include the CanvasXpress library -->
+    <link
+            href='https://www.canvasxpress.org/dist/canvasXpress.css'
+            rel='stylesheet'
+            type='text/css'
+    />
+    <script
+            src='https://www.canvasxpress.org/dist/canvasXpress.min.js'
+            type='text/javascript'>
+    </script>
+    
+    <!-- 3. Include script to initialize object -->
+    <script type="text/javascript">
+        onReady(function () {
+            {{canvas_source|safe}}
+        })
+    </script>
+        
 </head>
 <body>
 
 <!-- 1. DOM element where the visualization will be displayed -->
 {{canvas_element|safe}}
-
-<!-- 2. Include the CanvasXpress library -->
-<link
-        href='https://www.canvasxpress.org/dist/canvasXpress.css'
-        rel='stylesheet'
-        type='text/css'
-/>
-<script
-        src='https://www.canvasxpress.org/dist/canvasXpress.min.js'
-        type='text/javascript'>
-</script>
-
-<!-- 3. Include script to initialize object -->
-<script type="text/javascript">
-    onReady(function () {
-        {{canvas_source|safe}}
-    })
-</script>
 
 </body>
 </html>
