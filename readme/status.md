@@ -19,7 +19,29 @@
 conflict between these packages.  Once the conflict is resolved they will be
 upgraded to current release editions.  This only affects doc builds.
    
+## Roadmap
+
+This package is actively maintained and developed.  Our focus for 2021 is:
+
+#### Immediate Focus
+
+* Detailed documentation and working examples of all Python functionality
+* Support for DOE dashboards
+* Pop-up HTML renderer for viewing charts in traditional Python sessions
+
+#### General Focus
+
+* Integraton with dashboard frameworks for easier applet creation
+* Continued alignment with the CanvasXpress Javascript library
+* Continued stability and security, if/as needed
+
 ## Recent Enhancements
+
+#### 2021 June 11: afterRender support
+CanvasXpress objects accept the `afterRender` property, which defines a list
+of functions and parameters for each function.  This list is executed once
+the canvas element has been updated by the creation Javascript.  CanvasXpress
+for Python now supports this with the addition of the `after_render` property.
 
 #### 2021 June 11: Jupyter rendering supports bundled charts
 CanvasXpress supports data broadcasting, which permits charts on the same Web
@@ -163,18 +185,3 @@ some property names were changed in the `CanvasXpress` class:
   the application context aspects such as scrollbars might appear to provide
   full access.  The distinction is maintained for applications with non-reactive
   user interfaces, such as what might be typical of QT apps.
-
-### Roadmap
-
-This package is actively maintained and developed.  Our focus for 2021 is:
-
-#### Immediate Focus
-
-- Detailed documentation and working examples of all Python functionality
-- Pop-up HTML renderer for viewing charts in traditional Python sessions
-
-#### General Focus
-
-- Integraton with dashboard frameworks for easier applet creation
-- Continued alignment with the CanvasXpress Javascript library
-- Continued stability and security, if/as needed

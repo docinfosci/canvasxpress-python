@@ -8,7 +8,7 @@ from IPython.display import display, IFrame
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
-_cx_iframe_padding = 20
+_cx_iframe_padding = 25
 
 _cx_fx_template = """
 <script type="text/javascript">
@@ -23,12 +23,8 @@ _cx_html_template = """
     <head>
         <meta charset="UTF-8">
         <title>Flask CanvasXpress Example</title>
-    </head>
-    <body>
-        <!-- 1. DOM element where the visualization will be displayed -->
-        @canvases@
-
-        <!-- 2. Include the CanvasXpress library -->
+        
+        <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
         <link 
                 href='https://www.canvasxpress.org/dist/canvasXpress.css' 
@@ -40,8 +36,13 @@ _cx_html_template = """
                 type='text/javascript'>
         </script>
 
-        <!-- 3. Include script to initialize object -->
+        <!-- 2. Include script to initialize object -->
         @js_functions@
+        
+    </head>
+    <body>
+        <!-- 3. DOM element where the visualization will be displayed -->
+        @canvases@
      </body>
 </html>
 """
