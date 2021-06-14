@@ -104,6 +104,7 @@ class CXNoteBook(CXRenderable):
 
             used_render_targets.append(target.render_to)
 
+        render_targets.reverse()
 
         html_parts = [
             target.render_to_html_parts()
