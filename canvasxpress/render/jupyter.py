@@ -104,6 +104,7 @@ class CXNoteBook(CXRenderable):
 
             used_render_targets.append(target.render_to)
 
+        render_targets.reverse()
 
         html_parts = [
             target.render_to_html_parts()
@@ -120,10 +121,10 @@ class CXNoteBook(CXRenderable):
             for part in html_parts
         ]
 
-        license = ""
+        cx_license = ""
         for part in html_parts:
             if part.get("cx_license"):
-                license = part["cx_license"]
+                cx_license = part["cx_license"]
                 break
 
         columns_arg = int(kwargs.get("columns", 1))
@@ -168,7 +169,7 @@ class CXNoteBook(CXRenderable):
 
         html = _cx_html_template \
             .replace("@canvases@", canvas_table) \
-            .replace("@canvasxpress_license@", license) \
+            .replace("@canvasxpress_license@", cx_license) \
             .replace("@js_functions@", js_functions)
 
         temp_filename = f"temp_{str(uuid.uuid4())}.html"
