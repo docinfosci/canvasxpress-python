@@ -1,14 +1,12 @@
 import uuid
-from os import unlink
+import os
+from copy import deepcopy
 from time import sleep
 from typing import Any, Union, List
-
-from IPython.display import display, IFrame
+import webbrowser
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
-
-_cx_iframe_padding = 25
 
 _cx_fx_template = """
 <script type="text/javascript">
@@ -48,10 +46,10 @@ _cx_html_template = """
 """
 
 
-class CXNoteBook(CXRenderable):
+class CXBrowserPopup(CXRenderable):
     """
-    CXNoteBook is a `CXRenderable` that renders `CanvasXpress` objects into
-    `IPython` containers (Jupyter Notebooks).
+    CXBrowserPopup is a `CXRenderable` that renders `CanvasXpress` objects into
+    a Web page that is displayed in a pop-up browser window.
     """
 
     def __init__(
@@ -59,7 +57,7 @@ class CXNoteBook(CXRenderable):
             *cx: Union[List[CanvasXpress], CanvasXpress, None]
     ):
         """
-        Initializes a new `CXNoteBook` object.
+        Initializes a new `CXBrowserPopup` object.
         :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
             The `CanvasXpress` object(s) to be tracked.  See the `canvas`
             property, except that on initialization cx can be `None`.
@@ -74,14 +72,13 @@ class CXNoteBook(CXRenderable):
     ):
         """
         Renders the associated CanvasXpress object appropriate for display in
-        an IPython (e.g., Jupyter NoteBook/Lab) environment.  Charts cannot
-        have the same name, so render_to will be updated with a uuid for each
-        conflicting chart.
+        a pop-up browser window.  Charts cannot have the same name,
+        so render_to will be updated with a uuid for each conflicting chart.
         :param kwargs: `Any`
             Supports `columns` for any positive `int` of `1` or greater, with a
             default value of `1`.  Values less that `1` are ignored.  `columns`
             indicates how many charts should be rendered horizontally in the
-            Jupyter Notebook if more than one chart is being tracked.
+            browser if more than one chart is being tracked.
         """
         render_targets = list()
 
@@ -89,10 +86,15 @@ class CXNoteBook(CXRenderable):
             pass
 
         elif isinstance(self.canvas, CanvasXpress):
-            render_targets.append(self.canvas)
+            render_targets.append(
+                deepcopy(self.canvas)
+            )
 
         else:
-            render_targets.extend(self.canvas)
+            for chart in self.canvas:
+                render_targets.append(
+                    deepcopy(chart)
+                )
 
         used_render_targets = list()
         for target in render_targets:
@@ -132,8 +134,8 @@ class CXNoteBook(CXRenderable):
         if len(canvases) < columns:
             columns = len(canvases)
 
-        iframe_width = 0
-        iframe_height = 0
+        page_width = 0
+        page_height = 0
         chart_count = len(canvases)
         canvas_table = '<table style="width:100%">'
 
@@ -148,17 +150,19 @@ class CXNoteBook(CXRenderable):
                     canvas_table += canvases[chart_count - 1]
 
                     candidate_width += render_targets[chart_count - 1].width
-                    if render_targets[chart_count - 1].height > candidate_height:
-                        candidate_height = render_targets[chart_count - 1].height
+                    if render_targets[
+                        chart_count - 1].height > candidate_height:
+                        candidate_height = render_targets[
+                            chart_count - 1].height
 
                 canvas_table += "</td>"
                 chart_count = chart_count - 1
 
             canvas_table += "</tr>"
 
-            if candidate_width > iframe_width:
-                iframe_width = candidate_width
-            iframe_height += candidate_height
+            if candidate_width > page_width:
+                page_width = candidate_width
+            page_height += candidate_height
 
         js_functions = "\n".join(
             [
@@ -172,17 +176,11 @@ class CXNoteBook(CXRenderable):
             .replace("@canvasxpress_license@", cx_license) \
             .replace("@js_functions@", js_functions)
 
-        temp_filename = f"temp_{str(uuid.uuid4())}.html"
+        temp_filename = os.path.join(os.getcwd(), f"{str(uuid.uuid4())}.html")
         with open(temp_filename, "w") as temp_file:
             temp_file.write(html)
 
-        display(
-            IFrame(
-                temp_filename,
-                f"{iframe_width + _cx_iframe_padding}px",
-                f"{iframe_height + _cx_iframe_padding}px"
-            )
+        webbrowser.open(
+            "file://" + temp_filename,
+            new=1
         )
-
-        sleep(2)
-        unlink(temp_filename)
