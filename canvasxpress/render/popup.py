@@ -1,5 +1,6 @@
 import uuid
-from os import unlink
+import os
+from copy import deepcopy
 from time import sleep
 from typing import Any, Union, List
 import webbrowser
@@ -85,10 +86,15 @@ class CXBrowserPopup(CXRenderable):
             pass
 
         elif isinstance(self.canvas, CanvasXpress):
-            render_targets.append(self.canvas)
+            render_targets.append(
+                deepcopy(self.canvas)
+            )
 
         else:
-            render_targets.extend(self.canvas)
+            for chart in self.canvas:
+                render_targets.append(
+                    deepcopy(chart)
+                )
 
         used_render_targets = list()
         for target in render_targets:
@@ -170,13 +176,11 @@ class CXBrowserPopup(CXRenderable):
             .replace("@canvasxpress_license@", cx_license) \
             .replace("@js_functions@", js_functions)
 
-        temp_filename = f"temp_{str(uuid.uuid4())}.html"
+        temp_filename = os.path.join(os.getcwd(), f"{str(uuid.uuid4())}.html")
         with open(temp_filename, "w") as temp_file:
             temp_file.write(html)
 
         webbrowser.open(
-            temp_filename
+            "file://" + temp_filename,
+            new=1
         )
-
-        sleep(2)
-        unlink(temp_filename)
