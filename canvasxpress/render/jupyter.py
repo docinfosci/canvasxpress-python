@@ -1,5 +1,6 @@
 import uuid
 from os import unlink
+from pathlib import Path
 from time import sleep
 from typing import Any, Union, List
 
@@ -78,10 +79,14 @@ class CXNoteBook(CXRenderable):
         have the same name, so render_to will be updated with a uuid for each
         conflicting chart.
         :param kwargs: `Any`
-            Supports `columns` for any positive `int` of `1` or greater, with a
-            default value of `1`.  Values less that `1` are ignored.  `columns`
-            indicates how many charts should be rendered horizontally in the
-            Jupyter Notebook if more than one chart is being tracked.
+            * Supports `columns` for any positive `int` of `1` or greater, with a
+              default value of `1`.  Values less that `1` are ignored.  `columns`
+              indicates how many charts should be rendered horizontally in the
+              Jupyter Notebook if more than one chart is being tracked.
+            * Supports `file_path` as a string for a path at which the output
+              should be saved.  If a file exists at the specified path then
+              it will be overwritten.  This permits Jupyter sessions to render
+              output that is saved and accessible in later sessions.
         """
         render_targets = list()
 
@@ -172,17 +177,27 @@ class CXNoteBook(CXRenderable):
             .replace("@canvasxpress_license@", cx_license) \
             .replace("@js_functions@", js_functions)
 
-        temp_filename = f"temp_{str(uuid.uuid4())}.html"
-        with open(temp_filename, "w") as temp_file:
-            temp_file.write(html)
+        file_path_candidate = str(
+            kwargs.get(
+                "file_path",
+                f"cx_{str(uuid.uuid4())}.html"
+            )
+        )
+        file_path = Path(file_path_candidate)
+        if file_path.is_dir():
+            file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
+
+        with open(str(file_path), "w") as render_file:
+            render_file.write(html)
 
         display(
             IFrame(
-                temp_filename,
+                str(file_path),
                 f"{iframe_width + _cx_iframe_padding}px",
                 f"{iframe_height + _cx_iframe_padding}px"
             )
         )
 
-        sleep(2)
-        unlink(temp_filename)
+        if "temp_" in file_path_candidate:
+            sleep(2)
+            unlink(str(file_path))
