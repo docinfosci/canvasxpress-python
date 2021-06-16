@@ -9,6 +9,56 @@ recommended read:
 - [CanvasXpress Examples](https://www.canvasxpress.org/examples.html)
 
 <hr>
+## A Script/Console Example
+Charts can be defined in scripts or a console session and then displayed using 
+the default browser, assuming that a graphical browser with Javascript support 
+is available on the host system.
+
+First install CanvasXpress for Python:
+
+```terminal
+pip install -U canvasxpress
+```
+
+Then create a script (`.py` file) with the following content:
+
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
+from canvasxpress.data.keypair import CXDictData
+from canvasxpress.render.popup import CXBrowserPopup
+
+if __name__ == "__main__":
+    # Define a CX bar chart with some basic data
+    chart: CanvasXpress = CanvasXpress(
+        render_to="example_chart",
+        data=CXDictData(
+            {
+                "y": {
+                    "vars": ["Gene1"],
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                }
+            }
+        ),
+        config=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Bar)
+        )
+    )
+    
+    # Display the chart in its own Web page
+    browser = CXBrowserPopup(chart)
+    browser.render()
+```
+
+Execute the script on the console or in an IDE.  Upon running the example the 
+following chart will be displayed on systems such as MacOS X, Windows, and 
+Linux with graphical systems:
+
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
+
+<hr>
 ## Flask Web Application
 
 [Flask](https://palletsprojects.com/p/flask/) is a popular lean Web development framework for Python based applications.
