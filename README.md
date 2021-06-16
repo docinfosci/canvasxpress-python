@@ -47,6 +47,11 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
+#### 2021 June 16: CXNoteBook accepts file paths for output
+The `CXNoteBook` class now accepts a file path at which output rendered in 
+Jupyter will also be captured for viewing in later sessions.  Until now a 
+temporary file had be used, which remains the default behaviour.
+
 #### 2021 June 16: CXConfigs now accepts lists of values
 The `CXConfigs` class can now be initialized using lists of `CXConfig` objects
 or their `list/tuple` equivalents (e.g., `["label", "value"]`).  The `add` 
@@ -104,10 +109,11 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 #### Immediate Focus
 
 * Detailed documentation and working examples of all Python functionality
-* Integraton with dashboard frameworks for easier applet creation
+* Create a `CanvasXpress` object using a saved JSON or PNG reference
 
 #### General Focus
 
+* Integraton with dashboard frameworks for easier applet creation
 * Continued alignment with the CanvasXpress Javascript library
 * Continued stability and security, if/as needed
 
