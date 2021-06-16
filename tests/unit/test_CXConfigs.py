@@ -35,12 +35,41 @@ def test_CXConfigs_add_junk():
 
 
 def test_CXConfigs_add():
-    cfgs: CXConfigs = CXConfigs()
+    candidate: CXConfigs = CXConfigs()
     config1: CXConfig = CXString("test", "value")
 
-    cfgs.add(config1)
-    assert len(cfgs.configs) == 1
-    assert config1 in cfgs.configs
+    candidate.add(config1)
+    assert len(candidate.configs) == 1
+    assert config1 in candidate.configs
+
+    candidate: CXConfigs = CXConfigs(
+        ["test", 1]
+    )
+    assert len(candidate.configs) == 1
+    for config in candidate.configs:
+        assert config.label == "test"
+        assert config.value == 1
+
+    candidate: CXConfigs = CXConfigs(
+        CXInt("test", 1)
+    )
+    assert len(candidate.configs) == 1
+    for config in candidate.configs:
+        assert config.label == "test"
+        assert config.value == 1
+
+    candidate: CXConfigs = CXConfigs(
+        [
+            ["test", 1],
+            ("test2", 2)
+        ]
+    )
+    assert len(candidate.configs) == 2
+    for config in candidate.configs:
+        if config.label == "test":
+            assert config.value == 1
+        if config.label == "test2":
+            assert config.value == 2
 
 
 def test_CXConfigs_render_to_dict_empty():
