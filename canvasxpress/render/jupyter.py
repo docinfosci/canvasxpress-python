@@ -83,7 +83,7 @@ class CXNoteBook(CXRenderable):
               default value of `1`.  Values less that `1` are ignored.  `columns`
               indicates how many charts should be rendered horizontally in the
               Jupyter Notebook if more than one chart is being tracked.
-            * Supports `file_path` as a string for a path at which the output
+            * Supports `output_file` as a string for a path at which the output
               should be saved.  If a file exists at the specified path then
               it will be overwritten.  This permits Jupyter sessions to render
               output that is saved and accessible in later sessions.
@@ -177,9 +177,10 @@ class CXNoteBook(CXRenderable):
             .replace("@canvasxpress_license@", cx_license) \
             .replace("@js_functions@", js_functions)
 
+        is_temp_file = kwargs.get("output_file") is None
         file_path_candidate = str(
             kwargs.get(
-                "file_path",
+                "output_file",
                 f"cx_{str(uuid.uuid4())}.html"
             )
         )
@@ -187,17 +188,24 @@ class CXNoteBook(CXRenderable):
         if file_path.is_dir():
             file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
-        with open(str(file_path), "w") as render_file:
-            render_file.write(html)
+        try:
+            with open(str(file_path), "w") as render_file:
+                render_file.write(html)
 
-        display(
-            IFrame(
-                str(file_path),
-                f"{iframe_width + _cx_iframe_padding}px",
-                f"{iframe_height + _cx_iframe_padding}px"
+            display(
+                IFrame(
+                    str(file_path),
+                    f"{iframe_width + _cx_iframe_padding}px",
+                    f"{iframe_height + _cx_iframe_padding}px"
+                )
             )
-        )
 
-        if "temp_" in file_path_candidate:
-            sleep(2)
-            unlink(str(file_path))
+            if is_temp_file:
+                sleep(3)
+                unlink(str(file_path))
+
+        except Exception as e:
+            raise RuntimeError(
+                "Cannot create output_file.  Check that the path exists"
+                " and that permissions for file writing are available."
+            )
