@@ -2,13 +2,14 @@ import json
 import uuid
 from typing import Union, List
 
-from deprecated import deprecated
+from pandas import DataFrame
 
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
 from canvasxpress.data.base import CXData, CXProfiledData
 from canvasxpress.data.convert import CXHtmlConvertable
 from canvasxpress.data.keypair import CXDictData
+from canvasxpress.data.matrix import CXDataframeData
 from canvasxpress.data.profile import CXVennProfile, CXStandardProfile, \
     CXNetworkProfile, CXGenomeProfile, CXRawProfile
 from canvasxpress.js.collection import CXEvents
@@ -244,14 +245,14 @@ class CanvasXpress(CXHtmlConvertable):
         return self.__data
 
     @data.setter
-    def data(self, value: Union[CXData, dict, None]) -> None:
+    def data(self, value: Union[CXData, dict, DataFrame, None]) -> None:
         """
         Sets the CXData associated with this CanvasXpress chart.
-        :param value:
-            `CXData, dict, None` An object translatable into a CXData type.
-            If the object is an instance of CXData then it will be tracked
-            by the CanvasXpress object; otherwise, a new CXData object will
-            be created to manage the content.
+        :param value: `Union[CXData, dict, DataFrame, None]`
+            An object translatable into a CXData type. If the object is an
+            instance of CXData then it will be tracked by the CanvasXpress
+            object; otherwise, a new CXData object will be created to manage
+            the content.
         """
         if value is None:
             self.__data = CXDictData()
@@ -261,6 +262,9 @@ class CanvasXpress(CXHtmlConvertable):
 
         elif isinstance(value, dict):
             self.__data = CXDictData(value)
+
+        elif isinstance(value, DataFrame):
+            self.__data = CXDataframeData(value)
 
         else:
             raise TypeError("data must be of type CXData or dict")
@@ -317,14 +321,24 @@ class CanvasXpress(CXHtmlConvertable):
     def config(
             self,
             value: Union[
-                List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs
+                List[CXConfig],
+                List[tuple],
+                List[list],
+                dict,
+                CXConfigs
             ]
     ):
         """
         Sets the CXConfigs associated with this CanvasXpress chart.
-        :param value: `Union[List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs]`
-            An object translatable into a CXConfigs
-            type.  If the object is an instance of CXConfigs then it will be
+        :param value: `Union[
+                List[CXConfig],
+                List[tuple],
+                List[list],
+                dict,
+                CXConfigs
+            ]`
+            An object translatable into a CXConfigs type.  If the object is an
+            instance of CXConfigs then it will be
             tracked by the CanvasXpress object; otherwise, a new CXConfigs
             object will be created to manage the content.
         """
@@ -366,7 +380,11 @@ class CanvasXpress(CXHtmlConvertable):
     def after_render(
             self,
             value: Union[
-                List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs
+                List[CXConfig],
+                List[tuple],
+                List[list],
+                dict,
+                CXConfigs
             ]
     ):
         """
@@ -463,7 +481,7 @@ class CanvasXpress(CXHtmlConvertable):
     def __init__(
             self,
             render_to: str = None,
-            data: Union[CXData, dict] = None,
+            data: Union[CXData, dict, DataFrame, None] = None,
             events: Union[List[CXEvent], CXEvents] = None,
             config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
             after_render: Union[

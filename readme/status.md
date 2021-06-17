@@ -37,19 +37,42 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 ## Recent Enhancements
 
-#### 2021 June 11: afterRender support
+### 2021 June 16: CXNoteBook accepts file paths for output
+The `CXNoteBook` class now accepts a file path at which output rendered in 
+Jupyter will also be captured for viewing in later sessions.  Until now a 
+temporary file had be used, which remains the default behaviour.
+
+### 2021 June 16: CXConfigs now accepts lists of values
+The `CXConfigs` class can now be initialized using lists of `CXConfig` objects
+or their `list/tuple` equivalents (e.g., `["label", "value"]`).  The `add` 
+method supports the same formats.  Similarly, wherever the `CanvasXpress` class
+accepts a `CXConfigs` object during initialization or assigment a `list` of
+`CXConfig` or equivalent objects can be provided.  This is in additon to the 
+already supported `dict` collections of `CXConfig` value equivalents.
+
+### 2021 June 16: direct DataFrame support for CanvasXpress.data
+The `CanvasXpress` class already supported `None`, `CXData`, and `dict` data
+assignments.  Now raw `DataFrame` is supported on initialization or use of 
+the `data` property.
+
+### 2021 June 16: pop-up browser support
+One or more charts can now be displayed in a new Web page using the default 
+browser for the host system, assuming it is graphical (e.g., MacOS X or 
+Windows).  The **A Quick Script/Console Example** below illustrates the use.
+
+### 2021 June 11: afterRender support
 CanvasXpress objects accept the `afterRender` property, which defines a list
 of functions and parameters for each function.  This list is executed once
 the canvas element has been updated by the creation Javascript.  CanvasXpress
 for Python now supports this with the addition of the `after_render` property.
 
-#### 2021 June 11: Jupyter rendering supports bundled charts
+### 2021 June 11: Jupyter rendering supports bundled charts
 CanvasXpress supports data broadcasting, which permits charts on the same Web
 page with the same data references to synchronize data selections and refreshes
 with no or minimal work on the developer's part.  When used with Jupyter 
 Notebooks, CanvasXpress for Python rendered each chart in its own Web container,
 which prevented broadcasting from working.  With this release, `CXNoteBook` 
-now permits multiple charts to be included in the same Web container.
+now permits multiple charts to be included in the same Web container. 
 
 ### 2021 June 9: Network, Genome, and Raw JSON data now supported
 The CanvasXpress JSON data format allows for network diagram specific data.

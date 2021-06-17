@@ -74,10 +74,10 @@ class CXConfig(ABC):
         the data referenced.
         :returns: `CXConfig` of the proper type
         """
-        return self.__class__(
-            self.label,
-            self.value
-        )
+        cls = self.__class__
+        result = cls.__new__(cls)
+        result.__dict__.update(self.__dict__)
+        return result
 
     def __deepcopy__(
             self,
@@ -88,10 +88,12 @@ class CXConfig(ABC):
         the a deepcopy of the data.
         :returns: `CXConfig` of the proper type
         """
-        return self.__class__(
-            self.label,
-            deepcopy(self.value)
-        )
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+        for k, v in self.__dict__.items():
+            setattr(result, k, deepcopy(v, memo))
+        return result
 
     def __hash__(self) -> int:
         """
