@@ -113,6 +113,7 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 #### General Focus
 
+* Embedded CanvasXpress for JS libraries (etc.) for offline work
 * Integraton with dashboard frameworks for easier applet creation
 * Continued alignment with the CanvasXpress Javascript library
 * Continued stability and security, if/as needed

@@ -23,14 +23,14 @@ upgraded to current release editions.  This only affects doc builds.
 
 This package is actively maintained and developed.  Our focus for 2021 is:
 
-#### Immediate Focus
+### Immediate Focus
 
 * Detailed documentation and working examples of all Python functionality
-* Support for DOE dashboards
-* Pop-up HTML renderer for viewing charts in traditional Python sessions
+* Create a `CanvasXpress` object using a saved JSON or PNG reference
 
-#### General Focus
+### General Focus
 
+* Embedded CanvasXpress for JS libraries (etc.) for offline work
 * Integraton with dashboard frameworks for easier applet creation
 * Continued alignment with the CanvasXpress Javascript library
 * Continued stability and security, if/as needed
