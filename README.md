@@ -47,19 +47,28 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
-#### 2021 June 11: afterRender support
-CanvasXpress objects accept the `afterRender` property, which defines a list
-of functions and parameters for each function.  This list is executed once
-the canvas element has been updated by the creation Javascript.  CanvasXpress
-for Python now supports this with the addition of the `after_render` property.
+#### 2021 June 16: CXNoteBook accepts file paths for output
+The `CXNoteBook` class now accepts a file path at which output rendered in 
+Jupyter will also be captured for viewing in later sessions.  Until now a 
+temporary file had be used, which remains the default behaviour.
 
-#### 2021 June 11: Jupyter rendering supports bundled charts
-CanvasXpress supports data broadcasting, which permits charts on the same Web
-page with the same data references to synchronize data selections and refreshes
-with no or minimal work on the developer's part.  When used with Jupyter 
-Notebooks, CanvasXpress for Python rendered each chart in its own Web container,
-which prevented broadcasting from working.  With this release, `CXNoteBook` 
-now permits multiple charts to be included in the same Web container. 
+#### 2021 June 16: CXConfigs now accepts lists of values
+The `CXConfigs` class can now be initialized using lists of `CXConfig` objects
+or their `list/tuple` equivalents (e.g., `["label", "value"]`).  The `add` 
+method supports the same formats.  Similarly, wherever the `CanvasXpress` class
+accepts a `CXConfigs` object during initialization or assigment a `list` of
+`CXConfig` or equivalent objects can be provided.  This is in additon to the 
+already supported `dict` collections of `CXConfig` value equivalents.
+
+#### 2021 June 16: direct DataFrame support for CanvasXpress.data
+The `CanvasXpress` class already supported `None`, `CXData`, and `dict` data
+assignments.  Now raw `DataFrame` is supported on initialization or use of 
+the `data` property.
+
+#### 2021 June 16: pop-up browser support
+One or more charts can now be displayed in a new Web page using the default 
+browser for the host system, assuming it is graphical (e.g., MacOS X or 
+Windows).  The **A Quick Script/Console Example** below illustrates the use.
 
 #### 2021 May, June Prior Release Summary
 * All JSON data formats now generally supported:
@@ -87,6 +96,11 @@ now permits multiple charts to be included in the same Web container.
 * Introduction of `CXDataProfile` and profiled formatting of incomplete
   data per `graphType` configuration.
 * Minor bug fixes and expansion of automated tests.
+* Jupyter `CXNoteBook` can now render multiple charts in the same group so as
+  to support broadcasting.
+* `CanvasXpress` now supports the `after_render` property and initialization
+  value to enable the `afterRender` attribute of CanvasXpress for Javascript
+  objects (includes DOE dashboard support).
 
 ### Roadmap
 
@@ -95,8 +109,7 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 #### Immediate Focus
 
 * Detailed documentation and working examples of all Python functionality
-* Support for DOE dashboards
-* Pop-up HTML renderer for viewing charts in traditional Python sessions
+* Create a `CanvasXpress` object using a saved JSON or PNG reference
 
 #### General Focus
 
@@ -113,6 +126,46 @@ contains complete [examples](https://canvasxpress-python.readthedocs.io/en/lates
 and [API documentation](https://canvasxpress-python.readthedocs.io/en/latest/api/).
 There is also a wealth of additional information, including full Javascript API 
 documentation, at [https://www.canvasxpress.org](https://www.canvasxpress.org).
+
+### A Quick Script/Console Example
+Charts can be defined in scripts or a console session and then displayed using 
+the default browser, assuming that a graphical browser with Javascript support 
+is available on the host system.
+
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.config.collection import CXConfigs
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
+from canvasxpress.data.keypair import CXDictData
+from canvasxpress.render.popup import CXBrowserPopup
+
+if __name__ == "__main__":
+    # Define a CX bar chart with some basic data
+    chart: CanvasXpress = CanvasXpress(
+        render_to="example_chart",
+        data=CXDictData(
+            {
+                "y": {
+                    "vars": ["Gene1"],
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                }
+            }
+        ),
+        config=CXConfigs(
+            CXGraphType(CXGraphTypeOptions.Bar)
+        )
+    )
+    
+    # Display the chart in its own Web page
+    browser = CXBrowserPopup(chart)
+    browser.render()
+```
+
+Upon running the example the following chart will be displayed on systems such
+as MacOS X, Windows, and Linux with graphical systems:
+
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
 
 ### A Quick Flask Example
 

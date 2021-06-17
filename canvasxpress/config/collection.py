@@ -22,7 +22,7 @@ class CXConfigs(
     The `CXConfig` objects associated with this collection.
     """
 
-    def __init__(self, *configs: Union[CXConfig, tuple, dict]):
+    def __init__(self, *configs: Union[CXConfig, tuple, dict, list]):
         """
         Initializes a new `CXConfigs` object with zero or more `CXConfig`
         objects.
@@ -61,7 +61,7 @@ class CXConfigs(
 
         return candidate
 
-    def add(self, config: Union[CXConfig, tuple, dict]) -> 'CXConfigs':
+    def add(self, config: Union[CXConfig, tuple, dict, list]) -> 'CXConfigs':
         """
         Adds the specified configuration to the collection.  This method
         supports chaining for efficient additions of `CXConfig` objects.
@@ -75,8 +75,11 @@ class CXConfigs(
             .add({ "objectColorTransparency": 0.3 })
         ```
 
-        :param config: `Union[CXConfig, tuple, dict]`
-            The `CXConfig` to associate.  Cannot be `None`.
+        :param config: `Union[CXConfig, tuple, dict, list]`
+            The `CXConfig` to associate.  Cannot be `None`.  `tuple` an d`list`
+            config values are expected to be two elements in length, with the
+            first representing the label and the second representing the value.
+            The label portion will be converted to a string using `str`.
         """
         if config is None:
             raise ValueError("configs cannot be None.")
@@ -88,14 +91,24 @@ class CXConfigs(
                     config.get(param)
                 )
 
-        elif isinstance(config, tuple):
-            if len(config) < 2:
-                raise ValueError("tuple configs must have two elements.")
+        elif isinstance(config, (tuple, list)):
+            if len(config) > 0:
+                if isinstance(config[0], (tuple, list)):
+                    for item in config:
+                        self.add(item)
 
-            self.set_param(
-                str(config[0]),
-                config[1]
-            )
+                else:
+                    if len(config) < 2:
+                        raise ValueError(
+                            "list and tuple config representations of "
+                            "configuration parameters must have two elements: "
+                            "the first is the label, and the second is the "
+                            "value."
+                        )
+                    self.set_param(
+                        str(config[0]),
+                        config[1]
+                    )
 
         elif isinstance(config, CXConfig):
             if config not in self.__configs:
