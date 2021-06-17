@@ -37,6 +37,11 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 ## Recent Enhancements
 
+### 2021 June 16: CXNoteBook accepts file paths for output
+The `CXNoteBook` class now accepts a file path at which output rendered in 
+Jupyter will also be captured for viewing in later sessions.  Until now a 
+temporary file had be used, which remains the default behaviour.
+
 ### 2021 June 16: CXConfigs now accepts lists of values
 The `CXConfigs` class can now be initialized using lists of `CXConfig` objects
 or their `list/tuple` equivalents (e.g., `["label", "value"]`).  The `add` 
