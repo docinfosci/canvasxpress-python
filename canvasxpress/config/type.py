@@ -51,6 +51,17 @@ class CXConfig(ABC):
         """
         pass
 
+    def render(self) -> dict:
+        """
+        Renders the value in a form suitable for use in preparing Javascript.
+        Typically, this will be the native `value`.
+
+        :returns: `dict`
+            A version of the `value` most appropriate for use in prepating the
+            Javascript rendering.
+        """
+        return { self.label: self.value }
+
     def __init__(
             self,
             label: str,
@@ -757,6 +768,24 @@ class CXRGBAColor(CXDict):
                 candidate
             )
 
+    def render(self) -> Any:
+        """
+        Renders the value in a form suitable for use in preparing Javascript.
+        Typically, this will be the native `value`.
+
+        :returns: `Any`
+            A version of the `value` most appropriate for use in prepating the
+            Javascript rendering.
+        """
+        r = self.value['r']
+        g = self.value['g']
+        b = self.value['b']
+        a = self.value['a']
+        return {
+            "label": self.label,
+            "value": f"rgba({r},{g},{b},{a})",
+        }
+
     def __init__(
             self,
             label: str,
@@ -777,16 +806,7 @@ class CXRGBAColor(CXDict):
         """
         *str* function.  Converts the object into a JSON string.
         """
-        r = self.value['r']
-        g = self.value['g']
-        b = self.value['b']
-        a = self.value['a']
-        return json.dumps(
-            {
-                "label": self.label,
-                "value": f"rgba({r},{g},{b},{a})",
-            }
-        )
+        return json.dumps(self.render())
 
     def __repr__(self) -> str:
         """
@@ -986,6 +1006,23 @@ class CXRGBColor(CXDict):
                 candidate
             )
 
+    def render(self) -> dict:
+        """
+        Renders the value in a form suitable for use in preparing Javascript.
+        Typically, this will be the native `value`.
+
+        :returns: `Any`
+            A version of the `value` most appropriate for use in prepating the
+            Javascript rendering.
+        """
+        r = self.value['r']
+        g = self.value['g']
+        b = self.value['b']
+        return {
+            "label": self.label,
+            "value": f"rgb({r},{g},{b})",
+        }
+
     def __init__(
             self,
             label: str,
@@ -1006,15 +1043,7 @@ class CXRGBColor(CXDict):
         """
         *str* function.  Converts the object into a JSON string.
         """
-        r = self.value['r']
-        g = self.value['g']
-        b = self.value['b']
-        return json.dumps(
-            {
-                "label": self.label,
-                "value": f"rgb({r},{g},{b})",
-            }
-        )
+        return json.dumps(self.render())
 
     def __repr__(self) -> str:
         """
@@ -1122,6 +1151,17 @@ class CXGraphType(CXString):
             The string value to set.
         """
         CXString.value.fset(self, value)
+
+    def render(self) -> dict:
+        """
+        Renders the value in a form suitable for use in preparing Javascript.
+        Typically, this will be the native `value`.
+
+        :returns: `dict`
+            A version of the `value` most appropriate for use in prepating the
+            Javascript rendering.
+        """
+        return { self.label: self.value.value }
 
     def __init__(
             self,
