@@ -132,12 +132,7 @@ def test_CXRGBColor_deepcopy():
 
 def test_CXRGBColor_str():
     subject: CXRGBColor = CXRGBColor("1", {'r': 128, 'g': 128, 'b': 128})
-    assert str(subject) == json.dumps(
-        {
-            "label": subject.label,
-            "value": f"rgb(128,128,128)",
-        }
-    )
+    assert str(subject) == json.dumps({subject.label: "rgb(128,128,128)"})
 
 
 def test_CXRGBColor_repr():

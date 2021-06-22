@@ -290,9 +290,7 @@ class CXConfigs(
             }
             ```
         """
-        return CXConfigs.merge_configs(
-            list(self.__configs)
-        )
+        return CXConfigs.merge_configs(self.configs)
 
     def render_to_list(
             self,
@@ -316,9 +314,9 @@ class CXConfigs(
             Then `render_to_list()` results in:
             ```python
             [
-                ["1", ["rgb(3, 172, 198)"]],
-                ["2": [2]],
-                ["3": [True]],
+                ["1", "rgb(3, 172, 198)"],
+                ["2": 2],
+                ["3": True],
             ]
             ```
         """
@@ -326,7 +324,7 @@ class CXConfigs(
         return [
             [
                 str(key),               # function name
-                list([configs[key]])    # list of parameter values
+                configs[key]            # list of parameter values
             ]
             for key in configs.keys()
         ]
@@ -351,7 +349,10 @@ class CXConfigs(
 
         dict_configs = dict()
         for config in unique_configs:
-            dict_configs[config.label] = config.value
+            dict_configs = {
+                **dict_configs,
+                **(config.render())
+            }
 
         return dict_configs
 
@@ -437,9 +438,12 @@ class CXConfigs(
         else:
             if len(self.configs) == len(other.configs):
                 for config in self.configs:
-                    for oconfig in other.configs:
-                        if not config == oconfig:
-                            return False
+                    alt_config = other.get_param(config.label)
+                    if alt_config is None:
+                        return False
+                    if alt_config.value != config.value:
+                        return False
+
                 return True
 
             else:
