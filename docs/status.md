@@ -23,19 +23,30 @@ upgraded to current release editions.  This only affects doc builds.
 
 This package is actively maintained and developed.  Our focus for 2021 is:
 
-#### Immediate Focus
+### Immediate Focus
 
 * Detailed documentation and working examples of all Python functionality
-* Support for DOE dashboards
-* Pop-up HTML renderer for viewing charts in traditional Python sessions
 
-#### General Focus
+### General Focus
 
+* Embedded CanvasXpress for JS libraries (etc.) for offline work
 * Integraton with dashboard frameworks for easier applet creation
 * Continued alignment with the CanvasXpress Javascript library
 * Continued stability and security, if/as needed
 
 ## Recent Enhancements
+
+#### 2021 June 21: Support for reproducable research JSON
+CanvasXpress for Javascript can save JSON representations of a rendered chart.
+`CanvasXpress` now offers `from_reproducible_json`, which accepts such a JSON
+and creates a new `CanvasXpress` object with all properties updated with the 
+relevant portions of the JSON.
+
+#### 2021 June 21: CanvasXPress __repr__ now available for example code
+The `CanvasXpress` `__repr__` method now produces example Python code for
+all properties of the object.  The Python built-in`eval` method can read
+the provided string to reconstruct the `CanvasXpress` object when the proper
+imports for the CanvasXpress packages/modules are included in the file.
 
 ### 2021 June 16: CXNoteBook accepts file paths for output
 The `CXNoteBook` class now accepts a file path at which output rendered in 
