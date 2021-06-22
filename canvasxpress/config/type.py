@@ -781,10 +781,7 @@ class CXRGBAColor(CXDict):
         g = self.value['g']
         b = self.value['b']
         a = self.value['a']
-        return {
-            "label": self.label,
-            "value": f"rgba({r},{g},{b},{a})",
-        }
+        return {self.label: f"rgba({r},{g},{b},{a})"}
 
     def __init__(
             self,
@@ -1018,10 +1015,7 @@ class CXRGBColor(CXDict):
         r = self.value['r']
         g = self.value['g']
         b = self.value['b']
-        return {
-            "label": self.label,
-            "value": f"rgb({r},{g},{b})",
-        }
+        return {self.label: f"rgb({r},{g},{b})"}
 
     def __init__(
             self,
@@ -1161,7 +1155,7 @@ class CXGraphType(CXString):
             A version of the `value` most appropriate for use in prepating the
             Javascript rendering.
         """
-        return { self.label: self.value.value }
+        return { self.label: self.value }
 
     def __init__(
             self,
