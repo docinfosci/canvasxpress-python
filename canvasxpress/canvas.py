@@ -13,6 +13,7 @@ from canvasxpress.data.keypair import CXDictData
 from canvasxpress.data.matrix import CXDataframeData
 from canvasxpress.data.profile import CXVennProfile, CXStandardProfile, \
     CXNetworkProfile, CXGenomeProfile, CXRawProfile
+from canvasxpress.data.text import CXTextData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
@@ -264,7 +265,7 @@ class CanvasXpress(CXHtmlConvertable):
     def data(self, value: Union[CXData, dict, DataFrame, None]) -> None:
         """
         Sets the CXData associated with this CanvasXpress chart.
-        :param value: `Union[CXData, dict, DataFrame, None]`
+        :param value: `Union[CXData, dict, DataFrame, str, None]`
             An object translatable into a CXData type. If the object is an
             instance of CXData then it will be tracked by the CanvasXpress
             object; otherwise, a new CXData object will be created to manage
@@ -281,6 +282,9 @@ class CanvasXpress(CXHtmlConvertable):
 
         elif isinstance(value, DataFrame):
             self.__data = CXDataframeData(value)
+
+        elif isinstance(value, str):
+            self.__data = CXTextData(value)
 
         else:
             raise TypeError("data must be of type CXData or dict")
@@ -882,7 +886,6 @@ class CanvasXpress(CXHtmlConvertable):
                f" {len(self.other_init_params.configs)} item(s);" \
                f" events {len(self.events.events)} function(s)."
 
-
     def __repr__(self) -> str:
         """
         *repr* function.  Converts the `CanvasXpress` object into a pickle
@@ -899,9 +902,9 @@ class CanvasXpress(CXHtmlConvertable):
             .replace("@events@", repr(self.events)) \
             .replace("@after_render@", str(self.after_render.render_to_list())) \
             .replace(
-                "@other_init_params@",
-                json.dumps(self.other_init_params.render_to_dict())
-            ) \
+            "@other_init_params@",
+            json.dumps(self.other_init_params.render_to_dict())
+        ) \
             .replace("true", "True") \
             .replace("false", "False")
 
