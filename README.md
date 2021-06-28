@@ -47,6 +47,12 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
+#### 2021 June 22: Support for raw text data
+CanvasXPress for Javascript can accept text data.  `CXTextData` has been added
+as a means by which a `str` value can be directly provided to the CanvasXpress 
+for Javascript constructor, and along with that value all assumptions about
+transformation or error handling.
+
 #### 2021 June 21: Support for reproducable research JSON
 CanvasXpress for Javascript can save JSON representations of a rendered chart.
 `CanvasXpress` now offers `from_reproducible_json`, which accepts such a JSON
