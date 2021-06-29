@@ -262,7 +262,7 @@ class CanvasXpress(CXHtmlConvertable):
         return self.__data
 
     @data.setter
-    def data(self, value: Union[CXData, dict, DataFrame, None]) -> None:
+    def data(self, value: Union[CXData, dict, DataFrame, str, None]) -> None:
         """
         Sets the CXData associated with this CanvasXpress chart.
         :param value: `Union[CXData, dict, DataFrame, str, None]`
@@ -287,7 +287,9 @@ class CanvasXpress(CXHtmlConvertable):
             self.__data = CXTextData(value)
 
         else:
-            raise TypeError("data must be of type CXData or dict")
+            raise TypeError(
+                "data must be of type CXData, dict, DataFrame, str, or None"
+            )
 
     __events: CXEvents = None
     """
@@ -590,7 +592,7 @@ class CanvasXpress(CXHtmlConvertable):
     def __init__(
             self,
             render_to: str = None,
-            data: Union[CXData, dict, DataFrame, None] = None,
+            data: Union[CXData, dict, DataFrame, str, None] = None,
             events: Union[List[CXEvent], CXEvents] = None,
             config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
             after_render: Union[
@@ -893,18 +895,25 @@ class CanvasXpress(CXHtmlConvertable):
         :returns: `str` An evaluatable representation of the object.
         """
 
+        normalized_data = self.data.render_to_dict(config=self.config)
+        if normalized_data.get('raw'):
+            normalized_data = normalized_data['raw']
+
         repr_str = _CX_REPR_TEMPLATE \
             .replace("@render_to@", self.render_to) \
-            .replace("@data@", json.dumps(self.data.render_to_dict())) \
+            .replace("@data@", json.dumps(normalized_data)) \
             .replace("@config@", json.dumps(self.config.render_to_dict())) \
-            .replace("@width@", str(self.width)) \
-            .replace("@height@", str(self.height)) \
+            .replace("@width@", json.dumps(self.width)) \
+            .replace("@height@", json.dumps(self.height)) \
             .replace("@events@", repr(self.events)) \
-            .replace("@after_render@", str(self.after_render.render_to_list())) \
             .replace(
-            "@other_init_params@",
-            json.dumps(self.other_init_params.render_to_dict())
-        ) \
+                "@after_render@",
+                str(self.after_render.render_to_list())
+            ) \
+            .replace(
+                "@other_init_params@",
+                json.dumps(self.other_init_params.render_to_dict())
+            ) \
             .replace("true", "True") \
             .replace("false", "False")
 
