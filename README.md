@@ -47,7 +47,7 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
-#### 2021 June 22: Support for raw text data
+#### 2021 June 29: Support for raw text data
 CanvasXPress for Javascript can accept text data.  `CXTextData` has been added
 as a means by which a `str` value can be directly provided to the CanvasXpress 
 for Javascript constructor, and along with that value all assumptions about
