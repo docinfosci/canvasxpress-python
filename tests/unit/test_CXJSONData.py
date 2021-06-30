@@ -6,7 +6,7 @@ import requests
 
 import pytest
 from deepdiff import DeepDiff
-from hypothesis import given
+from hypothesis import given, settings
 from hypothesis.strategies import dictionaries, text
 
 from canvasxpress.data.keypair import CXJSONData
@@ -111,6 +111,7 @@ def test_CXJSONData_set_valid_dict(sample):
     assert candidate.data == sample
 
 
+@settings(deadline=None)
 @given(
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
@@ -124,6 +125,7 @@ def test_copy_CXJSONData(sample):
     assert cxdict1 == cxdict2
 
 
+@settings(deadline=None)
 @given(
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
