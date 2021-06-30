@@ -1,6 +1,6 @@
 import os
 
-from canvasxpress.util.example_generator import \
+from canvasxpress.util.example.generator import \
     generate_canvasxpress_code_from_json_file
 
 
