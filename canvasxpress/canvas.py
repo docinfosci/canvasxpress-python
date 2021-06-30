@@ -32,8 +32,7 @@ The template for declaring a CanvasXpress license file so that charts do
 not render with unlicensed watermarks.
 """
 
-_CX_REPR_TEMPLATE = """
-CanvasXpress(
+_CX_REPR_TEMPLATE = """CanvasXpress(
     render_to="@render_to@",
     data=@data@,
     config=@config@,
@@ -262,7 +261,7 @@ class CanvasXpress(CXHtmlConvertable):
         return self.__data
 
     @data.setter
-    def data(self, value: Union[CXData, dict, DataFrame, None]) -> None:
+    def data(self, value: Union[CXData, dict, DataFrame, str, None]) -> None:
         """
         Sets the CXData associated with this CanvasXpress chart.
         :param value: `Union[CXData, dict, DataFrame, str, None]`
@@ -287,7 +286,9 @@ class CanvasXpress(CXHtmlConvertable):
             self.__data = CXTextData(value)
 
         else:
-            raise TypeError("data must be of type CXData or dict")
+            raise TypeError(
+                "data must be of type CXData, dict, DataFrame, str, or None"
+            )
 
     __events: CXEvents = None
     """
@@ -532,7 +533,7 @@ class CanvasXpress(CXHtmlConvertable):
             'id', 'width', 'height', 'data', 'config', 'afterRender', 'renderTo'
         ]
         for attribute in disallowed_attributes:
-            self.canvas.remove(attribute)
+            self.other_init_params.remove(attribute)
 
     @classmethod
     def from_reproducible_json(
@@ -590,7 +591,7 @@ class CanvasXpress(CXHtmlConvertable):
     def __init__(
             self,
             render_to: str = None,
-            data: Union[CXData, dict, DataFrame, None] = None,
+            data: Union[CXData, dict, DataFrame, str, None] = None,
             events: Union[List[CXEvent], CXEvents] = None,
             config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
             after_render: Union[
@@ -812,7 +813,7 @@ class CanvasXpress(CXHtmlConvertable):
             'afterRender': self.after_render.render_to_list(),
             'events': "js_events"
         }
-        secondary_params = self.canvas.render_to_dict()
+        secondary_params = self.other_init_params.render_to_dict()
         canvasxpress = {
             **primary_params,
             **secondary_params
@@ -893,18 +894,57 @@ class CanvasXpress(CXHtmlConvertable):
         :returns: `str` An evaluatable representation of the object.
         """
 
+        normalized_data = self.data.render_to_dict(config=self.config)
+        if normalized_data.get('raw'):
+            normalized_data = normalized_data['raw']
+        str_data = json.dumps(normalized_data, indent=4)
+        str_data_parts = str_data.split("\n")
+        str_data = "\n".join(
+            [
+                "    " + line
+                for line in str_data_parts
+            ]
+        )[4:]
+        
+        str_config = json.dumps(self.config.render_to_dict(), indent=4)
+        str_config_parts = str_config.split("\n")
+        str_config = "\n".join(
+            [
+                "    " + line
+                for line in str_config_parts
+            ]
+        )[4:]
+
+        str_after_render = json.dumps(
+            self.after_render.render_to_list(), 
+            indent=4
+        )
+        str_after_render_parts = str_after_render.split("\n")
+        str_after_render = "\n".join(
+            [
+                "    " + line
+                for line in str_after_render_parts
+            ]
+        )[4:]
+
+        str_other_init_params = json.dumps(self.other_init_params.render_to_dict(), indent=4)
+        str_other_init_params_parts = str_other_init_params.split("\n")
+        str_other_init_params = "\n".join(
+            [
+                "    " + line
+                for line in str_other_init_params_parts
+            ]
+        )[4:]
+
         repr_str = _CX_REPR_TEMPLATE \
             .replace("@render_to@", self.render_to) \
-            .replace("@data@", json.dumps(self.data.render_to_dict())) \
-            .replace("@config@", json.dumps(self.config.render_to_dict())) \
-            .replace("@width@", str(self.width)) \
-            .replace("@height@", str(self.height)) \
+            .replace("@data@",str_data) \
+            .replace("@config@", str_config) \
+            .replace("@width@", json.dumps(self.width)) \
+            .replace("@height@", json.dumps(self.height)) \
             .replace("@events@", repr(self.events)) \
-            .replace("@after_render@", str(self.after_render.render_to_list())) \
-            .replace(
-            "@other_init_params@",
-            json.dumps(self.other_init_params.render_to_dict())
-        ) \
+            .replace("@after_render@", str_after_render) \
+            .replace("@other_init_params@", str_other_init_params) \
             .replace("true", "True") \
             .replace("false", "False")
 
