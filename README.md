@@ -47,6 +47,21 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
+#### 2021 June 30: Example code generation utility
+CanvasXpress for Python now includes `generator.py`, which includes 
+functions for creating example Python code to define and display charts.
+`generate_canvasxpress_code_from_json` will accept a reproducible research 
+JSON `str` and generate the corresponding Python code, and
+`generate_canvasxpress_code_from_json_file` will accept a file path reference
+to a reproducible JSON to achieve the same thing.  Find the functions at 
+`canvasxoress.util.example.generator.py`.
+
+#### 2021 June 30: Support for raw text data
+CanvasXPress for Javascript can accept text data.  `CXTextData` has been added
+as a means by which a `str` value can be directly provided to the CanvasXpress 
+for Javascript constructor, and along with that value all assumptions about
+transformation or error handling.
+
 #### 2021 June 21: Support for reproducable research JSON
 CanvasXpress for Javascript can save JSON representations of a rendered chart.
 `CanvasXpress` now offers `from_reproducible_json`, which accepts such a JSON

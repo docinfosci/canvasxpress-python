@@ -12,6 +12,107 @@ and detailed instructions about CanvasXpress specifically please visit the site.
 
 [[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/baa305500d8578269f488bc2cf128581e78906fb/canvasxpress/util/__init__.py#L2)
 
+<a name="canvasxpress.util.example"></a>
+# canvasxpress.util.example
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/util/example/__init__.py#L2)
+
+<a name="canvasxpress.util.example.generator"></a>
+# canvasxpress.util.example.generator
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/util/example/generator.py#L1)
+
+<a name="canvasxpress.util.example.generator.generate_canvasxpress_code_from_json_file"></a>
+#### generate\_canvasxpress\_code\_from\_json\_file
+
+```python
+generate_canvasxpress_code_from_json_file(cx_json_path: str, document_includes: bool = True, document_render: bool = True, document_jupyter_render=False) -> str
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/util/example/generator.py#L4)
+
+Generates a string with a CanvasXPress in Python declaration using a
+CanvasXpress reproducible research JSON stored in a file.
+
+**Arguments**:
+
+- `cx_json_path`: `str`
+    A valid path to the reproducible JSON text from which a CanvasXPress
+    object is to be built and then converted into example code.
+- `document_includes`: `bool`
+    Default `True`.  Indicate if include headers should be prefixed.
+- `document_render`: `bool`
+    Default `True`.  Indicate if rendering should be included in the
+    example code.
+- `document_jupyter_render`: `bool`
+    Default `False`.  Indicate if Jupyter rendering should be performed;
+    otherwise, popup rendering will suffixed.
+
+**Returns**:
+
+`str`
+    A string with the code example.
+
+<a name="canvasxpress.util.example.generator.generate_canvasxpress_code_from_json"></a>
+#### generate\_canvasxpress\_code\_from\_json
+
+```python
+generate_canvasxpress_code_from_json(cx_json: str, document_includes: bool = True, document_render: bool = True, document_jupyter_render=False) -> str
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/util/example/generator.py#L38)
+
+Generates a string with a CanvasXPress in Python declaration using a
+CanvasXpress reproducible research JSON.
+
+**Arguments**:
+
+- `cx_json`: `str`
+    The reproducible JSON text from which a CanvasXPress object is to be
+    built and then converted into example code.
+- `document_includes`: `bool`
+    Default `True`.  Indicate if include headers should be prefixed.
+- `document_render`: `bool`
+    Default `True`.  Indicate if rendering should be included in the
+    example code.
+- `document_jupyter_render`: `bool`
+    Default `False`.  Indicate if Jupyter rendering should be performed;
+    otherwise, popup rendering will suffixed.
+
+**Returns**:
+
+`str`
+    A string with the code example.
+
+<a name="canvasxpress.util.example.generator.generate_canvasxpress_code"></a>
+#### generate\_canvasxpress\_code
+
+```python
+generate_canvasxpress_code(cx: CanvasXpress, document_includes: bool = True, document_render: bool = True, document_jupyter_render=False) -> str
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/util/example/generator.py#L69)
+
+Generates a string with a CanvasXPress in Python declaration.
+
+**Arguments**:
+
+- `cx`: `CanvasXpress`
+    The `CanvasXpress` object from which to generate the example code.
+- `document_includes`: `bool`
+    Default `True`.  Indicate if include headers should be prefixed.
+- `document_render`: `bool`
+    Default `True`.  Indicate if rendering should be included in the
+    example code.
+- `document_jupyter_render`: `bool`
+    Default `False`.  Indicate if Jupyter rendering should be performed;
+    otherwise, popup rendering will suffixed.
+
+**Returns**:
+
+`str`
+    A string with the code example.
+
 <a name="canvasxpress.util.template"></a>
 # canvasxpress.util.template
 
@@ -3712,6 +3813,137 @@ that can be used with `eval` to establish a copy of the object.
 
 `str` An evaluatable representation of the object.
 
+<a name="canvasxpress.data.text"></a>
+# canvasxpress.data.text
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L1)
+
+<a name="canvasxpress.data.text.CXTextData"></a>
+## CXTextData Objects
+
+```python
+class CXTextData(CXData)
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L6)
+
+`CXTextData` is a `CXData` class that provides plain-text data directly to
+the CanvasXpress for Javascript object.  In this manner, the Python tier
+makes no assumptions about the data content and permits the Javascript tier
+to address any required adjustments in order to properly display the data
+within a chart.  If the data is erroneously formatted then the only
+feedback will be at the Javascript tier.
+
+<a name="canvasxpress.data.text.CXTextData.text"></a>
+#### text
+
+```python
+ | @property
+ | text() -> str
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L23)
+
+Returns the raw text form of the data.
+
+**Returns**:
+
+`str`
+    The text to be provided to CanvasXpress.
+
+<a name="canvasxpress.data.text.CXTextData.text"></a>
+#### text
+
+```python
+ | @text.setter
+ | text(value: str) -> None
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L32)
+
+Sets the text to be provided to CanvasXpress.
+
+**Arguments**:
+
+- `value`: `str`
+    The text to provide as-is to CanvasXpress.  `None` will be
+    converted to an empty `str`.  Values of type other than `str`
+    will be converted using `str()`.
+
+<a name="canvasxpress.data.text.CXTextData.data"></a>
+#### data
+
+```python
+ | @property
+ | data() -> dict
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L50)
+
+A property accessor for the data managed by the object.  Regardless of
+the input data the returned data structure will be a dict-type for use
+with CanvasXpress.
+
+**Returns**:
+
+`dict`
+    A dictionary representing a data map suitable for use with a chart.
+
+<a name="canvasxpress.data.text.CXTextData.get_raw_dict_form"></a>
+#### get\_raw\_dict\_form
+
+```python
+ | get_raw_dict_form() -> dict
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L60)
+
+"
+Provides a simple dict perspective of the data with no metadata or other
+contextual transformations performed.  For example, if the data is
+natively in `dict` form then it would be passed-through with no
+modification or enhancement.
+
+**Returns**:
+
+`dict`
+    The `dict` perspective of the data with as little modification or
+    interpretation as is reasonable.
+
+<a name="canvasxpress.data.text.CXTextData.render_to_dict"></a>
+#### render\_to\_dict
+
+```python
+ | render_to_dict(**kwargs) -> dict
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L74)
+
+Converts the object into a dict representation.
+
+**Returns**:
+
+`dict`
+    A dictionary representation of the object, such as what might be
+    needed for a JSON export.
+
+<a name="canvasxpress.data.text.CXTextData.__init__"></a>
+#### \_\_init\_\_
+
+```python
+ | __init__(data: Union[object, None] = None) -> None
+```
+
+[[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/1f82d8142e1d53fb40ececfb94e1fbc16ab20739/canvasxpress/data/text.py#L86)
+
+Initializes the CXData object with data.
+
+**Arguments**:
+
+- `data`: `Union[object, None]`
+    Given an object or no data prepares a new CXData instance ready for
+    use by a `CanvasXpress` object.
+
 <a name="canvasxpress.data.base"></a>
 # canvasxpress.data.base
 
@@ -4190,7 +4422,7 @@ Provides access to the CXData associated with this CanvasXpress chart.
 
 ```python
  | @data.setter
- | data(value: Union[CXData, dict, DataFrame, None]) -> None
+ | data(value: Union[CXData, dict, DataFrame, str, None]) -> None
 ```
 
 [[view_source]](https://github.com/docinfosci/canvasxpress-python/blob/baa305500d8578269f488bc2cf128581e78906fb/canvasxpress/canvas.py#L264)
@@ -4449,7 +4681,7 @@ JSON saved from a CanvasXpress chart rendered in a Web browser.
 #### \_\_init\_\_
 
 ```python
- | __init__(render_to: str = None, data: Union[CXData, dict, DataFrame, None] = None, events: Union[List[CXEvent], CXEvents] = None, config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None, after_render: Union[
+ | __init__(render_to: str = None, data: Union[CXData, dict, DataFrame, str, None] = None, events: Union[List[CXEvent], CXEvents] = None, config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None, after_render: Union[
  |                 List[CXConfig], List[tuple], dict, CXConfigs
  |             ] = None, other_init_params: Union[
  |                 List[CXConfig], List[tuple], dict, CXConfigs
