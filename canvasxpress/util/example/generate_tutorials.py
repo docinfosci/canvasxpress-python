@@ -2,7 +2,9 @@
 This file can be executed to convert the reproducible JSON files located at
 `[project]/tutorials/reproducible_json/*.json` into tutorials for general use.
 """
+import json
 import os
+import tempfile
 from pathlib import Path
 from typing import List
 
@@ -96,8 +98,19 @@ def create_jupyer_template_text(
         example_text = template_file.read()
         example_text = example_text.replace("@type@", chart_type)
         example_text = example_text.replace("@index@", chart_index)
-        example_text = example_text.replace("@example_code@", chart_code)
-        return example_text
+
+        ipython_json = json.loads(example_text)
+        for line in chart_code.splitlines():
+            candidate = line
+            if "display.render()" in candidate:
+                candidate = candidate.replace(
+                    "display.render()",
+                    f'display.render(cx.render_to())'
+                )
+            ipython_json['cells'][1]['source'].append(candidate + '\n')
+
+        ipython_text = json.dumps(ipython_json)
+        return ipython_text
 
 
 if __name__ == "__main__":
@@ -116,10 +129,6 @@ if __name__ == "__main__":
                     json_path,
                     document_jupyter_render=True
                 )
-            )
-            jupyter_notebook_content = jupyter_notebook_content.replace(
-                "display.render()",
-                f'display.render("{chart_type}_{chart_index}")'
             )
 
             example_file_name = f"{chart_type}_{chart_index}.ipynb"
