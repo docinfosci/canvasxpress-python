@@ -4,7 +4,6 @@ This file can be executed to convert the reproducible JSON files located at
 """
 import json
 import os
-import tempfile
 from pathlib import Path
 from typing import List
 
