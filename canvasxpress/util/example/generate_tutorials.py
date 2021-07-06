@@ -103,23 +103,28 @@ def create_jupyer_template_text(
 if __name__ == "__main__":
     json_paths = get_json_file_paths()
     for json_path in json_paths:
-        json_name = Path(json_path).name
+        try:
+            json_name = Path(json_path).name
 
-        chart_type = get_type_from_filename(json_name)
-        chart_index = get_index_from_filename(json_name)
+            chart_type = get_type_from_filename(json_name)
+            chart_index = get_index_from_filename(json_name)
 
-        jupyter_notebook_content = create_jupyer_template_text(
-            chart_type,
-            chart_index,
-            generate_canvasxpress_code_from_json_file(
-                json_path,
-                document_jupyter_render=True
+            jupyter_notebook_content = create_jupyer_template_text(
+                chart_type,
+                chart_index,
+                generate_canvasxpress_code_from_json_file(
+                    json_path,
+                    document_jupyter_render=True
+                )
             )
-        )
 
-        example_file_name = f"{chart_type}_{chart_index}.ipynb"
-        example_file_path = str(
-            Path(JUPYTER_EXAMPLES_DIR_PATH).joinpath(example_file_name)
-        )
-        with open(example_file_path, 'w') as example_file:
-            example_file.write(jupyter_notebook_content)
+            example_file_name = f"{chart_type}_{chart_index}.ipynb"
+            example_file_path = str(
+                Path(JUPYTER_EXAMPLES_DIR_PATH).joinpath(example_file_name)
+            )
+            with open(example_file_path, 'w') as example_file:
+                example_file.write(jupyter_notebook_content)
+
+        except Exception as e:
+            print(f"Cannot process file: {json_path}")
+            print(f"Exception: {e}")
