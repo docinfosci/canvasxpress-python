@@ -117,6 +117,10 @@ if __name__ == "__main__":
                     document_jupyter_render=True
                 )
             )
+            jupyter_notebook_content = jupyter_notebook_content.replace(
+                "display.render()",
+                f'display.render("{chart_type}_{chart_index}")'
+            )
 
             example_file_name = f"{chart_type}_{chart_index}.ipynb"
             example_file_path = str(
