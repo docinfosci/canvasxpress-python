@@ -189,9 +189,8 @@ class CXNoteBook(CXRenderable):
         if file_path.is_dir():
             file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
         else:
-            if not file_path_candidate.lower().endswith('.html'):
-                file_path_candidate = file_path_candidate + ".html"
-                file_path = Path(file_path_candidate)
+            if not file_path_candidate.lower().strip().endswith(".html"):
+                file_path = Path(file_path_candidate + ".html")
 
         try:
             with open(str(file_path), "w") as render_file:
