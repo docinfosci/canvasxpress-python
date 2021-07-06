@@ -5,6 +5,8 @@ This file can be executed to convert the reproducible JSON files located at
 import os
 from typing import List
 
+JSON_DIR_PATH = "tutorials/reproducible_json/"
+JUPYTER_TEMPLATE_PATH = ""
 
 def get_json_file_paths() -> List[str]:
     """
@@ -12,12 +14,11 @@ def get_json_file_paths() -> List[str]:
     :returns: `list[str]`
         The file paths as a list of strings.
     """
-    json_dir = "tutorials/reproducible_json/"
     json_files = list()
-    for file in os.listdir(json_dir):
+    for file in os.listdir(JSON_DIR_PATH):
         if file.endswith(".json"):
             json_files.append(
-                os.path.join(json_dir, file)
+                os.path.join(JSON_DIR_PATH, file)
             )
     return json_files
 
