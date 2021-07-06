@@ -104,7 +104,7 @@ def create_jupyer_template_text(
             if "display.render()" in candidate:
                 candidate = candidate.replace(
                     "display.render()",
-                    f'display.render(cx.render_to())'
+                    f'display.render(output_file="{chart_type}_{chart_index}.html")'
                 )
             ipython_json['cells'][1]['source'].append(candidate + '\n')
 
