@@ -538,7 +538,9 @@ class CanvasXpress(CXHtmlConvertable):
     @classmethod
     def from_reproducible_json(
             cls,
-            cx_json: str
+            cx_json: str,
+            include_factory: bool = False,
+            include_system: bool = False
     ) -> 'CanvasXpress':
         """
         Initializes a new `CanvasXpress` object using a reproducable research
@@ -548,12 +550,26 @@ class CanvasXpress(CXHtmlConvertable):
             A valid reproducable research JSON typical of those created by
             CanvasXpress when running a Web browser.
 
+        :param include_factory: `bool`
+            Default `False`.  If `False` remove the `factory` attribute.
+
+        :param include_system: `bool`
+            Default `False`.  If `False` remove the `system` attribute.
+
         :returns: `CanvasXpress`
             Returns a new `CanvasXpress` object will all properties filled using
             the information provided by the reproducable research JSON.
         """
         try:
             cx_json_dict = json.loads(cx_json)
+
+            if not include_factory:
+                if cx_json_dict.get("factory"):
+                    del cx_json_dict['factory']
+
+            if not include_system:
+                if cx_json_dict.get("system"):
+                    del cx_json_dict['system']
 
             cx_render_to = cx_json_dict.get('renderTo')
             cx_data = cx_json_dict.get('data')
