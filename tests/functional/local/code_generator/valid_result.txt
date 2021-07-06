@@ -11958,37 +11958,7 @@ cx = CanvasXpress(
         "events": False,
         "info": False,
         "afterRenderInit": False,
-        "noValidate": True,
-        "factory": {
-            "version": 35,
-            "buildDate": "06-20-2021",
-            "client": "MTYyNDk5MTA4NjY1ODo6MTo6MzU6Og==",
-            "siteSrc": True,
-            "valid": 0,
-            "href": "https://www.canvasxpress.org/examples/network-1.html",
-            "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
-        },
-        "system": {
-            "browser": "Chrome",
-            "browserVersion": "91",
-            "os": "Mac OS",
-            "alt": "&#8997;",
-            "command": "&#8984;",
-            "control": "&#8963;",
-            "shift": "&#8679;",
-            "isjQuery": False,
-            "isReveal": False,
-            "isZoom": False,
-            "isIE": False,
-            "isInIframe": False,
-            "isTouchScreen": 0,
-            "isR": False,
-            "isHTMLWidgets": False,
-            "isShiny": False,
-            "isRViewer": False,
-            "isRConsole": False,
-            "isNode": False
-        }
+        "noValidate": True
     }
 )
 

@@ -18,7 +18,7 @@ def test_code_generator():
         "valid_result.txt"
     )
 
-    # Used to maintain the test, with manual review after the write.
+    # # Used to maintain the test, with manual review after the write.
     # with open(valid_result_path, 'w') as valid_result_file:
     #     valid_result_file.write(candidate)
 
