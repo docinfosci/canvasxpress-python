@@ -42,14 +42,17 @@ def get_type_from_filename(
     :returns: `str`
         The name of the chart (e.g., bar) or an empty string.
     """
-    assembled_name = ""
-    for name_char in file_name:
-        if (not name_char.isnumeric()) and (not name_char == '.'):
-            assembled_name += name_char
-        else:
-            break
+    assembled_type = ""
+    started_type = False
+    for name_char in file_name.replace(".json", "")[::-1]:
+        if not started_type and name_char.isnumeric():
+            continue
 
-    return assembled_name
+        else:
+            started_type = True
+            assembled_type += name_char
+
+    return assembled_type[::-1]
 
 
 def get_index_from_filename(
@@ -63,17 +66,14 @@ def get_index_from_filename(
         The index of the chart (e.g., 1) or an empty string.
     """
     assembled_index = ""
-    for name_char in file_name:
-        if name_char == '.':
-            break
-
-        elif name_char.isnumeric():
+    for name_char in file_name.replace(".json", "")[::-1]:
+        if name_char.isnumeric():
             assembled_index += name_char
 
         else:
-            continue
+            break
 
-    return assembled_index
+    return assembled_index[::-1]
 
 
 def create_jupyer_template_text(
