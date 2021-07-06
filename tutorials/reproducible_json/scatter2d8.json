@@ -1,0 +1,87 @@
+{
+  "version": 35,
+  "renderTo": "scatter2d8",
+  "data": {
+    "y": {
+      "smps": ["Age","Height"],
+      "vars": ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12"],
+      "data": [
+        [18,76.1],
+        [19,77],
+        [20,78.1],
+        [21,78.2],
+        [22,78.8],
+        [23,79.7],
+        [24,79.9],
+        [25,81.1],
+        [26,81.2],
+        [27,81.8],
+        [28,82.8],
+        [29,83.5]
+      ]
+    },
+    "m": {
+      "Name": "Age Height",
+      "Description": "Mean heights of a group of children in Kalama, an Egyptian village that is the site of a study of nutrition in developing countries. The data were obtained by measuring the heights of all 161 children in the village each month over several years.",
+      "Reference": "Moore, David S., and George P. McCabe (1989). Introduction to the Practice of Statistics, p. 118"
+    },
+    "x": {
+      "Description": ["Age in months","Mean height in centimeters for children at this age"]
+    }
+  },
+  "config": {
+    "citation": "Moore, David S., and George P. McCabe (1989)",
+    "citationScaleFontFactor": 0.75,
+    "graphType": "Scatter2D",
+    "theme": "CanvasXpress",
+    "title": "Mean heights of a group of children in Kalama",
+    "xAxis": ["Age"],
+    "yAxis": ["Height"]
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "addRegressionLine",
+      [null,null,null],
+      {},
+      1625547261983
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NzI2MTkxOTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/scatter2d-8.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

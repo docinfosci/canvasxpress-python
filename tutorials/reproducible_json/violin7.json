@@ -1,0 +1,91 @@
+{
+  "version": 35,
+  "renderTo": "violin7",
+  "data": {
+    "y": {
+      "smps": ["Var1","Var2","Var3","Var4","Var5","Var6","Var7","Var8","Var9","Var10","Var11","Var12","Var13","Var14","Var15","Var16","Var17","Var18","Var19","Var20","Var21","Var22","Var23","Var24","Var25","Var26","Var27","Var28","Var29","Var30","Var31","Var32","Var33","Var34","Var35","Var36","Var37","Var38","Var39","Var40","Var41","Var42","Var43","Var44","Var45","Var46","Var47","Var48","Var49","Var50","Var51","Var52","Var53","Var54","Var55","Var56","Var57","Var58","Var59","Var60"],
+      "data": [
+        [4.2,11.5,7.3,5.8,6.4,10,11.2,11.2,5.2,7,16.5,16.5,15.2,17.3,22.5,17.3,13.6,14.5,18.8,15.5,23.6,18.5,33.9,25.5,26.4,32.5,26.7,21.5,23.3,29.5,15.2,21.5,17.6,9.7,14.5,10,8.2,9.4,16.5,9.7,19.7,23.3,23.6,26.4,20,25.2,25.8,21.2,14.5,27.3,25.5,26.4,22.4,24.5,24.8,30.9,26.4,27.3,29.4,23]
+      ],
+      "vars": ["len"]
+    },
+    "x": {
+      "supp": ["VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","VC","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ","OJ"],
+      "order": [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10],
+      "dose": [0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2]
+    }
+  },
+  "config": {
+    "axisAlgorithm": "rPretty",
+    "axisTickScaleFontFactor": 1.8,
+    "axisTitleFontStyle": "bold",
+    "axisTitleScaleFontFactor": 1.8,
+    "background": "white",
+    "backgroundType": "window",
+    "backgroundWindow": "#E5E5E5",
+    "boxplotMean": true,
+    "boxplotMeanColor": "rgb(255,215,0)",
+    "boxplotMeanColorBorder": "red",
+    "boxplotNotched": true,
+    "boxplotWishkersType": "single",
+    "graphOrientation": "vertical",
+    "graphType": "Boxplot",
+    "groupingFactors": ["dose"],
+    "guides": "solid",
+    "guidesColor": "white",
+    "showBoxplotIfViolin": true,
+    "showLegend": false,
+    "showViolinBoxplot": true,
+    "smpLabelRotate": 90,
+    "smpLabelScaleFontFactor": 1.8,
+    "smpTitle": "dose",
+    "smpTitleFontStyle": "bold",
+    "smpTitleScaleFontFactor": 1.8,
+    "theme": "CanvasXpress",
+    "title": "The Effect of Vitamin C on Tooth Growth in Guinea Pigs",
+    "xAxis2Show": false,
+    "xAxisMinorTicks": false,
+    "xAxisTickColor": "white",
+    "xAxisTitle": "len"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0ODY5MjgwODo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/violin-7.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

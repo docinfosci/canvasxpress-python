@@ -1,0 +1,63 @@
+{
+  "version": 35,
+  "renderTo": "tree2",
+  "data": {
+    "y": {
+      "vars": ["Order"],
+      "smps": ["A","B","C","D","E"],
+      "data": [
+        [1,2,3,4,5]
+      ]
+    },
+    "x": {
+      "Level1": [null,"L1","L1","L1",null],
+      "Level2": [null,null,"L2","L2",null]
+    }
+  },
+  "config": {
+    "graphType": "Tree",
+    "hierarchy": ["Level1","Level2"],
+    "showTransition": true,
+    "title": "Collapsible Tree"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0ODIxOTk5MTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/tree-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

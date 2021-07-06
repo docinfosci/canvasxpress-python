@@ -1,0 +1,109 @@
+{
+  "version": 35,
+  "renderTo": "layout18",
+  "data": {
+    "y": {
+      "vars": ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43"],
+      "smps": ["x","y"],
+      "data": [
+        [10,8.04],
+        [8,6.95],
+        [13,7.58],
+        [9,8.81],
+        [11,8.33],
+        [14,9.96],
+        [6,7.24],
+        [4,4.26],
+        [12,10.84],
+        [7,4.82],
+        [5,5.68],
+        [10,9.14],
+        [8,8.14],
+        [13,8.74],
+        [9,8.77],
+        [11,9.26],
+        [14,8.1],
+        [6,6.13],
+        [4,3.1],
+        [12,9.13],
+        [7,7.26],
+        [5,4.74],
+        [10,7.46],
+        [8,6.77],
+        [13,12.74],
+        [9,7.11],
+        [11,7.81],
+        [14,8.84],
+        [6,6.08],
+        [4,5.39],
+        [12,8.15],
+        [7,6.42],
+        [5,5.73],
+        [8,6.58],
+        [8,5.76],
+        [8,7.71],
+        [8,8.84],
+        [8,8.47],
+        [8,7.04],
+        [8,5.25],
+        [19,12.5],
+        [8,5.56],
+        [8,7.91],
+        [8,6.89]
+      ]
+    },
+    "z": {
+      "dataset": ["I","I","I","I","I","I","I","I","I","I","I","II","II","II","II","II","II","II","II","II","II","II","III","III","III","III","III","III","III","III","III","III","III","IV","IV","IV","IV","IV","IV","IV","IV","IV","IV","IV"]
+    }
+  },
+  "config": {
+    "graphType": "Scatter2D",
+    "segregateVariablesBy": ["dataset"]
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "addRegressionLine",
+      ["dataset",null,null],
+      {},
+      1625545180209
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NTE4MDEyNTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/layout-18.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

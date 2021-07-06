@@ -1,0 +1,98 @@
+{
+  "version": 35,
+  "renderTo": "dashboard3",
+  "data": {
+    "x": {
+      "Sex": ["M","F","M","M","M","F","F","F","M","F","F","F","F","M","M","M","M","M","F","F","M"],
+      "Smoker": ["N","Y","N","N","N","Y","N","N","N","N","Y","Y","Y","Y","N","N","Y","N","Y","N","N"],
+      "Opinion": ["pos","neg","pos","neg","neg","pos","pos","pos","pos","indiff","pos","indiff","pos","indiff","indiff","pos","neg","neg","pos","neg","neg"],
+      "Age": [23,43,43,32,15,37,26,35,26,31,35,55,25,39,25,26,33,62,54,38,65],
+      "Order": [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1]
+    },
+    "y": {
+      "vars": ["U-Trial 1","U-Trial 2","U-Trial 3","S-Trial 1","S-Trial 2","S-Trial 3"],
+      "smps": ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18","s19","s20","s21"],
+      "data": [
+        [38.4,46.2,72.5,38,82.8,33.9,50.4,35,32.8,60.1,75.1,57.6,55.5,49.5,40.9,44.3,93.8,47.9,75.2,46.2,56.3],
+        [27.7,57.2,57.9,38,57.9,32,40.6,33.1,26.8,53.2,63.1,57.7,63.3,45.8,35.7,46.8,91.9,59.9,54.1,39.3,45.8],
+        [25.7,41.9,51.9,32.2,64.7,31.4,40.1,43.2,33.9,40.4,58,61.5,44.6,35.3,37.2,39.4,77.4,52.8,63.6,56.6,58.9],
+        [53.1,54.7,74.2,49.6,53.6,51.3,44.1,34,34.5,59.1,67.3,75.5,41.1,52.2,28.3,74.9,77.5,50.9,70.1,60.3,59.9],
+        [30.6,43.3,53.4,37.4,48.6,35.5,46.9,26.4,25.1,87.1,43.8,126.6,41.8,53.8,26,45.3,55.8,58.6,44,47.8,36.8],
+        [30.2,56.7,42.4,34.4,44.8,42.9,42.7,24.8,25.1,59.2,42.2,48.4,32,48.1,33.7,42.6,54.9,64.5,43.1,52.8,44.3]
+      ]
+    },
+    "m": {
+      "Name": "Scents",
+      "Description": "Data on the time subjects required to complete a pencil and paper maze when they were smelling a floral scent and when they were not.",
+      "Reference": "Hirsch, A. R., and Johnston, L. H. Odors and Learning, Smell & Taste Treatment and Research Foundation, Chicago."
+    }
+  },
+  "config": {
+    "graphOrientation": "vertical",
+    "graphType": "Boxplot",
+    "showTransition": false,
+    "smpLabelRotate": 90,
+    "smpTitle": "Smoking Status",
+    "theme": "lastAirBenderWater"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "groupSamples",
+      [
+        ["Smoker"],
+        "iqr",
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      {},
+      1625543444545
+    ],
+    [
+      "createDOE",
+      [null,null,null],
+      {},
+      1625543444557
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MzQ0NDQ3Mjo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/dashboard-3.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

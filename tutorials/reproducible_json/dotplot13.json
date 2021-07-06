@@ -1,0 +1,93 @@
+{
+  "version": 35,
+  "renderTo": "dotplot13",
+  "data": {
+    "y": {
+      "vars": ["Number"],
+      "smps": ["Dutch in Seven Lessons","High Button Shoes","Sauce Tartare","Saturday Night Revue","Sauce Piquante","One Wild Oat","Young Wives' Tale","Laughter in Paradise","The Lavender Hill Mob","Sunday Night Theatre","Gigi","Secret People","Monte Carlo Baby","CBS Television Workshop","Roman Holiday","Sabrina","Ondine","War and Peace","Love in the Afternoon","Funny Face","Producers' Showcase","Green Mansions","The Nun's Story","The Unforgiven","Breakfast at Tiffany's","The Children's Hour","Charade","Paris When It Sizzles","My Fair Lady","How to Steal a Million","Two for the Road","Wait Until Dark","A World of Love","Robin and Marian","Bloodline","They All Laughed","Love Among Thieves","American Masters","Gregory Peck: His Own Man","Always","Gardens of the World with Audrey Hepburn"],
+      "data": [
+        [1,2,1,1,2,1,2,3,4,5,6,1,2,3,1,1,2,1,1,2,3,1,2,1,1,2,1,1,2,1,1,2,1,1,1,1,1,1,2,1,1]
+      ]
+    },
+    "x": {
+      "Recognized": ["No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes","Yes","No","No","No","Yes","No","Yes","No","Yes","No","Yes","No","Yes","Yes","No","No","No","No","No","No","No","No","Yes"],
+      "Type": ["Film","Stage","Stage","Television","Stage","Film","Film","Film","Film","Television","Stage","Film","Film","Television","Film","Film","Stage","Film","Film","Film","Television","Film","Film","Film","Film","Film","Film","Film","Film","Film","Film","Film","Television","Film","Film","Film","Television","Television","Television","Film","Television"],
+      "Recognitions": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,3,1,2,2,0,0,0,4,0,2,0,2,0,2,0,1,3,0,0,0,0,0,0,0,0,1],
+      "Winnings": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,1,0,0,0,0,0,2,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+      "Year": [1948,1948,1949,1950,1950,1951,1951,1951,1951,1951,1951,1952,1952,1952,1953,1954,1954,1956,1957,1957,1957,1959,1959,1960,1961,1961,1963,1964,1964,1966,1967,1967,1970,1976,1979,1981,1987,1988,1988,1989,1993]
+    }
+  },
+  "config": {
+    "backgroundImage": "https://www.canvasxpress.org/assets/images/Audrey.jpg",
+    "backgroundType": "image",
+    "colorBy": "Type",
+    "colorScheme": "Greens",
+    "graphOrientation": "vertical",
+    "graphType": "Dotplot",
+    "groupingFactors": ["Year"],
+    "isGraphTime": true,
+    "jitter": false,
+    "legendColumns": 3,
+    "legendPosition": "top",
+    "legendScaleFontFactor": 2,
+    "marginLeft": 150,
+    "marginRight": 150,
+    "showLegendTitle": false,
+    "smpLabelInterval": 8,
+    "smpLabelRotate": 90,
+    "timeFormat": "year",
+    "title": "The Life and Films of Audrey Hepburn",
+    "xAxis2Show": false,
+    "xAxisMajorTicks": false,
+    "xAxisMinorTicks": false,
+    "xAxisShow": false
+  },
+  "events": {
+    "mousemove": "/Function(function(o, e, t) {                        if (o && o.objectType && o.objectType == 'Property') {                                    t.showInfoSpan(e, o.display      );                        } else if (o && o.y && o.objectType != 'Smp') {                          var str = &quot;<b>&quot; + o.y.smps + &quot;</b><br><b>Year: </b>&quot; + o.y.Year + &quot;<br><b>Type: </b>&quot; + o.y.Type;                          t.showInfoSpan(e, str      );                        }                      })/"
+  },
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [760,400,true]
+    ],
+    [
+      "setDimensions",
+      [996,524,null,null,null,null],
+      {},
+      1625543824453
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MzgyMzMxODo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/dotplot-13.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

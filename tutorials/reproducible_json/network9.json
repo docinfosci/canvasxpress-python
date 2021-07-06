@@ -1,0 +1,1980 @@
+{
+  "version": 35,
+  "renderTo": "network9-1",
+  "data": {
+    "nodes": [
+      {
+        "id": "60",
+        "type": "group",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 51,
+        "height": 39,
+        "x": 844,
+        "y": 120,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1
+      },
+      {
+        "id": "59",
+        "type": "group",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 51,
+        "height": 39,
+        "x": 780,
+        "y": 528,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 3
+      },
+      {
+        "id": "58",
+        "type": "group",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 51,
+        "height": 39,
+        "x": 908,
+        "y": 368,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2
+      },
+      {
+        "id": "57",
+        "type": "group",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 51,
+        "height": 39,
+        "x": 847,
+        "y": 312,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 3
+      },
+      {
+        "id": "56",
+        "type": "group",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 51,
+        "height": 39,
+        "x": 223,
+        "y": 612,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2
+      },
+      {
+        "id": "1",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04115",
+        "name": "p53 signaling pathway",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 626,
+        "y": 176,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "2",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:898+hsa:9134",
+        "name": "CCNE1, CCNE, pCCNE1...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 908,
+        "y": 377,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": 3,
+        "Exp2": 9,
+        "Exp3": 9,
+        "Exp4": 7,
+        "Exp5": -3,
+        "Exp6": 4,
+        "Exp9": {
+          "CL2": 1,
+          "CL3": 5,
+          "CL1": 32
+        },
+        "Exp8": {
+          "CL2": 14,
+          "CL3": 7,
+          "CL1": 2
+        },
+        "Exp7": "H"
+      },
+      {
+        "id": "3",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1017",
+        "name": "CDK2, CDKN2, p33(CDK2)",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 908,
+        "y": 360,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": 5,
+        "Exp2": 9,
+        "Exp3": 10,
+        "Exp4": 2,
+        "Exp8": {
+          "CL2": 40,
+          "CL3": 22,
+          "CL1": 2
+        },
+        "Exp9": {
+          "CL2": 4,
+          "CL1": 45
+        },
+        "Exp6": 15,
+        "Exp5": -1,
+        "Exp7": "L"
+      },
+      {
+        "id": "4",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:595",
+        "name": "CCND1, BCL1, D11S287E, PRAD1, U21B31",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 847,
+        "y": 321,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": -1,
+        "Exp2": 6,
+        "Exp3": 1,
+        "Exp4": 7,
+        "Exp8": {
+          "CL3": 15,
+          "CL1": 32,
+          "CL2": 4
+        },
+        "Exp9": {
+          "CL2": 4,
+          "CL1": 52
+        },
+        "Exp6": 40,
+        "Exp5": 5,
+        "Exp7": "H"
+      },
+      {
+        "id": "5",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04210",
+        "name": "Apoptosis",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 544,
+        "y": 321,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "6",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04512",
+        "name": "ECM-receptor interaction",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 146,
+        "y": 573,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "7",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04510",
+        "name": "Focal adhesion",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 308,
+        "y": 663,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "8",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:3688",
+        "name": "ITGB1, CD29, FNRB, GPIIA, MDF2, MSK12, VLA-BETA, VLAB",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 223,
+        "y": 621,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": 3,
+        "Exp2": 8,
+        "Exp4": 1,
+        "Exp7": "H",
+        "Exp9": {
+          "CL1": 21,
+          "CL3": 9,
+          "CL2": 44
+        },
+        "Exp6": 24,
+        "Exp8": {
+          "CL3": 1,
+          "CL1": 12,
+          "CL2": 4
+        },
+        "Exp5": 10
+      },
+      {
+        "id": "9",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:3655+hsa:3673+hsa:3674+hsa:3675+hsa:3685",
+        "name": "ITGA6, CD49f, ITGA6B, VLA-6...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 223,
+        "y": 604,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": -1,
+        "Exp2": 1,
+        "Exp4": 3,
+        "Exp7": "M",
+        "Exp5": -8,
+        "Exp6": 14,
+        "Exp9": {
+          "CL1": 12,
+          "CL2": 4
+        },
+        "Exp8": {
+          "CL3": 32,
+          "CL1": 2,
+          "CL2": 14
+        }
+      },
+      {
+        "id": "10",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:7709",
+        "name": "ZBTB17, MIZ-1, ZNF151, ZNF60, pHZ-67",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 760,
+        "y": 438,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": 3,
+        "Exp2": 10,
+        "Exp3": 6,
+        "Exp4": 4
+      },
+      {
+        "id": "11",
+        "type": "compound",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?C05981",
+        "name": "C05981",
+        "shape": "circle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 8,
+        "height": 8,
+        "x": 422,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1
+      },
+      {
+        "id": "12",
+        "type": "compound",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?C00777+C15493",
+        "name": "C00777...",
+        "shape": "circle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 8,
+        "height": 8,
+        "x": 628,
+        "y": 120,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1
+      },
+      {
+        "id": "13",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1027",
+        "name": "CDKN1B, CDKN4, KIP1, MEN1B, MEN4, P27KIP1",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 846,
+        "y": 359,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": -1,
+        "Exp2": 7,
+        "Exp3": 3,
+        "Exp4": 4
+      },
+      {
+        "id": "14",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:6256+hsa:6257+hsa:6258",
+        "name": "RXRA, NR2B1...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 844,
+        "y": 129,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": -2,
+        "Exp2": 6,
+        "Exp3": 7,
+        "Exp4": 9
+      },
+      {
+        "id": "15",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:5915",
+        "name": "RARB, HAP, MCOPS12, NR1B2, RARbeta1, RRB2",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 844,
+        "y": 112,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": -5,
+        "Exp2": 3,
+        "Exp3": 9,
+        "Exp4": 3
+      },
+      {
+        "id": "16",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:10000+hsa:207+hsa:208",
+        "name": "AKT3, MPPH, MPPH2, PKB-GAMMA, PKBG, PRKBG, RAC-PK-gamma, RAC-gamma, STK-2...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 473,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": 2,
+        "Exp2": 4,
+        "Exp3": 10,
+        "Exp4": 3
+      },
+      {
+        "id": "17",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1163+hsa:1164",
+        "name": "CKS1B, CKS1, PNAS-16, PNAS-18, ckshs1...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 833,
+        "y": 443,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": -3,
+        "Exp2": 2,
+        "Exp3": 4,
+        "Exp4": 1
+      },
+      {
+        "id": "18",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:842",
+        "name": "CASP9, APAF-3, APAF3, ICE-LAP6, MCH6, PPP1R56",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 553,
+        "y": 366,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 3,
+        "Exp1": -3,
+        "Exp2": 3,
+        "Exp3": 6,
+        "Exp4": 6
+      },
+      {
+        "id": "19",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:317",
+        "name": "APAF1, APAF-1, CED4",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 439,
+        "y": 380,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -2,
+        "Exp2": 9,
+        "Exp3": 9,
+        "Exp4": 10
+      },
+      {
+        "id": "20",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:4149",
+        "name": "MAX, bHLHd4",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 780,
+        "y": 537,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": 3,
+        "Exp2": 6,
+        "Exp3": 3,
+        "Exp4": 6
+      },
+      {
+        "id": "21",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:4609",
+        "name": "MYC, MRTL, MYCC, bHLHe39, c-Myc",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 780,
+        "y": 520,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": -2,
+        "Exp2": 10,
+        "Exp3": 10,
+        "Exp4": 9
+      },
+      {
+        "id": "22",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:5728",
+        "name": "PTEN, 10q23del, BZS, CWS1, DEC, GLM2, MHAM, MMAC1, PTEN1, PTENbeta, TEP1",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 393,
+        "y": 661,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 2,
+        "Exp2": 5,
+        "Exp3": 6,
+        "Exp4": 1
+      },
+      {
+        "id": "23",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:5290+hsa:5291+hsa:5293+hsa:5295+hsa:5296+hsa:8503",
+        "name": "PIK3CA, CLOVE, CWS5, MCAP, MCM, MCMTC, PI3K, PI3K-alpha, p110-alpha...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 366,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": 0,
+        "Exp2": 10,
+        "Exp3": 4,
+        "Exp4": 6
+      },
+      {
+        "id": "24",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:5747",
+        "name": "PTK2, FADK, FAK, FAK1, FRNK, PPP1R71, p125FAK, pp125FAK",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 295,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": 4,
+        "Exp2": 8,
+        "Exp3": 8,
+        "Exp4": 10
+      },
+      {
+        "id": "25",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:2272",
+        "name": "FHIT, AP3Aase, FRA3B",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 284,
+        "y": 145,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": 1,
+        "Exp2": 4,
+        "Exp3": 7,
+        "Exp4": 4
+      },
+      {
+        "id": "26",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:54205",
+        "name": "CYCS, CYC, HCS, THC4",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 438,
+        "y": 350,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -5,
+        "Exp2": 8,
+        "Exp3": 7,
+        "Exp4": 10
+      },
+      {
+        "id": "27",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:10319+hsa:1282+hsa:1284+hsa:1285+hsa:1286+hsa:1287+hsa:1288+hsa:22798+hsa:2335+hsa:284217+hsa:3908+hsa:3909+hsa:3910+hsa:3911+hsa:3912+hsa:3913+hsa:3914+hsa:3915+hsa:3918",
+        "name": "LAMC3, OCCM...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 145,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 3,
+        "Exp2": 7,
+        "Exp3": 9,
+        "Exp4": 4
+      },
+      {
+        "id": "28",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa05222",
+        "name": "TITLE:Small cell lung cancer",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 225,
+        "height": 25,
+        "x": 153,
+        "y": 58,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "29",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04210",
+        "name": "Apoptosis",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 1091,
+        "y": 625,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "30",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04110",
+        "name": "Cell cycle",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 1080,
+        "y": 346,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "31",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:112401+hsa:329+hsa:330+hsa:331+hsa:79444",
+        "name": "BIRC8, ILP-2, ILP2, hILP2...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 877,
+        "y": 604,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 4,
+        "Exp2": 8,
+        "Exp3": 1
+      },
+      {
+        "id": "32",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:596",
+        "name": "BCL2, Bcl-2, PPP1R50",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 360,
+        "y": 291,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -4,
+        "Exp2": 7,
+        "Exp3": 6
+      },
+      {
+        "id": "33",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:595",
+        "name": "CCND1, BCL1, D11S287E, PRAD1, U21B31",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 877,
+        "y": 569,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 0,
+        "Exp2": 10,
+        "Exp3": 8
+      },
+      {
+        "id": "34",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:4843",
+        "name": "NOS2, HEP-NOS, INOS, NOS, NOS2A",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 877,
+        "y": 707,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 4,
+        "Exp2": 8,
+        "Exp3": 3
+      },
+      {
+        "id": "35",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:5743",
+        "name": "PTGS2, COX-2, COX2, GRIPGHS, PGG/HS, PGHS-2, PHS-2, hCox-2",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 877,
+        "y": 685,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -3,
+        "Exp2": 2,
+        "Exp3": 6,
+        "Exp4": 9
+      },
+      {
+        "id": "36",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1147+hsa:3551+hsa:8517",
+        "name": "CHUK, IKBKA, IKK-alpha, IKK1, IKKA, NFKBIKA, TCF16...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 548,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": -3,
+        "Exp2": 5,
+        "Exp3": 4,
+        "Exp4": 6
+      },
+      {
+        "id": "37",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:4792",
+        "name": "NFKBIA, IKBA, MAD-3, NFKBI",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 622,
+        "y": 613,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": -1,
+        "Exp2": 9,
+        "Exp3": 8,
+        "Exp4": 10
+      },
+      {
+        "id": "38",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:598",
+        "name": "BCL2L1, BCL-XL/S, BCL2L, BCLX, Bcl-X, PPP1R52",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 877,
+        "y": 626,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -1,
+        "Exp2": 10,
+        "Exp3": 9,
+        "Exp4": 1
+      },
+      {
+        "id": "39",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:7185+hsa:7186+hsa:7187+hsa:7188+hsa:7189+hsa:9618",
+        "name": "TRAF1, EBI6, MGC:10353...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 877,
+        "y": 648,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 0,
+        "Exp2": 1,
+        "Exp3": 4,
+        "Exp4": 8
+      },
+      {
+        "id": "40",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1869+hsa:1870+hsa:1871",
+        "name": "E2F1, E2F-1, RBAP1, RBBP3, RBP3...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 986,
+        "y": 406,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -5,
+        "Exp2": 3,
+        "Exp3": 9,
+        "Exp4": 3
+      },
+      {
+        "id": "41",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1019+hsa:1021",
+        "name": "CDK4, CMM3, PSK-J3...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 847,
+        "y": 304,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0,
+        "Exp1": -4,
+        "Exp2": 9,
+        "Exp3": 2,
+        "Exp4": 10
+      },
+      {
+        "id": "42",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:4790+hsa:5970",
+        "name": "NFKB1, CVID12, EBP-1, KBF1, NF-kB1, NF-kappa-B, NF-kappaB, NFKB-p105, NFKB-p50, NFkappaB, p105, p50...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 622,
+        "y": 646,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 7,
+        "Exp1": 4,
+        "Exp3": 4,
+        "Exp4": 8
+      },
+      {
+        "id": "43",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:5925",
+        "name": "RB1, OSRC, PPP1R130, RB, p105-Rb, pRb, pp110",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 986,
+        "y": 369,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 3,
+        "Exp1": -5,
+        "Exp3": 7,
+        "Exp4": 7
+      },
+      {
+        "id": "44",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:6502",
+        "name": "SKP2, FBL1, FBXL1, FLB1, p45",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 838,
+        "y": 400,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": 2,
+        "Exp3": 6,
+        "Exp4": 3
+      },
+      {
+        "id": "45",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1030",
+        "name": "CDKN2B, CDK4I, INK4B, MTS2, P15, TP15, p15INK4b",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 746,
+        "y": 303,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 2,
+        "Exp1": -1,
+        "Exp3": 3,
+        "Exp4": 10
+      },
+      {
+        "id": "46",
+        "type": "map",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa04151",
+        "name": "PI3K-Akt signaling pathway",
+        "shape": "roundrect",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgba(0,0,0,0)",
+        "width": 102,
+        "height": 34,
+        "x": 497,
+        "y": 663,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "47",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:581",
+        "name": "BAX, BCL2L4",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 373,
+        "y": 337,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -4,
+        "Exp2": 1,
+        "Exp3": 2,
+        "Exp4": 7
+      },
+      {
+        "id": "48",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:836",
+        "name": "CASP3, CPP32, CPP32B, SCA-1",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 638,
+        "y": 366,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 4,
+        "Exp2": 5,
+        "Exp3": 2,
+        "Exp4": 6
+      },
+      {
+        "id": "49",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:7157",
+        "name": "TP53, BCC7, LFS1, P53, TRP53",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 802,
+        "y": 209,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 6,
+        "Exp1": 3,
+        "Exp2": 7,
+        "Exp3": 3,
+        "Exp4": 5
+      },
+      {
+        "id": "50",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1026",
+        "name": "CDKN1A, CAP20, CDKN1, CIP1, MDA-6, P21, SDI1, WAF1, p21CIP1",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 932,
+        "y": 189,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -1,
+        "Exp2": 1,
+        "Exp3": 5,
+        "Exp4": 10
+      },
+      {
+        "id": "51",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:10912+hsa:1647+hsa:4616",
+        "name": "GADD45G, CR6, DDIT2, GADD45gamma, GRP17...",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 984,
+        "y": 189,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 0,
+        "Exp2": 6,
+        "Exp3": 2,
+        "Exp4": 4
+      },
+      {
+        "id": "52",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:581",
+        "name": "BAX, BCL2L4",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 932,
+        "y": 211,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -5,
+        "Exp2": 3,
+        "Exp3": 2,
+        "Exp4": 6
+      },
+      {
+        "id": "53",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:578",
+        "name": "BAK1, BAK, BAK-LIKE, BCL2L7, CDN1",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 984,
+        "y": 211,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": -3,
+        "Exp2": 2,
+        "Exp3": 5,
+        "Exp4": 9
+      },
+      {
+        "id": "54",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:1643",
+        "name": "DDB2, DDBB, UV-DDB2, XPE",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 932,
+        "y": 233,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 0,
+        "Exp2": 4,
+        "Exp3": 3,
+        "Exp4": 6
+      },
+      {
+        "id": "55",
+        "type": "gene",
+        "link": "https://www.kegg.jp/dbget-bin/www_bget?hsa:51426",
+        "name": "POLK, DINB1, DINP, POLQ",
+        "shape": "rectangle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 46,
+        "height": 17,
+        "x": 984,
+        "y": 233,
+        "hideLabel": true,
+        "fixed": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 1,
+        "Exp1": 2,
+        "Exp2": 5,
+        "Exp3": 10,
+        "Exp4": 6
+      },
+      {
+        "id": "__zero__",
+        "type": "anchor",
+        "shape": "circle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 1,
+        "height": 1,
+        "x": 0,
+        "y": 0,
+        "hideLabel": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      },
+      {
+        "id": "__max__",
+        "type": "anchor",
+        "shape": "circle",
+        "color": "rgba(0,0,0,0)",
+        "outline": "rgb(0,0,0)",
+        "width": 1,
+        "height": 1,
+        "x": 1195,
+        "y": 760,
+        "hideLabel": true,
+        "layout": {
+          "children": []
+        },
+        "nodeEdges": 0
+      }
+    ],
+    "edges": [
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "compound",
+            "value": "11"
+          }
+        ],
+        "id1": "23",
+        "id2": "16",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          }
+        ],
+        "id1": "17",
+        "id2": "44",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          }
+        ],
+        "id1": "27",
+        "id2": "56",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          }
+        ],
+        "id1": "56",
+        "id2": "24",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          }
+        ],
+        "id1": "24",
+        "id2": "23",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          },
+          {
+            "name": "phosphorylation",
+            "value": "+p"
+          }
+        ],
+        "id1": "16",
+        "id2": "36",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          },
+          {
+            "name": "phosphorylation",
+            "value": "+p"
+          }
+        ],
+        "id1": "36",
+        "id2": "37",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          },
+          {
+            "name": "phosphorylation",
+            "value": "+p"
+          }
+        ],
+        "id1": "57",
+        "id2": "43",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "activation",
+            "value": "-->"
+          },
+          {
+            "name": "phosphorylation",
+            "value": "+p"
+          }
+        ],
+        "id1": "58",
+        "id2": "43",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "10",
+        "id2": "45",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "59",
+        "id2": "57",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "42",
+        "id2": "33",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "42",
+        "id2": "31",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "42",
+        "id2": "38",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "42",
+        "id2": "39",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "42",
+        "id2": "35",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "42",
+        "id2": "34",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "inhibition",
+            "value": "--|"
+          }
+        ],
+        "id1": "44",
+        "id2": "13",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "inhibition",
+            "value": "--|"
+          }
+        ],
+        "id1": "13",
+        "id2": "58",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "dissociation",
+            "value": "-+-"
+          }
+        ],
+        "id1": "40",
+        "id2": "43",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "dissociation",
+            "value": "-+-"
+          }
+        ],
+        "id1": "37",
+        "id2": "42",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "GErel",
+        "subtype": [
+          {
+            "name": "expression",
+            "value": "-->"
+          }
+        ],
+        "id1": "59",
+        "id2": "17",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "inhibition",
+            "value": "--|"
+          }
+        ],
+        "id1": "45",
+        "id2": "57",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PCrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "12",
+        "id2": "60",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "26",
+        "id2": "18",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "19",
+        "id2": "18",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PCrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "22",
+        "id2": "11",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "inhibition",
+            "value": "--|"
+          }
+        ],
+        "id1": "59",
+        "id2": "10",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "inhibition",
+            "value": "--|"
+          }
+        ],
+        "id1": "32",
+        "id2": "47",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "18",
+        "id2": "48",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "49",
+        "id2": "50",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "49",
+        "id2": "51",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "49",
+        "id2": "52",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "49",
+        "id2": "53",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "49",
+        "id2": "54",
+        "color": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "PPrel",
+        "subtype": [
+          {
+            "name": "missing interaction",
+            "value": "-/-"
+          }
+        ],
+        "id1": "49",
+        "id2": "55",
+        "color": "rgba(0,0,0,0)"
+      }
+    ],
+    "nodeIndices": {
+      "1": 5,
+      "2": 6,
+      "3": 7,
+      "4": 8,
+      "5": 9,
+      "6": 10,
+      "7": 11,
+      "8": 12,
+      "9": 13,
+      "10": 14,
+      "11": 15,
+      "12": 16,
+      "13": 17,
+      "14": 18,
+      "15": 19,
+      "16": 20,
+      "17": 21,
+      "18": 22,
+      "19": 23,
+      "20": 24,
+      "21": 25,
+      "22": 26,
+      "23": 27,
+      "24": 28,
+      "25": 29,
+      "26": 30,
+      "27": 31,
+      "28": 32,
+      "29": 33,
+      "30": 34,
+      "31": 35,
+      "32": 36,
+      "33": 37,
+      "34": 38,
+      "35": 39,
+      "36": 40,
+      "37": 41,
+      "38": 42,
+      "39": 43,
+      "40": 44,
+      "41": 45,
+      "42": 46,
+      "43": 47,
+      "44": 48,
+      "45": 49,
+      "46": 50,
+      "47": 51,
+      "48": 52,
+      "49": 53,
+      "50": 54,
+      "51": 55,
+      "52": 56,
+      "53": 57,
+      "54": 58,
+      "55": 59,
+      "56": 4,
+      "57": 3,
+      "58": 2,
+      "59": 1,
+      "60": 0,
+      "__zero__": 60,
+      "__max__": 61
+    }
+  },
+  "config": {
+    "adjustBezier": false,
+    "graphType": "Network",
+    "calculateLayout": false,
+    "showAnimation": false,
+    "networkNodesOnTop": false,
+    "networkFreeze": false,
+    "showNodeNameThreshold": 20000,
+    "preScaleNetwork": false,
+    "title": "Small cell lung cancer",
+    "backgroundType": "image",
+    "backgroundImage": "https://www.canvasxpress.org/assets/images/hsa05222.png",
+    "networkVendor": "Kegg",
+    "appendNetworkData": [],
+    "colorNodeBy": "Exp1",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "appendNetworkDataFromURL",
+      [],
+      {},
+      1625546206994
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NjIwNjc1NTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/network-9.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false,
+    "isRStudio": false
+  }
+}

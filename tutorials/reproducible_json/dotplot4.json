@@ -1,0 +1,81 @@
+{
+  "version": 35,
+  "renderTo": "dotplot4",
+  "data": {
+    "y": {
+      "vars": ["Women","Men"],
+      "smps": ["MIT","Stanford","Harvard","U.Penn","Princeton","Chicago","Georgetown","Tufts","Yale","Columbia","Duke","Dartmouth","NYU","Notre Dame","Cornell","Michigan","Brown","Berkeley","Emory","UCLA","SoCal"],
+      "data": [
+        [94,96,112,92,90,78,94,76,79,86,93,84,67,73,80,62,72,71,68,64,72],
+        [152,151,165,141,137,118,131,112,114,119,124,114,94,100,107,84,92,88,82,78,81]
+      ]
+    },
+    "z": {
+      "Connect": [1,1]
+    }
+  },
+  "config": {
+    "axisAlgorithm": "wilkinson",
+    "connectBy": "Connect",
+    "dotplotType": "stacked",
+    "graphType": "Dotplot",
+    "showTransition": false,
+    "smpTitle": "School",
+    "sortDir": "descending",
+    "theme": "CanvasXpress",
+    "title": "Gender Earnings Disparity",
+    "xAxis2Title": "Annual Salary",
+    "xAxisMinorTicks": false,
+    "xAxisShow": false,
+    "xAxisTickFormat": "$%sK",
+    "xAxisTitle": "Annual Salary"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "sortSamplesByVariable",
+      ["Men",null,null],
+      {
+        "sortDir": "descending"
+      },
+      1625543657988
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MzY1NzkyMDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/dotplot-4.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

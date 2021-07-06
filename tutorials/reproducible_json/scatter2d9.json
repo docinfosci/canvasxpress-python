@@ -1,0 +1,103 @@
+{
+  "version": 35,
+  "renderTo": "scatter2d9",
+  "data": {
+    "y": {
+      "smps": ["Mortality","Temperature"],
+      "vars": ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16"],
+      "data": [
+        [102.5,51.3],
+        [104.5,49.9],
+        [100.4,50],
+        [95.9,49.2],
+        [87,48.5],
+        [95,47.8],
+        [88.6,47.3],
+        [89.2,45.1],
+        [78.9,46.3],
+        [84.6,42.1],
+        [81.7,44.2],
+        [72.2,43.5],
+        [65.1,42.3],
+        [68.1,40.2],
+        [67.3,31.8],
+        [52.5,34]
+      ]
+    },
+    "m": {
+      "Name": "Breast Cancer",
+      "Description": "Data contains the mean annual temperature (in degrees F) and Mortality Index for neoplasms of the female breast. Data were taken from certain regions of Great Britain, Norway, and Sweden.",
+      "Reference": "Velleman, P. F. and Hoaglin, D. C. (1981). Applications, Basics, and Computing of Exploratory Data Analysis. Belmont. CA: Wadsworth, Inc., pp. 127-134."
+    },
+    "x": {
+      "Description": ["Mortality index for neoplasms of the female breast","Mean annual temperature (in degrees F)"]
+    }
+  },
+  "config": {
+    "backgroundType": "window",
+    "backgroundWindow": "rgb(238,238,238)",
+    "citation": "Velleman, P. F. and Hoaglin, D. C. (1981).Applications, Basics, and Computing of Exploratory Data Analysis. Belmont. CA: Wadsworth, Inc., pp. 127-134.",
+    "colors": ["rgba(64,64,64,0.5)"],
+    "decorationsBackgroundColor": "rgb(238,238,238)",
+    "decorationsBoxColor": "rgb(0,0,0)",
+    "decorationsPosition": "bottomRight",
+    "graphType": "Scatter2D",
+    "legendBackgroundColor": "rgba(0,0,0,0)",
+    "legendInside": true,
+    "plotBox": false,
+    "showDecorations": true,
+    "showTransition": false,
+    "theme": "CanvasXpress",
+    "title": "Mean annual temperature (in degrees F) and Mortality Index for neoplasms of the female breast.",
+    "xAxis": ["Mortality"],
+    "xAxisTickColor": "rgb(255,255,255)",
+    "yAxis": ["Temperature"],
+    "yAxisTickColor": "rgb(255,255,255)"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "addRegressionLine",
+      [false,"red",null],
+      {},
+      1625547280472
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NzI4MDQwMDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/scatter2d-9.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

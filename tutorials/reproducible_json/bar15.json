@@ -1,0 +1,86 @@
+{
+  "version": 35,
+  "renderTo": "bar15",
+  "data": {
+    "y": {
+      "vars": ["Total"],
+      "smps": ["30s","40s","50s","60s","70s","80s","90s","00s","10s","20s"],
+      "data": [
+        [1,3,5,3,3,4,10,17,11,3]
+      ]
+    }
+  },
+  "config": {
+    "background": "rgb(48,114,148)",
+    "backgroundType": "solid",
+    "colorScheme": "Blues",
+    "colors": ["rgb(75,179,216)"],
+    "fontName": "Waltograph",
+    "fontsExternal": [
+      {
+        "url": "https://www.canvasxpress.org/assets/fonts/waltograph42.otf",
+        "name": "Waltograph"
+      }
+    ],
+    "graphOrientation": "vertical",
+    "graphType": "Bar",
+    "marginBottom": 50,
+    "marginLeft": 50,
+    "marginRight": 50,
+    "marginTop": 50,
+    "maxTextSize": 80,
+    "objectBorderColor": "rgba(0,0,0,0)",
+    "showLegend": false,
+    "smpLabelFontColor": "rgb(255,255,255)",
+    "smpLabelRotate": 90,
+    "smpLabelScaleFontFactor": 1.5,
+    "title": "Animation Movies",
+    "titleColor": "rgb(255,255,255)",
+    "titleScaleFontFactor": 2.5,
+    "widthFactor": 1.1,
+    "xAxis2Show": false,
+    "xAxisMajorTicks": false,
+    "xAxisMinorTicks": false,
+    "xAxisShow": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,400,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MjI1OTc5OTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/bar-15.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

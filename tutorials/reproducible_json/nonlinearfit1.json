@@ -1,0 +1,88 @@
+{
+  "version": 35,
+  "renderTo": "nonlinearfit1",
+  "data": {
+    "y": {
+      "vars": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12"],
+      "smps": ["Concentration","V1"],
+      "data": [
+        [0.0009,172],
+        [0.0018,177],
+        [0.0037,160],
+        [0.0073,166],
+        [0.0146,211],
+        [0.0293,248],
+        [0.0586,269],
+        [0.117,283],
+        [0.234,298],
+        [0.469,314],
+        [0.938,328],
+        [1.88,316]
+      ]
+    }
+  },
+  "config": {
+    "decorations": {
+      "nlfit": [
+        {
+          "param": ["164","313",0.031,-1.5,0.0000012,1.9],
+          "type": "cst",
+          "label": "Custom Fit"
+        },
+        {
+          "type": "reg",
+          "param": ["164","313",0.031,1.5,0.0000012,1.9],
+          "label": "Regular Fit"
+        }
+      ]
+    },
+    "graphType": "Scatter2D",
+    "setMaxY": 350,
+    "setMinY": 100,
+    "showDecorations": true,
+    "theme": "CanvasXpress",
+    "xAxisTransform": "log10",
+    "xAxisTransformTicks": false,
+    "yAxisExact": true
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NjMwOTkxNTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/nonlinear-fit-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

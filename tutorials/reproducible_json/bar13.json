@@ -1,0 +1,107 @@
+{
+  "version": 35,
+  "renderTo": "bar13",
+  "data": {
+    "y": {
+      "vars": ["high","start","end"],
+      "smps": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10","S11","S12","S13","S14","S15"],
+      "data": [
+        [8.3,12.6,12.6,12.5,12.5,12.5,13.5,13.5,14,14,9.5,11.5,7.2,17,18.5],
+        [6,2.5,9.5,3.5,6.5,10.5,7,11.5,2.5,6,1,4.5,1.2,10.5,6.5],
+        [null,7,null,4.5,8.5,null,10,null,3.5,null,9.5,11.5,null,17,13.5]
+      ]
+    },
+    "x": {
+      "Subject": ["S1","S2","S2","S3","S3","S3","S4","S4","S5","S5","S6","S7","S8","S9","S10"],
+      "Stage": ["Stage4","Stage2","Stage2","Stage1","Stage1","Stage1","Stage4","Stage4","Stage3","Stage3","Stage1","Stage3","Stage2","Stage2","Stage1"],
+      "High Cap": ["Arrow","Arrow","Arrow","Arrow","Arrow","Arrow","Arrow","Arrow","Arrow","Arrow",null,null,"Arrow",null,"Arrow"],
+      "Status": ["Partial Response","Partial Response","Partial Response","Complete Response","Complete Response","Partial Response","Partial Response","Partial Response","Partial Response","Partial Response","Complete Response","Complete Response","Complete Response","Complete Response","Complete Response"],
+      "Response": [20,10,10,-15,-15,-15,-20,-20,-22,-22,-25,-30,-42,-45,-50],
+      "Durable": [false,false,false,true,false,false,false,false,true,false,true,true,false,true,true]
+    }
+  },
+  "config": {
+    "barType": "swimmer",
+    "colorBy": "Stage",
+    "graphOrientation": "vertical",
+    "graphType": "Bar",
+    "groupingFactors": ["Subject"],
+    "objectBorderColor": false,
+    "objectColorTransparency": 0.5,
+    "smpOverlayProperties": {
+      "Durable": {
+        "position": "bottom",
+        "type": "Boolean",
+        "color": "rgb(215,25,28)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "CanvasXpress",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Response": {
+        "position": "bottom",
+        "thickness": 100,
+        "type": "Bar",
+        "color": "rgb(253,174,97)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "CanvasXpress",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      }
+    },
+    "smpOverlays": ["Durable","Response"],
+    "swimDurable": "Durable",
+    "swimEnd": "end",
+    "swimHigh": "high",
+    "swimHighCap": "High Cap",
+    "swimStart": "start",
+    "swimStatus": "Status",
+    "theme": "CanvasXpress",
+    "title": "Tumor Response with Duration by Stage and Month",
+    "xAxisTitle": "Duration of Treatment in Months"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MjIyMzgxOTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/bar-13.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

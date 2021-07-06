@@ -1,0 +1,64 @@
+{
+  "version": 35,
+  "renderTo": "bar3",
+  "data": {
+    "y": {
+      "vars": ["V1"],
+      "smps": ["S1","S2","S3"],
+      "data": [
+        [33,44,55]
+      ]
+    }
+  },
+  "config": {
+    "graphOrientation": "vertical",
+    "graphType": "Bar",
+    "showDataValues": true,
+    "showLegend": false,
+    "smpLabelRotate": 90,
+    "smpTitle": "Samples",
+    "theme": "CanvasXpress",
+    "title": "Bar Graph Title",
+    "xAxisTitle": "Value"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MjA0NjU4Nzo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/bar-3.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

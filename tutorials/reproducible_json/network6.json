@@ -1,0 +1,3815 @@
+{
+  "version": 35,
+  "renderTo": "network6",
+  "data": {
+    "nodes": [
+      {
+        "id": "n1",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 15.130590054275665,
+            "y": 1.2516018402042701,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n2",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n3",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n4",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n5",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n6",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n7",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n9",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n11",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n12",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n13",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n18",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n20",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n22",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 1.21894198596779,
+            "y": 0.16357476517803235,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 6.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 15.130590054275665,
+            "y": 1.2516018402042701,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 15.130590054275665,
+            "y": 1.2516018402042701,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 15.130590054275665,
+        "y": 1.2516018402042701,
+        "z": 0,
+        "nodeEdges": 16
+      },
+      {
+        "id": "n2",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 9.670733010875834,
+            "y": -4.3713034719000445,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n2",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n3",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n4",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n18",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n20",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n22",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n31",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.5922917784270395,
+            "y": -0.04823903770598925,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 4,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 9.670733010875834,
+            "y": -4.3713034719000445,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 9.670733010875834,
+            "y": -4.3713034719000445,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 9.670733010875834,
+        "y": -4.3713034719000445,
+        "z": 0,
+        "nodeEdges": 9
+      },
+      {
+        "id": "n3",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 0.16982036531072925,
+            "y": -0.11883622581174276,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n3",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n3",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n4",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n9",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n10",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n28",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n29",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.9630700660302118,
+            "y": -0.010180861152534373,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 4.333333333333334,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 0.16982036531072925,
+            "y": -0.11883622581174276,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 0.16982036531072925,
+            "y": -0.11883622581174276,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 0.16982036531072925,
+        "y": -0.11883622581174276,
+        "z": 0,
+        "nodeEdges": 10
+      },
+      {
+        "id": "n4",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 10.673208252036972,
+            "y": 2.497551488999632,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n4",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n4",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n4",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n4",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n13",
+              "id2": "n4",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n4",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.002352052476775868,
+            "y": 0.05166098408100581,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 3,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 10.673208252036972,
+            "y": 2.497551488999632,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 10.673208252036972,
+            "y": 2.497551488999632,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 10.673208252036972,
+        "y": 2.497551488999632,
+        "z": 0,
+        "nodeEdges": 6
+      },
+      {
+        "id": "n5",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 26.73523916983783,
+            "y": 0.4721426849978682,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n5",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n7",
+              "id2": "n5",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n11",
+              "id2": "n5",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.04442657380972264,
+            "y": -0.004444819557839179,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 26.73523916983783,
+            "y": 0.4721426849978682,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 26.73523916983783,
+            "y": 0.4721426849978682,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 26.73523916983783,
+        "y": 0.4721426849978682,
+        "z": 0,
+        "nodeEdges": 3
+      },
+      {
+        "id": "n6",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 31.731625887011997,
+            "y": 2.8327978755965533,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n6",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n7",
+              "id2": "n6",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n11",
+              "id2": "n6",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n17",
+              "id2": "n6",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.2580700574284646,
+            "y": 0.02168907273857369,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 31.731625887011997,
+            "y": 2.8327978755965533,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 31.731625887011997,
+            "y": 2.8327978755965533,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 31.731625887011997,
+        "y": 2.8327978755965533,
+        "z": 0,
+        "nodeEdges": 4
+      },
+      {
+        "id": "n7",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 31.339787674851326,
+            "y": -1.61841411182431,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n7",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n7",
+              "id2": "n5",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n7",
+              "id2": "n6",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n17",
+              "id2": "n7",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.23894847208153483,
+            "y": 0.04593236737488335,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n5"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 31.339787674851326,
+            "y": -1.61841411182431,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 31.339787674851326,
+            "y": -1.61841411182431,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 31.339787674851326,
+        "y": -1.61841411182431,
+        "z": 0,
+        "nodeEdges": 4
+      },
+      {
+        "id": "n8",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 9.083294387436414,
+            "y": 5.37311062738207,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n8",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n8",
+              "id2": "n4",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.07372548756185275,
+            "y": 0.011871079026950199,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 9.083294387436414,
+            "y": 5.37311062738207,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 9.083294387436414,
+            "y": 5.37311062738207,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 9.083294387436414,
+        "y": 5.37311062738207,
+        "z": 0,
+        "nodeEdges": 4
+      },
+      {
+        "id": "n9",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -1.2875476333500515,
+            "y": -4.473033534131012,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n9",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n9",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n31",
+              "id2": "n9",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n9",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n9",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.41721106958003357,
+            "y": -0.22312053167927665,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.666666666666667,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n3"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -1.2875476333500515,
+            "y": -4.473033534131012,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -1.2875476333500515,
+            "y": -4.473033534131012,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -1.2875476333500515,
+        "y": -4.473033534131012,
+        "z": 0,
+        "nodeEdges": 5
+      },
+      {
+        "id": "n10",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -6.07228380166962,
+            "y": -11.16136322068388,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n10",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n10",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.07534935698663621,
+            "y": 0.035920856910797994,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n3"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -6.07228380166962,
+            "y": -11.16136322068388,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -6.07228380166962,
+            "y": -11.16136322068388,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -6.07228380166962,
+        "y": -11.16136322068388,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n11",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 27.242431560448775,
+            "y": 5.990472034298288,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n11",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n11",
+              "id2": "n5",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n11",
+              "id2": "n6",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.07722946762174221,
+            "y": -0.05054263237871901,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n5"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 27.242431560448775,
+            "y": 5.990472034298288,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 27.242431560448775,
+            "y": 5.990472034298288,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 27.242431560448775,
+        "y": 5.990472034298288,
+        "z": 0,
+        "nodeEdges": 3
+      },
+      {
+        "id": "n12",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 23.46183948593248,
+            "y": 13.040635025763427,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n12",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.07634852571180349,
+            "y": -0.04040243014745925,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.3333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 23.46183948593248,
+            "y": 13.040635025763427,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 23.46183948593248,
+            "y": 13.040635025763427,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 23.46183948593248,
+        "y": 13.040635025763427,
+        "z": 0,
+        "nodeEdges": 1
+      },
+      {
+        "id": "n13",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 16.921988138287215,
+            "y": 10.288782373263848,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n13",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n13",
+              "id2": "n4",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.03309918919902715,
+            "y": -0.04203983855306656,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n4"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 16.921988138287215,
+            "y": 10.288782373263848,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 16.921988138287215,
+            "y": 10.288782373263848,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 16.921988138287215,
+        "y": 10.288782373263848,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n14",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 4.653706892480964,
+            "y": -3.9162620951130944,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n14",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n14",
+              "id2": "n4",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n14",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.3633274186759582,
+            "y": -0.04678218271147825,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.666666666666667,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 4.653706892480964,
+            "y": -3.9162620951130944,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 4.653706892480964,
+            "y": -3.9162620951130944,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 4.653706892480964,
+        "y": -3.9162620951130944,
+        "z": 0,
+        "nodeEdges": 5
+      },
+      {
+        "id": "n15",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -23.174152844327374,
+            "y": -9.454244829397375,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n33",
+              "id2": "n15",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n15",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.01992321810271691,
+            "y": 0.010203621867924985,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -23.174152844327374,
+            "y": -9.454244829397375,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -23.174152844327374,
+            "y": -9.454244829397375,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -23.174152844327374,
+        "y": -9.454244829397375,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n16",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -13.58199858287732,
+            "y": -15.211842936365612,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n33",
+              "id2": "n16",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n16",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.00760004139055025,
+            "y": 0.0008918946813579299,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -13.58199858287732,
+            "y": -15.211842936365612,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -13.58199858287732,
+            "y": -15.211842936365612,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -13.58199858287732,
+        "y": -15.211842936365612,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n17",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 41.4959006602292,
+            "y": 0.07957672640713453,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n17",
+              "id2": "n6",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n17",
+              "id2": "n7",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.13246680929194662,
+            "y": 0.029057365653564482,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n6","n7"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 41.4959006602292,
+            "y": 0.07957672640713453,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 41.4959006602292,
+            "y": 0.07957672640713453,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 41.4959006602292,
+        "y": 0.07957672640713453,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n18",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 17.435353879737185,
+            "y": -10.161349374817274,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n18",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n18",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.018374068506374987,
+            "y": -0.02070590120381204,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 17.435353879737185,
+            "y": -10.161349374817274,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 17.435353879737185,
+            "y": -10.161349374817274,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 17.435353879737185,
+        "y": -10.161349374817274,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n19",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -22.414253272376033,
+            "y": -5.419539280946507,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n33",
+              "id2": "n19",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n19",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.022247435556804352,
+            "y": 0.01464728881522473,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -22.414253272376033,
+            "y": -5.419539280946507,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -22.414253272376033,
+            "y": -5.419539280946507,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -22.414253272376033,
+        "y": -5.419539280946507,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n20",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 3.880011303959992,
+            "y": -0.49313574390039105,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n20",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n20",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n20",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.3637253968173212,
+            "y": 0.020742742534238457,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 3.880011303959992,
+            "y": -0.49313574390039105,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 3.880011303959992,
+            "y": -0.49313574390039105,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 3.880011303959992,
+        "y": -0.49313574390039105,
+        "z": 0,
+        "nodeEdges": 3
+      },
+      {
+        "id": "n21",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -20.016928960425794,
+            "y": -11.671736899275514,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n33",
+              "id2": "n21",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n21",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.011289037012327996,
+            "y": 0.010986772278885405,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -20.016928960425794,
+            "y": -11.671736899275514,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -20.016928960425794,
+            "y": -11.671736899275514,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -20.016928960425794,
+        "y": -11.671736899275514,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n22",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": 20.156397304414288,
+            "y": -6.485101609263765,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n22",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n22",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.04612775967947792,
+            "y": 0.012680966300876657,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n2"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": 20.156397304414288,
+            "y": -6.485101609263765,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": 20.156397304414288,
+            "y": -6.485101609263765,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": 20.156397304414288,
+        "y": -6.485101609263765,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n23",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -17.814057018991235,
+            "y": -14.81506412399225,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n33",
+              "id2": "n23",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n23",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.0110819157682852,
+            "y": 0.0032376089379306918,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -17.814057018991235,
+            "y": -14.81506412399225,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -17.814057018991235,
+            "y": -14.81506412399225,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -17.814057018991235,
+        "y": -14.81506412399225,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n24",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -17.62479831893836,
+            "y": 4.730779425983549,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n26",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n28",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n30",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.05177598095221492,
+            "y": -0.07245702089776855,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.666666666666667,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -17.62479831893836,
+            "y": 4.730779425983549,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -17.62479831893836,
+            "y": 4.730779425983549,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -17.62479831893836,
+        "y": 4.730779425983549,
+        "z": 0,
+        "nodeEdges": 5
+      },
+      {
+        "id": "n25",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -10.265853276970612,
+            "y": 16.646127910889835,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n26",
+              "id2": "n25",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n28",
+              "id2": "n25",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n25",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.021190730168514266,
+            "y": -0.031558462820234515,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -10.265853276970612,
+            "y": 16.646127910889835,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -10.265853276970612,
+            "y": 16.646127910889835,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -10.265853276970612,
+        "y": 16.646127910889835,
+        "z": 0,
+        "nodeEdges": 3
+      },
+      {
+        "id": "n26",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -15.175862936212383,
+            "y": 14.2622274353206,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n26",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n26",
+              "id2": "n25",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n26",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.09354326097713733,
+            "y": -0.0027544271385098297,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n24","n25"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -15.175862936212383,
+            "y": 14.2622274353206,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -15.175862936212383,
+            "y": 14.2622274353206,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -15.175862936212383,
+        "y": 14.2622274353206,
+        "z": 0,
+        "nodeEdges": 3
+      },
+      {
+        "id": "n27",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -26.915863601530916,
+            "y": -0.4975702514008431,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n30",
+              "id2": "n27",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n27",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.10822069118454432,
+            "y": 0.011897340515201658,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 1.6666666666666665,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": [],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -26.915863601530916,
+            "y": -0.4975702514008431,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -26.915863601530916,
+            "y": -0.4975702514008431,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -26.915863601530916,
+        "y": -0.4975702514008431,
+        "z": 0,
+        "nodeEdges": 2
+      },
+      {
+        "id": "n28",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -10.653475366703287,
+            "y": 7.438509420316228,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n28",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n28",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n28",
+              "id2": "n25",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n28",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.20306397109957267,
+            "y": 0.006120129239010364,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n3","n24"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -10.653475366703287,
+            "y": 7.438509420316228,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -10.653475366703287,
+            "y": 7.438509420316228,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -10.653475366703287,
+        "y": 7.438509420316228,
+        "z": 0,
+        "nodeEdges": 4
+      },
+      {
+        "id": "n29",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -8.061889782800739,
+            "y": 2.646428688194953,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n29",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n29",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n29",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.12893972457108613,
+            "y": 0.0789723379221895,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n3"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -8.061889782800739,
+            "y": 2.646428688194953,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -8.061889782800739,
+            "y": 2.646428688194953,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -8.061889782800739,
+        "y": 2.646428688194953,
+        "z": 0,
+        "nodeEdges": 3
+      },
+      {
+        "id": "n30",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -21.522575353950945,
+            "y": 0.018335894112710763,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n30",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n30",
+              "id2": "n27",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n30",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n30",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.02275769296965906,
+            "y": 0.0033903284778470846,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n24","n27"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -21.522575353950945,
+            "y": 0.018335894112710763,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -21.522575353950945,
+            "y": 0.018335894112710763,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -21.522575353950945,
+        "y": 0.018335894112710763,
+        "z": 0,
+        "nodeEdges": 4
+      },
+      {
+        "id": "n31",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -2.6511747795110687,
+            "y": -8.925206599676338,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n31",
+              "id2": "n2",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n31",
+              "id2": "n9",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n31",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n31",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.16368169569300023,
+            "y": 0.08641564004202505,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 2.333333333333333,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n2","n9"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -2.6511747795110687,
+            "y": -8.925206599676338,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -2.6511747795110687,
+            "y": -8.925206599676338,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -2.6511747795110687,
+        "y": -8.925206599676338,
+        "z": 0,
+        "nodeEdges": 4
+      },
+      {
+        "id": "n32",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -5.1103536679478525,
+            "y": 6.054575185839566,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n32",
+              "id2": "n1",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n25",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n26",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n32",
+              "id2": "n29",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n32",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n32",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -0.3399291498323847,
+            "y": -0.017962200462125433,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 3,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n1","n25"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -5.1103536679478525,
+            "y": 6.054575185839566,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -5.1103536679478525,
+            "y": 6.054575185839566,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -5.1103536679478525,
+        "y": 6.054575185839566,
+        "z": 0,
+        "nodeEdges": 6
+      },
+      {
+        "id": "n33",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -13.097621828343813,
+            "y": -5.497174356348962,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n33",
+              "id2": "n3",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n9",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n15",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n16",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n19",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n21",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n23",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n30",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n31",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n33",
+              "id2": "n32",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n33",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": 0.8246737315509928,
+            "y": 0.6985277333381055,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 5,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n3","n9"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -13.097621828343813,
+            "y": -5.497174356348962,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -13.097621828343813,
+            "y": -5.497174356348962,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -13.097621828343813,
+        "y": -5.497174356348962,
+        "z": 0,
+        "nodeEdges": 12
+      },
+      {
+        "id": "n34",
+        "color": "rgb(255,0,0)",
+        "layout": {
+          "angle": 0,
+          "children": [],
+          "displacement": {
+            "x": -11.897061833199224,
+            "y": -3.994203387075588,
+            "z": 0
+          },
+          "edges": [
+            {
+              "id1": "n34",
+              "id2": "n9",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n10",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n14",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n15",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n16",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n19",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n20",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n21",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n23",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n24",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n27",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n28",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n29",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n30",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n31",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n32",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            },
+            {
+              "id1": "n34",
+              "id2": "n33",
+              "layout": {
+                "length": -1,
+                "weight": 1,
+                "coeff": -1
+              }
+            }
+          ],
+          "force": {
+            "x": -1.0445965617287383,
+            "y": -0.5854187017835609,
+            "z": 0
+          },
+          "hierarchy": false,
+          "lastPosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "r": 0,
+            "a": 0
+          },
+          "level": 0,
+          "mass": 6.666666666666667,
+          "metrics": {
+            "betweenness": -1,
+            "closeness": -1,
+            "degree": -1,
+            "eccentricity": -1
+          },
+          "neighbors": ["n9","n10"],
+          "order": -1,
+          "parent": false,
+          "position": {
+            "x": -11.897061833199224,
+            "y": -3.994203387075588,
+            "z": 0
+          },
+          "prevPosition": {
+            "x": -11.897061833199224,
+            "y": -3.994203387075588,
+            "z": 0
+          },
+          "radius": 0,
+          "velocity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "x": -11.897061833199224,
+        "y": -3.994203387075588,
+        "z": 0,
+        "nodeEdges": 17
+      }
+    ],
+    "edges": [
+      {
+        "id1": "n2",
+        "id2": "n1"
+      },
+      {
+        "id1": "n3",
+        "id2": "n1"
+      },
+      {
+        "id1": "n3",
+        "id2": "n2"
+      },
+      {
+        "id1": "n4",
+        "id2": "n1"
+      },
+      {
+        "id1": "n4",
+        "id2": "n2"
+      },
+      {
+        "id1": "n4",
+        "id2": "n3"
+      },
+      {
+        "id1": "n5",
+        "id2": "n1"
+      },
+      {
+        "id1": "n6",
+        "id2": "n1"
+      },
+      {
+        "id1": "n7",
+        "id2": "n1"
+      },
+      {
+        "id1": "n7",
+        "id2": "n5"
+      },
+      {
+        "id1": "n7",
+        "id2": "n6"
+      },
+      {
+        "id1": "n8",
+        "id2": "n1"
+      },
+      {
+        "id1": "n8",
+        "id2": "n2"
+      },
+      {
+        "id1": "n8",
+        "id2": "n3"
+      },
+      {
+        "id1": "n8",
+        "id2": "n4"
+      },
+      {
+        "id1": "n9",
+        "id2": "n1"
+      },
+      {
+        "id1": "n9",
+        "id2": "n3"
+      },
+      {
+        "id1": "n10",
+        "id2": "n3"
+      },
+      {
+        "id1": "n11",
+        "id2": "n1"
+      },
+      {
+        "id1": "n11",
+        "id2": "n5"
+      },
+      {
+        "id1": "n11",
+        "id2": "n6"
+      },
+      {
+        "id1": "n12",
+        "id2": "n1"
+      },
+      {
+        "id1": "n13",
+        "id2": "n1"
+      },
+      {
+        "id1": "n13",
+        "id2": "n4"
+      },
+      {
+        "id1": "n14",
+        "id2": "n1"
+      },
+      {
+        "id1": "n14",
+        "id2": "n2"
+      },
+      {
+        "id1": "n14",
+        "id2": "n3"
+      },
+      {
+        "id1": "n14",
+        "id2": "n4"
+      },
+      {
+        "id1": "n17",
+        "id2": "n6"
+      },
+      {
+        "id1": "n17",
+        "id2": "n7"
+      },
+      {
+        "id1": "n18",
+        "id2": "n1"
+      },
+      {
+        "id1": "n18",
+        "id2": "n2"
+      },
+      {
+        "id1": "n20",
+        "id2": "n1"
+      },
+      {
+        "id1": "n20",
+        "id2": "n2"
+      },
+      {
+        "id1": "n22",
+        "id2": "n1"
+      },
+      {
+        "id1": "n22",
+        "id2": "n2"
+      },
+      {
+        "id1": "n26",
+        "id2": "n24"
+      },
+      {
+        "id1": "n26",
+        "id2": "n25"
+      },
+      {
+        "id1": "n28",
+        "id2": "n3"
+      },
+      {
+        "id1": "n28",
+        "id2": "n24"
+      },
+      {
+        "id1": "n28",
+        "id2": "n25"
+      },
+      {
+        "id1": "n29",
+        "id2": "n3"
+      },
+      {
+        "id1": "n30",
+        "id2": "n24"
+      },
+      {
+        "id1": "n30",
+        "id2": "n27"
+      },
+      {
+        "id1": "n31",
+        "id2": "n2"
+      },
+      {
+        "id1": "n31",
+        "id2": "n9"
+      },
+      {
+        "id1": "n32",
+        "id2": "n1"
+      },
+      {
+        "id1": "n32",
+        "id2": "n25"
+      },
+      {
+        "id1": "n32",
+        "id2": "n26"
+      },
+      {
+        "id1": "n32",
+        "id2": "n29"
+      },
+      {
+        "id1": "n33",
+        "id2": "n3"
+      },
+      {
+        "id1": "n33",
+        "id2": "n9"
+      },
+      {
+        "id1": "n33",
+        "id2": "n15"
+      },
+      {
+        "id1": "n33",
+        "id2": "n16"
+      },
+      {
+        "id1": "n33",
+        "id2": "n19"
+      },
+      {
+        "id1": "n33",
+        "id2": "n21"
+      },
+      {
+        "id1": "n33",
+        "id2": "n23"
+      },
+      {
+        "id1": "n33",
+        "id2": "n24"
+      },
+      {
+        "id1": "n33",
+        "id2": "n30"
+      },
+      {
+        "id1": "n33",
+        "id2": "n31"
+      },
+      {
+        "id1": "n33",
+        "id2": "n32"
+      },
+      {
+        "id1": "n34",
+        "id2": "n9"
+      },
+      {
+        "id1": "n34",
+        "id2": "n10"
+      },
+      {
+        "id1": "n34",
+        "id2": "n14"
+      },
+      {
+        "id1": "n34",
+        "id2": "n15"
+      },
+      {
+        "id1": "n34",
+        "id2": "n16"
+      },
+      {
+        "id1": "n34",
+        "id2": "n19"
+      },
+      {
+        "id1": "n34",
+        "id2": "n20"
+      },
+      {
+        "id1": "n34",
+        "id2": "n21"
+      },
+      {
+        "id1": "n34",
+        "id2": "n23"
+      },
+      {
+        "id1": "n34",
+        "id2": "n24"
+      },
+      {
+        "id1": "n34",
+        "id2": "n27"
+      },
+      {
+        "id1": "n34",
+        "id2": "n28"
+      },
+      {
+        "id1": "n34",
+        "id2": "n29"
+      },
+      {
+        "id1": "n34",
+        "id2": "n30"
+      },
+      {
+        "id1": "n34",
+        "id2": "n31"
+      },
+      {
+        "id1": "n34",
+        "id2": "n32"
+      },
+      {
+        "id1": "n34",
+        "id2": "n33"
+      }
+    ],
+    "nodeIndices": {
+      "n1": 0,
+      "n2": 1,
+      "n3": 2,
+      "n4": 3,
+      "n5": 4,
+      "n6": 5,
+      "n7": 6,
+      "n8": 7,
+      "n9": 8,
+      "n10": 9,
+      "n11": 10,
+      "n12": 11,
+      "n13": 12,
+      "n14": 13,
+      "n15": 14,
+      "n16": 15,
+      "n17": 16,
+      "n18": 17,
+      "n19": 18,
+      "n20": 19,
+      "n21": 20,
+      "n22": 21,
+      "n23": 22,
+      "n24": 23,
+      "n25": 24,
+      "n26": 25,
+      "n27": 26,
+      "n28": 27,
+      "n29": 28,
+      "n30": 29,
+      "n31": 30,
+      "n32": 31,
+      "n33": 32,
+      "n34": 33
+    }
+  },
+  "config": {
+    "coordinateNetworkConvexHullCommunityColor": true,
+    "graphType": "Network",
+    "showNetworkCommunities": true,
+    "title": "Zachary's famous Karate Club",
+    "calculateLayout": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NjExNTg5MDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/network-6.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}
