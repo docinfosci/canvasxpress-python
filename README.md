@@ -47,6 +47,12 @@ upgraded to current release editions.  This only affects doc builds.
 
 ### Recent Enhancements
 
+#### 2021 July 6: Extensive examples for Jupyter Notebooks
+Hundreds of chart examples based on the CanvasXpress site examples are now 
+available in github.com at:
+
+[tutorials/notebook/cx_site_chart_examples/](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
+
 #### 2021 June 30: Example code generation utility
 CanvasXpress for Python now includes `generator.py`, which includes 
 functions for creating example Python code to define and display charts.
