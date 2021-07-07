@@ -11940,8 +11940,8 @@ cx = CanvasXpress(
         "title": "Les Miserable",
         "calculateLayout": False
     },
-    width=500,
-    height=500,
+    width=613,
+    height=613,
     events=CXEvents(),
     after_render=[
         [
