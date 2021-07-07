@@ -103,7 +103,7 @@ class CanvasXpress(CXHtmlConvertable):
         attribute of the `<canvas>` element.
         :param value:
             `str` The ID to be associated.  Cannot be `None`, and
-            must be alphanumeric.
+            must be alphanumeric.  `-` chars will be converted to `_`.
         """
         if value is None:
             raise ValueError("value cannot be None")
@@ -115,7 +115,7 @@ class CanvasXpress(CXHtmlConvertable):
             raise ValueError("value must be only alpha numeric")
 
         else:
-            self.__target_id = value
+            self.__target_id = value.replace('-', '_')
 
     __license_url: Union[str, None] = None
     """
