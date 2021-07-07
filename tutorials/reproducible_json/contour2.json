@@ -1,0 +1,132 @@
+{
+  "version": 35,
+  "renderTo": "contour2",
+  "data": {
+    "y": {
+      "smps": ["s1","s2","s3","s4","s5"],
+      "vars": ["v1","v2","v3","v4","v5"],
+      "data": [
+        [20,15.625,12.5,10.625,10],
+        [15.625,11.25,8.125,6.25,5.625],
+        [12.5,8.125,5,3.125,2.5],
+        [10.625,6.25,3.125,1.25,0.625],
+        [10,5.625,2.5,0.625,0]
+      ]
+    }
+  },
+  "config": {
+    "contourType": "color",
+    "graphType": "Heatmap",
+    "heatmapCellBox": false,
+    "showSampleNames": false,
+    "showVariableNames": false,
+    "title": "Basic Contour Plot"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "createContour",
+      [],
+      {},
+      1625543019567
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "x": {},
+          "y": {
+            "vars": ["v1"],
+            "smps": ["s5"],
+            "data": [
+              [10]
+            ]
+          },
+          "z": {}
+        },
+        {
+          "srcElement": "contour2-events",
+          "target": "contour2-events",
+          "ac": {
+            "x": 31.015625,
+            "y": 581
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 502,
+          "clientY": 958,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 32,
+          "layerY": 582,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 31,
+          "offsetY": 581,
+          "pageX": 502,
+          "pageY": 959,
+          "returnValue": true,
+          "screenX": 502,
+          "screenY": 958,
+          "shiftKey": false,
+          "timeStamp": 20545.700000000186,
+          "type": "click",
+          "which": 1,
+          "x": 502,
+          "y": 958,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [0,4]
+      ],
+      {},
+      1625543039233
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MzAxOTUwNTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/contour-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

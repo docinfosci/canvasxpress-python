@@ -1,0 +1,70 @@
+{
+  "version": 35,
+  "renderTo": "sunburst1",
+  "data": {
+    "x": {
+      "Quarter": ["1st","1st","1st","1st","1st","1st","2nd","2nd","2nd","3rd","3rd","3rd","4th","4th","4th"],
+      "Month": ["Jan","Feb","Feb","Feb","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+      "Week": [null,"Week 1","Week 2","Week 3","Week 4",null,null,null,null,null,null,null,null,null,null],
+      "Color": ["red","blue","green","grey","red","blue","green","grey","red","blue","green","grey","red","blue","green"]
+    },
+    "y": {
+      "vars": ["Sales"],
+      "smps": ["Sales1","Sales2","Sales3","Sales4","Sales5","Sales6","Sales7","Sales8","Sales9","Sales10","Sales11","Sales12","Sales13","Sales14","Sales15"],
+      "data": [
+        [3.5,1.2,0.8,0.6,0.5,1.7,1.1,0.8,0.3,0.7,0.6,0.1,0.5,0.4,0.3]
+      ]
+    }
+  },
+  "config": {
+    "circularArc": 360,
+    "circularRotate": 0,
+    "circularType": "sunburst",
+    "colorBy": "Quarter",
+    "colorScheme": "Bootstrap",
+    "graphType": "Circular",
+    "hierarchy": ["Quarter","Month","Week"],
+    "showTransition": false,
+    "title": "Simple Sunburst"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NzkwMDcyMzo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/sunburst-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

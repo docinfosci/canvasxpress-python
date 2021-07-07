@@ -70,10 +70,6 @@ def test_CanvasXpress_render_to():
         subject: CanvasXpress = CanvasXpress()
         subject.render_to = 1
 
-    with pytest.raises(ValueError):
-        subject: CanvasXpress = CanvasXpress()
-        subject.render_to = "%*&*("
-
 
 def test_CanvasXpress_chart_width():
     subject: CanvasXpress = CanvasXpress()

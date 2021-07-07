@@ -1,0 +1,126 @@
+{
+  "version": 35,
+  "renderTo": "area1",
+  "data": {
+    "y": {
+      "data": [
+        [10,100,70,130,60]
+      ],
+      "vars": ["A"],
+      "smps": ["S1","S2","S3","S4","S5"]
+    }
+  },
+  "config": {
+    "colorScheme": "GGPlot",
+    "graphOrientation": "vertical",
+    "graphType": "Area",
+    "lineType": "rect",
+    "objectBorderColor": false,
+    "showLegend": false,
+    "showSampleNames": true,
+    "showTransition": false,
+    "smpLabelRotate": 90,
+    "smpTitle": "time"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "x": {},
+          "y": {
+            "vars": ["A"],
+            "smps": ["S1"],
+            "data": [
+              [10]
+            ]
+          },
+          "z": {}
+        },
+        {
+          "srcElement": "area1-events",
+          "target": "area1-events",
+          "ac": {
+            "x": 31.015625,
+            "y": 581
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 502,
+          "clientY": 935,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 32,
+          "layerY": 582,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 31,
+          "offsetY": 581,
+          "pageX": 502,
+          "pageY": 935,
+          "returnValue": true,
+          "screenX": 502,
+          "screenY": 935,
+          "shiftKey": false,
+          "timeStamp": 20564.300000000047,
+          "type": "click",
+          "which": 1,
+          "x": 502,
+          "y": 935,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [0,0]
+      ],
+      {},
+      1625541835881
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MTgxNjA0NTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/area-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

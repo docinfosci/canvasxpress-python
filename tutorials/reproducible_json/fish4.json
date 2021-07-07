@@ -1,0 +1,71 @@
+{
+  "version": 35,
+  "renderTo": "fish4",
+  "data": {
+    "y": {
+      "vars": ["C1","C2","C3","C4","C5","C6","C7"],
+      "smps": [0,34,69,187,334,505,530],
+      "data": [
+        [99,1,3,1,3,80,0.1],
+        [30,0,0,0,0,0,0],
+        [2,0.1,2.5,0.9,0.9,76,0.005],
+        [60,0,0,0,0,0,0],
+        [0,0,0,0,0.1,60,0.001],
+        [2,0,0,0,0,0,0],
+        [1,1,1,10,20,15,0]
+      ]
+    }
+  },
+  "config": {
+    "backgroundType": "windowSolidGradient",
+    "colorSpectrum": ["#ffe4c4","#ffb90f","#cd6600"],
+    "colors": ["#888888","#EF0000","#8FFF40","#FF6000","#50FFAF","#FFCF00","#0070FF"],
+    "fishAxis": [0,34,69,187,334,505,530,650,750],
+    "fishParents": [0,1,1,1,3,4,0],
+    "fishSeparateIndependentClones": true,
+    "fishShape": "spline",
+    "fishTimepoints": [0,34,69,187,334,505,530],
+    "gradientOrientation": "horizontal",
+    "graphType": "Fish"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,413,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDA2NTg3NTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/fish-4.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

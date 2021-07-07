@@ -1,0 +1,151 @@
+{
+  "version": 35,
+  "renderTo": "treemap2",
+  "data": {
+    "z": {
+      "Annt1": ["Desc:1","Desc:2","Desc:3","Desc:4"],
+      "Annt2": ["Desc:A","Desc:B","Desc:A","Desc:B"],
+      "Annt3": ["Desc:X","Desc:X","Desc:Y","Desc:Y"],
+      "Annt4": [5,10,15,20],
+      "Annt5": [8,16,24,32],
+      "Annt6": [10,20,30,40]
+    },
+    "x": {
+      "Factor1": ["Lev:1","Lev:2","Lev:3","Lev:1","Lev:2","Lev:3"],
+      "Factor2": ["Lev:A","Lev:B","Lev:A","Lev:B","Lev:A","Lev:B"],
+      "Factor3": ["Lev:X","Lev:X","Lev:Y","Lev:Y","Lev:Z","Lev:Z"],
+      "Factor4": [5,10,15,20,25,30],
+      "Factor5": [8,16,24,32,40,48],
+      "Factor6": [10,20,30,40,50,60]
+    },
+    "y": {
+      "vars": ["V1","V2","V3","V4"],
+      "smps": ["S1","S2","S3","S4","S5","S6"],
+      "data": [
+        [5,10,25,40,45,50],
+        [95,80,75,70,55,40],
+        [25,30,45,60,65,70],
+        [55,40,35,30,15,1]
+      ]
+    }
+  },
+  "config": {
+    "graphType": "Treemap",
+    "theme": "CanvasXpress"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "x": {
+            "Factor1": ["Lev:2"],
+            "Factor2": ["Lev:A"],
+            "Factor3": ["Lev:Z"],
+            "Factor4": [25],
+            "Factor5": [40],
+            "Factor6": [50]
+          },
+          "y": {
+            "vars": ["V2"],
+            "smps": ["S5"],
+            "data": [
+              [55]
+            ]
+          },
+          "z": {
+            "Annt1": ["Desc:2"],
+            "Annt2": ["Desc:B"],
+            "Annt3": ["Desc:X"],
+            "Annt4": [10],
+            "Annt5": [16],
+            "Annt6": [20]
+          }
+        },
+        {
+          "srcElement": "treemap2-events",
+          "target": "treemap2-events",
+          "ac": {
+            "x": 31.015625,
+            "y": 581
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 502,
+          "clientY": 871,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 32,
+          "layerY": 582,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 31,
+          "offsetY": 581,
+          "pageX": 502,
+          "pageY": 871,
+          "returnValue": true,
+          "screenX": 502,
+          "screenY": 871,
+          "shiftKey": false,
+          "timeStamp": 22677.799999999814,
+          "type": "click",
+          "which": 1,
+          "x": 502,
+          "y": 871,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [1,4]
+      ],
+      {},
+      1625548468631
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0ODQ0NzIxMzo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/treemap-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "version": 35,
+  "renderTo": "stacked5",
+  "data": {
+    "y": {
+      "vars": ["Pants on Fire","False","Mostly False","Half True","Mostly True","True"],
+      "smps": ["Big Fat Liar","Two-Faced","Honest Abe"],
+      "data": [
+        [-35,-20,-5],
+        [-25,-20,-10],
+        [-15,-10,-10],
+        [10,10,15],
+        [10,20,25],
+        [5,20,35]
+      ]
+    }
+  },
+  "config": {
+    "axisAlgorithm": "wilkinson",
+    "colorScheme": "CanvasXpress",
+    "graphOrientation": "horizontal",
+    "graphType": "Stacked",
+    "legendColumns": 3,
+    "legendPosition": "bottom",
+    "marginRight": 20,
+    "showDataValues": true,
+    "title": "Diverging Stacked Graph",
+    "xAxisTickFormat": "%s%%"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NzY5OTEyODo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/stacked-5.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

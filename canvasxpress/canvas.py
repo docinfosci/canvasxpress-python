@@ -103,19 +103,25 @@ class CanvasXpress(CXHtmlConvertable):
         attribute of the `<canvas>` element.
         :param value:
             `str` The ID to be associated.  Cannot be `None`, and
-            must be alphanumeric.
+            must be alphanumeric.  Non-alphanumeric characters will
+            be removed, except for `_`, and if the remaining string
+            is empty then a UUID4 will be substituted.  This is to preserve JS
+            compatibility during rendering.
         """
         if value is None:
             raise ValueError("value cannot be None")
 
-        elif not isinstance(value, str):
+        if not isinstance(value, str):
             raise TypeError("value must be of type str")
 
-        elif not value.isidentifier():
-            raise ValueError("value must be only alpha numeric")
+        candidate = ""
+        for c in value:
+            if c.isalnum() or c == '_':
+                candidate += c
+        if candidate == "":
+            candidate = str(uuid.uuid4()).replace('-', '')
 
-        else:
-            self.__target_id = value
+        self.__target_id = candidate
 
     __license_url: Union[str, None] = None
     """
@@ -538,7 +544,9 @@ class CanvasXpress(CXHtmlConvertable):
     @classmethod
     def from_reproducible_json(
             cls,
-            cx_json: str
+            cx_json: str,
+            include_factory: bool = False,
+            include_system: bool = False
     ) -> 'CanvasXpress':
         """
         Initializes a new `CanvasXpress` object using a reproducable research
@@ -548,12 +556,26 @@ class CanvasXpress(CXHtmlConvertable):
             A valid reproducable research JSON typical of those created by
             CanvasXpress when running a Web browser.
 
+        :param include_factory: `bool`
+            Default `False`.  If `False` remove the `factory` attribute.
+
+        :param include_system: `bool`
+            Default `False`.  If `False` remove the `system` attribute.
+
         :returns: `CanvasXpress`
             Returns a new `CanvasXpress` object will all properties filled using
             the information provided by the reproducable research JSON.
         """
         try:
             cx_json_dict = json.loads(cx_json)
+
+            if not include_factory:
+                if cx_json_dict.get("factory"):
+                    del cx_json_dict['factory']
+
+            if not include_system:
+                if cx_json_dict.get("system"):
+                    del cx_json_dict['system']
 
             cx_render_to = cx_json_dict.get('renderTo')
             cx_data = cx_json_dict.get('data')
@@ -570,14 +592,32 @@ class CanvasXpress(CXHtmlConvertable):
                 ]
             ]
 
+            # Capure and remove setDimensions width, height
+            setDimensions_indexes = list()
+            for instruction_index, instruction in enumerate(cx_after_render):
+                if isinstance(instruction, list):
+                    if len(instruction) >= 2:
+                        if instruction[0] == "setDimensions":
+                            dimensions = instruction[1]
+                            if isinstance(dimensions, list):
+                                if len(dimensions) >= 2:
+                                    if isinstance(dimensions[0], int):
+                                        cx_width = dimensions[0]
+                                    if isinstance(dimensions[1], int):
+                                        cx_height = dimensions[1]
+                            setDimensions_indexes.append(instruction_index)
+
+            for index in reversed(setDimensions_indexes):
+                del cx_after_render[index]
+
             candidate = CanvasXpress(
                 render_to=cx_render_to,
                 data=cx_data,
                 config=cx_config,
                 after_render=cx_after_render,
                 other_init_params=cx_other_init_params,
-                width=cx_width,
-                height=cx_height
+                width=int(cx_width),
+                height=int(cx_height)
             )
 
             return candidate
@@ -624,11 +664,10 @@ class CanvasXpress(CXHtmlConvertable):
 
         super().__init__()
 
-        if render_to:
-            self.__target_id = render_to
-
-        else:
-            self.__target_id = str(uuid.uuid4())
+        candidate_id = render_to
+        if candidate_id is None:
+            candidate_id = str(uuid.uuid4())
+        self.render_to = candidate_id
 
         self.data = data
         self.events = events
@@ -906,7 +945,10 @@ class CanvasXpress(CXHtmlConvertable):
             ]
         )[4:]
         
-        str_config = json.dumps(self.config.render_to_dict(), indent=4)
+        str_config = json.dumps(
+            self.config.render_to_dict(),
+            indent=4
+        )
         str_config_parts = str_config.split("\n")
         str_config = "\n".join(
             [
@@ -927,7 +969,10 @@ class CanvasXpress(CXHtmlConvertable):
             ]
         )[4:]
 
-        str_other_init_params = json.dumps(self.other_init_params.render_to_dict(), indent=4)
+        str_other_init_params = json.dumps(
+            self.other_init_params.render_to_dict(),
+            indent=4
+        )
         str_other_init_params_parts = str_other_init_params.split("\n")
         str_other_init_params = "\n".join(
             [
@@ -946,6 +991,7 @@ class CanvasXpress(CXHtmlConvertable):
             .replace("@after_render@", str_after_render) \
             .replace("@other_init_params@", str_other_init_params) \
             .replace("true", "True") \
-            .replace("false", "False")
+            .replace("false", "False") \
+            .replace("null", "None")
 
         return repr_str

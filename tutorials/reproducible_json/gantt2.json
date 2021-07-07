@@ -1,0 +1,67 @@
+{
+  "version": 35,
+  "renderTo": "gantt2",
+  "data": {
+    "y": {
+      "vars": ["Start","End"],
+      "smps": ["S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12"],
+      "data": [
+        [20140221,20140521,20140821,20141121,20150221,20150521,20140821,20141121,20150221,20150521,20150821,20151121],
+        [20140520,20140820,20141120,20150220,20150520,20150820,20141120,20150220,20150520,20150820,20151120,20160220]
+      ]
+    },
+    "x": {
+      "Clinical Trial": ["CT001","CT002","CT003","CT004","CT005","CT006","CT001","CT002","CT003","CT004","CT005","CT006"],
+      "Indication": ["Lung","Liver","Breast","Skin","Lung","Lung","Breast","Pancreas","Stomach","Breast","Skin","Lung"],
+      "Completion": [0.2,0.6,1,0.4,0.3,0.4,0.25,1,0.8,0.9,0.6,0.3],
+      "Dependencies": [null,null,null,null,null,null,"S01","S02","S03",null,null,null]
+    }
+  },
+  "config": {
+    "ganttCompletion": "Completion",
+    "ganttEnd": "End",
+    "ganttStart": "Start",
+    "graphType": "Gantt",
+    "theme": "CanvasXpress"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDEyNDk2Nzo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/gantt-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}
