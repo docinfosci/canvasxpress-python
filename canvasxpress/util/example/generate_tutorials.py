@@ -29,7 +29,7 @@ def get_json_file_paths() -> List[str]:
             json_files.append(
                 os.path.join(JSON_DIR_PATH, file)
             )
-    return json_files
+    return sorted(json_files)
 
 
 def get_type_from_filename(
@@ -101,11 +101,15 @@ def create_jupyer_template_text(
         ipython_json = json.loads(example_text)
         for line in chart_code.splitlines():
             candidate = line
+
+            # Convert render statement to explicit output
             if "display.render()" in candidate:
                 candidate = candidate.replace(
                     "display.render()",
                     f'display.render(output_file="{chart_type}_{chart_index}.html")'
                 )
+
+            # Add the source line to the document
             ipython_json['cells'][1]['source'].append(candidate + '\n')
 
         ipython_text = json.dumps(ipython_json)
