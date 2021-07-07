@@ -103,19 +103,25 @@ class CanvasXpress(CXHtmlConvertable):
         attribute of the `<canvas>` element.
         :param value:
             `str` The ID to be associated.  Cannot be `None`, and
-            must be alphanumeric.  `-` chars will be converted to `_`.
+            must be alphanumeric.  Non-identifier characters will
+            be removed, and if the remaining string is empty then
+            a UUID4 will be substituted.  This is to preserve JS
+            compatibility during rendering.
         """
         if value is None:
             raise ValueError("value cannot be None")
 
-        elif not isinstance(value, str):
+        if not isinstance(value, str):
             raise TypeError("value must be of type str")
 
-        elif not value.isidentifier():
-            raise ValueError("value must be only alpha numeric")
+        candidate = ""
+        for c in value:
+            if c.isalnum():
+                candidate += c
+        if candidate == "":
+            candidate = str(uuid.uuid4()).replace('-', '')
 
-        else:
-            self.__target_id = value.replace('-', '_')
+        self.__target_id = candidate
 
     __license_url: Union[str, None] = None
     """
@@ -658,11 +664,10 @@ class CanvasXpress(CXHtmlConvertable):
 
         super().__init__()
 
-        if render_to:
-            self.__target_id = render_to
-
-        else:
-            self.__target_id = str(uuid.uuid4())
+        candidate_id = render_to
+        if candidate_id is None:
+            candidate_id = str(uuid.uuid4())
+        self.render_to = candidate_id
 
         self.data = data
         self.events = events
