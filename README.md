@@ -45,95 +45,10 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 conflict between these packages.  Once the conflict is resolved they will be
 upgraded to current release editions.  This only affects doc builds.
 
-### Recent Enhancements
+### Enhancements
 
-#### 2021 July 6: Extensive examples for Jupyter Notebooks
-Hundreds of chart examples based on the CanvasXpress site examples are now 
-available in github.com at:
-
-[tutorials/notebook/cx_site_chart_examples/](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
-
-#### 2021 June 30: Example code generation utility
-CanvasXpress for Python now includes `generator.py`, which includes 
-functions for creating example Python code to define and display charts.
-`generate_canvasxpress_code_from_json` will accept a reproducible research 
-JSON `str` and generate the corresponding Python code, and
-`generate_canvasxpress_code_from_json_file` will accept a file path reference
-to a reproducible JSON to achieve the same thing.  Find the functions at 
-`canvasxoress.util.example.generator.py`.
-
-#### 2021 June 30: Support for raw text data
-CanvasXPress for Javascript can accept text data.  `CXTextData` has been added
-as a means by which a `str` value can be directly provided to the CanvasXpress 
-for Javascript constructor, and along with that value all assumptions about
-transformation or error handling.
-
-#### 2021 June 21: Support for reproducable research JSON
-CanvasXpress for Javascript can save JSON representations of a rendered chart.
-`CanvasXpress` now offers `from_reproducible_json`, which accepts such a JSON
-and creates a new `CanvasXpress` object with all properties updated with the 
-relevant portions of the JSON.
-
-#### 2021 June 21: CanvasXPress __repr__ now available for example code
-The `CanvasXpress` `__repr__` method now produces example Python code for
-all properties of the object.  The Python built-in`eval` method can read
-the provided string to reconstruct the `CanvasXpress` object when the proper
-imports for the CanvasXpress packages/modules are included in the file.
-
-#### 2021 June 16: CXNoteBook accepts file paths for output
-The `CXNoteBook` class now accepts a file path at which output rendered in 
-Jupyter will also be captured for viewing in later sessions.  Until now a 
-temporary file had be used, which remains the default behaviour.
-
-#### 2021 June 16: CXConfigs now accepts lists of values
-The `CXConfigs` class can now be initialized using lists of `CXConfig` objects
-or their `list/tuple` equivalents (e.g., `["label", "value"]`).  The `add` 
-method supports the same formats.  Similarly, wherever the `CanvasXpress` class
-accepts a `CXConfigs` object during initialization or assigment a `list` of
-`CXConfig` or equivalent objects can be provided.  This is in additon to the 
-already supported `dict` collections of `CXConfig` value equivalents.
-
-#### 2021 June 16: direct DataFrame support for CanvasXpress.data
-The `CanvasXpress` class already supported `None`, `CXData`, and `dict` data
-assignments.  Now raw `DataFrame` is supported on initialization or use of 
-the `data` property.
-
-#### 2021 June 16: pop-up browser support
-One or more charts can now be displayed in a new Web page using the default 
-browser for the host system, assuming it is graphical (e.g., MacOS X or 
-Windows).  The **A Quick Script/Console Example** below illustrates the use.
-
-#### 2021 May, June Prior Release Summary
-* All JSON data formats now generally supported:
-    1. URL:
-        * Data path with standard URI formatting (e.g., http, sftp, etc.)
-    1. Standard:
-        * Matrix and key-pair data
-        * `x`, `y`, and `z` attributes
-        * Missing attributes calculated for easier data integration
-    1. Venn:
-        * Matrix and key-pair data 
-        * `venn` and `legend` attributes
-        * Missing attributes calculated for easier data integration
-    1. Network 
-        * key-pair data
-        * `node` attributes and general `dict`/`list` structure
-    1. Genome
-        * key-pair data
-        * `tracks` and `type` attributes and general `dict`/`list` structure
-    1. RAW / Passthrough
-        * Matrix and key-pair
-        * Beyond conversion of data to JSON, effective pass-through of data
-* Python `dict` data direct reference in `CanvasXpress.data` parameter with
-  auto-coonversion to `CXDictData`.
-* Introduction of `CXDataProfile` and profiled formatting of incomplete
-  data per `graphType` configuration.
-* Minor bug fixes and expansion of automated tests.
-* Jupyter `CXNoteBook` can now render multiple charts in the same group so as
-  to support broadcasting.
-* `CanvasXpress` now supports the `after_render` property and initialization
-  value to enable the `afterRender` attribute of CanvasXpress for Javascript
-  objects (includes DOE dashboard support).
+A complete list of enhancements by release date is available at the 
+[CanvasXpress for Python Status Page](https://canvasxpress-python.readthedocs.io/en/latest/status/).
 
 ### Roadmap
 
@@ -159,6 +74,9 @@ contains complete [examples](https://canvasxpress-python.readthedocs.io/en/lates
 and [API documentation](https://canvasxpress-python.readthedocs.io/en/latest/api/).
 There is also a wealth of additional information, including full Javascript API 
 documentation, at [https://www.canvasxpress.org](https://www.canvasxpress.org).
+
+**New:** [Jupyter Notebook based examples](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
+ for hundreds of chart configurations!
 
 ### A Quick Script/Console Example
 Charts can be defined in scripts or a console session and then displayed using 
