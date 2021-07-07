@@ -1,0 +1,369 @@
+{
+  "version": 35,
+  "renderTo": "heatmap12",
+  "data": {
+    "z": {
+      "Drug": ["A","A","A","B","B","B"],
+      "Site": ["X","Y","Z","Y","Z","W"],
+      "Desc": ["Good","So-so","So-so","So-so","Excellent","Ahh!"],
+      "Conc": [1,2,3,1,2,3],
+      "Male": [10,20,30,40,30,20],
+      "Female": [50,40,30,20,10,20],
+      "Odd": [5,9,15,21,25,31],
+      "Even": [20,20,30,40,6,10],
+      "Nice": [8,16,24,32,40,48],
+      "Ugly": [10,5,20,10,30,15],
+      "Cold": [10,20,30,40,50,60],
+      "Hot": [10,20,10,25,10,30]
+    },
+    "x": {
+      "Binary": ["Yes","No","Yes","No","Yes","No"],
+      "Boolean": [true,false,true,false,true,false],
+      "Continuous": [8,16,24,32,40,48],
+      "Discrete": ["X","X","Y","Y","Z","Z"],
+      "Temp": [5,10,15,20,25,30],
+      "Early": [8,16,24,32,40,48],
+      "OnTime": [30,40,20,30,40,20],
+      "Late": [60,50,40,30,20,10],
+      "PhaseA": [40,10,20,60,20,50],
+      "PhaseB": [10,20,30,40,50,60],
+      "PhaseC": [6,22,18,14,25,34]
+    },
+    "y": {
+      "vars": ["V1","V2","V3","V4","V5","V6"],
+      "smps": ["S1","S2","S3","S4","S5","S6"],
+      "data": [
+        [1,2,3,4,5,6],
+        [2,3,4,5,6,7],
+        [3,4,5,6,7,8],
+        [4,5,6,7,8,9],
+        [5,6,7,8,9,10],
+        [6,7,8,9,10,11]
+      ]
+    }
+  },
+  "config": {
+    "graphType": "Heatmap",
+    "showTransition": false,
+    "smpLabelScaleFontFactor": 1.1,
+    "smpOverlayProperties": {
+      "Late": {
+        "color": "red",
+        "thickness": 50,
+        "position": "right",
+        "type": "Line",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "OnTime": {
+        "color": "green",
+        "position": "right",
+        "thickness": 50,
+        "type": "Line",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseA": {
+        "position": "left",
+        "thickness": 50,
+        "type": "Bar",
+        "color": "rgb(254,41,108)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Early": {
+        "position": "right",
+        "thickness": 50,
+        "color": "blue",
+        "type": "Line",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseC": {
+        "type": "Bar",
+        "thickness": 50,
+        "position": "left",
+        "color": "rgb(167,206,49)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Discrete": {
+        "type": "Default",
+        "position": "left",
+        "thickness": 30,
+        "color": "rgb(194,224,118)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Temp": {
+        "spectrum": ["blue","white","red"],
+        "thickness": 100,
+        "position": "right",
+        "type": "Heatmap",
+        "color": "rgb(255,175,84)",
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Boolean": {
+        "position": "left",
+        "type": "Boolean",
+        "color": "rgb(183,120,68)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Binary": {
+        "scheme": "BlackAndWhite",
+        "type": "Default",
+        "position": "left",
+        "color": "rgb(105,150,150)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseB": {
+        "type": "Bar",
+        "position": "left",
+        "thickness": 50,
+        "color": "rgb(72,126,182)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Continuous": {
+        "position": "left",
+        "spectrum": ["green","white"],
+        "type": "Heatmap",
+        "color": "rgb(131,172,208)",
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      }
+    },
+    "smpOverlays": ["PhaseA","PhaseB","PhaseC","-","-","Binary","Boolean","Continuous","Discrete","-","-","Temp","-","-","Early","OnTime","Late"],
+    "varLabelRotate": 45,
+    "varLabelScaleFontFactor": 1.7,
+    "varOverlayProperties": {
+      "Hot": {
+        "thickness": 50,
+        "position": "bottom",
+        "color": "red",
+        "type": "StackedPercent",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Desc": {
+        "type": "Text",
+        "position": "bottom",
+        "color": "rgb(250,220,90)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Ugly": {
+        "type": "Dotplot",
+        "position": "bottom",
+        "thickness": 50,
+        "color": "black",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Even": {
+        "position": "bottom",
+        "thickness": 50,
+        "type": "Bar",
+        "color": "rgb(255,175,84)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Site": {
+        "type": "Default",
+        "position": "top",
+        "color": "rgb(105,150,150)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Odd": {
+        "type": "BarLine",
+        "thickness": 50,
+        "position": "bottom",
+        "color": "rgb(154,184,183)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Nice": {
+        "position": "bottom",
+        "thickness": 50,
+        "color": "green",
+        "type": "Dotplot",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Drug": {
+        "position": "top",
+        "thickness": 30,
+        "type": "Increase",
+        "color": "rgb(254,41,108)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Conc": {
+        "position": "top",
+        "thickness": 40,
+        "type": "Bar",
+        "color": "rgb(131,172,208)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Female": {
+        "position": "top",
+        "thickness": 50,
+        "type": "Pie",
+        "color": "rgb(248,204,3)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Cold": {
+        "color": "blue",
+        "position": "bottom",
+        "thickness": 50,
+        "type": "StackedPercent",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Male": {
+        "type": "Pie",
+        "position": "top",
+        "thickness": 50,
+        "color": "rgb(167,206,49)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      }
+    },
+    "varOverlays": ["Drug","-","Male","Female","-","Site","-","Conc","-","Desc","-","Even","Odd","-","-","Nice","Ugly","-","-","Cold","Hot"]
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDU3Njc3NDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/heatmap-12.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

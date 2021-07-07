@@ -1,0 +1,67 @@
+{
+  "version": 35,
+  "renderTo": "heatmap11",
+  "data": {
+    "y": {
+      "vars": ["V1","V2","V3","V4","V5"],
+      "smps": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10"],
+      "data": [
+        [1,2,3,4,5,6,7,8,9,10],
+        [10,9,8,7,6,5,4,3,2,1],
+        [1,2,3,4,5,6,7,8,9,10],
+        [10,9,8,7,6,5,4,3,2,1],
+        [1,2,3,4,5,6,7,8,9,10]
+      ]
+    }
+  },
+  "config": {
+    "colorSpectrum": ["#f0f0f0","#bdbdbd","#636363","#000000"],
+    "graphType": "Heatmap",
+    "showHeatmapIndicator": false,
+    "showLegend": false,
+    "sizeBy": "Size",
+    "sizeByContinuous": true,
+    "sizeByData": "data",
+    "title": "A good old Northern Blot"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDU1ODU3ODo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/heatmap-11.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

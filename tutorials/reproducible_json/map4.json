@@ -1,0 +1,123 @@
+{
+  "version": 35,
+  "renderTo": "map4-1",
+  "data": {
+    "y": {
+      "vars": ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+      "smps": ["Total","Democrat","Republican","Libertarian","Other"],
+      "data": [
+        [1665573,692611,941173,5893,25896],
+        [285560,79004,167398,2636,36522],
+        [1532016,685341,781652,5775,59248],
+        [921781,422768,472940,2781,23292],
+        [10965822,5861203,4567429,45520,491670],
+        [1741368,738227,883748,12799,106594],
+        [1459525,816015,561094,3484,78932],
+        [327529,180068,137288,774,9399],
+        [201894,171923,18073,669,11229],
+        [5963110,2912253,2912790,16415,121652],
+        [2583208,1116230,1419720,36332,10926],
+        [367951,205286,137845,1477,23343],
+        [501615,138637,336937,3488,22553],
+        [4742108,2589026,2019421,11623,122038],
+        [2199302,901980,1245836,15530,35956],
+        [1353022,638517,634373,3209,76923],
+        [1072216,399276,622332,4525,46083],
+        [1544106,638923,872520,2885,29778],
+        [1765656,792344,927871,2951,42490],
+        [651817,319951,286616,3074,42176],
+        [2025212,1144008,813827,5310,62067],
+        [2733964,1616487,878502,16366,222609],
+        [4232501,2170418,1953139,16711,92233],
+        [2438685,1168266,1109659,5282,155478],
+        [994184,404614,572844,2009,14717],
+        [2359892,1111138,1189924,7436,51394],
+        [410986,137126,240178,1718,31964],
+        [697019,231780,433862,2245,29132],
+        [609426,279978,301575,3311,24562],
+        [569081,266348,273559,2757,26417],
+        [3187226,1788850,1284173,null,114203],
+        [598605,286783,286417,2058,23347],
+        [6960215,3942215,2258577,7649,751774],
+        [2901099,1257692,1631163,null,12244],
+        [288256,95284,174852,null,18120],
+        [4701998,2183628,2350363,13473,154534],
+        [1234229,474276,744337,6602,9014],
+        [1533950,720342,713577,7447,92584],
+        [4923433,2485967,2281127,11248,145091],
+        [409112,249508,130555,742,28307],
+        [1383902,566037,786892,4760,26213],
+        [316269,118804,190700,1662,5103],
+        [2076181,981720,1061949,null,32512],
+        [6407637,2433746,3799639,23160,151092],
+        [770754,203053,515096,3616,48989],
+        [294308,149022,119775,784,24727],
+        [2739447,1217290,1437490,15198,69469],
+        [2487433,1247652,1108864,13135,117782],
+        [648124,295497,336475,1912,14240],
+        [2598607,1242987,1237279,6640,111701],
+        [213726,60481,147947,1443,3855]
+      ]
+    },
+    "z": {
+      "State": ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"],
+      "Winner": ["Republican","Republican","Republican","Republican","Democrat","Republican","Democrat","Democrat","Democrat","Republican","Republican","Democrat","Republican","Democrat","Republican","Democrat","Republican","Republican","Republican","Democrat","Democrat","Democrat","Democrat","Democrat","Republican","Republican","Republican","Republican","Republican","Republican","Democrat","Democrat","Democrat","Republican","Republican","Republican","Republican","Democrat","Democrat","Democrat","Republican","Republican","Republican","Republican","Republican","Democrat","Republican","Democrat","Republican","Democrat","Republican"],
+      "id": ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"],
+      "name": ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina",null,"Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
+    }
+  },
+  "config": {
+    "colorBy": "Winner",
+    "graphType": "Map",
+    "legendOrder": {
+      "Winner": ["Republican","Democrat"]
+    },
+    "mapId": "albersStates",
+    "mapProjection": "albers",
+    "theme": "wallStreetJournal",
+    "title": "2000 Presidential Elections",
+    "topoJSON": "https://www.canvasxpress.org/data/usa-albers-states.json",
+    "remoteTransitionEffect": "none",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [760,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NTQzNTA4Mjo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/map-4.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

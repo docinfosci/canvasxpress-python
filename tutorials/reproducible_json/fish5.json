@@ -1,0 +1,69 @@
+{
+  "version": 35,
+  "renderTo": "fish5",
+  "data": {
+    "y": {
+      "vars": ["Founding","Subclone 1","Subclone 2","Subclone 3"],
+      "smps": [0,30,75,150],
+      "data": [
+        [100,2,2,98],
+        [45,0,0,0],
+        [0,0,2,95],
+        [0,0,1,40]
+      ]
+    }
+  },
+  "config": {
+    "backgroundType": "window",
+    "backgroundWindow": "#ffe4c4",
+    "colors": ["rgb(136,136,136)","rgb(239,0,0)","rgb(255,96,0)","rgb(255,207,0)","rgb(191,255,64)","rgb(80,255,175)","rgb(0,223,255)","rgb(0,112,255)","rgb(0,0,255)","rgb(0,0,143)"],
+    "fishAxis": [0,150],
+    "fishCloneLabels": ["TP53,MET","NF1","","8q+,6p-"],
+    "fishParents": [0,1,1,3],
+    "fishShape": "spline",
+    "fishTimepoints": [0,30,75,150],
+    "graphType": "Fish",
+    "legendColumns": 4,
+    "legendPosition": "bottom"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,413,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDA4MzcxNDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/fish-5.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

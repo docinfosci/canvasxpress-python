@@ -1,0 +1,61 @@
+{
+  "version": 35,
+  "renderTo": "gantt1",
+  "data": {
+    "y": {
+      "vars": ["Start","End"],
+      "smps": ["S01","S02","S03","S04","S05","S06"],
+      "data": [
+        [20140221,20140521,20140821,20141121,20150221,20150521],
+        [20140520,20140820,20141120,20150220,20150520,20150820]
+      ]
+    }
+  },
+  "config": {
+    "blockContrast": true,
+    "ganttEnd": "End",
+    "ganttStart": "Start",
+    "graphType": "Gantt",
+    "theme": "CanvasXpress"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDEwNjkzNDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/gantt-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "version": 35,
+  "renderTo": "heatmap10",
+  "data": {
+    "y": {
+      "vars": ["V1","V2","V3","V4","V5"],
+      "smps": ["S1","S2","S3","S4","S5","S6","S7","S8","S9","S10"],
+      "data": [
+        [1,2,3,4,5,6,7,8,9,10],
+        [10,9,8,7,6,5,4,3,2,1],
+        [1,2,3,4,5,6,7,8,9,10],
+        [10,9,8,7,6,5,4,3,2,1],
+        [1,2,3,4,5,6,7,8,9,10]
+      ],
+      "data2": [
+        [1,1,2,2,3,3,4,4,5,5],
+        [6,6,7,7,8,8,9,9,10,10],
+        [10,10,9,9,8,8,7,7,6,6],
+        [5,5,4,4,3,3,2,2,1,1],
+        [3,3,4,4,5,5,6,6,7,7]
+      ],
+      "data3": [
+        ["A","A","B","B","C","C","D","D","E","E"],
+        ["E","E","D","D","C","C","B","B","A","A"],
+        ["A","A","B","B","C","C","D","D","E","E"],
+        ["E","E","D","D","C","C","B","B","A","A"],
+        ["A","A","B","B","C","C","D","D","E","E"]
+      ],
+      "data4": [
+        ["A","A","B","B","A","A","B","B","A","A"],
+        ["B","B","A","A","B","B","A","A","B","B"],
+        ["A","A","B","B","A","A","B","B","A","A"],
+        ["B","B","A","A","B","B","A","A","B","B"],
+        ["A","A","B","B","A","A","B","B","A","A"]
+      ]
+    },
+    "x": {
+      "Factor": ["Lev:1","Lev:2","Lev:1","Lev:2","Lev:1","Lev:2","Lev:1","Lev:2","Lev:1","Lev:2"]
+    },
+    "z": {
+      "Annt": ["Desc:1","Desc:2","Desc:1","Desc:2","Desc:1","Desc:2","Desc:1","Desc:2","Desc:1","Desc:2"]
+    }
+  },
+  "config": {
+    "graphType": "Heatmap",
+    "guides": true,
+    "outlineBy": "Outline",
+    "outlineByData": "data2",
+    "shapeBy": "Shape",
+    "shapeByData": "data3",
+    "sizeBy": "Size",
+    "sizeByData": "data4"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "clusterSamples",
+      [null,null],
+      {},
+      1625544540536
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NDU0MDQ2ODo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/heatmap-10.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

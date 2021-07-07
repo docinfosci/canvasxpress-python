@@ -1,0 +1,84 @@
+{
+  "version": 35,
+  "renderTo": "lollipop2",
+  "data": {
+    "y": {
+      "vars": ["Var1"],
+      "smps": ["Engineering","Biology","Computer","Psycology","Education","Health"],
+      "data": [
+        [-40,-85,-60,50,75,100]
+      ]
+    },
+    "x": {
+      "Color": ["A","B","C","D","E","F"]
+    }
+  },
+  "config": {
+    "backgroundType": "solid",
+    "barLollipopFactor": 1.5,
+    "barLollipopOpen": true,
+    "barPath": true,
+    "barPathColor": "rgb(225,225,225)",
+    "barPathTransparency": 1,
+    "barType": "lollipop",
+    "colorBy": "Color",
+    "colorScheme": "GGPlot",
+    "graphType": "Bar",
+    "marginBottom": 50,
+    "marginLeft": 50,
+    "marginRight": 50,
+    "marginTop": 50,
+    "maxTextSize": 80,
+    "objectBorderColor": "rgba(0,0,0,0)",
+    "setMaxX": 150,
+    "setMinX": -150,
+    "showDataValues": true,
+    "showLegend": false,
+    "smpLabelScaleFontFactor": 2,
+    "title": "Occupations",
+    "xAxis2Show": false,
+    "xAxisMajorTicks": false,
+    "xAxisMinorTicks": false,
+    "xAxisShow": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NTI5ODMwNTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/lollipop-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

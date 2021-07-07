@@ -615,11 +615,13 @@ class CXStandardProfile(CXDataProfile):
             cx_data
         )
 
-        # Clean up the root of the JSON data object
-        cx_data = deepcopy(cx_data)
-        for key in reversed(cx_data.keys()):
-            if key not in [Y, X, Z]:
-                del cx_data[key]
+        # We no longer do this because reproducible JSONs can provide data in
+        # slightly alternate forms (e.g., implied Y).
+        # # Clean up the root of the JSON data object
+        # cx_data = deepcopy(cx_data)
+        # for key in reversed(cx_data.keys()):
+        #     if key not in [Y, X, Z]:
+        #         del cx_data[key]
 
         # Valid data format
         if cx_data[Y].get(DATA):

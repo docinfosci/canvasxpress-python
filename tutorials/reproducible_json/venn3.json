@@ -1,0 +1,75 @@
+{
+  "version": 35,
+  "renderTo": "venn3",
+  "data": {
+    "venn": {
+      "data": {
+        "A": 340,
+        "B": 562,
+        "C": 620,
+        "D": 592,
+        "AB": 639,
+        "AC": 456,
+        "AD": 257,
+        "BC": 915,
+        "BD": 354,
+        "CD": 143,
+        "ABC": 552,
+        "ABD": 578,
+        "ACD": 298,
+        "BCD": 613,
+        "ABCD": 148
+      },
+      "legend": {
+        "A": "List 1",
+        "B": "List 2",
+        "C": "List 3",
+        "D": "List 4"
+      }
+    }
+  },
+  "config": {
+    "graphType": "Venn",
+    "vennGroups": 2
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0ODU1MDUxMTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/venn-3.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

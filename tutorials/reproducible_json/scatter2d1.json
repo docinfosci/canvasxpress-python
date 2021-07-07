@@ -1,0 +1,106 @@
+{
+  "version": 35,
+  "renderTo": "scatter2d1",
+  "data": {
+    "y": {
+      "smps": ["Alcohol","Tobacco"],
+      "vars": ["North","Yorkshire","Northeast","East Midlands","West Midlands","East Anglia","Southeast","Southwest","Wales","Scotland","Northern Ireland"],
+      "data": [
+        [6.47,4.03],
+        [6.13,3.76],
+        [6.19,3.77],
+        [4.89,3.34],
+        [5.63,3.47],
+        [4.52,2.92],
+        [5.89,3.2],
+        [4.79,2.71],
+        [3.53,3.53],
+        [6.08,4.51],
+        [4.02,4.56]
+      ]
+    },
+    "m": {
+      "Name": "Alcohol Tobacco",
+      "Description": "Average weekly household spending, in British pounds, on tobacco products and alcoholic beverages for each of the 11 regions of Great Britain.",
+      "Reference": "Moore, David S., and George P. McCabe (1989). Introduction to the Practice of Statistics, p. 179. Original source : Family Expenditure Survey, Department of Employment, 1981 (British official statistics)"
+    },
+    "x": {
+      "Description": ["Average weekly household spending on alcoholic beverages in pounds","Average weekly household spending on tobacco products in pounds"]
+    }
+  },
+  "config": {
+    "citation": "Moore, David S., and George P. McCabe (1989). Introduction to the Practice of Statistics, p. 179.",
+    "decorations": {
+      "marker": [
+        {
+          "y": 0.18,
+          "text": "Maybe an Outlier?",
+          "variable": ["Northern Ireland"],
+          "x": 0.45,
+          "sample": ["Alcohol","Tobacco"],
+          "id": "scatter2d1-marker-0",
+          "vi": [10],
+          "si": [0,1],
+          "vi2": false,
+          "si2": false,
+          "type": "line",
+          "b": [69.15205078125,58.2,526.021923828125,481.5],
+          "len": 122.5634765625,
+          "width": 15,
+          "tx": 186.0458116319444,
+          "ty": 108.99560439560452,
+          "tx2": false,
+          "ty2": false,
+          "curX": 305.86191650390623,
+          "curY": 144.87
+        }
+      ]
+    },
+    "graphType": "Scatter2D",
+    "showTransition": false,
+    "theme": "CanvasXpress",
+    "title": "Average weekly household spending, in British pounds, on tobacco productsand alcoholic beverages for each of the 11 regions of Great Britain.",
+    "xAxis": ["Alcohol"],
+    "yAxis": ["Tobacco"]
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0NzEwNTYwNTo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/scatter2d-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

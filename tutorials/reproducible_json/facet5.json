@@ -1,0 +1,108 @@
+{
+  "version": 35,
+  "renderTo": "facet5",
+  "data": {
+    "y": {
+      "vars": ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18","s19","s20","s21"],
+      "smps": ["U-Trial 1","U-Trial 2","U-Trial 3","S-Trial 1","S-Trial 2","S-Trial 3"],
+      "data": [
+        [38.4,27.7,25.7,53.1,30.6,30.2],
+        [46.2,57.2,41.9,54.7,43.3,56.7],
+        [72.5,57.9,51.9,74.2,53.4,42.4],
+        [38,38,32.2,49.6,37.4,34.4],
+        [82.8,57.9,64.7,53.6,48.6,44.8],
+        [33.9,32,31.4,51.3,35.5,42.9],
+        [50.4,40.6,40.1,44.1,46.9,42.7],
+        [35,33.1,43.2,34,26.4,24.8],
+        [32.8,26.8,33.9,34.5,25.1,25.1],
+        [60.1,53.2,40.4,59.1,87.1,59.2],
+        [75.1,63.1,58,67.3,43.8,42.2],
+        [57.6,57.7,61.5,75.5,126.6,48.4],
+        [55.5,63.3,44.6,41.1,41.8,32],
+        [49.5,45.8,35.3,52.2,53.8,48.1],
+        [40.9,35.7,37.2,28.3,26,33.7],
+        [44.3,46.8,39.4,74.9,45.3,42.6],
+        [93.8,91.9,77.4,77.5,55.8,54.9],
+        [47.9,59.9,52.8,50.9,58.6,64.5],
+        [75.2,54.1,63.6,70.1,44,43.1],
+        [46.2,39.3,56.6,60.3,47.8,52.8],
+        [56.3,45.8,58.9,59.9,36.8,44.3]
+      ]
+    },
+    "m": {
+      "Name": "Scents",
+      "Description": "Data on the time subjects required to complete a pencil and paper maze when they were smelling a floral scent and when they were not.",
+      "Reference": "Hirsch, A. R., and Johnston, L. H. Odors and Learning, Smell & Taste Treatment and Research Foundation, Chicago."
+    },
+    "z": {
+      "Sex": ["M","F","M","M","M","F","F","F","M","F","F","F","F","M","M","M","M","M","F","F","M"],
+      "Smoker": ["N","Y","N","N","N","Y","N","N","N","N","Y","Y","Y","Y","N","N","Y","N","Y","N","N"],
+      "Opinion": ["pos","neg","pos","neg","neg","pos","pos","pos","pos","indiff","pos","indiff","pos","indiff","indiff","pos","neg","neg","pos","neg","neg"],
+      "Age": [23,43,43,32,15,37,26,35,26,31,35,55,25,39,25,26,33,62,54,38,65],
+      "Order": [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1]
+    }
+  },
+  "config": {
+    "graphType": "Scatter2D",
+    "layoutCollapse": false,
+    "layoutType": "cols",
+    "legendBox": true,
+    "shapeBy": "Age",
+    "showTransition": false,
+    "theme": "CanvasXpress",
+    "title": "Floral scent data set",
+    "xAxis": ["U-Trial 1","U-Trial 2","U-Trial 3"],
+    "yAxis": ["S-Trial 1","S-Trial 2","S-Trial 3"]
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "segregate",
+      [
+        "Variables",
+        ["Opinion","Sex"],
+        null,
+        null
+      ],
+      {},
+      1625543935763
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0MzkzNTY5NDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/facet-5.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

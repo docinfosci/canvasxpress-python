@@ -1,0 +1,87 @@
+{
+  "version": 35,
+  "renderTo": "stackedpercentline1",
+  "data": {
+    "z": {
+      "Annt1": ["Desc:1","Desc:2","Desc:3","Desc:4"],
+      "Annt2": ["Desc:A","Desc:B","Desc:A","Desc:B"],
+      "Annt3": ["Desc:X","Desc:X","Desc:Y","Desc:Y"],
+      "Annt4": [5,10,15,20],
+      "Annt5": [8,16,24,32],
+      "Annt6": [10,20,30,40]
+    },
+    "x": {
+      "Factor1": ["Lev:1","Lev:2","Lev:3","Lev:1","Lev:2","Lev:3"],
+      "Factor2": ["Lev:A","Lev:B","Lev:A","Lev:B","Lev:A","Lev:B"],
+      "Factor3": ["Lev:X","Lev:X","Lev:Y","Lev:Y","Lev:Z","Lev:Z"],
+      "Factor4": [5,10,15,20,25,30],
+      "Factor5": [8,16,24,32,40,48],
+      "Factor6": [10,20,30,40,50,60]
+    },
+    "y": {
+      "vars": ["V1","V2","V3","V4"],
+      "smps": ["S1","S2","S3","S4","S5","S6"],
+      "data": [
+        [5,10,25,40,45,50],
+        [95,80,75,70,55,40],
+        [25,30,45,60,65,70],
+        [55,40,35,30,15,1]
+      ]
+    }
+  },
+  "config": {
+    "graphOrientation": "vertical",
+    "graphType": "StackedPercentLine",
+    "lineThickness": 3,
+    "lineType": "spline",
+    "showDataValues": true,
+    "showTransition": false,
+    "smpTitle": "Collection of Samples",
+    "smpTitleFontStyle": "italic",
+    "subtitle": "Random Data",
+    "theme": "CanvasXpress",
+    "title": "Stacked-Line Graphs",
+    "xAxis": ["V1","V2"],
+    "xAxis2": ["V3","V4"]
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 35,
+    "buildDate": "06-20-2021",
+    "client": "MTYyNTU0Nzg1ODk2MDo6MTo6MzU6Og==",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/stackedpercentline-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "91",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}
