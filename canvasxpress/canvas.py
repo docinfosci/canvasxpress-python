@@ -586,17 +586,23 @@ class CanvasXpress(CXHtmlConvertable):
                 ]
             ]
 
-            for after_render_instruction in cx_after_render:
-                if isinstance(after_render_instruction, list):
-                    if len(after_render_instruction) == 2:
-                        if after_render_instruction[0] == "setDimensions":
-                            dimensions = after_render_instruction[1]
+            # Capure and remove setDimensions width, height
+            setDimensions_indexes = list()
+            for instruction_index, instruction in enumerate(cx_after_render):
+                if isinstance(instruction, list):
+                    if len(instruction) >= 2:
+                        if instruction[0] == "setDimensions":
+                            dimensions = instruction[1]
                             if isinstance(dimensions, list):
                                 if len(dimensions) >= 2:
                                     if isinstance(dimensions[0], int):
                                         cx_width = dimensions[0]
                                     if isinstance(dimensions[1], int):
                                         cx_height = dimensions[1]
+                            setDimensions_indexes.append(instruction_index)
+
+            for index in reversed(setDimensions_indexes):
+                del cx_after_render[index]
 
             candidate = CanvasXpress(
                 render_to=cx_render_to,
@@ -934,7 +940,10 @@ class CanvasXpress(CXHtmlConvertable):
             ]
         )[4:]
         
-        str_config = json.dumps(self.config.render_to_dict(), indent=4)
+        str_config = json.dumps(
+            self.config.render_to_dict(),
+            indent=4
+        )
         str_config_parts = str_config.split("\n")
         str_config = "\n".join(
             [
@@ -955,7 +964,10 @@ class CanvasXpress(CXHtmlConvertable):
             ]
         )[4:]
 
-        str_other_init_params = json.dumps(self.other_init_params.render_to_dict(), indent=4)
+        str_other_init_params = json.dumps(
+            self.other_init_params.render_to_dict(),
+            indent=4
+        )
         str_other_init_params_parts = str_other_init_params.split("\n")
         str_other_init_params = "\n".join(
             [
@@ -974,6 +986,7 @@ class CanvasXpress(CXHtmlConvertable):
             .replace("@after_render@", str_after_render) \
             .replace("@other_init_params@", str_other_init_params) \
             .replace("true", "True") \
-            .replace("false", "False")
+            .replace("false", "False") \
+            .replace("null", "None")
 
         return repr_str
