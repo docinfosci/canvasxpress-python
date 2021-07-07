@@ -11943,16 +11943,7 @@ cx = CanvasXpress(
     width=613,
     height=613,
     events=CXEvents(),
-    after_render=[
-        [
-            "setDimensions",
-            [
-                613,
-                613,
-                True
-            ]
-        ]
-    ],
+    after_render=[],
     other_init_params={
         "version": 35,
         "events": False,
