@@ -103,9 +103,9 @@ class CanvasXpress(CXHtmlConvertable):
         attribute of the `<canvas>` element.
         :param value:
             `str` The ID to be associated.  Cannot be `None`, and
-            must be alphanumeric.  Non-identifier characters will
-            be removed, and if the remaining string is empty then
-            a UUID4 will be substituted.  This is to preserve JS
+            must be alphanumeric.  Non-alphanumeric characters will
+            be removed, except for `_`, and if the remaining string
+            is empty then a UUID4 will be substituted.  This is to preserve JS
             compatibility during rendering.
         """
         if value is None:
@@ -116,7 +116,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         candidate = ""
         for c in value:
-            if c.isalnum():
+            if c.isalnum() or c == '_':
                 candidate += c
         if candidate == "":
             candidate = str(uuid.uuid4()).replace('-', '')
