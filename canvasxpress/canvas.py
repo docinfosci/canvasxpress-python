@@ -586,14 +586,26 @@ class CanvasXpress(CXHtmlConvertable):
                 ]
             ]
 
+            for after_render_instruction in cx_after_render:
+                if isinstance(after_render_instruction, list):
+                    if len(after_render_instruction) == 2:
+                        if after_render_instruction[0] == "setDimensions":
+                            dimensions = after_render_instruction[1]
+                            if isinstance(dimensions, list):
+                                if len(dimensions) >= 2:
+                                    if isinstance(dimensions[0], int):
+                                        cx_width = dimensions[0]
+                                    if isinstance(dimensions[1], int):
+                                        cx_height = dimensions[1]
+
             candidate = CanvasXpress(
                 render_to=cx_render_to,
                 data=cx_data,
                 config=cx_config,
                 after_render=cx_after_render,
                 other_init_params=cx_other_init_params,
-                width=cx_width,
-                height=cx_height
+                width=int(cx_width),
+                height=int(cx_height)
             )
 
             return candidate
