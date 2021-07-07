@@ -21,7 +21,7 @@ def test_CanvasXpress_init():
     subject: CanvasXpress = CanvasXpress(
         render_to="this_is_a_test"
     )
-    assert subject.render_to == "this_is_a_test"
+    assert subject.render_to == "thisisatest"
 
     raw_sample = {'a': [1]}
     data_sample = CXDictData(raw_sample)
@@ -60,7 +60,7 @@ def test_CanvasXpress_init():
 def test_CanvasXpress_render_to():
     subject: CanvasXpress = CanvasXpress()
     subject.render_to = "this_is_a_test"
-    assert subject.render_to == "this_is_a_test"
+    assert subject.render_to == "thisisatest"
 
     with pytest.raises(ValueError):
         subject: CanvasXpress = CanvasXpress()
@@ -69,10 +69,6 @@ def test_CanvasXpress_render_to():
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
         subject.render_to = 1
-
-    with pytest.raises(ValueError):
-        subject: CanvasXpress = CanvasXpress()
-        subject.render_to = "%*&*("
 
 
 def test_CanvasXpress_chart_width():
