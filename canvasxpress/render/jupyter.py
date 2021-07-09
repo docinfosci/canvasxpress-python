@@ -23,7 +23,7 @@ _cx_html_template = """
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Flask CanvasXpress Example</title>
+        <title>CanvasXpress</title>
         
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
