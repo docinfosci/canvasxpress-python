@@ -1,3 +1,4 @@
+import json
 from typing import Union
 
 from canvasxpress.data.base import CXData
@@ -43,6 +44,9 @@ class CXTextData(CXData):
         if value is None:
             self.__raw_text = ""
 
+        elif isinstance(value, str):
+            self.__raw_text = value
+
         else:
             self.__raw_text = str(value)
 
@@ -67,9 +71,15 @@ class CXTextData(CXData):
             The `dict` perspective of the data with as little modification or
             interpretation as is reasonable.
         """
-        return {
-            'raw': self.text
-        }
+        try:
+            return {
+                'raw': json.loads(self.text)
+            }
+
+        except Exception as e:
+            return {
+                'raw': self.text
+            }
 
     def render_to_dict(
             self,
