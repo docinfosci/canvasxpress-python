@@ -72,9 +72,23 @@ class CXTextData(CXData):
             interpretation as is reasonable.
         """
         try:
-            return {
+            # Check the data as a JSON object.  If the JSON object equates to
+            # a dict, list, or str then pass the Python form along as it will be
+            # converted back into a string as part of the HTML render.  For
+            # anything else treat the content as a standard string to be
+            # passed along.
+
+            candidate = {
                 'raw': json.loads(self.text)
             }
+            if isinstance(candidate['raw'], (dict, list, str)):
+                return {
+                    'raw': json.loads(self.text)
+                }
+            else:
+                return {
+                    'raw': self.text
+                }
 
         except Exception as e:
             return {
