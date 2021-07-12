@@ -1,6 +1,8 @@
 from copy import deepcopy
 from typing import Union
 
+from pandas import DataFrame
+
 from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
     CXDataProfileException, CXMatrixData, Y, DATA, CORS, \
     CXKeyPairData, X, Z, VENN, LEGEND, NODES
@@ -210,12 +212,12 @@ class CXStandardProfile(CXDataProfile):
         return self.__x
 
     @x.setter
-    def x(self, value: Union[dict, None]) -> None:
+    def x(self, value: Union[DataFrame, dict, None]) -> None:
         """
         Sets the `x` attribute for the data, which corresponds to the
         annotations for each `smps` element.  Quantities should match.
         A deepcopy of the provided dict is made.
-        :param value: `Union[dict, None]`
+        :param value: `Union[DataFrame, dict, None]`
             A dict value of list attributes that should each contain one
             element per list for each `smps` element.  Provide `None` to
             reset the `x` attributes.
@@ -223,8 +225,14 @@ class CXStandardProfile(CXDataProfile):
         if value is None:
             self.__x = dict()
 
-        elif not isinstance(value, dict):
-            raise TypeError("value must be a dict or None.")
+        elif not isinstance(value, (DataFrame, dict)):
+            raise TypeError("value must be a DataFrame, dict, or None.")
+
+        elif isinstance(value, DataFrame):
+            self.__x = {
+                col: value[col].to_list()
+                for col in value.columns.to_list()
+            }
 
         else:
             candidate = value
@@ -248,12 +256,12 @@ class CXStandardProfile(CXDataProfile):
         return self.__z
 
     @z.setter
-    def z(self, value: Union[dict, None]) -> None:
+    def z(self, value: Union[DataFrame, dict, None]) -> None:
         """
         Sets the `z` attribute for the data, which corresponds to the
         annotations for each `vars` element.  Quantities should match.
         A deepcopy of the provided dict is made.
-        :param value: `Union[dict, None]`
+        :param value: `Union[DataFrame, dict, None]`
             A dict value of list attributes that should each contain one
             element per list for each `vars` element.  Provide `None` to
             reset the `z` attributes.
@@ -261,8 +269,14 @@ class CXStandardProfile(CXDataProfile):
         if value is None:
             self.__z = dict()
 
-        elif not isinstance(value, dict):
-            raise TypeError("value must be a dict or None.")
+        elif not isinstance(value, (DataFrame, dict)):
+            raise TypeError("value must be a DataFrame, dict, or None.")
+
+        elif isinstance(value, DataFrame):
+            self.__z = {
+                col: value[col].to_list()
+                for col in value.columns.to_list()
+            }
 
         else:
             candidate = value

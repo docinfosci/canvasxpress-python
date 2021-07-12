@@ -1,0 +1,62 @@
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CanvasXpress</title>
+        
+        <!-- 1. Include the CanvasXpress library -->
+        
+        <link 
+                href='https://www.canvasxpress.org/dist/canvasXpress.css' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='https://www.canvasxpress.org/dist/canvasXpress.min.js' 
+                type='text/javascript'>
+        </script>
+
+        <!-- 2. Include script to initialize object -->
+        
+<script type="text/javascript">
+    onReady(function () {
+        var cXeaad2cc0f0674c2c8d2c682f8d6a2932 = new CanvasXpress({
+    "renderTo": "eaad2cc0f0674c2c8d2c682f8d6a2932",
+    "data": "https://www.canvasxpress.org/data/cX-heatmapR-dat.txt",
+    "config": {
+        "graphType": "Heatmap",
+        "title": "Overlays in Heatmap",
+        "colorSmpDendrogramBy": "Treatment",
+        "colorSpectrum": [
+            "magenta",
+            "blue",
+            "black",
+            "red",
+            "gold"
+        ],
+        "colorSpectrumZeroValue": 0,
+        "heatmapIndicatorHeight": 50,
+        "heatmapIndicatorHistogram": true,
+        "heatmapIndicatorPosition": "topLeft",
+        "heatmapIndicatorWidth": 60,
+        "heatmapSmpSeparateBy": "Treatment",
+        "samplesClustered": true,
+        "smpOverlays": [
+            "Treatment",
+            "Site"
+        ],
+        "variablesClustered": true
+    },
+    "afterRender": [],
+    "events": {}
+});
+    })
+</script>
+
+        
+    </head>
+    <body>
+        <!-- 3. DOM element where the visualization will be displayed -->
+        <table style="width:100%"><tr><td><canvas id="eaad2cc0f0674c2c8d2c682f8d6a2932" width=500 height=500></canvas></td></tr>
+     </body>
+</html>
