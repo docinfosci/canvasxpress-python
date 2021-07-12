@@ -63,3 +63,8 @@ def test_data():
     assert candidate.data == {
         "raw": "1"
     }
+    candidate = CXTextData()
+    candidate.text = "https://www.canvasxpress.org/data/cX-heatmapR-dat.txt"
+    assert candidate.data == {
+        "raw": "https://www.canvasxpress.org/data/cX-heatmapR-dat.txt"
+    }

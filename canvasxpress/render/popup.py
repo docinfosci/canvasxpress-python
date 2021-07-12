@@ -1,6 +1,7 @@
 import uuid
 import os
 from copy import deepcopy
+import tempfile
 from time import sleep
 from typing import Any, Union, List
 import webbrowser
@@ -20,7 +21,7 @@ _cx_html_template = """
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Flask CanvasXpress Example</title>
+        <title>CanvasXpress</title>
         
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
@@ -176,7 +177,9 @@ class CXBrowserPopup(CXRenderable):
             .replace("@canvasxpress_license@", cx_license) \
             .replace("@js_functions@", js_functions)
 
-        temp_filename = os.path.join(os.getcwd(), f"{str(uuid.uuid4())}.html")
+        tempdir = tempfile.TemporaryDirectory()
+
+        temp_filename = os.path.join(tempdir.name, f"{str(uuid.uuid4())}.html")
         with open(temp_filename, "w") as temp_file:
             temp_file.write(html)
 
@@ -184,3 +187,6 @@ class CXBrowserPopup(CXRenderable):
             "file://" + temp_filename,
             new=1
         )
+
+        sleep(2)
+        tempdir.cleanup()
