@@ -1,10 +1,10 @@
-pip>=20.3.3
-setuptools>=50
-wheel>=0.36
-invoke>=1.4.1,<=2.0
-gitpython>=3.1.9
-pytz>=2020.5
-mkdocs<1.2
+pip>=21.2.4
+setuptools>=58.2
+wheel>=0.37
+invoke>=1.6
+gitpython>=3.1.24
+pytz>=2021.3
+mkdocs>=1.2.2
 requirements-parser>=0.2.0
 pydoc-markdown>=3.13.0
 mkdocs-bootswatch>=1.1
