@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Document the project
 
 # Clear any existing build artifacts
@@ -13,7 +14,14 @@ cp -R readme/data docs/data
 cp -R readme/examples docs/examples
 cp -R readme/images docs/images
 cp build/docs/mkdocs.yml mkdocs.yml
-sed -i 's/docs_dir: content/docs_dir: docs/' mkdocs.yml
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  sed -i '' -E 's/docs_dir: content/docs_dir: docs/' mkdocs.yml
+
+else
+  sed -i 's/docs_dir: content/docs_dir: docs/' mkdocs.yml
+
+fi
 
 # For local inspection, also run mkdocs
 mkdocs build
