@@ -16,6 +16,8 @@ be easily sorted, grouped, transposed, transformed or clustered dynamically. The
 as well as the zooming, panning and drag-and-drop capabilities are features that make this library unique in its
 class.
 
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
+
 ***CanvasXpress*** can be now be used within Python for native integration into
 IPython and Web environments, such as:
 
@@ -39,11 +41,6 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 | **Popularity** | [![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress) |
 | **Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=main)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=main) [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) |
 <!-- End Badges -->
-
-#### Notes
-1. This project uses older versions of `mkdoc` and `pydoc-markdown` due to a 
-conflict between these packages.  Once the conflict is resolved they will be
-upgraded to current release editions.  This only affects doc builds.
 
 ### Enhancements
 
@@ -86,15 +83,11 @@ is available on the host system.
 
 ```python
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
-from canvasxpress.data.keypair import CXDictData
 from canvasxpress.render.popup import CXBrowserPopup
 
 if __name__ == "__main__":
     # Define a CX bar chart with some basic data
     chart: CanvasXpress = CanvasXpress(
-        render_to="example_chart",
         data={
             "y": {
                 "vars": ["Gene1"],
@@ -102,9 +95,9 @@ if __name__ == "__main__":
                 "data": [[10, 35, 88]]
             }
         },
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
+        config={
+            "graphType" : "Bar"
+        }
     )
     
     # Display the chart in its own Web page
@@ -221,11 +214,7 @@ Going back to our Flask app, we can add a basic chart definition with some data 
 
 ```python
 from flask import Flask, render_template
-
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
-from canvasxpress.data.keypair import CXDictData
 
 app = Flask(__name__)
 
@@ -233,7 +222,6 @@ app = Flask(__name__)
 def canvasxpress_example():
     # Define a CX bar chart with some basic data
     chart: CanvasXpress = CanvasXpress(
-        render_to="example_chart",
         data={
             "y": {
                 "vars": ["Gene1"],
@@ -241,9 +229,9 @@ def canvasxpress_example():
                 "data": [[10, 35, 88]]
             }
         },
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
+        config={
+            "graphType" : "Bar"
+        }
     )
 
     # Get the HTML parts for use in our Web page:

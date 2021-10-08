@@ -19,6 +19,8 @@ be easily sorted, grouped, transposed, transformed or clustered dynamically. The
 as well as the zooming, panning and drag-and-drop capabilities are features that make this library unique in its
 class.
 
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
+
 ***CanvasXpress*** can be now be used within Python for native integration into
 IPython and Web environments, such as:
 
