@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+#  Ensure the presence of a virtual environment
+if ! [[ -d ./venv ]] ; then
+    python3 -m venv ./venv
+fi
+source ./venv/bin/activate
+
 # Track which profile should be used for work
 GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
 if [ $GIT_WORKING_BRANCH = "main" ]
@@ -12,12 +18,6 @@ echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
 # Install essential packages
 chmod +x ./*.sh
-
-#  Ensure the presence of a virtual environment
-if ! [[ -d ./venv ]] ; then
-    python3 -m venv ./venv
-fi
-source ./venv/bin/activate
 
 # Bootstrap Python
 pip install --no-cache-dir -U -r ./requirements-project.txt

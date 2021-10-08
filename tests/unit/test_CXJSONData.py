@@ -19,6 +19,7 @@ from canvasxpress.data.keypair import CXJSONData
         min_size=1
     )
 )
+@settings(deadline=None)
 def test_CXJSONData_init_valid_input(sample):
     cxdata = CXJSONData(sample)
     assert not DeepDiff(

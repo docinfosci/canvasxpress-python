@@ -56,6 +56,7 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 #### Immediate Focus
 
+* Plotly Dash integration
 * Detailed documentation and working examples of all Python functionality
 
 #### General Focus
@@ -94,15 +95,13 @@ if __name__ == "__main__":
     # Define a CX bar chart with some basic data
     chart: CanvasXpress = CanvasXpress(
         render_to="example_chart",
-        data=CXDictData(
-            {
-                "y": {
-                    "vars": ["Gene1"],
-                    "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
-                }
+        data={
+            "y": {
+                "vars": ["Gene1"],
+                "smps": ["Smp1", "Smp2", "Smp3"],
+                "data": [[10, 35, 88]]
             }
-        ),
+        },
         config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
@@ -235,15 +234,13 @@ def canvasxpress_example():
     # Define a CX bar chart with some basic data
     chart: CanvasXpress = CanvasXpress(
         render_to="example_chart",
-        data=CXDictData(
-            {
-                "y": {
-                    "vars": ["Gene1"],
-                    "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
-                }
+        data={
+            "y": {
+                "vars": ["Gene1"],
+                "smps": ["Smp1", "Smp2", "Smp3"],
+                "data": [[10, 35, 88]]
             }
-        ),
+        },
         config=CXConfigs(
             CXGraphType(CXGraphTypeOptions.Bar)
         )
