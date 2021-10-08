@@ -13,11 +13,6 @@
 | **Documentation Status** | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=develop)](https://canvasxpress-python.readthedocs.io/en/develop/) |
 | **Activity** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python/tree/develop) |
 <!-- End Badges -->
-
-## Notes
-1. This project uses older versions of `mkdoc` and `pydoc-markdown` due to a 
-conflict between these packages.  Once the conflict is resolved they will be
-upgraded to current release editions.  This only affects doc builds.
    
 ## Roadmap
 
