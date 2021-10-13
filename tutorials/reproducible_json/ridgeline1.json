@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "ridgeline1",
   "data": {
     "z": {
@@ -186,15 +186,21 @@
       "createHistogram",
       ["Species",null,null],
       {},
-      1625546682061,
+      1634083433516,
       true
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634083444310
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NjY4MjAwNzo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MzQzMzQ3Mjo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/ridge-line-1.html",
@@ -202,7 +208,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

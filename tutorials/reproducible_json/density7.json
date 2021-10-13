@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "density7",
   "data": {
     "y": {
@@ -433,15 +433,21 @@
       "createHistogram",
       ["sex",null,null],
       {},
-      1625543295632,
+      1634080220380,
       true
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080230919
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzI5NTU1NDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDIyMDMyNjo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/density-7.html",
@@ -449,7 +455,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

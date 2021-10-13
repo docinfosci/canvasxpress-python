@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "heatmap14",
   "data": {
     "y": {
@@ -86,14 +86,20 @@
       "setDimensions",
       [813,441,null,null,null,null],
       {},
-      1625544614301
+      1634081422863
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081432910
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NDYxMzE1Mzo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTQyMTk4NDo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-14.html",
@@ -101,7 +107,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

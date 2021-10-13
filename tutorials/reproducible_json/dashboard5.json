@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "dashboard5",
   "data": {
     "y": {
@@ -401,38 +401,44 @@
       "switchSmpToAnnotation",
       ["Age"],
       {},
-      1625543480339
+      1634080408657
     ],
     [
       "switchSmpToAnnotation",
       ["Clin2"],
       {},
-      1625543480362
+      1634080408673
     ],
     [
       "switchSmpToAnnotation",
       ["Clin3"],
       {},
-      1625543480399
+      1634080408701
     ],
     [
       "addKaplanMeierCurve",
       ["Survival","Survival-Censor",null,null,null],
       {},
-      1625543480414
+      1634080408711
     ],
     [
       "createDOE",
       [null,null,null],
       {},
-      1625543480444
+      1634080408735
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080419193
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzQ4MDI0NTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDQwODU3Nzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/dashboard-5.html",
@@ -440,7 +446,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

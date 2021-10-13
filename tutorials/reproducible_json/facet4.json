@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "facet4",
   "data": {
     "z": {
@@ -54,7 +54,7 @@
         null
       ],
       {},
-      1625543918247
+      1634080872061
     ],
     [
       "segregate",
@@ -65,14 +65,20 @@
         null
       ],
       {},
-      1625543918256
+      1634080872070
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080882642
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzkxODE3NDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDg3MTk5OTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/facet-4.html",
@@ -80,7 +86,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

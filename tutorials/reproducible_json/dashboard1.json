@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "dashboard1",
   "data": {
     "y": {
@@ -41,20 +41,26 @@
       "createHistogram",
       ["Survived",null,null],
       {},
-      1625543408771
+      1634080337205
     ],
     [
       "createDOE",
       [null,null,null],
       {},
-      1625543408812
+      1634080337238
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080347624
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzQwODYyOTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDMzNzA5MTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/dashboard-1.html",
@@ -62,7 +68,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

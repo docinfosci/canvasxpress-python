@@ -1,0 +1,71 @@
+{
+  "version": 36.4,
+  "renderTo": "waterfall2",
+  "data": {
+    "y": {
+      "vars": ["QoL-Score"],
+      "smps": ["Sub-253","Sub-337","Sub-193","Sub-313","Sub-217","Sub-37","Sub-169","Sub-55","Sub-19","Sub-145","Sub-103","Sub-49","Sub-205","Sub-97","Sub-79","Sub-67","Sub-115","Sub-325","Sub-43","Sub-109","Sub-91","Sub-157","Sub-151","Sub-343","Sub-139","Sub-319","Sub-85","Sub-181","Sub-175","Sub-127","Sub-271","Sub-163","Sub-211","Sub-187","Sub-307","Sub-73","Sub-229","Sub-235","Sub-241","Sub-31","Sub-223","Sub-25","Sub-295","Sub-301","Sub-265","Sub-331","Sub-121","Sub-199","Sub-133","Sub-259","Sub-277","Sub-355","Sub-283","Sub-1","Sub-61"],
+      "data": [
+        [109.09,89.65,57.14,54.54,52.38,47.05,42.1,37.28,36.66,36.53,32.65,32.07,31.48,29.62,29.5,29.16,28.57,28,27.45,23.07,21.56,20.75,19.23,18.75,17.64,17.3,16,15.25,15.15,14.54,13.04,11.76,10.9,7.4,7.14,7.01,6.89,4.61,3.22,2.94,1.88,0,0,-1.67,-3.71,-3.93,-4.23,-4.42,-4.69,-5.18,-6.67,-10.53,-12.31,-19.24,-29.89]
+      ]
+    },
+    "x": {
+      "Treatment": ["Trt-2","Trt-2","Trt-2","Trt-2","Trt-2","Trt-1","Trt-1","Trt-1","Trt-1","Trt-1","Trt-1","Trt-1","Trt-2","Trt-1","Trt-1","Trt-1","Trt-1","Trt-2","Trt-1","Trt-1","Trt-1","Trt-1","Trt-1","Trt-2","Trt-1","Trt-2","Trt-1","Trt-2","Trt-1","Trt-1","Trt-2","Trt-1","Trt-2","Trt-2","Trt-2","Trt-1","Trt-2","Trt-2","Trt-2","Trt-1","Trt-2","Trt-1","Trt-2","Trt-2","Trt-2","Trt-2","Trt-1","Trt-2","Trt-1","Trt-2","Trt-2","Trt-2","Trt-2","Trt-1","Trt-1"]
+    }
+  },
+  "config": {
+    "graphOrientation": "vertical",
+    "graphType": "Bar",
+    "segregateSamplesBy": ["Treatment"],
+    "showLegend": false,
+    "showSampleNames": false,
+    "title": "Waterfall plot changes in QoL scores",
+    "xAxisTitle": "Change from baseline (%) in QoL score"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634085597960
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4NTU4NzU3MTo6MTo6MzYuNDo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/waterfall-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

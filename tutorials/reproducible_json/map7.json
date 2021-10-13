@@ -1,1 +1,68 @@
-false
+{
+  "version": 36.4,
+  "renderTo": "map7-1",
+  "data": false,
+  "config": {
+    "colorBy": "fips",
+    "graphType": "Map",
+    "legendPosition": "bottom",
+    "mapId": "mercatorCounties",
+    "mapProjection": "albers",
+    "title": "Albers Projection",
+    "topoJSON": "https://www.canvasxpress.org/data/usa-albers-counties.json",
+    "remoteTransitionEffect": "none",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [760,613,true]
+    ],
+    [
+      "setDimensions",
+      [813,655,null,null,null,null],
+      {},
+      1634082345995
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082373362
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MjM0NTU1MTo6MTo6MzYuNDo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/map-7.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

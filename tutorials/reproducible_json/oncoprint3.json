@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "oncoprint3",
   "data": {
     "y": {
@@ -68,6 +68,17 @@
     "patternBy": "Pattern",
     "patternByData": "data4",
     "smpOverlayProperties": {
+      "Annt4": {
+        "type": "Stacked",
+        "color": "rgb(255,140,2)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false,
+        "position": "left"
+      },
       "Annt5": {
         "type": "Stacked",
         "color": "rgb(105,150,150)",
@@ -91,8 +102,8 @@
         "position": "left"
       },
       "Annt2": {
-        "type": "Bar",
         "position": "right",
+        "type": "Bar",
         "color": "rgb(167,206,49)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -100,17 +111,6 @@
         "showName": true,
         "showBox": true,
         "rotate": false
-      },
-      "Annt4": {
-        "type": "Stacked",
-        "color": "rgb(255,140,2)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false,
-        "position": "left"
       },
       "": {
         "type": "Stacked",
@@ -188,13 +188,19 @@
     [
       "setDimensions",
       [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634083163596
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NjM4OTQ4ODo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MzE1Mjc1Mzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/oncoprint-3.html",
@@ -202,7 +208,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

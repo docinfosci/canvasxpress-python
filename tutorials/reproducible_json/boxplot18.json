@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "boxplot18",
   "data": {
     "y": {
@@ -60,22 +60,28 @@
       "switchNumericToString",
       ["order",true],
       {},
-      1625542663017,
+      1634079565808,
       true
     ],
     [
       "switchNumericToString",
       ["dose",true],
       {},
-      1625542663017,
+      1634079565809,
       true
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634079576332
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MjY2Mjk3NDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA3OTU2NTc2Njo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/boxplot-18.html",
@@ -83,7 +89,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

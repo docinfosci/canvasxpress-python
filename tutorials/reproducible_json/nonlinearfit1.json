@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "nonlinearfit1",
   "data": {
     "y": {
@@ -26,13 +26,13 @@
       "nlfit": [
         {
           "param": ["164","313",0.031,-1.5,0.0000012,1.9],
-          "type": "cst",
-          "label": "Custom Fit"
+          "label": "Custom Fit",
+          "type": "cst"
         },
         {
-          "type": "reg",
+          "label": "Regular Fit",
           "param": ["164","313",0.031,1.5,0.0000012,1.9],
-          "label": "Regular Fit"
+          "type": "reg"
         }
       ]
     },
@@ -52,13 +52,19 @@
     [
       "setDimensions",
       [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634083085495
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NjMwOTkxNTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MzA3NDcyMzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/nonlinear-fit-1.html",
@@ -66,7 +72,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

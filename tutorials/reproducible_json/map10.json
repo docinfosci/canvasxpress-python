@@ -1,1 +1,60 @@
-false
+{
+  "version": 36.4,
+  "renderTo": "map10-1",
+  "data": false,
+  "config": {
+    "colorBy": "NAME_1",
+    "graphType": "Map",
+    "legendPosition": "bottomLeft",
+    "mapId": "italy",
+    "topoJSON": "https://www.canvasxpress.org/data/italy.geo.json",
+    "remoteTransitionEffect": "none",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082483624
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MjQ1NTE0MDo6MTo6MzYuNDo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/map-10.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

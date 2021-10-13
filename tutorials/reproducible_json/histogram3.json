@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "histogram3",
   "data": {
     "y": {
@@ -34,10 +34,10 @@
       "marker": [
         {
           "text": "Maybe an Outlier?",
-          "x": 0.45,
           "sample": ["Alcohol","Tobacco"],
-          "variable": ["Northern Ireland"],
           "y": 0.18,
+          "x": 0.45,
+          "variable": ["Northern Ireland"],
           "id": "histogram3-marker-0",
           "vi": [10],
           "si": [0,1],
@@ -48,7 +48,7 @@
           "len": 122.5634765625,
           "width": 15,
           "tx": 186.0458116319444,
-          "ty": 108.99560439560452,
+          "ty": 98.32499999999999,
           "tx2": false,
           "ty2": false,
           "curX": 305.86191650390623,
@@ -76,14 +76,20 @@
       "createHistogram",
       [false,null,null],
       {},
-      1625544678885
+      1634081481628
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081492096
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NDY3ODc4NDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTQ4MTU2MTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/histogram-3.html",
@@ -91,7 +97,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

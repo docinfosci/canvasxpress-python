@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "kaplanmeier5",
   "data": {
     "y": {
@@ -400,38 +400,44 @@
       "switchSmpToAnnotation",
       ["Age"],
       {},
-      1625544829159
+      1634081634096
     ],
     [
       "switchSmpToAnnotation",
       ["Clin2"],
       {},
-      1625544829180
+      1634081634114
     ],
     [
       "switchSmpToAnnotation",
       ["Clin3"],
       {},
-      1625544829213
+      1634081634143
     ],
     [
       "addKaplanMeierCurve",
       ["Survival","Survival-Censor",null,null,null],
       {},
-      1625544829226
+      1634081634154
     ],
     [
       "createDOE",
       [null,null,null],
       {},
-      1625544829252
+      1634081634177
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081644835
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NDgyOTA2NDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTYzNDAxNDo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/kaplan-meier-5.html",
@@ -439,7 +445,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

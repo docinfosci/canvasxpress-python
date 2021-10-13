@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "network9-1",
   "data": {
     "nodes": [
@@ -129,19 +129,19 @@
         "Exp2": 9,
         "Exp3": 9,
         "Exp4": 7,
+        "Exp8": {
+          "CL3": 7,
+          "CL1": 2,
+          "CL2": 14
+        },
         "Exp5": -3,
-        "Exp6": 4,
         "Exp9": {
           "CL2": 1,
           "CL3": 5,
           "CL1": 32
         },
-        "Exp8": {
-          "CL2": 14,
-          "CL3": 7,
-          "CL1": 2
-        },
-        "Exp7": "H"
+        "Exp7": "H",
+        "Exp6": 4
       },
       {
         "id": "3",
@@ -165,18 +165,18 @@
         "Exp2": 9,
         "Exp3": 10,
         "Exp4": 2,
+        "Exp6": 15,
+        "Exp7": "L",
+        "Exp9": {
+          "CL1": 45,
+          "CL2": 4
+        },
+        "Exp5": -1,
         "Exp8": {
           "CL2": 40,
-          "CL3": 22,
-          "CL1": 2
-        },
-        "Exp9": {
-          "CL2": 4,
-          "CL1": 45
-        },
-        "Exp6": 15,
-        "Exp5": -1,
-        "Exp7": "L"
+          "CL1": 2,
+          "CL3": 22
+        }
       },
       {
         "id": "4",
@@ -200,18 +200,18 @@
         "Exp2": 6,
         "Exp3": 1,
         "Exp4": 7,
+        "Exp5": 5,
         "Exp8": {
           "CL3": 15,
           "CL1": 32,
           "CL2": 4
         },
+        "Exp6": 40,
+        "Exp7": "H",
         "Exp9": {
           "CL2": 4,
           "CL1": 52
-        },
-        "Exp6": 40,
-        "Exp5": 5,
-        "Exp7": "H"
+        }
       },
       {
         "id": "5",
@@ -291,17 +291,17 @@
         "Exp1": 3,
         "Exp2": 8,
         "Exp4": 1,
-        "Exp7": "H",
         "Exp9": {
+          "CL2": 44,
           "CL1": 21,
-          "CL3": 9,
-          "CL2": 44
+          "CL3": 9
         },
+        "Exp7": "H",
         "Exp6": 24,
         "Exp8": {
-          "CL3": 1,
+          "CL2": 4,
           "CL1": 12,
-          "CL2": 4
+          "CL3": 1
         },
         "Exp5": 10
       },
@@ -326,18 +326,18 @@
         "Exp1": -1,
         "Exp2": 1,
         "Exp4": 3,
-        "Exp7": "M",
-        "Exp5": -8,
-        "Exp6": 14,
         "Exp9": {
           "CL1": 12,
           "CL2": 4
         },
+        "Exp7": "M",
+        "Exp6": 14,
         "Exp8": {
+          "CL2": 14,
           "CL3": 32,
-          "CL1": 2,
-          "CL2": 14
-        }
+          "CL1": 2
+        },
+        "Exp5": -8
       },
       {
         "id": "10",
@@ -1942,14 +1942,20 @@
       "appendNetworkDataFromURL",
       [],
       {},
-      1625546206994
+      1634082975667
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082985796
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NjIwNjc1NTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4Mjk3NTQ1OTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/network-9.html",
@@ -1957,7 +1963,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

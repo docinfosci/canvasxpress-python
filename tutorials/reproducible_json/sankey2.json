@@ -1,0 +1,67 @@
+{
+  "version": 36.5,
+  "renderTo": "sankey2",
+  "data": {
+    "y": {
+      "vars": ["Weight"],
+      "smps": ["smp1","smp2","smp3","smp4","smp5","smp6"],
+      "data": [
+        [5,7,6,2,9,4]
+      ]
+    },
+    "x": {
+      "Source": ["A","A","A","B","B","B"],
+      "Target": ["X","Y","Z","X","Y","Z"],
+      "Weight": [1,2,3,4,5,6]
+    }
+  },
+  "config": {
+    "colorBy": "Weight",
+    "graphOrientation": "vertical",
+    "graphType": "Sankey",
+    "sankeySource": "Source",
+    "sankeyTarget": "Target",
+    "theme": "CanvasXpress",
+    "title": "Single Level Sankey"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.5,
+    "buildDate": "10-12-2021",
+    "client": "MTYzNDA5Mjg5MzgyOTo6MTo6MzYuNTo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/sankey-2.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "dotplot12",
   "data": {
     "y": {
@@ -55,21 +55,27 @@
     "xAxisShow": false
   },
   "events": {
-    "mousemove": "/Function(function(o, e, t) {                        if (o.objectType && o.objectType == 'Smp') {                          var sum = t.sum(o.x.Words      );                          var str = &quot;<b>&quot; + o.display + &quot;</b><br><b>Words: </b>&quot; + sum + &quot;<br><b>Chapters: </b>&quot; + o.x.Words.length;                          t.showInfoSpan(e, str      );                        } else {                          var str = &quot;<b>&quot; + o.y.Character + &quot;</b><br><b>Words: </b>&quot; + o.y.Words + &quot;<br><b>Chapter: </b> (&quot; + o.y.data + &quot;) &quot; + o.y['Chapter Name'] + &quot;<br><b>Film :</b>&quot; + o.y.Film;                          t.showInfoSpan(e, str      );                        }                      })/"
+    "mousemove": "/Function(function(o, e, t) {            if (o.objectType && o.objectType == 'Smp') {              var sum = t.sum(o.x.Words      );              var str = &quot;<b>&quot; + o.display + &quot;</b><br><b>Words: </b>&quot; + sum + &quot;<br><b>Chapters: </b>&quot; + o.x.Words.length;              t.showInfoSpan(e, str      );            } else if (o.y) {              var str = &quot;<b>&quot; + o.y.Character + &quot;</b><br><b>Words: </b>&quot; + o.y.Words + &quot;<br><b>Chapter: </b> (&quot; + o.y.data + &quot;) &quot; + o.y['Chapter Name'] + &quot;<br><b>Film :</b>&quot; + o.y.Film;              t.showInfoSpan(e, str      );            }          })/"
   },
   "info": false,
   "afterRenderInit": false,
   "afterRender": [
     [
       "setDimensions",
-      [760,1150,true]
+      [750,1150,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080764610
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzgwMjAyNDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDc1NDAwMTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/dotplot-12.html",
@@ -77,7 +83,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "splom7",
   "data": {
     "z": {
@@ -188,72 +188,17 @@
       true
     ],
     [
-      "userEventsClick",
-      [
-        {
-          "x": {},
-          "y": {
-            "vars": ["Bin1 (4 - 4.5)"],
-            "smps": ["setosa","Bin"],
-            "data": [
-              [5,0.5]
-            ]
-          },
-          "z": {}
-        },
-        {
-          "srcElement": "splom7-events",
-          "target": "splom7-events",
-          "ac": {
-            "x": 31.015625,
-            "y": 581
-          },
-          "altKey": false,
-          "bubbles": true,
-          "button": 0,
-          "buttons": 0,
-          "cancelBubble": false,
-          "cancelable": true,
-          "clientX": 502,
-          "clientY": 919,
-          "ctrlKey": false,
-          "defaultPrevented": false,
-          "detail": 1,
-          "eventPhase": 0,
-          "isTrusted": true,
-          "layerX": 32,
-          "layerY": 582,
-          "metaKey": false,
-          "movementX": 0,
-          "movementY": 0,
-          "offsetX": 31,
-          "offsetY": 581,
-          "pageX": 502,
-          "pageY": 919,
-          "returnValue": true,
-          "screenX": 502,
-          "screenY": 919,
-          "shiftKey": false,
-          "timeStamp": 24240.89999999944,
-          "type": "click",
-          "which": 1,
-          "x": 502,
-          "y": 919,
-          "xMouseDown": false,
-          "yMouseDown": false
-        },
-        false,
-        [0,1,0,"Property:Species:setosa:z"]
-      ],
+      "setDimensions",
+      [603,600,null,null,null,null],
       {},
-      1625546953772
+      1634083699013
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NjkzMTIyNjo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MzY4NzE0Mzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/splom-7.html",
@@ -261,7 +206,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",
