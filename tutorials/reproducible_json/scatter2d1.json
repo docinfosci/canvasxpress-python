@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "scatter2d1",
   "data": {
     "y": {
@@ -33,26 +33,26 @@
     "decorations": {
       "marker": [
         {
-          "y": 0.18,
+          "sample": ["Alcohol","Tobacco"],
           "text": "Maybe an Outlier?",
           "variable": ["Northern Ireland"],
           "x": 0.45,
-          "sample": ["Alcohol","Tobacco"],
+          "y": 0.18,
           "id": "scatter2d1-marker-0",
           "vi": [10],
           "si": [0,1],
           "vi2": false,
           "si2": false,
           "type": "line",
-          "b": [69.15205078125,58.2,526.021923828125,481.5],
+          "b": [68.25205078124999,55.60000000000001,517.121923828125,472],
           "len": 122.5634765625,
           "width": 15,
-          "tx": 186.0458116319444,
-          "ty": 108.99560439560452,
+          "tx": 183.16803385416662,
+          "ty": 94.93333333333328,
           "tx2": false,
           "ty2": false,
-          "curX": 305.86191650390623,
-          "curY": 144.87
+          "curX": 300.95691650390626,
+          "curY": 140.56
         }
       ]
     },
@@ -70,13 +70,19 @@
     [
       "setDimensions",
       [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634083868230
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NzEwNTYwNTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4Mzg0ODI5Mzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-1.html",
@@ -84,7 +90,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

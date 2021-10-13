@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "scatter2d16",
   "data": {
     "y": {
@@ -16482,42 +16482,42 @@
   "config": {
     "chromosomeLengths": [1500,1191,1040,945,877,825,784,750,721,696,674,655,638,622,608,595,583,572,562,553,544,535],
     "decorations": {
+      "line": [
+        {
+          "y": 7,
+          "color": "rgb(255,0,0)",
+          "width": 1
+        },
+        {
+          "y": 5,
+          "color": "rgb(0,0,255)",
+          "width": 1
+        }
+      ],
       "marker": [
         {
+          "variable": ["rs4064"],
+          "align": "left",
           "offsetY": 0,
           "offsetX": 5,
+          "sample": ["Chr","Pos","-log10(pValue)"],
           "rotate": -45,
           "text": "rs4064",
-          "align": "left",
           "type": "text",
-          "variable": ["rs4064"],
-          "sample": ["Chr","Pos","-log10(pValue)"],
           "id": "scatter2d16-marker-0",
           "vi": [4063],
           "si": [0,1,2],
           "vi2": false,
           "si2": false,
-          "b": [54.0091796875,36.99999999999999,535.07314453125,324.2],
-          "len": 33.6337890625,
-          "width": 11,
-          "tx": 196.26811493630663,
-          "ty": 238.73572731460158,
+          "b": [76.59433593749999,47.00000000000001,510.86337890625003,497.8],
+          "len": 45.8642578125,
+          "width": 15,
+          "tx": 207.8253407881282,
+          "ty": 359.6086445291236,
           "tx2": false,
           "ty2": false,
-          "curX": 196.26811493630663,
-          "curY": 238.73572731460158
-        }
-      ],
-      "line": [
-        {
-          "color": "rgb(255,0,0)",
-          "y": 7,
-          "width": 1
-        },
-        {
-          "width": 1,
-          "color": "rgb(0,0,255)",
-          "y": 5
+          "curX": 207.8253407881282,
+          "curY": 359.6086445291236
         }
       ]
     },
@@ -16537,13 +16537,19 @@
     [
       "setDimensions",
       [600,400,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634084144239
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NzQyMzY4NDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4NDEzMzA1Nzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-16.html",
@@ -16551,7 +16557,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

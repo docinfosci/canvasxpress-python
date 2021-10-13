@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "heatmap13",
   "data": {
     "y": {
@@ -53,31 +53,32 @@
     "smpDendrogramPosition": "right",
     "smpOverlayProperties": {
       "Dose": {
-        "type": "Bar",
-        "showLegend": "true",
         "color": "blue",
-        "thickness": 80,
+        "showLegend": "true",
         "position": "left",
+        "thickness": 80,
+        "type": "Bar",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showName": true,
         "showBox": true,
         "rotate": false
       },
-      "Time": {
-        "position": "right",
+      "Drug": {
+        "position": "left",
+        "type": "Increase",
+        "thickness": 30,
+        "scheme": "Lancet",
         "showLegend": "true",
-        "scheme": "Greens",
-        "type": "Default",
-        "color": "rgb(105,150,150)",
+        "color": "rgb(254,41,108)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "showName": true,
         "showBox": true,
         "rotate": false
       },
       "CellType": {
-        "scheme": "Matlab",
         "showLegend": "true",
+        "scheme": "Matlab",
         "type": "Default",
         "position": "right",
         "color": "rgb(248,204,3)",
@@ -86,13 +87,12 @@
         "showBox": true,
         "rotate": false
       },
-      "Drug": {
-        "thickness": 30,
-        "position": "left",
-        "type": "Increase",
-        "scheme": "Lancet",
+      "Time": {
         "showLegend": "true",
-        "color": "rgb(254,41,108)",
+        "scheme": "Greens",
+        "position": "right",
+        "type": "Default",
+        "color": "rgb(105,150,150)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "showName": true,
         "showBox": true,
@@ -102,26 +102,26 @@
     "smpOverlays": ["Drug","-","Dose","CellType","-","Time"],
     "smpTitleLabelPosition": "right",
     "varOverlayProperties": {
-      "ProteinA": {
-        "type": "Line",
+      "GeneClass": {
+        "showLegend": "true",
+        "scheme": "GGPlot",
         "position": "top",
-        "thickness": 45,
-        "color": "green",
+        "thickness": 20,
+        "type": "Default",
+        "color": "rgb(167,206,49)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
         "showName": true,
         "showBox": true,
         "rotate": false
       },
-      "GeneClass": {
-        "showLegend": "true",
-        "scheme": "GGPlot",
-        "type": "Default",
+      "ProteinA": {
         "position": "top",
-        "thickness": 20,
-        "color": "rgb(167,206,49)",
+        "thickness": 45,
+        "type": "Line",
+        "color": "green",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
         "showName": true,
         "showBox": true,
         "rotate": false
@@ -143,14 +143,20 @@
       "setDimensions",
       [813,655,null,null,null,null],
       {},
-      1625544596035
+      1634081404533
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081414600
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NDU5NDg0MTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTQwMzcyMjo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-13.html",
@@ -158,7 +164,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

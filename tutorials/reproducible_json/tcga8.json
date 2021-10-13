@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "tcga8",
   "data": {
     "y": {
@@ -1322,8 +1322,8 @@
     "colorKey": {
       "dataset": {
         "OV": "rgb(134,134,134)",
-        "BRCA": "rgb(0,115,194)",
-        "LUSC": "rgb(239,192,0)"
+        "LUSC": "rgb(239,192,0)",
+        "BRCA": "rgb(0,115,194)"
       }
     },
     "colorScheme": "JCO",
@@ -1356,15 +1356,21 @@
       "createHistogram",
       ["dataset",null,null],
       {},
-      1625548119090,
+      1634084801655,
       true
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634084812497
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0ODExODk3Njo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4NDgwMTU1MDo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/tcga-8.html",
@@ -1372,7 +1378,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

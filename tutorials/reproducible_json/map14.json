@@ -1,1 +1,133 @@
-false
+{
+  "version": 36.4,
+  "renderTo": "map14-1",
+  "data": false,
+  "config": {
+    "colorBy": "name",
+    "decorations": {
+      "marker": [
+        {
+          "shape": "teardrop",
+          "label": "New York",
+          "size": 5,
+          "coords": [40.7,"-74"],
+          "color": "blue"
+        },
+        {
+          "size": 5,
+          "label": "San Francisco",
+          "color": "blue",
+          "coords": [37.7,"-122"],
+          "shape": "teardrop"
+        },
+        {
+          "shape": "teardrop",
+          "coords": [25.7,-80.1],
+          "color": "blue",
+          "size": 5,
+          "label": "Miami"
+        },
+        {
+          "coords": [41.8,-87.6],
+          "color": "green",
+          "size": 4,
+          "label": "Chicago",
+          "shape": "circle"
+        },
+        {
+          "size": 3,
+          "label": "Las Vegas",
+          "color": "green",
+          "coords": [36.1,-115.1],
+          "shape": "circle"
+        },
+        {
+          "color": "black",
+          "coords": [42.3,"-71"],
+          "label": "Boston",
+          "size": 6,
+          "shape": "star"
+        }
+      ],
+      "connections": [
+        {
+          "type": "spline",
+          "target": [37.7,"-122"],
+          "source": [40.7,"-74"],
+          "color": "red"
+        },
+        {
+          "source": [40.7,"-74"],
+          "target": [25.7,-80.1],
+          "type": "spline",
+          "color": "red"
+        },
+        {
+          "color": "red",
+          "type": "splineDashed",
+          "source": [37.7,"-122"],
+          "target": [25.7,-80.1]
+        }
+      ]
+    },
+    "graphType": "Map",
+    "mapConfig": {
+      "center": ["-90","30"]
+    },
+    "mapGraticuleShow": true,
+    "mapGraticuleType": "solid",
+    "mapId": "worldCountries",
+    "mapProjection": "orthographic",
+    "showLegend": false,
+    "title": "Ortographic Projection",
+    "topoJSON": "https://www.canvasxpress.org/data/worldLow.json",
+    "remoteTransitionEffect": "none",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [760,760,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082636159
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MjYwNzY4NDo6MTo6MzYuNDo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/map-14.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

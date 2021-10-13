@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "map3-1",
   "data": {
     "y": {
@@ -256,68 +256,68 @@
   "config": {
     "colorBy": "id",
     "decorations": {
-      "marker": [
-        {
-          "size": 5,
-          "color": "blue",
-          "shape": "teardrop",
-          "label": "New York",
-          "coords": [40.7,"-74"]
-        },
-        {
-          "coords": [37.7,"-122"],
-          "size": 5,
-          "color": "blue",
-          "shape": "teardrop",
-          "label": "San Francisco"
-        },
-        {
-          "coords": [25.7,-80.1],
-          "color": "blue",
-          "shape": "teardrop",
-          "label": "Miami",
-          "size": 5
-        },
-        {
-          "coords": [41.8,-87.6],
-          "label": "Chicago",
-          "color": "green",
-          "shape": "circle",
-          "size": 4
-        },
-        {
-          "label": "Las Vegas",
-          "shape": "circle",
-          "color": "green",
-          "size": 3,
-          "coords": [36.1,-115.1]
-        },
-        {
-          "coords": [42.3,"-71"],
-          "color": "black",
-          "shape": "star",
-          "label": "Boston",
-          "size": 6
-        }
-      ],
       "connections": [
         {
+          "source": [40.7,"-74"],
           "target": [37.7,"-122"],
           "type": "spline",
-          "source": [40.7,"-74"],
           "color": "red"
         },
         {
           "color": "red",
+          "target": [25.7,-80.1],
           "source": [40.7,"-74"],
-          "type": "spline",
-          "target": [25.7,-80.1]
+          "type": "spline"
         },
         {
-          "type": "splineDashed",
           "target": [25.7,-80.1],
           "source": [37.7,"-122"],
+          "type": "splineDashed",
           "color": "red"
+        }
+      ],
+      "marker": [
+        {
+          "color": "blue",
+          "coords": [40.7,"-74"],
+          "size": 5,
+          "label": "New York",
+          "shape": "teardrop"
+        },
+        {
+          "shape": "teardrop",
+          "size": 5,
+          "label": "San Francisco",
+          "color": "blue",
+          "coords": [37.7,"-122"]
+        },
+        {
+          "shape": "teardrop",
+          "coords": [25.7,-80.1],
+          "color": "blue",
+          "size": 5,
+          "label": "Miami"
+        },
+        {
+          "coords": [41.8,-87.6],
+          "color": "green",
+          "label": "Chicago",
+          "size": 4,
+          "shape": "circle"
+        },
+        {
+          "shape": "circle",
+          "coords": [36.1,-115.1],
+          "color": "green",
+          "label": "Las Vegas",
+          "size": 3
+        },
+        {
+          "shape": "star",
+          "color": "black",
+          "coords": [42.3,"-71"],
+          "label": "Boston",
+          "size": 6
         }
       ]
     },
@@ -339,13 +339,19 @@
     [
       "setDimensions",
       [760,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082226920
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NTM5ODg5OTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MjE5ODc1NTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/map-3.html",
@@ -353,7 +359,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

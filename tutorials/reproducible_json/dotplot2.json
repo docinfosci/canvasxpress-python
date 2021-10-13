@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "dotplot2",
   "data": {
     "x": {
@@ -26,30 +26,6 @@
     "axisTitleFontStyle": "italic",
     "citation": "R. A. Fisher (1936). The use of multiple measurements in taxonomic problems. Annals of Eugenics 7 (2) => 179-188.",
     "citationFontStyle": "italic",
-    "decorations": {
-      "marker": [
-        {
-          "y": 0.85,
-          "text": "Species withlowest petalwidth",
-          "x": 0.4,
-          "variable": ["Petal.Width"],
-          "sample": ["setosa"],
-          "id": "dotplot2-marker-0",
-          "vi": [3],
-          "si": [0],
-          "vi2": false,
-          "si2": false,
-          "type": "line",
-          "b": [53.8845703125,39.800000000000004,434.29287109375,492.6],
-          "len": 223.45458984375,
-          "width": 15,
-          "tx": false,
-          "ty": false,
-          "tx2": false,
-          "ty2": false
-        }
-      ]
-    },
     "fontStyle": "italic",
     "graphOrientation": "vertical",
     "graphType": "Dotplot",
@@ -82,14 +58,20 @@
         null
       ],
       {},
-      1625543621675
+      1634080555110
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080565552
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzYyMTU2ODo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDU1NTAzNDo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/dotplot-2.html",
@@ -97,7 +79,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

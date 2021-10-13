@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "network10-1",
   "data": {
     "nodes": [
@@ -129,20 +129,20 @@
         "Exp2": 9,
         "Exp3": 9,
         "Exp4": 7,
-        "Exp5": -3,
-        "Exp6": 4,
         "Exp9": {
-          "CL1": 32,
+          "CL2": 1,
           "CL3": 5,
-          "CL2": 1
-        },
-        "Exp8": {
-          "CL2": 14,
-          "CL1": 2,
-          "CL3": 7
+          "CL1": 32
         },
         "Exp7": "H",
-        "decorationsXi": 954.1586256780113,
+        "Exp6": 4,
+        "Exp8": {
+          "CL3": 7,
+          "CL1": 2,
+          "CL2": 14
+        },
+        "Exp5": -3,
+        "decorationsXi": 954.4660027062447,
         "decorationsYi": 377
       },
       {
@@ -167,19 +167,19 @@
         "Exp2": 9,
         "Exp3": 10,
         "Exp4": 2,
-        "Exp7": "L",
-        "Exp9": {
-          "CL2": 4,
-          "CL1": 45
-        },
+        "Exp5": -1,
         "Exp8": {
-          "CL2": 40,
           "CL3": 22,
-          "CL1": 2
+          "CL1": 2,
+          "CL2": 40
         },
         "Exp6": 15,
-        "Exp5": -1,
-        "decorationsXi": 954.1586256780113,
+        "Exp7": "L",
+        "Exp9": {
+          "CL1": 45,
+          "CL2": 4
+        },
+        "decorationsXi": 954.4660027062447,
         "decorationsYi": 360
       },
       {
@@ -204,19 +204,19 @@
         "Exp2": 6,
         "Exp3": 1,
         "Exp4": 7,
+        "Exp8": {
+          "CL3": 15,
+          "CL1": 32,
+          "CL2": 4
+        },
         "Exp5": 5,
+        "Exp7": "H",
         "Exp9": {
           "CL1": 52,
           "CL2": 4
         },
-        "Exp8": {
-          "CL2": 4,
-          "CL1": 32,
-          "CL3": 15
-        },
         "Exp6": 40,
-        "Exp7": "H",
-        "decorationsXi": 893.1586256780113,
+        "decorationsXi": 893.4660027062447,
         "decorationsYi": 321
       },
       {
@@ -297,20 +297,20 @@
         "Exp1": 3,
         "Exp2": 8,
         "Exp4": 1,
-        "Exp7": "H",
         "Exp5": 10,
         "Exp8": {
-          "CL2": 4,
           "CL1": 12,
-          "CL3": 1
-        },
-        "Exp9": {
-          "CL2": 44,
-          "CL3": 9,
-          "CL1": 21
+          "CL3": 1,
+          "CL2": 4
         },
         "Exp6": 24,
-        "decorationsXi": 269.1586256780113,
+        "Exp9": {
+          "CL1": 21,
+          "CL3": 9,
+          "CL2": 44
+        },
+        "Exp7": "H",
+        "decorationsXi": 269.4660027062447,
         "decorationsYi": 621
       },
       {
@@ -334,19 +334,19 @@
         "Exp1": -1,
         "Exp2": 1,
         "Exp4": 3,
-        "Exp7": "M",
+        "Exp6": 14,
         "Exp9": {
           "CL1": 12,
           "CL2": 4
         },
-        "Exp6": 14,
-        "Exp8": {
-          "CL2": 14,
-          "CL1": 2,
-          "CL3": 32
-        },
+        "Exp7": "M",
         "Exp5": -8,
-        "decorationsXi": 269.1586256780113,
+        "Exp8": {
+          "CL3": 32,
+          "CL1": 2,
+          "CL2": 14
+        },
+        "decorationsXi": 269.4660027062447,
         "decorationsYi": 604
       },
       {
@@ -371,7 +371,7 @@
         "Exp2": 10,
         "Exp3": 6,
         "Exp4": 4,
-        "decorationsXi": 806.1586256780113,
+        "decorationsXi": 806.4660027062447,
         "decorationsYi": 438
       },
       {
@@ -434,7 +434,7 @@
         "Exp2": 7,
         "Exp3": 3,
         "Exp4": 4,
-        "decorationsXi": 892.1586256780113,
+        "decorationsXi": 892.4660027062447,
         "decorationsYi": 359
       },
       {
@@ -459,7 +459,7 @@
         "Exp2": 6,
         "Exp3": 7,
         "Exp4": 9,
-        "decorationsXi": 890.1586256780113,
+        "decorationsXi": 890.4660027062447,
         "decorationsYi": 129
       },
       {
@@ -484,7 +484,7 @@
         "Exp2": 3,
         "Exp3": 9,
         "Exp4": 3,
-        "decorationsXi": 890.1586256780113,
+        "decorationsXi": 890.4660027062447,
         "decorationsYi": 112
       },
       {
@@ -509,7 +509,7 @@
         "Exp2": 4,
         "Exp3": 10,
         "Exp4": 3,
-        "decorationsXi": 519.1586256780113,
+        "decorationsXi": 519.4660027062447,
         "decorationsYi": 613
       },
       {
@@ -534,7 +534,7 @@
         "Exp2": 2,
         "Exp3": 4,
         "Exp4": 1,
-        "decorationsXi": 879.1586256780113,
+        "decorationsXi": 879.4660027062447,
         "decorationsYi": 443
       },
       {
@@ -559,7 +559,7 @@
         "Exp2": 3,
         "Exp3": 6,
         "Exp4": 6,
-        "decorationsXi": 599.1586256780113,
+        "decorationsXi": 599.4660027062447,
         "decorationsYi": 366
       },
       {
@@ -584,7 +584,7 @@
         "Exp2": 9,
         "Exp3": 9,
         "Exp4": 10,
-        "decorationsXi": 485.1586256780113,
+        "decorationsXi": 485.4660027062447,
         "decorationsYi": 380
       },
       {
@@ -609,7 +609,7 @@
         "Exp2": 6,
         "Exp3": 3,
         "Exp4": 6,
-        "decorationsXi": 826.1586256780113,
+        "decorationsXi": 826.4660027062447,
         "decorationsYi": 537
       },
       {
@@ -634,7 +634,7 @@
         "Exp2": 10,
         "Exp3": 10,
         "Exp4": 9,
-        "decorationsXi": 826.1586256780113,
+        "decorationsXi": 826.4660027062447,
         "decorationsYi": 520
       },
       {
@@ -659,7 +659,7 @@
         "Exp2": 5,
         "Exp3": 6,
         "Exp4": 1,
-        "decorationsXi": 439.1586256780113,
+        "decorationsXi": 439.4660027062447,
         "decorationsYi": 661
       },
       {
@@ -684,7 +684,7 @@
         "Exp2": 10,
         "Exp3": 4,
         "Exp4": 6,
-        "decorationsXi": 412.1586256780113,
+        "decorationsXi": 412.4660027062447,
         "decorationsYi": 613
       },
       {
@@ -709,7 +709,7 @@
         "Exp2": 8,
         "Exp3": 8,
         "Exp4": 10,
-        "decorationsXi": 341.1586256780113,
+        "decorationsXi": 341.4660027062447,
         "decorationsYi": 613
       },
       {
@@ -734,7 +734,7 @@
         "Exp2": 4,
         "Exp3": 7,
         "Exp4": 4,
-        "decorationsXi": 330.1586256780113,
+        "decorationsXi": 330.4660027062447,
         "decorationsYi": 145
       },
       {
@@ -759,7 +759,7 @@
         "Exp2": 8,
         "Exp3": 7,
         "Exp4": 10,
-        "decorationsXi": 484.1586256780113,
+        "decorationsXi": 484.4660027062447,
         "decorationsYi": 350
       },
       {
@@ -784,7 +784,7 @@
         "Exp2": 7,
         "Exp3": 9,
         "Exp4": 4,
-        "decorationsXi": 191.15862567801125,
+        "decorationsXi": 191.46600270624467,
         "decorationsYi": 613
       },
       {
@@ -865,7 +865,7 @@
         "Exp1": 4,
         "Exp2": 8,
         "Exp3": 1,
-        "decorationsXi": 923.1586256780113,
+        "decorationsXi": 923.4660027062447,
         "decorationsYi": 604
       },
       {
@@ -889,7 +889,7 @@
         "Exp1": -4,
         "Exp2": 7,
         "Exp3": 6,
-        "decorationsXi": 406.1586256780113,
+        "decorationsXi": 406.4660027062447,
         "decorationsYi": 291
       },
       {
@@ -913,7 +913,7 @@
         "Exp1": 0,
         "Exp2": 10,
         "Exp3": 8,
-        "decorationsXi": 923.1586256780113,
+        "decorationsXi": 923.4660027062447,
         "decorationsYi": 569
       },
       {
@@ -937,7 +937,7 @@
         "Exp1": 4,
         "Exp2": 8,
         "Exp3": 3,
-        "decorationsXi": 923.1586256780113,
+        "decorationsXi": 923.4660027062447,
         "decorationsYi": 707
       },
       {
@@ -962,7 +962,7 @@
         "Exp2": 2,
         "Exp3": 6,
         "Exp4": 9,
-        "decorationsXi": 923.1586256780113,
+        "decorationsXi": 923.4660027062447,
         "decorationsYi": 685
       },
       {
@@ -987,7 +987,7 @@
         "Exp2": 5,
         "Exp3": 4,
         "Exp4": 6,
-        "decorationsXi": 594.1586256780113,
+        "decorationsXi": 594.4660027062447,
         "decorationsYi": 613
       },
       {
@@ -1012,7 +1012,7 @@
         "Exp2": 9,
         "Exp3": 8,
         "Exp4": 10,
-        "decorationsXi": 668.1586256780113,
+        "decorationsXi": 668.4660027062447,
         "decorationsYi": 613
       },
       {
@@ -1037,7 +1037,7 @@
         "Exp2": 10,
         "Exp3": 9,
         "Exp4": 1,
-        "decorationsXi": 923.1586256780113,
+        "decorationsXi": 923.4660027062447,
         "decorationsYi": 626
       },
       {
@@ -1062,7 +1062,7 @@
         "Exp2": 1,
         "Exp3": 4,
         "Exp4": 8,
-        "decorationsXi": 923.1586256780113,
+        "decorationsXi": 923.4660027062447,
         "decorationsYi": 648
       },
       {
@@ -1087,7 +1087,7 @@
         "Exp2": 3,
         "Exp3": 9,
         "Exp4": 3,
-        "decorationsXi": 1032.1586256780113,
+        "decorationsXi": 1032.4660027062446,
         "decorationsYi": 406
       },
       {
@@ -1112,7 +1112,7 @@
         "Exp2": 9,
         "Exp3": 2,
         "Exp4": 10,
-        "decorationsXi": 893.1586256780113,
+        "decorationsXi": 893.4660027062447,
         "decorationsYi": 304
       },
       {
@@ -1136,7 +1136,7 @@
         "Exp1": 4,
         "Exp3": 4,
         "Exp4": 8,
-        "decorationsXi": 668.1586256780113,
+        "decorationsXi": 668.4660027062447,
         "decorationsYi": 646
       },
       {
@@ -1160,7 +1160,7 @@
         "Exp1": -5,
         "Exp3": 7,
         "Exp4": 7,
-        "decorationsXi": 1032.1586256780113,
+        "decorationsXi": 1032.4660027062446,
         "decorationsYi": 369
       },
       {
@@ -1184,7 +1184,7 @@
         "Exp1": 2,
         "Exp3": 6,
         "Exp4": 3,
-        "decorationsXi": 884.1586256780113,
+        "decorationsXi": 884.4660027062447,
         "decorationsYi": 400
       },
       {
@@ -1208,7 +1208,7 @@
         "Exp1": -1,
         "Exp3": 3,
         "Exp4": 10,
-        "decorationsXi": 792.1586256780113,
+        "decorationsXi": 792.4660027062447,
         "decorationsYi": 303
       },
       {
@@ -1252,7 +1252,7 @@
         "Exp2": 1,
         "Exp3": 2,
         "Exp4": 7,
-        "decorationsXi": 419.1586256780113,
+        "decorationsXi": 419.4660027062447,
         "decorationsYi": 337
       },
       {
@@ -1277,7 +1277,7 @@
         "Exp2": 5,
         "Exp3": 2,
         "Exp4": 6,
-        "decorationsXi": 684.1586256780113,
+        "decorationsXi": 684.4660027062447,
         "decorationsYi": 366
       },
       {
@@ -1302,7 +1302,7 @@
         "Exp2": 7,
         "Exp3": 3,
         "Exp4": 5,
-        "decorationsXi": 848.1586256780113,
+        "decorationsXi": 848.4660027062447,
         "decorationsYi": 209
       },
       {
@@ -1327,7 +1327,7 @@
         "Exp2": 1,
         "Exp3": 5,
         "Exp4": 10,
-        "decorationsXi": 978.1586256780113,
+        "decorationsXi": 978.4660027062447,
         "decorationsYi": 189
       },
       {
@@ -1352,7 +1352,7 @@
         "Exp2": 6,
         "Exp3": 2,
         "Exp4": 4,
-        "decorationsXi": 1030.1586256780113,
+        "decorationsXi": 1030.4660027062446,
         "decorationsYi": 189
       },
       {
@@ -1377,7 +1377,7 @@
         "Exp2": 3,
         "Exp3": 2,
         "Exp4": 6,
-        "decorationsXi": 978.1586256780113,
+        "decorationsXi": 978.4660027062447,
         "decorationsYi": 211
       },
       {
@@ -1402,7 +1402,7 @@
         "Exp2": 2,
         "Exp3": 5,
         "Exp4": 9,
-        "decorationsXi": 1030.1586256780113,
+        "decorationsXi": 1030.4660027062446,
         "decorationsYi": 211
       },
       {
@@ -1427,7 +1427,7 @@
         "Exp2": 4,
         "Exp3": 3,
         "Exp4": 6,
-        "decorationsXi": 978.1586256780113,
+        "decorationsXi": 978.4660027062447,
         "decorationsYi": 233
       },
       {
@@ -1452,7 +1452,7 @@
         "Exp2": 5,
         "Exp3": 10,
         "Exp4": 6,
-        "decorationsXi": 1030.1586256780113,
+        "decorationsXi": 1030.4660027062446,
         "decorationsYi": 233
       },
       {
@@ -2035,14 +2035,20 @@
       "appendNetworkDataFromURL",
       [],
       {},
-      1625546228267
+      1634082994368
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634083004752
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NjIyODAyMzo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4Mjk5NDE2Mzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/network-10.html",
@@ -2050,7 +2056,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

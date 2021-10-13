@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "layout15",
   "data": {
     "z": {
@@ -47,35 +47,22 @@
     "showTransition": false,
     "smpLabelScaleFontFactor": 1.1,
     "smpOverlayProperties": {
-      "Early": {
-        "position": "right",
-        "thickness": 50,
-        "color": "blue",
-        "type": "Line",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+      "Continuous": {
+        "type": "Heatmap",
+        "spectrum": ["green","white"],
+        "position": "left",
+        "color": "rgb(183,120,68)",
         "scheme": "User",
         "showLegend": true,
         "showName": true,
         "showBox": true,
         "rotate": false
       },
-      "PhaseA": {
-        "type": "Bar",
+      "PhaseB": {
         "thickness": 50,
-        "position": "left",
-        "color": "rgb(254,41,108)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "PhaseC": {
         "type": "Bar",
-        "thickness": 50,
         "position": "left",
-        "color": "rgb(167,206,49)",
+        "color": "rgb(72,126,182)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -94,46 +81,23 @@
         "showBox": true,
         "rotate": false
       },
-      "PhaseB": {
+      "Early": {
         "thickness": 50,
-        "position": "left",
+        "type": "Line",
+        "position": "right",
+        "color": "blue",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseA": {
+        "thickness": 50,
         "type": "Bar",
-        "color": "rgb(72,126,182)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Continuous": {
         "position": "left",
-        "spectrum": ["green","white"],
-        "type": "Heatmap",
-        "color": "rgb(183,120,68)",
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Late": {
-        "color": "red",
-        "thickness": 50,
-        "position": "right",
-        "type": "Line",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "OnTime": {
-        "type": "Line",
-        "position": "right",
-        "thickness": 50,
-        "color": "green",
+        "color": "rgb(254,41,108)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -142,9 +106,9 @@
         "rotate": false
       },
       "Discrete": {
-        "position": "left",
         "thickness": 30,
         "type": "Default",
+        "position": "left",
         "color": "rgb(131,172,208)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -154,11 +118,47 @@
         "rotate": false
       },
       "Temp": {
-        "thickness": 100,
         "position": "right",
         "spectrum": ["blue","white","red"],
         "type": "Heatmap",
+        "thickness": 100,
         "color": "rgb(255,84,159)",
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Late": {
+        "thickness": 50,
+        "type": "Line",
+        "position": "right",
+        "color": "red",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseC": {
+        "position": "left",
+        "type": "Bar",
+        "thickness": 50,
+        "color": "rgb(167,206,49)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "OnTime": {
+        "color": "green",
+        "position": "right",
+        "thickness": 50,
+        "type": "Line",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
         "showName": true,
@@ -172,8 +172,8 @@
     "varOverlayProperties": {
       "Odd": {
         "position": "bottom",
-        "thickness": 50,
         "type": "BarLine",
+        "thickness": 50,
         "color": "rgb(154,184,183)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -182,11 +182,11 @@
         "showBox": true,
         "rotate": false
       },
-      "Nice": {
+      "Hot": {
         "position": "bottom",
+        "type": "StackedPercent",
         "thickness": 50,
-        "color": "green",
-        "type": "Dotplot",
+        "color": "red",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -194,11 +194,10 @@
         "showBox": true,
         "rotate": false
       },
-      "Female": {
-        "type": "Pie",
+      "Site": {
+        "type": "Default",
         "position": "top",
-        "thickness": 50,
-        "color": "rgb(248,204,3)",
+        "color": "rgb(105,150,150)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -206,11 +205,10 @@
         "showBox": true,
         "rotate": false
       },
-      "Conc": {
-        "type": "Bar",
-        "position": "top",
-        "thickness": 40,
-        "color": "rgb(131,172,208)",
+      "Desc": {
+        "position": "bottom",
+        "type": "Text",
+        "color": "rgb(250,220,90)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -231,8 +229,8 @@
         "rotate": false
       },
       "Male": {
-        "type": "Pie",
         "position": "top",
+        "type": "Pie",
         "thickness": 50,
         "color": "rgb(167,206,49)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
@@ -242,34 +240,11 @@
         "showBox": true,
         "rotate": false
       },
-      "Cold": {
-        "color": "blue",
+      "Ugly": {
+        "color": "black",
+        "type": "Dotplot",
         "thickness": 50,
         "position": "bottom",
-        "type": "StackedPercent",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Hot": {
-        "thickness": 50,
-        "position": "bottom",
-        "color": "red",
-        "type": "StackedPercent",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Desc": {
-        "position": "bottom",
-        "type": "Text",
-        "color": "rgb(250,220,90)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -278,9 +253,9 @@
         "rotate": false
       },
       "Even": {
-        "type": "Bar",
         "position": "bottom",
         "thickness": 50,
+        "type": "Bar",
         "color": "rgb(255,175,84)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -289,10 +264,11 @@
         "showBox": true,
         "rotate": false
       },
-      "Site": {
-        "position": "top",
-        "type": "Default",
-        "color": "rgb(105,150,150)",
+      "Cold": {
+        "position": "bottom",
+        "type": "StackedPercent",
+        "thickness": 50,
+        "color": "blue",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -300,11 +276,35 @@
         "showBox": true,
         "rotate": false
       },
-      "Ugly": {
-        "type": "Dotplot",
+      "Female": {
+        "type": "Pie",
         "thickness": 50,
+        "position": "top",
+        "color": "rgb(248,204,3)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Nice": {
+        "thickness": 50,
+        "type": "Dotplot",
         "position": "bottom",
-        "color": "black",
+        "color": "green",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Conc": {
+        "position": "top",
+        "thickness": 40,
+        "type": "Bar",
+        "color": "rgb(131,172,208)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -322,13 +322,19 @@
     [
       "setDimensions",
       [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081929141
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NTExODYyNDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTkxODIwNTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/layout-15.html",
@@ -336,7 +342,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "layout14",
   "data": {
     "y": {
@@ -26,27 +26,27 @@
     "layoutAdjust": true,
     "layoutConfig": [
       {
-        "axisCoordinate": true,
-        "graphType": "BarLine",
-        "showDataValues": true,
-        "xAxis2": ["Discontinued"],
         "xAxisTitle": "Duration of Treatment",
+        "xAxis2": ["Discontinued"],
+        "showDataValues": true,
+        "graphType": "BarLine",
+        "axisCoordinate": true,
         "xAxis": ["Duration"]
       },
       {
-        "showLegend": true,
-        "showLegendTitle": false,
-        "legendInside": true,
-        "legendPosition": "bottomLeft",
         "xAxisTitle": "Change from Baseline (%)",
+        "showLegend": true,
+        "legendColumns": 5,
+        "legendPosition": "bottomLeft",
+        "legendInside": true,
         "colorBy": "Drug",
-        "legendColumns": 5
+        "showLegendTitle": false
       },
       {
-        "barLollipopFactor": 1,
         "barLollipopOpen": true,
         "xAxisTitle": "Baseline (mm)",
-        "barType": "lollipop"
+        "barType": "lollipop",
+        "barLollipopFactor": 1
       }
     ],
     "layoutLabelShow": false,
@@ -73,14 +73,20 @@
         null
       ],
       {},
-      1625545100840
+      1634081900265
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081910775
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NTEwMDc1Njo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTkwMDIwNDo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/layout-14.html",
@@ -88,7 +94,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",
