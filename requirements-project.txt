@@ -8,4 +8,4 @@ mkdocs>=1.2.2
 requirements-parser>=0.2.0
 pydoc-markdown>=3.13.0
 mkdocs-bootswatch>=1.1
-yapf>=0.31.0
+black # No version as this is constantly updating per Python Org Team
