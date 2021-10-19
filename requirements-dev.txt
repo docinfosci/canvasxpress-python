@@ -8,7 +8,7 @@ coveralls>=3.2.0
 flask>=2.0.2
 selenium>=4.0.0
 scikit-image>=0.18.3
-scipy>=1.7
+scipy>=1.6.1 # Max circleci edition 2021 10 18
 psutil>=5.8.0
 requires.io>=0.2.6
 
