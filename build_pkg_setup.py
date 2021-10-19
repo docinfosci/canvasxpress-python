@@ -5,17 +5,27 @@ import pytz
 import requirements
 from git import Repo
 
+
 setup_instructions_template = """
 from setuptools import setup, find_packages
 
 long_description = '''@PKG_DESCRIPTION@'''
+
+core_pkgs = @PKG_REQUIREMENTS@
+dash_pkgs = @PKG_REQUIREMENTS_DASH@
+jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
 
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
     packages=find_packages(exclude=['tests*']),
     package_dir={'': '.'},
-    install_requires=@PKG_REQUIREMENTS@,
+    install_requires=core_pkgs,
+    extras_require={
+        "dash": dash_pkgs,
+        "jupyter": jupyter_pkgs,
+        "all": dash_pkgs + jupyter_pkgs,
+    },
     url='https://github.com/docinfosci/canvasxpress-python.git',
     project_urls={
         'Documentation': 'https://canvasxpress-python.readthedocs.io',
@@ -56,13 +66,29 @@ def get_version() -> str:
            f"{buildtime.strftime('%H%M%S')}"
 
 
-def get_requirements() -> list:
+def get_requirements() -> dict:
+    packages = {
+        "core": [],
+        "dash": [],
+        "jupyter": [],
+    }
+
     with open('requirements.txt') as reqs_file:
-        return [
-            f"'{req.name}" \
-            f"{','.join([f'{spec[0]}{spec[1]}' for spec in req.specs])}'"
-            for req in requirements.parse(reqs_file)
-        ]
+        topics = [str(k) for k in packages.keys()]
+        topic = topics[0]
+        requirements_text = reqs_file.read()
+        for line in requirements_text.splitlines():
+            candidate = line.replace("#", "").strip()
+            if not line:
+                continue
+
+            elif candidate in topics:
+                topic = candidate
+
+            else:
+                packages[topic].append(f'"{candidate}"')
+
+    return packages
 
 
 def get_description() -> str:
@@ -72,7 +98,10 @@ def get_description() -> str:
 
 if __name__ == "__main__":
     package_version = get_version()
-    package_requirements = ',\n        '.join(get_requirements())
+    packages = get_requirements()
+    package_requirements_core = ',\n    '.join(packages["core"])
+    package_requirements_dash = ',\n    '.join(packages["dash"])
+    package_requirements_jupyter = ',\n    '.join(packages["jupyter"])
     python_version = python_version()
 
     setup_instructions = setup_instructions_template.replace(
@@ -80,10 +109,19 @@ if __name__ == "__main__":
         package_version
     )
 
-    setup_instructions = setup_instructions.replace(
-        '@PKG_REQUIREMENTS@',
-        f"[\n        {package_requirements}\n    ]"
-    )
+    setup_instructions = setup_instructions \
+        .replace(
+            '@PKG_REQUIREMENTS@',
+            f"[\n    {package_requirements_core}\n]"
+        ) \
+        .replace(
+            '@PKG_REQUIREMENTS_DASH@',
+            f"[\n    {package_requirements_dash}\n]"
+        ) \
+        .replace(
+            '@PKG_REQUIREMENTS_JUPYTER@',
+            f"[\n    {package_requirements_jupyter}\n]"
+        )
 
     setup_instructions = setup_instructions.replace(
         '@PRESENT_YEAR@',
