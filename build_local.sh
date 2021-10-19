@@ -24,7 +24,7 @@ pip install --no-cache-dir -U -r ./requirements-project.txt
 invoke init --dev --list
 
 # Force conformance to project styles (see pyproject,toml)
-yapf --in-place --recursive --parallel canvasxpress tests
+black --safe canvasxpress tests
 
 # Test the project: goal is >= 90% coverage
 invoke test
