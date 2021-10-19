@@ -1,3 +1,5 @@
+scipy>=1.6.1 # Max circleci edition 2021 10 18
+scikit-image>=0.18.3
 prospector>=1.5.1
 hypothesis>=6.23.3
 pytest>=6.2.5
@@ -7,8 +9,6 @@ pytest-flask>=1.2.0
 coveralls>=3.2.0
 flask>=2.0.2
 selenium>=4.0.0
-scikit-image>=0.18.3
-scipy>=1.6.1 # Max circleci edition 2021 10 18
 psutil>=5.8.0
 requires.io>=0.2.6
 
