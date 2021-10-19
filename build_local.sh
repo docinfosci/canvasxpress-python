@@ -18,6 +18,7 @@ echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
 # Install essential packages
 chmod +x ./*.sh
+./init-drivers.sh
 
 # Bootstrap Python
 pip install --no-cache-dir -U -r ./requirements-project.txt
