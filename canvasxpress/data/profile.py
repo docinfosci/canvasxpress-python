@@ -3,9 +3,23 @@ from typing import Union
 
 from pandas import DataFrame
 
-from canvasxpress.data.base import CXData, CXDataProfile, VARS, SMPS, \
-    CXDataProfileException, CXMatrixData, Y, DATA, CORS, \
-    CXKeyPairData, X, Z, VENN, LEGEND, NODES
+from canvasxpress.data.base import (
+    CXData,
+    CXDataProfile,
+    VARS,
+    SMPS,
+    CXDataProfileException,
+    CXMatrixData,
+    Y,
+    DATA,
+    CORS,
+    CXKeyPairData,
+    X,
+    Z,
+    VENN,
+    LEGEND,
+    NODES,
+)
 
 
 class CXStandardProfile(CXDataProfile):
@@ -14,10 +28,7 @@ class CXStandardProfile(CXDataProfile):
     by which the topics of `y`, `x`, and `z` are handled in conversions.
     """
 
-    __y: dict = {
-        VARS: list(),
-        SMPS: list()
-    }
+    __y: dict = {VARS: list(), SMPS: list()}
     """
     Tracks the `y` CanvasXPress JSON data topic.  For example:
     ```python
@@ -229,10 +240,7 @@ class CXStandardProfile(CXDataProfile):
             raise TypeError("value must be a DataFrame, dict, or None.")
 
         elif isinstance(value, DataFrame):
-            self.__x = {
-                col: value[col].to_list()
-                for col in value.columns.to_list()
-            }
+            self.__x = {col: value[col].to_list() for col in value.columns.to_list()}
 
         else:
             candidate = value
@@ -273,10 +281,7 @@ class CXStandardProfile(CXDataProfile):
             raise TypeError("value must be a DataFrame, dict, or None.")
 
         elif isinstance(value, DataFrame):
-            self.__z = {
-                col: value[col].to_list()
-                for col in value.columns.to_list()
-            }
+            self.__z = {col: value[col].to_list() for col in value.columns.to_list()}
 
         else:
             candidate = value
@@ -365,7 +370,7 @@ class CXStandardProfile(CXDataProfile):
         Indicates whether x member attribute elements will be matched to smps
          when formatting data.
         :returns: `bool`
-            True if an error will be raised if the number of `x` member 
+            True if an error will be raised if the number of `x` member
             attribute elements does not match the number of `smps` elements.
         """
         return self.__match_x_to_smps
@@ -376,7 +381,7 @@ class CXStandardProfile(CXDataProfile):
         Sets whether x member attribute elements will be matched to smps
          when formatting data.
         :param value: `bool`
-            True if an error shall be raised if the number of `x` member 
+            True if an error shall be raised if the number of `x` member
             attribute elements does not match the number of `smps` elements.
         """
         if value is None:
@@ -416,13 +421,12 @@ class CXStandardProfile(CXDataProfile):
 
         else:
             self.__match_z_to_vars = value
-    
-    def add_data_section(
-            self,
-            section: str,
-            source: dict,
-            target: dict,
 
+    def add_data_section(
+        self,
+        section: str,
+        source: dict,
+        target: dict,
     ) -> None:
         """
         Adds a source data section, such as X, to the target if such a section
@@ -453,9 +457,9 @@ class CXStandardProfile(CXDataProfile):
                 raise TypeError(f"data[{section}][{key}] must be of type list")
 
     def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs,
+        self,
+        data: CXData,
+        **kwargs,
     ) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
@@ -512,9 +516,7 @@ class CXStandardProfile(CXDataProfile):
 
         # Reject None values
         if data is None:
-            raise CXDataProfileException(
-                "data cannot be None."
-            )
+            raise CXDataProfileException("data cannot be None.")
 
         # cx_data is the object to be returned after being appropriately
         # populated with matrix or key-pair data and metadata.
@@ -528,9 +530,9 @@ class CXStandardProfile(CXDataProfile):
             raw_dict = data.get_raw_dict_form()
 
             cx_data[Y] = {
-                VARS: raw_dict['index'] if len(self.vars) == 0 else self.vars,
-                SMPS: raw_dict['columns'] if len(self.smps) == 0 else self.smps,
-                DATA: raw_dict['data']
+                VARS: raw_dict["index"] if len(self.vars) == 0 else self.vars,
+                SMPS: raw_dict["columns"] if len(self.smps) == 0 else self.smps,
+                DATA: raw_dict["data"],
             }
 
         # Handle key-pair data
@@ -578,11 +580,7 @@ class CXStandardProfile(CXDataProfile):
             # Missing y section
             else:
                 cx_rev_data = {
-                    Y: {
-                        VARS: self.vars,
-                        SMPS: self.smps,
-                        DATA: cx_data.get(DATA, [])
-                    }
+                    Y: {VARS: self.vars, SMPS: self.smps, DATA: cx_data.get(DATA, [])}
                 }
 
                 for key in cx_data.keys():
@@ -611,23 +609,13 @@ class CXStandardProfile(CXDataProfile):
 
         # Reject any other data type
         else:
-            raise CXDataProfileException(
-                f"data is of an unknown type: {type(data)}."
-            )
+            raise CXDataProfileException(f"data is of an unknown type: {type(data)}.")
 
         ### X
-        self.add_data_section(
-            X,
-            self.x,
-            cx_data
-        )
+        self.add_data_section(X, self.x, cx_data)
 
         ### Z
-        self.add_data_section(
-            Z,
-            self.z,
-            cx_data
-        )
+        self.add_data_section(Z, self.z, cx_data)
 
         # We no longer do this because reproducible JSONs can provide data in
         # slightly alternate forms (e.g., implied Y).
@@ -683,11 +671,7 @@ class CXStandardProfile(CXDataProfile):
                 f"vars must be a list. Found {type(cx_data[Y][VARS])}"
             )
         if len(cx_data[Y][VARS]) == 0:
-            cx_data[Y][VARS] = [
-                index
-                for index
-                in range(len(data_proxy))
-            ]
+            cx_data[Y][VARS] = [index for index in range(len(data_proxy))]
 
         # Establish minimal smps values per data
         if not isinstance(cx_data[Y][SMPS], list):
@@ -696,13 +680,7 @@ class CXStandardProfile(CXDataProfile):
             )
         if len(cx_data[Y][SMPS]) == 0:
             if len(data_proxy) > 0:
-                cx_data[Y][SMPS] = [
-                    index
-                    for index
-                    in range(
-                        len(data_proxy[0])
-                    )
-                ]
+                cx_data[Y][SMPS] = [index for index in range(len(data_proxy[0]))]
 
         if self.match_vars_to_rows:
             row_count = len(data_proxy)
@@ -782,10 +760,7 @@ class CXVennProfile(CXDataProfile):
         return self.__legend
 
     @legend.setter
-    def legend(
-            self,
-            value: Union[dict, None]
-    ) -> None:
+    def legend(self, value: Union[dict, None]) -> None:
         """
         Sets the values to be used for the legend.  Overrides legend values in
         the data if available.
@@ -803,11 +778,7 @@ class CXVennProfile(CXDataProfile):
         else:
             raise TypeError("value must be of type dict or None.")
 
-    def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs
-    ) -> dict:
+    def render_to_profiled_dict(self, data: CXData, **kwargs) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
         `CanvasXpress` when creating data instructions for the JS object.
@@ -870,15 +841,13 @@ class CXVennProfile(CXDataProfile):
         """
         # Reject None values
         if data is None:
-            raise CXDataProfileException(
-                "data cannot be None."
-            )
+            raise CXDataProfileException("data cannot be None.")
 
         # Determine the number of elements that start the diagram.  We need
         # this count for legend processing.
         legend_count = 0
         if kwargs.get("config"):
-            config = kwargs['config'].get_param("vennGroups")
+            config = kwargs["config"].get_param("vennGroups")
             if config:
                 legend_count = int(config.value)
 
@@ -894,18 +863,18 @@ class CXVennProfile(CXDataProfile):
             if not raw_dict.get(DATA):
                 raw_dict[DATA] = []
 
-            if not raw_dict.get('index'):
-                raw_dict['index'] = [i for i in range(len(raw_dict['data']))]
+            if not raw_dict.get("index"):
+                raw_dict["index"] = [i for i in range(len(raw_dict["data"]))]
 
             cx_data[VENN] = {
                 DATA: {
-                    raw_dict['index'][e]: raw_dict['data'][e][0]
-                    for e in range(len(raw_dict['index']))
+                    raw_dict["index"][e]: raw_dict["data"][e][0]
+                    for e in range(len(raw_dict["index"]))
                 },
                 LEGEND: {
-                    str(raw_dict['index'][l]): f"Group {l + 1}"
+                    str(raw_dict["index"][l]): f"Group {l + 1}"
                     for l in range(legend_count)
-                }
+                },
             }
 
         # Handle key-pair data
@@ -941,11 +910,7 @@ class CXVennProfile(CXDataProfile):
 
             if cx_rev_data[VENN].get(LEGEND) is None:
                 legend_candidates = sorted(
-                    [
-                        str(k)
-                        for k in cx_rev_data[VENN][DATA].keys()
-                    ],
-                    key=len
+                    [str(k) for k in cx_rev_data[VENN][DATA].keys()], key=len
                 )
                 cx_rev_data[VENN][LEGEND] = {
                     legend_candidates[l]: f"Group {l + 1}"
@@ -971,11 +936,7 @@ class CXVennProfile(CXDataProfile):
 
 
 class CXNetworkProfile(CXDataProfile):
-    def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs
-    ) -> dict:
+    def render_to_profiled_dict(self, data: CXData, **kwargs) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
         `CanvasXpress` when creating data instructions for the JS object.
@@ -994,9 +955,7 @@ class CXNetworkProfile(CXDataProfile):
             The data object to introspect to create an enveloping profile.
         """
         if data is None:
-            raise TypeError(
-                "Network data must be a dict with a nodes attribute."
-            )
+            raise TypeError("Network data must be a dict with a nodes attribute.")
 
         elif isinstance(data, CXMatrixData):
             raise TypeError("Network data must be provided in key-pair form.")
@@ -1010,11 +969,7 @@ class CXNetworkProfile(CXDataProfile):
 
 
 class CXGenomeProfile(CXDataProfile):
-    def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs
-    ) -> dict:
+    def render_to_profiled_dict(self, data: CXData, **kwargs) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
         `CanvasXpress` when creating data instructions for the JS object.
@@ -1039,14 +994,10 @@ class CXGenomeProfile(CXDataProfile):
         elif isinstance(data, CXKeyPairData):
             cx_data = deepcopy(data.get_raw_dict_form())
             if not cx_data.get("tracks"):
-                raise ValueError(
-                    "Genome data must provide top level tracks attribute."
-                )
+                raise ValueError("Genome data must provide top level tracks attribute.")
             else:
                 if not isinstance(cx_data.get("tracks"), list):
-                    raise ValueError(
-                        "Genome data tracks attribute must be a list."
-                    )
+                    raise ValueError("Genome data tracks attribute must be a list.")
                 else:
                     for track in cx_data.get("tracks"):
                         if not isinstance(track, dict):
@@ -1067,11 +1018,7 @@ class CXGenomeProfile(CXDataProfile):
 
 
 class CXRawProfile(CXDataProfile):
-    def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs
-    ) -> dict:
+    def render_to_profiled_dict(self, data: CXData, **kwargs) -> dict:
         """
         Passes the raw `dict` form of the `CXData` object with no modification.
 

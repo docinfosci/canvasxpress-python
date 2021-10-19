@@ -12,10 +12,7 @@ class SampleRenderable(CXRenderable):
     A generic CXRenderable for testing the abstract base class.
     """
 
-    def __init__(
-            self,
-            *cx: CanvasXpress
-    ):
+    def __init__(self, *cx: CanvasXpress):
         super().__init__(*cx)
 
     def render(self):
@@ -37,13 +34,11 @@ def testable_renderable() -> CXRenderable:
                 "y": {
                     "vars": ["Gene1"],
                     "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
+                    "data": [[10, 35, 88]],
                 }
             }
         ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
     )
     return SampleRenderable(chart)
 
@@ -56,13 +51,11 @@ def test_CXRenderable_init():
                 "y": {
                     "vars": ["Gene1"],
                     "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
+                    "data": [[10, 35, 88]],
                 }
             }
         ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
     )
 
     SampleRenderable(chart)
@@ -82,13 +75,11 @@ def test_CXRenderable_set_canvas(testable_renderable: CXRenderable):
                 "y": {
                     "vars": ["Gene1"],
                     "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
+                    "data": [[10, 35, 88]],
                 }
             }
         ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Area)
-        )
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Area)),
     )
 
     testable_renderable.canvas = chart

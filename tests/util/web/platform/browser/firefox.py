@@ -6,9 +6,7 @@ from selenium.webdriver.firefox.options import Options
 from tests.util.web.platform.browser.generic import ManagedBrowser
 
 
-class FireFoxManagedBrowser(
-    ManagedBrowser
-):
+class FireFoxManagedBrowser(ManagedBrowser):
     """
     FireFoxManagedBrowser provides a FireFox edition of ManagedTestBrowser
     for use in Selenium based tests.
@@ -20,9 +18,7 @@ class FireFoxManagedBrowser(
         the provided URL.
         :param url: The URL to target when establishing new sessions.
         """
-        super().__init__(
-            url
-        )
+        super().__init__(url)
         self.platform = "firefox"
 
     def __str__(self):
@@ -31,12 +27,12 @@ class FireFoxManagedBrowser(
     def __repr__(self):
         return str(
             {
-                'url': self.url,
-                'platform': self.platform,
-                'headless': self.headless,
-                'remote_browser': f"{self.remote_browser}:"
-                                  f"{self.remote_browser_port}",
-                'session_active': self.session_active(),
+                "url": self.url,
+                "platform": self.platform,
+                "headless": self.headless,
+                "remote_browser": f"{self.remote_browser}:"
+                f"{self.remote_browser_port}",
+                "session_active": self.session_active(),
             }
         )
 
@@ -53,22 +49,10 @@ class FireFoxManagedBrowser(
 
         profile = webdriver.FirefoxProfile()
 
-        profile.set_preference(
-            "browser.download.folderList",
-            2
-        )
-        profile.set_preference(
-            "browser.download.manager.showWhenStarting",
-            False
-        )
-        profile.set_preference(
-            "browser.download.dir",
-            '/tmp'
-        )
-        profile.set_preference(
-            "browser.helperApps.neverAsk.saveToDisk",
-            "text/plain"
-        )
+        profile.set_preference("browser.download.folderList", 2)
+        profile.set_preference("browser.download.manager.showWhenStarting", False)
+        profile.set_preference("browser.download.dir", "/tmp")
+        profile.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/plain")
 
         return profile
 

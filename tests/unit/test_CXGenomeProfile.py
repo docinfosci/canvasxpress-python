@@ -36,36 +36,33 @@ def test_render_to_profiled_dict_keypair():
                         {
                             "id": "123456_at",
                             "dir": "right",
-                            "data": [[100, 120], [123, 132], [141, 160]]
-                        }, {
+                            "data": [[100, 120], [123, 132], [141, 160]],
+                        },
+                        {
                             "id": "234567_at",
                             "dir": "left",
-                            "data": [[181, 200], [211, 230], [251, 270]]
-                        }, {
+                            "data": [[181, 200], [211, 230], [251, 270]],
+                        },
+                        {
                             "id": "345678_at",
                             "dir": "right",
-                            "data": [[281, 300], [311, 330], [351, 370]]
-                        }
-                    ]
-                }, {
+                            "data": [[281, 300], [311, 330], [351, 370]],
+                        },
+                    ],
+                },
+                {
                     "hide": True,
                     "type": "bar",
                     "height": 20,
                     "fill": ["rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"],
                     "line": ["rgb(255,0,0)", "rgb(0,0,255)", "rgb(255,255,0)"],
                     "data": [
-                        {
-                            "id": "123456_at",
-                            "data": [100, 25, 35, 46]
-                        }, {
-                            "id": "234567_at",
-                            "data": [181, 80, 45, 10]
-                        }, {
-                            "id": "345678_at",
-                            "data": [281, 65, 46, 29]
-                        }
-                    ]
-                }, {
+                        {"id": "123456_at", "data": [100, 25, 35, 46]},
+                        {"id": "234567_at", "data": [181, 80, 45, 10]},
+                        {"id": "345678_at", "data": [281, 65, 46, 29]},
+                    ],
+                },
+                {
                     "name": "Tissue Distribution (Heart, Liver, Kidney)",
                     "hide": False,
                     "type": "heatmap",
@@ -74,77 +71,50 @@ def test_render_to_profiled_dict_keypair():
                     "line": "rgb(0,0,0)",
                     "smps": ["Heart", "Kidney", "Liver"],
                     "data": [
-                        {
-                            "id": "123456_at",
-                            "data": [100, 25, 35, 46]
-                        }, {
-                            "id": "234567_at",
-                            "data": [181, 80, 45, 10]
-                        }, {
-                            "id": "345678_at",
-                            "data": [281, 65, 46, 29]
-                        }
-                    ]
-                }, {
+                        {"id": "123456_at", "data": [100, 25, 35, 46]},
+                        {"id": "234567_at", "data": [181, 80, 45, 10]},
+                        {"id": "345678_at", "data": [281, 65, 46, 29]},
+                    ],
+                },
+                {
                     "name": "SNP",
                     "type": "triangle",
                     "fill": "rgb(100,0,0)",
                     "line": "rgb(0,0,0)",
                     "data": [
-                        {
-                            "id": "SNP123",
-                            "data": 123
-                        }, {
-                            "id": "SNP234",
-                            "data": 145
-                        }, {
-                            "id": "SNP789",
-                            "data": 220
-                        }
-                    ]
-                }, {
+                        {"id": "SNP123", "data": 123},
+                        {"id": "SNP234", "data": 145},
+                        {"id": "SNP789", "data": 220},
+                    ],
+                },
+                {
                     "name": "SNP",
                     "type": "line",
                     "line": "rgb(0,255,0)",
                     "data": [
-                        {
-                            "id": "SNP123",
-                            "data": 123
-                        }, {
-                            "id": "SNP234",
-                            "data": 145
-                        }, {
-                            "id": "SNP789",
-                            "data": 220
-                        }
-                    ]
-                }, {
+                        {"id": "SNP123", "data": 123},
+                        {"id": "SNP234", "data": 145},
+                        {"id": "SNP789", "data": 220},
+                    ],
+                },
+                {
                     "type": "sequence",
                     "subtype": "DNA",
                     "hide": True,
                     "line": "rgb(255,255,255)",
                     "data": [
-                        {
-                            "id": "SNP123",
-                            "data": [119, "AGCT[TA]CGAG"]
-                        }, {
-                            "id": "SNP234",
-                            "data": [141, "ATCG[TG]AATA"]
-                        }, {
-                            "id": "SNP789",
-                            "data": [216, "GCCC[CT]AGGG"]
-                        }
-                    ]
-                }
+                        {"id": "SNP123", "data": [119, "AGCT[TA]CGAG"]},
+                        {"id": "SNP234", "data": [141, "ATCG[TG]AATA"]},
+                        {"id": "SNP789", "data": [216, "GCCC[CT]AGGG"]},
+                    ],
+                },
             ]
         }
     )
 
     candidate = CXGenomeProfile()
 
-    result = candidate.render_to_profiled_dict(
-        data
-    )
+    result = candidate.render_to_profiled_dict(data)
     assert result == data.get_raw_dict_form()
 
     with pytest.raises(TypeError):
@@ -168,17 +138,19 @@ def test_render_to_profiled_dict_keypair():
                                 {
                                     "id": "123456_at",
                                     "dir": "right",
-                                    "data": [[100, 120], [123, 132], [141, 160]]
-                                }, {
+                                    "data": [[100, 120], [123, 132], [141, 160]],
+                                },
+                                {
                                     "id": "234567_at",
                                     "dir": "left",
-                                    "data": [[181, 200], [211, 230], [251, 270]]
-                                }, {
+                                    "data": [[181, 200], [211, 230], [251, 270]],
+                                },
+                                {
                                     "id": "345678_at",
                                     "dir": "right",
-                                    "data": [[281, 300], [311, 330], [351, 370]]
-                                }
-                            ]
+                                    "data": [[281, 300], [311, 330], [351, 370]],
+                                },
+                            ],
                         }
                     ]
                 }
@@ -187,22 +159,8 @@ def test_render_to_profiled_dict_keypair():
 
     with pytest.raises(ValueError):
         candidate.render_to_profiled_dict(
-            CXDictData(
-                {
-                    "tracks": [
-                        {
-                            "name": "Affy Probes"
-                        }
-                    ]
-                }
-            )
+            CXDictData({"tracks": [{"name": "Affy Probes"}]})
         )
 
     with pytest.raises(ValueError):
-        candidate.render_to_profiled_dict(
-            CXDictData(
-                {
-                    "tracks": [123]
-                }
-            )
-        )
+        candidate.render_to_profiled_dict(CXDictData({"tracks": [123]}))

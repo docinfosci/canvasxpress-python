@@ -14,16 +14,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.webkitgtk.webdriver import WebDriver
 
 logger = logging.getLogger(__name__)
-logger.setLevel(int(os.environ.get('LOG_LEVEL', 10)))
+logger.setLevel(int(os.environ.get("LOG_LEVEL", 10)))
 
 
 def get_show_test_browser() -> bool:
     if environ.get("SHOW_TEST_BROWSER"):
-        return bool(
-            int(
-                environ.get("SHOW_TEST_BROWSER")
-            )
-        )
+        return bool(int(environ.get("SHOW_TEST_BROWSER")))
 
     else:
         return False
@@ -31,11 +27,7 @@ def get_show_test_browser() -> bool:
 
 def get_remote_test_browser() -> bool:
     if environ.get("REMOTE_TEST_BROWSER"):
-        return bool(
-            int(
-                environ.get("REMOTE_TEST_BROWSER")
-            )
-        )
+        return bool(int(environ.get("REMOTE_TEST_BROWSER")))
 
     else:
         return False
@@ -43,17 +35,13 @@ def get_remote_test_browser() -> bool:
 
 def get_remote_test_browser_debug_port() -> int:
     if environ.get("REMOTE_TEST_BROWSER_PORT"):
-        return int(
-            environ.get("REMOTE_TEST_BROWSER_PORT")
-        )
+        return int(environ.get("REMOTE_TEST_BROWSER_PORT"))
 
     else:
         return 9222
 
 
-class GenericBrowser(
-    abc.ABC
-):
+class GenericBrowser(abc.ABC):
     """
     GenericBrowser represents a basic Webdriver instance with the ability to start
     a session using the driver's default configuration.
@@ -78,7 +66,7 @@ class GenericBrowser(
     _session_start_delay = 120
 
     # _url tracks the domain and path that the session will use.
-    _url: str = ''
+    _url: str = ""
 
     @property
     def url(self) -> str:
@@ -150,10 +138,7 @@ class GenericBrowser(
         """
         return self._session_start_delay
 
-    def __init__(
-            self,
-            url: str
-    ):
+    def __init__(self, url: str):
         """
         Initializes the GenericBrowser to anticipate sessions targeting the
         provided URL.
@@ -167,18 +152,16 @@ class GenericBrowser(
     def __repr__(self):
         return str(
             {
-                'url': self.url,
-                'platform': self.platform,
-                'headless': self.headless,
-                'remote_browser': f"{self.remote_browser}:"
-                                  f"{self.remote_browser_port}",
+                "url": self.url,
+                "platform": self.platform,
+                "headless": self.headless,
+                "remote_browser": f"{self.remote_browser}:"
+                f"{self.remote_browser_port}",
             }
         )
 
 
-class ManagedBrowser(
-    GenericBrowser
-):
+class ManagedBrowser(GenericBrowser):
     """
     ManagedBrowser provides a GenericBrowser that manages its resources so that
     sessions may conveniently be provided by test factories and discarded
@@ -203,8 +186,7 @@ class ManagedBrowser(
         return None
 
     @abstractmethod
-    def get_new_browser(self, url, remote=False) -> Union[
-        'ManagedBrowser', None]:
+    def get_new_browser(self, url, remote=False) -> Union["ManagedBrowser", None]:
         """
         Provides a new browser using the same type of browser (e.g., if the
         browser instance is Chrome then a new Chrome session is established)
@@ -228,9 +210,7 @@ class ManagedBrowser(
             return False
 
     def reset_browser_window(
-            self,
-            load_ready_wait_time: int = 120,
-            load_ready_element_id: str = None
+        self, load_ready_wait_time: int = 120, load_ready_element_id: str = None
     ) -> None:
         """
         Closes the existing window and opens a new one.  The property url will
@@ -243,9 +223,7 @@ class ManagedBrowser(
             this method will return as soon as the general Selenium test for
             a loaded page is satisfied.
         """
-        logger.info(
-            f"Opening new window, and closing the old window, for {self.url}"
-        )
+        logger.info(f"Opening new window, and closing the old window, for {self.url}")
 
         if self.session_active():
             self._close_session()
@@ -263,10 +241,10 @@ class ManagedBrowser(
         allure.attach(
             name=f"New window for {self.platform} running on {os.name}",
             body=f"{self.platform} on {os.name} {platform.system()} "
-                 f"{platform.release()} at {self.url}"
-                 f" (remote: {self.remote_browser})"
-                 f" (headless: {self.headless})",
-            attachment_type=allure.attachment_type.TEXT
+            f"{platform.release()} at {self.url}"
+            f" (remote: {self.remote_browser})"
+            f" (headless: {self.headless})",
+            attachment_type=allure.attachment_type.TEXT,
         )
 
     def __init__(self, url: str):
@@ -275,9 +253,7 @@ class ManagedBrowser(
         provided URL.
         :param url: The URL to target when establishing new sessions.
         """
-        super().__init__(
-            url
-        )
+        super().__init__(url)
 
     def __str__(self):
         return str(self.__repr__(self))
@@ -285,12 +261,12 @@ class ManagedBrowser(
     def __repr__(self):
         return str(
             {
-                'url': self.url,
-                'platform': self.platform,
-                'headless': self.headless,
-                'remote_browser': f"{self.remote_browser}:"
-                                  f"{self.remote_browser_port}",
-                'session_active': self.session_active(),
+                "url": self.url,
+                "platform": self.platform,
+                "headless": self.headless,
+                "remote_browser": f"{self.remote_browser}:"
+                f"{self.remote_browser_port}",
+                "session_active": self.session_active(),
             }
         )
 
@@ -324,10 +300,10 @@ class ManagedBrowser(
         allure.attach(
             name=f"New session for {self.platform} running on {os.name}",
             body=f"{self.platform} on {os.name} {platform.system()} "
-                 f"{platform.release()} at {self.url}"
-                 f" (remote: {self.remote_browser})"
-                 f" (headless: {self.headless})",
-            attachment_type=allure.attachment_type.TEXT
+            f"{platform.release()} at {self.url}"
+            f" (remote: {self.remote_browser})"
+            f" (headless: {self.headless})",
+            attachment_type=allure.attachment_type.TEXT,
         )
 
     def _close_session(self):

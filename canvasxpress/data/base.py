@@ -36,7 +36,7 @@ class CXData(CXDictConvertable):
 
     @abstractmethod
     def get_raw_dict_form(self) -> dict:
-        """"
+        """
         Provides a simple dict perspective of the data with no metadata or other
         contextual transformations performed.  For example, if the data is
         natively in `dict` form then it would be passed-through with no
@@ -64,6 +64,7 @@ class CXDataProfileException(ValueError):
     errors when considering CXData objects in the context of CXDataProfile
     objects.
     """
+
     pass
 
 
@@ -75,11 +76,7 @@ class CXDataProfile(ABC):
     """
 
     @abstractmethod
-    def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs
-    ) -> dict:
+    def render_to_profiled_dict(self, data: CXData, **kwargs) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
         `CanvasXpress` when creating data instructions for the JS object.
@@ -109,10 +106,7 @@ class CXProfiledData(CXData):
         return self.__profile
 
     @profile.setter
-    def profile(
-            self,
-            profile: Union[None, CXDataProfile]
-    ) -> None:
+    def profile(self, profile: Union[None, CXDataProfile]) -> None:
         """
         Sets the `CXDataProfile` associated with the `CXData` instance.  The
         default associated profile is `CXStandardProfile`, which supports the
@@ -142,9 +136,7 @@ class CXProfiledData(CXData):
         pass
 
     def __init__(
-            self,
-            data: Union[object, None],
-            profile: Union[CXDataProfile, None] = None
+        self, data: Union[object, None], profile: Union[CXDataProfile, None] = None
     ) -> None:
         """
         Initializes the CXData object with data.
@@ -165,6 +157,7 @@ class CXKeyPairData(CXProfiledData):
     generally of the structure key-pair.  A `dict` is an example of key-pair
     data.
     """
+
     pass
 
 
@@ -174,4 +167,5 @@ class CXMatrixData(CXProfiledData):
     generally of the structure matrix or tabular.  A spreadsheet is an example
     of matrix data.
     """
+
     pass

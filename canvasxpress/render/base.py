@@ -34,10 +34,7 @@ class CXRenderable(ABC):
             return copy(self.__cx)
 
     @canvas.setter
-    def canvas(
-            self,
-            value: Union[List[CanvasXpress], CanvasXpress, None]
-    ):
+    def canvas(self, value: Union[List[CanvasXpress], CanvasXpress, None]):
         """
         Sets the CanvasXpress object to be tracked.
         :praram value: `value: Union[List[CanvasXpress], CanvasXpress, None]`
@@ -61,10 +58,7 @@ class CXRenderable(ABC):
         else:
             raise TypeError("value must of type CanvasXpress")
 
-    def __init__(
-            self,
-            *cx: Union[List[CanvasXpress], CanvasXpress, None]
-    ):
+    def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
         Initializes a new `CXRenderable` object.
         :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
@@ -81,9 +75,7 @@ class CXRenderable(ABC):
             if isinstance(arg, (list, tuple)):
                 for item in arg:
                     if not isinstance(item, CanvasXpress):
-                        raise TypeError(
-                            "All cx members must be of type CanvasXpress"
-                        )
+                        raise TypeError("All cx members must be of type CanvasXpress")
                     else:
                         charts.append(item)
 
@@ -91,17 +83,12 @@ class CXRenderable(ABC):
                 charts.append(arg)
 
             else:
-                raise TypeError(
-                    "All cx members must be of type CanvasXpress"
-                )
+                raise TypeError("All cx members must be of type CanvasXpress")
 
         self.canvas = charts
 
     @abstractmethod
-    def render(
-            self,
-            **kwargs: Any
-    ):
+    def render(self, **kwargs: Any):
         """
         Renders the associated CanvasXpress object appropriate to the render_to.
         Not implemented.

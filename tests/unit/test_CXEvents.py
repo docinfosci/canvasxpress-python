@@ -13,33 +13,23 @@ def test_CXEvents_init_blank():
 
 
 def test_CXEvents_init_cxevent_list():
-    events = CXEvents(
-        CXEvent(id="1", script="hi")
-    )
+    events = CXEvents(CXEvent(id="1", script="hi"))
     assert len(events.events) == 1
 
 
 def test_CXEvents_init_junk():
     with pytest.raises(TypeError):
-        events = CXEvents(
-            [
-                ("1", "hi")
-            ]
-        )
+        events = CXEvents([("1", "hi")])
 
 
 def test_CXEvents_copy():
-    events1 = CXEvents(
-        CXEvent(id="1", script="hi")
-    )
+    events1 = CXEvents(CXEvent(id="1", script="hi"))
     events2 = copy(events1)
     assert events1 == events2
 
 
 def test_CXEvents_deepcopy():
-    events1 = CXEvents(
-        CXEvent(id="1", script="hi")
-    )
+    events1 = CXEvents(CXEvent(id="1", script="hi"))
     events2 = deepcopy(events1)
     assert events1 == events2
 
@@ -136,25 +126,19 @@ def test_CXEvents_equality():
     assert not events_a < events_b
     assert not events_a > events_b
 
-    events_c: CXEvents = CXEvents(
-        CXEvent("a", "a()")
-    )
+    events_c: CXEvents = CXEvents(CXEvent("a", "a()"))
 
     assert events_a != events_c
     assert events_a < events_c
     assert events_c > events_a
 
-    events_d: CXEvents = CXEvents(
-        CXEvent("a", "a()")
-    )
+    events_d: CXEvents = CXEvents(CXEvent("a", "a()"))
 
     assert events_c == events_d
     assert not events_c < events_d
     assert not events_c > events_d
 
-    events_e: CXEvents = CXEvents(
-        CXEvent("b", "b()")
-    )
+    events_e: CXEvents = CXEvents(CXEvent("b", "b()"))
 
     assert events_a != events_e
     assert events_a < events_e

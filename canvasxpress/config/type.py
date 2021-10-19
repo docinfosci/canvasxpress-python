@@ -60,13 +60,9 @@ class CXConfig(ABC):
             A version of the `value` most appropriate for use in prepating the
             Javascript rendering.
         """
-        return { self.label: self.value }
+        return {self.label: self.value}
 
-    def __init__(
-            self,
-            label: str,
-            value: Any
-    ):
+    def __init__(self, label: str, value: Any):
         """
         Initializes a new CXConfig object with a label and value.
         :param label: `str`
@@ -79,7 +75,7 @@ class CXConfig(ABC):
             raise ValueError("label cannot be None")
         self.__label = label
 
-    def __copy__(self) -> 'CXConfig':
+    def __copy__(self) -> "CXConfig":
         """
         *copy constructor* that provides a new CXConfig of the same type with
         the data referenced.
@@ -90,10 +86,7 @@ class CXConfig(ABC):
         result.__dict__.update(self.__dict__)
         return result
 
-    def __deepcopy__(
-            self,
-            memo
-    ):
+    def __deepcopy__(self, memo):
         """
         *deepcopy constructor* that provides a new CXConfig of the same type with
         the a deepcopy of the data.
@@ -113,10 +106,7 @@ class CXConfig(ABC):
         """
         return hash(repr(self))
 
-    def __lt__(
-            self,
-            other: 'CXConfig'
-    ) -> bool:
+    def __lt__(self, other: "CXConfig") -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -145,10 +135,7 @@ class CXConfig(ABC):
             else:
                 return False
 
-    def __eq__(
-            self,
-            other: 'CXConfig'
-    ) -> bool:
+    def __eq__(self, other: "CXConfig") -> bool:
         """
         *equals* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -186,16 +173,19 @@ class CXConfig(ABC):
         that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        return f"{str(self.__class__).split('.')[-1][:-2]}(" \
-               f" label='{self.label}'," \
-               f" value={json.dumps(self.value)}" \
-               f")"
+        return (
+            f"{str(self.__class__).split('.')[-1][:-2]}("
+            f" label='{self.label}',"
+            f" value={json.dumps(self.value)}"
+            f")"
+        )
 
 
 class CXString(CXConfig):
     """
     A `CXConfig` object that manages `str` values.
     """
+
     __value: str = ""
     """
     The managed value.
@@ -233,6 +223,7 @@ class CXBool(CXConfig):
     """
     A `CXConfig` object that manages `bool` values.
     """
+
     __value: bool = False
     """
     The managed value.
@@ -282,16 +273,19 @@ class CXBool(CXConfig):
         that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        return f"{str(self.__class__).split('.')[-1][:-2]}(" \
-               f" label='{self.label}'," \
-               f" value={str(self.value)}" \
-               f")"
+        return (
+            f"{str(self.__class__).split('.')[-1][:-2]}("
+            f" label='{self.label}',"
+            f" value={str(self.value)}"
+            f")"
+        )
 
 
 class CXFloat(CXConfig):
     """
     A `CXConfig` object that manages `float` values.
     """
+
     __value: float = 0.0
     """
     The managed value.
@@ -331,6 +325,7 @@ class CXInt(CXConfig):
     """
     A `CXConfig` object that manages `int` values.
     """
+
     __value: int = 0
     """
     The managed value.
@@ -370,6 +365,7 @@ class CXDict(CXConfig):
     """
     A `CXConfig` object that manages `dict` values.
     """
+
     __value: dict = dict()
     """
     The managed value.
@@ -411,10 +407,7 @@ class CXDict(CXConfig):
         super().__init__(label, value)
         self.value = value
 
-    def __lt__(
-            self,
-            other: 'CXDict'
-    ) -> bool:
+    def __lt__(self, other: "CXDict") -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -440,13 +433,9 @@ class CXDict(CXConfig):
             return False
 
         else:
-            delta: dict = DeepDiff(
-                self.value,
-                other.value,
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
+            delta: dict = DeepDiff(self.value, other.value, ignore_order=True)
+            other_added: int = len(delta.get("dictionary_item_added", []))
+            other_removed: int = len(delta.get("dictionary_item_removed", []))
 
             if (other_added - other_removed) == 0:
                 for skey in self.value.keys():
@@ -463,10 +452,7 @@ class CXDict(CXConfig):
             else:
                 return (other_added - other_removed) > 0
 
-    def __eq__(
-            self,
-            other: 'CXDict'
-    ) -> bool:
+    def __eq__(self, other: "CXDict") -> bool:
         """
         *equals* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -492,13 +478,9 @@ class CXDict(CXConfig):
             return False
 
         else:
-            delta: dict = DeepDiff(
-                self.value,
-                other.value,
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
+            delta: dict = DeepDiff(self.value, other.value, ignore_order=True)
+            other_added: int = len(delta.get("dictionary_item_added", []))
+            other_removed: int = len(delta.get("dictionary_item_removed", []))
 
             if (other_added - other_removed) == 0:
                 for skey in self.value.keys():
@@ -526,6 +508,7 @@ class CXList(CXConfig):
     """
     A `CXConfig` object that manages `list` values.
     """
+
     __value: list = list()
     """
     The managed value.
@@ -583,14 +566,14 @@ class CXRGBAColor(CXDict):
                 return False
 
             try:
-                components = value.split(',')
+                components = value.split(",")
                 if len(components) != 4:
                     return False
 
                 r = components[0].strip().split("rgba(")[1]
                 g = components[1].strip()
                 b = components[2].strip()
-                a = components[3].strip().split(')')[0]
+                a = components[3].strip().split(")")[0]
 
                 for x in [int(r), int(g), int(b)]:
                     if (x < 0) or (x > 255):
@@ -622,13 +605,13 @@ class CXRGBAColor(CXDict):
         if isinstance(value, list):
             try:
                 list_len = len(value)
-                all_rgb_elements_int = all(
-                    isinstance(x, int) for x in value[:3]
-                )
+                all_rgb_elements_int = all(isinstance(x, int) for x in value[:3])
                 alpha_element_num = type(value[3]) in [int, float]
-                if (not list_len == 4) or \
-                        (not all_rgb_elements_int) or \
-                        (not alpha_element_num):
+                if (
+                    (not list_len == 4)
+                    or (not all_rgb_elements_int)
+                    or (not alpha_element_num)
+                ):
                     return False
 
                 for x in value[:3]:
@@ -660,27 +643,28 @@ class CXRGBAColor(CXDict):
         """
         if isinstance(value, dict):
             list_len = len(value.keys())
-            all_rgba_elements = all(
-                x in ['r', 'g', 'b', 'a'] for x in value.keys()
-            )
+            all_rgba_elements = all(x in ["r", "g", "b", "a"] for x in value.keys())
             all_rgb_elements_int = all(
-                isinstance(value[x], int) for x in value.keys()
-                if x in ['r', 'g', 'b']
+                isinstance(value[x], int) for x in value.keys() if x in ["r", "g", "b"]
             )
-            alpha_element_num = type(value.get('a')) in [int, float]
-            keys_rgba = all([j in ['r', 'g', 'b', 'a'] for j in [k for k in value.keys()]])
-            if (not list_len == 4) or \
-                    (not all_rgb_elements_int) or \
-                    (not keys_rgba) or \
-                    (not alpha_element_num) or \
-                    (not all_rgba_elements):
+            alpha_element_num = type(value.get("a")) in [int, float]
+            keys_rgba = all(
+                [j in ["r", "g", "b", "a"] for j in [k for k in value.keys()]]
+            )
+            if (
+                (not list_len == 4)
+                or (not all_rgb_elements_int)
+                or (not keys_rgba)
+                or (not alpha_element_num)
+                or (not all_rgba_elements)
+            ):
                 return False
 
             for key in value.keys():
-                if key in ['r', 'g', 'b']:
+                if key in ["r", "g", "b"]:
                     if (value[key] < 0) or (value[key] > 255):
                         return False
-                if key in ['a']:
+                if key in ["a"]:
                     if (value[key] < 0) or (value[key] > 1):
                         return False
 
@@ -690,7 +674,7 @@ class CXRGBAColor(CXDict):
             return False
 
     @CXDict.value.setter
-    def value(self, value: Union['CXRGBAColor', dict, list, str]) -> None:
+    def value(self, value: Union["CXRGBAColor", dict, list, str]) -> None:
         """
         Sets the RGBA value from an existing `CXRGBAColor` object, or a `dict`,
         `list`, or `string` following the Javascript `rgba()` format.
@@ -702,11 +686,11 @@ class CXRGBAColor(CXDict):
             CXDict.value.fset(
                 self,
                 {
-                    'r': 0,
-                    'g': 0,
-                    'b': 0,
-                    'a': 1.0,
-                }
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                    "a": 1.0,
+                },
             )
 
         elif type(value) not in [CXRGBAColor, list, dict, str]:
@@ -724,31 +708,30 @@ class CXRGBAColor(CXDict):
                         " rgb(int,int,int,float)"
                     )
                 else:
-                    components = value.split(',')
+                    components = value.split(",")
                     r = components[0].strip().split("rgba(")[1]
                     g = components[1].strip()
                     b = components[2].strip()
-                    a = components[3].strip().split(')')[0]
+                    a = components[3].strip().split(")")[0]
 
                     candidate = {
-                        'r': int(r),
-                        'g': int(g),
-                        'b': int(b),
-                        'a': float(a),
+                        "r": int(r),
+                        "g": int(g),
+                        "b": int(b),
+                        "a": float(a),
                     }
 
             elif isinstance(value, list):
                 if not CXRGBAColor.is_color_list(value):
                     raise ValueError(
-                        "list RGBA values must be in the format"
-                        " (int,int,int,float)"
+                        "list RGBA values must be in the format" " (int,int,int,float)"
                     )
                 else:
                     candidate = {
-                        'r': value[0],
-                        'g': value[1],
-                        'b': value[2],
-                        'a': value[3],
+                        "r": value[0],
+                        "g": value[1],
+                        "b": value[2],
+                        "a": value[3],
                     }
 
             elif isinstance(value, dict):
@@ -763,10 +746,7 @@ class CXRGBAColor(CXDict):
             else:
                 candidate = deepcopy(value.value)
 
-            CXDict.value.fset(
-                self,
-                candidate
-            )
+            CXDict.value.fset(self, candidate)
 
     def render(self) -> Any:
         """
@@ -777,17 +757,13 @@ class CXRGBAColor(CXDict):
             A version of the `value` most appropriate for use in prepating the
             Javascript rendering.
         """
-        r = self.value['r']
-        g = self.value['g']
-        b = self.value['b']
-        a = self.value['a']
+        r = self.value["r"]
+        g = self.value["g"]
+        b = self.value["b"]
+        a = self.value["a"]
         return {self.label: f"rgba({r},{g},{b},{a})"}
 
-    def __init__(
-            self,
-            label: str,
-            value: Union['CXRGBAColor', dict, list, str]
-    ):
+    def __init__(self, label: str, value: Union["CXRGBAColor", dict, list, str]):
         """
         Initializes a new CXRGBAColor object using the RGBA value from an
          existing `CXRGBAColor` object, or a `dict`, `list`, or `string`
@@ -796,7 +772,7 @@ class CXRGBAColor(CXDict):
             The value to be accepted.  See the `is_color_*()` methods for
             acceptable formats.
         """
-        super().__init__(label, {'r': 0, 'g': 0, 'b': 0, 'a': 1})
+        super().__init__(label, {"r": 0, "g": 0, "b": 0, "a": 1})
         self.value = value
 
     def __str__(self) -> str:
@@ -811,14 +787,16 @@ class CXRGBAColor(CXDict):
         that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        r = self.value['r']
-        g = self.value['g']
-        b = self.value['b']
-        a = self.value['a']
-        return f"CXRGBAColor(" \
-               f" label={json.dumps(self.label)}," \
-               f" value='rgba({r},{g},{b},{a})'" \
-               f")"
+        r = self.value["r"]
+        g = self.value["g"]
+        b = self.value["b"]
+        a = self.value["a"]
+        return (
+            f"CXRGBAColor("
+            f" label={json.dumps(self.label)},"
+            f" value='rgba({r},{g},{b},{a})'"
+            f")"
+        )
 
 
 class CXRGBColor(CXDict):
@@ -842,13 +820,13 @@ class CXRGBColor(CXDict):
                 return False
 
             try:
-                components = value.split(',')
+                components = value.split(",")
                 if len(components) != 3:
                     return False
 
                 r = components[0].strip().split("rgb(")[1]
                 g = components[1].strip()
-                b = components[2].strip().split(')')[0]
+                b = components[2].strip().split(")")[0]
 
                 for x in [int(r), int(g), int(b)]:
                     if (x < 0) or (x > 255):
@@ -875,9 +853,7 @@ class CXRGBColor(CXDict):
         """
         if isinstance(value, list):
             list_len = len(value)
-            all_rgb_elements_int = all(
-                isinstance(x, int) for x in value[:2]
-            )
+            all_rgb_elements_int = all(isinstance(x, int) for x in value[:2])
             if (not list_len == 3) or (not all_rgb_elements_int):
                 return False
 
@@ -905,21 +881,28 @@ class CXRGBColor(CXDict):
         if isinstance(value, dict):
             list_len = len(value.keys())
             all_rgb_elements = all(
-                x in ['r', 'g', 'b', ] for x in value.keys()
+                x
+                in [
+                    "r",
+                    "g",
+                    "b",
+                ]
+                for x in value.keys()
             )
             all_rgb_elements_int = all(
-                isinstance(value[x], int) for x in value.keys()
-                if x in ['r', 'g', 'b']
+                isinstance(value[x], int) for x in value.keys() if x in ["r", "g", "b"]
             )
-            keys_rgb = all([j in ['r', 'g', 'b'] for j in [k for k in value.keys()]])
-            if (not list_len == 3) or \
-                    (not all_rgb_elements) or \
-                    (not all_rgb_elements_int) or \
-                    (not keys_rgb):
+            keys_rgb = all([j in ["r", "g", "b"] for j in [k for k in value.keys()]])
+            if (
+                (not list_len == 3)
+                or (not all_rgb_elements)
+                or (not all_rgb_elements_int)
+                or (not keys_rgb)
+            ):
                 return False
 
             for key in value.keys():
-                if key in ['r', 'g', 'b']:
+                if key in ["r", "g", "b"]:
                     if (value[key] < 0) or (value[key] > 255):
                         return False
 
@@ -929,7 +912,7 @@ class CXRGBColor(CXDict):
             return False
 
     @CXDict.value.setter
-    def value(self, value: Union['CXRGBColor', dict, list, str]) -> None:
+    def value(self, value: Union["CXRGBColor", dict, list, str]) -> None:
         """
         Sets the RGB value from an existing `CXRGBColor` object, or a `dict`,
         `list`, or `string` following the Javascript `rgb()` format.
@@ -941,10 +924,10 @@ class CXRGBColor(CXDict):
             CXDict.value.fset(
                 self,
                 {
-                    'r': 0,
-                    'g': 0,
-                    'b': 0,
-                }
+                    "r": 0,
+                    "g": 0,
+                    "b": 0,
+                },
             )
 
         elif type(value) not in [CXRGBColor, list, dict, str]:
@@ -958,39 +941,36 @@ class CXRGBColor(CXDict):
             if isinstance(value, str):
                 if not CXRGBColor.is_color_str(value):
                     raise ValueError(
-                        "str RGB values must be in the format"
-                        " rgb(int,int,int)"
+                        "str RGB values must be in the format" " rgb(int,int,int)"
                     )
                 else:
-                    components = value.split(',')
+                    components = value.split(",")
                     r = components[0].strip().split("rgb(")[1]
                     g = components[1].strip()
-                    b = components[2].strip().split(')')[0]
+                    b = components[2].strip().split(")")[0]
 
                     candidate = {
-                        'r': int(r),
-                        'g': int(g),
-                        'b': int(b),
+                        "r": int(r),
+                        "g": int(g),
+                        "b": int(b),
                     }
 
             elif isinstance(value, list):
                 if not CXRGBColor.is_color_list(value):
                     raise ValueError(
-                        "list RGB values must be in the format"
-                        " (int,int,int)"
+                        "list RGB values must be in the format" " (int,int,int)"
                     )
                 else:
                     candidate = {
-                        'r': value[0],
-                        'g': value[1],
-                        'b': value[2],
+                        "r": value[0],
+                        "g": value[1],
+                        "b": value[2],
                     }
 
             elif isinstance(value, dict):
                 if not CXRGBColor.is_color_dict(value):
                     raise ValueError(
-                        "RGB dict must have three int values for keys"
-                        " 'r', 'g', 'b'"
+                        "RGB dict must have three int values for keys" " 'r', 'g', 'b'"
                     )
                 else:
                     candidate = dict(value)
@@ -998,10 +978,7 @@ class CXRGBColor(CXDict):
             else:
                 candidate = deepcopy(value.value)
 
-            CXDict.value.fset(
-                self,
-                candidate
-            )
+            CXDict.value.fset(self, candidate)
 
     def render(self) -> dict:
         """
@@ -1012,16 +989,12 @@ class CXRGBColor(CXDict):
             A version of the `value` most appropriate for use in prepating the
             Javascript rendering.
         """
-        r = self.value['r']
-        g = self.value['g']
-        b = self.value['b']
+        r = self.value["r"]
+        g = self.value["g"]
+        b = self.value["b"]
         return {self.label: f"rgb({r},{g},{b})"}
 
-    def __init__(
-            self,
-            label: str,
-            value: Union['CXRGBColor', dict, list, str]
-    ):
+    def __init__(self, label: str, value: Union["CXRGBColor", dict, list, str]):
         """
         Initializes a new CXRGBColor object using the RGB value from an
          existing `CXRGBColor` object, or a `dict`, `list`, or `string`
@@ -1030,7 +1003,7 @@ class CXRGBColor(CXDict):
             The value to be accepted.  See the `is_color_*()` methods for
             acceptable formats.
         """
-        super().__init__(label, {'r': 0, 'g': 0, 'b': 0})
+        super().__init__(label, {"r": 0, "g": 0, "b": 0})
         self.value = value
 
     def __str__(self) -> str:
@@ -1045,13 +1018,15 @@ class CXRGBColor(CXDict):
         that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        r = self.value['r']
-        g = self.value['g']
-        b = self.value['b']
-        return f"CXRGBColor(" \
-               f" label={json.dumps(self.label)}," \
-               f" value='rgb({r},{g},{b})'" \
-               f")"
+        r = self.value["r"]
+        g = self.value["g"]
+        b = self.value["b"]
+        return (
+            f"CXRGBColor("
+            f" label={json.dumps(self.label)},"
+            f" value='rgb({r},{g},{b})'"
+            f")"
+        )
 
 
 class CXGraphTypeOptions(Enum):
@@ -1061,56 +1036,57 @@ class CXGraphTypeOptions(Enum):
     object with the label `graphType` and the value set to the name of the
     chart to be used.
     """
+
     Area = "Area"
     AreaLine = "AreaLine"
     Bar = "Bar"
     BarLine = "BarLine"
-    Boxplot = 'Boxplot'
-    Bubble = 'Bubble'
-    Chord = 'Chord'
-    Circular = 'Circular'
-    Contour = 'Contour'
-    Correlation = 'Correlation'
-    Dashboard = 'Dashboard'
-    Density = 'Density'
-    Donnut = 'Donnut'
-    DotLine = 'DotLine'
-    Dotplot = 'Dotplot'
-    Facet = 'Facet'
-    Fish = 'Fish'
-    Gantt = 'Gantt'
-    Genome = 'Genome'
-    Heatmap = 'Heatmap'
-    Histogram = 'Histogram'
-    Kaplan_Meier = 'Kaplan - Meier'
-    Layout = 'Layout'
-    Line = 'Line'
-    Map = 'Map'
-    Meter = 'Meter'
-    Network = 'Network'
-    NonLinear_Fit = 'NonLinear - Fit'
-    Oncoprint = 'Oncoprint'
-    ParallelCoordinates = 'ParallelCoordinates'
-    Pie = 'Pie'
-    Radar = 'Radar'
-    Remote_Graphs = 'Remote - Graphs'
-    Ridge_Line = 'Ridge - Line'
-    SPLOM = 'SPLOM'
-    Sankey = 'Sankey'
-    Scatter2D = 'Scatter2D'
-    Scatter3D = 'Scatter3D'
-    ScatterBubble2D = 'ScatterBubble2D'
-    Stacked = 'Stacked'
-    StackedLine = 'StackedLine'
-    StackedPercent = 'StackedPercent'
-    StackedPercentLine = 'StackedPercentLine'
-    Sunburst = 'Sunburst'
-    TCGA = 'TCGA'
-    TagCloud = 'TagCloud'
-    Tree = 'Tree'
-    Treemap = 'Treemap'
-    Venn = 'Venn'
-    Violin = 'Violin'
+    Boxplot = "Boxplot"
+    Bubble = "Bubble"
+    Chord = "Chord"
+    Circular = "Circular"
+    Contour = "Contour"
+    Correlation = "Correlation"
+    Dashboard = "Dashboard"
+    Density = "Density"
+    Donnut = "Donnut"
+    DotLine = "DotLine"
+    Dotplot = "Dotplot"
+    Facet = "Facet"
+    Fish = "Fish"
+    Gantt = "Gantt"
+    Genome = "Genome"
+    Heatmap = "Heatmap"
+    Histogram = "Histogram"
+    Kaplan_Meier = "Kaplan - Meier"
+    Layout = "Layout"
+    Line = "Line"
+    Map = "Map"
+    Meter = "Meter"
+    Network = "Network"
+    NonLinear_Fit = "NonLinear - Fit"
+    Oncoprint = "Oncoprint"
+    ParallelCoordinates = "ParallelCoordinates"
+    Pie = "Pie"
+    Radar = "Radar"
+    Remote_Graphs = "Remote - Graphs"
+    Ridge_Line = "Ridge - Line"
+    SPLOM = "SPLOM"
+    Sankey = "Sankey"
+    Scatter2D = "Scatter2D"
+    Scatter3D = "Scatter3D"
+    ScatterBubble2D = "ScatterBubble2D"
+    Stacked = "Stacked"
+    StackedLine = "StackedLine"
+    StackedPercent = "StackedPercent"
+    StackedPercentLine = "StackedPercentLine"
+    Sunburst = "Sunburst"
+    TCGA = "TCGA"
+    TagCloud = "TagCloud"
+    Tree = "Tree"
+    Treemap = "Treemap"
+    Venn = "Venn"
+    Violin = "Violin"
 
 
 class CXGraphType(CXString):
@@ -1155,24 +1131,15 @@ class CXGraphType(CXString):
             A version of the `value` most appropriate for use in prepating the
             Javascript rendering.
         """
-        return { self.label: self.value }
+        return {self.label: self.value}
 
-    def __init__(
-            self,
-            type: Union[CXGraphTypeOptions, str] = CXGraphTypeOptions.Bar
-    ):
+    def __init__(self, type: Union[CXGraphTypeOptions, str] = CXGraphTypeOptions.Bar):
         """
         Initializes a new CXGraphType object with a value corresponding to one
         of the values provided by `CXGraphTypeOptions`.
         """
         if isinstance(type, CXGraphTypeOptions):
-            super().__init__(
-                self.CX_ATTRIBUTE,
-                type.value
-            )
+            super().__init__(self.CX_ATTRIBUTE, type.value)
 
         else:
-            super().__init__(
-                self.CX_ATTRIBUTE,
-                type
-            )
+            super().__init__(self.CX_ATTRIBUTE, type)

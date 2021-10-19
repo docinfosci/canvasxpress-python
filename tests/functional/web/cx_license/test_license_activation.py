@@ -13,25 +13,22 @@ from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
 def create_app() -> Flask:
     app: Flask = Flask(
         "test_flask_server",
-        template_folder=pkg_resources.resource_filename(
-            __package__,
-            "templates"
-        )
+        template_folder=pkg_resources.resource_filename(__package__, "templates"),
     )
 
-    app.config['TESTING'] = True
-    app.config['LIVESERVER_PORT'] = 8888
-    app.config['LIVESERVER_TIMEOUT'] = 10
+    app.config["TESTING"] = True
+    app.config["LIVESERVER_PORT"] = 8888
+    app.config["LIVESERVER_TIMEOUT"] = 10
 
     data: dict = {
         "y": {
             "vars": ["Gene1"],
             "smps": ["Smp1", "Smp2", "Smp3"],
-            "data": [[10, 35, 88]]
+            "data": [[10, 35, 88]],
         }
     }
 
-    @app.route('/license')
+    @app.route("/license")
     def get_canvasxpress_python_chart_with_license() -> str:
         """
         Renders a CanvasXpress example using Python that adapts a Javascript
@@ -40,14 +37,11 @@ def create_app() -> Flask:
         chart: CanvasXpress = CanvasXpress(
             render_to="canvasId",
             data=CXDictData(data),
-            config=CXConfigs(
-                CXGraphType(CXGraphTypeOptions.Bar)
-            )
+            config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
         )
 
         chart.license_url = "file://" + pkg_resources.resource_filename(
-            __package__,
-            "static/CanvasXpressLicense.js"
+            __package__, "static/CanvasXpressLicense.js"
         )
 
         html_parts = chart.render_to_html_parts()
@@ -55,7 +49,7 @@ def create_app() -> Flask:
             "license.html",
             canvasxpress_license=html_parts["cx_license"],
             canvas_element=html_parts["cx_canvas"],
-            bar_graph=html_parts["cx_js"]
+            bar_graph=html_parts["cx_js"],
         )
 
     return app
@@ -67,7 +61,7 @@ def app() -> Flask:
     return flask_app_for_license
 
 
-@pytest.mark.usefixtures('live_server')
+@pytest.mark.usefixtures("live_server")
 def test_license_activation(app, tmp_path):
     """
     This test ensures that the license file can be incorporated into the output
@@ -77,12 +71,11 @@ def test_license_activation(app, tmp_path):
 
     # Identify the location of the test page URL
     python_url: str = url_for(
-        "get_canvasxpress_python_chart_with_license",
-        _external=True
+        "get_canvasxpress_python_chart_with_license", _external=True
     )
 
     with ChromeManagedBrowser(python_url) as py_browser:
         py_browser.session.set_window_size(800, 800)
         assert py_browser.session.find_element_by_id("canvasId") is not None
         print(py_browser.session.page_source)
-        assert 'CanvasXpressLicense.js' in py_browser.session.page_source
+        assert "CanvasXpressLicense.js" in py_browser.session.page_source

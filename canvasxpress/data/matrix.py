@@ -31,10 +31,7 @@ class CXDataframeData(CXMatrixData):
         return self.__data
 
     @dataframe.setter
-    def dataframe(
-            self,
-            value: Union[DataFrame, None] = None
-    ) -> None:
+    def dataframe(self, value: Union[DataFrame, None] = None) -> None:
         """
         Sets the dataframe managed by the object.
         :param value: `Union[DataFrame, None]`
@@ -53,8 +50,7 @@ class CXDataframeData(CXMatrixData):
 
     @data.setter
     def data(
-            self,
-            value: Union['CXDataframeData', DataFrame, dict, str, None] = None
+        self, value: Union["CXDataframeData", DataFrame, dict, str, None] = None
     ) -> None:
         """
         Sets the dataframe managed by the object.
@@ -86,25 +82,18 @@ class CXDataframeData(CXMatrixData):
             except:
                 # Try to load a CSV or read it from memory
                 try:
-                    candidate = pandas.read_csv(
-                        value
-                    )
+                    candidate = pandas.read_csv(value)
 
                 except:
                     if value.strip().startswith(","):
-                        candidate = pandas.read_csv(
-                            StringIO(value),
-                            index_col=0
-                        )
+                        candidate = pandas.read_csv(StringIO(value), index_col=0)
                     else:
-                        candidate = pandas.read_csv(
-                            StringIO(value)
-                        )
+                        candidate = pandas.read_csv(StringIO(value))
 
             self.__data = DataFrame(candidate)
 
     def get_raw_dict_form(self) -> dict:
-        """"
+        """ "
         Provides a simple dict perspective of the data with no metadata or other
         contextual transformations performed.  For example, if the data is
         natively in `dict` form then it would be passed-through with no
@@ -119,10 +108,7 @@ class CXDataframeData(CXMatrixData):
         """
         return self.__data.to_dict(orient="split")
 
-    def render_to_dict(
-            self,
-            **kwargs
-    ) -> dict:
+    def render_to_dict(self, **kwargs) -> dict:
         """
         Provides a dict representation of the data.
         :returns: `dict`
@@ -137,9 +123,9 @@ class CXDataframeData(CXMatrixData):
         return candidate
 
     def __init__(
-            self,
-            data: Union['CXDataframeData', DataFrame, dict, str, None] = None,
-            profile: Union[CXDataProfile, None] = None
+        self,
+        data: Union["CXDataframeData", DataFrame, dict, str, None] = None,
+        profile: Union[CXDataProfile, None] = None,
     ) -> None:
         """
         Initializes the CXData object with data.  Only `DataFrame` or compatible
@@ -155,7 +141,7 @@ class CXDataframeData(CXMatrixData):
         super().__init__(data, profile)
         self.data = data
 
-    def __copy__(self) -> 'CXDataframeData':
+    def __copy__(self) -> "CXDataframeData":
         """
         *copy constructor* that returns a copy of the CXDataframeData object.
         :returns: `CXDataframeData`
@@ -163,10 +149,7 @@ class CXDataframeData(CXMatrixData):
         """
         return self.__class__(self.data)
 
-    def __deepcopy__(
-            self,
-            memo
-    ) -> 'CXDataframeData':
+    def __deepcopy__(self, memo) -> "CXDataframeData":
         """
         *deepcopy constructor* that returns a copy of the CXDataframeData object.
         :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
@@ -174,10 +157,7 @@ class CXDataframeData(CXMatrixData):
         """
         return self.__class__(self.data)
 
-    def __lt__(
-            self,
-            other: 'CXDataframeData'
-    ) -> bool:
+    def __lt__(self, other: "CXDataframeData") -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -212,14 +192,9 @@ class CXDataframeData(CXMatrixData):
                     if any([i < o for o in other_c]):
                         return True
 
-                return self.dataframe.lt(other.dataframe).all(
-                    axis=None
-                )
+                return self.dataframe.lt(other.dataframe).all(axis=None)
 
-    def __eq__(
-            self,
-            other: 'CXDataframeData'
-    ) -> bool:
+    def __eq__(self, other: "CXDataframeData") -> bool:
         """
         *equals* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -249,9 +224,7 @@ class CXDataframeData(CXMatrixData):
             if any([s not in other_c for s in self_c]):
                 return False
 
-            return self.dataframe.eq(other.dataframe).all(
-                axis=None
-            )
+            return self.dataframe.eq(other.dataframe).all(axis=None)
 
     def __str__(self) -> str:
         """
@@ -267,10 +240,12 @@ class CXDataframeData(CXMatrixData):
          string that can be used with `eval` to establish a copy of the object.
         :returns: `str` An evaluatable representation of the object.
         """
-        candidate = f'CXDataframeData(' \
-                    f'data=pandas.read_csv(' \
-                    f'StringIO("""{self.dataframe.to_csv(index=True)}"""),' \
-                    f'index_col=0))'
+        candidate = (
+            f"CXDataframeData("
+            f"data=pandas.read_csv("
+            f'StringIO("""{self.dataframe.to_csv(index=True)}"""),'
+            f"index_col=0))"
+        )
         candidate = candidate.replace("Infinity", "float('inf')")
         candidate = candidate.replace("NaN", "float('nan')")
 
@@ -289,18 +264,12 @@ class CXCSVData(CXDataframeData):
         Provides the data managed by the object.
         :returns: `str` The managed data.
         """
-        candidate = self.dataframe.to_csv(
-            index=False,
-            quoting=csv.QUOTE_NONNUMERIC
-        )
-        candidate = candidate.replace('nan', '')
+        candidate = self.dataframe.to_csv(index=False, quoting=csv.QUOTE_NONNUMERIC)
+        candidate = candidate.replace("nan", "")
         return candidate
 
     @csv.setter
-    def csv(
-            self,
-            value: str = None
-    ) -> None:
+    def csv(self, value: str = None) -> None:
         """
         Sets the CSV data managed by the object.
         :param value: `str`
@@ -310,9 +279,9 @@ class CXCSVData(CXDataframeData):
         self.data = value
 
     def __init__(
-            self,
-            data: Union['CXCSVData', DataFrame, dict, str, None] = None,
-            profile: Union[CXDataProfile, None] = None
+        self,
+        data: Union["CXCSVData", DataFrame, dict, str, None] = None,
+        profile: Union[CXDataProfile, None] = None,
     ) -> None:
         """
         Initializes the CXData object with data.  Only CSV `str` or compatible

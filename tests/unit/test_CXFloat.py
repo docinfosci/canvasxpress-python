@@ -7,25 +7,16 @@ from canvasxpress.config.type import CXBool, CXFloat
 
 
 def test_CXFloat_init():
-    subject: CXFloat = CXFloat(
-        label="1",
-        value=2
-    )
+    subject: CXFloat = CXFloat(label="1", value=2)
     assert subject.label == "1"
     assert subject.value == 2
 
-    subject: CXFloat = CXFloat(
-        label="1",
-        value=None
-    )
+    subject: CXFloat = CXFloat(label="1", value=None)
     assert subject.label == "1"
     assert subject.value == 0
 
     with pytest.raises(ValueError):
-        subject: CXFloat = CXFloat(
-            label=None,
-            value=2
-        )
+        subject: CXFloat = CXFloat(label=None, value=2)
 
 
 def test_CXFloat_label():

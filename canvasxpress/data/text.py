@@ -30,10 +30,7 @@ class CXTextData(CXData):
         return self.__raw_text
 
     @text.setter
-    def text(
-            self,
-            value: str
-    ) -> None:
+    def text(self, value: str) -> None:
         """
         Sets the text to be provided to CanvasXpress.
         :param value: `str`
@@ -62,7 +59,7 @@ class CXTextData(CXData):
         return self.get_raw_dict_form()
 
     def get_raw_dict_form(self) -> dict:
-        """"
+        """
         Provides a simple dict perspective of the data with no metadata or other
         contextual transformations performed.  For example, if the data is
         natively in `dict` form then it would be passed-through with no
@@ -78,27 +75,16 @@ class CXTextData(CXData):
             # anything else treat the content as a standard string to be
             # passed along.
 
-            candidate = {
-                'raw': json.loads(self.text)
-            }
-            if isinstance(candidate['raw'], (dict, list, str)):
-                return {
-                    'raw': json.loads(self.text)
-                }
+            candidate = {"raw": json.loads(self.text)}
+            if isinstance(candidate["raw"], (dict, list, str)):
+                return {"raw": json.loads(self.text)}
             else:
-                return {
-                    'raw': self.text
-                }
+                return {"raw": self.text}
 
         except Exception as e:
-            return {
-                'raw': self.text
-            }
+            return {"raw": self.text}
 
-    def render_to_dict(
-            self,
-            **kwargs
-    ) -> dict:
+    def render_to_dict(self, **kwargs) -> dict:
         """
         Converts the object into a dict representation.
         :returns: `dict`
@@ -107,10 +93,7 @@ class CXTextData(CXData):
         """
         return self.get_raw_dict_form()
 
-    def __init__(
-            self,
-            data: Union[object, None] = None
-    ) -> None:
+    def __init__(self, data: Union[object, None] = None) -> None:
         """
         Initializes the CXData object with data.
         :param data: `Union[object, None]`
