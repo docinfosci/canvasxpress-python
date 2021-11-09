@@ -146,7 +146,7 @@ function generate_cx_python_code_from_json(
         p_code += indent + "other_init_params = " + format_object_to_python_string(extra_params, code_indent) + ",\n";
     }
     p_code += indent + "width = " + width + ",\n";
-    p_code += indent + "height = " + height + ",\n";
+    p_code += indent + "height = " + height + "\n";
     p_code += ") \n\n";
 
     // Convert JS and JSON artifacts to Python equivalents
