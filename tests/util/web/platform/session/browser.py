@@ -4,7 +4,6 @@ import allure
 import pytest
 
 from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
-from tests.util.web.platform.browser.firefox import FireFoxManagedBrowser
 from tests.util.web.platform.browser.generic import ManagedBrowser
 
 TEST_SERVER_URL = "http://localhost:8080"
