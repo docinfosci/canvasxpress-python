@@ -55,13 +55,8 @@ jobs:
             which geckodriver
             geckodriver --version
 
-            # Remove snap managed Chromium materials
-            snap remove chromium
-            apt -yq remove chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg-extra
-            rm -rf /home/ubuntu/snap/chromium
-
             # Install the Chromium browser
-            snap install chromium
+            apt-get install -yq chromium
             which chromium
             chromium --version
 
@@ -70,13 +65,6 @@ jobs:
             apt-get -yq install --fix-missing chromium-chromedriver
             which chromedriver
             chromedriver --version
-
-            # Set ubuntu permissions
-            mkdir -p /run/user/${UID}
-            chmod -R 777 /run/user/${UID}
-            mkdir -p /home/ubuntu/snap/chromium/current/Downloads
-            chown -R ubuntu:ubuntu /home/ubuntu/snap/chromium
-            chmod -R 777 /home/ubuntu/snap/chromium
 
       - run:
           name: Install Python dependencies
