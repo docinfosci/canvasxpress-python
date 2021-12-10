@@ -32,6 +32,12 @@ jobs:
             echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
       - run:
+          name: Install Python dependencies
+          command: |
+            pip install --no-cache-dir -U -r ./requirements-project.txt
+            invoke init --dev --list
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -65,12 +71,6 @@ jobs:
             apt-get -yq install --fix-missing chromium-driver
             which chromedriver
             chromedriver --version
-
-      - run:
-          name: Install Python dependencies
-          command: |
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            invoke init --dev --list
 
       - run:
           name: Static analysis
