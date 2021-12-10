@@ -6,5 +6,5 @@ gitpython>=3
 pytz>=2021.3
 mkdocs>=1.2.2
 requirements-parser>=0.2.0
-pydoc-markdown>=4
+pydoc-markdown>=3
 mkdocs-bootswatch>=1.2
