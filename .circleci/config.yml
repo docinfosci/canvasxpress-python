@@ -62,7 +62,7 @@ jobs:
 
             # Install the Chromium webdriver
             apt-get -yq update
-            apt-get -yq install --fix-missing chromium-chromedriver
+            apt-get -yq install --fix-missing chromium-driver
             which chromedriver
             chromedriver --version
 
