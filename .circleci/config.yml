@@ -20,6 +20,8 @@ jobs:
       - run:
           name: Indicate build profile
           command: |
+            echo "User: $(whoami) | User ID: ${UID} | Group ID: ${GID}"
+
             GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
             if [ $GIT_WORKING_BRANCH = "main" ]
             then
@@ -30,11 +32,51 @@ jobs:
             echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
       - run:
-          name: Install Linux dependencies
+          name: Install Web drivers
           command: |
-            sudo apt-get update -y
-            chmod +x ./*.sh
-            ./init-webdrivers.sh
+            apt-get update -y
+            
+            export DEBIAN_FRONTEND=noninteractive
+            export DEBIAN_PRIORITY=critical
+
+            # Install the FireFox browser
+            apt-get -yq update; apt-get -yq install --fix-missing xvfb
+            apt-get -yq update; apt-get -yq install --fix-missing x11-utils
+            apt-get -yq update; apt-get -yq install --fix-missing firefox
+            which firefox
+            firefox --version
+
+            # Install the FireFox webdriver
+            export FIREFOX_EDITION="v0.29.1"
+            wget https://github.com/mozilla/geckodriver/releases/download/${FIREFOX_EDITION}/geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
+            tar xvfz geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
+            chmod +x geckodriver
+            mv geckodriver /usr/local/bin/
+            which geckodriver
+            geckodriver --version
+
+            # Remove snap managed Chromium materials
+            snap remove chromium
+            apt -yq remove chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg-extra
+            rm -rf /home/ubuntu/snap/chromium
+
+            # Install the Chromium browser
+            snap install chromium
+            which chromium
+            chromium --version
+
+            # Install the Chromium webdriver
+            apt-get -yq update
+            apt-get -yq install --fix-missing chromium-chromedriver
+            which chromedriver
+            chromedriver --version
+
+            # Set ubuntu permissions
+            mkdir -p /run/user/${UID}
+            chmod -R 777 /run/user/${UID}
+            mkdir -p /home/ubuntu/snap/chromium/current/Downloads
+            chown -R ubuntu:ubuntu /home/ubuntu/snap/chromium
+            chmod -R 777 /home/ubuntu/snap/chromium
 
       - run:
           name: Install Python dependencies
