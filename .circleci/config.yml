@@ -34,15 +34,15 @@ jobs:
       - run:
           name: Install Web drivers
           command: |
-            apt-get update -y
-            
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
+            apt-get update -y
+            apt-get install -yq apt-utils
 
             # Install the FireFox browser
             apt-get -yq update; apt-get -yq install --fix-missing xvfb
             apt-get -yq update; apt-get -yq install --fix-missing x11-utils
-            apt-get -yq update; apt-get -yq install --fix-missing firefox
+            apt-get -yq update; apt-get -yq install --fix-missing firefox-esr
             which firefox
             firefox --version
 
