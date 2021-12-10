@@ -3,9 +3,9 @@
 version: 2.1
 
 jobs:
-  build-python-oldest:
+  build-report-deploy-python-standard:
     docker:
-      - image: python:3.6.15-bullseye
+      - image: python:3.8.12-bullseye
 
     steps:
       - checkout
@@ -26,12 +26,6 @@ jobs:
                 BRANCH_STAGE=${BRANCH_STAGE:="develop"}
             fi
             echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
-
-      - run:
-          name: Install Python dependencies
-          command: |
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            invoke init --dev --list
 
       - run:
           name: Install Web drivers
@@ -69,6 +63,12 @@ jobs:
             chromedriver --version
 
       - run:
+          name: Install Python dependencies
+          command: |
+            pip install --no-cache-dir -U -r ./requirements-project.txt
+            invoke init --dev --list
+
+      - run:
           name: Static analysis
           command: |
             prospector \
@@ -89,7 +89,78 @@ jobs:
           name: Deploy artifacts
           command: ./distribute_package.sh
 
+  build-python-oldest:
+    docker:
+      - image: python:3.6.15-bullseye
+
+    steps:
+      - checkout
+      - run:
+          name: Review checkout
+          command: ls -la
+
+      - run:
+          name: Indicate build profile
+          command: |
+            echo "User: $(whoami) | User ID: ${UID} | Group ID: ${GID}"
+
+            GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
+            if [ $GIT_WORKING_BRANCH = "main" ]
+            then
+                BRANCH_STAGE=${BRANCH_STAGE:="master"}
+            else
+                BRANCH_STAGE=${BRANCH_STAGE:="develop"}
+            fi
+            echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
+
+      - run:
+          name: Install Web drivers
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            export DEBIAN_PRIORITY=critical
+            apt-get update -y
+            apt-get install -yq apt-utils
+
+            # Install the FireFox browser
+            apt-get -yq update; apt-get -yq install --fix-missing xvfb
+            apt-get -yq update; apt-get -yq install --fix-missing x11-utils
+            apt-get -yq update; apt-get -yq install --fix-missing firefox-esr
+            which firefox
+            firefox --version
+
+            # Install the FireFox webdriver
+            export FIREFOX_EDITION="v0.29.1"
+            wget https://github.com/mozilla/geckodriver/releases/download/${FIREFOX_EDITION}/geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
+            tar xvfz geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
+            chmod +x geckodriver
+            mv geckodriver /usr/local/bin/
+            which geckodriver
+            geckodriver --version
+
+            # Install the Chromium browser
+            apt-get install -yq chromium
+            which chromium
+            chromium --version
+
+            # Install the Chromium webdriver
+            apt-get -yq update
+            apt-get -yq install --fix-missing chromium-driver
+            which chromedriver
+            chromedriver --version
+
+      - run:
+          name: Install Python dependencies
+          command: |
+            pip install --no-cache-dir -U -r ./requirements-project.txt
+            invoke init --dev --list
+
+      - run:
+          name: Test
+          command: |
+            invoke test
+
 workflows:
   main:
     jobs:
       - build-python-oldest
+      - build-report-deploy-python-standard
