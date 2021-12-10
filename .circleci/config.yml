@@ -35,22 +35,6 @@ jobs:
             apt-get update -y
             apt-get install -yq apt-utils
 
-            # Install the FireFox browser
-            apt-get -yq update; apt-get -yq install --fix-missing xvfb
-            apt-get -yq update; apt-get -yq install --fix-missing x11-utils
-            apt-get -yq update; apt-get -yq install --fix-missing firefox-esr
-            which firefox
-            firefox --version
-
-            # Install the FireFox webdriver
-            export FIREFOX_EDITION="v0.29.1"
-            wget https://github.com/mozilla/geckodriver/releases/download/${FIREFOX_EDITION}/geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
-            tar xvfz geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
-            chmod +x geckodriver
-            mv geckodriver /usr/local/bin/
-            which geckodriver
-            geckodriver --version
-
             # Install the Chromium browser
             apt-get install -yq chromium
             which chromium
@@ -120,22 +104,6 @@ jobs:
             export DEBIAN_PRIORITY=critical
             apt-get update -y
             apt-get install -yq apt-utils
-
-            # Install the FireFox browser
-            apt-get -yq update; apt-get -yq install --fix-missing xvfb
-            apt-get -yq update; apt-get -yq install --fix-missing x11-utils
-            apt-get -yq update; apt-get -yq install --fix-missing firefox-esr
-            which firefox
-            firefox --version
-
-            # Install the FireFox webdriver
-            export FIREFOX_EDITION="v0.29.1"
-            wget https://github.com/mozilla/geckodriver/releases/download/${FIREFOX_EDITION}/geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
-            tar xvfz geckodriver-${FIREFOX_EDITION}-linux64.tar.gz
-            chmod +x geckodriver
-            mv geckodriver /usr/local/bin/
-            which geckodriver
-            geckodriver --version
 
             # Install the Chromium browser
             apt-get install -yq chromium
