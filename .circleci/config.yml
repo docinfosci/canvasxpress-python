@@ -203,7 +203,7 @@ jobs:
           command: invoke test
 
 workflows:
-  main:
+  github-commit:
     jobs:
       - build-python-oldest
       - build-python-latest
@@ -213,6 +213,14 @@ workflows:
             - build-python-latest
 
   weekly:
+    jobs:
+      - build-python-oldest
+      - build-python-latest
+      - build-report-deploy-python-standard:
+          requires:
+            - build-python-oldest
+            - build-python-latest
+
     triggers:
       - schedule:
           cron: "0 0 * * 0"
