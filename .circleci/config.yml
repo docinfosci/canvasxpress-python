@@ -130,7 +130,7 @@ jobs:
 
   build-python-latest:
     docker:
-      - image: python:latest-bullseye
+      - image: python:latest
 
     steps:
       - checkout
