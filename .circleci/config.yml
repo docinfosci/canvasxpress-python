@@ -190,3 +190,12 @@ workflows:
           requires:
             - build-python-oldest
             - build-python-latest
+
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * 0"
+          filters:
+            branches:
+              only:
+                - main
