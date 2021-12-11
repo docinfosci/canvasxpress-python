@@ -73,7 +73,28 @@ jobs:
 
       - run:
           name: Deploy artifacts
-          command: ./distribute_package.sh
+          command: |
+            # Establish package components
+            rm -rf ./dist
+            python ./build_pkg_setup.py
+            python setup.py sdist
+
+            # Confirm the installation user account
+            echo $TWINE_USERNAME
+
+            # Only publish non-dev editions to PyPI
+            GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
+            if [ $GIT_WORKING_BRANCH = "main" ]
+            then
+                # Production deployment
+                twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
+
+            else
+                # Development deployment
+                twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
+
+            fi
+
 
   build-python-oldest:
     docker:
