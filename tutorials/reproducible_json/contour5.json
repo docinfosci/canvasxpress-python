@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "contour5",
   "data": {
     "y": {
@@ -39,13 +39,18 @@
       "createContour",
       [],
       {},
-      1625543089894
+      1634080009286
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080028183
     ],
     [
       "userEventsClick",
       [
         {
-          "x": {},
           "y": {
             "vars": ["v1"],
             "smps": ["s7"],
@@ -53,14 +58,15 @@
               [15]
             ]
           },
-          "z": {}
+          "z": {},
+          "x": {}
         },
         {
           "srcElement": "contour5-events",
           "target": "contour5-events",
           "ac": {
-            "x": 17.515625,
-            "y": 581
+            "x": 30.015625,
+            "y": 569.25
           },
           "altKey": false,
           "bubbles": true,
@@ -68,31 +74,31 @@
           "buttons": 0,
           "cancelBubble": false,
           "cancelable": true,
-          "clientX": 620,
-          "clientY": 958,
+          "clientX": 506,
+          "clientY": 911,
           "ctrlKey": false,
           "defaultPrevented": false,
           "detail": 1,
           "eventPhase": 0,
           "isTrusted": true,
-          "layerX": 18,
-          "layerY": 582,
+          "layerX": 31,
+          "layerY": 570,
           "metaKey": false,
           "movementX": 0,
           "movementY": 0,
-          "offsetX": 18,
-          "offsetY": 581,
-          "pageX": 620,
-          "pageY": 959,
+          "offsetX": 30,
+          "offsetY": 569,
+          "pageX": 506,
+          "pageY": 911,
           "returnValue": true,
-          "screenX": 620,
-          "screenY": 958,
+          "screenX": 506,
+          "screenY": 911,
           "shiftKey": false,
-          "timeStamp": 20854.299999999814,
+          "timeStamp": 21285.5,
           "type": "click",
           "which": 1,
-          "x": 620,
-          "y": 958,
+          "x": 506,
+          "y": 911,
           "xMouseDown": false,
           "yMouseDown": false
         },
@@ -100,14 +106,14 @@
         [0,6]
       ],
       {},
-      1625543109936
+      1634080029235
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzA4OTgzMjo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDAwOTIzNTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/contour-5.html",
@@ -115,7 +121,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

@@ -1,1 +1,61 @@
-false
+{
+  "version": 36.4,
+  "renderTo": "map11-1",
+  "data": false,
+  "config": {
+    "background": "black",
+    "graphType": "Map",
+    "mapColor": "black",
+    "mapId": "spain",
+    "mapOutlineColor": "white",
+    "topoJSON": "https://www.canvasxpress.org/data/spain.geo.json",
+    "remoteTransitionEffect": "none",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082520358
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MjQ5MTkyNjo6MTo6MzYuNDo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/map-11.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

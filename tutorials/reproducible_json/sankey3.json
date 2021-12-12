@@ -1,0 +1,66 @@
+{
+  "version": 36.5,
+  "renderTo": "sankey3",
+  "data": {
+    "y": {
+      "vars": ["Weight"],
+      "smps": ["smp1","smp2","smp3","smp4","smp5","smp6","smp7","smp8","smp9","smp10","smp11","smp12","smp13","smp14","smp15","smp16","smp17","smp18","smp19","smp20","smp21","smp22","smp23","smp24","smp25","smp26","smp27","smp28","smp29","smp30","smp31","smp32","smp33","smp34","smp35","smp36","smp37","smp38","smp39","smp40","smp41","smp42","smp43","smp44","smp45","smp46"],
+      "data": [
+        [5,1,1,1,1,5,1,1,1,5,1,1,1,1,5,2,1,1,3,1,3,3,3,1,1,3,1,1,1,2,7,5,1,3,5,1,3,5,1,3,5,1,3,5,1,3]
+      ]
+    },
+    "x": {
+      "Source": ["Brazil","Brazil","Brazil","Brazil","Canada","Canada","Canada","Mexico","Mexico","Mexico","Mexico","USA","USA","USA","USA","Portugal","Portugal","Portugal","Portugal","France","France","France","France","France","Spain","Spain","Spain","England","England","England","England","SouthAfrica","SouthAfrica","SouthAfrica","Angola","Angola","Angola","Senegal","Senegal","Senegal","Mali","Mali","Mali","Morocco","Morocco","Morocco"],
+      "Target": ["Portugal","France","Spain","England","Portugal","France","England","Portugal","France","Spain","England","Portugal","France","Spain","England","Angola","Senegal","Morocco","SouthAfrica","Angola","Senegal","Mali","Morocco","SouthAfrica","Senegal","Morocco","SouthAfrica","Angola","Senegal","Morocco","SouthAfrica","China","India","Japan","China","India","Japan","China","India","Japan","China","India","Japan","China","India","Japan"],
+      "Weight": [1,1,1,1,2,2,2,3,3,3,3,4,4,4,4,13,13,13,13,5,5,5,5,5,6,6,6,7,7,7,7,8,8,8,9,9,9,10,10,10,11,11,11,12,12,12]
+    }
+  },
+  "config": {
+    "graphOrientation": "vertical",
+    "graphType": "Sankey",
+    "sankeySource": "Source",
+    "sankeyTarget": "Target",
+    "theme": "CanvasXpress",
+    "title": "Multilevel Sankey"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [613,613,true]
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.5,
+    "buildDate": "10-12-2021",
+    "client": "MTYzNDA5MjkwNDk4MTo6MTo6MzYuNTo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/sankey-3.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

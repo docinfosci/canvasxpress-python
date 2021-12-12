@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "dotplot13",
   "data": {
     "y": {
@@ -43,7 +43,7 @@
     "xAxisShow": false
   },
   "events": {
-    "mousemove": "/Function(function(o, e, t) {                        if (o && o.objectType && o.objectType == 'Property') {                                    t.showInfoSpan(e, o.display      );                        } else if (o && o.y && o.objectType != 'Smp') {                          var str = &quot;<b>&quot; + o.y.smps + &quot;</b><br><b>Year: </b>&quot; + o.y.Year + &quot;<br><b>Type: </b>&quot; + o.y.Type;                          t.showInfoSpan(e, str      );                        }                      })/"
+    "mousemove": "/Function(function(o, e, t) {            if (o && o.objectType && o.objectType == 'Property') {                        t.showInfoSpan(e, o.display      );            } else if (o && o.y && o.objectType != 'Smp') {              var str = &quot;<b>&quot; + o.y.smps + &quot;</b><br><b>Year: </b>&quot; + o.y.Year + &quot;<br><b>Type: </b>&quot; + o.y.Type;              t.showInfoSpan(e, str      );            }          })/"
   },
   "info": false,
   "afterRenderInit": false,
@@ -56,14 +56,20 @@
       "setDimensions",
       [996,524,null,null,null,null],
       {},
-      1625543824453
+      1634080773572
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634080783510
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0MzgyMzMxODo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MDc3MjcwMTo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/dotplot-13.html",
@@ -71,7 +77,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

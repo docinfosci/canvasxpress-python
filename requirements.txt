@@ -1,6 +1,5 @@
 deepdiff>=5
 IPython>=7
-gitpython>=3
 pytz>=2020.1
 pandas>=1.1.5
 requests>=2

@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "heatmap9",
   "data": {
     "z": {
@@ -62,9 +62,9 @@
   "config": {
     "colorKey": {
       "Treatment": "Accent",
-      "Sens": ["white","green","rgb(72,126,182)","rgb(167,206,49)","rgb(248,204,3)"],
+      "Site": "Pastel1",
       "Type": "YlGn",
-      "Site": "Pastel1"
+      "Sens": ["white","green","rgb(72,126,182)","rgb(167,206,49)","rgb(248,204,3)"]
     },
     "colorSpectrum": ["magenta","blue","black","red","gold"],
     "colorSpectrumZeroValue": 0,
@@ -100,8 +100,8 @@
       },
       "Dose": {
         "thickness": 50,
-        "position": "right",
         "type": "Dotplot",
+        "position": "right",
         "color": "rgb(167,206,49)",
         "spectrum": ["rgb(255,0,255)","rgb(0,0,255)","rgb(0,0,0)","rgb(255,0,0)","rgb(255,215,0)"],
         "scheme": "User",
@@ -114,11 +114,10 @@
     "smpOverlays": ["Treatment","Site","Dose"],
     "title": "Advanced Overlays in Heatmaps",
     "varOverlayProperties": {
-      "Sens": {
-        "type": "Bar",
-        "position": "bottom",
-        "thickness": 20,
-        "color": "red",
+      "Type": {
+        "position": "top",
+        "type": "Default",
+        "color": "rgb(254,41,108)",
         "spectrum": ["rgb(255,0,255)","rgb(0,0,255)","rgb(0,0,0)","rgb(255,0,0)","rgb(255,215,0)"],
         "scheme": "User",
         "showLegend": true,
@@ -126,10 +125,11 @@
         "showBox": true,
         "rotate": false
       },
-      "Type": {
-        "position": "top",
-        "type": "Default",
-        "color": "rgb(254,41,108)",
+      "Sens": {
+        "type": "Bar",
+        "thickness": 20,
+        "position": "bottom",
+        "color": "red",
         "spectrum": ["rgb(255,0,255)","rgb(0,0,255)","rgb(0,0,0)","rgb(255,0,0)","rgb(255,215,0)"],
         "scheme": "User",
         "showLegend": true,
@@ -148,13 +148,19 @@
     [
       "setDimensions",
       [613,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081341364
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NDUyMTA0NTo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTMzMDU1MDo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-9.html",
@@ -162,7 +168,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

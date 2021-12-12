@@ -1,1 +1,72 @@
-false
+{
+  "version": 36.4,
+  "renderTo": "map13-1",
+  "data": false,
+  "config": {
+    "colorBy": "Order",
+    "graphType": "Map",
+    "mapConfig": {
+      "zoom": 3.2
+    },
+    "mapConfigFeatures": {
+      "1": {
+        "translate": ["-100","-30"],
+        "scale": [0.5,0.8]
+      },
+      "11": {
+        "scale": [1.5,1.5],
+        "translate": ["85","-5"]
+      }
+    },
+    "mapId": "customUSA",
+    "topoJSON": "https://www.canvasxpress.org/data/maps/USA.json",
+    "remoteTransitionEffect": "none",
+    "skipRender": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [760,613,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634082596179
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MjU2NzY1Njo6MTo6MzYuNDo6",
+    "siteSrc": false,
+    "valid": 0,
+    "href": "https://canvasxpress.org/examples/map-13.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "94",
+    "os": "Mac OS",
+    "alt": "&#8997;",
+    "command": "&#8984;",
+    "control": "&#8963;",
+    "shift": "&#8679;",
+    "isjQuery": true,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false
+  }
+}

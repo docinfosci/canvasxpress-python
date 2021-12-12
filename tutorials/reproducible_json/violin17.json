@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "violin17",
   "data": {
     "y": {
@@ -62,22 +62,28 @@
       "switchNumericToString",
       ["order",true],
       {},
-      1625548888969,
+      1634085546270,
       true
     ],
     [
       "switchNumericToString",
       ["dose",true],
       {},
-      1625548888970,
+      1634085546270,
       true
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634085557434
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0ODg4ODkyMjo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4NTU0NjIzMzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/violin-17.html",
@@ -85,7 +91,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

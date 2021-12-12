@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "layout13",
   "data": {
     "y": {
@@ -400,38 +400,44 @@
       "switchSmpToAnnotation",
       ["Age"],
       {},
-      1625545081851
+      1634081881726
     ],
     [
       "switchSmpToAnnotation",
       ["Clin2"],
       {},
-      1625545081871
+      1634081881743
     ],
     [
       "switchSmpToAnnotation",
       ["Clin3"],
       {},
-      1625545081904
+      1634081881774
     ],
     [
       "addKaplanMeierCurve",
       ["Survival","Survival-Censor",null,null,null],
       {},
-      1625545081916
+      1634081881786
     ],
     [
       "createDOE",
       [null,null,null],
       {},
-      1625545081943
+      1634081881809
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634081892703
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0NTA4MTc2MDo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4MTg4MTY1Mjo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/layout-13.html",
@@ -439,7 +445,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",

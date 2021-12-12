@@ -1,5 +1,5 @@
 {
-  "version": 35,
+  "version": 36.4,
   "renderTo": "treemap2",
   "data": {
     "z": {
@@ -42,17 +42,15 @@
       [613,613,true]
     ],
     [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1634085153867
+    ],
+    [
       "userEventsClick",
       [
         {
-          "x": {
-            "Factor1": ["Lev:2"],
-            "Factor2": ["Lev:A"],
-            "Factor3": ["Lev:Z"],
-            "Factor4": [25],
-            "Factor5": [40],
-            "Factor6": [50]
-          },
           "y": {
             "vars": ["V2"],
             "smps": ["S5"],
@@ -67,14 +65,22 @@
             "Annt4": [10],
             "Annt5": [16],
             "Annt6": [20]
+          },
+          "x": {
+            "Factor1": ["Lev:2"],
+            "Factor2": ["Lev:A"],
+            "Factor3": ["Lev:Z"],
+            "Factor4": [25],
+            "Factor5": [40],
+            "Factor6": [50]
           }
         },
         {
           "srcElement": "treemap2-events",
           "target": "treemap2-events",
           "ac": {
-            "x": 31.015625,
-            "y": 581
+            "x": 30.015625,
+            "y": 569.25
           },
           "altKey": false,
           "bubbles": true,
@@ -82,31 +88,31 @@
           "buttons": 0,
           "cancelBubble": false,
           "cancelable": true,
-          "clientX": 502,
-          "clientY": 871,
+          "clientX": 501,
+          "clientY": 935,
           "ctrlKey": false,
           "defaultPrevented": false,
           "detail": 1,
           "eventPhase": 0,
           "isTrusted": true,
-          "layerX": 32,
-          "layerY": 582,
+          "layerX": 31,
+          "layerY": 570,
           "metaKey": false,
           "movementX": 0,
           "movementY": 0,
-          "offsetX": 31,
-          "offsetY": 581,
-          "pageX": 502,
-          "pageY": 871,
+          "offsetX": 30,
+          "offsetY": 569,
+          "pageX": 501,
+          "pageY": 935,
           "returnValue": true,
-          "screenX": 502,
-          "screenY": 871,
+          "screenX": 501,
+          "screenY": 935,
           "shiftKey": false,
-          "timeStamp": 22677.799999999814,
+          "timeStamp": 22247.300000000745,
           "type": "click",
           "which": 1,
-          "x": 502,
-          "y": 871,
+          "x": 501,
+          "y": 935,
           "xMouseDown": false,
           "yMouseDown": false
         },
@@ -114,14 +120,14 @@
         [1,4]
       ],
       {},
-      1625548468631
+      1634085154893
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 35,
-    "buildDate": "06-20-2021",
-    "client": "MTYyNTU0ODQ0NzIxMzo6MTo6MzU6Og==",
+    "version": 36.4,
+    "buildDate": "10-03-2021",
+    "client": "MTYzNDA4NTEzMzM1Nzo6MTo6MzYuNDo6",
     "siteSrc": false,
     "valid": 0,
     "href": "https://canvasxpress.org/examples/treemap-2.html",
@@ -129,7 +135,7 @@
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "91",
+    "browserVersion": "94",
     "os": "Mac OS",
     "alt": "&#8997;",
     "command": "&#8984;",
