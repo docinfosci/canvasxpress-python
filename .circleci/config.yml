@@ -3,9 +3,9 @@
 version: 2.1
 
 jobs:
-  build-report-deploy-python-standard:
+  build-python-latest:
     docker:
-      - image: python:3.8.12-bullseye
+      - image: python:latest
 
     steps:
       - checkout
@@ -98,60 +98,7 @@ jobs:
 
   build-python-oldest:
     docker:
-      - image: python:3.6.15-bullseye
-
-    steps:
-      - checkout
-      - run:
-          name: Review checkout
-          command: ls -la
-
-      - run:
-          name: Indicate build profile
-          command: |
-            echo "User: $(whoami) | User ID: ${UID} | Group ID: ${GID}"
-
-            GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
-            if [ $GIT_WORKING_BRANCH = "main" ]
-            then
-                BRANCH_STAGE=${BRANCH_STAGE:="master"}
-            else
-                BRANCH_STAGE=${BRANCH_STAGE:="develop"}
-            fi
-            echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
-
-      - run:
-          name: Install Web drivers
-          command: |
-            export DEBIAN_FRONTEND=noninteractive
-            export DEBIAN_PRIORITY=critical
-            apt-get update -y
-            apt-get install -yq apt-utils
-
-            # Install the Chromium browser
-            apt-get install -yq chromium
-            which chromium
-            chromium --version
-
-            # Install the Chromium webdriver
-            apt-get -yq update
-            apt-get -yq install --fix-missing chromium-driver
-            which chromedriver
-            chromedriver --version
-
-      - run:
-          name: Install Python dependencies
-          command: |
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            invoke init --dev --list
-
-      - run:
-          name: Test
-          command: invoke test
-
-  build-python-latest:
-    docker:
-      - image: python:latest
+      - image: python:3.7.12-bullseye
 
     steps:
       - checkout
@@ -206,20 +153,16 @@ workflows:
   github-commit:
     jobs:
       - build-python-oldest
-      - build-python-latest
-      - build-report-deploy-python-standard:
+      - build-python-latest:
           requires:
             - build-python-oldest
-            - build-python-latest
 
   weekly:
     jobs:
       - build-python-oldest
-      - build-python-latest
-      - build-report-deploy-python-standard:
+      - build-python-latest:
           requires:
             - build-python-oldest
-            - build-python-latest
 
     triggers:
       - schedule:
