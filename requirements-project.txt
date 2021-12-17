@@ -6,6 +6,6 @@ gitpython>=3
 pytz>=2021.3
 requirements-parser>=0.2.0
 twine>=3.7
-mkdocs==1.2.3
-pydoc-markdown==4.5.0
+mkdocs>=1
+pydoc-markdown>=3,<4
 mkdocs-bootswatch==1.1
