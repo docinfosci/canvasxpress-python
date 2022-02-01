@@ -164,22 +164,22 @@ jobs:
 workflows:
   github-commit:
     jobs:
-      - build-python-oldest
-      - build-python-latest:
-          requires:
-            - build-python-oldest
-
-  weekly:
-    jobs:
 #      - build-python-oldest
-      - build-python-latest:
+      - build-python-latest
 #          requires:
 #            - build-python-oldest
 
-    triggers:
-      - schedule:
-          cron: "0 0 * * 0"
-          filters:
-            branches:
-              only:
-                - main
+#  weekly:
+#    jobs:
+#      - build-python-oldest
+#      - build-python-latest:
+#          requires:
+#            - build-python-oldest
+#
+#    triggers:
+#      - schedule:
+#          cron: "0 0 * * 0"
+#          filters:
+#            branches:
+#              only:
+#                - main
