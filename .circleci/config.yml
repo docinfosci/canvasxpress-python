@@ -74,12 +74,12 @@ jobs:
       - run:
           name: Deploy artifacts
           command: |
-            # Only attempt if working from docinfosci
-            echo "$(git config --get remote.origin.url)"
-            GIT_USER="$(git config --get remote.origin.url | cut -d: -f2 | cut -d/ -f1)"
-            echo "Build is using git user ${GIT_USER}"
+            echo "Repository is from $(git config --get remote.origin.url)"
+            GIT_REPO_OWNER="$(git config --get remote.origin.url | cut -d: -f2 | cut -d/ -f1)"
+            echo "Found repository owner ${GIT_REPO_OWNER}"
 
-            if [ $GIT_USER == "docinfosci" ]
+            # Only attempt the deployment for the project owner/committer
+            if [ $GIT_REPO_OWNER == "docinfosci" ]
             then
               # Establish package components
               rm -rf ./dist
@@ -103,7 +103,7 @@ jobs:
               fi
 
             else
-              echo "Skipping deployment for git user ${GIT_USER}"
+              echo "Skipping deployment for repository owner ${GIT_REPO_OWNER}"
 
             fi
 
@@ -164,22 +164,22 @@ jobs:
 workflows:
   github-commit:
     jobs:
-#      - build-python-oldest
-      - build-python-latest
-#          requires:
-#            - build-python-oldest
+      - build-python-oldest
+      - build-python-latest:
+          requires:
+            - build-python-oldest
 
-#  weekly:
-#    jobs:
-#      - build-python-oldest
-#      - build-python-latest:
-#          requires:
-#            - build-python-oldest
-#
-#    triggers:
-#      - schedule:
-#          cron: "0 0 * * 0"
-#          filters:
-#            branches:
-#              only:
-#                - main
+  weekly:
+    jobs:
+      - build-python-oldest
+      - build-python-latest:
+          requires:
+            - build-python-oldest
+
+    triggers:
+      - schedule:
+          cron: "0 0 * * 0"
+          filters:
+            branches:
+              only:
+                - main
