@@ -76,7 +76,7 @@ jobs:
           command: |
             # Only attempt if working from docinfosci
             echo "$(git config --get remote.origin.url)"
-            GIT_USER="$(git config --get remote.origin.url | cut -d: -f1 | cut -d/ -f1)"
+            GIT_USER="$(git config --get remote.origin.url | cut -d: -f2 | cut -d/ -f1)"
             echo "Build is using git user ${GIT_USER}"
 
             if [ $GIT_USER == "docinfosci" ]
