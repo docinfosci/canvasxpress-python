@@ -100,10 +100,10 @@ jobs:
 
               fi
 
-          else
-            echo "Skipping deployment for git user ${$GIT_USER}"
+            else
+              echo "Skipping deployment for git user ${$GIT_USER}"
 
-          fi
+            fi
 
 
   build-python-oldest:
