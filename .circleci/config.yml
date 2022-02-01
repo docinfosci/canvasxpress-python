@@ -74,26 +74,36 @@ jobs:
       - run:
           name: Deploy artifacts
           command: |
-            # Establish package components
-            rm -rf ./dist
-            python ./build_pkg_setup.py
-            python setup.py sdist
+            # Only attempt if working from docinfosci
+            GIT_USER="$(git config --get remote.origin.url | cut -d/ -f4 | cut -d. -f1)"
 
-            # Confirm the installation user account
-            echo $TWINE_USERNAME
-
-            # Only publish non-dev editions to PyPI
-            GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
-            if [ $GIT_WORKING_BRANCH = "main" ]
+            if [$GIT_USER" = "docinfosci"]
             then
-                # Production deployment
-                twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
+              # Establish package components
+              rm -rf ./dist
+              python ./build_pkg_setup.py
+              python setup.py sdist
 
-            else
-                # Development deployment
-                twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
+              # Confirm the installation user account
+              echo "Deploying via TWINE user ${TWINE_USERNAME}"
 
-            fi
+              # Only publish non-dev editions to PyPI
+              GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
+              if [ $GIT_WORKING_BRANCH = "main" ]
+              then
+                  # Production deployment
+                  twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
+
+              else
+                  # Development deployment
+                  twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
+
+              fi
+
+          else
+            echo "Skipping deployment for git user ${$GIT_USER}"
+
+          fi
 
 
   build-python-oldest:
