@@ -76,8 +76,9 @@ jobs:
           command: |
             # Only attempt if working from docinfosci
             GIT_USER="$(git config --get remote.origin.url | cut -d/ -f4 | cut -d. -f1)"
+            echo "Build is using git user ${GIT_USER}"
 
-            if [ $GIT_USER = "docinfosci" ]
+            if [ $GIT_USER == "docinfosci" ]
             then
               # Establish package components
               rm -rf ./dist
@@ -89,7 +90,7 @@ jobs:
 
               # Only publish non-dev editions to PyPI
               GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
-              if [ $GIT_WORKING_BRANCH = "main" ]
+              if [ $GIT_WORKING_BRANCH == "main" ]
               then
                   # Production deployment
                   twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
