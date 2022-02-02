@@ -22,6 +22,7 @@ setup(
     package_dir={'': '.'},
     install_requires=core_pkgs,
     extras_require={
+        "core": [], # provided via install_requires, nothing else to add but here for user clarity
         "dash": dash_pkgs,
         "jupyter": jupyter_pkgs,
         "all": dash_pkgs + jupyter_pkgs,
