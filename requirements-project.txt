@@ -9,4 +9,4 @@ twine>=3.7
 mkdocs>=1
 pydoc-markdown>=3,<4
 mkdocs-bootswatch==1.1
-black # No version as this is constantly updating per Python Org Team
+black==21.12b0
