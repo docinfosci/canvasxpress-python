@@ -26,4 +26,5 @@ else
 fi
 
 # Ensure that essential project utilities are available
-pip install -U pip setuptools wheel invoke dash
+pip install -U pip setuptools wheel
+pip install -U -r requirements.txt
