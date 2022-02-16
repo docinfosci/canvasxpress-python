@@ -10,3 +10,6 @@ source ./venv/bin/activate
 npm run build
 # npm run build:js
 # dash-generate-components ./src/lib/components CXDash -p package-info.json
+
+# Copy artifacts back to the parent project
+cp -R ./dcxc ../../canvasxpress/plotly/
