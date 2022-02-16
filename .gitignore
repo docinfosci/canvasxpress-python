@@ -305,9 +305,12 @@ $RECYCLE.BIN/
 ##### Custom Project Ignores #####
 
 # Plotly Dash Ignores
-plotly/.build_cache
+plotly/.build_cache/**
+plotly/dcxc/.build_cache/**
 plotly/dcxc/dcxc/**
 plotly/dcxc/R/**
+plotly/dcxc/man/**
+plotly/dcxc/src/jl/**
 plotly/dcxc/venv/**
 plotly/dcxc/node_modules/**
 
