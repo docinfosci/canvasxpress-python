@@ -437,24 +437,6 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     @property
-    @deprecated(reason="Use other_init_params")
-    def canvas(self) -> CXConfigs:
-        """
-        DEPRECATED.  See `other_init_params`.
-        """
-        return self.other_init_params
-
-    @canvas.setter
-    @deprecated(reason="Use other_init_params")
-    def canvas(
-        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
-    ):
-        """
-        DEPRECATED.  See `other_init_params`.
-        """
-        self.other_init_params = value
-
-    @property
     def other_init_params(self) -> CXConfigs:
         """
         Provides access to additional parameters that will be used with the
@@ -712,8 +694,75 @@ class CanvasXpress(CXHtmlConvertable):
                             if not isinstance(data.profile, CXStandardProfile):
                                 data.profile = CXStandardProfile()
 
+    def prepare_html_element_parts(
+        self, fix_missing_profile: bool = True, match_profile_to_graphtype: bool = True,
+    ) -> dict:
+        """
+        Converts the CanvasXpress object into CanvasXpress element components in
+        anticipation of further use in renderable objects or conversion into HTML.
+
+        If the associated `CXData` is a type of `CXProfiledData` and a profile
+        has yet to be assigned then a profile can be assigned according to the
+        `CXConfig` labelled `graphType`.  If a profile is assigned but is not
+        `CXRawProfile` then the `graphType` can be reassessed, and if
+        appropriate a new profile better aligned to the data can be provided.
+
+        :param fix_missing_profile: `bool`
+            Defaults to `True`.  If `True` then CXData used for the chart will
+            be provided with a data profile appropriate to the `graphType`
+            (or CXStandardProfile if no graphType is provided).  If `False`
+            then no profile will be applied to those data objects without
+            profiles.
+
+        :param match_profile_to_graphtype: `bool`
+            Defaults to `True`.  If `True` then the `graphType` will be
+            inspected and an appropriate data profile will be applied to
+            the data object.  If a profile of an appropriate type is already
+            associated then nothing is changed.  If a CXRawProfile is associated
+            then no change is made regardless of the paranmeter value.
+            Missing profiles are ignored unless fix_missing_profile is also
+            `True`.  If `False` then no change to the data profile will be made
+            if a profile is already associated with the data object.
+
+        :returns: `dict` A map of values in anticipation of further conversion
+            into html or a renderable.
+        """
+        self.update_data_profile(
+            self.data, fix_missing_profile, match_profile_to_graphtype,
+        )
+
+        cx_element_params = {
+            "renderTo": self.render_to,
+            "data": self.data.render_to_dict(config=self.config),
+            "config": self.config.render_to_dict(),
+            "afterRender": self.after_render.render_to_list(),
+            "otherParams": self.other_init_params.render_to_dict(),
+            "events": "js_events",
+            "width": self.width,
+            "height": self.height,
+        }
+
+        # Support unique data without JSON data structure
+        if cx_element_params["data"].get("raw"):
+            cx_element_params["data"] = cx_element_params["data"]["raw"]
+
+        cx_js = render_from_template(
+            _CX_JS_TEMPLATE,
+            {
+                "cx_target_id": self.render_to,
+                "cx_json": json.dumps(cx_element_params, indent=4),
+            },
+        )
+        cx_js = cx_js.replace(
+            '"js_events"',
+            self.events.render_to_js(),
+        )
+        cx_element_params["events"] = cx_js
+
+        return cx_element_params
+
     def render_to_html_parts(
-        self, fix_missing_profile: bool = True, match_profile_to_graphtype: bool = True
+        self, fix_missing_profile: bool = True, match_profile_to_graphtype: bool = True,
     ) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.
@@ -802,7 +851,6 @@ class CanvasXpress(CXHtmlConvertable):
             `True`.  If `False` then no change to the data profile will be made
             if a profile is already associated with the data object.
         """
-        # For profiled data types, ensure a profile is assigned for rendering
         self.update_data_profile(
             self.data, fix_missing_profile, match_profile_to_graphtype
         )
