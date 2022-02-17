@@ -13,6 +13,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     brew reinstall chromedriver
     sudo xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 
+    # Install Node
+    brew reinstall node
+
 else
     echo "Unkown OS -- manually install Selenium drivers such as for gecko"
 
