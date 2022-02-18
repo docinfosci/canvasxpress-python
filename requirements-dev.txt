@@ -10,3 +10,4 @@ selenium
 requests
 scikit-image
 psutil
+dash[dev]
