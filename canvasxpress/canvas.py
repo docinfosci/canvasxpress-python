@@ -695,7 +695,9 @@ class CanvasXpress(CXHtmlConvertable):
                                 data.profile = CXStandardProfile()
 
     def prepare_html_element_parts(
-        self, fix_missing_profile: bool = True, match_profile_to_graphtype: bool = True,
+        self,
+        fix_missing_profile: bool = True,
+        match_profile_to_graphtype: bool = True,
     ) -> dict:
         """
         Converts the CanvasXpress object into CanvasXpress element components in
@@ -728,7 +730,9 @@ class CanvasXpress(CXHtmlConvertable):
             into html or a renderable.
         """
         self.update_data_profile(
-            self.data, fix_missing_profile, match_profile_to_graphtype,
+            self.data,
+            fix_missing_profile,
+            match_profile_to_graphtype,
         )
 
         cx_element_params = {
@@ -762,7 +766,9 @@ class CanvasXpress(CXHtmlConvertable):
         return cx_element_params
 
     def render_to_html_parts(
-        self, fix_missing_profile: bool = True, match_profile_to_graphtype: bool = True,
+        self,
+        fix_missing_profile: bool = True,
+        match_profile_to_graphtype: bool = True,
     ) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.

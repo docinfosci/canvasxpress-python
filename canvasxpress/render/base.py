@@ -33,7 +33,6 @@ class CXRenderAssociation(ABC):
         else:
             return copy(self.__cx)
 
-
     @canvas.setter
     def canvas(self, value: Union[List[CanvasXpress], CanvasXpress, None]):
         """
@@ -58,7 +57,6 @@ class CXRenderAssociation(ABC):
 
         else:
             raise TypeError("value must of type CanvasXpress")
-
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
@@ -107,7 +105,6 @@ class CXRenderable(CXRenderAssociation):
         """
         super().__init__(*cx)
 
-
     @abstractmethod
     def render(self, **kwargs: Any):
         """
@@ -137,7 +134,6 @@ class CXRenderFactory(CXRenderAssociation):
             they have distinct `render_to` targets.
         """
         super().__init__(*cx)
-
 
     @abstractmethod
     def renderables(self, **kwargs: Any) -> List[object]:

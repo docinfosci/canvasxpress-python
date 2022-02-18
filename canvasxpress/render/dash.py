@@ -26,7 +26,6 @@ class CXDashElementFactory(CXRenderFactory):
         """
         super().__init__(*cx)
 
-
     @classmethod
     def convert(cls, cx: CanvasXpress) -> CXDashElement:
         """
@@ -39,7 +38,7 @@ class CXDashElementFactory(CXRenderFactory):
         """
         element_parts = cx.prepare_html_element_parts()
         dash_element = CXDashElement(
-            id = element_parts["renderTo"],
+            id=element_parts["renderTo"],
             data=element_parts["data"],
             config=element_parts["config"],
             events=element_parts["events"],
@@ -48,7 +47,6 @@ class CXDashElementFactory(CXRenderFactory):
         )
 
         return dash_element
-
 
     def renderables(self, **kwargs: Any) -> List[CXDashElement]:
         """
