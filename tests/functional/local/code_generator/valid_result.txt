@@ -11944,13 +11944,7 @@ cx = CanvasXpress(
     height=613,
     events=CXEvents(),
     after_render=[],
-    other_init_params={
-        "version": 35,
-        "events": False,
-        "info": False,
-        "afterRenderInit": False,
-        "noValidate": True
-    }
+    other_init_params={}
 )
 
 display = CXBrowserPopup(cx) 
