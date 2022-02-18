@@ -57,8 +57,13 @@ def test_CXRenderable_init():
         ),
         config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
     )
-
     SampleRenderable(chart)
+
+    try:
+        SampleRenderable(0)
+
+    except Exception as e:
+        assert isinstance(e, TypeError)
 
 
 def test_CXRenderable_get_canvas(testable_renderable: CXRenderable):
