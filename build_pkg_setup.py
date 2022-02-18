@@ -19,11 +19,9 @@ setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
     packages=find_packages(exclude=["tests*", "plotly"]),
+    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.sql', '*.txt', '*.zip']},
+    include_package_data=True,
     package_dir={'': '.'},
-    data_files=[
-        ('cxdash', ['**/*.py', '**/*.json', '**/*.yaml', '**/*.yml', '**/*.js', '**/*.sql', '**/*.txt', '**/*.zip']),
-        ('canvasxpress', ['**/*.py', '**/*.json', '**/*.yaml', '**/*.yml', '**/*.js', '**/*.sql', '**/*.txt', '**/*.zip']),
-    ],
     install_requires=core_pkgs + dash_pkgs + jupyter_pkgs,
     extras_require={
         "core": core_pkgs, 
