@@ -18,11 +18,11 @@ jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
-    packages=find_packages(exclude=["tests*", "plotly"]),
+    packages=find_packages(exclude=["tests*", "plotly", "tutorials",]),
     package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.sql', '*.txt', '*.zip']},
     include_package_data=True,
     package_dir={'': '.'},
-    install_requires=core_pkgs + dash_pkgs + jupyter_pkgs,
+    install_requires=core_pkgs,
     extras_require={
         "core": core_pkgs, 
         "dash": core_pkgs + dash_pkgs,
