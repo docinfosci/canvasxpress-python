@@ -18,14 +18,14 @@ jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
-    packages=find_packages(exclude=['tests*']),
+    packages=find_packages(exclude=["tests*", "plotly"]),
     package_dir={'': '.'},
     install_requires=core_pkgs,
     extras_require={
-        "core": [], # provided via install_requires, nothing else to add but here for user clarity
-        "dash": dash_pkgs,
-        "jupyter": jupyter_pkgs,
-        "all": dash_pkgs + jupyter_pkgs,
+        "core": core_pkgs, 
+        "dash": core_pkgs + dash_pkgs,
+        "jupyter": core_pkgs + jupyter_pkgs,
+        "all": core_pkgs + dash_pkgs + jupyter_pkgs,
     },
     url='https://github.com/docinfosci/canvasxpress-python.git',
     project_urls={
@@ -37,7 +37,7 @@ setup(
     description='CanvasXpress for Python',
     long_description=long_description,
     long_description_content_type='text/markdown; charset=UTF-8; variant=GFM',
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
