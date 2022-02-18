@@ -58,4 +58,8 @@ class CXDashElementFactory(CXRenderFactory):
             render call should work with no extra parameters, and with
             parameters that do not apply to the implementation.
         """
-        return [CXDashElementFactory.convert(cx) for cx in self.canvas]
+        if isinstance(self.canvas, CanvasXpress):
+            return [CXDashElementFactory.convert(self.canvas)]
+
+        else:
+            return [CXDashElementFactory.convert(cx) for cx in self.canvas]
