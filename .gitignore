@@ -307,6 +307,7 @@ $RECYCLE.BIN/
 # Plotly Dash Ignores
 plotly/.build_cache/**
 plotly/cxdash/.build_cache/**
+plotly/cxdash/package-lock.json
 plotly/cxdash/dcxc/**
 plotly/cxdash/R/**
 plotly/cxdash/man/**
