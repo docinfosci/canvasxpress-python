@@ -20,7 +20,11 @@ setup(
     version='@PKG_VERSION@',
     packages=find_packages(exclude=["tests*", "plotly"]),
     package_dir={'': '.'},
-    install_requires=core_pkgs,
+    data_files=[
+        ('cxdash', ['**/*.py', '**/*.json', '**/*.yaml', '**/*.yml', '**/*.js', '**/*.sql', '**/*.txt', '**/*.zip']),
+        ('canvasxpress', ['**/*.py', '**/*.json', '**/*.yaml', '**/*.yml', '**/*.js', '**/*.sql', '**/*.txt', '**/*.zip']),
+    ],
+    install_requires=core_pkgs + dash_pkgs + jupyter_pkgs,
     extras_require={
         "core": core_pkgs, 
         "dash": core_pkgs + dash_pkgs,
@@ -32,7 +36,11 @@ setup(
         'Documentation': 'https://canvasxpress-python.readthedocs.io',
     },
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
-    author='CanvasXpress (original author) and Dr. Todd C. Brett (Python edition)',
+    author=(
+        'Isaac Neuhaus for CanvasXpress JS, PHP, and R;'
+        ' Dr. Constance M. Brett for R; and'
+        ' Dr. Todd C. Brett for Python and Dash.'
+    ),
     author_email='todd@aggregate-genius.com',
     description='CanvasXpress for Python',
     long_description=long_description,
