@@ -1,5 +1,7 @@
+import csv
 import json
 import uuid
+from io import StringIO
 from typing import Union, List
 
 from pandas import DataFrame
@@ -9,8 +11,8 @@ from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
 from canvasxpress.data.base import CXData, CXProfiledData
 from canvasxpress.data.convert import CXHtmlConvertable
-from canvasxpress.data.keypair import CXDictData
-from canvasxpress.data.matrix import CXDataframeData
+from canvasxpress.data.keypair import CXDictData, CXJSONData
+from canvasxpress.data.matrix import CXDataframeData, CXCSVData
 from canvasxpress.data.profile import (
     CXVennProfile,
     CXStandardProfile,
@@ -292,7 +294,16 @@ class CanvasXpress(CXHtmlConvertable):
             self.__data = CXDataframeData(value)
 
         elif isinstance(value, str):
-            self.__data = CXTextData(value)
+            try:
+                json.loads(value)
+                self.__data = CXJSONData(value)
+
+            except Exception:
+                if (value.find(',') >= 0 or value.find('\t') >= 0) and value.find('\n') >= 0:
+                    self.__data = CXCSVData(value)
+
+                else:
+                    self.__data = CXTextData(value)
 
         else:
             raise TypeError(
@@ -750,18 +761,7 @@ class CanvasXpress(CXHtmlConvertable):
         if cx_element_params["data"].get("raw"):
             cx_element_params["data"] = cx_element_params["data"]["raw"]
 
-        cx_js = render_from_template(
-            _CX_JS_TEMPLATE,
-            {
-                "cx_target_id": self.render_to,
-                "cx_json": json.dumps(cx_element_params, indent=4),
-            },
-        )
-        cx_js = cx_js.replace(
-            '"js_events"',
-            self.events.render_to_js(),
-        )
-        cx_element_params["events"] = cx_js
+        cx_element_params["events"] = self.events.render_to_js()
 
         return cx_element_params
 
