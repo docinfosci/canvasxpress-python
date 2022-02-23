@@ -145,9 +145,9 @@ class CXEvents(CXJavascriptConvertable):
         for event in self.events:
             events[event.id] = f"js_{event.id}"
 
-        html = json.dumps(events, indent=8)
+        html = json.dumps(events).replace('"', "'")
         for event in self.events:
-            html = html.replace(f'"js_{event.id}"', event.render_to_js())
+            html = html.replace(f"'js_{event.id}'", event.render_to_js())
 
         return html
 
