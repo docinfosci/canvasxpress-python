@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "canvasxpress": "^37.8.5",
+    "canvasxpress-react": "^37.8.5"
+  }
+}
