@@ -41,6 +41,9 @@ def init(c, dev=False, list=False):
     c.run("pip install --no-cache-dir -U -r ./requirements-project.txt")
     c.run("pip install --no-cache-dir -U -r ./requirements.txt")
 
+    c.run("npm install canvasxpress")
+    c.run("npm install canvasxpress-react")
+
     if dev:
         c.run("pip install --no-cache-dir -U -r ./requirements-dev.txt")
 
