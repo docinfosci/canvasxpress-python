@@ -37,9 +37,9 @@ def test_convert():
     converted_properties = _g_cx.prepare_html_element_parts()
 
     assert dash_element.id == converted_properties["renderTo"]
-    assert dash_element.width == converted_properties["width"]
-    assert dash_element.height == converted_properties["height"]
-    assert dash_element.config == converted_properties["config"]
+    assert dash_element.width == str(converted_properties["width"])
+    assert dash_element.height == str(converted_properties["height"])
+    assert dash_element.config == json.dumps(converted_properties["config"])
     assert dash_element.events == converted_properties["events"]
 
 
@@ -50,7 +50,7 @@ def test_renderables():
     converted_properties = _g_cx.prepare_html_element_parts()
 
     assert dash_element.id == converted_properties["renderTo"]
-    assert dash_element.width == converted_properties["width"]
-    assert dash_element.height == converted_properties["height"]
-    assert dash_element.config == converted_properties["config"]
+    assert dash_element.width == str(converted_properties["width"])
+    assert dash_element.height == str(converted_properties["height"])
+    assert dash_element.config == json.dumps(converted_properties["config"])
     assert dash_element.events == converted_properties["events"]
