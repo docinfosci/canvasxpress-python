@@ -24,8 +24,8 @@
   "author": "Original JS library and React by Isaac Neuhaus; Python and Dash JS by Todd Brett. <todd@aggregate-genius.com>",
   "license": "MIT",
   "dependencies": {
-    "canvasxpress": "^37.5.85",
-    "canvasxpress-react": "^37.5.85",
+    "canvasxpress": "^37.8.5",
+    "canvasxpress-react": "^37.8.5",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
