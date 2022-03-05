@@ -46,7 +46,7 @@ def create_app() -> Flask:
 
         return render_template(
             "bar.html",
-            canvas_element="<canvas id='canvasId' width='600' height='600'"
+            canvas_element="<canvas id='canvasId' width='500' height='500'"
             " responsive='true'>",
             bar_graph=f"var cXcanvasId = new CanvasXpress({json.dumps(chart)});",
         )

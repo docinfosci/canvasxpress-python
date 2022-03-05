@@ -53,9 +53,9 @@ def test_CanvasXpress_render_to():
     subject.render_to = "this_is_a_test"
     assert subject.render_to == "this_is_a_test"
 
-    with pytest.raises(ValueError):
-        subject: CanvasXpress = CanvasXpress()
-        subject.render_to = None
+    subject: CanvasXpress = CanvasXpress()
+    subject.render_to = None
+    assert subject.anonymous
 
     with pytest.raises(TypeError):
         subject: CanvasXpress = CanvasXpress()
