@@ -262,10 +262,10 @@ def update_timeseries(hoverData, xaxis_column_name, yaxis_column_name, axis_type
     _g_x_time_series_chart.config.set_param("subtitle", country_name)
 
     y_dff = dff.copy(deep=True)
-    y_dff = y_dff[dff["Indicator Name"] == xaxis_column_name]
+    y_dff = y_dff[dff["Indicator Name"] == yaxis_column_name]
     y_dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
 
-    y_data = CXDataframeData(x_dff)
+    y_data = CXDataframeData(y_dff)
     y_data.profile.smps = ["Year", "Value"]
     y_data.profile.z = {
         "z": {"Series": ["Value" for i in range(dff["Value"].count())]},
