@@ -8,6 +8,7 @@ import pandas
 from pandas import DataFrame
 
 from canvasxpress.data.base import CXDataProfile, CXMatrixData
+from canvasxpress.data.profile import CXStandardProfile
 
 
 @total_ordering
@@ -135,10 +136,10 @@ class CXDataframeData(CXMatrixData):
             like object to assign mapped data.
         :param profile: `Union[CXDataProfile, None]`
             Specify the desired profile object to facilitate transformation of
-            data into a CanvasXpress JSON data object.  `None` to avoid use of
-            a profile.
+            data into a CanvasXpress JSON data object.  `None` will default to
+            the CXStandardProfile.
         """
-        super().__init__(data, profile)
+        super().__init__(data, profile if profile is not None else CXStandardProfile())
         self.data = data
 
     def __copy__(self) -> "CXDataframeData":
