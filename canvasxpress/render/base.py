@@ -136,7 +136,7 @@ class CXRenderFactory(CXRenderAssociation):
         super().__init__(*cx)
 
     @abstractmethod
-    def renderables(self, **kwargs: Any) -> List[object]:
+    def rendered(self, **kwargs: Any) -> List[object]:
         """
         Provides a list of objects that can be used by the target domain or container
         to create CanvasXpress illustrations or instantiations.

@@ -28,11 +28,11 @@ class CXDashElementFactory(CXRenderFactory):
         super().__init__(*cx)
 
     @classmethod
-    def convert(cls, cx: CanvasXpress) -> CXDashElement:
+    def render(cls, cx: CanvasXpress) -> CXDashElement:
         """
         Converts the provided CanvasXpress object into a CXDashElement object that is
         primed by the configuration represented by the CanvasXpress object.
-        :param cx: `CanvasXpress` The CanvasXpress object to convert.  An exception is
+        :param cx: `CanvasXpress` The CanvasXpress object to render.  An exception is
             raised if cx is `None`.
         :returns: `CXDashElement` A CXDashElement with the configuration as represented
             by cx.
@@ -49,7 +49,7 @@ class CXDashElementFactory(CXRenderFactory):
 
         return dash_element
 
-    def renderables(self, **kwargs: Any) -> List[CXDashElement]:
+    def rendered(self, **kwargs: Any) -> List[CXDashElement]:
         """
         Provides a list of objects that can be used by the target domain or container
         to create CanvasXpress illustrations or instantiations.
@@ -60,7 +60,7 @@ class CXDashElementFactory(CXRenderFactory):
             parameters that do not apply to the implementation.
         """
         if isinstance(self.canvas, CanvasXpress):
-            return [CXDashElementFactory.convert(self.canvas)]
+            return [CXDashElementFactory.render(self.canvas)]
 
         else:
-            return [CXDashElementFactory.convert(cx) for cx in self.canvas]
+            return [CXDashElementFactory.render(cx) for cx in self.canvas]
