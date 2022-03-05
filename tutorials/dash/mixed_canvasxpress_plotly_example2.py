@@ -62,7 +62,9 @@ _g_y_time_series_chart = CanvasXpress(
 )
 
 # Associate the charts with a factory to produce Dash elements per the configs.
-_g_timeseries_factory = CXDashElementFactory(_g_x_time_series_chart, _g_y_time_series_chart)
+_g_timeseries_factory = CXDashElementFactory(
+    _g_x_time_series_chart, _g_y_time_series_chart
+)
 
 
 _g_app.layout = html.Div(
@@ -246,11 +248,11 @@ def update_timeseries(hoverData, xaxis_column_name, yaxis_column_name, axis_type
     ]
     dff.Value.apply(lambda x: None if isnan(x) else x)
     dff.Value.apply(lambda x: x if axis_type == "Linear" else log(x))
-    
+
     x_dff = dff.copy(deep=True)
     x_dff = x_dff[dff["Indicator Name"] == xaxis_column_name]
     x_dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
-    
+
     x_data = CXDataframeData(x_dff)
     x_data.profile.smps = ["Year", "Value"]
     x_data.profile.z = {
@@ -270,7 +272,7 @@ def update_timeseries(hoverData, xaxis_column_name, yaxis_column_name, axis_type
     y_data.profile.z = {
         "z": {"Series": ["Value" for i in range(dff["Value"].count())]},
     }
-    
+
     _g_y_time_series_chart.data = y_data
     _g_y_time_series_chart.config.set_param("title", yaxis_column_name)
     _g_y_time_series_chart.config.set_param("subtitle", country_name)
