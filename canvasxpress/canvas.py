@@ -86,23 +86,33 @@ class CanvasXpress(CXHtmlConvertable):
     ```
     """
 
-    __target_id: str = None
+    __target_id: Union[str, None] = None
     """
-    __target_id is used by the JS renderTo param.
+    __target_id is used by the JS renderTo param.  None indicates that the object is anonymous.
     """
 
     @property
-    def render_to(self) -> str:
+    def anonymous(self) -> bool:
+        """
+        Indicates whether the object is anonymous.  If `True`, then `render_to()` will result in a one-time random
+        ID string being returned for use in contexts such as rapidly changing React environments.  If `False`, then
+        the ID string returned is the one set for the object by the developer.
+        :returns: `bool` `True` if the object is anonymous; otherwise `False`.
+        """
+        return self.__target_id is None
+
+    @property
+    def render_to(self) -> Union[str, None]:
         """
         The ID of the CanvasXpress object's associated HTML components, such as
         the render canvas element.  Sets the `id` attribute of the `<canvas>`
         element.
-        :returns: `str` The ID
+        :returns: `str` The ID, if configured; `None` if anonymous.
         """
-        return self.__target_id
+        return str(uuid.uuid4()).replace("-", "") if self.anonymous else self.__target_id
 
     @render_to.setter
-    def render_to(self, value: str) -> None:
+    def render_to(self, value: Union[str, None]) -> None:
         """
         Sets the render_to of the CanvasXpress instance.  Sets the `id`
         attribute of the `<canvas>` element.
@@ -111,20 +121,23 @@ class CanvasXpress(CXHtmlConvertable):
             must be alphanumeric.  Non-alphanumeric characters will
             be removed, except for `_`, and if the remaining string
             is empty then a UUID4 will be substituted.  This is to preserve JS
-            compatibility during rendering.
+            compatibility during rendering. `None` can also be provided to
+            indicate that this object should be anonymous, such as for use
+            in rapidly changing React interfaces.
         """
-        if value is None:
-            raise ValueError("value cannot be None")
+        if not isinstance(value, str) and value is not None:
+            raise TypeError("value must be of type str or None")
 
-        if not isinstance(value, str):
-            raise TypeError("value must be of type str")
+        elif value is not None:
+            candidate = ""
+            for c in value:
+                if c.isalnum() or c == "_":
+                    candidate += c
+            if candidate == "":
+                candidate = str(uuid.uuid4()).replace("-", "")
 
-        candidate = ""
-        for c in value:
-            if c.isalnum() or c == "_":
-                candidate += c
-        if candidate == "":
-            candidate = str(uuid.uuid4()).replace("-", "")
+        else:
+            candidate = value
 
         self.__target_id = candidate
 
@@ -634,11 +647,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         super().__init__()
 
-        candidate_id = render_to
-        if candidate_id is None:
-            candidate_id = str(uuid.uuid4())
-        self.render_to = candidate_id
-
+        self.render_to = render_to
         self.data = data
         self.events = events
         self.config = config
