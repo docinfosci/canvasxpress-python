@@ -19,12 +19,11 @@ development of dynamic Dash, Flask, Django, Jupyter, and similar solutions easie
 
 from dash import Dash, html
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.js.function import CXEvent
 from canvasxpress.render.dash import CXDashElementFactory
 
 g_app = Dash(__name__)
 
-# No need to convert many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
+# No need to render many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
 _g_csv = """, Apples, Oranges, Bananas
 SF      ,      4,       1,       2
 Montreal,      2,       4,       5
@@ -88,7 +87,7 @@ g_app.layout = html.Div(
                 html.Div(
                     id="cx-container",
                     style={"textAlign": "center"},
-                    children=_g_cx_render.renderables(),
+                    children=_g_cx_render.rendered(),
                 ),
             ],
         ),

@@ -1,21 +1,68 @@
 import json
 import uuid
+from abc import ABC
 from math import log, isnan
 
 from dash import Dash, html, dcc, Input, Output
 import pandas as pd
 import plotly.express as px
 
-from cxdash import CXDashElement
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.data.matrix import CXDataframeData
+from canvasxpress.data.profile import CXStandardProfile
+from canvasxpress.js.function import CXEvent
+from canvasxpress.render.dash import CXDashElementFactory
 
-external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+_g_external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+_g_app = Dash(__name__, external_stylesheets=_g_external_stylesheets)
+_g_country_indicators_df = pd.read_csv(
+    "https://plotly.github.io/datasets/country_indicators.csv"
+)
 
-app = Dash(__name__, external_stylesheets=external_stylesheets)
+_g_common_config: dict = {
+    "graphOrientation": "vertical",
+    "graphType": "Scatter2D",
+    "lineBy": "Series",
+    "smpLabelRotate": 90,
+    "yAxisTitle": " ",
+    "xAxisTitle": "Year",
+    "xAxis2Show": False,
+    "showLegend": False,
+    "theme": "CanvasXpress",
+    "titleAlign": "left",
+    "titleScaleFontFactor": 0.65,
+    "subtitleAlign": "left",
+    "subtitleScaleFontFactor": 0.5,
+}
 
-df = pd.read_csv("https://plotly.github.io/datasets/country_indicators.csv")
+_g_common_events = [
+    CXEvent(
+        id="mousemove",
+        script="t.showInfoSpan(e, '<b>' + o.y.data[0][0] + '</b>: ' + o.y.data[0][1]);",
+    ),
+    CXEvent(id="mouseout", script=""),
+]
+
+# Establish the essential X axis chart configuration.  Only data and data specific configurations will be
+# adjusted during the app's use.
+_g_x_time_series_chart = CanvasXpress(
+    render_to=None,
+    config=_g_common_config,
+    events=_g_common_events,
+    height=225,
+)
+
+# Establish the essential Y axis chart configuration.  Only data and data specific configurations will be
+# adjusted during the app's use.
+_g_y_time_series_chart = CanvasXpress(
+    render_to=None,
+    config=_g_common_config,
+    events=_g_common_events,
+    height=225,
+)
 
 
-app.layout = html.Div(
+_g_app.layout = html.Div(
     [
         html.H1(
             "Mixed CanvasXpress and Plotly Graph Example",
@@ -25,9 +72,8 @@ app.layout = html.Div(
         html.Div(
             """
             This Dash application demonstrates a mixture of CanvasXpress and Plotly elements coordinating data
-            exchange and UI refresh.  The CXDashElement class is used for preparing CanvasXpress charts, which is
-            a straightforward mechanism to use but can require additional work on the developer's part to process 
-            or format data, configurations, and events.  Also see the advanced CanvasXpress edition of this example.
+            exchange and UI refresh.  The CanvasXpress class is used for preparing CanvasXpress charts, and the 
+            CXDashElementFactory is used to provide properly configured Dash elements for display.
             """
         ),
         html.Hr(),
@@ -39,7 +85,7 @@ app.layout = html.Div(
                         html.Div(
                             [
                                 dcc.Dropdown(
-                                    df["Indicator Name"].unique(),
+                                    _g_country_indicators_df["Indicator Name"].unique(),
                                     "Life expectancy at birth, total (years)",
                                     id="crossfilter-yaxis-column",
                                     style={"display": "inline-block", "width": "85%"},
@@ -62,7 +108,7 @@ app.layout = html.Div(
                         html.Div(
                             [
                                 dcc.Dropdown(
-                                    df["Indicator Name"].unique(),
+                                    _g_country_indicators_df["Indicator Name"].unique(),
                                     "Fertility rate, total (births per woman)",
                                     id="crossfilter-xaxis-column",
                                     style={"display": "inline-block", "width": "85%"},
@@ -87,12 +133,15 @@ app.layout = html.Div(
                 html.Div(style={"display": "inline-block", "width": "2%"}),
                 html.Div(
                     dcc.Slider(
-                        df["Year"].min(),
-                        df["Year"].max(),
+                        _g_country_indicators_df["Year"].min(),
+                        _g_country_indicators_df["Year"].max(),
                         step=None,
                         id="crossfilter-year--slider",
-                        value=df["Year"].max(),
-                        marks={str(year): str(year) for year in df["Year"].unique()},
+                        value=_g_country_indicators_df["Year"].max(),
+                        marks={
+                            str(year): str(year)
+                            for year in _g_country_indicators_df["Year"].unique()
+                        },
                     ),
                     style={"display": "inline-block", "width": "93%"},
                 ),
@@ -139,7 +188,7 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
+@_g_app.callback(
     Output("crossfilter-indicator-scatter", "figure"),
     Input("crossfilter-xaxis-column", "value"),
     Input("crossfilter-yaxis-column", "value"),
@@ -150,7 +199,7 @@ app.layout = html.Div(
 def update_graph(
     xaxis_column_name, yaxis_column_name, xaxis_type, yaxis_type, year_value
 ):
-    dff = df[df["Year"] == year_value]
+    dff = _g_country_indicators_df[_g_country_indicators_df["Year"] == year_value]
 
     fig = px.scatter(
         x=dff[dff["Indicator Name"] == xaxis_column_name]["Value"],
@@ -175,99 +224,70 @@ def update_graph(
     return fig
 
 
-def adjust_value(value, type):
-    if isnan(value):
-        return None
-    elif type == "Linear":
-        return value
-    else:
-        return log(value)
-
-
-def format_data_point(data_point, axis_type):
-    return [int(data_point[0]), adjust_value(float(round(data_point[1], 2)), axis_type)]
-
-
-def create_time_series(id, dff, axis_type, title):
-
-    data = {
-        "y": {
-            "data": [
-                format_data_point(
-                    dff[["Year", "Value"]].iloc[i].values.tolist(), axis_type
-                )
-                for i in range(dff["Value"].count())
-            ],
-            "smps": ["Date", "Value"],
-        },
-        "z": {"Series": ["Value" for i in range(dff["Value"].count())]},
-    }
-
-    config = {
-        "graphOrientation": "vertical",
-        "graphType": "Scatter2D",
-        "lineBy": "Series",
-        "smpLabelRotate": 90,
-        "yAxisTitle": " ",
-        "xAxisTitle": "Year",
-        "xAxis2Show": False,
-        "showLegend": False,
-        "theme": "CanvasXpress",
-        "title": pd.unique(dff["Indicator Name"].values)[0],
-        "titleAlign": "left",
-        "titleScaleFontFactor": 0.65,
-        "subtitle": pd.unique(dff["Country Name"].values)[0],
-        "subtitleAlign": "left",
-        "subtitleScaleFontFactor": 0.5,
-    }
-
-    events = """
-    {
-        "mousemove": function(o, e, t) {
-            t.showInfoSpan(e, '<b>' + o.y.data[0][0] + '</b>: ' + o.y.data[0][1]);
-        },
-        "mouseout": function(o, e, t) {},
-    }
-    """
-
-    chart = CXDashElement(
-        id=str(uuid.uuid4()),
-        data=json.dumps(data),
-        config=json.dumps(config),
-        events=events,
-        height="225",
-    )
-
-    return [
-        chart,
-    ]
-
-
-@app.callback(
+@_g_app.callback(
     Output("x-time-series", "children"),
     Input("crossfilter-indicator-scatter", "hoverData"),
     Input("crossfilter-xaxis-column", "value"),
     Input("crossfilter-xaxis-type", "value"),
 )
 def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
+    global _g_x_time_series_chart
+
     country_name = hoverData["points"][0]["customdata"]
-    dff = df[df["Country Name"] == country_name]
+    dff = _g_country_indicators_df[
+        _g_country_indicators_df["Country Name"] == country_name
+    ]
     dff = dff[dff["Indicator Name"] == xaxis_column_name]
-    title = "{} {}".format(country_name, xaxis_column_name)
-    return create_time_series("x", dff, axis_type, title)
+
+    dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
+
+    dff.Value.apply(lambda x: None if isnan(x) else x)
+    dff.Value.apply(lambda x: x if axis_type == "Linear" else log(x))
+
+    data = CXDataframeData(dff)
+    data.profile.smps = ["Year", "Value"]
+    data.profile.z = {
+        "z": {"Series": ["Value" for i in range(dff["Value"].count())]},
+    }
+
+    _g_x_time_series_chart.data = data
+    _g_x_time_series_chart.config.set_param("title", xaxis_column_name)
+    _g_x_time_series_chart.config.set_param("subtitle", country_name)
+
+    return CXDashElementFactory.render(_g_x_time_series_chart)
 
 
-@app.callback(
+@_g_app.callback(
     Output("y-time-series", "children"),
     Input("crossfilter-indicator-scatter", "hoverData"),
     Input("crossfilter-yaxis-column", "value"),
     Input("crossfilter-yaxis-type", "value"),
 )
 def update_x_timeseries(hoverData, yaxis_column_name, axis_type):
-    dff = df[df["Country Name"] == hoverData["points"][0]["customdata"]]
+    global _g_y_time_series_chart
+
+    country_name = hoverData["points"][0]["customdata"]
+    dff = _g_country_indicators_df[
+        _g_country_indicators_df["Country Name"] == country_name
+    ]
     dff = dff[dff["Indicator Name"] == yaxis_column_name]
-    return create_time_series("y", dff, axis_type, yaxis_column_name)
+
+    dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
+
+    dff.Value.apply(lambda x: None if isnan(x) else x)
+    dff.Value.apply(lambda x: x if axis_type == "Linear" else log(x))
+
+    data = CXDataframeData(dff)
+    data.profile.z = {
+        "z": {"Series": ["Series" for i in range(dff["Value"].count())]},
+    }
+
+    _g_y_time_series_chart.data = data
+    _g_y_time_series_chart.config.set_param("title", yaxis_column_name)
+    _g_y_time_series_chart.config.set_param("subtitle", country_name)
+
+    return CXDashElementFactory.render(_g_y_time_series_chart)
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    _g_app.run_server(debug=True)
