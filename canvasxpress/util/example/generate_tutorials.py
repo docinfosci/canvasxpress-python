@@ -1,5 +1,5 @@
 """
-This file can be executed to convert the reproducible JSON files located at
+This file can be executed to render the reproducible JSON files located at
 `[project]/tutorials/reproducible_json/*.json` into tutorials for general use.
 """
 import json
