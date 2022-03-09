@@ -91,4 +91,4 @@ g_app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    g_app.run_server(debug=True)
+    g_app.run_server(debug=False)

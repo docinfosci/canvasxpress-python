@@ -1,6 +1,3 @@
-import json
-import uuid
-from abc import ABC
 from math import log, isnan
 
 from dash import Dash, html, dcc, Input, Output
@@ -9,9 +6,8 @@ import plotly.express as px
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.data.matrix import CXDataframeData
-from canvasxpress.data.profile import CXStandardProfile
 from canvasxpress.js.function import CXEvent
-from canvasxpress.render.dash import CXDashElementFactory
+from canvasxpress.render.dash import CXElementFactory
 
 _g_external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 _g_app = Dash(__name__, external_stylesheets=_g_external_stylesheets)
@@ -19,7 +15,7 @@ _g_country_indicators_df = pd.read_csv(
     "https://plotly.github.io/datasets/country_indicators.csv"
 )
 
-_g_common_config: dict = {
+_g_common_config = {
     "graphOrientation": "vertical",
     "graphType": "Scatter2D",
     "lineBy": "Series",
@@ -62,7 +58,7 @@ _g_y_time_series_chart = CanvasXpress(
 )
 
 # Associate the charts with a factory to produce Dash elements per the configs.
-_g_timeseries_factory = CXDashElementFactory(
+_g_timeseries_factory = CXElementFactory(
     _g_x_time_series_chart, _g_y_time_series_chart
 )
 
@@ -277,8 +273,8 @@ def update_timeseries(hoverData, xaxis_column_name, yaxis_column_name, axis_type
     _g_y_time_series_chart.config.set_param("title", yaxis_column_name)
     _g_y_time_series_chart.config.set_param("subtitle", country_name)
 
-    return _g_timeseries_factory.rendered()
+    return _g_timeseries_factory.render_all()
 
 
 if __name__ == "__main__":
-    _g_app.run_server(debug=True)
+    _g_app.run_server(debug=False)

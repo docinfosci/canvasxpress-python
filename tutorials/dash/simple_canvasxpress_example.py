@@ -19,11 +19,11 @@ development of dynamic Dash, Flask, Django, Jupyter, and similar solutions easie
 
 from dash import Dash, html
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.dash import CXDashElementFactory
+from canvasxpress.render.dash import CXElementFactory
 
 g_app = Dash(__name__)
 
-# No need to render many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
+# No need to create_element many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
 _g_csv = """, Apples, Oranges, Bananas
 SF      ,      4,       1,       2
 Montreal,      2,       4,       5
@@ -62,10 +62,6 @@ _g_cx_chart = CanvasXpress(
     height=450,
 )
 
-# The factory accepts multiple charts, and as the chart objects themselves can be adjusted in response to events,
-# etc. this can be a convenient mechanism for referencing complex chart updates in the HTML portion of the app.
-_g_cx_render = CXDashElementFactory(_g_cx_chart)
-
 # Application
 g_app.layout = html.Div(
     style={"backgroundColor": _g_cx_colors["background"]},
@@ -87,7 +83,7 @@ g_app.layout = html.Div(
                 html.Div(
                     id="cx-container",
                     style={"textAlign": "center"},
-                    children=_g_cx_render.rendered(),
+                    children=CXElementFactory.render(_g_cx_chart),
                 ),
             ],
         ),
@@ -95,4 +91,4 @@ g_app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    g_app.run_server(debug=True)
+    g_app.run_server(debug=False)

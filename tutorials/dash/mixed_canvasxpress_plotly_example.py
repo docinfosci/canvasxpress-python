@@ -1,6 +1,3 @@
-import json
-import uuid
-from abc import ABC
 from math import log, isnan
 
 from dash import Dash, html, dcc, Input, Output
@@ -9,9 +6,8 @@ import plotly.express as px
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.data.matrix import CXDataframeData
-from canvasxpress.data.profile import CXStandardProfile
 from canvasxpress.js.function import CXEvent
-from canvasxpress.render.dash import CXDashElementFactory
+from canvasxpress.render.dash import CXElementFactory
 
 _g_external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 _g_app = Dash(__name__, external_stylesheets=_g_external_stylesheets)
@@ -19,7 +15,7 @@ _g_country_indicators_df = pd.read_csv(
     "https://plotly.github.io/datasets/country_indicators.csv"
 )
 
-_g_common_config: dict = {
+_g_common_config = {
     "graphOrientation": "vertical",
     "graphType": "Scatter2D",
     "lineBy": "Series",
@@ -60,7 +56,6 @@ _g_y_time_series_chart = CanvasXpress(
     events=_g_common_events,
     height=225,
 )
-
 
 _g_app.layout = html.Div(
     [
@@ -197,7 +192,7 @@ _g_app.layout = html.Div(
     Input("crossfilter-year--slider", "value"),
 )
 def update_graph(
-    xaxis_column_name, yaxis_column_name, xaxis_type, yaxis_type, year_value
+        xaxis_column_name, yaxis_column_name, xaxis_type, yaxis_type, year_value
 ):
     dff = _g_country_indicators_df[_g_country_indicators_df["Year"] == year_value]
 
@@ -236,7 +231,7 @@ def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
     country_name = hoverData["points"][0]["customdata"]
     dff = _g_country_indicators_df[
         _g_country_indicators_df["Country Name"] == country_name
-    ]
+        ]
     dff = dff[dff["Indicator Name"] == xaxis_column_name]
 
     dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
@@ -254,7 +249,7 @@ def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
     _g_x_time_series_chart.config.set_param("title", xaxis_column_name)
     _g_x_time_series_chart.config.set_param("subtitle", country_name)
 
-    return CXDashElementFactory.render(_g_x_time_series_chart)
+    return CXElementFactory.render(_g_x_time_series_chart)
 
 
 @_g_app.callback(
@@ -269,7 +264,7 @@ def update_x_timeseries(hoverData, yaxis_column_name, axis_type):
     country_name = hoverData["points"][0]["customdata"]
     dff = _g_country_indicators_df[
         _g_country_indicators_df["Country Name"] == country_name
-    ]
+        ]
     dff = dff[dff["Indicator Name"] == yaxis_column_name]
 
     dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
@@ -286,8 +281,8 @@ def update_x_timeseries(hoverData, yaxis_column_name, axis_type):
     _g_y_time_series_chart.config.set_param("title", yaxis_column_name)
     _g_y_time_series_chart.config.set_param("subtitle", country_name)
 
-    return CXDashElementFactory.render(_g_y_time_series_chart)
+    return CXElementFactory.render(_g_y_time_series_chart)
 
 
 if __name__ == "__main__":
-    _g_app.run_server(debug=True)
+    _g_app.run_server(debug=False)
