@@ -17,7 +17,7 @@ class SampleRenderable(CXRenderable):
 
     def render(self):
         """
-        Calls the base render method, but otherwise does nothing.
+        Calls the base create_element method, but otherwise does nothing.
         """
         CXRenderable.render(self)
 
@@ -109,4 +109,4 @@ def test_CXRenderable_render(testable_renderable: CXRenderable):
         testable_renderable.render()
 
     except Exception as e:
-        pytest.fail(f"Unexpected {e} when calling CXRenderable.render()")
+        pytest.fail(f"Unexpected {e} when calling CXRenderable.create_element()")

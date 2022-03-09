@@ -104,7 +104,7 @@ def test_CXNoteBook_render_complex():
         events=chart_events,
     )
 
-    # Jupyter notebook requires components to render in their own containers -- so we provide one
+    # Jupyter notebook requires components to create_element in their own containers -- so we provide one
     demo_nb = CXNoteBook(chart)
     demo_nb.render()
 

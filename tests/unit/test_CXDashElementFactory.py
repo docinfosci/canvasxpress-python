@@ -1,7 +1,7 @@
 import json
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.dash import CXDashElementFactory
+from canvasxpress.render.dash import CXElementFactory
 from cxdash import CXDashElement
 
 _g_cx = CanvasXpress(
@@ -31,7 +31,7 @@ _g_cx = CanvasXpress(
 
 
 def test_convert():
-    factory: CXDashElementFactory = CXDashElementFactory()
+    factory: CXElementFactory = CXElementFactory()
 
     dash_element: CXDashElement = factory.render(_g_cx)
     converted_properties = _g_cx.prepare_html_element_parts()
@@ -44,9 +44,9 @@ def test_convert():
 
 
 def test_renderables():
-    factory: CXDashElementFactory = CXDashElementFactory(_g_cx)
+    factory: CXElementFactory = CXElementFactory(_g_cx)
 
-    dash_element: CXDashElement = factory.rendered()[0]
+    dash_element: CXDashElement = factory.render_all()[0]
     converted_properties = _g_cx.prepare_html_element_parts()
 
     assert dash_element.id == converted_properties["renderTo"]
