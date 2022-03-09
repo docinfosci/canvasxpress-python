@@ -12,15 +12,12 @@ class SampleRenderable(CXRenderable):
     A generic CXRenderable for testing the abstract base class.
     """
 
-    def __init__(
-            self,
-            *cx: CanvasXpress
-    ):
+    def __init__(self, *cx: CanvasXpress):
         super().__init__(*cx)
 
     def render(self):
         """
-        Calls the base render method, but otherwise does nothing.
+        Calls the base create_element method, but otherwise does nothing.
         """
         CXRenderable.render(self)
 
@@ -37,13 +34,11 @@ def testable_renderable() -> CXRenderable:
                 "y": {
                     "vars": ["Gene1"],
                     "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
+                    "data": [[10, 35, 88]],
                 }
             }
         ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
     )
     return SampleRenderable(chart)
 
@@ -56,16 +51,19 @@ def test_CXRenderable_init():
                 "y": {
                     "vars": ["Gene1"],
                     "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
+                    "data": [[10, 35, 88]],
                 }
             }
         ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Bar)
-        )
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
     )
-
     SampleRenderable(chart)
+
+    try:
+        SampleRenderable(0)
+
+    except Exception as e:
+        assert isinstance(e, TypeError)
 
 
 def test_CXRenderable_get_canvas(testable_renderable: CXRenderable):
@@ -82,13 +80,11 @@ def test_CXRenderable_set_canvas(testable_renderable: CXRenderable):
                 "y": {
                     "vars": ["Gene1"],
                     "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]]
+                    "data": [[10, 35, 88]],
                 }
             }
         ),
-        config=CXConfigs(
-            CXGraphType(CXGraphTypeOptions.Area)
-        )
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Area)),
     )
 
     testable_renderable.canvas = chart
@@ -113,4 +109,4 @@ def test_CXRenderable_render(testable_renderable: CXRenderable):
         testable_renderable.render()
 
     except Exception as e:
-        pytest.fail(f"Unexpected {e} when calling CXRenderable.render()")
+        pytest.fail(f"Unexpected {e} when calling CXRenderable.create_element()")

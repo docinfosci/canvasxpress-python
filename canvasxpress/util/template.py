@@ -1,7 +1,4 @@
-def render_from_template(
-        template: str,
-        data: dict
-) -> str:
+def render_from_template(template: str, data: dict) -> str:
     """
     Updates the template text with the provided data.
     :param template: `str` The name of the template file
@@ -11,9 +8,6 @@ def render_from_template(
     template_text = template
 
     for key in data.keys():
-        template_text = template_text.replace(
-            f"@{str(key)}@",
-            str(data[key])
-        )
+        template_text = template_text.replace(f"@{str(key)}@", str(data[key]))
 
     return template_text

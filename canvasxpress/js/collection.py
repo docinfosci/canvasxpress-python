@@ -48,10 +48,7 @@ class CXEvents(CXJavascriptConvertable):
         """
         return copy(self.__events)
 
-    def has(
-            self,
-            event: CXEvent
-    ) -> bool:
+    def has(self, event: CXEvent) -> bool:
         """
         Indicates if the `CXEvent` is a member.
         :param event: The `CXEvent` to consider.
@@ -59,11 +56,7 @@ class CXEvents(CXJavascriptConvertable):
         """
         return event in self.events
 
-    def add(
-            self,
-            event: CXEvent,
-            unique: bool = True
-    ) -> None:
+    def add(self, event: CXEvent, unique: bool = True) -> None:
         """
         Adds the specified CXEvent.  If the CXEvent must be unique then an Error
         is raised if an react is already presenbt with the same ID.
@@ -86,10 +79,7 @@ class CXEvents(CXJavascriptConvertable):
 
         self.__events.append(event)
 
-    def remove(
-            self,
-            event: CXEvent
-    ) -> bool:
+    def remove(self, event: CXEvent) -> bool:
         """
         Removes the specified object from the list.
         :param event: The CXEvent object to remove from the list if it is
@@ -155,15 +145,9 @@ class CXEvents(CXJavascriptConvertable):
         for event in self.events:
             events[event.id] = f"js_{event.id}"
 
-        html = json.dumps(
-            events,
-            indent=8
-        )
+        html = json.dumps(events).replace('"', "'")
         for event in self.events:
-            html = html.replace(
-                f'"js_{event.id}"',
-                event.render_to_js()
-            )
+            html = html.replace(f"'js_{event.id}'", event.render_to_js())
 
         return html
 
@@ -194,26 +178,16 @@ class CXEvents(CXJavascriptConvertable):
         *copy* constructor.  Returns the `CXEvent` objects within a new `CXEvents`
         object.
         """
-        return CXEvents(
-            *self.events
-        )
+        return CXEvents(*self.events)
 
-    def __deepcopy__(
-            self,
-            memo
-    ):
+    def __deepcopy__(self, memo):
         """
         *deepcopy* constructor.  Returns a deep copy of `CXEvent` objects within
         a new `CXEvents` object.
         """
-        return CXEvents(
-            *([deepcopy(event) for event in self.events])
-        )
+        return CXEvents(*([deepcopy(event) for event in self.events]))
 
-    def __lt__(
-            self,
-            other: 'CXEvents'
-    ):
+    def __lt__(self, other: "CXEvents"):
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -246,10 +220,7 @@ class CXEvents(CXJavascriptConvertable):
             else:
                 return len(self.events) < len(other.events)
 
-    def __eq__(
-            self,
-            other: 'CXEvents'
-    ):
+    def __eq__(self, other: "CXEvents"):
         """
         *equals* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -285,9 +256,7 @@ class CXEvents(CXJavascriptConvertable):
         `CXEvent` objects also converted into JSON representations.
         :returns" `str` JSON form of the collection.
         """
-        return json.dumps(
-            self.render_to_dict()
-        )
+        return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
         """
@@ -296,7 +265,5 @@ class CXEvents(CXJavascriptConvertable):
         :returns: `str` An evaluatable representation of the object.
         """
         event_rep_list = ", ".join([repr(event) for event in self.events])
-        rep_candidate = f'CXEvents(' \
-                        f'{event_rep_list}' \
-                        f')'
+        rep_candidate = f"CXEvents(" f"{event_rep_list}" f")"
         return rep_candidate

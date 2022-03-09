@@ -21,10 +21,7 @@ csv_sample = """
 4,5,6
 """
 
-df_sample = pandas.read_csv(
-    StringIO(csv_sample),
-    index_col=False
-)
+df_sample = pandas.read_csv(StringIO(csv_sample), index_col=False)
 
 
 def test_CXDataframeData_init_valid_input():
@@ -63,8 +60,7 @@ def test_CXDataframeData_get_valid_data():
     # numbers is not exact.  So, we inspect other aspects for general assurance
     # and assume if the other checks work then this likely has too.
     assert df_sample.shape == cxdata.dataframe.shape
-    assert set(df_sample.columns.unique()) == \
-           set(cxdata.dataframe.columns.unique())
+    assert set(df_sample.columns.unique()) == set(cxdata.dataframe.columns.unique())
 
     cxdata = CXDataframeData()
     cxdf_sample = CXDataframeData(csv_sample)
@@ -140,10 +136,10 @@ def test_CXDataframeData_equality_junk():
 
 
 @given(
-    data_frames([column('A', dtype=int), column('B', dtype=float)]),
-    data_frames([column('C', dtype=int), column('D', dtype=float)]),
-    data_frames([column('E', dtype=int), column('F', dtype=float)]),
-    data_frames([column('G', dtype=int), column('H', dtype=float)])
+    data_frames([column("A", dtype=int), column("B", dtype=float)]),
+    data_frames([column("C", dtype=int), column("D", dtype=float)]),
+    data_frames([column("E", dtype=int), column("F", dtype=float)]),
+    data_frames([column("G", dtype=int), column("H", dtype=float)]),
 )
 def test_CXDataframeData_equality(sample1, sample2, sample3, sample4):
     for sample in [sample1, sample2, sample3, sample4]:

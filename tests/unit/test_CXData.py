@@ -39,12 +39,10 @@ def test_CXData_get_data():
         "y": {
             "vars": ["Gene1"],
             "smps": ["Smp1", "Smp2", "Smp3"],
-            "data": [[10, 35, 88]]
+            "data": [[10, 35, 88]],
         }
     }
 
-    testable_data: SampleData = SampleData(
-        sample_data
-    )
+    testable_data: SampleData = SampleData(sample_data)
 
     assert testable_data.data() == sample_data

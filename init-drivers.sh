@@ -1,7 +1,8 @@
-# CircleCI is used for official testing and handles  Linux installations.
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Install drivers for scipy installation
+    sudo apt-get install gcc gfortran python3-dev libopenblas-dev liblapack-dev
 
-# Install the required Selenium drivers
-if [[ "$OSTYPE" == "darwin"* ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Install tkinter
     brew reinstall tcl-tk
 
@@ -11,6 +12,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Install the Chrome webdriver
     brew reinstall chromedriver
     sudo xattr -d com.apple.quarantine /usr/local/bin/chromedriver
+
+    # Install Node
+    brew reinstall node
 
 else
     echo "Unkown OS -- manually install Selenium drivers such as for gecko"

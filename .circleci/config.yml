@@ -47,6 +47,13 @@ jobs:
             chromedriver --version
 
       - run:
+          name: Install Node dependencies
+          command: |
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
+            node -v
+
+      - run:
           name: Install Python dependencies
           command: |
             pip install --no-cache-dir -U -r ./requirements-project.txt
@@ -150,6 +157,13 @@ jobs:
             apt-get -yq install --fix-missing chromium-driver
             which chromedriver
             chromedriver --version
+
+      - run:
+          name: Install Node dependencies
+          command: |
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
+            node -v
 
       - run:
           name: Install Python dependencies

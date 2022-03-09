@@ -18,10 +18,20 @@ echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
 # Install essential packages
 chmod +x ./*.sh
+./init-drivers.sh
 
 # Bootstrap Python
 pip install --no-cache-dir -U -r ./requirements-project.txt
 invoke init --dev --list
+
+# Build Dash components
+cd plotly/cxdash/
+./init-project.sh
+./build-local.sh
+cd ../../
+
+# Force conformance to project styles (see pyproject,toml)
+black --safe canvasxpress cxdash tests
 
 # Test the project: goal is >= 90% coverage
 invoke test

@@ -15,9 +15,7 @@ csv_sample = """
 """
 
 
-@given(
-    data_frames([column('A', dtype=int), column('B', dtype=int)])
-)
+@given(data_frames([column("A", dtype=int), column("B", dtype=int)]))
 def test_CXCSVData_init_valid_input(sample):
     csv_sample = sample.to_csv(index=False, quoting=csv.QUOTE_NONNUMERIC)
     cxdata = CXCSVData(csv_sample)

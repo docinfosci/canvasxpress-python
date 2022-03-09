@@ -47,12 +47,9 @@ class CXUrlData(CXData):
         """
         components = urlparse(self.url)
         return components._asdict()
-    
+
     @data.setter
-    def data(
-            self,
-            data: dict
-    ) -> None:
+    def data(self, data: dict) -> None:
         """
         Sets the URL using a data dict with the following attributes:
         `scheme`, `netloc`, `path`, `query`, `fragment`, `username`,
@@ -72,7 +69,7 @@ class CXUrlData(CXData):
         self.url = urlunparse(candidate)
 
     def get_raw_dict_form(self) -> dict:
-        """"
+        """
         Provides a simple dict perspective of the data with no metadata or other
         contextual transformations performed.  For example, if the data is
         natively in `dict` form then it would be passed-through with no
@@ -81,14 +78,9 @@ class CXUrlData(CXData):
             The `dict` perspective of the data with as little modification or
             interpretation as is reasonable.
         """
-        return {
-            'raw': self.url
-        }
+        return {"raw": self.url}
 
-    def render_to_dict(
-            self,
-            **kwargs
-    ) -> dict:
+    def render_to_dict(self, **kwargs) -> dict:
         """
         Converts the object into a dict representation.
         :returns: `dict`
@@ -98,11 +90,7 @@ class CXUrlData(CXData):
         return self.get_raw_dict_form()
 
     @classmethod
-    def validate_url(
-            cls,
-            url: str,
-            detail_errors: bool = True
-    ) -> bool:
+    def validate_url(cls, url: str, detail_errors: bool = True) -> bool:
         """
         Validates that the URL conforms to a recognized standard.  URLs must
         begin with a valid scheme such as `file://` or `http://`.
@@ -132,10 +120,7 @@ class CXUrlData(CXData):
 
         return True
 
-    def __init__(
-            self,
-            data: str
-    ) -> None:
+    def __init__(self, data: str) -> None:
         """
         Initializes the CXUrlData object with a valid URL.  URLs must begin with
         a valid scheme such as `file://` or `http://`.  `ValueError` will be

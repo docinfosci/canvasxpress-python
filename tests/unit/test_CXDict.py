@@ -7,25 +7,16 @@ from canvasxpress.config.type import CXDict, CXBool
 
 
 def test_CXDict_init():
-    subject: CXDict = CXDict(
-        label="1",
-        value={"a": 1}
-    )
+    subject: CXDict = CXDict(label="1", value={"a": 1})
     assert subject.label == "1"
     assert subject.value == {"a": 1}
 
-    subject: CXDict = CXDict(
-        label="1",
-        value=None
-    )
+    subject: CXDict = CXDict(label="1", value=None)
     assert subject.label == "1"
     assert subject.value == {}
 
     with pytest.raises(ValueError):
-        subject: CXDict = CXDict(
-            label=None,
-            value={"b": 1}
-        )
+        subject: CXDict = CXDict(label=None, value={"b": 1})
 
 
 def test_CXDict_label():

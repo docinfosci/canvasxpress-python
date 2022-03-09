@@ -53,10 +53,7 @@ class CXBrowserPopup(CXRenderable):
     a Web page that is displayed in a pop-up browser window.
     """
 
-    def __init__(
-            self,
-            *cx: Union[List[CanvasXpress], CanvasXpress, None]
-    ):
+    def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
         Initializes a new `CXBrowserPopup` object.
         :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
@@ -67,10 +64,7 @@ class CXBrowserPopup(CXRenderable):
         """
         super().__init__(*cx)
 
-    def render(
-            self,
-            **kwargs: Any
-    ):
+    def render(self, **kwargs: Any):
         """
         Renders the associated CanvasXpress object appropriate for display in
         a pop-up browser window.  Charts cannot have the same name,
@@ -87,42 +81,29 @@ class CXBrowserPopup(CXRenderable):
             pass
 
         elif isinstance(self.canvas, CanvasXpress):
-            render_targets.append(
-                deepcopy(self.canvas)
-            )
+            render_targets.append(deepcopy(self.canvas))
 
         else:
             for chart in self.canvas:
-                render_targets.append(
-                    deepcopy(chart)
-                )
+                render_targets.append(deepcopy(chart))
 
         used_render_targets = list()
         for target in render_targets:
             original_render_target = target.render_to
             if original_render_target in used_render_targets:
-                target.render_to = original_render_target + \
-                                   "_" + \
-                                   str(uuid.uuid4()).replace('-', '_')
+                target.render_to = (
+                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
+                )
 
             used_render_targets.append(target.render_to)
 
         render_targets.reverse()
 
-        html_parts = [
-            target.render_to_html_parts()
-            for target in render_targets
-        ]
+        html_parts = [target.render_to_html_parts() for target in render_targets]
 
-        canvases = [
-            part["cx_canvas"]
-            for part in html_parts
-        ]
+        canvases = [part["cx_canvas"] for part in html_parts]
 
-        functions = [
-            part["cx_js"]
-            for part in html_parts
-        ]
+        functions = [part["cx_js"] for part in html_parts]
 
         cx_license = ""
         for part in html_parts:
@@ -151,10 +132,8 @@ class CXBrowserPopup(CXRenderable):
                     canvas_table += canvases[chart_count - 1]
 
                     candidate_width += render_targets[chart_count - 1].width
-                    if render_targets[
-                        chart_count - 1].height > candidate_height:
-                        candidate_height = render_targets[
-                            chart_count - 1].height
+                    if render_targets[chart_count - 1].height > candidate_height:
+                        candidate_height = render_targets[chart_count - 1].height
 
                 canvas_table += "</td>"
                 chart_count = chart_count - 1
@@ -166,16 +145,14 @@ class CXBrowserPopup(CXRenderable):
             page_height += candidate_height
 
         js_functions = "\n".join(
-            [
-                _cx_fx_template.replace("@code@", fx)
-                for fx in functions
-            ]
+            [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
-        html = _cx_html_template \
-            .replace("@canvases@", canvas_table) \
-            .replace("@canvasxpress_license@", cx_license) \
+        html = (
+            _cx_html_template.replace("@canvases@", canvas_table)
+            .replace("@canvasxpress_license@", cx_license)
             .replace("@js_functions@", js_functions)
+        )
 
         tempdir = tempfile.TemporaryDirectory()
 
@@ -183,10 +160,7 @@ class CXBrowserPopup(CXRenderable):
         with open(temp_filename, "w") as temp_file:
             temp_file.write(html)
 
-        webbrowser.open(
-            "file://" + temp_filename,
-            new=1
-        )
+        webbrowser.open("file://" + temp_filename, new=1)
 
         sleep(2)
         tempdir.cleanup()

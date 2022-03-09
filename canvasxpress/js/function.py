@@ -76,10 +76,7 @@ class CXEvent(CXJavascriptConvertable):
         return self.__id
 
     @id.setter
-    def id(
-            self,
-            value: str
-    ) -> None:
+    def id(self, value: str) -> None:
         """
         Sets the react ID, which is a keyword recognized by CanvasXpress.
         :param value: `str`
@@ -99,10 +96,7 @@ class CXEvent(CXJavascriptConvertable):
         return self.__script
 
     @script.setter
-    def script(
-            self,
-            value: str
-    ) -> None:
+    def script(self, value: str) -> None:
         """
         Sets the react script, which is logic that goes inside of the react
         function.  Functions take the form:
@@ -144,16 +138,12 @@ class CXEvent(CXJavascriptConvertable):
         cx_js_func = render_from_template(
             _CX_EVENT_TEMPLATE,
             {
-                'cx_js_script': cx_js,
-            }
+                "cx_js_script": cx_js,
+            },
         )
         return cx_js_func
 
-    def __init__(
-            self,
-            id: str = "",
-            script: str = ""
-    ):
+    def __init__(self, id: str = "", script: str = ""):
         """
         Initializes a new CXEvent object.
         :param id: `str`
@@ -170,27 +160,15 @@ class CXEvent(CXJavascriptConvertable):
         """
         *copy* constructor.  Returns a new `CXEvent` object.
         """
-        return CXEvent(
-            id=copy(self.id),
-            script=copy(self.script)
-        )
+        return CXEvent(id=copy(self.id), script=copy(self.script))
 
-    def __deepcopy__(
-            self,
-            memo
-    ):
+    def __deepcopy__(self, memo):
         """
         *deepcopy* constructor.  Returns a new `CXEvent` object.
         """
-        return CXEvent(
-            id=deepcopy(self.id),
-            script=deepcopy(self.script)
-        )
+        return CXEvent(id=deepcopy(self.id), script=deepcopy(self.script))
 
-    def __lt__(
-            self,
-            other: 'CXEvent'
-    ) -> bool:
+    def __lt__(self, other: "CXEvent") -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -217,10 +195,7 @@ class CXEvent(CXJavascriptConvertable):
             else:
                 return False
 
-    def __eq__(
-            self,
-            other: 'CXEvent'
-    ) -> bool:
+    def __eq__(self, other: "CXEvent") -> bool:
         """
         *equal* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -257,11 +232,7 @@ class CXEvent(CXJavascriptConvertable):
         """
         candidate = json.dumps(value)[1:-1]
 
-        escape_chars = [
-            ('\\', '\\\\'),
-            ('"', '\\"'),
-            ('\n', '\\n')
-        ]
+        escape_chars = [("\\", "\\\\"), ('"', '\\"'), ("\n", "\\n")]
         for escape in escape_chars:
             candidate = candidate.replace(escape[0], escape[1])
 
@@ -275,8 +246,5 @@ class CXEvent(CXJavascriptConvertable):
         """
         clean_id = CXEvent.__clean_string(self.id)
         clean_script = CXEvent.__clean_string(self.script)
-        rep_candidate = f'CXEvent(' \
-                        f'id="{clean_id}", ' \
-                        f'script="{clean_script}"' \
-                        f')'
+        rep_candidate = f"CXEvent(" f'id="{clean_id}", ' f'script="{clean_script}"' f")"
         return rep_candidate

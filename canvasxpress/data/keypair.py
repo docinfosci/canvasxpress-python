@@ -51,7 +51,7 @@ class CXDictData(CXKeyPairData):
             self.__data = deepcopy(value)
 
     def get_raw_dict_form(self) -> dict:
-        """"
+        """
         Provides a simple dict perspective of the data with no metadata or other
         contextual transformations performed.  For example, if the data is
         natively in `dict` form then it would be passed-through with no
@@ -66,10 +66,7 @@ class CXDictData(CXKeyPairData):
         """
         return deepcopy(self.data)
 
-    def render_to_dict(
-            self,
-            **kwargs
-    ) -> dict:
+    def render_to_dict(self, **kwargs) -> dict:
         """
         Provides a dict representation of the data.
         :returns: `dict`
@@ -84,9 +81,7 @@ class CXDictData(CXKeyPairData):
         return candidate
 
     def __init__(
-            self,
-            data: Union[dict, None] = None,
-            profile: Union[CXDataProfile, None] = None
+        self, data: Union[dict, None] = None, profile: Union[CXDataProfile, None] = None
     ) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
@@ -102,30 +97,22 @@ class CXDictData(CXKeyPairData):
         super().__init__(data, profile)
         self.data = data
 
-    def __copy__(self) -> 'CXDictData':
+    def __copy__(self) -> "CXDictData":
         """
         *copy constructor* that returns a copy of the CXDictData object.
         :returns: `CXDictData` A copy of the wrapping object.
         """
         return self.__class__(self.data)
 
-    def __deepcopy__(
-            self,
-            memo
-    ) -> 'CXDictData':
+    def __deepcopy__(self, memo) -> "CXDictData":
         """
         *deepcopy constructor* that returns a copy of the CXDictData object.
         :returns: `CXDictData` A copy of the wrapping object and deepcopy of
             the tracked data.
         """
-        return self.__class__(
-            deepcopy(self.data)
-        )
+        return self.__class__(deepcopy(self.data))
 
-    def __lt__(
-            self,
-            other: 'CXDictData'
-    ) -> bool:
+    def __lt__(self, other: "CXDictData") -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -146,13 +133,9 @@ class CXDictData(CXKeyPairData):
             return False
 
         else:
-            delta: dict = DeepDiff(
-                self.data,
-                other.data,
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
+            delta: dict = DeepDiff(self.data, other.data, ignore_order=True)
+            other_added: int = len(delta.get("dictionary_item_added", []))
+            other_removed: int = len(delta.get("dictionary_item_removed", []))
 
             if (other_added - other_removed) == 0:
                 for skey in self.data.keys():
@@ -169,10 +152,7 @@ class CXDictData(CXKeyPairData):
             else:
                 return (other_added - other_removed) > 0
 
-    def __eq__(
-            self,
-            other: 'CXDictData'
-    ) -> bool:
+    def __eq__(self, other: "CXDictData") -> bool:
         """
         *equals* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -193,13 +173,9 @@ class CXDictData(CXKeyPairData):
             return False
 
         else:
-            delta: dict = DeepDiff(
-                self.data,
-                other.data,
-                ignore_order=True
-            )
-            other_added: int = len(delta.get('dictionary_item_added', []))
-            other_removed: int = len(delta.get('dictionary_item_removed', []))
+            delta: dict = DeepDiff(self.data, other.data, ignore_order=True)
+            other_added: int = len(delta.get("dictionary_item_added", []))
+            other_removed: int = len(delta.get("dictionary_item_removed", []))
 
             if (other_added - other_removed) == 0:
                 for skey in self.data.keys():
@@ -256,10 +232,7 @@ class CXJSONData(CXDictData):
         """
         if isinstance(value, str) and value.lower().startswith("http"):
             try:
-                result = requests.get(
-                    value,
-                    allow_redirects=True
-                )
+                result = requests.get(value, allow_redirects=True)
                 self.data = result.json()
 
             except Exception as e:
@@ -283,9 +256,9 @@ class CXJSONData(CXDictData):
             CXDictData.data.fset(self, value)
 
     def __init__(
-            self,
-            data: Union[dict, str, None] = None,
-            profile: Union[CXDataProfile, None] = None
+        self,
+        data: Union[dict, str, None] = None,
+        profile: Union[CXDataProfile, None] = None,
     ) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
@@ -300,17 +273,14 @@ class CXJSONData(CXDictData):
         """
         super().__init__(data, profile)
 
-    def __copy__(self) -> 'CXJSONData':
+    def __copy__(self) -> "CXJSONData":
         """
         *copy constructor* that returns a copy of the CXDictData objct.
         :returns: `CXDictData` A copy of the wrapping object.
         """
         return CXJSONData(self.data)
 
-    def __deepcopy__(
-            self,
-            memo
-    ) -> 'CXJSONData':
+    def __deepcopy__(self, memo) -> "CXJSONData":
         """
         *deepcopy constructor* that returns a copy of the CXJSONData object.
         :returns: `CXJSONData` A copy of the wrapping object and deepcopy of

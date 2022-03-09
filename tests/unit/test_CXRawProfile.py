@@ -30,19 +30,11 @@ def test_render_to_profiled_dict_keypair():
             "y": {
                 "vars": ["Variable1", "Variable2"],
                 "smps": ["Sample1", "Sample2", "Sample3"],
-                "data": [[10, 20, 30],
-                         [35, 25, 15]]
+                "data": [[10, 20, 30], [35, 25, 15]],
             },
-            "x": {
-                "Tissue": ["Kidney", "Lung", "Heart"],
-                "Donor": ["D1", "D1", "D2"]
-            },
-            "z": {
-                "Symbol": ["AAA", "BBB"],
-                "Pathway": ["P1", "P2"]
-            }
+            "x": {"Tissue": ["Kidney", "Lung", "Heart"], "Donor": ["D1", "D1", "D2"]},
+            "z": {"Symbol": ["AAA", "BBB"], "Pathway": ["P1", "P2"]},
         }
     )
     result = candidate.render_to_profiled_dict(data)
     assert result == data.get_raw_dict_form()
-

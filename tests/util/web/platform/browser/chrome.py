@@ -6,9 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from tests.util.web.platform.browser.generic import ManagedBrowser
 
 
-class ChromeManagedBrowser(
-    ManagedBrowser
-):
+class ChromeManagedBrowser(ManagedBrowser):
     """
     ChromeManagedBrowser provides a Chrome edition of ManagedTestBrowser
     for use in Selenium based tests.
@@ -20,9 +18,7 @@ class ChromeManagedBrowser(
         the provided URL.
         :param url: The URL to target when establishing new sessions.
         """
-        super().__init__(
-            url
-        )
+        super().__init__(url)
         self.platform = "chrome"
 
     def __str__(self):
@@ -31,12 +27,12 @@ class ChromeManagedBrowser(
     def __repr__(self):
         return str(
             {
-                'url': self.url,
-                'platform': self.platform,
-                'headless': self.headless,
-                'remote_browser': f"{self.remote_browser}:"
-                                  f"{self.remote_browser_port}",
-                'session_active': self.session_active(),
+                "url": self.url,
+                "platform": self.platform,
+                "headless": self.headless,
+                "remote_browser": f"{self.remote_browser}:"
+                f"{self.remote_browser_port}",
+                "session_active": self.session_active(),
             }
         )
 
@@ -50,8 +46,8 @@ class ChromeManagedBrowser(
 
         capabilities = DesiredCapabilities.CHROME.copy()
 
-        capabilities['acceptSslCerts'] = True
-        capabilities['acceptInsecureCerts'] = True
+        capabilities["acceptSslCerts"] = True
+        capabilities["acceptInsecureCerts"] = True
 
         return capabilities
 
@@ -89,13 +85,10 @@ class ChromeManagedBrowser(
         if self.remote_browser:
             if platform.system() in ["Windows"]:
                 opts.add_experimental_option(
-                    "debuggerAddress",
-                    f"localhost:{self.remote_browser_port}"
+                    "debuggerAddress", f"localhost:{self.remote_browser_port}"
                 )
             else:
-                opts.add_argument(
-                    f"--remote-debugging-port={self.remote_browser_port}"
-                )
+                opts.add_argument(f"--remote-debugging-port={self.remote_browser_port}")
 
         if self.headless or self.remote_browser:
             opts.add_argument("--headless")

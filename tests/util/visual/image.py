@@ -11,10 +11,7 @@ from skimage.transform import resize
 IMAGE_SSIM_MIN_THRESHOLD = 0.75
 
 
-def image_files_match(
-        image1_path: Path,
-        image2_path: Path
-) -> float:
+def image_files_match(image1_path: Path, image2_path: Path) -> float:
     """
     Compares image files to determine the degree by which they match.
     :param image1_path: The path to one image
@@ -27,27 +24,17 @@ def image_files_match(
 
     image1_w, image1_h, image1_c = image1.shape
 
-    image1r = resize(
-        image1,
-        (image1_w, image1_h)
-    )
-    image2r = resize(
-        image2,
-        (image1_w, image1_h)
-    )
+    image1r = resize(image1, (image1_w, image1_h))
+    image2r = resize(image2, (image1_w, image1_h))
 
-    return ssim(
-        img_as_float(image1r),
-        img_as_float(image2r),
-        multichannel=True
-    )
+    return ssim(img_as_float(image1r), img_as_float(image2r), multichannel=True)
 
 
 def assert_chart_visuals_match(
-        session: WebDriver,
-        work_dir: str,
-        chart_id: str,
-        known_image: str = "known_chart.png",
+    session: WebDriver,
+    work_dir: str,
+    chart_id: str,
+    known_image: str = "known_chart.png",
 ) -> None:
     """
     Checks the default canvas image against a known image profile to ensure that
@@ -61,30 +48,22 @@ def assert_chart_visuals_match(
     """
     chart = session.find_element_by_id(chart_id)
 
-    chart.screenshot(
-        os.path.sep.join([work_dir, "browser_chart.png"])
-    )
+    chart.screenshot(os.path.sep.join([work_dir, "browser_chart.png"]))
 
-    known_chart_image = imread(
-        os.path.sep.join([work_dir, known_image])
-    )
+    known_chart_image = imread(os.path.sep.join([work_dir, known_image]))
 
-    browser_chart_image = imread(
-        os.path.sep.join([work_dir, "browser_chart.png"])
-    )
+    browser_chart_image = imread(os.path.sep.join([work_dir, "browser_chart.png"]))
 
     known_w, known_h, known_c = known_chart_image.shape
-    browser_chart_image = resize(
-        browser_chart_image,
-        (known_w, known_h)
-    )
+    browser_chart_image = resize(browser_chart_image, (known_w, known_h))
 
     ssim_result = ssim(
         img_as_float(known_chart_image),
         img_as_float(browser_chart_image),
-        multichannel=True
+        multichannel=True,
     )
 
-    assert ssim_result >= IMAGE_SSIM_MIN_THRESHOLD, \
-        f"Known and Browser images do not match: " \
+    assert ssim_result >= IMAGE_SSIM_MIN_THRESHOLD, (
+        f"Known and Browser images do not match: "
         f"SSIM is {ssim_result} but {IMAGE_SSIM_MIN_THRESHOLD} minimum required"
+    )

@@ -32,88 +32,44 @@ def test_render_to_profiled_dict_matrix():
     result = candidate.render_to_profiled_dict(
         CXDataframeData(
             DataFrame.from_dict(
-                data={
-                    "A": [10],
-                    "B": [20],
-                    "C": [30]
-                },
-                orient="index",
-                columns=["data"]
+                data={"A": [10], "B": [20], "C": [30]}, orient="index", columns=["data"]
             )
         )
     )
-    assert result == {
-        VENN: {
-            DATA: {
-                "A": 10,
-                "B": 20,
-                "C": 30
-            },
-            LEGEND: {}
-        }
-    }
+    assert result == {VENN: {DATA: {"A": 10, "B": 20, "C": 30}, LEGEND: {}}}
 
     result = candidate.render_to_profiled_dict(
         CXDataframeData(
             DataFrame.from_dict(
-                data={
-                    "A": [10],
-                    "B": [20],
-                    "AB": [30]
-                },
+                data={"A": [10], "B": [20], "AB": [30]},
                 orient="index",
-                columns=["data"]
+                columns=["data"],
             )
         ),
-        config=CXConfigs(
-            CXInt("vennGroups", 2)
-        )
+        config=CXConfigs(CXInt("vennGroups", 2)),
     )
     assert result == {
         VENN: {
-            DATA: {
-                "A": 10,
-                "B": 20,
-                "AB": 30
-            },
-            LEGEND: {
-                'A': 'Group 1',
-                'B': 'Group 2'
-            }
+            DATA: {"A": 10, "B": 20, "AB": 30},
+            LEGEND: {"A": "Group 1", "B": "Group 2"},
         }
     }
 
-    candidate.legend = {
-        "A": "Frankie",
-        "B": "Louise"
-    }
+    candidate.legend = {"A": "Frankie", "B": "Louise"}
     result = candidate.render_to_profiled_dict(
         CXDataframeData(
             DataFrame.from_dict(
-                data={
-                    "A": [10],
-                    "B": [20],
-                    "AB": [30]
-                },
+                data={"A": [10], "B": [20], "AB": [30]},
                 orient="index",
-                columns=["data"]
+                columns=["data"],
             )
         ),
-        config=CXConfigs(
-            CXInt("vennGroups", 2)
-        )
+        config=CXConfigs(CXInt("vennGroups", 2)),
     )
     assert result == {
         VENN: {
-            DATA: {
-                "A": 10,
-                "B": 20,
-                "AB": 30
-            },
-            LEGEND: {
-                'A': 'Frankie',
-                'B': 'Louise'
-            }
+            DATA: {"A": 10, "B": 20, "AB": 30},
+            LEGEND: {"A": "Frankie", "B": "Louise"},
         }
     }
 
@@ -143,14 +99,14 @@ def test_render_to_profiled_dict_keypair():
                         "BD": 354,
                         "C": 620,
                         "CD": 143,
-                        "D": 592
+                        "D": 592,
                     },
                     "legend": {
                         "A": "List 1",
                         "B": "List 2",
                         "C": "List 3",
-                        "D": "List 4"
-                    }
+                        "D": "List 4",
+                    },
                 }
             }
         )
@@ -172,14 +128,9 @@ def test_render_to_profiled_dict_keypair():
                 "BD": 354,
                 "C": 620,
                 "CD": 143,
-                "D": 592
+                "D": 592,
             },
-            "legend": {
-                "A": "List 1",
-                "B": "List 2",
-                "C": "List 3",
-                "D": "List 4"
-            }
+            "legend": {"A": "List 1", "B": "List 2", "C": "List 3", "D": "List 4"},
         }
     }
 
@@ -201,14 +152,9 @@ def test_render_to_profiled_dict_keypair():
                     "BD": 354,
                     "C": 620,
                     "CD": 143,
-                    "D": 592
+                    "D": 592,
                 },
-                "legend": {
-                    "A": "List 1",
-                    "B": "List 2",
-                    "C": "List 3",
-                    "D": "List 4"
-                }
+                "legend": {"A": "List 1", "B": "List 2", "C": "List 3", "D": "List 4"},
             }
         )
     )
@@ -229,14 +175,9 @@ def test_render_to_profiled_dict_keypair():
                 "BD": 354,
                 "C": 620,
                 "CD": 143,
-                "D": 592
+                "D": 592,
             },
-            "legend": {
-                "A": "List 1",
-                "B": "List 2",
-                "C": "List 3",
-                "D": "List 4"
-            }
+            "legend": {"A": "List 1", "B": "List 2", "C": "List 3", "D": "List 4"},
         }
     }
 
@@ -258,7 +199,7 @@ def test_render_to_profiled_dict_keypair():
                     "BD": 354,
                     "C": 620,
                     "CD": 143,
-                    "D": 592
+                    "D": 592,
                 }
             }
         )
@@ -280,9 +221,9 @@ def test_render_to_profiled_dict_keypair():
                 "BD": 354,
                 "C": 620,
                 "CD": 143,
-                "D": 592
+                "D": 592,
             },
-            "legend": {}
+            "legend": {},
         }
     }
 
@@ -304,13 +245,11 @@ def test_render_to_profiled_dict_keypair():
                     "BD": 354,
                     "C": 620,
                     "CD": 143,
-                    "D": 592
+                    "D": 592,
                 }
             }
         ),
-        config = CXConfigs(
-            CXInt("vennGroups", 4)
-        )
+        config=CXConfigs(CXInt("vennGroups", 4)),
     )
     assert result == {
         "venn": {
@@ -329,23 +268,13 @@ def test_render_to_profiled_dict_keypair():
                 "BD": 354,
                 "C": 620,
                 "CD": 143,
-                "D": 592
+                "D": 592,
             },
-            "legend": {
-                "A": "Group 1",
-                "B": "Group 2",
-                "C": "Group 3",
-                "D": "Group 4"
-            }
+            "legend": {"A": "Group 1", "B": "Group 2", "C": "Group 3", "D": "Group 4"},
         }
     }
 
-    candidate.legend = {
-        "A": "Frankie",
-        "B": "Louise",
-        "C": "Sammy",
-        "D": "Cassidy"
-    }
+    candidate.legend = {"A": "Frankie", "B": "Louise", "C": "Sammy", "D": "Cassidy"}
     result = candidate.render_to_profiled_dict(
         CXDictData(
             {
@@ -364,13 +293,11 @@ def test_render_to_profiled_dict_keypair():
                     "BD": 354,
                     "C": 620,
                     "CD": 143,
-                    "D": 592
+                    "D": 592,
                 }
             }
         ),
-        config = CXConfigs(
-            CXInt("vennGroups", 4)
-        )
+        config=CXConfigs(CXInt("vennGroups", 4)),
     )
     assert result == {
         "venn": {
@@ -389,13 +316,8 @@ def test_render_to_profiled_dict_keypair():
                 "BD": 354,
                 "C": 620,
                 "CD": 143,
-                "D": 592
+                "D": 592,
             },
-            "legend": {
-                "A": "Frankie",
-                "B": "Louise",
-                "C": "Sammy",
-                "D": "Cassidy"
-            }
+            "legend": {"A": "Frankie", "B": "Louise", "C": "Sammy", "D": "Cassidy"},
         }
     }
