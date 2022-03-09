@@ -10,7 +10,7 @@ from cxdash import CXDashElement
 from canvasxpress.render.base import CXRenderFactory
 
 
-class CXDashElementFactory(CXRenderFactory):
+class CXElementFactory(CXRenderFactory):
     """
     CXDashElementFactory converts CanvasXpress objects into PlotlyDash elements that will
     render CanvasXpress charts into the Dash UI.
@@ -40,8 +40,12 @@ class CXDashElementFactory(CXRenderFactory):
         element_parts = cx.prepare_html_element_parts()
         dash_element = CXDashElement(
             id=element_parts["renderTo"],
-            data=element_parts["data"] if isinstance(element_parts["data"], str) else json.dumps(element_parts["data"]),
-            config=json.dumps({**element_parts["config"], **element_parts["otherParams"]}),
+            data=element_parts["data"]
+            if isinstance(element_parts["data"], str)
+            else json.dumps(element_parts["data"]),
+            config=json.dumps(
+                {**element_parts["config"], **element_parts["otherParams"]}
+            ),
             events=element_parts["events"],
             width=str(element_parts["width"]),
             height=str(element_parts["height"]),
@@ -49,18 +53,18 @@ class CXDashElementFactory(CXRenderFactory):
 
         return dash_element
 
-    def rendered(self, **kwargs: Any) -> List[CXDashElement]:
+    def render_all(self, **kwargs: Any) -> List[CXDashElement]:
         """
         Provides a list of objects that can be used by the target domain or container
         to create CanvasXpress illustrations or instantiations.
         Not implemented.
         :param kwargs: `Any`
             Parameters specific to implementations are supported.  The essential
-            render call should work with no extra parameters, and with
+            create_element call should work with no extra parameters, and with
             parameters that do not apply to the implementation.
         """
         if isinstance(self.canvas, CanvasXpress):
-            return [CXDashElementFactory.render(self.canvas)]
+            return [CXElementFactory.render(self.canvas)]
 
         else:
-            return [CXDashElementFactory.render(cx) for cx in self.canvas]
+            return [CXElementFactory.render(cx) for cx in self.canvas]

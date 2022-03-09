@@ -34,7 +34,7 @@ from the Python edition.
 _CX_LICENSE_TEMPLATE = "<script src='@cx_license@' type='text/javascript'></script>"
 """
 The template for declaring a CanvasXpress license file so that charts do 
-not render with unlicensed watermarks.
+not create_element with unlicensed watermarks.
 """
 
 _CX_REPR_TEMPLATE = """CanvasXpress(
@@ -105,11 +105,13 @@ class CanvasXpress(CXHtmlConvertable):
     def render_to(self) -> Union[str, None]:
         """
         The ID of the CanvasXpress object's associated HTML components, such as
-        the render canvas element.  Sets the `id` attribute of the `<canvas>`
+        the create_element canvas element.  Sets the `id` attribute of the `<canvas>`
         element.
         :returns: `str` The ID, if configured; `None` if anonymous.
         """
-        return str(uuid.uuid4()).replace("-", "") if self.anonymous else self.__target_id
+        return (
+            str(uuid.uuid4()).replace("-", "") if self.anonymous else self.__target_id
+        )
 
     @render_to.setter
     def render_to(self, value: Union[str, None]) -> None:
@@ -202,7 +204,7 @@ class CanvasXpress(CXHtmlConvertable):
         Indicates the preferred <canvas> Web element width when rendered.  This
         property is used to facilitate integration with Web containers such
         as Jupyter notebooks. Added to the `<canvas>` element, and also
-        influences render containers for contexts such as Jupyter Notebooks.
+        influences create_element containers for contexts such as Jupyter Notebooks.
         :returns: `int` The width
         """
         return self.__chart_width
@@ -211,7 +213,7 @@ class CanvasXpress(CXHtmlConvertable):
     def width(self, value: int):
         """
         Sets the preferred Web element width when rendered. Added to the
-        `<canvas>` element, and also influences render containers for contexts
+        `<canvas>` element, and also influences create_element containers for contexts
         such as Jupyter Notebooks.
         :param value: `int`
             The pixel count.  Cannot be `None` or less than `1`.
@@ -244,7 +246,7 @@ class CanvasXpress(CXHtmlConvertable):
         Indicates the preferred Web element height when rendered.  This
         property is used to facilitate integration with Web containers such
         as Jupyter notebooks.  Added to the `<canvas>` element, and also
-        influences render containers for contexts such as Jupyter Notebooks.
+        influences create_element containers for contexts such as Jupyter Notebooks.
         :returns: `int` The pixel count
         """
         return self.__chart_height
@@ -253,7 +255,7 @@ class CanvasXpress(CXHtmlConvertable):
     def height(self, value: int):
         """
         Sets the preferred Web element height when rendered.  Added to the
-        `<canvas>` element, and also influences render containers for contexts
+        `<canvas>` element, and also influences create_element containers for contexts
         such as Jupyter Notebooks.
         :param value: `int`
         """
@@ -312,7 +314,9 @@ class CanvasXpress(CXHtmlConvertable):
                 self.__data = CXJSONData(value)
 
             except Exception:
-                if (value.find(',') >= 0 or value.find('\t') >= 0) and value.find('\n') >= 0:
+                if (value.find(",") >= 0 or value.find("\t") >= 0) and value.find(
+                    "\n"
+                ) >= 0:
                     self.__data = CXCSVData(value)
 
                 else:
@@ -821,7 +825,7 @@ class CanvasXpress(CXHtmlConvertable):
         </html>
         ```
 
-        A flask function could render a page with a chart such as:
+        A flask function could create_element a page with a chart such as:
         ```python
         @app.route('/pythonexample')
         def get_simple_chart() -> str:
