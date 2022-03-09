@@ -1,6 +1,6 @@
 from canvasxpress.canvas import CanvasXpress 
 from canvasxpress.js.collection import CXEvents 
-from canvasxpress.create_element.popup import CXBrowserPopup 
+from canvasxpress.render.popup import CXBrowserPopup 
 
 cx = CanvasXpress(
     render_to="network1",
@@ -11948,4 +11948,4 @@ cx = CanvasXpress(
 )
 
 display = CXBrowserPopup(cx) 
-display.create_element() 
+display.render() 
