@@ -161,7 +161,7 @@ A basic Dash app provides a means by which:
 
 First install Flask and CanvasXpress for Python:
 ```terminal
-pip install -U pip install dash canvasxpress[dash]
+pip install canvasxpress[dash]
 ```
 
 Then create a demo file, such as `app.py`, and insert:
