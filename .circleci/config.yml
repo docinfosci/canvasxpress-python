@@ -47,6 +47,13 @@ jobs:
             chromedriver --version
 
       - run:
+          name: Install Node dependencies
+          command: |
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
+            node -v
+
+      - run:
           name: Install Python dependencies
           command: |
             pip install --no-cache-dir -U -r ./requirements-project.txt
@@ -74,24 +81,36 @@ jobs:
       - run:
           name: Deploy artifacts
           command: |
-            # Establish package components
-            rm -rf ./dist
-            python ./build_pkg_setup.py
-            python setup.py sdist
+            echo "Repository is from $(git config --get remote.origin.url)"
+            GIT_REPO_OWNER="$(git config --get remote.origin.url | cut -d: -f2 | cut -d/ -f1)"
+            echo "Found repository owner ${GIT_REPO_OWNER}"
 
-            # Confirm the installation user account
-            echo $TWINE_USERNAME
-
-            # Only publish non-dev editions to PyPI
-            GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
-            if [ $GIT_WORKING_BRANCH = "main" ]
+            # Only attempt the deployment for the project owner/committer
+            if [ $GIT_REPO_OWNER == "docinfosci" ]
             then
-                # Production deployment
-                twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
+              # Establish package components
+              rm -rf ./dist
+              python ./build_pkg_setup.py
+              python setup.py sdist
+
+              # Confirm the installation user account
+              echo "Deploying via TWINE user ${TWINE_USERNAME}"
+
+              # Only publish non-dev editions to PyPI
+              GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
+              if [ $GIT_WORKING_BRANCH == "main" ]
+              then
+                  # Production deployment
+                  twine upload --verbose -u $TWINE_USERNAME -p $PRD_TWINE_PASSWORD --repository pypi ./dist/*
+
+              else
+                  # Development deployment
+                  twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
+
+              fi
 
             else
-                # Development deployment
-                twine upload --verbose -u $TWINE_USERNAME -p $TWINE_PASSWORD --repository testpypi ./dist/*
+              echo "Skipping deployment for repository owner ${GIT_REPO_OWNER}"
 
             fi
 
@@ -138,6 +157,13 @@ jobs:
             apt-get -yq install --fix-missing chromium-driver
             which chromedriver
             chromedriver --version
+
+      - run:
+          name: Install Node dependencies
+          command: |
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
+            node -v
 
       - run:
           name: Install Python dependencies

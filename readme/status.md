@@ -9,8 +9,8 @@
 | **Implementations** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | [No Badge Available for test.pypi.org](https://test.pypi.org/project/canvasxpress) |
 | **Build Status** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/develop.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=develop) |
 | **Test Status** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=develop)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=develop) |
-| **Requirements Status** | [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=main)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=main) | [![Requirements Status](https://requires.io/github/docinfosci/canvasxpress-python/requirements.svg?branch=develop)](https://requires.io/github/docinfosci/canvasxpress-python/requirements/?branch=develop) |
-| **Documentation Status** | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=develop)](https://canvasxpress-python.readthedocs.io/en/develop/) |
+| **Documentation Status** | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=latest)](https://canvasxpress-python.readthedocs.io/en/latest/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) | [![Documentation Status](https://readthedocs.org/projects/canvasxpress-python/badge/?version=develop)](https://canvasxpress-python.readthedocs.io/en/develop/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+ |
 | **Activity** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python/tree/develop) |
 <!-- End Badges -->
    
@@ -30,6 +30,12 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 * Continued stability and security, if/as needed
 
 ## Recent Enhancements
+
+#### 2022 March 9: Plotly Dash Support
+[Plotly Dash](https://dash.plotly.com) is now supported!  Integrate CanvasXpress charts into
+Dash applications using a variety of strategies.  Examples are available in github.com at:
+
+[tutorials/dash/](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/dash/)
 
 #### 2021 July 6: Extensive examples for Jupyter Notebooks
 Hundreds of chart examples based on the CanvasXpress site examples are now 

@@ -7,25 +7,16 @@ from canvasxpress.config.type import CXList, CXBool
 
 
 def test_CXList_init():
-    subject: CXList = CXList(
-        label="1",
-        value=[1]
-    )
+    subject: CXList = CXList(label="1", value=[1])
     assert subject.label == "1"
     assert subject.value == [1]
 
-    subject: CXList = CXList(
-        label="1",
-        value=None
-    )
+    subject: CXList = CXList(label="1", value=None)
     assert subject.label == "1"
     assert subject.value == []
 
     with pytest.raises(ValueError):
-        subject: CXList = CXList(
-            label=None,
-            value=[2]
-        )
+        subject: CXList = CXList(label=None, value=[2])
 
 
 def test_CXList_label():

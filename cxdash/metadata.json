@@ -1,0 +1,75 @@
+{
+  "src/lib/components/CXDashElement.react.js": {
+    "description": "CXDashElement implements a Plotly Dash integration of CanvasXpress React.\nProperties are defined for use by the CanvasXpress class to update\nCanvasXpress aspects such as data, config, and sizing.",
+    "displayName": "CXDashElement",
+    "methods": [
+      {
+        "name": "add_canvasxpress_script",
+        "docblock": "Adds the CanvasXpress script resource if it is not yet part of the DOM.",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Adds the CanvasXpress script resource if it is not yet part of the DOM."
+      },
+      {
+        "name": "add_canvasxpress_css",
+        "docblock": "Adds the CanvasXpress CSS resource if it is not yet part of the DOM.",
+        "modifiers": [],
+        "params": [],
+        "returns": null,
+        "description": "Adds the CanvasXpress CSS resource if it is not yet part of the DOM."
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": "The ID of the element for use in function calls and element identification."
+      },
+      "data": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The data JSON, generally in the XYZ format."
+      },
+      "config": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The configuration JSON dictating formatting and content management."
+      },
+      "events": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The events functions for increased reactivity."
+      },
+      "width": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The element width."
+      },
+      "height": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The element height."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\nto Dash, to make them available for callbacks."
+      }
+    }
+  }
+}

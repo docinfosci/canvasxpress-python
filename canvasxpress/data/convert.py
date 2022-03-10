@@ -24,10 +24,7 @@ class CXDictConvertable(ABC):
     """
 
     @abstractmethod
-    def render_to_dict(
-            self,
-            **kwargs
-    ) -> dict:
+    def render_to_dict(self, **kwargs) -> dict:
         """
         Converts the object into a dict representation.
         :param kwargs:
@@ -46,10 +43,7 @@ class CXListConvertable(ABC):
     """
 
     @abstractmethod
-    def render_to_list(
-            self,
-            **kwargs
-    ) -> list:
+    def render_to_list(self, **kwargs) -> list:
         """
         Converts the object into a list representation.
         :param kwargs:

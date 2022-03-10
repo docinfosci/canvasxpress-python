@@ -55,10 +55,7 @@ class CXNoteBook(CXRenderable):
     `IPython` containers (Jupyter Notebooks).
     """
 
-    def __init__(
-            self,
-            *cx: Union[List[CanvasXpress], CanvasXpress, None]
-    ):
+    def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
         Initializes a new `CXNoteBook` object.
         :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
@@ -69,10 +66,7 @@ class CXNoteBook(CXRenderable):
         """
         super().__init__(*cx)
 
-    def render(
-            self,
-            **kwargs: Any
-    ):
+    def render(self, **kwargs: Any):
         """
         Renders the associated CanvasXpress object appropriate for display in
         an IPython (e.g., Jupyter NoteBook/Lab) environment.  Charts cannot
@@ -103,28 +97,19 @@ class CXNoteBook(CXRenderable):
         for target in render_targets:
             original_render_target = target.render_to
             if original_render_target in used_render_targets:
-                target.render_to = original_render_target + \
-                                   "_" + \
-                                   str(uuid.uuid4()).replace('-', '_')
+                target.render_to = (
+                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
+                )
 
             used_render_targets.append(target.render_to)
 
         render_targets.reverse()
 
-        html_parts = [
-            target.render_to_html_parts()
-            for target in render_targets
-        ]
+        html_parts = [target.render_to_html_parts() for target in render_targets]
 
-        canvases = [
-            part["cx_canvas"]
-            for part in html_parts
-        ]
+        canvases = [part["cx_canvas"] for part in html_parts]
 
-        functions = [
-            part["cx_js"]
-            for part in html_parts
-        ]
+        functions = [part["cx_js"] for part in html_parts]
 
         cx_license = ""
         for part in html_parts:
@@ -166,23 +151,18 @@ class CXNoteBook(CXRenderable):
             iframe_height += candidate_height
 
         js_functions = "\n".join(
-            [
-                _cx_fx_template.replace("@code@", fx)
-                for fx in functions
-            ]
+            [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
-        html = _cx_html_template \
-            .replace("@canvases@", canvas_table) \
-            .replace("@canvasxpress_license@", cx_license) \
+        html = (
+            _cx_html_template.replace("@canvases@", canvas_table)
+            .replace("@canvasxpress_license@", cx_license)
             .replace("@js_functions@", js_functions)
+        )
 
         is_temp_file = kwargs.get("output_file") is None
         file_path_candidate = str(
-            kwargs.get(
-                "output_file",
-                f"cx_{str(uuid.uuid4())}.html"
-            )
+            kwargs.get("output_file", f"cx_{str(uuid.uuid4())}.html")
         )
 
         file_path = Path(file_path_candidate)
@@ -200,7 +180,7 @@ class CXNoteBook(CXRenderable):
                 IFrame(
                     str(file_path),
                     f"{iframe_width + _cx_iframe_padding}px",
-                    f"{iframe_height + _cx_iframe_padding}px"
+                    f"{iframe_height + _cx_iframe_padding}px",
                 )
             )
 

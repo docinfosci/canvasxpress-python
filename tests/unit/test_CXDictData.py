@@ -15,7 +15,7 @@ from tests.util.hypothesis_support import everything_except
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXDictData_init_valid_input(sample):
@@ -42,7 +42,7 @@ def test_CXDictData_set_data_invalid(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXDictData_set_valid_dict(sample):
@@ -62,7 +62,7 @@ def test_CXDictData_set_valid_dict(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXDictData_get_valid_data(sample):
@@ -75,7 +75,7 @@ def test_CXDictData_get_valid_data(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_copy_cxdictdata(sample):
@@ -88,7 +88,7 @@ def test_copy_cxdictdata(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_deepcopy_cxdictdata(sample):
@@ -101,7 +101,7 @@ def test_deepcopy_cxdictdata(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXDictData_str_perspective(sample):
@@ -114,7 +114,7 @@ def test_CXDictData_str_perspective(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXDictData_repr_perspective(sample):
@@ -129,7 +129,7 @@ def test_CXDictData_repr_perspective(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXDictData_get_raw_dict_form(sample):
@@ -139,11 +139,7 @@ def test_CXDictData_get_raw_dict_form(sample):
 
 
 def test_CXDictData_equality_None():
-    sample_a: CXDictData = CXDictData(
-        {
-            "a": 1
-        }
-    )
+    sample_a: CXDictData = CXDictData({"a": 1})
 
     assert sample_a != None
     assert None < sample_a
@@ -151,11 +147,7 @@ def test_CXDictData_equality_None():
 
 
 def test_CXDictData_equality_junk():
-    sample_a: CXDictData = CXDictData(
-        {
-            "a": 1
-        }
-    )
+    sample_a: CXDictData = CXDictData({"a": 1})
 
     for junk in [0, "0", [0]]:
         assert sample_a != junk
@@ -164,24 +156,12 @@ def test_CXDictData_equality_junk():
 
 
 def test_CXDictData_equality():
-    sample_a: CXDictData = CXDictData(
-        {
-            "a": 1
-        }
-    )
-    sample_b: CXDictData = CXDictData(
-        {
-            "a": 1
-        }
-    )
+    sample_a: CXDictData = CXDictData({"a": 1})
+    sample_b: CXDictData = CXDictData({"a": 1})
 
     assert sample_a == sample_b
 
-    sample_c: CXDictData = CXDictData(
-        {
-            "c": 1
-        }
-    )
+    sample_c: CXDictData = CXDictData({"c": 1})
 
     assert sample_a != sample_c
     assert sample_a < sample_c
@@ -193,22 +173,13 @@ def test_CXDictData_equality():
     assert sample_d < sample_a
     assert sample_a > sample_d
 
-    sample_e: CXDictData = CXDictData(
-        {
-            "c": 2
-        }
-    )
+    sample_e: CXDictData = CXDictData({"c": 2})
 
     assert sample_c != sample_e
     assert sample_c < sample_e
     assert sample_e > sample_c
 
-    sample_f: CXDictData = CXDictData(
-        {
-            "c": 2,
-            "d": 1
-        }
-    )
+    sample_f: CXDictData = CXDictData({"c": 2, "d": 1})
 
     assert sample_c != sample_f
     assert sample_c < sample_f

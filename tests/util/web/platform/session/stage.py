@@ -5,7 +5,7 @@ from pathlib import Path
 import git
 
 logger = logging.getLogger(__name__)
-logger.setLevel(int(environ.get('LOG_LEVEL', 10)))
+logger.setLevel(int(environ.get("LOG_LEVEL", 10)))
 
 STAGE_PRD: str = "prd"
 # Staging constant - production
@@ -18,6 +18,7 @@ STAGE_LCL: str = "lcl"
 
 # Staging constant - local customizations
 
+
 def _reduce_path_to_git_config_dir(dir: str) -> str:
     candidate_dir = Path(dir)
     while not candidate_dir.joinpath(".git").exists():
@@ -28,13 +29,11 @@ def _reduce_path_to_git_config_dir(dir: str) -> str:
 
 def _get_stage_from_working_branch() -> str:
     """
-        Indicates whether the source is running as PRD or DEV.  If the source is
-        from the main branch then PRD is used, and for other branches DEV.
-        :return: One of the STAGE_* constants.
-        """
-    working_path = _reduce_path_to_git_config_dir(
-        path.dirname(path.abspath(__file__))
-    )
+    Indicates whether the source is running as PRD or DEV.  If the source is
+    from the main branch then PRD is used, and for other branches DEV.
+    :return: One of the STAGE_* constants.
+    """
+    working_path = _reduce_path_to_git_config_dir(path.dirname(path.abspath(__file__)))
     logger.info(f"Working path: {working_path}")
 
     repo = git.Repo(working_path)
@@ -55,14 +54,12 @@ def _get_stage_from_working_branch() -> str:
 
 # Override environment variable
 TEST_WORKING_STAGE: str = environ.get(
-    "USER_PREF_STAGE",
-    _get_stage_from_working_branch()
+    "USER_PREF_STAGE", _get_stage_from_working_branch()
 )
 
 # Override environment location for config files
 TEST_WORKING_CONFIG_PATH: str = environ.get(
-    "USER_PREF_CONFIG_PATH",
-    "$HOME/canvasxpress-python/tests/config"
+    "USER_PREF_CONFIG_PATH", "$HOME/canvasxpress-python/tests/config"
 )
 
 

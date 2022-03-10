@@ -2,7 +2,6 @@ from canvasxpress.data.convert import CXJavascriptConvertable
 
 
 class TestableJavascriptConvertable(CXJavascriptConvertable):
-
     def render_to_js(self) -> str:
         return super().render_to_js()
 

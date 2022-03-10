@@ -7,25 +7,16 @@ from canvasxpress.config.type import CXString, CXBool
 
 
 def test_CXString_init():
-    subject: CXString = CXString(
-        label="1",
-        value="2"
-    )
+    subject: CXString = CXString(label="1", value="2")
     assert subject.label == "1"
     assert subject.value == "2"
 
-    subject: CXString = CXString(
-        label="1",
-        value=None
-    )
+    subject: CXString = CXString(label="1", value=None)
     assert subject.label == "1"
     assert subject.value == ""
 
     with pytest.raises(ValueError):
-        subject: CXString = CXString(
-            label=None,
-            value="2"
-        )
+        subject: CXString = CXString(label=None, value="2")
 
 
 def test_CXString_label():

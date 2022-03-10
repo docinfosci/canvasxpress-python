@@ -21,17 +21,11 @@ class SampleConfig(CXConfig):
 
     @value.setter
     def value(self, value: object) -> None:
-        CXConfig.value.fset(
-            self,
-            value
-        )
+        CXConfig.value.fset(self, value)
         if not self.__value:
             self.__value = str(value)
 
 
 def test_CXConfig_value():
-    testable_data: SampleConfig = SampleConfig(
-        "label",
-        "value"
-    )
+    testable_data: SampleConfig = SampleConfig("label", "value")
     assert testable_data.value == "value"

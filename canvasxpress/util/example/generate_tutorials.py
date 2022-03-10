@@ -1,5 +1,5 @@
 """
-This file can be executed to convert the reproducible JSON files located at
+This file can be executed to render the reproducible JSON files located at
 `[project]/tutorials/reproducible_json/*.json` into tutorials for general use.
 """
 import json
@@ -7,14 +7,17 @@ import os
 from pathlib import Path
 from typing import List
 
-from canvasxpress.util.example.generator import \
-    generate_canvasxpress_code_from_json_file
+from canvasxpress.util.example.generator import (
+    generate_canvasxpress_code_from_json_file,
+)
 
 JSON_DIR_PATH = f"{os.getcwd()}/../../../tutorials/reproducible_json/"
-JUPYTER_TEMPLATE_PATH = f"{os.getcwd()}/../../../canvasxpress/util/" \
-                        f"example/template_tutorials.ipynb"
-JUPYTER_EXAMPLES_DIR_PATH = f"{os.getcwd()}/../../../tutorials/notebook/" \
-                            f"cx_site_chart_examples/"
+JUPYTER_TEMPLATE_PATH = (
+    f"{os.getcwd()}/../../../canvasxpress/util/" f"example/template_tutorials.ipynb"
+)
+JUPYTER_EXAMPLES_DIR_PATH = (
+    f"{os.getcwd()}/../../../tutorials/notebook/" f"cx_site_chart_examples/"
+)
 
 
 def get_json_file_paths() -> List[str]:
@@ -26,15 +29,11 @@ def get_json_file_paths() -> List[str]:
     json_files = list()
     for file in os.listdir(JSON_DIR_PATH):
         if file.endswith(".json"):
-            json_files.append(
-                os.path.join(JSON_DIR_PATH, file)
-            )
+            json_files.append(os.path.join(JSON_DIR_PATH, file))
     return sorted(json_files)
 
 
-def get_type_from_filename(
-        file_name: str
-) -> str:
+def get_type_from_filename(file_name: str) -> str:
     """
     Returns the type of chart from a reproducible JSON filename.
     :param file_name: `str`
@@ -55,9 +54,7 @@ def get_type_from_filename(
     return assembled_type[::-1]
 
 
-def get_index_from_filename(
-        file_name: str
-) -> str:
+def get_index_from_filename(file_name: str) -> str:
     """
     Returns the index of chart from a reproducible JSON filename.
     :param file_name: `str`
@@ -77,9 +74,7 @@ def get_index_from_filename(
 
 
 def create_jupyer_template_text(
-        chart_type: str,
-        chart_index: str,
-        chart_code: str
+    chart_type: str, chart_index: str, chart_code: str
 ) -> str:
     """
     Generates the text for a Jupyter Notebook example given a chart's type,
@@ -93,7 +88,7 @@ def create_jupyer_template_text(
     :returns: `str`
         The text for the full example and instruction.
     """
-    with open(JUPYTER_TEMPLATE_PATH, 'r') as template_file:
+    with open(JUPYTER_TEMPLATE_PATH, "r") as template_file:
         example_text = template_file.read()
         example_text = example_text.replace("@type@", chart_type)
         example_text = example_text.replace("@index@", chart_index)
@@ -106,11 +101,11 @@ def create_jupyer_template_text(
             if "display.render()" in candidate:
                 candidate = candidate.replace(
                     "display.render()",
-                    f'display.render(output_file="{chart_type}_{chart_index}.html")'
+                    f'display.render(output_file="{chart_type}_{chart_index}.html")',
                 )
 
             # Add the source line to the document
-            ipython_json['cells'][1]['source'].append(candidate + '\n')
+            ipython_json["cells"][1]["source"].append(candidate + "\n")
 
         ipython_text = json.dumps(ipython_json)
         return ipython_text
@@ -129,16 +124,15 @@ if __name__ == "__main__":
                 chart_type,
                 chart_index,
                 generate_canvasxpress_code_from_json_file(
-                    json_path,
-                    document_jupyter_render=True
-                )
+                    json_path, document_jupyter_render=True
+                ),
             )
 
             example_file_name = f"{chart_type}_{chart_index}.ipynb"
             example_file_path = str(
                 Path(JUPYTER_EXAMPLES_DIR_PATH).joinpath(example_file_name)
             )
-            with open(example_file_path, 'w') as example_file:
+            with open(example_file_path, "w") as example_file:
                 example_file.write(jupyter_notebook_content)
 
         except Exception as e:

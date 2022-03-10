@@ -2,7 +2,6 @@ from canvasxpress.data.convert import CXDictConvertable
 
 
 class TestableDictConvertable(CXDictConvertable):
-
     def render_to_dict(self) -> dict:
         return super().render_to_dict()
 

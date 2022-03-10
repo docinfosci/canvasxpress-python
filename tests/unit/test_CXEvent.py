@@ -62,7 +62,7 @@ def test_CXEvent_str_perspective(id, script):
 
 @given(
     text(alphabet=string.ascii_letters, min_size=5),
-    text(alphabet=string.ascii_letters, min_size=5)
+    text(alphabet=string.ascii_letters, min_size=5),
 )
 def test_CXEvent_repr_perspective(id, script):
     event = CXEvent(id, script)
@@ -73,7 +73,7 @@ def test_CXEvent_repr_perspective(id, script):
 
 @given(
     text(alphabet=string.ascii_letters, min_size=5),
-    text(alphabet=string.ascii_letters, min_size=5)
+    text(alphabet=string.ascii_letters, min_size=5),
 )
 def test_CXEvent_render_to_js(id, script):
     event = CXEvent(id, script)
@@ -102,6 +102,7 @@ def test_CXEvent_equality_by_id():
     assert event_a != event_b
     assert event_b > event_a
 
+
 def test_CXEvent_equality_by_None():
     event: CXEvent = CXEvent("a", "a()")
 
@@ -109,6 +110,7 @@ def test_CXEvent_equality_by_None():
     assert event != None
     assert event > None
     assert None < event
+
 
 def test_CXEvent_equality_by_junk():
     event_a: CXEvent = CXEvent("a", "a()")

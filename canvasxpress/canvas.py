@@ -1,5 +1,7 @@
+import csv
 import json
 import uuid
+from io import StringIO
 from typing import Union, List
 
 from pandas import DataFrame
@@ -9,27 +11,30 @@ from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
 from canvasxpress.data.base import CXData, CXProfiledData
 from canvasxpress.data.convert import CXHtmlConvertable
-from canvasxpress.data.keypair import CXDictData
-from canvasxpress.data.matrix import CXDataframeData
-from canvasxpress.data.profile import CXVennProfile, CXStandardProfile, \
-    CXNetworkProfile, CXGenomeProfile, CXRawProfile
+from canvasxpress.data.keypair import CXDictData, CXJSONData
+from canvasxpress.data.matrix import CXDataframeData, CXCSVData
+from canvasxpress.data.profile import (
+    CXVennProfile,
+    CXStandardProfile,
+    CXNetworkProfile,
+    CXGenomeProfile,
+    CXRawProfile,
+)
 from canvasxpress.data.text import CXTextData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
 
-_CX_JS_TEMPLATE = \
-    "var cX@cx_target_id@ = new CanvasXpress(@cx_json@);"
+_CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@);"
 """
 The template for declaring a CanvasXpress Javascript object using data
 from the Python edition.
 """
 
-_CX_LICENSE_TEMPLATE = \
-    "<script src='@cx_license@' type='text/javascript'></script>"
+_CX_LICENSE_TEMPLATE = "<script src='@cx_license@' type='text/javascript'></script>"
 """
 The template for declaring a CanvasXpress license file so that charts do 
-not render with unlicensed watermarks.
+not create_element with unlicensed watermarks.
 """
 
 _CX_REPR_TEMPLATE = """CanvasXpress(
@@ -81,23 +86,35 @@ class CanvasXpress(CXHtmlConvertable):
     ```
     """
 
-    __target_id: str = None
+    __target_id: Union[str, None] = None
     """
-    __target_id is used by the JS renderTo param.
+    __target_id is used by the JS renderTo param.  None indicates that the object is anonymous.
     """
 
     @property
-    def render_to(self) -> str:
+    def anonymous(self) -> bool:
+        """
+        Indicates whether the object is anonymous.  If `True`, then `render_to()` will result in a one-time random
+        ID string being returned for use in contexts such as rapidly changing React environments.  If `False`, then
+        the ID string returned is the one set for the object by the developer.
+        :returns: `bool` `True` if the object is anonymous; otherwise `False`.
+        """
+        return self.__target_id is None
+
+    @property
+    def render_to(self) -> Union[str, None]:
         """
         The ID of the CanvasXpress object's associated HTML components, such as
-        the render canvas element.  Sets the `id` attribute of the `<canvas>`
+        the create_element canvas element.  Sets the `id` attribute of the `<canvas>`
         element.
-        :returns: `str` The ID
+        :returns: `str` The ID, if configured; `None` if anonymous.
         """
-        return self.__target_id
+        return (
+            str(uuid.uuid4()).replace("-", "") if self.anonymous else self.__target_id
+        )
 
     @render_to.setter
-    def render_to(self, value: str) -> None:
+    def render_to(self, value: Union[str, None]) -> None:
         """
         Sets the render_to of the CanvasXpress instance.  Sets the `id`
         attribute of the `<canvas>` element.
@@ -106,20 +123,23 @@ class CanvasXpress(CXHtmlConvertable):
             must be alphanumeric.  Non-alphanumeric characters will
             be removed, except for `_`, and if the remaining string
             is empty then a UUID4 will be substituted.  This is to preserve JS
-            compatibility during rendering.
+            compatibility during rendering. `None` can also be provided to
+            indicate that this object should be anonymous, such as for use
+            in rapidly changing React interfaces.
         """
-        if value is None:
-            raise ValueError("value cannot be None")
+        if not isinstance(value, str) and value is not None:
+            raise TypeError("value must be of type str or None")
 
-        if not isinstance(value, str):
-            raise TypeError("value must be of type str")
+        elif value is not None:
+            candidate = ""
+            for c in value:
+                if c.isalnum() or c == "_":
+                    candidate += c
+            if candidate == "":
+                candidate = str(uuid.uuid4()).replace("-", "")
 
-        candidate = ""
-        for c in value:
-            if c.isalnum() or c == '_':
-                candidate += c
-        if candidate == "":
-            candidate = str(uuid.uuid4()).replace('-', '')
+        else:
+            candidate = value
 
         self.__target_id = candidate
 
@@ -184,7 +204,7 @@ class CanvasXpress(CXHtmlConvertable):
         Indicates the preferred <canvas> Web element width when rendered.  This
         property is used to facilitate integration with Web containers such
         as Jupyter notebooks. Added to the `<canvas>` element, and also
-        influences render containers for contexts such as Jupyter Notebooks.
+        influences create_element containers for contexts such as Jupyter Notebooks.
         :returns: `int` The width
         """
         return self.__chart_width
@@ -193,7 +213,7 @@ class CanvasXpress(CXHtmlConvertable):
     def width(self, value: int):
         """
         Sets the preferred Web element width when rendered. Added to the
-        `<canvas>` element, and also influences render containers for contexts
+        `<canvas>` element, and also influences create_element containers for contexts
         such as Jupyter Notebooks.
         :param value: `int`
             The pixel count.  Cannot be `None` or less than `1`.
@@ -226,7 +246,7 @@ class CanvasXpress(CXHtmlConvertable):
         Indicates the preferred Web element height when rendered.  This
         property is used to facilitate integration with Web containers such
         as Jupyter notebooks.  Added to the `<canvas>` element, and also
-        influences render containers for contexts such as Jupyter Notebooks.
+        influences create_element containers for contexts such as Jupyter Notebooks.
         :returns: `int` The pixel count
         """
         return self.__chart_height
@@ -235,7 +255,7 @@ class CanvasXpress(CXHtmlConvertable):
     def height(self, value: int):
         """
         Sets the preferred Web element height when rendered.  Added to the
-        `<canvas>` element, and also influences render containers for contexts
+        `<canvas>` element, and also influences create_element containers for contexts
         such as Jupyter Notebooks.
         :param value: `int`
         """
@@ -289,7 +309,18 @@ class CanvasXpress(CXHtmlConvertable):
             self.__data = CXDataframeData(value)
 
         elif isinstance(value, str):
-            self.__data = CXTextData(value)
+            try:
+                json.loads(value)
+                self.__data = CXJSONData(value)
+
+            except Exception:
+                if (value.find(",") >= 0 or value.find("\t") >= 0) and value.find(
+                    "\n"
+                ) >= 0:
+                    self.__data = CXCSVData(value)
+
+                else:
+                    self.__data = CXTextData(value)
 
         else:
             raise TypeError(
@@ -346,14 +377,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @config.setter
     def config(
-            self,
-            value: Union[
-                List[CXConfig],
-                List[tuple],
-                List[list],
-                dict,
-                CXConfigs
-            ]
+        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
         """
         Sets the CXConfigs associated with this CanvasXpress chart.
@@ -405,14 +429,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @after_render.setter
     def after_render(
-            self,
-            value: Union[
-                List[CXConfig],
-                List[tuple],
-                List[list],
-                dict,
-                CXConfigs
-            ]
+        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
         """
         Sets the CXConfigs associated with this CanvasXpress chart's afterRender
@@ -448,31 +465,6 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     @property
-    @deprecated(reason="Use other_init_params")
-    def canvas(self) -> CXConfigs:
-        """
-        DEPRECATED.  See `other_init_params`.
-        """
-        return self.other_init_params
-
-    @canvas.setter
-    @deprecated(reason="Use other_init_params")
-    def canvas(
-            self,
-            value: Union[
-                List[CXConfig],
-                List[tuple],
-                List[list],
-                dict,
-                CXConfigs
-            ]
-    ):
-        """
-        DEPRECATED.  See `other_init_params`.
-        """
-        self.other_init_params = value
-
-    @property
     def other_init_params(self) -> CXConfigs:
         """
         Provides access to additional parameters that will be used with the
@@ -486,14 +478,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @other_init_params.setter
     def other_init_params(
-            self,
-            value: Union[
-                List[CXConfig],
-                List[tuple],
-                List[list],
-                dict,
-                CXConfigs
-            ]
+        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
         """
         Set the additional parameters to be used with the `CanvasXpress` for
@@ -536,18 +521,21 @@ class CanvasXpress(CXHtmlConvertable):
 
         # Clean override properties
         disallowed_attributes = [
-            'id', 'width', 'height', 'data', 'config', 'afterRender', 'renderTo'
+            "id",
+            "width",
+            "height",
+            "data",
+            "config",
+            "afterRender",
+            "renderTo",
         ]
         for attribute in disallowed_attributes:
             self.other_init_params.remove(attribute)
 
     @classmethod
     def from_reproducible_json(
-            cls,
-            cx_json: str,
-            include_factory: bool = False,
-            include_system: bool = False
-    ) -> 'CanvasXpress':
+        cls, cx_json: str, include_factory: bool = False, include_system: bool = False
+    ) -> "CanvasXpress":
         """
         Initializes a new `CanvasXpress` object using a reproducable research
         JSON saved from a CanvasXpress chart rendered in a Web browser.
@@ -571,24 +559,30 @@ class CanvasXpress(CXHtmlConvertable):
 
             if not include_factory:
                 if cx_json_dict.get("factory"):
-                    del cx_json_dict['factory']
+                    del cx_json_dict["factory"]
 
             if not include_system:
                 if cx_json_dict.get("system"):
-                    del cx_json_dict['system']
+                    del cx_json_dict["system"]
 
-            cx_render_to = cx_json_dict.get('renderTo')
-            cx_data = cx_json_dict.get('data')
-            cx_config = cx_json_dict.get('config')
-            cx_after_render = cx_json_dict.get('afterRender')
-            cx_width = cx_json_dict.get('width', 500)
-            cx_height = cx_json_dict.get('height', 500)
+            cx_render_to = cx_json_dict.get("renderTo")
+            cx_data = cx_json_dict.get("data")
+            cx_config = cx_json_dict.get("config")
+            cx_after_render = cx_json_dict.get("afterRender")
+            cx_width = cx_json_dict.get("width", 500)
+            cx_height = cx_json_dict.get("height", 500)
             cx_other_init_params = [
                 (str(param), cx_json_dict[param])
                 for param in cx_json_dict.keys()
-                if param not in [
-                    'id', 'width', 'height', 'data', 'config', 'afterRender',
-                    'renderTo'
+                if param
+                not in [
+                    "id",
+                    "width",
+                    "height",
+                    "data",
+                    "config",
+                    "afterRender",
+                    "renderTo",
                 ]
             ]
 
@@ -617,34 +611,27 @@ class CanvasXpress(CXHtmlConvertable):
                 after_render=cx_after_render,
                 other_init_params=cx_other_init_params,
                 width=int(cx_width),
-                height=int(cx_height)
+                height=int(cx_height),
             )
 
             return candidate
 
         except Exception as e:
             raise ValueError(
-                "cx_json must be a valid CanvasXpress reproducable"
-                " research JSON"
+                "cx_json must be a valid CanvasXpress reproducable" " research JSON"
             )
 
     def __init__(
-            self,
-            render_to: str = None,
-            data: Union[CXData, dict, DataFrame, str, None] = None,
-            events: Union[List[CXEvent], CXEvents] = None,
-            config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
-            after_render: Union[
-                List[CXConfig], List[tuple], dict, CXConfigs
-            ] = None,
-            other_init_params: Union[
-                List[CXConfig], List[tuple], dict, CXConfigs
-            ] = None,
-            canvas: Union[
-                List[CXConfig], List[tuple], dict, CXConfigs
-            ] = None,
-            width: int = CHART_WIDTH_DEFAULT,
-            height: int = CHART_HEIGHT_DEFAULT
+        self,
+        render_to: str = None,
+        data: Union[CXData, dict, DataFrame, str, None] = None,
+        events: Union[List[CXEvent], CXEvents] = None,
+        config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        after_render: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        canvas: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        width: int = CHART_WIDTH_DEFAULT,
+        height: int = CHART_HEIGHT_DEFAULT,
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
@@ -664,11 +651,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         super().__init__()
 
-        candidate_id = render_to
-        if candidate_id is None:
-            candidate_id = str(uuid.uuid4())
-        self.render_to = candidate_id
-
+        self.render_to = render_to
         self.data = data
         self.events = events
         self.config = config
@@ -678,10 +661,7 @@ class CanvasXpress(CXHtmlConvertable):
         self.height = height
 
     def update_data_profile(
-            self,
-            data: CXData,
-            fix_missing_profile: bool,
-            match_profile_to_graphtype: bool
+        self, data: CXData, fix_missing_profile: bool, match_profile_to_graphtype: bool
     ):
         """
         Inspects the `CXData` object to see if it is a `CXProfiledData` object.
@@ -690,9 +670,9 @@ class CanvasXpress(CXHtmlConvertable):
         applied if/as appropriate.
 
         :param data: `CXData`
-            The data to inspect.  Only `CXProfiledData` objects will be 
+            The data to inspect.  Only `CXProfiledData` objects will be
             modified.
-            
+
         :param fix_missing_profile: `bool`
             Defaults to `True`.  If `True` then CXData used for the chart will
             be provided with a data profile appropriate to the `graphType`
@@ -723,31 +703,85 @@ class CanvasXpress(CXHtmlConvertable):
 
                     else:
                         special_types = {
-                            CXGraphTypeOptions.Venn.value:
-                                CXVennProfile(),
-                            CXGraphTypeOptions.Network.value:
-                                CXNetworkProfile(),
-                            CXGraphTypeOptions.Genome.value:
-                                CXGenomeProfile()
+                            CXGraphTypeOptions.Venn.value: CXVennProfile(),
+                            CXGraphTypeOptions.Network.value: CXNetworkProfile(),
+                            CXGraphTypeOptions.Genome.value: CXGenomeProfile(),
                         }
 
                         if special_types.get(graphType.value):
                             if not isinstance(
-                                    data.profile,
-                                    type(special_types[graphType.value])
+                                data.profile, type(special_types[graphType.value])
                             ):
-                                data.profile = special_types[
-                                    graphType.value
-                                ]
+                                data.profile = special_types[graphType.value]
 
                         else:
                             if not isinstance(data.profile, CXStandardProfile):
                                 data.profile = CXStandardProfile()
 
+    def prepare_html_element_parts(
+        self,
+        fix_missing_profile: bool = True,
+        match_profile_to_graphtype: bool = True,
+    ) -> dict:
+        """
+        Converts the CanvasXpress object into CanvasXpress element components in
+        anticipation of further use in renderable objects or conversion into HTML.
+
+        If the associated `CXData` is a type of `CXProfiledData` and a profile
+        has yet to be assigned then a profile can be assigned according to the
+        `CXConfig` labelled `graphType`.  If a profile is assigned but is not
+        `CXRawProfile` then the `graphType` can be reassessed, and if
+        appropriate a new profile better aligned to the data can be provided.
+
+        :param fix_missing_profile: `bool`
+            Defaults to `True`.  If `True` then CXData used for the chart will
+            be provided with a data profile appropriate to the `graphType`
+            (or CXStandardProfile if no graphType is provided).  If `False`
+            then no profile will be applied to those data objects without
+            profiles.
+
+        :param match_profile_to_graphtype: `bool`
+            Defaults to `True`.  If `True` then the `graphType` will be
+            inspected and an appropriate data profile will be applied to
+            the data object.  If a profile of an appropriate type is already
+            associated then nothing is changed.  If a CXRawProfile is associated
+            then no change is made regardless of the paranmeter value.
+            Missing profiles are ignored unless fix_missing_profile is also
+            `True`.  If `False` then no change to the data profile will be made
+            if a profile is already associated with the data object.
+
+        :returns: `dict` A map of values in anticipation of further conversion
+            into html or a renderable.
+        """
+        self.update_data_profile(
+            self.data,
+            fix_missing_profile,
+            match_profile_to_graphtype,
+        )
+
+        cx_element_params = {
+            "renderTo": self.render_to,
+            "data": self.data.render_to_dict(config=self.config),
+            "config": self.config.render_to_dict(),
+            "afterRender": self.after_render.render_to_list(),
+            "otherParams": self.other_init_params.render_to_dict(),
+            "events": "js_events",
+            "width": self.width,
+            "height": self.height,
+        }
+
+        # Support unique data without JSON data structure
+        if cx_element_params["data"].get("raw"):
+            cx_element_params["data"] = cx_element_params["data"]["raw"]
+
+        cx_element_params["events"] = self.events.render_to_js()
+
+        return cx_element_params
+
     def render_to_html_parts(
-            self,
-            fix_missing_profile: bool = True,
-            match_profile_to_graphtype: bool = True
+        self,
+        fix_missing_profile: bool = True,
+        match_profile_to_graphtype: bool = True,
     ) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.
@@ -791,7 +825,7 @@ class CanvasXpress(CXHtmlConvertable):
         </html>
         ```
 
-        A flask function could render a page with a chart such as:
+        A flask function could create_element a page with a chart such as:
         ```python
         @app.route('/pythonexample')
         def get_simple_chart() -> str:
@@ -836,75 +870,64 @@ class CanvasXpress(CXHtmlConvertable):
             `True`.  If `False` then no change to the data profile will be made
             if a profile is already associated with the data object.
         """
-        # For profiled data types, ensure a profile is assigned for rendering
         self.update_data_profile(
-            self.data,
-            fix_missing_profile,
-            match_profile_to_graphtype
+            self.data, fix_missing_profile, match_profile_to_graphtype
         )
 
         primary_params = {
-            'renderTo': self.render_to,
-            'data': self.data.render_to_dict(
-                config=self.config
-            ),
-            'config': self.config.render_to_dict(),
-            'afterRender': self.after_render.render_to_list(),
-            'events': "js_events"
+            "renderTo": self.render_to,
+            "data": self.data.render_to_dict(config=self.config),
+            "config": self.config.render_to_dict(),
+            "afterRender": self.after_render.render_to_list(),
+            "events": "js_events",
         }
         secondary_params = self.other_init_params.render_to_dict()
-        canvasxpress = {
-            **primary_params,
-            **secondary_params
-        }
+        canvasxpress = {**primary_params, **secondary_params}
 
         # Support unique data without JSON data structure
-        if canvasxpress['data'].get('raw'):
-            canvasxpress['data'] = canvasxpress['data']['raw']
+        if canvasxpress["data"].get("raw"):
+            canvasxpress["data"] = canvasxpress["data"]["raw"]
 
         cx_js = render_from_template(
             _CX_JS_TEMPLATE,
             {
-                'cx_target_id': self.render_to,
-                'cx_json': json.dumps(
-                    canvasxpress,
-                    indent=4
-                )
-            }
+                "cx_target_id": self.render_to,
+                "cx_json": json.dumps(canvasxpress, indent=4),
+            },
         )
 
         cx_js = cx_js.replace(
-            '"js_events"', self.events.render_to_js(),
+            '"js_events"',
+            self.events.render_to_js(),
         )
 
         canvas_configs = CXConfigs(
             {
-                'id': self.render_to,
-                'width': self.width,
-                'height': self.height,
+                "id": self.render_to,
+                "width": self.width,
+                "height": self.height,
             }
         )
-        cx_canvas = "<canvas " + \
-                    " ".join(
-                        [
-                            f"{str(config.label)}={json.dumps(config.value)}"
-                            for config in canvas_configs.configs
-                        ]
-                    ) + \
-                    "></canvas>"
+        cx_canvas = (
+            "<canvas "
+            + " ".join(
+                [
+                    f"{str(config.label)}={json.dumps(config.value)}"
+                    for config in canvas_configs.configs
+                ]
+            )
+            + "></canvas>"
+        )
 
         cx_license = render_from_template(
-            _CX_LICENSE_TEMPLATE,
-            {
-                'cx_license': self.license_url
-            }
+            _CX_LICENSE_TEMPLATE, {"cx_license": self.license_url}
         )
 
         cx_web_data = dict()
-        cx_web_data['cx_js'] = cx_js
-        cx_web_data['cx_canvas'] = cx_canvas
+        cx_web_data["cx_js"] = cx_js
+        cx_web_data["cx_canvas"] = cx_canvas
         if self.license_available:
-            cx_web_data['cx_license'] = cx_license
+            cx_web_data["cx_license"] = cx_license
 
         return cx_web_data
 
@@ -915,16 +938,18 @@ class CanvasXpress(CXHtmlConvertable):
         :returns" `str`
             JSON form of the `CanvasXpress` object.
         """
-        data = str(type(self.data)).split('.')[-1][:-2] if self.data else 'None'
+        data = str(type(self.data)).split(".")[-1][:-2] if self.data else "None"
 
-        return f"CanvasXpress ({hex(id(self))}):" \
-               f" render_to '{self.render_to}';" \
-               f" data <{data}>;" \
-               f" config {len(self.config.configs)} item(s);" \
-               f" after_render {len(self.after_render.configs)} item(s));" \
-               f" other_init_params" \
-               f" {len(self.other_init_params.configs)} item(s);" \
-               f" events {len(self.events.events)} function(s)."
+        return (
+            f"CanvasXpress ({hex(id(self))}):"
+            f" render_to '{self.render_to}';"
+            f" data <{data}>;"
+            f" config {len(self.config.configs)} item(s);"
+            f" after_render {len(self.after_render.configs)} item(s));"
+            f" other_init_params"
+            f" {len(self.other_init_params.configs)} item(s);"
+            f" events {len(self.events.events)} function(s)."
+        )
 
     def __repr__(self) -> str:
         """
@@ -934,64 +959,42 @@ class CanvasXpress(CXHtmlConvertable):
         """
 
         normalized_data = self.data.render_to_dict(config=self.config)
-        if normalized_data.get('raw'):
-            normalized_data = normalized_data['raw']
+        if normalized_data.get("raw"):
+            normalized_data = normalized_data["raw"]
         str_data = json.dumps(normalized_data, indent=4)
         str_data_parts = str_data.split("\n")
-        str_data = "\n".join(
-            [
-                "    " + line
-                for line in str_data_parts
-            ]
-        )[4:]
-        
-        str_config = json.dumps(
-            self.config.render_to_dict(),
-            indent=4
-        )
-        str_config_parts = str_config.split("\n")
-        str_config = "\n".join(
-            [
-                "    " + line
-                for line in str_config_parts
-            ]
-        )[4:]
+        str_data = "\n".join(["    " + line for line in str_data_parts])[4:]
 
-        str_after_render = json.dumps(
-            self.after_render.render_to_list(), 
-            indent=4
-        )
+        str_config = json.dumps(self.config.render_to_dict(), indent=4)
+        str_config_parts = str_config.split("\n")
+        str_config = "\n".join(["    " + line for line in str_config_parts])[4:]
+
+        str_after_render = json.dumps(self.after_render.render_to_list(), indent=4)
         str_after_render_parts = str_after_render.split("\n")
         str_after_render = "\n".join(
-            [
-                "    " + line
-                for line in str_after_render_parts
-            ]
+            ["    " + line for line in str_after_render_parts]
         )[4:]
 
         str_other_init_params = json.dumps(
-            self.other_init_params.render_to_dict(),
-            indent=4
+            self.other_init_params.render_to_dict(), indent=4
         )
         str_other_init_params_parts = str_other_init_params.split("\n")
         str_other_init_params = "\n".join(
-            [
-                "    " + line
-                for line in str_other_init_params_parts
-            ]
+            ["    " + line for line in str_other_init_params_parts]
         )[4:]
 
-        repr_str = _CX_REPR_TEMPLATE \
-            .replace("@render_to@", self.render_to) \
-            .replace("@data@",str_data) \
-            .replace("@config@", str_config) \
-            .replace("@width@", json.dumps(self.width)) \
-            .replace("@height@", json.dumps(self.height)) \
-            .replace("@events@", repr(self.events)) \
-            .replace("@after_render@", str_after_render) \
-            .replace("@other_init_params@", str_other_init_params) \
-            .replace("true", "True") \
-            .replace("false", "False") \
+        repr_str = (
+            _CX_REPR_TEMPLATE.replace("@render_to@", self.render_to)
+            .replace("@data@", str_data)
+            .replace("@config@", str_config)
+            .replace("@width@", json.dumps(self.width))
+            .replace("@height@", json.dumps(self.height))
+            .replace("@events@", repr(self.events))
+            .replace("@after_render@", str_after_render)
+            .replace("@other_init_params@", str_other_init_params)
+            .replace("true", "True")
+            .replace("false", "False")
             .replace("null", "None")
+        )
 
         return repr_str

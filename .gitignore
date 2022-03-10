@@ -302,16 +302,34 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm+all,macos,windows,linux
 
+##### Custom Project Ignores #####
+
+# Plotly Dash Ignores
+plotly/.build_cache/**
+plotly/cxdash/.build_cache/**
+plotly/cxdash/package-lock.json
+plotly/cxdash/dcxc/**
+plotly/cxdash/R/**
+plotly/cxdash/man/**
+plotly/cxdash/src/jl/**
+plotly/cxdash/venv/**
+plotly/cxdash/node_modules/**
+
+# Allure Reporting Ignores
 allure-report
 allure-results/
-
-setup.py
-
 coverage-results/
 
+# Python Project Ignores
+setup.py
+
+# Documentation Ignores
 build/**
 site/**
 
+# IDE Ignores
 .vscode
 .vscode/
 .vscode/**
+
+node_modules/

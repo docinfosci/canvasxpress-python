@@ -3,16 +3,22 @@ from copy import deepcopy
 from functools import total_ordering
 from typing import List, Any, Union
 
-from canvasxpress.config.type import CXConfig, CXString, CXInt, CXFloat, CXBool, \
-    CXList, CXDict, CXRGBColor, CXRGBAColor
+from canvasxpress.config.type import (
+    CXConfig,
+    CXString,
+    CXInt,
+    CXFloat,
+    CXBool,
+    CXList,
+    CXDict,
+    CXRGBColor,
+    CXRGBAColor,
+)
 from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
 
 @total_ordering
-class CXConfigs(
-    CXDictConvertable,
-    CXListConvertable
-):
+class CXConfigs(CXDictConvertable, CXListConvertable):
     """
     CXConfigs provides support for addressing a collection of `CXConfig` values.
     """
@@ -61,7 +67,7 @@ class CXConfigs(
 
         return candidate
 
-    def add(self, config: Union[CXConfig, tuple, dict, list]) -> 'CXConfigs':
+    def add(self, config: Union[CXConfig, tuple, dict, list]) -> "CXConfigs":
         """
         Adds the specified configuration to the collection.  This method
         supports chaining for efficient additions of `CXConfig` objects.
@@ -86,10 +92,7 @@ class CXConfigs(
 
         elif isinstance(config, dict):
             for param in config.keys():
-                self.set_param(
-                    str(param),
-                    config.get(param)
-                )
+                self.set_param(str(param), config.get(param))
 
         elif isinstance(config, (tuple, list)):
             if len(config) > 0:
@@ -105,10 +108,7 @@ class CXConfigs(
                             "the first is the label, and the second is the "
                             "value."
                         )
-                    self.set_param(
-                        str(config[0]),
-                        config[1]
-                    )
+                    self.set_param(str(config[0]), config[1])
 
         elif isinstance(config, CXConfig):
             if config not in self.__configs:
@@ -119,10 +119,7 @@ class CXConfigs(
 
         return self
 
-    def get_param(
-            self,
-            label: str
-    ) -> Union[CXConfig, None]:
+    def get_param(self, label: str) -> Union[CXConfig, None]:
         """
         Provides the CXConfig with the indicated label.
         :param label: `str`
@@ -138,11 +135,7 @@ class CXConfigs(
 
         return candidate
 
-    def set_param(
-            self,
-            label: str,
-            value: Any
-    ) -> 'CXConfigs':
+    def set_param(self, label: str, value: Any) -> "CXConfigs":
         """
         Adds a parameter to the configs.  Attempts to infer the kind of param to
         add, and if a type can be deduced then an appropriate CXConfig is used.
@@ -184,74 +177,35 @@ class CXConfigs(
             if not existing_config_used:
                 value_type = type(value)
                 if value_type is int:
-                    candidate = CXInt(
-                        label,
-                        value
-                    )
+                    candidate = CXInt(label, value)
                 elif value_type is float:
-                    candidate = CXFloat(
-                        label,
-                        value
-                    )
+                    candidate = CXFloat(label, value)
                 elif value_type is bool:
-                    candidate = CXBool(
-                        label,
-                        value
-                    )
+                    candidate = CXBool(label, value)
                 elif value_type is dict:
                     if CXRGBAColor.is_color_dict(value):
-                        candidate = CXRGBAColor(
-                            label,
-                            value
-                        )
+                        candidate = CXRGBAColor(label, value)
                     elif CXRGBColor.is_color_dict(value):
-                        candidate = CXRGBColor(
-                            label,
-                            value
-                        )
+                        candidate = CXRGBColor(label, value)
                     else:
-                        candidate = CXDict(
-                            label,
-                            value
-                        )
+                        candidate = CXDict(label, value)
                 elif value_type is list:
                     if CXRGBAColor.is_color_list(value):
-                        candidate = CXRGBAColor(
-                            label,
-                            value
-                        )
+                        candidate = CXRGBAColor(label, value)
                     elif CXRGBColor.is_color_list(value):
-                        candidate = CXRGBColor(
-                            label,
-                            value
-                        )
+                        candidate = CXRGBColor(label, value)
                     else:
-                        candidate = CXList(
-                            label,
-                            value
-                        )
+                        candidate = CXList(label, value)
                 elif value_type is set:
                     set_persona: set = value
-                    candidate = CXList(
-                        label,
-                        list(set_persona)
-                    )
+                    candidate = CXList(label, list(set_persona))
                 else:
                     if CXRGBAColor.is_color_str(value):
-                        candidate = CXRGBAColor(
-                            label,
-                            value
-                        )
+                        candidate = CXRGBAColor(label, value)
                     elif CXRGBColor.is_color_str(value):
-                        candidate = CXRGBColor(
-                            label,
-                            value
-                        )
+                        candidate = CXRGBColor(label, value)
                     else:
-                        candidate = CXString(
-                            label,
-                            value
-                        )
+                        candidate = CXString(label, value)
 
                 self.add(candidate)
 
@@ -292,10 +246,7 @@ class CXConfigs(
         """
         return CXConfigs.merge_configs(self.configs)
 
-    def render_to_list(
-            self,
-            **kwargs
-    ) -> list:
+    def render_to_list(self, **kwargs) -> list:
         """
         Provides a `list` representation of the configuration values.
         :returns: `list`
@@ -322,19 +273,12 @@ class CXConfigs(
         """
         configs = self.render_to_dict()
         return [
-            [
-                str(key),               # function name
-                configs[key]            # list of parameter values
-            ]
+            [str(key), configs[key]]  # function name  # list of parameter values
             for key in configs.keys()
         ]
 
-
     @classmethod
-    def merge_configs(
-            cls,
-            configs: List[CXConfig]
-    ) -> dict:
+    def merge_configs(cls, configs: List[CXConfig]) -> dict:
         """
         Given a list of CXConfig objects, a dictionary of unique attributes is
         generated and provided.
@@ -349,38 +293,25 @@ class CXConfigs(
 
         dict_configs = dict()
         for config in unique_configs:
-            dict_configs = {
-                **dict_configs,
-                **(config.render())
-            }
+            dict_configs = {**dict_configs, **(config.render())}
 
         return dict_configs
 
-    def __copy__(self) -> 'CXConfigs':
+    def __copy__(self) -> "CXConfigs":
         """
         *copy* constructor.  Returns the `CXConfig` objects within a new
         `CXConfigs` object.
         """
-        return CXConfigs(
-            *self.configs
-        )
+        return CXConfigs(*self.configs)
 
-    def __deepcopy__(
-            self,
-            memo
-    ) -> 'CXConfigs':
+    def __deepcopy__(self, memo) -> "CXConfigs":
         """
         *deepcopy* constructor.  Returns a deepcopy of the `CXConfig` objects
          within a new `CXConfigs` object.
         """
-        return CXConfigs(
-            *([deepcopy(config) for config in self.configs])
-        )
+        return CXConfigs(*([deepcopy(config) for config in self.configs]))
 
-    def __lt__(
-            self,
-            other: 'CXConfigs'
-    ) -> bool:
+    def __lt__(self, other: "CXConfigs") -> bool:
         """
         *less than* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -413,10 +344,7 @@ class CXConfigs(
             else:
                 return len(self.configs) < len(other.configs)
 
-    def __eq__(
-            self,
-            other: 'CXConfigs'
-    ) -> bool:
+    def __eq__(self, other: "CXConfigs") -> bool:
         """
         *equals* comparison.  Also see `@total_ordering` in `functools`.
         :param other:
@@ -456,9 +384,7 @@ class CXConfigs(
         :returns" `str`
             JSON form of the collection.
         """
-        return json.dumps(
-            self.render_to_dict()
-        )
+        return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
         """
@@ -467,7 +393,5 @@ class CXConfigs(
         :returns: `str` An evaluatable representation of the object.
         """
         config_rep_list = ", ".join([repr(config) for config in self.configs])
-        rep_candidate = f'CXConfigs(' \
-                        f'{config_rep_list}' \
-                        f')'
+        rep_candidate = f"CXConfigs(" f"{config_rep_list}" f")"
         return rep_candidate

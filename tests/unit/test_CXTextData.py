@@ -22,6 +22,7 @@ raw_data = """
 "Ruth",       "F",   28,       65,      131
 """
 
+
 def test_init_CXTextData():
     candidate = CXTextData(raw_data)
     assert candidate.text == raw_data
@@ -31,6 +32,7 @@ def test_init_CXTextData():
 
     candidate = CXTextData(1)
     assert candidate.text == "1"
+
 
 def test_text():
     candidate = CXTextData()
@@ -49,20 +51,14 @@ def test_text():
 def test_data():
     candidate = CXTextData()
     candidate.text = raw_data
-    assert candidate.data == {
-        "raw": raw_data
-    }
+    assert candidate.data == {"raw": raw_data}
 
     candidate = CXTextData()
     candidate.text = None
-    assert candidate.data == {
-        "raw": ""
-    }
+    assert candidate.data == {"raw": ""}
     candidate = CXTextData()
     candidate.text = 1
-    assert candidate.data == {
-        "raw": "1"
-    }
+    assert candidate.data == {"raw": "1"}
     candidate = CXTextData()
     candidate.text = "https://www.canvasxpress.org/data/cX-heatmapR-dat.txt"
     assert candidate.data == {

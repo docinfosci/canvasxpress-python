@@ -1,0 +1,11 @@
+include cxdash/cxdash.min.js
+include cxdash/cxdash.min.js.map
+include cxdash/async-*.js
+include cxdash/async-*.js.map
+include cxdash/*-shared.js
+include cxdash/*-shared.js.map
+include cxdash/metadata.json
+include cxdash/package-info.json
+include README.md
+include LICENSE
+include package.json

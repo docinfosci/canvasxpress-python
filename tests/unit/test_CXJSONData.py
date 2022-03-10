@@ -16,26 +16,33 @@ from canvasxpress.data.keypair import CXJSONData
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 @settings(deadline=None)
 def test_CXJSONData_init_valid_input(sample):
     cxdata = CXJSONData(sample)
-    assert not DeepDiff(
-        sample,
-        cxdata.get_raw_dict_form()
-    )
+    assert not DeepDiff(sample, cxdata.get_raw_dict_form())
 
 
 def test_CXJSONData_init_invalid_input():
-    for sample in [1, '1', [12, 13], 4.5, ]:
+    for sample in [
+        1,
+        "1",
+        [12, 13],
+        4.5,
+    ]:
         with pytest.raises(TypeError):
             CXJSONData(sample)
 
 
 def test_CXJSONData_set_data_invalid():
-    for sample in [1, '1', [12, 13], 4.5, ]:
+    for sample in [
+        1,
+        "1",
+        [12, 13],
+        4.5,
+    ]:
         with pytest.raises(TypeError):
             subject: CXJSONData = CXJSONData({})
             subject.data = sample
@@ -45,7 +52,7 @@ def test_CXJSONData_set_data_invalid():
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXJSONData_get_valid_data(sample):
@@ -62,8 +69,10 @@ def test_CXJSONData_set_invalid_url():
 
 
 def test_CXJSONData_set_url():
-    sample_url = "https://raw.githubusercontent.com/docinfosci/" \
-                 "canvasxpress-python/develop/readme/examples/iris.json"
+    sample_url = (
+        "https://raw.githubusercontent.com/docinfosci/"
+        "canvasxpress-python/develop/readme/examples/iris.json"
+    )
 
     candidate: CXJSONData = CXJSONData()
     sample = requests.get(sample_url).json()
@@ -71,11 +80,12 @@ def test_CXJSONData_set_url():
     candidate.json = sample_url
     assert candidate.json == json.dumps(sample)
 
+
 @given(
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXJSONData_set_valid_json(sample):
@@ -99,7 +109,7 @@ def test_CXJSONData_set_valid_json(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXJSONData_set_valid_dict(sample):
@@ -117,7 +127,7 @@ def test_CXJSONData_set_valid_dict(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_copy_CXJSONData(sample):
@@ -131,7 +141,7 @@ def test_copy_CXJSONData(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_deepcopy_CXJSONData(sample):
@@ -144,7 +154,7 @@ def test_deepcopy_CXJSONData(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXJSONData_str_perspective(sample):
@@ -157,7 +167,7 @@ def test_CXJSONData_str_perspective(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXJSONData_repr_perspective(sample):
@@ -172,7 +182,7 @@ def test_CXJSONData_repr_perspective(sample):
     dictionaries(
         keys=text(alphabet=string.ascii_letters, min_size=5),
         values=text(alphabet=string.ascii_letters, min_size=5),
-        min_size=1
+        min_size=1,
     )
 )
 def test_CXJSONData_get_raw_dict_form(sample):
@@ -182,11 +192,7 @@ def test_CXJSONData_get_raw_dict_form(sample):
 
 
 def test_CXJSONData_equality_None():
-    sample_a: CXJSONData = CXJSONData(
-        {
-            "a": 1
-        }
-    )
+    sample_a: CXJSONData = CXJSONData({"a": 1})
 
     assert sample_a != None
     assert None < sample_a
@@ -194,11 +200,7 @@ def test_CXJSONData_equality_None():
 
 
 def test_CXJSONData_equality_junk():
-    sample_a: CXJSONData = CXJSONData(
-        {
-            "a": 1
-        }
-    )
+    sample_a: CXJSONData = CXJSONData({"a": 1})
 
     for junk in [0, "0", [0]]:
         assert sample_a != junk
@@ -207,24 +209,12 @@ def test_CXJSONData_equality_junk():
 
 
 def test_CXJSONData_equality():
-    sample_a: CXJSONData = CXJSONData(
-        {
-            "a": 1
-        }
-    )
-    sample_b: CXJSONData = CXJSONData(
-        {
-            "a": 1
-        }
-    )
+    sample_a: CXJSONData = CXJSONData({"a": 1})
+    sample_b: CXJSONData = CXJSONData({"a": 1})
 
     assert sample_a == sample_b
 
-    sample_c: CXJSONData = CXJSONData(
-        {
-            "c": 1
-        }
-    )
+    sample_c: CXJSONData = CXJSONData({"c": 1})
 
     assert sample_a != sample_c
     assert sample_a < sample_c
@@ -236,22 +226,13 @@ def test_CXJSONData_equality():
     assert sample_d < sample_a
     assert sample_a > sample_d
 
-    sample_e: CXJSONData = CXJSONData(
-        {
-            "c": 2
-        }
-    )
+    sample_e: CXJSONData = CXJSONData({"c": 2})
 
     assert sample_c != sample_e
     assert sample_c < sample_e
     assert sample_e > sample_c
 
-    sample_f: CXJSONData = CXJSONData(
-        {
-            "c": 2,
-            "d": 1
-        }
-    )
+    sample_f: CXJSONData = CXJSONData({"c": 2, "d": 1})
 
     assert sample_c != sample_f
     assert sample_c < sample_f

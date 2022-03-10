@@ -8,14 +8,14 @@ from tests.util.web.platform.browser.generic import ManagedBrowser
 
 TEST_SERVER_URL = "http://localhost:8080"
 
+
 def get_target_urls() -> List[str]:
     return [
         TEST_SERVER_URL,
     ]
 
-def sessions(
-        url: str = TEST_SERVER_URL
-) -> ManagedBrowser:
+
+def sessions(url: str = TEST_SERVER_URL) -> ManagedBrowser:
     """
     A WebDriver generator that provides browser sessions for each of the
     automated test platform supported browsers.
@@ -26,15 +26,12 @@ def sessions(
         allure.attach(
             name=f"Info - {browser.platform} browser provided",
             body=url,
-            attachment_type=allure.attachment_type.TEXT
+            attachment_type=allure.attachment_type.TEXT,
         )
         yield browser
 
 
-@pytest.fixture(
-    scope='function',
-    params=get_target_urls()
-)
+@pytest.fixture(scope="function", params=get_target_urls())
 def browsers(request) -> sessions():
     """
     A test fixture that provides a set of browsres in which tests should be
