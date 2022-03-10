@@ -9,6 +9,7 @@ recommended read:
 - [CanvasXpress Examples](https://www.canvasxpress.org/examples.html)
 
 <hr>
+
 ## A Script/Console Example
 Charts can be defined in scripts or a console session and then displayed using 
 the default browser, assuming that a graphical browser with Javascript support 
@@ -59,7 +60,8 @@ Linux with graphical systems:
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
 
 <hr>
-## Flask Web Application
+
+## A Flask Web Example
 
 [Flask](https://palletsprojects.com/p/flask/) is a popular lean Web development framework for Python based applications.
 Flask applications can serve Web pages, RESTful APIs, and similar backend service concepts. This example shows how to
@@ -69,6 +71,7 @@ backend.
 The concepts in this example equally apply to other frameworks that can serve Web pages, such as Django and Tornado.
 
 <hr style="border-top: 1px dashed #8c8b8b" />
+
 ### Create a Basic Flask App
 
 A basic Flask app provides a means by which:
@@ -214,7 +217,129 @@ displayed:
 Congratulations!  You have created your first Python-driven CanvasXpress app!
 
 <hr>
-## Jupyter Notebook
+
+## A Plotly Dash Example
+
+[Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to R/shiny for Python.  Dash 
+applications are Web pages with widgets and elements facilitating the interactive presentation of information.
+This example shows how to create a basic Dash application using a CanvasXpress Dash element.
+
+### Create a Basic Dash App
+
+A basic Dash app provides a means by which:
+
+1. A local development server can be started
+1. A function can respond to a URL
+
+First install Flask and CanvasXpress for Python:
+```terminal
+pip install -U pip install dash canvasxpress[dash]
+```
+
+Then create a demo file, such as `app.py`, and insert:
+
+```python
+from dash import Dash, html
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.render.dash import CXElementFactory
+
+g_app = Dash(__name__)
+
+# No need to create_element many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
+_g_csv = """, Apples, Oranges, Bananas
+SF      ,      4,       1,       2
+Montreal,      2,       4,       5
+"""
+
+_g_cx_colors = {
+    "background": "#111111",
+    "text": "rgb(127,219,255)",
+    "bars": ["rgb(99,110,250)", "rgb(239,85,59)"],
+}
+
+# Work with data as normal Python values.  cx_data could also have been a DataFrame, JSON, URL, etc.
+_g_cx_chart = CanvasXpress(
+    render_to="fruit_consumption",
+    data=_g_csv,
+    config={
+        "colors": _g_cx_colors["bars"],
+        "graphOrientation": "vertical",
+        "smpLabelRotate": 90,
+        "plotBox": True,
+        "plotBoxColor": "White",
+        "background": _g_cx_colors["background"],
+        "theme": "Plotly",
+        "xAxis": ["Fruit", "City"],
+        "xAxisTitle": "Amount",
+        "xAxis2Show": False,
+        "xAxisMinorTicks": False,
+        "axisTitleColor": _g_cx_colors["text"],
+        "axisTickColor": _g_cx_colors["text"],
+        "legendColor": _g_cx_colors["text"],
+        "smpTitle": "Fruit",
+        "smpTitleFontColor": _g_cx_colors["text"],
+        "smpLabelFontColor": _g_cx_colors["text"],
+    },
+    width=650,
+    height=450,
+)
+
+# Application
+g_app.layout = html.Div(
+    style={"backgroundColor": _g_cx_colors["background"]},
+    children=[
+        html.H1(
+            children="Hello Dash",
+            style={"textAlign": "center", "color": _g_cx_colors["text"]},
+        ),
+        html.H2(
+            children=(
+                "An Example of the Advanced CanvasXpress and CXDashElementFactory"
+                " Classes for Plotting a CanvasXpress Chart"
+            ),
+            style={"textAlign": "center", "color": _g_cx_colors["text"]},
+        ),
+        html.Div(
+            id="chart-container",
+            children=[
+                html.Div(
+                    id="cx-container",
+                    style={"textAlign": "center"},
+                    children=CXElementFactory.render(_g_cx_chart),
+                ),
+            ],
+        ),
+    ],
+)
+
+if __name__ == "__main__":
+    g_app.run_server(debug=True)
+```
+
+### Run the App and View the Page
+
+On the command line, execute:
+
+```terminal
+python3 app.py
+```
+
+And output similar to the following will be provided:
+
+```terminal
+Running on http://127.0.0.1:8050/ (Press CTRL+C to quit)
+```
+
+Browsing to `http://127.0.0.1:8050/` will result in a page with a CanvasXpress chart, which is being hosted by the 
+Dash framework:
+
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/dash_chart_basic.png" align="center" width="600"></a>
+
+Congratulations!  You have created a Plotly Dash CanvasXpress app!
+
+<hr>
+
+## A Jupyter Notebook Example
 
 [Jupyter Notebook](https://jupyter.org) is a programming journal, among other 
 things, based in part on the powerful [IPython](https://ipython.org) framework. 
