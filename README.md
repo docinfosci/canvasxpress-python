@@ -159,7 +159,7 @@ A basic Dash app provides a means by which:
 1. A local development server can be started
 1. A function can respond to a URL
 
-First install Flask and CanvasXpress for Python:
+First install Dash and CanvasXpress for Python:
 ```terminal
 pip install canvasxpress[dash]
 ```
