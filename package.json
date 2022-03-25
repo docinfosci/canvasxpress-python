@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "canvasxpress": "^37.8.182",
-    "canvasxpress-react": "^37.8.182"
+    "canvasxpress": "^37.9.5",
+    "canvasxpress-react": "^37.9.5"
   }
 }
