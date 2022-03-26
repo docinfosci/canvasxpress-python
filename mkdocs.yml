@@ -1,4 +1,10 @@
+copyright: 2021 - Present by Dr. Todd C. Brett
 docs_dir: docs
+extra:
+  history_buttons: true
+  include_toc: true
+  logo: images/hexagon.png
+  logo_title: CanvasXPress for Python Logo
 nav:
 - Overview: index.md
 - Status: status.md
@@ -6,7 +12,10 @@ nav:
 - Data: data.md
 - API: api.md
 - License: license.md
+repo_url: https://github.com/docinfosci/canvasxpress-python
+site_author: Dr. Todd C. Brett
+site_description: CanvasXpress for Python Documentation
 site_dir: site
 site_name: CanvasXpress for Python
 theme:
-  name: lux
+  name: alabaster
