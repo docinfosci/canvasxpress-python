@@ -35,5 +35,14 @@ renderer:
   mkdocs_config:
     site_dir: site
     site_name: CanvasXpress for Python
+    repo_url: https://github.com/docinfosci/canvasxpress-python
+    site_description: CanvasXpress for Python Documentation
+    site_author: Dr. Todd C. Brett
+    copyright: 2021 - Present by Dr. Todd C. Brett
     theme:
-      name: 'lux'
+      name: 'alabaster'
+    extra:
+      logo: images/hexagon.png
+      logo_title: "CanvasXPress for Python Logo"
+      include_toc: yes
+      history_buttons: yes

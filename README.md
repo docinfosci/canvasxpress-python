@@ -1,7 +1,8 @@
 # CanvasXpress Python Library
 
 <a href="https://www.canvasxpress.org">
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175"></a>
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175" style="vertical-align:middle;margin:10px 10px"> 
+</a>
 
 ## About CanvasXpress for Python
 
