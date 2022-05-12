@@ -15,6 +15,9 @@ Keyword arguments:
     The ID of the element for use in function calls and element
     identification.
 
+- after_render (string; optional):
+    The events functions for increased reactivity.
+
 - config (string; optional):
     The configuration JSON dictating formatting and content
     management.
@@ -31,16 +34,16 @@ Keyword arguments:
 - width (string; optional):
     The element width."""
     @_explicitize_args
-    def __init__(self, id=Component.REQUIRED, data=Component.UNDEFINED, config=Component.UNDEFINED, events=Component.UNDEFINED, width=Component.UNDEFINED, height=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'config', 'data', 'events', 'height', 'width']
+    def __init__(self, id=Component.REQUIRED, data=Component.UNDEFINED, config=Component.UNDEFINED, events=Component.UNDEFINED, after_render=Component.UNDEFINED, width=Component.UNDEFINED, height=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'after_render', 'config', 'data', 'events', 'height', 'width']
         self._type = 'CXDashElement'
         self._namespace = 'cxdash'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'config', 'data', 'events', 'height', 'width']
+        self.available_properties = ['id', 'after_render', 'config', 'data', 'events', 'height', 'width']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args if k != 'children'}
         for k in ['id']:
             if k not in args:
