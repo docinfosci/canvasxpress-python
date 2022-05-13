@@ -896,7 +896,7 @@ class CanvasXpress(CXHtmlConvertable):
             {
                 "cx_target_id": self.render_to,
                 "cx_json": json.dumps(canvasxpress, indent=4),
-                "cx_functions": "\n" + "; ".join(after_render_functions) + ";\n"
+                "cx_functions": "\n" + "; ".join(after_render_functions) + ";\n",
             },
         )
 
