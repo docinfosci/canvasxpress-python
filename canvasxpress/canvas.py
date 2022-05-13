@@ -1,7 +1,5 @@
-import csv
 import json
 import uuid
-from io import StringIO
 from typing import Union, List
 
 from pandas import DataFrame
@@ -25,7 +23,7 @@ from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
 
-_CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@);"
+_CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@"
 """
 The template for declaring a CanvasXpress Javascript object using data
 from the Python edition.
@@ -878,11 +876,16 @@ class CanvasXpress(CXHtmlConvertable):
             "renderTo": self.render_to,
             "data": self.data.render_to_dict(config=self.config),
             "config": self.config.render_to_dict(),
-            "afterRender": self.after_render.render_to_list(),
             "events": "js_events",
         }
         secondary_params = self.other_init_params.render_to_dict()
         canvasxpress = {**primary_params, **secondary_params}
+        after_render_functions = []
+        for fx in self.after_render.render_to_list():
+            params = [json.dumps(p) for p in fx[1]]
+            after_render_functions.append(
+                f"CanvasXpress.$('{self.render_to}').{fx[0]}({', '.join(params)})"
+            )
 
         # Support unique data without JSON data structure
         if canvasxpress["data"].get("raw"):
@@ -893,6 +896,7 @@ class CanvasXpress(CXHtmlConvertable):
             {
                 "cx_target_id": self.render_to,
                 "cx_json": json.dumps(canvasxpress, indent=4),
+                "cx_functions": "\n" + "; ".join(after_render_functions) + ";\n",
             },
         )
 

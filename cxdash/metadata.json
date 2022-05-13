@@ -49,6 +49,13 @@
         "required": false,
         "description": "The events functions for increased reactivity."
       },
+      "after_render": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The events functions for increased reactivity."
+      },
       "width": {
         "type": {
           "name": "string"

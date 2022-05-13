@@ -31,7 +31,8 @@ cd plotly/cxdash/
 cd ../../
 
 # Force conformance to project styles (see pyproject,toml)
-black --safe canvasxpress cxdash tests
+# We will manually perform formatting here and there, as the latest black breaks the doc generation.
+# black --safe canvasxpress cxdash tests
 
 # Test the project: goal is >= 90% coverage
 invoke test
