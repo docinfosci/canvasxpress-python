@@ -244,7 +244,13 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
             }
             ```
         """
-        return CXConfigs.merge_configs(self.configs)
+        merged_configs = CXConfigs.merge_configs(self.configs)
+
+        # Remove illegal options that cause crashes
+        if merged_configs.get("isHistogram") is not None:
+            del merged_configs["isHistogram"]
+
+        return merged_configs
 
     def render_to_list(self, **kwargs) -> list:
         """
