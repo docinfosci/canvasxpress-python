@@ -3,7 +3,7 @@ module Cxdash
 using Dash
 
 const resources_path = realpath(joinpath( @__DIR__, "..", "deps"))
-const version = "1.0.0"
+const version = "1.1.0"
 
 include("jl/cxdashelement.jl")
 

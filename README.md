@@ -51,6 +51,12 @@ _We recently released our Plotly Dash integration!_ 🥳 🎉
 A complete list of enhancements by release date is available at the 
 [CanvasXpress for Python Status Page](https://canvasxpress-python.readthedocs.io/en/latest/status/).
 
+### Known Issues
+
+As of May 2022 the CanvasXpress Javascript library produces Python example code with `afterRender` as a parameter.
+Replace `afterRender` with `after_render` to make the Python examples work.  It's expected that this will be fixed in a 
+future Javascript library release.
+
 ### Roadmap
 
 This package is actively maintained and developed.  Our focus for 2022 is:

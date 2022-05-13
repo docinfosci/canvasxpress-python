@@ -47,6 +47,7 @@ class CXElementFactory(CXRenderFactory):
                 {**element_parts["config"], **element_parts["otherParams"]}
             ),
             events=element_parts["events"],
+            after_render=element_parts["afterRender"],
             width=str(element_parts["width"]),
             height=str(element_parts["height"]),
         )
