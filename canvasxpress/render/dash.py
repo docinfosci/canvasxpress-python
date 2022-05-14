@@ -47,9 +47,8 @@ class CXElementFactory(CXRenderFactory):
                 {**element_parts["config"], **element_parts["otherParams"]}
             ),
             events=element_parts["events"],
-            after_render=json.dumps(
-                element_parts["afterRender"]
-            ),
+            after_render=json.dumps(element_parts["afterRender"]),
+            canvasxpress_version=element_parts["canvasxpress_version"],
             width=str(element_parts["width"]),
             height=str(element_parts["height"]),
         )

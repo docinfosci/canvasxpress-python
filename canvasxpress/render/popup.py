@@ -17,27 +17,37 @@ _cx_fx_template = """
 </script>
 """
 
+_cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
+
+_cx_versioned_css_url = (
+    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+)
+
+_cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
+
+_cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
+
 _cx_html_template = """
 <html>
     <head>
         <meta charset="UTF-8">
         <title>CanvasXpress</title>
-        
+
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
         <link 
-                href='https://www.canvasxpress.org/dist/canvasXpress.css' 
+                href='@css_url@' 
                 rel='stylesheet' 
                 type='text/css'
         />
         <script 
-                src='https://www.canvasxpress.org/dist/canvasXpress.min.js' 
+                src='@js_url@' 
                 type='text/javascript'>
         </script>
 
         <!-- 2. Include script to initialize object -->
         @js_functions@
-        
+
     </head>
     <body>
         <!-- 3. DOM element where the visualization will be displayed -->
@@ -148,10 +158,28 @@ class CXBrowserPopup(CXRenderable):
             [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
+        cx_version = None
+        for target in render_targets:
+            if target.canvasxpress_version:
+                if cx_version is None:
+                    cx_version = target.canvasxpress_version
+
+                else:
+                    if target.canvasxpress_version < cx_version:
+                        cx_version = target.canvasxpress_version
+
+        css_url = _cx_default_css_url
+        js_url = _cx_default_js_url
+        if cx_version is not None:
+            css_url = _cx_versioned_css_url.replace("@cx_version@", cx_version)
+            js_url = _cx_versioned_js_url.replace("@cx_version@", cx_version)
+
         html = (
             _cx_html_template.replace("@canvases@", canvas_table)
             .replace("@canvasxpress_license@", cx_license)
             .replace("@js_functions@", js_functions)
+            .replace("@css_url", css_url)
+            .replace("@js_url@", js_url)
         )
 
         tempdir = tempfile.TemporaryDirectory()
