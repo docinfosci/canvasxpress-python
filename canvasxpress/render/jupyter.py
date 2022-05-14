@@ -21,7 +21,9 @@ _cx_fx_template = """
 
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
 
-_cx_versioned_css_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+_cx_versioned_css_url = (
+    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+)
 
 _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 

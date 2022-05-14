@@ -200,7 +200,6 @@ class CanvasXpress(CXHtmlConvertable):
         """
         return self.__canvasxpress_version
 
-
     @canvasxpress_version.setter
     def canvasxpress_version(self, value) -> None:
         """
@@ -211,7 +210,6 @@ class CanvasXpress(CXHtmlConvertable):
             `Union[str, None]` The CDN version, such as `38.1`, or None if the latest version is preferred.
         """
         self.__canvasxpress_version = None if value is None else str(value)
-
 
     CHART_WIDTH_DEFAULT: int = 500
     """
