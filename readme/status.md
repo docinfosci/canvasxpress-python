@@ -31,6 +31,16 @@ This package is actively maintained and developed.  Our focus for 2021 is:
 
 ## Recent Enhancements
 
+#### 2022 May 16: Pinned CanvasXpress Support
+
+The CanvasXpress edition to be used, such as `34.9`, can now be set using `CanvasXpress.set_cdn_edition(value)` where
+`value` is the string form of the edition.  By default the latest availabl edition of CanvasXpress is used.
+
+#### 2022 May 14: afterRender Support
+
+The `afterRender` Javascript parameter in reproducible JSON files describes functions and parameters to be applied after
+a chart is initially rendered.  CanvasXpress for Python now generates Javascript function calls for each item.
+
 #### 2022 March 9: Plotly Dash Support
 [Plotly Dash](https://dash.plotly.com) is now supported!  Integrate CanvasXpress charts into
 Dash applications using a variety of strategies.  Examples are available in github.com at:

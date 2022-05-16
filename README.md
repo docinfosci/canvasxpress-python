@@ -46,6 +46,11 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Enhancements
 
+_Pinned CanvasXpress versions are now supported!_
+
+To facilitate productin and reproducible research environments, the edition of CanvasXpress to be used can now be set.
+For example, version `34.9`.  By default the latest available edition of CanvasXpress will be used.
+
 _We recently released our Plotly Dash integration!_ 🥳 🎉
 
 A complete list of enhancements by release date is available at the 

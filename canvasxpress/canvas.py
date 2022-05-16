@@ -186,22 +186,23 @@ class CanvasXpress(CXHtmlConvertable):
             else:
                 self.__license_url = candidate
 
-    __canvasxpress_version: Union[str, None] = None
+    __cdn_edition: Union[str, None] = None
     """
     The edition of CanvasXpress to use.  None indicates that the latest edition available shall be used.
+    Used as a class variable.
     """
 
-    @property
-    def canvasxpress_version(self) -> Union[str, None]:
+    @classmethod
+    def cdn_edition(cls) -> Union[str, None]:
         """
         Indicates the version of CanvasXpress being used.
 
         :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
         """
-        return self.__canvasxpress_version
+        return cls.__cdn_edition
 
-    @canvasxpress_version.setter
-    def canvasxpress_version(self, value) -> None:
+    @classmethod
+    def set_cdn_edition(cls, value) -> None:
         """
         Sets the version of the Javascript CDN to use when generating HTML or React components.  See thr CDN page
         for CanvasXpress to identify the versions available: https://cdnjs.com/libraries/canvasXpress.
@@ -209,7 +210,7 @@ class CanvasXpress(CXHtmlConvertable):
         :param value:
             `Union[str, None]` The CDN version, such as `38.1`, or None if the latest version is preferred.
         """
-        self.__canvasxpress_version = None if value is None else str(value)
+        cls.__cdn_edition = None if value is None else str(value)
 
     CHART_WIDTH_DEFAULT: int = 500
     """
@@ -652,7 +653,6 @@ class CanvasXpress(CXHtmlConvertable):
         config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         after_render: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
-        canvasxpress_version: Union[str, None] = None,
         width: int = CHART_WIDTH_DEFAULT,
         height: int = CHART_HEIGHT_DEFAULT,
     ) -> None:
@@ -667,7 +667,6 @@ class CanvasXpress(CXHtmlConvertable):
         :param config: See the `config` property
         :param after_render: See the `after_render` property
         :param other_init_params: See the 'other_init_params` property
-        :param canvasxpress_version: See `canvasxpress_version` property.
         :param width: See the `width` property
         :param height: See the `height` property
         """
@@ -680,7 +679,6 @@ class CanvasXpress(CXHtmlConvertable):
         self.config = config
         self.after_render = after_render
         self.other_init_params = other_init_params
-        self.canvasxpress_version = canvasxpress_version
         self.width = width
         self.height = height
 
@@ -790,7 +788,6 @@ class CanvasXpress(CXHtmlConvertable):
             "afterRender": self.after_render.render_to_list(),
             "otherParams": self.other_init_params.render_to_dict(),
             "events": "js_events",
-            "canvasxpress_version": self.canvasxpress_version,
             "width": self.width,
             "height": self.height,
         }

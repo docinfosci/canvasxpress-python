@@ -9,7 +9,7 @@
         "modifiers": [],
         "params": [
           {
-            "name": "canvasxpress_version"
+            "name": "cdn_edition"
           }
         ],
         "returns": null,
@@ -21,7 +21,7 @@
         "modifiers": [],
         "params": [
           {
-            "name": "canvasxpress_version"
+            "name": "cdn_edition"
           }
         ],
         "returns": null,
@@ -64,7 +64,7 @@
         "required": false,
         "description": "The events functions for increased reactivity."
       },
-      "canvasxpress_version": {
+      "cdn_edition": {
         "type": {
           "name": "string"
         },

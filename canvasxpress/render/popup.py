@@ -158,21 +158,15 @@ class CXBrowserPopup(CXRenderable):
             [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
-        cx_version = None
-        for target in render_targets:
-            if target.canvasxpress_version:
-                if cx_version is None:
-                    cx_version = target.canvasxpress_version
-
-                else:
-                    if target.canvasxpress_version < cx_version:
-                        cx_version = target.canvasxpress_version
-
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
-        if cx_version is not None:
-            css_url = _cx_versioned_css_url.replace("@cx_version@", cx_version)
-            js_url = _cx_versioned_js_url.replace("@cx_version@", cx_version)
+        if CanvasXpress.cdn_edition() is not None:
+            css_url = _cx_versioned_css_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
+            js_url = _cx_versioned_js_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
 
         html = (
             _cx_html_template.replace("@canvases@", canvas_table)

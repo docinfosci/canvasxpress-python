@@ -16,12 +16,12 @@ export default class CXDashElement extends Component {
     /**
      * Adds the CanvasXpress script resource if it is not yet part of the DOM.
      */
-    add_canvasxpress_script(canvasxpress_version) {
+    add_canvasxpress_script(cdn_edition) {
 
         let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js";
-        if (typeof(canvasxpress_version) !== "undefined") {
+        if (typeof(cdn_edition) !== "undefined") {
             resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
-                + canvasxpress_version
+                + cdn_edition
                 + "/canvasXpress.min.js";
         }
 
@@ -39,12 +39,12 @@ export default class CXDashElement extends Component {
     /**
      * Adds the CanvasXpress CSS resource if it is not yet part of the DOM.
      */
-    add_canvasxpress_css(canvasxpress_version) {
+    add_canvasxpress_css(cdn_edition) {
 
         let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.css";
-        if (typeof(canvasxpress_version) !== "undefined") {
+        if (typeof(cdn_edition) !== "undefined") {
             resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
-                + canvasxpress_version
+                + cdn_edition
                 + "canvasXpress.css";
         }
 
@@ -100,11 +100,11 @@ export default class CXDashElement extends Component {
      * @returns {JSX.Element}
      */
     render() {
-        const {id, data, config, events, after_render, canvasxpress_version, width, height} = this.props;
+        const {id, data, config, events, after_render, cdn_edition, width, height} = this.props;
 
         // Provide CX resources to the page
-        this.add_canvasxpress_script(canvasxpress_version);
-        this.add_canvasxpress_css(canvasxpress_version);
+        this.add_canvasxpress_script(cdn_edition);
+        this.add_canvasxpress_css(cdn_edition);
 
         if (typeof(after_render) !== "undefined") {
             try {
@@ -194,7 +194,7 @@ CXDashElement.propTypes = {
     /**
      * The Javascript and CSS CDN edition that should be used for CanvasXpress functionality.
      */
-    canvasxpress_version: PropTypes.string,
+    cdn_edition: PropTypes.string,
 
     /**
      * The element width.

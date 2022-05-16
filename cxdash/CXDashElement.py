@@ -18,7 +18,7 @@ class CXDashElement(Component):
     - after_render (string; optional):
         The events functions for increased reactivity.
 
-    - canvasxpress_version (string; optional):
+    - cdn_edition (string; optional):
         The Javascript and CSS CDN edition that should be used for
         CanvasXpress functionality.
 
@@ -46,7 +46,7 @@ class CXDashElement(Component):
         config=Component.UNDEFINED,
         events=Component.UNDEFINED,
         after_render=Component.UNDEFINED,
-        canvasxpress_version=Component.UNDEFINED,
+        cdn_edition=Component.UNDEFINED,
         width=Component.UNDEFINED,
         height=Component.UNDEFINED,
         **kwargs
@@ -54,7 +54,7 @@ class CXDashElement(Component):
         self._prop_names = [
             "id",
             "after_render",
-            "canvasxpress_version",
+            "cdn_edition",
             "config",
             "data",
             "events",
@@ -67,7 +67,7 @@ class CXDashElement(Component):
         self.available_properties = [
             "id",
             "after_render",
-            "canvasxpress_version",
+            "cdn_edition",
             "config",
             "data",
             "events",
