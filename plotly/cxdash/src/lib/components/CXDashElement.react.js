@@ -16,14 +16,21 @@ export default class CXDashElement extends Component {
     /**
      * Adds the CanvasXpress script resource if it is not yet part of the DOM.
      */
-    add_canvasxpress_script() {
+    add_canvasxpress_script(cdn_edition) {
+
+        let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js";
+        if (typeof(cdn_edition) !== "undefined") {
+            resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
+                + cdn_edition
+                + "/canvasXpress.min.js";
+        }
+
         const dom_rsrc_id = "CXDashElementIncludeScript";
         if (!document.getElementById(dom_rsrc_id)) {
             var head = document.getElementsByTagName("head")[0];
             var s = document.createElement("script");
             s.type = "text/javascript";
-            s.src = "https://www.canvasxpress.org/dist/canvasXpress.min.js";
-            // s.src = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/38.1/canvasXpress.min.js";
+            s.src = resource_url;
             s.id = dom_rsrc_id;
             head.appendChild(s);
         }
@@ -32,14 +39,21 @@ export default class CXDashElement extends Component {
     /**
      * Adds the CanvasXpress CSS resource if it is not yet part of the DOM.
      */
-    add_canvasxpress_css() {
+    add_canvasxpress_css(cdn_edition) {
+
+        let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.css";
+        if (typeof(cdn_edition) !== "undefined") {
+            resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
+                + cdn_edition
+                + "canvasXpress.css";
+        }
+
         const dom_rsrc_id = "CXDashElementIncludeCSS";
         if (!document.getElementById(dom_rsrc_id)) {
             var head = document.getElementsByTagName("head")[0];
             var s = document.createElement("style");
             s.type = "text/css";
-            s.src = "https://www.canvasxpress.org/dist/canvasXpress.css";
-            // s.src = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/38.1/canvasXpress.css";
+            s.src = resource_url;
             s.id = dom_rsrc_id;
             head.appendChild(s);
         }
@@ -86,11 +100,11 @@ export default class CXDashElement extends Component {
      * @returns {JSX.Element}
      */
     render() {
-        const {id, data, config, events, after_render, width, height} = this.props;
+        const {id, data, config, events, after_render, cdn_edition, width, height} = this.props;
 
         // Provide CX resources to the page
-        this.add_canvasxpress_script();
-        this.add_canvasxpress_css();
+        this.add_canvasxpress_script(cdn_edition);
+        this.add_canvasxpress_css(cdn_edition);
 
         if (typeof(after_render) !== "undefined") {
             try {
@@ -176,6 +190,11 @@ CXDashElement.propTypes = {
      * The events functions for increased reactivity.
      */
     after_render: PropTypes.string,
+
+    /**
+     * The Javascript and CSS CDN edition that should be used for CanvasXpress functionality.
+     */
+    cdn_edition: PropTypes.string,
 
     /**
      * The element width.

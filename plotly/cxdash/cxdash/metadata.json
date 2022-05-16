@@ -7,7 +7,11 @@
         "name": "add_canvasxpress_script",
         "docblock": "Adds the CanvasXpress script resource if it is not yet part of the DOM.",
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "cdn_edition"
+          }
+        ],
         "returns": null,
         "description": "Adds the CanvasXpress script resource if it is not yet part of the DOM."
       },
@@ -15,7 +19,11 @@
         "name": "add_canvasxpress_css",
         "docblock": "Adds the CanvasXpress CSS resource if it is not yet part of the DOM.",
         "modifiers": [],
-        "params": [],
+        "params": [
+          {
+            "name": "cdn_edition"
+          }
+        ],
         "returns": null,
         "description": "Adds the CanvasXpress CSS resource if it is not yet part of the DOM."
       }
@@ -55,6 +63,13 @@
         },
         "required": false,
         "description": "The events functions for increased reactivity."
+      },
+      "cdn_edition": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The Javascript and CSS CDN edition that should be used for CanvasXpress functionality."
       },
       "width": {
         "type": {
