@@ -186,6 +186,32 @@ class CanvasXpress(CXHtmlConvertable):
             else:
                 self.__license_url = candidate
 
+    __cdn_edition: Union[str, None] = None
+    """
+    The edition of CanvasXpress to use.  None indicates that the latest edition available shall be used.
+    Used as a class variable.
+    """
+
+    @classmethod
+    def cdn_edition(cls) -> Union[str, None]:
+        """
+        Indicates the version of CanvasXpress being used.
+
+        :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
+        """
+        return cls.__cdn_edition
+
+    @classmethod
+    def set_cdn_edition(cls, value) -> None:
+        """
+        Sets the version of the Javascript CDN to use when generating HTML or React components.  See thr CDN page
+        for CanvasXpress to identify the versions available: https://cdnjs.com/libraries/canvasXpress.
+
+        :param value:
+            `Union[str, None]` The CDN version, such as `38.1`, or None if the latest version is preferred.
+        """
+        cls.__cdn_edition = None if value is None else str(value)
+
     CHART_WIDTH_DEFAULT: int = 500
     """
     Default width of the chart when rendered, such as into HTML.
@@ -627,7 +653,6 @@ class CanvasXpress(CXHtmlConvertable):
         config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         after_render: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
-        canvas: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         width: int = CHART_WIDTH_DEFAULT,
         height: int = CHART_HEIGHT_DEFAULT,
     ) -> None:
@@ -642,7 +667,6 @@ class CanvasXpress(CXHtmlConvertable):
         :param config: See the `config` property
         :param after_render: See the `after_render` property
         :param other_init_params: See the 'other_init_params` property
-        :param canvas: DEPRECATED, use `other_init_params`
         :param width: See the `width` property
         :param height: See the `height` property
         """
@@ -654,7 +678,7 @@ class CanvasXpress(CXHtmlConvertable):
         self.events = events
         self.config = config
         self.after_render = after_render
-        self.canvas = other_init_params if other_init_params else canvas
+        self.other_init_params = other_init_params
         self.width = width
         self.height = height
 

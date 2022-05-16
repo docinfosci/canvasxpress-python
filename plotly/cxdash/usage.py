@@ -136,6 +136,7 @@ app.layout = html.Div([
                 ],
             ]
         ),
+        # canvasxpress_version="35.9",
         width="609",
         height="609"
     ),

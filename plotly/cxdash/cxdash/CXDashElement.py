@@ -18,6 +18,10 @@ Keyword arguments:
 - after_render (string; optional):
     The events functions for increased reactivity.
 
+- cdn_edition (string; optional):
+    The Javascript and CSS CDN edition that should be used for
+    CanvasXpress functionality.
+
 - config (string; optional):
     The configuration JSON dictating formatting and content
     management.
@@ -34,12 +38,12 @@ Keyword arguments:
 - width (string; optional):
     The element width."""
     @_explicitize_args
-    def __init__(self, id=Component.REQUIRED, data=Component.UNDEFINED, config=Component.UNDEFINED, events=Component.UNDEFINED, after_render=Component.UNDEFINED, width=Component.UNDEFINED, height=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'after_render', 'config', 'data', 'events', 'height', 'width']
+    def __init__(self, id=Component.REQUIRED, data=Component.UNDEFINED, config=Component.UNDEFINED, events=Component.UNDEFINED, after_render=Component.UNDEFINED, cdn_edition=Component.UNDEFINED, width=Component.UNDEFINED, height=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'after_render', 'cdn_edition', 'config', 'data', 'events', 'height', 'width']
         self._type = 'CXDashElement'
         self._namespace = 'cxdash'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'after_render', 'config', 'data', 'events', 'height', 'width']
+        self.available_properties = ['id', 'after_render', 'cdn_edition', 'config', 'data', 'events', 'height', 'width']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
