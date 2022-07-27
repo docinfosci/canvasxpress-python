@@ -37,11 +37,13 @@ Keyword arguments:
 
 - width (string; optional):
     The element width."""
+    _children_props = []
+    _base_nodes = ['children']
+    _namespace = 'cxdash'
+    _type = 'CXDashElement'
     @_explicitize_args
     def __init__(self, id=Component.REQUIRED, data=Component.UNDEFINED, config=Component.UNDEFINED, events=Component.UNDEFINED, after_render=Component.UNDEFINED, cdn_edition=Component.UNDEFINED, width=Component.UNDEFINED, height=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'after_render', 'cdn_edition', 'config', 'data', 'events', 'height', 'width']
-        self._type = 'CXDashElement'
-        self._namespace = 'cxdash'
         self._valid_wildcard_attributes =            []
         self.available_properties = ['id', 'after_render', 'cdn_edition', 'config', 'data', 'events', 'height', 'width']
         self.available_wildcard_properties =            []
