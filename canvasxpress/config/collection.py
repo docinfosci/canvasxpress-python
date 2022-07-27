@@ -155,7 +155,7 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
             The parameter to infer and associate.  Cannot be `None`.  Defaults
             to `str` if the type cannot otherwise be deduced.
         """
-        if (label is None):
+        if label is None:
             raise ValueError("Label cannot be None.")
 
         else:
