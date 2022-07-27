@@ -172,7 +172,7 @@ class CXBrowserPopup(CXRenderable):
             _cx_html_template.replace("@canvases@", canvas_table)
             .replace("@canvasxpress_license@", cx_license)
             .replace("@js_functions@", js_functions)
-            .replace("@css_url", css_url)
+            .replace("@css_url@", css_url)
             .replace("@js_url@", js_url)
         )
 

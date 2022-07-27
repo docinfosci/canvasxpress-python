@@ -113,8 +113,7 @@ def test_CXConfigs_set_param():
         cfgs.set_param(None, 0)
 
     cfgs: CXConfigs = CXConfigs()
-    with pytest.raises(ValueError):
-        cfgs.set_param("1", None)
+    cfgs.set_param("1", None)
 
     cfgs: CXConfigs = CXConfigs()
     config1: CXConfig = CXInt("test", 1)
