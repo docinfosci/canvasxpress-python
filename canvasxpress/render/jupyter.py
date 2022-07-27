@@ -201,7 +201,7 @@ class CXNoteBook(CXRenderable):
             display(
                 IFrame(
                     str(file_path),
-                    f"{iframe_width + _cx_iframe_padding}px",
+                    "100%" # {iframe_width + _cx_iframe_padding}px",
                     f"{iframe_height + _cx_iframe_padding}px",
                 )
             )
