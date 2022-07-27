@@ -9,7 +9,7 @@ from IPython.display import display, IFrame
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
-_cx_iframe_padding = 25
+_cx_iframe_padding = 50
 
 _cx_fx_template = """
 <script type="text/javascript">
@@ -201,7 +201,7 @@ class CXNoteBook(CXRenderable):
             display(
                 IFrame(
                     str(file_path),
-                    "100%" # {iframe_width + _cx_iframe_padding}px",
+                    f"{iframe_width + _cx_iframe_padding}px",
                     f"{iframe_height + _cx_iframe_padding}px",
                 )
             )
