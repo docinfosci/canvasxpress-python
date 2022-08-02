@@ -60,6 +60,14 @@ jobs:
             invoke init --dev --list
 
       - run:
+          name: Generate Dash Component
+          command: |
+            cd plotly/cxdash/
+            ./init-project.sh
+            ./build-local.sh
+            cd ../../
+
+      - run:
           name: Static analysis
           command: |
             prospector \
@@ -170,6 +178,14 @@ jobs:
           command: |
             pip install --no-cache-dir -U -r ./requirements-project.txt
             invoke init --dev --list
+
+      - run:
+          name: Generate Dash Component
+          command: |
+            cd plotly/cxdash/
+            ./init-project.sh
+            ./build-local.sh
+            cd ../../
 
       - run:
           name: Test
