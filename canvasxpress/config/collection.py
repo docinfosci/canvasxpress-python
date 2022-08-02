@@ -12,7 +12,7 @@ from canvasxpress.config.type import (
     CXList,
     CXDict,
     CXRGBColor,
-    CXRGBAColor,
+    CXRGBAColor, CXNone,
 )
 from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
@@ -176,7 +176,9 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
 
             if not existing_config_used:
                 value_type = type(value)
-                if value_type is int:
+                if value is None:
+                    candidate = CXNone(label, value)
+                elif value_type is int:
                     candidate = CXInt(label, value)
                 elif value_type is float:
                     candidate = CXFloat(label, value)
