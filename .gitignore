@@ -333,3 +333,27 @@ site/**
 .vscode/**
 
 node_modules/
+
+cxdash/__init__.py
+
+cxdash/_imports_.py
+
+cxdash/cxdash.min.js
+
+cxdash/cxdash.min.js.LICENSE.txt
+
+cxdash/cxdash.min.js.map
+
+cxdash/CXDashElement.py
+
+cxdash/metadata.json
+
+cxdash/package-info.json
+
+plotly/cxdash/cxdash/cxdash.min.js
+
+plotly/cxdash/deps/cxdash.min.js
+
+plotly/cxdash/inst/deps/cxdash.min.js
+
+plotly/cxdash/package.json
