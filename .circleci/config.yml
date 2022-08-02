@@ -95,6 +95,9 @@ jobs:
           name: Test
           command: invoke test
 
+      - store_test_results:
+          path: pytest_result.xml
+
       - run:
           name: Report
           command: invoke report
@@ -216,6 +219,9 @@ jobs:
       - run:
           name: Test
           command: invoke test
+
+      - store_test_results:
+          path: pytest_result.xml
 
 workflows:
   github-commit:
