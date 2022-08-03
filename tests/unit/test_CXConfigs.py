@@ -15,7 +15,7 @@ from canvasxpress.config.type import (
     CXList,
     CXRGBAColor,
     CXGraphType,
-    CXGraphTypeOptions,
+    CXGraphTypeOptions, CXNone,
 )
 
 
@@ -114,6 +114,7 @@ def test_CXConfigs_set_param():
 
     cfgs: CXConfigs = CXConfigs()
     cfgs.set_param("1", None)
+    assert cfgs.get_param("1").value is None
 
     cfgs: CXConfigs = CXConfigs()
     config1: CXConfig = CXInt("test", 1)
@@ -133,6 +134,7 @@ def test_CXConfigs_set_param():
 
     cfgs: CXConfigs = CXConfigs()
     test_items = [
+        (CXNone, "none", None),
         (CXInt, "int", 0),
         (CXFloat, "float", 0.1),
         (CXBool, "bool", True),
