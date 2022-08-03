@@ -219,6 +219,44 @@ class CXString(CXConfig):
         self.value = value
 
 
+class CXNone(CXConfig):
+    """
+    A `CXConfig` object that manages `None` values.
+    """
+
+    __value: Any = None
+    """
+    The managed value.
+    """
+
+    @property
+    def value(self) -> None:
+        """
+        Provides the value for the configuration.
+        :returns: `str`
+        """
+        return self.__value
+
+    @value.setter
+    def value(self, value = None) -> None:
+        """
+        Sets the value of the configuration.
+        :param value: `None`
+            Only None can be used.
+        """
+        if value is not None:
+            raise ValueError("CXNone only accepts None values")
+
+        self.__value = None
+
+    def __init__(self, label: str, value = None):
+        """
+        Initializes the configuration with a None value.
+        """
+        super().__init__(label, value)
+        self.value = value
+
+
 class CXBool(CXConfig):
     """
     A `CXConfig` object that manages `bool` values.

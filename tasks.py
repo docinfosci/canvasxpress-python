@@ -60,6 +60,7 @@ def test(c):
     """
     c.run(
         "python -m pytest"
+        " --junitxml=\"pytest_result.xml\""
         " --cov=canvasxpress"
         " --cov-fail-under=90"
         " --cov-report xml"
