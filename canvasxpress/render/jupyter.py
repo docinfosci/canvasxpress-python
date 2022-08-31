@@ -4,7 +4,7 @@ from pathlib import Path
 from time import sleep
 from typing import Any, Union, List
 
-from IPython.display import display, IFrame
+from IPython.display import display, HTML
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -199,10 +199,11 @@ class CXNoteBook(CXRenderable):
                 render_file.write(html)
 
             display(
-                IFrame(
-                    str(file_path),
-                    f"{iframe_width + _cx_iframe_padding}px",
-                    f"{iframe_height + _cx_iframe_padding}px",
+                HTML(
+                    html,
+                    # str(file_path),
+                    # f"{iframe_width + _cx_iframe_padding}px",
+                    # f"{iframe_height + _cx_iframe_padding}px",
                 )
             )
 
