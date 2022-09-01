@@ -211,7 +211,7 @@ class CXNoteBook(CXRenderable):
                             .replace("@js_url@", js_url)
                         )
                     )
-                    render_file.write(str(file_html.data))
+                    render_file.write(file_html)
 
             cell_html = HTML(
                 convert_page(
@@ -224,7 +224,7 @@ class CXNoteBook(CXRenderable):
                     ),
                 )
             )
-            display(HTML(str(cell_html.data)))
+            display(cell_html)
 
         except Exception as e:
             raise RuntimeError(
