@@ -30,11 +30,30 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
 _cx_html_template = """
+<!-- 1. Include the CanvasXpress library -->
+@canvasxpress_license@
+<link 
+        href='@css_url@' 
+        rel='stylesheet' 
+        type='text/css'
+/>
+<script 
+        src='@js_url@' 
+        type='text/javascript'>
+</script>
+
+<!-- 2. Include script to initialize object -->
+@js_functions@
+
+@canvases@
+"""
+
+old="""
 <html>
     <head>
         <meta charset="UTF-8">
         <title>CanvasXpress</title>
-        
+
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
         <link 
@@ -49,7 +68,7 @@ _cx_html_template = """
 
         <!-- 2. Include script to initialize object -->
         @js_functions@
-        
+
     </head>
     <body>
         <!-- 3. DOM element where the visualization will be displayed -->
@@ -187,29 +206,29 @@ class CXNoteBook(CXRenderable):
             kwargs.get("output_file", f"cx_{str(uuid.uuid4())}.html")
         )
 
-        file_path = Path(file_path_candidate)
-        if file_path.is_dir():
-            file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
-        else:
-            if not file_path_candidate.lower().strip().endswith(".html"):
-                file_path = Path(file_path_candidate + ".html")
+        # file_path = Path(file_path_candidate)
+        # if file_path.is_dir():
+        #     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
+        # else:
+        #     if not file_path_candidate.lower().strip().endswith(".html"):
+        #         file_path = Path(file_path_candidate + ".html")
+        #
+        # try:
+        #     with open(str(file_path), "w") as render_file:
+        #         render_file.write(html)
 
-        try:
-            with open(str(file_path), "w") as render_file:
-                render_file.write(html)
-
-            display(
-                HTML(
-                    html,
-                    # str(file_path),
-                    # f"{iframe_width + _cx_iframe_padding}px",
-                    # f"{iframe_height + _cx_iframe_padding}px",
-                )
+        display(
+            HTML(
+                html,
+                # str(file_path),
+                # f"{iframe_width + _cx_iframe_padding}px",
+                # f"{iframe_height + _cx_iframe_padding}px",
             )
+        )
 
-            if is_temp_file:
-                sleep(3)
-                unlink(str(file_path))
+            # if is_temp_file:
+            #     sleep(3)
+            #     unlink(str(file_path))
 
         except Exception as e:
             raise RuntimeError(
