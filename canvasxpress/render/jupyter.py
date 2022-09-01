@@ -202,31 +202,29 @@ class CXNoteBook(CXRenderable):
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
                 with open(str(file_path), "w") as render_file:
-                    render_file.write(
-                        convert_page(
-                            (
-                                _cx_html_file_template.replace("@canvases@", canvas_table)
-                                .replace("@canvasxpress_license@", cx_license)
-                                .replace("@js_functions@", js_functions)
-                                .replace("@css_url@", css_url)
-                                .replace("@js_url@", js_url)
-                            )
-                        )
-                    )
-
-            display(
-                HTML(
-                    convert_page(
-                        (
-                            _cx_html_template.replace("@canvases@", canvas_table)
+                    file_html = convert_page(
+                        page_text=(
+                            _cx_html_file_template.replace("@canvases@", canvas_table)
                             .replace("@canvasxpress_license@", cx_license)
                             .replace("@js_functions@", js_functions)
                             .replace("@css_url@", css_url)
                             .replace("@js_url@", js_url)
                         )
                     )
+                    render_file.write(str(file_html.data))
+
+            cell_html = HTML(
+                convert_page(
+                    page_text=(
+                        _cx_html_template.replace("@canvases@", canvas_table)
+                        .replace("@canvasxpress_license@", cx_license)
+                        .replace("@js_functions@", js_functions)
+                        .replace("@css_url@", css_url)
+                        .replace("@js_url@", js_url)
+                    ),
                 )
             )
+            display(HTML(str(cell_html.data)))
 
         except Exception as e:
             raise RuntimeError(
