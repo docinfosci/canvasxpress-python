@@ -213,18 +213,18 @@ class CXNoteBook(CXRenderable):
         #     if not file_path_candidate.lower().strip().endswith(".html"):
         #         file_path = Path(file_path_candidate + ".html")
         #
-        # try:
+        try:
         #     with open(str(file_path), "w") as render_file:
         #         render_file.write(html)
 
-        display(
-            HTML(
-                html,
-                # str(file_path),
-                # f"{iframe_width + _cx_iframe_padding}px",
-                # f"{iframe_height + _cx_iframe_padding}px",
+            display(
+                HTML(
+                    html,
+                    # str(file_path),
+                    # f"{iframe_width + _cx_iframe_padding}px",
+                    # f"{iframe_height + _cx_iframe_padding}px",
+                )
             )
-        )
 
             # if is_temp_file:
             #     sleep(3)
