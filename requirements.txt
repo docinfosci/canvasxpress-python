@@ -5,6 +5,7 @@ pytz>=2020.1
 pandas>=1.1.5
 requests>=2
 Deprecated>=1.2.12
+beautifulsoup4
 
 # jupyter
 IPython>=7

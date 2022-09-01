@@ -8,6 +8,7 @@ from IPython.display import display, HTML
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
+from canvasxpress.render.html.archive import convert_page
 
 _cx_iframe_padding = 50
 
@@ -48,7 +49,7 @@ _cx_html_template = """
 @canvases@
 """
 
-old="""
+_cx_html_file_template = """
 <html>
     <head>
         <meta charset="UTF-8">
@@ -193,42 +194,39 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        html = (
-            _cx_html_template.replace("@canvases@", canvas_table)
-            .replace("@canvasxpress_license@", cx_license)
-            .replace("@js_functions@", js_functions)
-            .replace("@css_url@", css_url)
-            .replace("@js_url@", js_url)
-        )
-
-        is_temp_file = kwargs.get("output_file") is None
-        file_path_candidate = str(
-            kwargs.get("output_file", f"cx_{str(uuid.uuid4())}.html")
-        )
-
-        # file_path = Path(file_path_candidate)
-        # if file_path.is_dir():
-        #     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
-        # else:
-        #     if not file_path_candidate.lower().strip().endswith(".html"):
-        #         file_path = Path(file_path_candidate + ".html")
-        #
         try:
-        #     with open(str(file_path), "w") as render_file:
-        #         render_file.write(html)
+            if kwargs.get("output_file") is not None:
+                file_path_candidate = str(kwargs.get("output_file"))
+                file_path = Path(file_path_candidate)
+                if file_path.is_dir():
+                    file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
+
+                with open(str(file_path), "w") as render_file:
+                    render_file.write(
+                        convert_page(
+                            (
+                                _cx_html_file_template.replace("@canvases@", canvas_table)
+                                .replace("@canvasxpress_license@", cx_license)
+                                .replace("@js_functions@", js_functions)
+                                .replace("@css_url@", css_url)
+                                .replace("@js_url@", js_url)
+                            )
+                        )
+                    )
 
             display(
                 HTML(
-                    html,
-                    # str(file_path),
-                    # f"{iframe_width + _cx_iframe_padding}px",
-                    # f"{iframe_height + _cx_iframe_padding}px",
+                    convert_page(
+                        (
+                            _cx_html_template.replace("@canvases@", canvas_table)
+                            .replace("@canvasxpress_license@", cx_license)
+                            .replace("@js_functions@", js_functions)
+                            .replace("@css_url@", css_url)
+                            .replace("@js_url@", js_url)
+                        )
+                    )
                 )
             )
-
-            # if is_temp_file:
-            #     sleep(3)
-            #     unlink(str(file_path))
 
         except Exception as e:
             raise RuntimeError(

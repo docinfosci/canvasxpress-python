@@ -346,3 +346,5 @@ cxdash/package-info.json
 plotly/cxdash/cxdash/cxdash.min.js
 plotly/cxdash/deps/cxdash.min.js
 plotly/cxdash/inst/deps/cxdash.min.js
+
+pytest_result.xml
