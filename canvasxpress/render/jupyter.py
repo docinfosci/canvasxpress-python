@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 
 import requests
-from IPython.display import display, HTML, Javascript
+from IPython.display import display, HTML, Javascript, IFrame
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -219,17 +219,30 @@ class CXNoteBook(CXRenderable):
                     render_file.write(file_html)
 
             display(
-                Javascript(
-                    data=requests.get(js_url).text,
-                    css=css_url,
-                ),
-                HTML(
-                    (
-                        _cx_html_template.replace("@canvases@", canvas_table)
-                        .replace("@canvasxpress_license@", cx_license)
-                        .replace("@js_functions@", js_functions)
+                # Javascript(
+                #     data=requests.get(js_url).text,
+                #     css=css_url,
+                # ),
+                # HTML(
+                #     (
+                #         _cx_html_template.replace("@canvases@", canvas_table)
+                #         .replace("@canvasxpress_license@", cx_license)
+                #         .replace("@js_functions@", js_functions)
+                #     ),
+                # ),
+                IFrame(
+                    convert_page(
+                        page_text=(
+                            _cx_html_file_template.replace("@canvases@", canvas_table)
+                            .replace("@canvasxpress_license@", cx_license)
+                            .replace("@js_functions@", js_functions)
+                            .replace("@css_url@", css_url)
+                            .replace("@js_url@", js_url)
+                        )
                     ),
-                ),
+                    width="100%",
+                    height="700px",
+                )
             )
 
         except Exception as e:
