@@ -1,9 +1,8 @@
 import uuid
-from os import unlink
 from pathlib import Path
-from time import sleep
 from typing import Any, Union, List
 
+import requests
 from IPython.display import display, HTML, Javascript
 
 from canvasxpress.canvas import CanvasXpress
@@ -235,21 +234,20 @@ class CXNoteBook(CXRenderable):
             )
 
             cell_js = Javascript(
-                url=js_url,
+                data=requests.get(js_url).text,
                 css=css_url,
             )
-            display(cell_js)
-
             cell_html = HTML(
                 (
                     _cx_html_template.replace("@canvases@", canvas_table)
                     .replace("@canvasxpress_license@", cx_license)
                     .replace("@js_functions@", js_functions)
-                    .replace("@css_url@", css_url)
-                    .replace("@js_url@", js_url)
                 ),
             )
-            display(cell_html)
+            display(
+                cell_js,
+                cell_html,
+            )
 
         except Exception as e:
             raise RuntimeError(
