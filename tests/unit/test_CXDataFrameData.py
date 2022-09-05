@@ -9,7 +9,7 @@ FORCE_INCLUDE_DATAFRAME_IN_PYCHARM = DataFrame()  # Prevents clean=up removal
 
 import pytest
 from deepdiff import DeepDiff
-from hypothesis import given
+from hypothesis import given, settings, HealthCheck
 from hypothesis.extra.pandas import data_frames, column
 
 from canvasxpress.data.matrix import CXDataframeData
@@ -135,6 +135,7 @@ def test_CXDataframeData_equality_junk():
         assert sample_a > junk
 
 
+@settings(suppress_health_check=(HealthCheck.too_slow,))
 @given(
     data_frames([column("A", dtype=int), column("B", dtype=float)]),
     data_frames([column("C", dtype=int), column("D", dtype=float)]),
