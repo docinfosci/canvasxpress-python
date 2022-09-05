@@ -4,7 +4,7 @@ from pathlib import Path
 from time import sleep
 from typing import Any, Union, List
 
-from IPython.display import display, HTML
+from IPython.display import display, HTML, Javascript
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -31,6 +31,15 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
 _cx_html_template = """
+<!-- 1. Include the CanvasXpress library -->
+@canvasxpress_license@
+<!-- 2. Include script to initialize object -->
+@js_functions@
+<!-- 3. Include HTML Canvas to initialize object -->
+@canvases@
+"""
+
+old_html = """
 <!-- 1. Include the CanvasXpress library -->
 @canvasxpress_license@
 <link 
@@ -224,7 +233,13 @@ class CXNoteBook(CXRenderable):
                     ),
                 )
             )
-            
+
+            cell_js = Javascript(
+                url=js_url,
+                css=css_url,
+            )
+            display(cell_js)
+
             cell_html = HTML(
                 (
                     _cx_html_template.replace("@canvases@", canvas_table)
@@ -234,7 +249,6 @@ class CXNoteBook(CXRenderable):
                     .replace("@js_url@", js_url)
                 ),
             )
-
             display(cell_html)
 
         except Exception as e:
