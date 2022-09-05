@@ -30,11 +30,8 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
 _cx_html_template = """
-<!-- 1. Include the CanvasXpress library -->
 @canvasxpress_license@
-<!-- 2. Include script to initialize object -->
 @js_functions@
-<!-- 3. Include HTML Canvas to initialize object -->
 @canvases@
 """
 
@@ -221,32 +218,18 @@ class CXNoteBook(CXRenderable):
                     )
                     render_file.write(file_html)
 
-            cell_html = HTML(
-                convert_page(
-                    page_text=(
+            display(
+                Javascript(
+                    data=requests.get(js_url).text,
+                    css=css_url,
+                ),
+                HTML(
+                    (
                         _cx_html_template.replace("@canvases@", canvas_table)
                         .replace("@canvasxpress_license@", cx_license)
                         .replace("@js_functions@", js_functions)
-                        .replace("@css_url@", css_url)
-                        .replace("@js_url@", js_url)
                     ),
-                )
-            )
-
-            cell_js = Javascript(
-                data=requests.get(js_url).text,
-                css=css_url,
-            )
-            cell_html = HTML(
-                (
-                    _cx_html_template.replace("@canvases@", canvas_table)
-                    .replace("@canvasxpress_license@", cx_license)
-                    .replace("@js_functions@", js_functions)
                 ),
-            )
-            display(
-                cell_js,
-                cell_html,
             )
 
         except Exception as e:
