@@ -14,6 +14,16 @@ _cx_iframe_padding = 50
 
 _cx_fx_template = """
 <script type="text/javascript">
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        @code@
+    };
+};
+</script>
+"""
+
+old_cx_fx_template = """
+<script type="text/javascript">
     onReady(function () {
         @code@
     })
@@ -31,11 +41,6 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
 _cx_html_template = """
-@canvasxpress_license@
-@canvases@
-"""
-
-old_html = """
 <!-- 1. Include the CanvasXpress library -->
 @canvasxpress_license@
 <link 
@@ -219,17 +224,13 @@ class CXNoteBook(CXRenderable):
                     render_file.write(file_html)
 
             display(
-                Javascript(
-                    data=quote(requests.get(js_url).text),
-                    css=css_url,
-                ),
-                Javascript(
-                    data=quote(js_functions),
-                ),
                 HTML(
                     (
                         _cx_html_template.replace("@canvases@", canvas_table)
                         .replace("@canvasxpress_license@", cx_license)
+                        .replace("@js_functions@", js_functions)
+                        .replace("@css_url@", css_url)
+                        .replace("@js_url@", js_url)
                     ),
                 ),
             )
