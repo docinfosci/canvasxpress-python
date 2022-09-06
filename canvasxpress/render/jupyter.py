@@ -1,6 +1,7 @@
 import uuid
 from pathlib import Path
 from typing import Any, Union, List
+from urllib.parse import quote
 
 import requests
 from IPython.display import display, HTML, Javascript, IFrame
@@ -219,11 +220,11 @@ class CXNoteBook(CXRenderable):
 
             display(
                 Javascript(
-                    data=requests.get(js_url).text,
+                    data=quote(requests.get(js_url).text),
                     css=css_url,
                 ),
                 Javascript(
-                    data=js_functions,
+                    data=quote(js_functions),
                 ),
                 HTML(
                     (
