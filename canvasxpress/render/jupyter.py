@@ -13,6 +13,12 @@ from canvasxpress.render.html.archive import convert_page
 _cx_iframe_padding = 50
 
 _cx_fx_template = """
+<script type="text/javascript" defer>
+@code@
+</script>
+"""
+
+old2_cx_fx_template = """
 <script type="text/javascript">
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
