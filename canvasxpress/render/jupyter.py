@@ -1,6 +1,8 @@
 import uuid
 from pathlib import Path
 from typing import Any, Union, List
+from urllib.parse import quote
+
 from IPython.display import display, HTML, IFrame
 
 from canvasxpress.canvas import CanvasXpress
@@ -56,7 +58,7 @@ _cx_html_template = """
 </html>
 """
 
-_nb_iframe_template = "data:text/html;charset=utf-8,@html@"
+_nb_iframe_template = "data:text/html,@html@"
 
 
 class CXNoteBook(CXRenderable):
@@ -204,7 +206,7 @@ class CXNoteBook(CXRenderable):
         try:
             display(
                 IFrame(
-                    src=iframe_html,
+                    src=quote(iframe_html),
                     width="100%",
                     height=iframe_height,
                 ),
