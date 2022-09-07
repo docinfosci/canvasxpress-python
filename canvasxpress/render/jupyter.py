@@ -1,10 +1,7 @@
 import uuid
 from pathlib import Path
 from typing import Any, Union, List
-from urllib.parse import quote
-
-import requests
-from IPython.display import display, HTML, Javascript, IFrame
+from IPython.display import display, HTML
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -12,27 +9,17 @@ from canvasxpress.render.html.archive import convert_page
 
 _cx_iframe_padding = 50
 
-_cx_fx_template = """
-<script type="text/javascript" defer>
-@code@
-</script>
-"""
-
-old2_cx_fx_template = """
-<script type="text/javascript">
-document.onreadystatechange = function () {
-    if (document.readyState == "complete") {
-        @code@
-    };
-};
-</script>
-"""
-
-old_cx_fx_template = """
+_cx_fx_file_template = """
 <script type="text/javascript">
     onReady(function () {
         @code@
     })
+</script>
+"""
+
+_cx_fx_template = """
+<script type="text/javascript" defer>
+@code@
 </script>
 """
 
@@ -196,10 +183,6 @@ class CXNoteBook(CXRenderable):
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
-        js_functions = "\n".join(
-            [_cx_fx_template.replace("@code@", fx) for fx in functions]
-        )
-
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
         if CanvasXpress.cdn_edition() is not None:
@@ -217,17 +200,25 @@ class CXNoteBook(CXRenderable):
                 if file_path.is_dir():
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
+                js_file_functions = "\n".join(
+                    [_cx_fx_file_template.replace("@code@", fx) for fx in functions]
+                )
+
                 with open(str(file_path), "w") as render_file:
                     file_html = convert_page(
                         page_text=(
                             _cx_html_file_template.replace("@canvases@", canvas_table)
                             .replace("@canvasxpress_license@", cx_license)
-                            .replace("@js_functions@", js_functions)
+                            .replace("@js_functions@", js_file_functions)
                             .replace("@css_url@", css_url)
                             .replace("@js_url@", js_url)
                         )
                     )
                     render_file.write(file_html)
+
+            js_functions = "\n".join(
+                [_cx_fx_template.replace("@code@", fx) for fx in functions]
+            )
 
             display(
                 HTML(
