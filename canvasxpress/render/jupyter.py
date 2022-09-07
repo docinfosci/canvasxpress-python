@@ -1,7 +1,7 @@
 import uuid
 from pathlib import Path
 from typing import Any, Union, List
-from IPython.display import display, HTML
+from IPython.display import display, HTML, IFrame
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -56,9 +56,7 @@ _cx_html_template = """
 </html>
 """
 
-_nb_iframe_template = """
-<iframe src="data:text/html;charset=utf-8,@html@></iframe>
-"""
+_nb_iframe_template = "data:text/html;charset=utf-8,@html@"
 
 
 class CXNoteBook(CXRenderable):
@@ -176,14 +174,12 @@ class CXNoteBook(CXRenderable):
             [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
-        html_text = convert_page(
-            page_text=(
-                _cx_html_template.replace("@canvases@", canvas_table)
-                    .replace("@canvasxpress_license@", cx_license)
-                    .replace("@js_functions@", js_functions)
-                    .replace("@css_url@", css_url)
-                    .replace("@js_url@", js_url)
-            )
+        html_text = (
+            _cx_html_template.replace("@canvases@", canvas_table)
+            .replace("@canvasxpress_license@", cx_license)
+            .replace("@js_functions@", js_functions)
+            .replace("@css_url@", css_url)
+            .replace("@js_url@", js_url)
         )
 
         iframe_html = _nb_iframe_template.replace("@html@", html_text)
@@ -196,14 +192,22 @@ class CXNoteBook(CXRenderable):
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
                 with open(str(file_path), "w") as render_file:
-                    render_file.write(html_text)
+                    render_file.write(
+                        convert_page(
+                            page_text=(html_text)
+                        )
+                    )
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
 
         try:
             display(
-                HTML(iframe_html),
+                IFrame(
+                    src=iframe_html,
+                    width="100%",
+                    height=iframe_height,
+                ),
             )
 
         except Exception as e:
