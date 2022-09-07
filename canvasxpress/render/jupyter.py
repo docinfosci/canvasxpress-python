@@ -34,6 +34,35 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
 _cx_html_template = """
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CanvasXpress</title>
+
+        <!-- 1. Include the CanvasXpress library -->
+        @canvasxpress_license@
+        <link 
+                href='@css_url@' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='@js_url@' 
+                type='text/javascript'>
+        </script>
+
+        <!-- 2. Include script to initialize object -->
+        @js_functions@
+
+    </head>
+    <body>
+        <!-- 3. DOM element where the visualization will be displayed -->
+        @canvases@
+     </body>
+</html>
+"""
+
+temp = """
 <!-- 1. Include the CanvasXpress library -->
 @canvasxpress_license@
 <link 
