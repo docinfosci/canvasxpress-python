@@ -7,7 +7,6 @@ from IPython.display import display, HTML, IFrame
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
-from canvasxpress.render.html.archive import convert_page
 
 _cx_iframe_padding = 50
 
@@ -194,11 +193,7 @@ class CXNoteBook(CXRenderable):
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
                 with open(str(file_path), "w") as render_file:
-                    render_file.write(
-                        convert_page(
-                            page_text=(html_text)
-                        )
-                    )
+                    render_file.write(html_text)
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
