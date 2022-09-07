@@ -9,20 +9,6 @@ from canvasxpress.render.html.archive import convert_page
 
 _cx_iframe_padding = 50
 
-_cx_fx_file_template = """
-<script type="text/javascript">
-    onReady(function () {
-        @code@
-    })
-</script>
-"""
-
-_cx_fx_template = """
-<script type="text/javascript" defer>
-@code@
-</script>
-"""
-
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
 
 _cx_versioned_css_url = (
@@ -32,6 +18,14 @@ _cx_versioned_css_url = (
 _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
+
+_cx_fx_template = """
+<script type="text/javascript">
+    onReady(function () {
+        @code@
+    })
+</script>
+"""
 
 _cx_html_template = """
 <html>
@@ -62,52 +56,8 @@ _cx_html_template = """
 </html>
 """
 
-temp = """
-<!-- 1. Include the CanvasXpress library -->
-@canvasxpress_license@
-<link 
-        href='@css_url@' 
-        rel='stylesheet' 
-        type='text/css'
-/>
-<script 
-        src='@js_url@' 
-        type='text/javascript'>
-</script>
-
-<!-- 2. Include script to initialize object -->
-@js_functions@
-
-@canvases@
-"""
-
-_cx_html_file_template = """
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>CanvasXpress</title>
-
-        <!-- 1. Include the CanvasXpress library -->
-        @canvasxpress_license@
-        <link 
-                href='@css_url@' 
-                rel='stylesheet' 
-                type='text/css'
-        />
-        <script 
-                src='@js_url@' 
-                type='text/javascript'>
-        </script>
-
-        <!-- 2. Include script to initialize object -->
-        @js_functions@
-
-    </head>
-    <body>
-        <!-- 3. DOM element where the visualization will be displayed -->
-        @canvases@
-     </body>
-</html>
+_nb_iframe_template = """
+<iframe src="data:text/html;charset=utf-8,@html@></iframe>
 """
 
 
@@ -222,6 +172,22 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
+        js_functions = "\n".join(
+            [_cx_fx_template.replace("@code@", fx) for fx in functions]
+        )
+
+        html_text = convert_page(
+            page_text=(
+                _cx_html_template.replace("@canvases@", canvas_table)
+                    .replace("@canvasxpress_license@", cx_license)
+                    .replace("@js_functions@", js_functions)
+                    .replace("@css_url@", css_url)
+                    .replace("@js_url@", js_url)
+            )
+        )
+
+        iframe_html = _nb_iframe_template.replace("@html@", html_text)
+
         try:
             if kwargs.get("output_file") is not None:
                 file_path_candidate = str(kwargs.get("output_file"))
@@ -229,40 +195,16 @@ class CXNoteBook(CXRenderable):
                 if file_path.is_dir():
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
-                js_file_functions = "\n".join(
-                    [_cx_fx_file_template.replace("@code@", fx) for fx in functions]
-                )
-
                 with open(str(file_path), "w") as render_file:
-                    file_html = convert_page(
-                        page_text=(
-                            _cx_html_file_template.replace("@canvases@", canvas_table)
-                            .replace("@canvasxpress_license@", cx_license)
-                            .replace("@js_functions@", js_file_functions)
-                            .replace("@css_url@", css_url)
-                            .replace("@js_url@", js_url)
-                        )
-                    )
-                    render_file.write(file_html)
+                    render_file.write(html_text)
 
-            js_functions = "\n".join(
-                [_cx_fx_template.replace("@code@", fx) for fx in functions]
-            )
+        except Exception as e:
+            raise RuntimeError(f"Cannot create output file: {e}")
 
+        try:
             display(
-                HTML(
-                    (
-                        _cx_html_template.replace("@canvases@", canvas_table)
-                        .replace("@canvasxpress_license@", cx_license)
-                        .replace("@js_functions@", js_functions)
-                        .replace("@css_url@", css_url)
-                        .replace("@js_url@", js_url)
-                    ),
-                ),
+                HTML(iframe_html),
             )
 
         except Exception as e:
-            raise RuntimeError(
-                "Cannot create output_file.  Check that the path exists"
-                " and that permissions for file writing are available."
-            )
+            raise RuntimeError(f"Cannot create output cell: {e}")
