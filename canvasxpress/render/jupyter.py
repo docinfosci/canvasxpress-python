@@ -1,23 +1,14 @@
 import uuid
-from os import unlink
 from pathlib import Path
-from time import sleep
 from typing import Any, Union, List
+from urllib.parse import quote
 
-from IPython.display import display, IFrame
+from IPython.display import display, HTML, IFrame
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
 _cx_iframe_padding = 50
-
-_cx_fx_template = """
-<script type="text/javascript">
-    onReady(function () {
-        @code@
-    })
-</script>
-"""
 
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
 
@@ -29,12 +20,20 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
+_cx_fx_template = """
+<script type="text/javascript">
+    onReady(function () {
+        @code@
+    })
+</script>
+"""
+
 _cx_html_template = """
 <html>
     <head>
         <meta charset="UTF-8">
         <title>CanvasXpress</title>
-        
+
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
         <link 
@@ -49,7 +48,7 @@ _cx_html_template = """
 
         <!-- 2. Include script to initialize object -->
         @js_functions@
-        
+
     </head>
     <body>
         <!-- 3. DOM element where the visualization will be displayed -->
@@ -57,6 +56,8 @@ _cx_html_template = """
      </body>
 </html>
 """
+
+_nb_iframe_template = "data:text/html,@html@"
 
 
 class CXNoteBook(CXRenderable):
@@ -160,10 +161,6 @@ class CXNoteBook(CXRenderable):
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
-        js_functions = "\n".join(
-            [_cx_fx_template.replace("@code@", fx) for fx in functions]
-        )
-
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
         if CanvasXpress.cdn_edition() is not None:
@@ -174,7 +171,11 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        html = (
+        js_functions = "\n".join(
+            [_cx_fx_template.replace("@code@", fx) for fx in functions]
+        )
+
+        html_text = (
             _cx_html_template.replace("@canvases@", canvas_table)
             .replace("@canvasxpress_license@", cx_license)
             .replace("@js_functions@", js_functions)
@@ -182,36 +183,29 @@ class CXNoteBook(CXRenderable):
             .replace("@js_url@", js_url)
         )
 
-        is_temp_file = kwargs.get("output_file") is None
-        file_path_candidate = str(
-            kwargs.get("output_file", f"cx_{str(uuid.uuid4())}.html")
-        )
-
-        file_path = Path(file_path_candidate)
-        if file_path.is_dir():
-            file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
-        else:
-            if not file_path_candidate.lower().strip().endswith(".html"):
-                file_path = Path(file_path_candidate + ".html")
+        iframe_html = _nb_iframe_template.replace("@html@", quote(html_text))
 
         try:
-            with open(str(file_path), "w") as render_file:
-                render_file.write(html)
+            if kwargs.get("output_file") is not None:
+                file_path_candidate = str(kwargs.get("output_file"))
+                file_path = Path(file_path_candidate)
+                if file_path.is_dir():
+                    file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
-            display(
-                IFrame(
-                    str(file_path),
-                    f"{iframe_width + _cx_iframe_padding}px",
-                    f"{iframe_height + _cx_iframe_padding}px",
-                )
-            )
-
-            if is_temp_file:
-                sleep(3)
-                unlink(str(file_path))
+                with open(str(file_path), "w") as render_file:
+                    render_file.write(html_text)
 
         except Exception as e:
-            raise RuntimeError(
-                "Cannot create output_file.  Check that the path exists"
-                " and that permissions for file writing are available."
+            raise RuntimeError(f"Cannot create output file: {e}")
+
+        try:
+            display(
+                IFrame(
+                    src=iframe_html,
+                    width="100%",
+                    height=iframe_height,
+                ),
             )
+
+        except Exception as e:
+            raise RuntimeError(f"Cannot create output cell: {e}")

@@ -46,6 +46,12 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Enhancements
 
+_Jupyter Notebook exports are now supported!_
+
+Rendering in Notebooks has been available since Day 1, but now exporting saved notebooks to PDF, HTML, and other
+formats is supported!  The HTML export includes _live_ CanvasXpress charts, which makes this an excellent option
+for distributing rendered materials on the Web or with colleagues unfamiliar with notebook functionality.
+
 _Pinned CanvasXpress versions are now supported!_
 
 To facilitate productin and reproducible research environments, the edition of CanvasXpress to be used can now be set.
@@ -58,9 +64,7 @@ A complete list of enhancements by release date is available at the
 
 ### Known Issues
 
-As of May 2022 the CanvasXpress Javascript library produces Python example code with `afterRender` as a parameter.
-Replace `afterRender` with `after_render` to make the Python examples work.  It's expected that this will be fixed in a 
-future Javascript library release.
+None
 
 ### Roadmap
 
