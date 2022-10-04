@@ -205,8 +205,8 @@ class CXNoteBook(CXRenderable):
             display(
                 IFrame(
                     src=iframe_html,
-                    width="100%",
-                    height=iframe_height if kwargs.get("columns") is None else int(kwargs["columns"]),
+                    # width="100%",
+                    # height=iframe_height if kwargs.get("columns") is None else int(kwargs["columns"]),
                 ),
             )
 
