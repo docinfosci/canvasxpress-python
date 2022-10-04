@@ -92,6 +92,9 @@ class CXNoteBook(CXRenderable):
               should be saved.  If a file exists at the specified path then
               it will be overwritten.  This permits Jupyter sessions to render
               output that is saved and accessible in later sessions.
+            * Supports `height` for any positive 'int' of 1 or greater.  Sets the
+              height of the output pane.  If ommitted, then the height is calculated
+              using the provided charts.
         """
         render_targets = list()
 
@@ -203,7 +206,7 @@ class CXNoteBook(CXRenderable):
                 IFrame(
                     src=iframe_html,
                     width="100%",
-                    height=iframe_height,
+                    height=iframe_height if kwargs.get("columns") is None else int(kwargs["columns"]),
                 ),
             )
 
