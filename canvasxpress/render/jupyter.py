@@ -204,6 +204,7 @@ class CXNoteBook(CXRenderable):
 
         try:
             display(
+                HTML("<style>.container { height:" + str(iframe_height) + "px !important; }</style>"),
                 IFrame(
                     src=iframe_html,
                     width=iframe_width,
