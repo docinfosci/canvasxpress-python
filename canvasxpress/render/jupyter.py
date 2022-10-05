@@ -187,7 +187,6 @@ class CXNoteBook(CXRenderable):
         )
 
         iframe_html = _nb_iframe_template.replace("@html@", quote(html_text))
-        # iframe_html = _nb_iframe_template.replace("@html@", html_text)
 
         try:
             if kwargs.get("output_file") is not None:
@@ -204,15 +203,11 @@ class CXNoteBook(CXRenderable):
 
         try:
             display(
-                HTML("<style>.container { height:" + str(iframe_height) + "px !important; }</style>"),
                 IFrame(
                     src=iframe_html,
                     width=iframe_width,
                     height=iframe_height,
                 ),
-                metadata={
-                    "style": f"height:{iframe_height}px"
-                }
             )
 
         except Exception as e:
