@@ -161,6 +161,9 @@ class CXNoteBook(CXRenderable):
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
+        iframe_width += _cx_iframe_padding
+        iframe_height += _cx_iframe_padding
+
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
         if CanvasXpress.cdn_edition() is not None:
@@ -202,7 +205,7 @@ class CXNoteBook(CXRenderable):
             display(
                 IFrame(
                     src=iframe_html,
-                    width="100%",
+                    width=iframe_width,
                     height=iframe_height,
                 ),
             )
