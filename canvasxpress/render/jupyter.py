@@ -92,9 +92,6 @@ class CXNoteBook(CXRenderable):
               should be saved.  If a file exists at the specified path then
               it will be overwritten.  This permits Jupyter sessions to render
               output that is saved and accessible in later sessions.
-            * Supports `height` for any positive 'int' of 1 or greater.  Sets the
-              height of the output pane.  If ommitted, then the height is calculated
-              using the provided charts.
         """
         render_targets = list()
 
@@ -164,6 +161,9 @@ class CXNoteBook(CXRenderable):
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
+        iframe_width += _cx_iframe_padding
+        iframe_height += _cx_iframe_padding
+
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
         if CanvasXpress.cdn_edition() is not None:
@@ -205,8 +205,8 @@ class CXNoteBook(CXRenderable):
             display(
                 IFrame(
                     src=iframe_html,
-                    width="100%",
-                    height=iframe_height if kwargs.get("height") is None else int(kwargs["height"]),
+                    width=iframe_width,
+                    height=iframe_height,
                 ),
             )
 
