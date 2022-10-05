@@ -204,10 +204,10 @@ class CXNoteBook(CXRenderable):
 
         try:
             display(
-                IFrame(
-                    src=iframe_html,
-                    width=iframe_width,
-                    height=iframe_height,
+                HTML(
+                    data=iframe_html,
+                    # width=iframe_width,
+                    # height=iframe_height,
                 ),
             )
 
