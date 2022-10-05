@@ -206,9 +206,10 @@ class CXNoteBook(CXRenderable):
             display(
                 IFrame(
                     src=iframe_html,
-                    width="100%",
-                    height="1500px",
+                    width=iframe_width,
+                    height=iframe_height,
                 ),
+                HTML(f"<script>$('div.cell.selected').children('div.output_wrapper').height({iframe_height});</script>"),
             )
 
         except Exception as e:
