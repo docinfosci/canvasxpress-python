@@ -8,7 +8,7 @@ from IPython.display import display, HTML, IFrame
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
-_cx_iframe_padding = 25
+_cx_iframe_padding = 50
 
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
 
@@ -209,7 +209,9 @@ class CXNoteBook(CXRenderable):
                     width=iframe_width,
                     height=iframe_height,
                 ),
-                HTML(f"<script>$('div.cell.selected').children('div.output_wrapper').height({iframe_height});</script>"),
+                metadata={
+                    "style": f"height:{iframe_height}px"
+                }
             )
 
         except Exception as e:
