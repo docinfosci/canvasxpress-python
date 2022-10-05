@@ -186,7 +186,8 @@ class CXNoteBook(CXRenderable):
             .replace("@js_url@", js_url)
         )
 
-        iframe_html = _nb_iframe_template.replace("@html@", quote(html_text))
+        # iframe_html = _nb_iframe_template.replace("@html@", quote(html_text))
+        iframe_html = _nb_iframe_template.replace("@html@", html_text)
 
         try:
             if kwargs.get("output_file") is not None:
