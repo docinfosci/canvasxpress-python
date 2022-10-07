@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 from urllib.parse import quote
 
-from html5print import HTMLBeautifier
+from html5print import HTMLBeautifier, JSBeautifier
 from IPython.display import display, HTML, IFrame, Code
 
 from canvasxpress.canvas import CanvasXpress
@@ -206,8 +206,11 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        js_functions = "\n".join(
-            [_cx_fx_template.replace("@code@", fx) for fx in functions]
+        js_functions = JSBeautifier.beautify(
+            "\n".join(
+                [_cx_fx_template.replace("@code@", fx) for fx in functions]
+            ),
+            2
         )
 
         if isolate_output:
@@ -229,7 +232,7 @@ class CXNoteBook(CXRenderable):
                     .replace("@js_url@", js_url)
             )
             notebook_output = html_text
-            
+
         notebook_output = HTMLBeautifier.beautify(notebook_output, 2)
 
         try:
