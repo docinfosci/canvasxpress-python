@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 from urllib.parse import quote
 
+import htmlmin
 from bs4 import BeautifulSoup
 from IPython.display import display, HTML, IFrame, Code
 
@@ -21,17 +22,14 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
-_cx_fx_template = """
+_cx_js_intermixed_template = """
 <script type="text/javascript">
-    onReady(function () {
-        @code@
-    })
+    @code@
 </script>
 """
 
-_cx_div_template = """
+_cx_html_intermixed_template = """
 <div>
-    <!-- 1. Include the CanvasXpress library -->
     @canvasxpress_license@
     <link 
             href='@css_url@' 
@@ -42,16 +40,20 @@ _cx_div_template = """
             src='@js_url@' 
             type='text/javascript'>
     </script>
-
-    <!-- 2. Include script to initialize object -->
-    @js_functions@
-    
-    <!-- 3. DOM element where the visualization will be displayed -->
     @canvases@
+    @js_functions@
 </div>
 """
 
-_cx_html_template = """
+_cx_js_isolated_template = """
+<script type="text/javascript">
+    onReady(function () {
+        @code@
+    })
+</script>
+"""
+
+_cx_html_isolated_template = """
 <html>
     <head>
         <meta charset="UTF-8">
@@ -206,13 +208,12 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        js_functions = "\n".join(
-            [_cx_fx_template.replace("@code@", fx) for fx in functions]
-        )
-
         if isolate_output:
+            js_functions = "\n".join(
+                [_cx_js_isolated_template.replace("@code@", fx) for fx in functions]
+            )
             html_text = (
-                _cx_html_template.replace("@canvases@", canvas_table)
+                _cx_html_isolated_template.replace("@canvases@", canvas_table)
                     .replace("@canvasxpress_license@", cx_license)
                     .replace("@js_functions@", js_functions)
                     .replace("@css_url@", css_url)
@@ -221,14 +222,17 @@ class CXNoteBook(CXRenderable):
             notebook_output = _nb_iframe_template.replace("@html@", quote(html_text))
 
         else:
+            js_functions = "\n".join(
+                [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
+            )
             html_text = (
-                _cx_div_template.replace("@canvases@", canvas_table)
+                _cx_html_intermixed_template.replace("@canvases@", canvas_table)
                     .replace("@canvasxpress_license@", cx_license)
                     .replace("@js_functions@", js_functions)
                     .replace("@css_url@", css_url)
                     .replace("@js_url@", js_url)
             )
-            notebook_output = html_text
+            notebook_output = quote(html_text)
 
         try:
             if kwargs.get("output_file") is not None:
@@ -245,9 +249,11 @@ class CXNoteBook(CXRenderable):
 
         try:
             if debug_output:
+                minified_code = htmlmin.Minifier().minify(notebook_output)
+                pretty_code = BeautifulSoup(minified_code, 'html.parser').prettify()
                 display(
                     Code(
-                        data=BeautifulSoup(notebook_output.replace("\n", " "), 'html.parser').prettify(),
+                        data=pretty_code,
                         language="html",
                     ),
                 )
