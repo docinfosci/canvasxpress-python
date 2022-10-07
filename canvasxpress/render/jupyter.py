@@ -4,6 +4,7 @@ from typing import Any, Union, List
 from urllib.parse import quote
 
 import htmlmin
+import requests
 from bs4 import BeautifulSoup
 from IPython.display import display, HTML, IFrame, Code
 
@@ -36,9 +37,8 @@ _cx_html_intermixed_template = """
             rel='stylesheet' 
             type='text/css'
     />
-    <script 
-            src='@js_url@' 
-            type='text/javascript'>
+    <script type='text/javascript'>
+        @js_text@
     </script>
     @canvases@
     @js_functions@
@@ -238,6 +238,8 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
+        js_text = requests.get(js_url).content
+
         if isolate_output:
             js_functions = "\n".join(
                 [_cx_js_isolated_template.replace("@code@", fx) for fx in functions]
@@ -260,7 +262,7 @@ class CXNoteBook(CXRenderable):
                     .replace("@canvasxpress_license@", cx_license)
                     .replace("@js_functions@", js_functions)
                     .replace("@css_url@", css_url)
-                    .replace("@js_url@", js_url)
+                    .replace("@js_text@", js_text)
             )
             notebook_output = html_text
 
