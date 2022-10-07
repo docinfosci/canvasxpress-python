@@ -232,7 +232,7 @@ class CXNoteBook(CXRenderable):
                     .replace("@css_url@", css_url)
                     .replace("@js_url@", js_url)
             )
-            notebook_output = quote(html_text)
+            notebook_output = html_text
 
         try:
             if kwargs.get("output_file") is not None:
