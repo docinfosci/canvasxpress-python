@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 from urllib.parse import quote
 
-from IPython.display import display, HTML, IFrame
+from IPython.display import display, HTML, IFrame, Code
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -26,6 +26,28 @@ _cx_fx_template = """
         @code@
     })
 </script>
+"""
+
+_cx_div_template = """
+<div>
+    <!-- 1. Include the CanvasXpress library -->
+    @canvasxpress_license@
+    <link 
+            href='@css_url@' 
+            rel='stylesheet' 
+            type='text/css'
+    />
+    <script 
+            src='@js_url@' 
+            type='text/javascript'>
+    </script>
+
+    <!-- 2. Include script to initialize object -->
+    @js_functions@
+    
+    <!-- 3. DOM element where the visualization will be displayed -->
+    @canvases@
+</div>
 """
 
 _cx_html_template = """
@@ -92,7 +114,16 @@ class CXNoteBook(CXRenderable):
               should be saved.  If a file exists at the specified path then
               it will be overwritten.  This permits Jupyter sessions to render
               output that is saved and accessible in later sessions.
+            * Supports `isolate` for the creation of an iFrame-isolated output
+              cell.  True results in an iFrame isolating the output, and False
+              outputs a DIV.  Default is True.
+            * Supports `debug` for displaying the output source.  True indicates
+              that the HTML code shall be displayed prior to the parsed output.
+              Default is False.
         """
+        isolate_output = bool(kwargs["isolate"]) if kwargs.get("isolate") is not None else True
+        debug_output = bool(kwargs["debug"]) if kwargs.get("debug") is not None else False
+
         render_targets = list()
 
         if self.canvas is None:
@@ -178,15 +209,25 @@ class CXNoteBook(CXRenderable):
             [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
-        html_text = (
-            _cx_html_template.replace("@canvases@", canvas_table)
-            .replace("@canvasxpress_license@", cx_license)
-            .replace("@js_functions@", js_functions)
-            .replace("@css_url@", css_url)
-            .replace("@js_url@", js_url)
-        )
+        if isolate_output:
+            html_text = (
+                _cx_html_template.replace("@canvases@", canvas_table)
+                    .replace("@canvasxpress_license@", cx_license)
+                    .replace("@js_functions@", js_functions)
+                    .replace("@css_url@", css_url)
+                    .replace("@js_url@", js_url)
+            )
+            notebook_output = _nb_iframe_template.replace("@html@", quote(html_text))
 
-        iframe_html = _nb_iframe_template.replace("@html@", quote(html_text))
+        else:
+            html_text = (
+                _cx_div_template.replace("@canvases@", canvas_table)
+                    .replace("@canvasxpress_license@", cx_license)
+                    .replace("@js_functions@", js_functions)
+                    .replace("@css_url@", css_url)
+                    .replace("@js_url@", js_url)
+            )
+            notebook_output = html_text
 
         try:
             if kwargs.get("output_file") is not None:
@@ -202,13 +243,29 @@ class CXNoteBook(CXRenderable):
             raise RuntimeError(f"Cannot create output file: {e}")
 
         try:
-            display(
-                IFrame(
-                    src=iframe_html,
-                    width=iframe_width,
-                    height=iframe_height,
-                ),
-            )
+            if debug_output:
+                display(
+                    Code(
+                        data=notebook_output,
+                        language="html",
+                    ),
+                )
+
+            if isolate_output:
+                display(
+                    IFrame(
+                        src=notebook_output,
+                        width=iframe_width,
+                        height=iframe_height,
+                    ),
+                )
+
+            else:
+                display(
+                    HTML(
+                        data=notebook_output,
+                    ),
+                )
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output cell: {e}")
