@@ -31,6 +31,7 @@ _cx_js_intermixed_template = """
 
 _cx_html_intermixed_template = """
 <div>
+    @canvases@
     @canvasxpress_license@
     <link 
             href='@css_url@' 
@@ -40,7 +41,6 @@ _cx_html_intermixed_template = """
     <script type='text/javascript'>
         @js_text@
     </script>
-    @canvases@
     @js_functions@
 </div>
 """
@@ -238,8 +238,6 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        js_text = requests.get(js_url).content
-
         if isolate_output:
             js_functions = "\n".join(
                 [_cx_js_isolated_template.replace("@code@", fx) for fx in functions]
@@ -254,6 +252,7 @@ class CXNoteBook(CXRenderable):
             notebook_output = _nb_iframe_template.replace("@html@", quote(html_text))
 
         else:
+            js_text = requests.get(js_url).content.decode("utf-8")
             js_functions = "\n".join(
                 [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
             )
