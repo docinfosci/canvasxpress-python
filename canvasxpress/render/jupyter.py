@@ -30,19 +30,25 @@ _cx_js_intermixed_template = """
 """
 
 _cx_html_intermixed_template = """
-<div>
-    @canvases@
-    @canvasxpress_license@
-    <link 
-            href='@css_url@' 
-            rel='stylesheet' 
-            type='text/css'
-    />
-    <script type='text/javascript'>
-        @js_text@
-    </script>
-    @js_functions@
-</div>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link 
+                href='@css_url@' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='@js_url@' 
+                type='text/javascript'>
+        </script>
+    </head>
+    <body>
+        @canvasxpress_license@
+        @canvases@
+        @js_functions@
+    </body>
+</html>
 """
 
 _cx_js_isolated_template = """
@@ -252,7 +258,6 @@ class CXNoteBook(CXRenderable):
             notebook_output = _nb_iframe_template.replace("@html@", quote(html_text))
 
         else:
-            js_text = requests.get(js_url).content.decode("utf-8")
             js_functions = "\n".join(
                 [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
             )
@@ -261,7 +266,7 @@ class CXNoteBook(CXRenderable):
                     .replace("@canvasxpress_license@", cx_license)
                     .replace("@js_functions@", js_functions)
                     .replace("@css_url@", css_url)
-                    .replace("@js_text@", js_text)
+                    .replace("@js_url@", js_url)
             )
             notebook_output = html_text
 
