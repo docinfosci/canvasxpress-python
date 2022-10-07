@@ -78,8 +78,8 @@ class CXNoteBook(CXRenderable):
         """
         super().__init__(*cx)
 
-    @classmethod
-    def init_canvasxpress(cls):
+    @staticmethod
+    def init_canvasxpress():
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
         if CanvasXpress.cdn_edition() is not None:
