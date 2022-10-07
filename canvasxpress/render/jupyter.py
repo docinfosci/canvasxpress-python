@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 from urllib.parse import quote
 
+from html5print import HTMLBeautifier
 from IPython.display import display, HTML, IFrame, Code
 
 from canvasxpress.canvas import CanvasXpress
@@ -228,6 +229,8 @@ class CXNoteBook(CXRenderable):
                     .replace("@js_url@", js_url)
             )
             notebook_output = html_text
+            
+        notebook_output = HTMLBeautifier.beautify(notebook_output, 2)
 
         try:
             if kwargs.get("output_file") is not None:
