@@ -230,8 +230,6 @@ class CXNoteBook(CXRenderable):
             )
             notebook_output = html_text
 
-        notebook_output = BeautifulSoup(notebook_output, 'html.parser').prettify()
-
         try:
             if kwargs.get("output_file") is not None:
                 file_path_candidate = str(kwargs.get("output_file"))
@@ -249,7 +247,7 @@ class CXNoteBook(CXRenderable):
             if debug_output:
                 display(
                     Code(
-                        data=notebook_output,
+                        data=BeautifulSoup(notebook_output.replace("\n", " "), 'html.parser').prettify(),
                         language="html",
                     ),
                 )
