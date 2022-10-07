@@ -170,15 +170,16 @@ class CXNoteBook(CXRenderable):
         iframe_width = 0
         iframe_height = 0
         chart_count = len(canvases)
-        canvas_table = '<table style="width:100%">'
+
+        canvas_table = "<div class=\"d-flex flex-column\">"
 
         while chart_count > 0:
             candidate_width = 0
             candidate_height = 0
 
-            canvas_table += "<tr>"
+            canvas_table += "<div class=\"d-flex flex-row\">"
             for c in range(columns):
-                canvas_table += "<td>"
+                canvas_table += "<div class=\"p-2\">"
                 if chart_count > 0:
                     canvas_table += canvases[chart_count - 1]
 
@@ -186,16 +187,43 @@ class CXNoteBook(CXRenderable):
                     if render_targets[chart_count - 1].height > candidate_height:
                         candidate_height = render_targets[chart_count - 1].height
 
-                canvas_table += "</td>"
+                canvas_table += "</div>"
                 chart_count = chart_count - 1
 
-            canvas_table += "</tr>"
+            canvas_table += "</div>"
 
             if candidate_width > iframe_width:
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
-        canvas_table += '</table>'
+        canvas_table += '</div>'
+
+        # canvas_table = '<table style="width:100%">'
+        #
+        # while chart_count > 0:
+        #     candidate_width = 0
+        #     candidate_height = 0
+        #
+        #     canvas_table += "<tr>"
+        #     for c in range(columns):
+        #         canvas_table += "<td>"
+        #         if chart_count > 0:
+        #             canvas_table += canvases[chart_count - 1]
+        #
+        #             candidate_width += render_targets[chart_count - 1].width
+        #             if render_targets[chart_count - 1].height > candidate_height:
+        #                 candidate_height = render_targets[chart_count - 1].height
+        #
+        #         canvas_table += "</td>"
+        #         chart_count = chart_count - 1
+        #
+        #     canvas_table += "</tr>"
+        #
+        #     if candidate_width > iframe_width:
+        #         iframe_width = candidate_width
+        #     iframe_height += candidate_height
+        #
+        # canvas_table += '</table>'
 
         iframe_width += _cx_iframe_padding
         iframe_height += _cx_iframe_padding
