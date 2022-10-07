@@ -195,7 +195,7 @@ class CXNoteBook(CXRenderable):
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
-        canvas_table = '</table>'
+        canvas_table += '</table>'
 
         iframe_width += _cx_iframe_padding
         iframe_height += _cx_iframe_padding
