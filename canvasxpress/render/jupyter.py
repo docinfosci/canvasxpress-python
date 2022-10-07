@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 from urllib.parse import quote
 
-from html5print import HTMLBeautifier, JSBeautifier
+from bs4 import BeautifulSoup
 from IPython.display import display, HTML, IFrame, Code
 
 from canvasxpress.canvas import CanvasXpress
@@ -206,11 +206,8 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        js_functions = JSBeautifier.beautify(
-            "\n".join(
-                [_cx_fx_template.replace("@code@", fx) for fx in functions]
-            ),
-            2
+        js_functions = "\n".join(
+            [_cx_fx_template.replace("@code@", fx) for fx in functions]
         )
 
         if isolate_output:
@@ -233,7 +230,7 @@ class CXNoteBook(CXRenderable):
             )
             notebook_output = html_text
 
-        notebook_output = HTMLBeautifier.beautify(notebook_output, 2)
+        notebook_output = BeautifulSoup(notebook_output, 'html.parser').prettify()
 
         try:
             if kwargs.get("output_file") is not None:
