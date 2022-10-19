@@ -78,8 +78,7 @@ class CXNoteBook(CXRenderable):
         """
         super().__init__(*cx)
 
-    @staticmethod
-    def init_canvasxpress():
+    def display_canvasxpress_header(self):
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
         if CanvasXpress.cdn_edition() is not None:
@@ -90,38 +89,27 @@ class CXNoteBook(CXRenderable):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        html_text = (
-            _cx_intermixed_header.replace("@css_url@", css_url).replace("@js_url@", js_url)
+        header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
+            "@js_url@", js_url
         )
-        notebook_output = html_text
 
         display(
             HTML(
-                data=notebook_output,
+                data=header_html_text,
             ),
         )
 
-    def render(self, **kwargs: Any):
-        """
-        Renders the associated CanvasXpress object appropriate for display in
-        an IPython (e.g., Jupyter NoteBook/Lab) environment.  Charts cannot
-        have the same name, so render_to will be updated with a uuid for each
-        conflicting chart.
-        :param kwargs: `Any`
-            * Supports `columns` for any positive `int` of `1` or greater, with a
-              default value of `1`.  Values less that `1` are ignored.  `columns`
-              indicates how many charts should be rendered horizontally in the
-              Jupyter Notebook if more than one chart is being tracked.
-            * Supports `output_file` as a string for a path at which the output
-              should be saved.  If a file exists at the specified path then
-              it will be overwritten.  This permits Jupyter sessions to render
-              output that is saved and accessible in later sessions.
-            * Supports `debug` for displaying the output source.  True indicates
-              that the HTML code shall be displayed prior to the parsed output.
-              Default is False.
-        """
-        debug_output = bool(kwargs["debug"]) if kwargs.get("debug") is not None else False
+    def display_debug_code(self, code: str):
+        minified_code = htmlmin.Minifier().minify(code)
+        pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
+        display(
+            Code(
+                data=pretty_code,
+                language="html",
+            ),
+        )
 
+    def get_chart_display_code(self, columns: int) -> str:
         render_targets = list()
 
         if self.canvas is None:
@@ -148,6 +136,8 @@ class CXNoteBook(CXRenderable):
         html_parts = [target.render_to_html_parts() for target in render_targets]
 
         canvases = [part["cx_canvas"] for part in html_parts]
+        if len(canvases) < columns:
+            columns = len(canvases)
 
         functions = [part["cx_js"] for part in html_parts]
 
@@ -157,24 +147,19 @@ class CXNoteBook(CXRenderable):
                 cx_license = part["cx_license"]
                 break
 
-        columns_arg = int(kwargs.get("columns", 1))
-        columns = columns_arg if columns_arg > 0 else 1
-        if len(canvases) < columns:
-            columns = len(canvases)
-
         iframe_width = 0
         iframe_height = 0
         chart_count = len(canvases)
 
-        canvas_table = "<div class=\"d-flex flex-column\">"
+        canvas_table = '<div class="d-flex flex-column">'
 
         while chart_count > 0:
             candidate_width = 0
             candidate_height = 0
 
-            canvas_table += "<div class=\"d-flex flex-row\">"
+            canvas_table += '<div class="d-flex flex-row">'
             for c in range(columns):
-                canvas_table += "<div class=\"p-2\">"
+                canvas_table += '<div class="p-2">'
                 if chart_count > 0:
                     canvas_table += canvases[chart_count - 1]
 
@@ -191,7 +176,7 @@ class CXNoteBook(CXRenderable):
                 iframe_width = candidate_width
             iframe_height += candidate_height
 
-        canvas_table += '</div>'
+        canvas_table += "</div>"
 
         iframe_width += _cx_iframe_padding
         iframe_height += _cx_iframe_padding
@@ -201,40 +186,71 @@ class CXNoteBook(CXRenderable):
         )
         html_text = (
             _cx_html_intermixed_template.replace("@canvases@", canvas_table)
-                .replace("@canvasxpress_license@", cx_license)
-                .replace("@js_functions@", js_functions)
+            .replace("@canvasxpress_license@", cx_license)
+            .replace("@js_functions@", js_functions)
         )
-        notebook_output = html_text
 
+        return html_text
+
+    def display_charts(self, code: str, output_file: str):
         try:
-            if kwargs.get("output_file") is not None:
-                file_path_candidate = str(kwargs.get("output_file"))
+            if output_file is not None:
+                file_path_candidate = str(output_file)
                 file_path = Path(file_path_candidate)
                 if file_path.is_dir():
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
                 with open(str(file_path), "w") as render_file:
-                    render_file.write(html_text)
+                    render_file.write(code)
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
 
-        try:
-            if debug_output:
-                minified_code = htmlmin.Minifier().minify(notebook_output)
-                pretty_code = BeautifulSoup(minified_code, 'html.parser').prettify()
-                display(
-                    Code(
-                        data=pretty_code,
-                        language="html",
-                    ),
-                )
+        display(
+            HTML(
+                data=code,
+            ),
+        )
 
-            display(
-                HTML(
-                    data=notebook_output,
-                ),
-            )
+    def render(self, **kwargs: Any):
+        """
+        Renders the associated CanvasXpress object appropriate for display in
+        an IPython (e.g., Jupyter NoteBook/Lab) environment.  Charts cannot
+        have the same name, so render_to will be updated with a uuid for each
+        conflicting chart.
+        :param kwargs: `Any`
+            * Supports `columns` for any positive `int` of `1` or greater, with a
+              default value of `1`.  Values less that `1` are ignored.  `columns`
+              indicates how many charts should be rendered horizontally in the
+              Jupyter Notebook if more than one chart is being tracked.
+            * Supports `output_file` as a string for a path at which the output
+              should be saved.  If a file exists at the specified path then
+              it will be overwritten.  This permits Jupyter sessions to render
+              output that is saved and accessible in later sessions.
+            * Supports `debug` for displaying the output source.  True indicates
+              that the HTML code shall be displayed prior to the parsed output.
+              Default is False.
+        """
+        debug_output_arg = kwargs.get("debug")
+        debug_output = bool(debug_output_arg) if debug_output_arg is not None else False
+
+        columns_arg = int(kwargs.get("columns", 1))
+        columns = columns_arg if columns_arg > 0 else 1
+
+        output_file_arg = kwargs.get("output_file")
+        output_file = (
+            output_file_arg
+            if output_file_arg is not None and isinstance(output_file_arg, str)
+            else None
+        )
+
+        code = self.get_chart_display_code(columns)
+
+        try:
+            self.display_canvasxpress_header()
+            self.display_charts(code, output_file)
+            if debug_output:
+                self.display_debug_code(code)
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output cell: {e}")
