@@ -2,6 +2,7 @@ import pkg_resources
 import pytest
 from flask import Flask, render_template
 from flask import url_for
+from selenium.webdriver.common.by import By
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
@@ -76,6 +77,6 @@ def test_license_activation(app, tmp_path):
 
     with ChromeManagedBrowser(python_url) as py_browser:
         py_browser.session.set_window_size(800, 800)
-        assert py_browser.session.find_element_by_id("canvasId") is not None
+        assert py_browser.session.find_element(By.ID, "canvasId") is not None
         print(py_browser.session.page_source)
         assert "CanvasXpressLicense.js" in py_browser.session.page_source
