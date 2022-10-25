@@ -156,7 +156,7 @@ class CXDataframeData(CXMatrixData):
         :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
             the tracked data.
         """
-        return self.__class__(self.data)
+        return self.__class__(self.data, self.profile)
 
     def __lt__(self, other: "CXDataframeData") -> bool:
         """
