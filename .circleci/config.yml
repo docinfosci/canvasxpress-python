@@ -5,7 +5,7 @@ version: 2.1
 jobs:
   build-python-latest:
     docker:
-      - image: python:latest
+      - image: python:3.10.8-bullseye
 
     steps:
       - checkout

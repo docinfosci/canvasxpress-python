@@ -919,7 +919,7 @@ class CanvasXpress(CXHtmlConvertable):
             _CX_JS_TEMPLATE,
             {
                 "cx_target_id": self.render_to,
-                "cx_json": json.dumps(canvasxpress, indent=4),
+                "cx_json": json.dumps(canvasxpress),
                 "cx_functions": "\n" + "; ".join(after_render_functions) + ";\n",
             },
         )
@@ -989,15 +989,15 @@ class CanvasXpress(CXHtmlConvertable):
         normalized_data = self.data.render_to_dict(config=self.config)
         if normalized_data.get("raw"):
             normalized_data = normalized_data["raw"]
-        str_data = json.dumps(normalized_data, indent=4)
+        str_data = json.dumps(normalized_data)
         str_data_parts = str_data.split("\n")
         str_data = "\n".join(["    " + line for line in str_data_parts])[4:]
 
-        str_config = json.dumps(self.config.render_to_dict(), indent=4)
+        str_config = json.dumps(self.config.render_to_dict())
         str_config_parts = str_config.split("\n")
         str_config = "\n".join(["    " + line for line in str_config_parts])[4:]
 
-        str_after_render = json.dumps(self.after_render.render_to_list(), indent=4)
+        str_after_render = json.dumps(self.after_render.render_to_list())
         str_after_render_parts = str_after_render.split("\n")
         str_after_render = "\n".join(
             ["    " + line for line in str_after_render_parts]

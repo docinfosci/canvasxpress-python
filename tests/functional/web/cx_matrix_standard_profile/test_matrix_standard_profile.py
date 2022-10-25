@@ -6,6 +6,7 @@ import pytest
 from flask import Flask, render_template
 from flask import url_for
 from pandas import DataFrame
+from selenium.webdriver.common.by import By
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
@@ -65,4 +66,4 @@ def test_chart_render(app, tmp_path):
 
     with ChromeManagedBrowser(python_url) as py_browser:
         py_browser.session.set_window_size(800, 800)
-        assert py_browser.session.find_element_by_id("cx_chart") is not None
+        assert py_browser.session.find_element(By.ID, "cx_chart") is not None

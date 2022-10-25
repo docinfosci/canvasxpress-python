@@ -5,6 +5,7 @@ import pkg_resources
 import pytest
 from flask import Flask, render_template
 from flask import url_for
+from selenium.webdriver.common.by import By
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
@@ -97,12 +98,12 @@ def test_js_vs_python_bar_example(app, tmp_path):
     # Render each chart and get the image
     with ChromeManagedBrowser(js_url) as js_browser:
         js_browser.session.set_window_size(800, 800)
-        js_chart = js_browser.session.find_element_by_id("canvasId")
+        js_chart = js_browser.session.find_element(By.ID, "canvasId")
         js_chart.screenshot(str(js_chart_png))
 
         with ChromeManagedBrowser(python_url) as py_browser:
             py_browser.session.set_window_size(800, 800)
-            py_chart = py_browser.session.find_element_by_id("canvasId")
+            py_chart = py_browser.session.find_element(By.ID, "canvasId")
             py_chart.screenshot(str(py_chart_png))
 
     # Compare images
