@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "heatmap12",
   "data": {
     "z": {
@@ -47,6 +47,30 @@
     "showTransition": false,
     "smpLabelScaleFontFactor": 1.1,
     "smpOverlayProperties": {
+      "Early": {
+        "color": "blue",
+        "type": "Line",
+        "position": "right",
+        "thickness": 50,
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseA": {
+        "type": "Bar",
+        "position": "left",
+        "thickness": 50,
+        "color": "rgb(254,41,108)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
       "Boolean": {
         "position": "left",
         "type": "Boolean",
@@ -58,70 +82,12 @@
         "showBox": true,
         "rotate": false
       },
-      "Binary": {
-        "scheme": "BlackAndWhite",
-        "position": "left",
-        "type": "Default",
-        "color": "rgb(105,150,150)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "PhaseB": {
-        "type": "Bar",
-        "thickness": 50,
-        "position": "left",
-        "color": "rgb(72,126,182)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Continuous": {
+      "Temp": {
+        "position": "right",
         "type": "Heatmap",
-        "position": "left",
-        "spectrum": ["green","white"],
-        "color": "rgb(131,172,208)",
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "OnTime": {
-        "position": "right",
-        "thickness": 50,
-        "type": "Line",
-        "color": "green",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "PhaseC": {
-        "position": "left",
-        "type": "Bar",
-        "thickness": 50,
-        "color": "rgb(167,206,49)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Late": {
-        "color": "red",
-        "type": "Line",
-        "thickness": 50,
-        "position": "right",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "thickness": 100,
+        "spectrum": ["blue","white","red"],
+        "color": "rgb(255,175,84)",
         "scheme": "User",
         "showLegend": true,
         "showName": true,
@@ -129,9 +95,9 @@
         "rotate": false
       },
       "Discrete": {
-        "type": "Default",
         "thickness": 30,
         "position": "left",
+        "type": "Default",
         "color": "rgb(194,224,118)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -140,23 +106,22 @@
         "showBox": true,
         "rotate": false
       },
-      "Temp": {
-        "spectrum": ["blue","white","red"],
-        "position": "right",
+      "Continuous": {
+        "spectrum": ["green","white"],
+        "position": "left",
         "type": "Heatmap",
-        "thickness": 100,
-        "color": "rgb(255,175,84)",
+        "color": "rgb(131,172,208)",
         "scheme": "User",
         "showLegend": true,
         "showName": true,
         "showBox": true,
         "rotate": false
       },
-      "PhaseA": {
-        "position": "left",
+      "Late": {
         "thickness": 50,
-        "type": "Bar",
-        "color": "rgb(254,41,108)",
+        "position": "right",
+        "type": "Line",
+        "color": "red",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -164,11 +129,46 @@
         "showBox": true,
         "rotate": false
       },
-      "Early": {
+      "PhaseB": {
+        "thickness": 50,
+        "position": "left",
+        "type": "Bar",
+        "color": "rgb(72,126,182)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "PhaseC": {
+        "thickness": 50,
+        "position": "left",
+        "type": "Bar",
+        "color": "rgb(167,206,49)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Binary": {
+        "scheme": "BlackAndWhite",
+        "type": "Default",
+        "position": "left",
+        "color": "rgb(105,150,150)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "OnTime": {
+        "color": "green",
+        "thickness": 50,
         "position": "right",
         "type": "Line",
-        "thickness": 50,
-        "color": "blue",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -181,11 +181,11 @@
     "varLabelRotate": 45,
     "varLabelScaleFontFactor": 1.7,
     "varOverlayProperties": {
-      "Nice": {
-        "color": "green",
-        "position": "bottom",
+      "Ugly": {
         "type": "Dotplot",
+        "position": "bottom",
         "thickness": 50,
+        "color": "black",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -193,69 +193,11 @@
         "showBox": true,
         "rotate": false
       },
-      "Conc": {
-        "type": "Bar",
-        "thickness": 40,
-        "position": "top",
-        "color": "rgb(131,172,208)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Cold": {
-        "color": "blue",
+      "Hot": {
+        "color": "red",
+        "position": "bottom",
         "type": "StackedPercent",
         "thickness": 50,
-        "position": "bottom",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Female": {
-        "position": "top",
-        "type": "Pie",
-        "thickness": 50,
-        "color": "rgb(248,204,3)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Drug": {
-        "position": "top",
-        "type": "Increase",
-        "thickness": 30,
-        "color": "rgb(254,41,108)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Desc": {
-        "position": "bottom",
-        "type": "Text",
-        "color": "rgb(250,220,90)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Site": {
-        "position": "top",
-        "type": "Default",
-        "color": "rgb(105,150,150)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -265,8 +207,8 @@
       },
       "Even": {
         "thickness": 50,
-        "type": "Bar",
         "position": "bottom",
+        "type": "Bar",
         "color": "rgb(255,175,84)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -275,10 +217,45 @@
         "showBox": true,
         "rotate": false
       },
+      "Desc": {
+        "type": "Text",
+        "position": "bottom",
+        "color": "rgb(250,220,90)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Nice": {
+        "position": "bottom",
+        "type": "Dotplot",
+        "thickness": 50,
+        "color": "green",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Conc": {
+        "thickness": 40,
+        "position": "top",
+        "type": "Bar",
+        "color": "rgb(131,172,208)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
       "Male": {
-        "type": "Pie",
         "thickness": 50,
         "position": "top",
+        "type": "Pie",
         "color": "rgb(167,206,49)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -287,23 +264,10 @@
         "showBox": true,
         "rotate": false
       },
-      "Ugly": {
-        "color": "black",
-        "position": "bottom",
-        "type": "Dotplot",
-        "thickness": 50,
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
-      "Hot": {
-        "thickness": 50,
-        "type": "StackedPercent",
-        "position": "bottom",
-        "color": "red",
+      "Site": {
+        "type": "Default",
+        "position": "top",
+        "color": "rgb(105,150,150)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showLegend": true,
@@ -322,9 +286,46 @@
         "showName": true,
         "showBox": true,
         "rotate": false
+      },
+      "Drug": {
+        "type": "Increase",
+        "position": "top",
+        "thickness": 30,
+        "color": "rgb(254,41,108)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Female": {
+        "type": "Pie",
+        "position": "top",
+        "thickness": 50,
+        "color": "rgb(248,204,3)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Cold": {
+        "thickness": 50,
+        "type": "StackedPercent",
+        "position": "bottom",
+        "color": "blue",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
       }
     },
-    "varOverlays": ["Drug","-","Male","Female","-","Site","-","Conc","-","Desc","-","Even","Odd","-","-","Nice","Ugly","-","-","Cold","Hot"]
+    "varOverlays": ["Drug","-","Male","Female","-","Site","-","Conc","-","Desc","-","Even","Odd","-","-","Nice","Ugly","-","-","Cold","Hot"],
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -332,33 +333,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [600,600,null,null,null,null],
       {},
-      1634081396098
+      1666761478470
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTM4NTIzMzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-12.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -370,6 +370,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

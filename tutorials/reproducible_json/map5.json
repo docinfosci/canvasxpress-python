@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "map5-1",
   "data": {
     "y": {
@@ -71,14 +71,15 @@
     "decorations": {
       "pie": [
         {
-          "smps": ["Democrat","Republican","Libertarian","Other"],
           "size": 2.5,
+          "smps": ["Democrat","Republican","Libertarian","Other"],
           "colors": ["blue","red","yellow","green"],
           "idxs": [1,2,3,4]
         }
       ]
     },
     "graphType": "Map",
+    "legendColumns": 4,
     "legendOrder": {
       "Winner": ["Republican","Democrat"]
     },
@@ -88,6 +89,7 @@
     "theme": "wallStreetJournal",
     "title": "2000 Presidential Elections",
     "topoJSON": "https://www.canvasxpress.org/data/usa-albers-states.json",
+    "graphOrientation": "horizontal",
     "remoteTransitionEffect": "none",
     "skipRender": false
   },
@@ -97,33 +99,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [760,613,true]
+      [805,605,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [595,592,null,null,null,null],
       {},
-      1634082299930
+      1666744959573
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MjI3MTk4MTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/map-5.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": true,
     "isReveal": false,
     "isZoom": false,
@@ -135,6 +136,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

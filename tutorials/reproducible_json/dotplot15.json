@@ -1,0 +1,96 @@
+{
+  "version": 40.6,
+  "renderTo": "dotplot15",
+  "data": {
+    "y": {
+      "vars": ["Unit"],
+      "smps": ["2021-12-31","2021-03-01","2021-03-31","2021-05-30","2021-06-29","2021-07-29","2021-10-27","2021-11-26","2021-03-26","2021-05-25","2021-09-22","2021-10-22","2021-11-21","2021-12-21","2021-03-21","2021-04-20"],
+      "data": [
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+      ]
+    },
+    "x": {
+      "Task": ["Initial Meeting","Needs Assessment","Research","Site Outline","Site Map","Wireframes","Wireframes Review","Content ","Landing Page Artwork","Inner Pages Artwork","Coding","Validation","Content Population","Cross Platform & Browser Testing","Refinement","Launch & Search Engine Submission"],
+      "Color": ["A","B","B","C","C","C","D","D","E","E","F","F","F","F","G","G"],
+      "Size": [1,2,3,1,2,3,2,3,5,4,5,2,3,2,1,2]
+    }
+  },
+  "config": {
+    "colorBy": "Color",
+    "colorScheme": "LastAirBenderWater",
+    "decorations": {
+      "line": [
+        {
+          "value": 1,
+          "width": 1,
+          "align": "left",
+          "color": "rgba(0,0,0,0.5)"
+        }
+      ]
+    },
+    "graphOrientation": "vertical",
+    "graphType": "Dotplot",
+    "isGraphTime": true,
+    "marginLeft": 70,
+    "marginRight": 70,
+    "objectColorTransparency": 0.6,
+    "showLegend": false,
+    "sizeBy": "Size",
+    "sizes": [2,15,25,35,70,150],
+    "smpLabelInterval": 100,
+    "smpLabelRotate": 90,
+    "timeFormat": "isoDate",
+    "xAxis2Show": false,
+    "xAxisShow": false,
+    "xAxisTicksMajorShow": false,
+    "xAxisTicksMinorShow": false
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [996,246,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1666757280621
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
+    "siteSrc": false,
+    "href": "https://canvasxpress.org/examples/dotplot-15.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
+    "command": "&#8984;",
+    "control": "Ctrl",
+    "shift": "Shift",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
+  }
+}

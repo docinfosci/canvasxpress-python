@@ -1,0 +1,74 @@
+{
+  "version": 40.6,
+  "renderTo": "meter7",
+  "data": {
+    "y": {
+      "vars": ["Performance","Revenue"],
+      "smps": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      "data": [
+        [85,60,29,10,90,98,93,65,89,34,82,67],
+        [1000,5000,4000,2000,7000,9000,8000,3000,2000,6000,5000,10000]
+      ]
+    },
+    "x": {
+      "Quarter": ["Q1","Q1","Q1","Q1","Q1","Q1","Q2","Q2","Q2","Q2","Q2","Q2"]
+    },
+    "z": {
+      "type": ["Performance","Revenue"]
+    }
+  },
+  "config": {
+    "graphType": "Meter",
+    "meterType": "number",
+    "meterVar": "Revenue",
+    "graphOrientation": "horizontal"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [609,609,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1666746256615
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
+    "siteSrc": false,
+    "href": "https://canvasxpress.org/examples/meter-7.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
+    "command": "&#8984;",
+    "control": "Ctrl",
+    "shift": "Shift",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
+  }
+}

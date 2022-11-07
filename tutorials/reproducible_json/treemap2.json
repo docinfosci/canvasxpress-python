@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "treemap2",
   "data": {
     "z": {
@@ -31,7 +31,8 @@
   },
   "config": {
     "graphType": "Treemap",
-    "theme": "CanvasXpress"
+    "theme": "CanvasXpress",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -39,13 +40,13 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634085153867
+      1666763468463
     ],
     [
       "userEventsClick",
@@ -53,9 +54,9 @@
         {
           "y": {
             "vars": ["V2"],
-            "smps": ["S5"],
+            "smps": ["S1"],
             "data": [
-              [55]
+              [95]
             ]
           },
           "z": {
@@ -67,20 +68,34 @@
             "Annt6": [20]
           },
           "x": {
-            "Factor1": ["Lev:2"],
+            "Factor1": ["Lev:1"],
             "Factor2": ["Lev:A"],
-            "Factor3": ["Lev:Z"],
-            "Factor4": [25],
-            "Factor5": [40],
-            "Factor6": [50]
-          }
+            "Factor3": ["Lev:X"],
+            "Factor4": [5],
+            "Factor5": [8],
+            "Factor6": [10]
+          },
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rectangle",88.45285714285714,144.2421686746988,156.50571428571428,238.0843373493976,"rgba(215,48,39,1)","#000000","closed",false,false,null,null],
+              "idx": [1,0],
+              "id": "1:0",
+              "n": 13,
+              "group": 13,
+              "area": ["rect",10.200000000000003,25.200000000000003,166.7057142857143,263.2843373493976],
+              "layout": false,
+              "type": "Data",
+              "baseline": 3.6
+            }
+          ]
         },
         {
           "srcElement": "treemap2-events",
           "target": "treemap2-events",
           "ac": {
-            "x": 30.015625,
-            "y": 569.25
+            "x": 75.015625,
+            "y": 74.609375
           },
           "altKey": false,
           "bubbles": true,
@@ -88,59 +103,58 @@
           "buttons": 0,
           "cancelBubble": false,
           "cancelable": true,
-          "clientX": 501,
-          "clientY": 935,
+          "clientX": 548,
+          "clientY": 520,
           "ctrlKey": false,
           "defaultPrevented": false,
           "detail": 1,
           "eventPhase": 0,
           "isTrusted": true,
-          "layerX": 31,
-          "layerY": 570,
+          "layerX": 75,
+          "layerY": 74,
           "metaKey": false,
           "movementX": 0,
           "movementY": 0,
-          "offsetX": 30,
-          "offsetY": 569,
-          "pageX": 501,
-          "pageY": 935,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 581,
           "returnValue": true,
-          "screenX": 501,
-          "screenY": 935,
+          "screenX": 548,
+          "screenY": 520,
           "shiftKey": false,
-          "timeStamp": 22247.300000000745,
+          "timeStamp": 94578.80000000447,
           "type": "click",
           "which": 1,
-          "x": 501,
-          "y": 935,
+          "x": 548,
+          "y": 520,
           "xMouseDown": false,
           "yMouseDown": false
         },
         false,
-        [1,4]
+        [1,0]
       ],
       {},
-      1634085154893
+      1666763469971
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NTEzMzM1Nzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/treemap-2.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -152,6 +166,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

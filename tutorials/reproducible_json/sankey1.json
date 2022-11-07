@@ -1,5 +1,5 @@
 {
-  "version": 36.5,
+  "version": 40.6,
   "renderTo": "sankey1",
   "data": {
     "y": {
@@ -30,27 +30,121 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
+    ],
+    [
+      "setDimensions",
+      [603,600,null,null,null,null],
+      {},
+      1666754230855
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "y": {
+            "vars": ["Weight"],
+            "smps": ["smp1"],
+            "data": [
+              [5]
+            ]
+          },
+          "z": {},
+          "x": {
+            "Source": ["A"],
+            "Target": ["X"],
+            "Weight": [1]
+          },
+          "render": [
+            {
+              "func": "drawShape",
+              "params": [
+                "bezier",
+                [41.6,299.70000000000005,299.70000000000005,557.8000000000001],
+                [54.20000000000002,54.20000000000002,50.60000000000012,50.60000000000012],
+                536.2,
+                79.96969696969697,
+                "rgba(150,150,150,0.5)",
+                "#000000",
+                false,
+                null
+              ],
+              "idx": [0,0],
+              "id": "0:0",
+              "n": 8,
+              "group": 8,
+              "area": ["poly",41.6,54.20000000000002,194.846875,53.63750000000003,299.70000000000005,52.40000000000007,404.5531250000001,51.16250000000011,557.8000000000001,50.60000000000012,557.8000000000001,130.56969696969708,404.5531250000001,131.13219696969708,299.70000000000005,132.36969696969703,194.846875,133.607196969697,41.6,134.169696969697],
+              "layout": false,
+              "type": "Data",
+              "baseline": [3.6,314.5,536.2,79.96969696969697]
+            }
+          ]
+        },
+        {
+          "srcElement": "sankey1-events",
+          "target": "sankey1-events",
+          "ac": {
+            "x": 75.015625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 548,
+          "clientY": 520,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 75,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 557,
+          "returnValue": true,
+          "screenX": 548,
+          "screenY": 520,
+          "shiftKey": false,
+          "timeStamp": 110541.39999999851,
+          "type": "click",
+          "which": 1,
+          "x": 548,
+          "y": 520,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [0,0]
+      ],
+      {},
+      1666754232362
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.5,
-    "buildDate": "10-12-2021",
-    "client": "MTYzNDA5Mjg4MDAzMjo6MTo6MzYuNTo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/sankey-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -62,6 +156,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }
