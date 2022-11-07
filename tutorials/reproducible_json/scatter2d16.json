@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "scatter2d16",
   "data": {
     "y": {
@@ -16485,39 +16485,36 @@
       "line": [
         {
           "y": 7,
-          "color": "rgb(255,0,0)",
-          "width": 1
+          "width": 1,
+          "color": "rgb(255,0,0)"
         },
         {
-          "y": 5,
           "color": "rgb(0,0,255)",
+          "y": 5,
           "width": 1
         }
       ],
       "marker": [
         {
-          "variable": ["rs4064"],
-          "align": "left",
-          "offsetY": 0,
-          "offsetX": 5,
-          "sample": ["Chr","Pos","-log10(pValue)"],
-          "rotate": -45,
           "text": "rs4064",
+          "rotate": -45,
+          "offsetY": 0,
+          "align": "left",
+          "sample": ["Chr","Pos","-log10(pValue)"],
+          "offsetX": 5,
           "type": "text",
+          "variable": "rs4064",
+          "textLength": 54,
+          "textHeight": 15,
+          "render": 1569,
           "id": "scatter2d16-marker-0",
-          "vi": [4063],
-          "si": [0,1,2],
-          "vi2": false,
-          "si2": false,
-          "b": [76.59433593749999,47.00000000000001,510.86337890625003,497.8],
-          "len": 45.8642578125,
-          "width": 15,
-          "tx": 207.8253407881282,
-          "ty": 359.6086445291236,
-          "tx2": false,
-          "ty2": false,
-          "curX": 207.8253407881282,
-          "curY": 359.6086445291236
+          "color": "rgb(0,0,0)",
+          "baseline": "middle",
+          "width": 1,
+          "curX": 190,
+          "curY": 364,
+          "tx": 190,
+          "ty": 364
         }
       ]
     },
@@ -16528,7 +16525,8 @@
     "manhattanMarkerPosition": "Pos",
     "scatterOutlineThreshold": 5000,
     "scatterType": "manhattan",
-    "title": "Manhattan Plot"
+    "title": "Manhattan Plot",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -16536,33 +16534,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [600,400,true]
+      [596,396,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634084144239
+      1666755526698
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NDEzMzA1Nzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-16.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -16574,6 +16571,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

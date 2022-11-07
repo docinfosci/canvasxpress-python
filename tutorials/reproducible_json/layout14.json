@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "layout14",
   "data": {
     "y": {
@@ -26,27 +26,27 @@
     "layoutAdjust": true,
     "layoutConfig": [
       {
-        "xAxisTitle": "Duration of Treatment",
-        "xAxis2": ["Discontinued"],
-        "showDataValues": true,
-        "graphType": "BarLine",
         "axisCoordinate": true,
-        "xAxis": ["Duration"]
+        "showDataValues": true,
+        "xAxis2": ["Discontinued"],
+        "xAxis": ["Duration"],
+        "graphType": "BarLine",
+        "xAxisTitle": "Duration of Treatment"
       },
       {
-        "xAxisTitle": "Change from Baseline (%)",
+        "showLegendTitle": false,
+        "colorBy": "Drug",
+        "legendInside": true,
         "showLegend": true,
         "legendColumns": 5,
-        "legendPosition": "bottomLeft",
-        "legendInside": true,
-        "colorBy": "Drug",
-        "showLegendTitle": false
+        "xAxisTitle": "Change from Baseline (%)",
+        "legendPosition": "bottomLeft"
       },
       {
         "barLollipopOpen": true,
-        "xAxisTitle": "Baseline (mm)",
+        "barLollipopFactor": 1,
         "barType": "lollipop",
-        "barLollipopFactor": 1
+        "xAxisTitle": "Baseline (mm)"
       }
     ],
     "layoutLabelShow": false,
@@ -62,7 +62,7 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "segregate",
@@ -73,33 +73,32 @@
         null
       ],
       {},
-      1634081900265
+      1666764913672
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634081910775
+      1666764926293
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTkwMDIwNDo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/layout-14.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -111,6 +110,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

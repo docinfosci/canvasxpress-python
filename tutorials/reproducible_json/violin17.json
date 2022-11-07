@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "violin17",
   "data": {
     "y": {
@@ -32,7 +32,7 @@
     "guides": "solid",
     "guidesColor": "white",
     "jitter": false,
-    "legendScaleFontFactor": 1.8,
+    "legendTextScaleFontFactor": 1.8,
     "segregateSamplesBy": ["supp"],
     "showBoxplotIfViolin": true,
     "showBoxplotOriginalData": true,
@@ -46,8 +46,8 @@
     "stringSampleFactors": ["dose","order"],
     "title": "The Effect of Vitamin C on Tooth Growth in Guinea Pigs",
     "xAxis2Show": false,
-    "xAxisMinorTicks": false,
     "xAxisTickColor": "white",
+    "xAxisTicksMinorShow": false,
     "xAxisTitle": "len"
   },
   "events": false,
@@ -56,47 +56,46 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "switchNumericToString",
       ["order",true],
       {},
-      1634085546270,
+      1666765286056,
       true
     ],
     [
       "switchNumericToString",
       ["dose",true],
       {},
-      1634085546270,
+      1666765286058,
       true
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634085557434
+      1666765301661
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NTU0NjIzMzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/violin-17.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -108,6 +107,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

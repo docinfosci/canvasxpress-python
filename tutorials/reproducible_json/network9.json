@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "network9-1",
   "data": {
     "nodes": [
@@ -129,19 +129,19 @@
         "Exp2": 9,
         "Exp3": 9,
         "Exp4": 7,
-        "Exp8": {
-          "CL3": 7,
-          "CL1": 2,
-          "CL2": 14
-        },
-        "Exp5": -3,
         "Exp9": {
           "CL2": 1,
-          "CL3": 5,
-          "CL1": 32
+          "CL1": 32,
+          "CL3": 5
+        },
+        "Exp8": {
+          "CL2": 14,
+          "CL1": 2,
+          "CL3": 7
         },
         "Exp7": "H",
-        "Exp6": 4
+        "Exp6": 4,
+        "Exp5": -3
       },
       {
         "id": "3",
@@ -165,17 +165,17 @@
         "Exp2": 9,
         "Exp3": 10,
         "Exp4": 2,
-        "Exp6": 15,
         "Exp7": "L",
-        "Exp9": {
-          "CL1": 45,
-          "CL2": 4
-        },
+        "Exp6": 15,
         "Exp5": -1,
+        "Exp9": {
+          "CL2": 4,
+          "CL1": 45
+        },
         "Exp8": {
-          "CL2": 40,
+          "CL3": 22,
           "CL1": 2,
-          "CL3": 22
+          "CL2": 40
         }
       },
       {
@@ -200,14 +200,14 @@
         "Exp2": 6,
         "Exp3": 1,
         "Exp4": 7,
+        "Exp7": "H",
         "Exp5": 5,
+        "Exp6": 40,
         "Exp8": {
           "CL3": 15,
           "CL1": 32,
           "CL2": 4
         },
-        "Exp6": 40,
-        "Exp7": "H",
         "Exp9": {
           "CL2": 4,
           "CL1": 52
@@ -291,19 +291,19 @@
         "Exp1": 3,
         "Exp2": 8,
         "Exp4": 1,
+        "Exp6": 24,
+        "Exp5": 10,
+        "Exp7": "H",
         "Exp9": {
           "CL2": 44,
           "CL1": 21,
           "CL3": 9
         },
-        "Exp7": "H",
-        "Exp6": 24,
         "Exp8": {
-          "CL2": 4,
+          "CL3": 1,
           "CL1": 12,
-          "CL3": 1
-        },
-        "Exp5": 10
+          "CL2": 4
+        }
       },
       {
         "id": "9",
@@ -326,18 +326,18 @@
         "Exp1": -1,
         "Exp2": 1,
         "Exp4": 3,
+        "Exp6": 14,
+        "Exp5": -8,
+        "Exp7": "M",
         "Exp9": {
           "CL1": 12,
           "CL2": 4
         },
-        "Exp7": "M",
-        "Exp6": 14,
         "Exp8": {
-          "CL2": 14,
           "CL3": 32,
-          "CL1": 2
-        },
-        "Exp5": -8
+          "CL1": 2,
+          "CL2": 14
+        }
       },
       {
         "id": "10",
@@ -1928,6 +1928,7 @@
     "networkVendor": "Kegg",
     "appendNetworkData": [],
     "colorNodeBy": "Exp1",
+    "graphOrientation": "horizontal",
     "skipRender": false
   },
   "events": false,
@@ -1936,39 +1937,38 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [605,605,true]
     ],
     [
       "appendNetworkDataFromURL",
       [],
       {},
-      1634082975667
+      1666747935329
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [589,592,null,null,null,null],
       {},
-      1634082985796
+      1666747961505
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4Mjk3NTQ1OTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/network-9.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": true,
     "isReveal": false,
     "isZoom": false,
@@ -1981,6 +1981,9 @@
     "isRViewer": false,
     "isRConsole": false,
     "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true,
     "isRStudio": false
   }
 }

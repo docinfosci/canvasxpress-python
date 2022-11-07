@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "heatmap13",
   "data": {
     "y": {
@@ -52,47 +52,47 @@
     "showVarOverlaysLegend": true,
     "smpDendrogramPosition": "right",
     "smpOverlayProperties": {
-      "Dose": {
-        "color": "blue",
+      "Time": {
+        "type": "Default",
+        "position": "right",
         "showLegend": "true",
+        "scheme": "Greens",
+        "color": "rgb(105,150,150)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
+      "Dose": {
         "position": "left",
-        "thickness": 80,
         "type": "Bar",
+        "thickness": 80,
+        "showLegend": "true",
+        "color": "blue",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
         "showName": true,
         "showBox": true,
         "rotate": false
       },
-      "Drug": {
-        "position": "left",
-        "type": "Increase",
-        "thickness": 30,
-        "scheme": "Lancet",
-        "showLegend": "true",
-        "color": "rgb(254,41,108)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
       "CellType": {
-        "showLegend": "true",
         "scheme": "Matlab",
-        "type": "Default",
         "position": "right",
+        "type": "Default",
+        "showLegend": "true",
         "color": "rgb(248,204,3)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "showName": true,
         "showBox": true,
         "rotate": false
       },
-      "Time": {
+      "Drug": {
+        "type": "Increase",
+        "position": "left",
+        "thickness": 30,
         "showLegend": "true",
-        "scheme": "Greens",
-        "position": "right",
-        "type": "Default",
-        "color": "rgb(105,150,150)",
+        "scheme": "Lancet",
+        "color": "rgb(254,41,108)",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "showName": true,
         "showBox": true,
@@ -102,22 +102,10 @@
     "smpOverlays": ["Drug","-","Dose","CellType","-","Time"],
     "smpTitleLabelPosition": "right",
     "varOverlayProperties": {
-      "GeneClass": {
-        "showLegend": "true",
-        "scheme": "GGPlot",
-        "position": "top",
-        "thickness": 20,
-        "type": "Default",
-        "color": "rgb(167,206,49)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "showName": true,
-        "showBox": true,
-        "rotate": false
-      },
       "ProteinA": {
+        "type": "Line",
         "position": "top",
         "thickness": 45,
-        "type": "Line",
         "color": "green",
         "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
         "scheme": "User",
@@ -125,11 +113,24 @@
         "showName": true,
         "showBox": true,
         "rotate": false
+      },
+      "GeneClass": {
+        "scheme": "GGPlot",
+        "type": "Default",
+        "position": "top",
+        "showLegend": "true",
+        "thickness": 20,
+        "color": "rgb(167,206,49)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "showName": true,
+        "showBox": true,
+        "rotate": false
       }
     },
     "varOverlays": ["ProteinA","-","GeneClass"],
     "varTitleLabelPosition": "bottom",
-    "variablesClustered": true
+    "variablesClustered": true,
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -137,39 +138,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [760,613,true]
+      [809,609,true]
     ],
     [
       "setDimensions",
-      [813,655,null,null,null,null],
+      [600,600,null,null,null,null],
       {},
-      1634081404533
-    ],
-    [
-      "setDimensions",
-      [603,600,null,null,null,null],
-      {},
-      1634081414600
+      1666761507025
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTQwMzcyMjo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-13.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -181,6 +175,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

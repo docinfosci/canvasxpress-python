@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "network6",
   "data": {
     "nodes": [
@@ -21,8 +21,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n3",
@@ -30,8 +36,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n4",
@@ -39,8 +51,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n5",
@@ -48,8 +66,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n6",
@@ -57,8 +81,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n7",
@@ -66,8 +96,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -75,8 +111,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n9",
@@ -84,8 +126,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n11",
@@ -93,8 +141,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n12",
@@ -102,8 +156,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n13",
@@ -111,8 +171,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -120,8 +186,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n18",
@@ -129,8 +201,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n20",
@@ -138,8 +216,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n22",
@@ -147,8 +231,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -156,8 +246,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -199,12 +295,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 15.130590054275665,
         "y": 1.2516018402042701,
         "z": 0,
-        "nodeEdges": 16
+        "nodeEdges": 16,
+        "community": 0,
+        "communityColor": "rgb(254,41,108)"
       },
       {
         "id": "n2",
@@ -224,8 +333,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n3",
@@ -233,8 +348,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n4",
@@ -242,8 +363,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -251,8 +378,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -260,8 +393,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n18",
@@ -269,8 +408,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n20",
@@ -278,8 +423,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n22",
@@ -287,8 +438,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n31",
@@ -296,8 +453,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -339,12 +502,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 9.670733010875834,
         "y": -4.3713034719000445,
         "z": 0,
-        "nodeEdges": 9
+        "nodeEdges": 9,
+        "community": 0,
+        "communityColor": "rgb(254,41,108)"
       },
       {
         "id": "n3",
@@ -364,8 +540,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n3",
@@ -373,8 +555,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n4",
@@ -382,8 +570,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -391,8 +585,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n9",
@@ -400,8 +600,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n10",
@@ -409,8 +615,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -418,8 +630,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n28",
@@ -427,8 +645,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n29",
@@ -436,8 +660,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -445,8 +675,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -488,12 +724,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 0.16982036531072925,
         "y": -0.11883622581174276,
         "z": 0,
-        "nodeEdges": 10
+        "nodeEdges": 10,
+        "community": 1,
+        "communityColor": "rgb(72,126,182)"
       },
       {
         "id": "n4",
@@ -513,8 +762,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n4",
@@ -522,8 +777,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n4",
@@ -531,8 +792,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -540,8 +807,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n13",
@@ -549,8 +822,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -558,8 +837,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -601,12 +886,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 10.673208252036972,
         "y": 2.497551488999632,
         "z": 0,
-        "nodeEdges": 6
+        "nodeEdges": 6,
+        "community": 1,
+        "communityColor": "rgb(72,126,182)"
       },
       {
         "id": "n5",
@@ -626,8 +924,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n7",
@@ -635,8 +939,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n11",
@@ -644,8 +954,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -687,12 +1003,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 26.73523916983783,
         "y": 0.4721426849978682,
         "z": 0,
-        "nodeEdges": 3
+        "nodeEdges": 3,
+        "community": 2,
+        "communityColor": "rgb(167,206,49)"
       },
       {
         "id": "n6",
@@ -712,8 +1041,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n7",
@@ -721,8 +1056,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n11",
@@ -730,8 +1071,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n17",
@@ -739,8 +1086,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -782,12 +1135,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 31.731625887011997,
         "y": 2.8327978755965533,
         "z": 0,
-        "nodeEdges": 4
+        "nodeEdges": 4,
+        "community": 3,
+        "communityColor": "rgb(248,204,3)"
       },
       {
         "id": "n7",
@@ -807,8 +1173,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n7",
@@ -816,8 +1188,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n7",
@@ -825,8 +1203,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n17",
@@ -834,8 +1218,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -877,12 +1267,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 31.339787674851326,
         "y": -1.61841411182431,
         "z": 0,
-        "nodeEdges": 4
+        "nodeEdges": 4,
+        "community": 3,
+        "communityColor": "rgb(248,204,3)"
       },
       {
         "id": "n8",
@@ -902,8 +1305,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -911,8 +1320,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -920,8 +1335,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n8",
@@ -929,8 +1350,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -972,12 +1399,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 9.083294387436414,
         "y": 5.37311062738207,
         "z": 0,
-        "nodeEdges": 4
+        "nodeEdges": 4,
+        "community": 1,
+        "communityColor": "rgb(72,126,182)"
       },
       {
         "id": "n9",
@@ -997,8 +1437,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n9",
@@ -1006,8 +1452,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n31",
@@ -1015,8 +1467,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -1024,8 +1482,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1033,8 +1497,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1076,12 +1546,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -1.2875476333500515,
         "y": -4.473033534131012,
         "z": 0,
-        "nodeEdges": 5
+        "nodeEdges": 5,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n10",
@@ -1101,8 +1584,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1110,8 +1599,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1153,12 +1648,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -6.07228380166962,
         "y": -11.16136322068388,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 1,
+        "communityColor": "rgb(72,126,182)"
       },
       {
         "id": "n11",
@@ -1178,8 +1686,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n11",
@@ -1187,8 +1701,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n11",
@@ -1196,8 +1716,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1239,12 +1765,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 27.242431560448775,
         "y": 5.990472034298288,
         "z": 0,
-        "nodeEdges": 3
+        "nodeEdges": 3,
+        "community": 2,
+        "communityColor": "rgb(167,206,49)"
       },
       {
         "id": "n12",
@@ -1264,8 +1803,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1307,12 +1852,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 23.46183948593248,
         "y": 13.040635025763427,
         "z": 0,
-        "nodeEdges": 1
+        "nodeEdges": 1,
+        "community": 0,
+        "communityColor": "rgb(254,41,108)"
       },
       {
         "id": "n13",
@@ -1332,8 +1890,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n13",
@@ -1341,8 +1905,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1384,12 +1954,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 16.921988138287215,
         "y": 10.288782373263848,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 1,
+        "communityColor": "rgb(72,126,182)"
       },
       {
         "id": "n14",
@@ -1409,8 +1992,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -1418,8 +2007,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -1427,8 +2022,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n14",
@@ -1436,8 +2037,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1445,8 +2052,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1488,12 +2101,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 4.653706892480964,
         "y": -3.9162620951130944,
         "z": 0,
-        "nodeEdges": 5
+        "nodeEdges": 5,
+        "community": 1,
+        "communityColor": "rgb(72,126,182)"
       },
       {
         "id": "n15",
@@ -1513,8 +2139,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1522,8 +2154,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1565,12 +2203,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -23.174152844327374,
         "y": -9.454244829397375,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n16",
@@ -1590,8 +2241,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1599,8 +2256,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1642,12 +2305,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -13.58199858287732,
         "y": -15.211842936365612,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n17",
@@ -1667,8 +2343,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n17",
@@ -1676,8 +2358,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1719,12 +2407,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 41.4959006602292,
         "y": 0.07957672640713453,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 3,
+        "communityColor": "rgb(248,204,3)"
       },
       {
         "id": "n18",
@@ -1744,8 +2445,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n18",
@@ -1753,8 +2460,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1796,12 +2509,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 17.435353879737185,
         "y": -10.161349374817274,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 0,
+        "communityColor": "rgb(254,41,108)"
       },
       {
         "id": "n19",
@@ -1821,8 +2547,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1830,8 +2562,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1873,12 +2611,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -22.414253272376033,
         "y": -5.419539280946507,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n20",
@@ -1898,8 +2649,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n20",
@@ -1907,8 +2664,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1916,8 +2679,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -1959,12 +2728,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 3.880011303959992,
         "y": -0.49313574390039105,
         "z": 0,
-        "nodeEdges": 3
+        "nodeEdges": 3,
+        "community": 0,
+        "communityColor": "rgb(254,41,108)"
       },
       {
         "id": "n21",
@@ -1984,8 +2766,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -1993,8 +2781,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2036,12 +2830,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -20.016928960425794,
         "y": -11.671736899275514,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n22",
@@ -2061,8 +2868,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n22",
@@ -2070,8 +2883,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2113,12 +2932,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": 20.156397304414288,
         "y": -6.485101609263765,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 0,
+        "communityColor": "rgb(254,41,108)"
       },
       {
         "id": "n23",
@@ -2138,8 +2970,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2147,8 +2985,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2190,12 +3034,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -17.814057018991235,
         "y": -14.81506412399225,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n24",
@@ -2215,8 +3072,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n28",
@@ -2224,8 +3087,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n30",
@@ -2233,8 +3102,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -2242,8 +3117,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2251,8 +3132,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2294,12 +3181,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -17.62479831893836,
         "y": 4.730779425983549,
         "z": 0,
-        "nodeEdges": 5
+        "nodeEdges": 5,
+        "community": 5,
+        "communityColor": "rgb(105,150,150)"
       },
       {
         "id": "n25",
@@ -2319,8 +3219,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n28",
@@ -2328,8 +3234,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -2337,8 +3249,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2380,12 +3298,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -10.265853276970612,
         "y": 16.646127910889835,
         "z": 0,
-        "nodeEdges": 3
+        "nodeEdges": 3,
+        "community": 5,
+        "communityColor": "rgb(105,150,150)"
       },
       {
         "id": "n26",
@@ -2405,8 +3336,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n26",
@@ -2414,8 +3351,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -2423,8 +3366,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2466,12 +3415,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -15.175862936212383,
         "y": 14.2622274353206,
         "z": 0,
-        "nodeEdges": 3
+        "nodeEdges": 3,
+        "community": 5,
+        "communityColor": "rgb(105,150,150)"
       },
       {
         "id": "n27",
@@ -2491,8 +3453,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2500,8 +3468,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2543,12 +3517,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -26.915863601530916,
         "y": -0.4975702514008431,
         "z": 0,
-        "nodeEdges": 2
+        "nodeEdges": 2,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n28",
@@ -2568,8 +3555,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n28",
@@ -2577,8 +3570,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n28",
@@ -2586,8 +3585,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2595,8 +3600,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2638,12 +3649,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -10.653475366703287,
         "y": 7.438509420316228,
         "z": 0,
-        "nodeEdges": 4
+        "nodeEdges": 4,
+        "community": 5,
+        "communityColor": "rgb(105,150,150)"
       },
       {
         "id": "n29",
@@ -2663,8 +3687,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -2672,8 +3702,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2681,8 +3717,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2724,12 +3766,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -8.061889782800739,
         "y": 2.646428688194953,
         "z": 0,
-        "nodeEdges": 3
+        "nodeEdges": 3,
+        "community": 5,
+        "communityColor": "rgb(105,150,150)"
       },
       {
         "id": "n30",
@@ -2749,8 +3804,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n30",
@@ -2758,8 +3819,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -2767,8 +3834,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2776,8 +3849,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2819,12 +3898,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -21.522575353950945,
         "y": 0.018335894112710763,
         "z": 0,
-        "nodeEdges": 4
+        "nodeEdges": 4,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n31",
@@ -2844,8 +3936,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n31",
@@ -2853,8 +3951,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -2862,8 +3966,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2871,8 +3981,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -2914,12 +4030,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -2.6511747795110687,
         "y": -8.925206599676338,
         "z": 0,
-        "nodeEdges": 4
+        "nodeEdges": 4,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n32",
@@ -2939,8 +4068,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -2948,8 +4083,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -2957,8 +4098,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n32",
@@ -2966,8 +4113,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -2975,8 +4128,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -2984,8 +4143,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -3027,12 +4192,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -5.1103536679478525,
         "y": 6.054575185839566,
         "z": 0,
-        "nodeEdges": 6
+        "nodeEdges": 6,
+        "community": 5,
+        "communityColor": "rgb(105,150,150)"
       },
       {
         "id": "n33",
@@ -3052,8 +4230,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3061,8 +4245,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3070,8 +4260,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3079,8 +4275,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3088,8 +4290,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3097,8 +4305,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3106,8 +4320,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3115,8 +4335,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3124,8 +4350,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3133,8 +4365,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n33",
@@ -3142,8 +4380,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3151,8 +4395,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -3194,12 +4444,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -13.097621828343813,
         "y": -5.497174356348962,
         "z": 0,
-        "nodeEdges": 12
+        "nodeEdges": 12,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       },
       {
         "id": "n34",
@@ -3219,8 +4482,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3228,8 +4497,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3237,8 +4512,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3246,8 +4527,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3255,8 +4542,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3264,8 +4557,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3273,8 +4572,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3282,8 +4587,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3291,8 +4602,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3300,8 +4617,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3309,8 +4632,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3318,8 +4647,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3327,8 +4662,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3336,8 +4677,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3345,8 +4692,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3354,8 +4707,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             },
             {
               "id1": "n34",
@@ -3363,8 +4722,14 @@
               "layout": {
                 "length": -1,
                 "weight": 1,
-                "coeff": -1
-              }
+                "coeff": -1,
+                "subnetworks": {
+                  "bias": 0,
+                  "strn": 0,
+                  "dist": 0
+                }
+              },
+              "weight": 1
             }
           ],
           "force": {
@@ -3406,12 +4771,25 @@
             "x": 0,
             "y": 0,
             "z": 0
+          },
+          "subnetworks": {
+            "vx": 0,
+            "vy": 0,
+            "x": 0,
+            "y": 0,
+            "cnt": 0,
+            "str": 0,
+            "strX": 0,
+            "strY": 0,
+            "dis": 0
           }
         },
         "x": -11.897061833199224,
         "y": -3.994203387075588,
         "z": 0,
-        "nodeEdges": 17
+        "nodeEdges": 17,
+        "community": 4,
+        "communityColor": "rgb(255,140,2)"
       }
     ],
     "edges": [
@@ -3770,6 +5148,7 @@
     "graphType": "Network",
     "showNetworkCommunities": true,
     "title": "Zachary's famous Karate Club",
+    "graphOrientation": "horizontal",
     "calculateLayout": false
   },
   "events": false,
@@ -3778,33 +5157,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [593,596,null,null,null,null],
       {},
-      1634082895896
+      1666747217881
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4Mjg4NDk1Njo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/network-6.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -3816,6 +5194,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

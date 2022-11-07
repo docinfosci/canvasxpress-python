@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "facet2",
   "data": {
     "z": {
@@ -43,7 +43,7 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "segregate",
@@ -54,7 +54,7 @@
         null
       ],
       {},
-      1634080836025
+      1666757897259
     ],
     [
       "segregate",
@@ -65,33 +65,121 @@
         null
       ],
       {},
-      1634080836033
+      1666757897340
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634080846539
+      1666757987020
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "y": {
+            "vars": ["V3"],
+            "smps": ["S1"],
+            "data": [
+              [25]
+            ]
+          },
+          "z": {
+            "Annt1": ["Desc:3"],
+            "Annt2": ["Desc:A"],
+            "Annt3": ["Desc:Y"],
+            "Annt4": [15],
+            "Annt5": [24],
+            "Annt6": [30]
+          },
+          "x": {
+            "Factor1": ["Lev:1"],
+            "Factor2": ["Lev:A"],
+            "Factor3": ["Lev:X"],
+            "Factor4": [5],
+            "Factor5": [8],
+            "Factor6": [10]
+          },
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rectangle",67.2,88.66,58.4,29.73,"rgba(171,217,233,1)","#000000","solid",false,false,false],
+              "idx": [2,0],
+              "id": "2:0",
+              "n": 17,
+              "modifier": false,
+              "group": 17,
+              "area": ["rect",38,73.795,96.4,103.52499999999999],
+              "layout": 0,
+              "type": "Data"
+            }
+          ]
+        },
+        {
+          "srcElement": "facet2-events",
+          "target": "facet2-events",
+          "ac": {
+            "x": 75.015625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 548,
+          "clientY": 509,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 75,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 509,
+          "returnValue": true,
+          "screenX": 548,
+          "screenY": 509,
+          "shiftKey": false,
+          "timeStamp": 98401.19999999925,
+          "type": "click",
+          "which": 1,
+          "x": 548,
+          "y": 509,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [2,0]
+      ],
+      {},
+      1666757989344
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MDgzNTk2Mzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/facet-2.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -103,6 +191,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

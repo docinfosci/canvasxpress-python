@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "bar5",
   "data": {
     "x": {
@@ -27,26 +27,25 @@
     "decorations": {
       "marker": [
         {
-          "text": "Species withlowest petalwidth",
-          "sample": ["setosa"],
-          "y": 0.85,
+          "text": "Species with__nl__lowest petal__nl__width",
           "x": 0.4,
-          "variable": ["Petal.Width"],
+          "y": 0.85,
+          "variable": "Petal.Width",
+          "sample": "setosa",
+          "line": [193,496,214.03000000000003,435.41999999999996],
+          "textLength": 95,
+          "textHeight": 55.800000000000004,
+          "line2": [214.03000000000003,407.52,214.03000000000003,463.31999999999994],
+          "render": 85,
           "id": "bar5-marker-0",
-          "vi": [3],
-          "si": [0],
-          "vi2": false,
-          "si2": false,
-          "type": "line",
-          "b": [53.2845703125,43.400000000000006,542.5154296875,462.4],
-          "len": 223.45458984375,
-          "width": 15,
-          "tx": 197.9245703125,
-          "ty": 498.69059999999996,
-          "tx2": false,
-          "ty2": false,
-          "curX": 270.29074218750003,
-          "curY": 436.43999999999994
+          "color": "rgb(0,0,0)",
+          "align": "center",
+          "baseline": "middle",
+          "width": 1,
+          "curX": 266.28000000000003,
+          "curY": 435.41999999999996,
+          "tx": 266.28000000000003,
+          "ty": 435.41999999999996
         }
       ]
     },
@@ -54,6 +53,8 @@
     "graphType": "Bar",
     "groupingFactors": ["Species"],
     "legendColumns": 2,
+    "legendKeyBackgroundBorderColor": "rgba(255,255,255,0)",
+    "legendKeyBackgroundColor": "rgba(255,255,255,0)",
     "legendPosition": "bottom",
     "showTransition": false,
     "smpLabelRotate": 90,
@@ -67,33 +68,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634078986634
+      1666746010604
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3ODk3NjM3MTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/bar-5.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -105,6 +105,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

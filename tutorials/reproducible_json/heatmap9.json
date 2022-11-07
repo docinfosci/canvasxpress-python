@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "heatmap9",
   "data": {
     "z": {
@@ -62,17 +62,17 @@
   "config": {
     "colorKey": {
       "Treatment": "Accent",
-      "Site": "Pastel1",
       "Type": "YlGn",
-      "Sens": ["white","green","rgb(72,126,182)","rgb(167,206,49)","rgb(248,204,3)"]
+      "Sens": ["white","green","rgb(72,126,182)","rgb(167,206,49)","rgb(248,204,3)"],
+      "Site": "Pastel1"
     },
     "colorSpectrum": ["magenta","blue","black","red","gold"],
     "colorSpectrumZeroValue": 0,
     "graphType": "Heatmap",
-    "heatmapIndicatorHeight": 50,
+    "heatmapIndicatorHeight": 80,
     "heatmapIndicatorHistogram": true,
     "heatmapIndicatorPosition": "topLeft",
-    "heatmapIndicatorWidth": 60,
+    "heatmapIndicatorWidth": 120,
     "samplesClustered": true,
     "showTransition": false,
     "smpOverlayProperties": {
@@ -87,10 +87,11 @@
         "showBox": true,
         "rotate": false
       },
-      "Site": {
-        "position": "left",
-        "type": "Default",
-        "color": "rgb(72,126,182)",
+      "Dose": {
+        "thickness": 50,
+        "type": "Dotplot",
+        "position": "right",
+        "color": "rgb(167,206,49)",
         "spectrum": ["rgb(255,0,255)","rgb(0,0,255)","rgb(0,0,0)","rgb(255,0,0)","rgb(255,215,0)"],
         "scheme": "User",
         "showLegend": true,
@@ -98,11 +99,10 @@
         "showBox": true,
         "rotate": false
       },
-      "Dose": {
-        "thickness": 50,
-        "type": "Dotplot",
-        "position": "right",
-        "color": "rgb(167,206,49)",
+      "Site": {
+        "position": "left",
+        "type": "Default",
+        "color": "rgb(72,126,182)",
         "spectrum": ["rgb(255,0,255)","rgb(0,0,255)","rgb(0,0,0)","rgb(255,0,0)","rgb(255,215,0)"],
         "scheme": "User",
         "showLegend": true,
@@ -126,10 +126,10 @@
         "rotate": false
       },
       "Sens": {
-        "type": "Bar",
-        "thickness": 20,
-        "position": "bottom",
         "color": "red",
+        "thickness": 20,
+        "type": "Bar",
+        "position": "bottom",
         "spectrum": ["rgb(255,0,255)","rgb(0,0,255)","rgb(0,0,0)","rgb(255,0,0)","rgb(255,215,0)"],
         "scheme": "User",
         "showLegend": true,
@@ -139,7 +139,8 @@
       }
     },
     "varOverlays": ["Type","Sens"],
-    "variablesClustered": true
+    "variablesClustered": true,
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -147,33 +148,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [600,600,null,null,null,null],
       {},
-      1634081341364
+      1666761411321
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTMzMDU1MDo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-9.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -185,6 +185,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

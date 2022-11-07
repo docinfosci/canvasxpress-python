@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "scatter2d9",
   "data": {
     "y": {
@@ -39,10 +39,10 @@
     "citation": "Velleman, P. F. and Hoaglin, D. C. (1981).Applications, Basics, and Computing of Exploratory Data Analysis. Belmont. CA: Wadsworth, Inc., pp. 127-134.",
     "colors": ["rgba(64,64,64,0.5)"],
     "decorationsBackgroundColor": "rgb(238,238,238)",
-    "decorationsBoxColor": "rgb(0,0,0)",
+    "decorationsBorderColor": "rgb(0,0,0)",
     "decorationsPosition": "bottomRight",
     "graphType": "Scatter2D",
-    "legendBackgroundColor": "rgba(0,0,0,0)",
+    "legendBackgroundColor": "rgba(255,255,255,0)",
     "legendInside": true,
     "plotBox": false,
     "showDecorations": true,
@@ -52,7 +52,8 @@
     "xAxis": ["Mortality"],
     "xAxisTickColor": "rgb(255,255,255)",
     "yAxis": ["Temperature"],
-    "yAxisTickColor": "rgb(255,255,255)"
+    "yAxisTickColor": "rgb(255,255,255)",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -60,39 +61,38 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "addRegressionLine",
       [false,"red",null],
       {},
-      1634084000812
+      1666755295721
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634084011294
+      1666755309329
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NDAwMDc1Mzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-9.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -104,6 +104,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

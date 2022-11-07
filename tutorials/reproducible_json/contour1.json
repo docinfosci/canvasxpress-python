@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "contour1",
   "data": {
     "y": {
@@ -77,7 +77,8 @@
     "showSampleNames": false,
     "showVariableNames": false,
     "subtitle": "datasets - volcano",
-    "title": "Topographic Information on Auckland's Maunga Whau Volcano"
+    "title": "Topographic Information on Auckland's Maunga Whau Volcano",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -85,40 +86,55 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "createContour",
-      [],
+      [null,null],
       {},
-      1634079911567
+      1666751116843
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634079930788
+      1666751208379
     ],
     [
       "userEventsClick",
       [
         {
           "y": {
-            "vars": ["V3"],
-            "smps": ["Smp84"],
+            "vars": ["V8"],
+            "smps": ["Smp2"],
             "data": [
-              [99]
+              [101]
             ]
           },
           "z": {},
-          "x": {}
+          "x": {},
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rect",72.9,73.42,9.46,6.78,"rgba(0,0,0,0)","rgba(0,0,0,0)","solid"],
+              "idx": [7,1],
+              "id": "7:1",
+              "n": 74,
+              "modifier": false,
+              "group": 74,
+              "area": ["rect",68.17,70.03,77.63000000000001,76.81],
+              "layout": false,
+              "type": "Data",
+              "baseline": [7.2,73.42,0,6.78]
+            }
+          ]
         },
         {
           "srcElement": "contour1-events",
           "target": "contour1-events",
           "ac": {
-            "x": 30.015625,
-            "y": 569.25
+            "x": 75.015625,
+            "y": 74.609375
           },
           "altKey": false,
           "bubbles": true,
@@ -126,59 +142,58 @@
           "buttons": 0,
           "cancelBubble": false,
           "cancelable": true,
-          "clientX": 501,
-          "clientY": 911,
+          "clientX": 548,
+          "clientY": 520,
           "ctrlKey": false,
           "defaultPrevented": false,
           "detail": 1,
           "eventPhase": 0,
           "isTrusted": true,
-          "layerX": 31,
-          "layerY": 570,
+          "layerX": 75,
+          "layerY": 74,
           "metaKey": false,
           "movementX": 0,
           "movementY": 0,
-          "offsetX": 30,
-          "offsetY": 569,
-          "pageX": 501,
-          "pageY": 911,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 533,
           "returnValue": true,
-          "screenX": 501,
-          "screenY": 911,
+          "screenX": 548,
+          "screenY": 520,
           "shiftKey": false,
-          "timeStamp": 21232.89999999851,
+          "timeStamp": 103187.20000000298,
           "type": "click",
           "which": 1,
-          "x": 501,
-          "y": 911,
+          "x": 548,
+          "y": 520,
           "xMouseDown": false,
           "yMouseDown": false
         },
         false,
-        [2,83]
+        [7,1]
       ],
       {},
-      1634079931942
+      1666751213023
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3OTkxMTQyMjo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/contour-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -190,6 +205,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

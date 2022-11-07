@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "bar16",
   "data": {
     "y": {
@@ -24,8 +24,8 @@
     "fontName": "Waltograph",
     "fontsExternal": [
       {
-        "name": "Waltograph",
-        "url": "https://www.canvasxpress.org/assets/fonts/waltograph42.otf"
+        "url": "https://www.canvasxpress.org/assets/fonts/waltograph42.otf",
+        "name": "Waltograph"
       }
     ],
     "graphType": "Bar",
@@ -34,7 +34,7 @@
     "marginRight": 50,
     "marginTop": 50,
     "maxTextSize": 80,
-    "objectBorderColor": "rgba(0,0,0,0)",
+    "objectBorderColor": "rgba(255,255,255,0)",
     "showLegend": false,
     "smpLabelFontColor": "rgb(255,255,255)",
     "smpLabelScaleFontFactor": 3,
@@ -43,9 +43,10 @@
     "titleScaleFontFactor": 2.5,
     "widthFactor": 1.1,
     "xAxis2Show": false,
-    "xAxisMajorTicks": false,
-    "xAxisMinorTicks": false,
-    "xAxisShow": false
+    "xAxisShow": false,
+    "xAxisTicksMajorShow": false,
+    "xAxisTicksMinorShow": false,
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -53,33 +54,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634079186005
+      1666746284444
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3OTE3NTg3Njo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/bar-16.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": true,
     "isReveal": false,
     "isZoom": false,
@@ -91,6 +91,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "scatter2d1",
   "data": {
     "y": {
@@ -33,26 +33,25 @@
     "decorations": {
       "marker": [
         {
-          "sample": ["Alcohol","Tobacco"],
-          "text": "Maybe an Outlier?",
-          "variable": ["Northern Ireland"],
-          "x": 0.45,
+          "variable": "Northern Ireland",
           "y": 0.18,
+          "sample": ["Alcohol","Tobacco"],
+          "x": 0.45,
+          "text": "Maybe an Outlier?",
+          "line": [175,92,218.48499999999999,138.57600000000002],
+          "textLength": 138,
+          "textHeight": 15,
+          "line2": [218.48499999999999,131.07600000000002,218.48499999999999,146.07600000000002],
+          "render": 65,
           "id": "scatter2d1-marker-0",
-          "vi": [10],
-          "si": [0,1],
-          "vi2": false,
-          "si2": false,
-          "type": "line",
-          "b": [68.25205078124999,55.60000000000001,517.121923828125,472],
-          "len": 122.5634765625,
-          "width": 15,
-          "tx": 183.16803385416662,
-          "ty": 94.93333333333328,
-          "tx2": false,
-          "ty2": false,
-          "curX": 300.95691650390626,
-          "curY": 140.56
+          "color": "rgb(0,0,0)",
+          "align": "center",
+          "baseline": "middle",
+          "width": 1,
+          "curX": 294.385,
+          "curY": 138.57600000000002,
+          "tx": 294.385,
+          "ty": 138.57600000000002
         }
       ]
     },
@@ -61,7 +60,8 @@
     "theme": "CanvasXpress",
     "title": "Average weekly household spending, in British pounds, on tobacco productsand alcoholic beverages for each of the 11 regions of Great Britain.",
     "xAxis": ["Alcohol"],
-    "yAxis": ["Tobacco"]
+    "yAxis": ["Tobacco"],
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -69,33 +69,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634083868230
+      1666755039017
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4Mzg0ODI5Mzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -107,6 +106,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

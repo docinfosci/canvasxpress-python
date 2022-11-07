@@ -1,0 +1,135 @@
+{
+  "version": 40.6,
+  "renderTo": "genome1",
+  "data": {
+    "tracks": [
+      {
+        "subtype": "DNA",
+        "type": "sequence",
+        "data": [
+          {
+            "id": "Reference Sequence",
+            "fill": "rgb(51,255,255)",
+            "outline": "rgb(0,0,0)",
+            "dir": "right",
+            "offset": 1,
+            "sequence": "TACGTACGTACGTACGTACGTACGTACGT"
+          },
+          {
+            "id": "R1-0000-1234",
+            "fill": "rgb(255,255,51)",
+            "outline": "rgb(0,0,0)",
+            "dir": "right",
+            "offset": 1,
+            "gaps": [
+              [4,2],
+              [8,1]
+            ],
+            "sequence": "TACGCGTAGTACGT"
+          },
+          {
+            "id": "R1-0000-2345",
+            "fill": "rgb(255,255,102)",
+            "outline": "rgb(0,0,0)",
+            "dir": "right",
+            "offset": 6,
+            "gaps": [
+              [3,1],
+              [10,1]
+            ],
+            "sequence": "ACGACGTACGACG"
+          },
+          {
+            "id": "R1-0000-3456",
+            "fill": "rgb(255,51,255)",
+            "outline": "rgb(0,0,0)",
+            "dir": "left",
+            "offsetLeft": "23",
+            "gaps": [
+              [7,2]
+            ],
+            "sequence": "GTACGTATAC",
+            "offset": 12
+          },
+          {
+            "id": "R1-0000-4567",
+            "fill": "rgb(255,102,255)",
+            "outline": "rgb(0,0,0)",
+            "dir": "right",
+            "offset": 15,
+            "gaps": [
+              [5,1]
+            ],
+            "sequence": "CGTACTACGTA"
+          },
+          {
+            "id": "R1-0000-5678",
+            "fill": "rgb(51,255,255)",
+            "outline": "rgb(0,0,0)",
+            "dir": "right",
+            "offset": 18,
+            "gaps": [
+              [7,1]
+            ],
+            "sequence": "ACGTACGACGT"
+          }
+        ]
+      }
+    ]
+  },
+  "config": {
+    "background": "rgb(245,245,245)",
+    "graphType": "Genome",
+    "setMax": 30,
+    "setMin": 0,
+    "graphOrientation": "horizontal"
+  },
+  "events": false,
+  "info": false,
+  "afterRenderInit": false,
+  "afterRender": [
+    [
+      "setDimensions",
+      [609,609,true]
+    ],
+    [
+      "setDimensions",
+      [603,161,null,null,null,null],
+      {},
+      1666760531223
+    ]
+  ],
+  "noValidate": true,
+  "factory": {
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
+    "siteSrc": false,
+    "href": "https://canvasxpress.org/examples/genome-1.html",
+    "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
+  },
+  "system": {
+    "browser": "Chrome",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
+    "command": "&#8984;",
+    "control": "Ctrl",
+    "shift": "Shift",
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isTouchScreen": 0,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": false,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
+  }
+}

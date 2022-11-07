@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "treemap3",
   "data": {
     "y": {
@@ -22,54 +22,46 @@
     "decorations": {
       "marker": [
         {
-          "sample": ["Norway"],
-          "text": "Norway is the countrywith the largest GNIaccording to 2014 census",
-          "x": 0.65,
+          "text": "Norway is the country__nl__with the largest GNI__nl__according to 2014 census",
           "y": 0.7,
-          "baseline": "middle",
+          "sample": "Norway",
           "color": "red",
-          "variable": ["population"],
           "align": "center",
+          "x": 0.65,
+          "variable": "population",
+          "baseline": "middle",
+          "line": [199,478,301.18000000000006,363.53398492462503],
+          "textLength": 197,
+          "textHeight": 55.800000000000004,
+          "line2": [301.18000000000006,335.63398492462505,301.18000000000006,391.433984924625],
+          "render": 70,
           "id": "treemap3-marker-0",
-          "vi": [0],
-          "si": [1],
-          "vi2": false,
-          "si2": false,
-          "type": "line",
-          "b": [55.38662109375,70,492.2267578125,429.5444394403662],
-          "len": 170.947265625,
-          "width": 55.800000000000004,
-          "tx": 180.1846601027899,
-          "ty": 487.06481083531276,
-          "tx2": false,
-          "ty2": false,
-          "curX": 375.334013671875,
-          "curY": 370.6811076082563
+          "width": 1,
+          "curX": 409.5300000000001,
+          "curY": 363.53398492462503,
+          "tx": 409.5300000000001,
+          "ty": 363.53398492462503
         },
         {
-          "sample": ["China"],
-          "text": "China is the country withthe largest populationaccording to 2014 census",
-          "y": 0.1,
-          "x": 0.2,
           "baseline": "middle",
+          "variable": "population",
+          "x": 0.2,
           "color": "red",
-          "variable": ["population"],
           "align": "center",
+          "sample": "China",
+          "y": 0.1,
+          "text": "China is the country with__nl__the largest population__nl__according to 2014 census",
+          "line": [254,206,170.04000000000002,137.261997846375],
+          "textLength": 197,
+          "textHeight": 55.800000000000004,
+          "line2": [71.54000000000002,137.261997846375,268.54,137.261997846375],
+          "render": 87,
           "id": "treemap3-marker-1",
-          "vi": [0],
-          "si": [80],
-          "vi2": false,
-          "si2": false,
-          "type": "line",
-          "b": [55.38662109375,70,492.2267578125,429.5444394403662],
-          "len": 170.947265625,
-          "width": 55.800000000000004,
-          "tx": 231.16162109375,
-          "ty": 210.54947283526724,
-          "tx2": false,
-          "ty2": false,
-          "curX": 153.83197265625,
-          "curY": 112.95444394403663
+          "width": 1,
+          "curX": 170.04000000000002,
+          "curY": 109.361997846375,
+          "tx": 170.04000000000002,
+          "ty": 109.361997846375
         }
       ]
     },
@@ -77,14 +69,14 @@
     "graphType": "Stacked",
     "legendInside": true,
     "legendPosition": "right",
-    "showTransition": true,
+    "objectBorderColor": "rgb(0,0,0)",
     "smpLabelRotate": 45,
     "subtitle": "2014 Census",
     "theme": "CanvasXpress",
     "title": "Country Population colored by Gross National Income",
     "treemapBy": ["ISO3"],
     "widthFactor": 4,
-    "xAxisMinorTicks": false
+    "xAxisTicksMinorShow": false
   },
   "events": false,
   "info": false,
@@ -92,7 +84,7 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "groupSamples",
@@ -106,33 +98,32 @@
         null
       ],
       {},
-      1634085162015
+      1666763486930
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634085171383
+      1666763570464
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NTE2MDg5OTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/treemap-3.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -144,6 +135,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "stackedpercent2",
   "data": {
     "z": {
@@ -47,33 +47,122 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634084489979
+      1666758970524
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "y": {
+            "vars": ["V2"],
+            "smps": ["S1"],
+            "data": [
+              [95]
+            ]
+          },
+          "z": {
+            "Annt1": ["Desc:2"],
+            "Annt2": ["Desc:B"],
+            "Annt3": ["Desc:X"],
+            "Annt4": [10],
+            "Annt5": [16],
+            "Annt6": [20]
+          },
+          "x": {
+            "Factor1": ["Lev:1"],
+            "Factor2": ["Lev:A"],
+            "Factor3": ["Lev:X"],
+            "Factor4": [5],
+            "Factor5": [8],
+            "Factor6": [10]
+          },
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rectangle",91.78999999999999,190.39999999999998,40.19,266,"rgba(253,174,97,1)","#000000","solid"],
+              "idx": [1,0],
+              "id": "1:0",
+              "n": 26,
+              "modifier": false,
+              "group": 26,
+              "area": ["rect",71.695,57.39999999999998,111.88499999999999,323.4],
+              "layout": false,
+              "type": "Data",
+              "baseline": 547.4
+            }
+          ]
+        },
+        {
+          "srcElement": "stackedpercent2-events",
+          "target": "stackedpercent2-events",
+          "ac": {
+            "x": 75.015625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 548,
+          "clientY": 520,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 75,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 533,
+          "returnValue": true,
+          "screenX": 548,
+          "screenY": 520,
+          "shiftKey": false,
+          "timeStamp": 84206.09999999776,
+          "type": "click",
+          "which": 1,
+          "x": 548,
+          "y": 520,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [1,0]
+      ],
+      {},
+      1666758971502
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NDQ3OTYzNjo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/stackedpercent-2.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -85,6 +174,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "contour4",
   "data": {
     "y": {
@@ -7,37 +7,39 @@
       "vars": ["v1","v2","v3","v4","v5","v6","v7","v8","v9","v10","v11","v12","v13","v14","v15","v16","v17","v18","v19","v20","v21","v22","v23","v24","v25"],
       "data": [
         [-9,0,10],
-        [-9,1,10.625],
-        [-9,4,12.5],
-        [-9,5,15.625],
-        [-9,7,20],
-        [-6,0,5.625],
+        [-9,1,5.625],
+        [-9,4,2.5],
+        [-9,5,0.625],
+        [-9,7,0],
+        [-6,0,10.625],
         [-6,1,6.25],
-        [-6,4,8.125],
-        [-6,5,11.25],
-        [-6,7,15.625],
-        [-5,0,2.5],
-        [-5,1,3.125],
+        [-6,4,3.125],
+        [-6,5,1.25],
+        [-6,7,0.625],
+        [-5,0,12.5],
+        [-5,1,8.125],
         [-5,4,5],
-        [-5,5,8.125],
-        [-5,7,12.5],
-        [-3,0,0.625],
-        [-3,1,1.25],
-        [-3,4,3.125],
+        [-5,5,3.125],
+        [-5,7,2.5],
+        [-3,0,15.625],
+        [-3,1,11.25],
+        [-3,4,8.125],
         [-3,5,6.25],
-        [-3,7,10.625],
-        [-1,0,0],
-        [-1,1,0.625],
-        [-1,4,2.5],
-        [-1,5,6.625],
+        [-3,7,5.625],
+        [-1,0,20],
+        [-1,1,15.625],
+        [-1,4,12.5],
+        [-1,5,10.625],
         [-1,7,10]
       ]
     }
   },
   "config": {
-    "contourType": "color",
+    "contourFilled": true,
+    "contourType": "normal",
     "graphType": "ScatterBubble2D",
-    "title": "Custom Contour Plot"
+    "title": "Custom Contour Plot",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -45,39 +47,38 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "createContour",
-      [],
+      [null,null],
       {},
-      1634079990887
+      1666751440857
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634080001383
+      1666751455658
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3OTk5MDcxMjo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/contour-4.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -89,6 +90,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

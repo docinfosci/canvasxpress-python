@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "gantt1",
   "data": {
     "y": {
@@ -16,7 +16,8 @@
     "ganttEnd": "End",
     "ganttStart": "Start",
     "graphType": "Gantt",
-    "theme": "CanvasXpress"
+    "theme": "CanvasXpress",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -24,33 +25,108 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634081079225
+      1666759666376
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "y": {
+            "vars": ["Start","End"],
+            "smps": ["S01"],
+            "data": [
+              [20140221],
+              [20140520]
+            ]
+          },
+          "z": {},
+          "x": {},
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["roundrect",109.398458,55.99999999999999,68.92837200000001,73.19999999999999,false,"#000000","open"],
+              "idx": [0,0,1],
+              "id": "0:0:1",
+              "n": 17,
+              "group": "16",
+              "area": ["rect",74.93427199999999,19.4,143.86264400000002,92.6],
+              "layout": false,
+              "type": "Data",
+              "baseline": 48.00000000000001
+            }
+          ]
+        },
+        {
+          "srcElement": "gantt1-events",
+          "target": "gantt1-events",
+          "ac": {
+            "x": 75.015625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 548,
+          "clientY": 520,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 75,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 581,
+          "returnValue": true,
+          "screenX": 548,
+          "screenY": 520,
+          "shiftKey": false,
+          "timeStamp": 96322.39999999851,
+          "type": "click",
+          "which": 1,
+          "x": 548,
+          "y": 520,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [0,0,1]
+      ],
+      {},
+      1666759667802
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTA2ODcxNTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/gantt-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -62,6 +138,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

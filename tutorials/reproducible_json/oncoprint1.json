@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "oncoprint1",
   "data": {
     "y": {
@@ -65,7 +65,9 @@
     "graphType": "Heatmap",
     "oncoprintCNA": "data2",
     "oncoprintMUT": "data3",
-    "showTransition": false
+    "overlaysThickness": 100,
+    "showTransition": false,
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -73,33 +75,131 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [696,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634083127429
+      1666749428547
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "y": {
+            "vars": ["S5"],
+            "smps": ["V2"],
+            "data": [
+              [6.1]
+            ]
+          },
+          "z": {
+            "Factor": ["Lev:1"],
+            "": [0],
+            "Amplification": [2],
+            "Deletion": [0],
+            "Missence": [0],
+            "Nonsense": [0],
+            "Truncating": [1],
+            "Altered-Vars": [2],
+            "% Altered-Vars": ["66.7%"]
+          },
+          "x": {
+            "Annt1": ["Desc:2"],
+            "Annt2": [34],
+            "Annt3": [14],
+            "Annt4": [14],
+            "Annt5": [9],
+            "": [0],
+            "Amplification": [3],
+            "Deletion": [0],
+            "Missence": [1],
+            "Nonsense": [1],
+            "Truncating": [1],
+            "Altered-Smps": [5],
+            "% Altered-Smps": ["55.6%"]
+          },
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rect",66.7,91.465,51.66,50.559,"#238b45","#238b45","solid"],
+              "idx": [4,1],
+              "id": "4:1",
+              "n": 7,
+              "group": 7,
+              "area": ["rect",40.870000000000005,66.1855,92.53,116.7445],
+              "layout": false,
+              "type": "Data",
+              "baseline": [34.4,91.465,0,151.677]
+            }
+          ]
+        },
+        {
+          "srcElement": "oncoprint1-events",
+          "target": "oncoprint1-events",
+          "ac": {
+            "x": 74.515625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 504,
+          "clientY": 520,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 74,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 504,
+          "pageY": 533,
+          "returnValue": true,
+          "screenX": 504,
+          "screenY": 520,
+          "shiftKey": false,
+          "timeStamp": 92495.70000000298,
+          "type": "click",
+          "which": 1,
+          "x": 504,
+          "y": 520,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [4,1]
+      ],
+      {},
+      1666749430047
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MzExNjU2Mzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/oncoprint-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -111,6 +211,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

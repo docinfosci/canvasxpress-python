@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "map2-1",
   "data": {
     "y": {
@@ -221,6 +221,7 @@
     "theme": "solarized",
     "title": "CO2 Emmisions During 2018",
     "topoJSON": "https://www.canvasxpress.org/data/world.geo.json",
+    "graphOrientation": "horizontal",
     "remoteTransitionEffect": "none",
     "skipRender": false
   },
@@ -230,33 +231,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [760,613,true]
+      [805,605,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [595,592,null,null,null,null],
       {},
-      1634082190392
+      1666744609663
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MjE2MjU4Mzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/map-2.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": true,
     "isReveal": false,
     "isZoom": false,
@@ -268,6 +268,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

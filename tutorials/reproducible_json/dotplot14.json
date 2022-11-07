@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "dotplot14",
   "data": {
     "y": {
@@ -22,13 +22,18 @@
     "groupingFactors": ["Award"],
     "jitter": false,
     "legendColumns": 2,
+    "legendKeyBackgroundBorderColor": "rgba(255,255,255,0)",
+    "legendKeyBackgroundColor": "rgba(255,255,255,0)",
     "legendPosition": "top",
-    "legendScaleFontFactor": 2,
+    "legendTextScaleFontFactor": 2,
+    "legendTitleScaleFontFactor": 2,
     "maxSmpStringLen": 50,
+    "objectBorderColor": "rgba(0,0,0)",
     "showLegendTitle": false,
     "smpLabelScaleFontFactor": 2,
     "title": "The Awards of Audrey Hepburn",
-    "xAxisShow": false
+    "xAxisShow": false,
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -36,39 +41,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [760,400,true]
-    ],
-    [
-      "setDimensions",
-      [996,524,null,null,null,null],
-      {},
-      1634080795439
+      [996,396,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634080805415
+      1666757247262
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MDc5NDY4NTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/dotplot-14.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -80,6 +78,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }
