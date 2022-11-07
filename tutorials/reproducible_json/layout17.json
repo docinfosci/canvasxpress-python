@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "layout17",
   "data": {
     "y": {
@@ -28,33 +28,125 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634081966907
+      1666765081546
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "x": {
+            "dataset": ["dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino","dino"]
+          },
+          "w": {
+            "vars": ["x"],
+            "smps": ["dino"],
+            "labs": ["dino"],
+            "glab": [],
+            "mean": [53.3333],
+            "median": [53.3333],
+            "n": [142],
+            "qtl1": [44.1026],
+            "qtl3": [64.74359999999999],
+            "iqr1": [22.3077],
+            "iqr3": [95.3846],
+            "out": [
+              [98.2051]
+            ],
+            "conf": [
+              [50.579498176255775,56.08710182374423]
+            ],
+            "nfac": [1],
+            "grps": [
+              [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141]
+            ],
+            "iqr": [53.3333]
+          },
+          "z": {},
+          "render": [
+            {
+              "func": "drawLine",
+              "params": ["error",75.85000000000001,130.62406498576365,75.85000000000001,72.16389068507115,"rgba(254,41,108,1)",-10.325,"butt"],
+              "idx": [0,0],
+              "id": "0:0:4",
+              "n": 54,
+              "group": "51",
+              "area": ["poly",74,75,81,75,81,71,71,71,71,75,78,75,78,131,74,131],
+              "layout": 0,
+              "type": "Data"
+            }
+          ]
+        },
+        {
+          "srcElement": "layout17-events",
+          "target": "layout17-events",
+          "ac": {
+            "x": 75.015625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 548,
+          "clientY": 485,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 75,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 485,
+          "returnValue": true,
+          "screenX": 548,
+          "screenY": 485,
+          "shiftKey": false,
+          "timeStamp": 91674.39999999851,
+          "type": "click",
+          "which": 1,
+          "x": 548,
+          "y": 485,
+          "xMouseDown": false,
+          "yMouseDown": false
+        },
+        false,
+        [0,0]
+      ],
+      {},
+      1666765083085
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTk1NTg3OTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/layout-17.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -66,6 +158,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

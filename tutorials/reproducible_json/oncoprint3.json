@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "oncoprint3",
   "data": {
     "y": {
@@ -65,9 +65,32 @@
     "graphType": "Heatmap",
     "oncoprintCNA": "data2",
     "oncoprintMUT": "data3",
+    "overlaysThickness": 100,
     "patternBy": "Pattern",
     "patternByData": "data4",
     "smpOverlayProperties": {
+      "Annt3": {
+        "type": "Stacked",
+        "color": "rgb(248,204,3)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false,
+        "position": "left"
+      },
+      "Annt2": {
+        "type": "Bar",
+        "position": "right",
+        "color": "rgb(167,206,49)",
+        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
+        "scheme": "User",
+        "showLegend": true,
+        "showName": true,
+        "showBox": true,
+        "rotate": false
+      },
       "Annt4": {
         "type": "Stacked",
         "color": "rgb(255,140,2)",
@@ -89,28 +112,6 @@
         "showBox": true,
         "rotate": false,
         "position": "left"
-      },
-      "Annt3": {
-        "type": "Stacked",
-        "color": "rgb(248,204,3)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false,
-        "position": "left"
-      },
-      "Annt2": {
-        "position": "right",
-        "type": "Bar",
-        "color": "rgb(167,206,49)",
-        "spectrum": ["rgb(69,117,180)","rgb(145,191,219)","rgb(224,243,248)","rgb(255,255,191)","rgb(254,224,144)","rgb(252,141,89)","rgb(215,48,39)"],
-        "scheme": "User",
-        "showLegend": true,
-        "showName": true,
-        "showBox": true,
-        "rotate": false
       },
       "": {
         "type": "Stacked",
@@ -163,7 +164,7 @@
       "% Altered-Smps": {
         "type": "Text",
         "position": "left",
-        "thickness": 35,
+        "thickness": 39,
         "showName": false,
         "rotate": true
       },
@@ -179,7 +180,8 @@
         "position": "left"
       }
     },
-    "smpOverlays": ["Annt1","-","Annt2","Annt3","Annt4","Annt5"]
+    "smpOverlays": ["Annt1","-","Annt2","Annt3","Annt4","Annt5"],
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -187,33 +189,49 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [696,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634083163596
+      1666749571253
+    ],
+    [
+      "filterUserData",
+      [
+        "filterSmpBy",
+        "Annt1",
+        "exact",
+        ["Desc:2"],
+        false,
+        null
+      ],
+      {
+        "hiddenLegends": {
+          "Property:Annt1:Desc:2:x": true
+        }
+      },
+      1666749572047
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MzE1Mjc1Mzo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/oncoprint-3.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -225,6 +243,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

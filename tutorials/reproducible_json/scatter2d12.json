@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "scatter2d12",
   "data": {
     "z": {
@@ -1027,8 +1027,8 @@
           "width": 2
         },
         {
-          "color": "rgba(0,104,139,0.5)",
           "x": -0.5,
+          "color": "rgba(0,104,139,0.5)",
           "width": 2
         }
       ]
@@ -1041,13 +1041,14 @@
     "showDecorations": true,
     "showTransition": false,
     "sizeBy": "FC",
-    "sizes": [4,14,16,18],
+    "sizes": [4,12,14,15,16,17,18],
     "theme": "CanvasXpress",
     "title": "Volcano plot",
     "xAxis": ["logFC"],
     "xAxisTickColor": "rgb(255,255,255)",
     "yAxis": ["-log-pVal"],
-    "yAxisTickColor": "rgb(255,255,255)"
+    "yAxisTickColor": "rgb(255,255,255)",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -1055,33 +1056,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634084066189
+      1666755416555
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NDA1NTQyNDo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-12.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -1093,6 +1093,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

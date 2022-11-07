@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "scatter2d13",
   "data": {
     "z": {
@@ -1022,21 +1022,21 @@
     "decorations": {
       "line": [
         {
-          "x": 0,
+          "width": 2,
           "color": "rgba(64,64,64,0.5)",
-          "width": 2
+          "x": 0
         },
         {
           "width": 2,
-          "color": "rgba(64,64,64,0.5)",
-          "y": 0
+          "y": 0,
+          "color": "rgba(64,64,64,0.5)"
         },
         {
-          "width": 2,
+          "x": -5,
+          "color": "rgba(255,215,0,0.5)",
           "y2": 5,
           "x2": 5,
-          "color": "rgba(255,215,0,0.5)",
-          "x": -5,
+          "width": 2,
           "y": -5
         }
       ]
@@ -1058,7 +1058,8 @@
     "xAxis": ["logFC-X"],
     "xAxisTickColor": "rgb(255,255,255)",
     "yAxis": ["logFC-Y"],
-    "yAxisTickColor": "rgb(255,255,255)"
+    "yAxisTickColor": "rgb(255,255,255)",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -1066,33 +1067,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634084084800
+      1666755440456
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NDA3Mzc0NTo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/scatter2d-13.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -1104,6 +1104,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

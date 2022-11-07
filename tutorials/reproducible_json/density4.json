@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "density4",
   "data": {
     "y": {
@@ -416,7 +416,8 @@
     "graphType": "Scatter2D",
     "hideHistogram": true,
     "showHistogramDensity": true,
-    "theme": "CanvasXpress"
+    "theme": "CanvasXpress",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -424,40 +425,39 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "createHistogram",
       ["sex",null,null],
       {},
-      1634080166055,
+      1666753068783,
       true
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634080176817
+      1666753082382
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MDE2NjAwMDo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/density-4.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -469,6 +469,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

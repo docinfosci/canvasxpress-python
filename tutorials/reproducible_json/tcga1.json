@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "tcga1",
   "data": {
     "y": {
@@ -26,8 +26,10 @@
     "histogramBins": 150,
     "layoutTopology": "1X3",
     "legendColumns": 3,
+    "legendKeyBackgroundBorderColor": "rgba(255,255,255,0)",
+    "legendKeyBackgroundColor": "rgba(255,255,255,0)",
     "legendPosition": "top",
-    "legendScaleFontFactor": 1.5,
+    "legendTextScaleFontFactor": 1.5,
     "segregateVariablesBy": ["variable"],
     "showBoxplotOriginalData": true,
     "smpLabelRotate": 90,
@@ -40,33 +42,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,470,true]
+      [609,466,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634084687051
+      1666761149576
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4NDY3NjQ3MDo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/tcga-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -78,6 +79,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

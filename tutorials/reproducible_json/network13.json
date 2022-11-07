@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "network13-1",
   "data": {
     "nodes": [
@@ -1851,7 +1851,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.17214533061615292,
-        "hexagonrectangle": [364,165,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "-k079g4l1iie581-l8c00jdg3i691k",
         "id2": "380",
         "EdgeType": -100,
@@ -1866,7 +1866,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [165,154,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "380",
         "id2": "569",
         "EdgeType": -100,
@@ -1886,7 +1886,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [618,564,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "260",
         "id2": "123",
         "EdgeType": -100,
@@ -1904,9 +1904,9 @@
           }
         ],
         "elbows": [
-          [463.43679147945096,783.2776709054007],
-          [553.4367914794509,639.2776709054007],
-          [667.4367914794509,523.2776709054007],
+          [null,null],
+          [null,null],
+          [null,null],
           [818,467.38235294117646]
         ]
       },
@@ -1922,7 +1922,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [411,453,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "192",
         "id2": "103",
         "EdgeType": -100,
@@ -1941,8 +1941,8 @@
         ],
         "elbows": [
           [96,440.52941176470586],
-          [335,489.52941176470586],
-          [548,485.52941176470586],
+          [101,440.52941176470586],
+          [101,440.52941176470586],
           [802.6764705882352,405]
         ]
       },
@@ -1958,7 +1958,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [736,560,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "215",
         "EdgeType": -100,
@@ -1977,8 +1977,8 @@
         ],
         "elbows": [
           [335,762.3529411764706],
-          [500,686.3529411764706],
-          [682,640.3529411764706],
+          [340,762.3529411764706],
+          [340,762.3529411764706],
           [823,516.6764705882352]
         ]
       },
@@ -1991,7 +1991,7 @@
         "organismspecificlink": false,
         "brokenindex": 2,
         "brokencoordinate": 0.3,
-        "hexagonrectangle": [248,61,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "573",
         "id2": "593",
         "EdgeType": -100,
@@ -2010,7 +2010,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.2183495006326078,
-        "hexagonrectangle": [90,252,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "331",
         "id2": "19",
         "EdgeType": -100,
@@ -2035,7 +2035,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [56,83,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "557",
         "id2": "554",
         "EdgeType": -100,
@@ -2056,7 +2056,7 @@
         "weakensindex": 1,
         "weakenscoordinate": 0.580329505009747,
         "angle": 0.5372924831622922,
-        "hexagonrectangle": [659,154,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "181",
         "id2": "2h2gd7cehklf39-193l30i86030093",
         "EdgeType": -100,
@@ -2082,7 +2082,7 @@
         "enhances": false,
         "organismspecificlink": false,
         "angle": 0.24589420415104465,
-        "hexagonrectangle": [364,220,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "59",
         "id2": "-k079g4l1iie581-l8c00jdg3i691k",
         "EdgeType": -100,
@@ -2102,7 +2102,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [225,543,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "291",
         "id2": "192",
         "EdgeType": -100,
@@ -2120,9 +2120,9 @@
           }
         ],
         "elbows": [
-          [237.82706753421746,729.0041791937525],
-          [251.82706753421746,590.0041791937525],
-          [280.82706753421746,529.0041791937525],
+          [null,null],
+          [null,null],
+          [null,null],
           [96,463.38235294117646]
         ]
       },
@@ -2138,7 +2138,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [610,545,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "123",
         "EdgeType": -100,
@@ -2157,8 +2157,8 @@
         ],
         "elbows": [
           [334.3235294117647,758],
-          [490.3235294117647,649],
-          [642.3235294117646,536],
+          [339.3235294117647,758],
+          [339.3235294117647,758],
           [818,464.11764705882354]
         ]
       },
@@ -2173,7 +2173,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 2,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [870,64,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "e2h1cbccgadch3-k55gf20acf0bjd",
         "id2": "ll21akkf69kf7a-164j490l25l4a5f",
         "EdgeType": -100,
@@ -2192,7 +2192,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.23431087733587558,
-        "hexagonrectangle": [358,245,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "39",
         "id2": "59",
         "EdgeType": -100,
@@ -2222,7 +2222,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [165,547,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "301",
         "id2": "202",
         "EdgeType": -100,
@@ -2241,8 +2241,8 @@
         ],
         "elbows": [
           [626,773.7058823529412],
-          [446,698.7058823529412],
-          [281,613.7058823529412],
+          [631,773.7058823529412],
+          [631,773.7058823529412],
           [75,504.61764705882354]
         ]
       },
@@ -2257,7 +2257,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.13913926226335027,
-        "hexagonrectangle": [198,314,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "82",
         "id2": "59",
         "EdgeType": -100,
@@ -2291,7 +2291,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [740,584,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "260",
         "id2": "215",
         "EdgeType": -100,
@@ -2310,8 +2310,8 @@
         ],
         "elbows": [
           [463,791.5294117647059],
-          [587,705.5294117647059],
-          [727,639.5294117647059],
+          [468,791.5294117647059],
+          [468,791.5294117647059],
           [823,525.3823529411765]
         ]
       },
@@ -2328,7 +2328,7 @@
         "weakensindex": 0,
         "weakenscoordinate": 0.9,
         "angle": 0.09522784352319923,
-        "hexagonrectangle": [712,255,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "48dld2hil070af-iac1f814848ib4",
         "id2": "146",
         "EdgeType": -100,
@@ -2361,7 +2361,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.43664276653114176,
-        "hexagonrectangle": [67,396,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "192",
         "id2": "82",
         "EdgeType": -100,
@@ -2395,7 +2395,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [275,506,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "301",
         "id2": "192",
         "EdgeType": -100,
@@ -2414,8 +2414,8 @@
         ],
         "elbows": [
           [626,768.2647058823529],
-          [460,658.2647058823529],
-          [335,500.2647058823529],
+          [631,768.2647058823529],
+          [631,768.2647058823529],
           [96,449.2352941176471]
         ]
       },
@@ -2429,7 +2429,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "angle": -0.3841051102288716,
-        "hexagonrectangle": [363,277,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "29",
         "id2": "19",
         "EdgeType": -100,
@@ -2458,7 +2458,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.6721807335470995,
-        "hexagonrectangle": [872,428,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "215",
         "id2": "103",
         "EdgeType": -100,
@@ -2488,7 +2488,7 @@
         "enhances": false,
         "url": "/cgi/regulation/link_info.cgi?id=-551230750",
         "organismspecificlink": false,
-        "hexagonrectangle": [651,228,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "157",
         "id2": "2h2gd7cehklf39-193l30i86030093",
         "EdgeType": -100,
@@ -2506,7 +2506,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [754,602,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "301",
         "id2": "215",
         "EdgeType": -100,
@@ -2540,7 +2540,7 @@
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
         "angle": 0.43716383669324765,
-        "hexagonrectangle": [439,40,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "59",
         "id2": "ll21akkf69kf7a-164j490l25l4a5f",
         "EdgeType": -100,
@@ -2549,8 +2549,8 @@
         "type": "bezier",
         "elbows": [
           [244.5,260],
-          [360.5,-6],
-          [479.5,74],
+          [249.5,260],
+          [249.5,260],
           [828,38.871287128712865]
         ]
       },
@@ -2565,7 +2565,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.1963064813278861,
-        "hexagonrectangle": [218,350,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "82",
         "id2": "19",
         "EdgeType": -100,
@@ -2599,7 +2599,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [319,330,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "123",
         "id2": "19",
         "EdgeType": -100,
@@ -2618,8 +2618,8 @@
         ],
         "elbows": [
           [818,448.88235294117646],
-          [409,429.88235294117646],
-          [346,512.8823529411765],
+          [823,448.88235294117646],
+          [823,448.88235294117646],
           [328.5,293]
         ]
       },
@@ -2635,7 +2635,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [584,409,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "103",
         "EdgeType": -100,
@@ -2654,8 +2654,8 @@
         ],
         "elbows": [
           [327.55882352941177,758],
-          [431.55882352941177,590],
-          [510.55882352941177,376],
+          [332.55882352941177,758],
+          [332.55882352941177,758],
           [802,393.02941176470586]
         ]
       },
@@ -2671,7 +2671,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [637,407,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "355",
         "id2": "103",
         "EdgeType": -100,
@@ -2690,8 +2690,8 @@
         ],
         "elbows": [
           [753.4705882352941,702],
-          [707.4705882352941,524],
-          [496.47058823529414,400],
+          [758.4705882352941,702],
+          [758.4705882352941,702],
           [802,399.55882352941177]
         ]
       },
@@ -2706,7 +2706,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.47301378427647056,
-        "hexagonrectangle": [19,557,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "368",
         "id2": "202",
         "EdgeType": -100,
@@ -2740,7 +2740,7 @@
         "brokencoordinate": 0.6936333536229398,
         "weakensindex": 0,
         "weakenscoordinate": 0.6936333536229398,
-        "hexagonrectangle": [231,373,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "48dld2hil070af-iac1f814848ib4",
         "id2": "82",
         "EdgeType": -100,
@@ -2759,8 +2759,8 @@
         ],
         "elbows": [
           [681,320.94117647058823],
-          [484,345.94117647058823],
-          [290,378.94117647058823],
+          [686,320.94117647058823],
+          [686,320.94117647058823],
           [128,394.94117647058823]
         ]
       },
@@ -2774,7 +2774,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "angle": -0.4330225110398159,
-        "hexagonrectangle": [875,594,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "314",
         "id2": "215",
         "EdgeType": -100,
@@ -2804,7 +2804,7 @@
         "brokencoordinate": 0.24913417942872385,
         "weakensindex": 0,
         "weakenscoordinate": 0.24913417942872385,
-        "hexagonrectangle": [737,334,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "48dld2hil070af-iac1f814848ib4",
         "id2": "103",
         "EdgeType": -100,
@@ -2838,7 +2838,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [601,528,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "291",
         "id2": "123",
         "EdgeType": -100,
@@ -2856,9 +2856,9 @@
           }
         ],
         "elbows": [
-          [249.7329980319253,741.87664243813],
-          [438.73299803192526,635.87664243813],
-          [616.7329980319253,516.87664243813],
+          [null,null],
+          [null,null],
+          [null,null],
           [818,461.94117647058823]
         ]
       },
@@ -2874,7 +2874,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [583,485,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "368",
         "id2": "123",
         "EdgeType": -100,
@@ -2892,9 +2892,9 @@
           }
         ],
         "elbows": [
-          [109.90925009251956,655.3167724070345],
-          [348.9092500925195,582.3167724070345],
-          [578.9092500925195,474.3167724070345],
+          [null,null],
+          [null,null],
+          [null,null],
           [818,456.5]
         ]
       },
@@ -2908,7 +2908,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "angle": -0.22643917962140603,
-        "hexagonrectangle": [789,246,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "169",
         "id2": "146",
         "EdgeType": -100,
@@ -2937,7 +2937,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.558744691790003,
-        "hexagonrectangle": [2,538,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "368",
         "id2": "192",
         "EdgeType": -100,
@@ -2969,7 +2969,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "angle": -0.21441618861511316,
-        "hexagonrectangle": [845,625,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "314",
         "id2": "225",
         "EdgeType": -100,
@@ -2997,7 +2997,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.4721722247967646,
-        "hexagonrectangle": [734,107,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "146",
         "id2": "ll21akkf69kf7a-164j490l25l4a5f",
         "EdgeType": -100,
@@ -3021,7 +3021,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [293,493,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "355",
         "id2": "192",
         "EdgeType": -100,
@@ -3040,8 +3040,8 @@
         ],
         "elbows": [
           [744,710.7058823529412],
-          [535,622.7058823529412],
-          [347,494.7058823529412],
+          [749,710.7058823529412],
+          [749,710.7058823529412],
           [96,444.88235294117646]
         ]
       },
@@ -3052,7 +3052,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [634,292,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "48dld2hil070af-iac1f814848ib4",
         "id2": "-k079g4l1iie581-l8c00jdg3i691k",
         "EdgeType": -100,
@@ -3067,7 +3067,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [524,61,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "596",
         "id2": "181",
         "EdgeType": -100,
@@ -3093,7 +3093,7 @@
         "weakensindex": 0,
         "weakenscoordinate": 0.3,
         "angle": 0.11832572288490784,
-        "hexagonrectangle": [782,299,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "146",
         "id2": "103",
         "EdgeType": -100,
@@ -3122,7 +3122,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.5388214498270232,
-        "hexagonrectangle": [30,420,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "202",
         "id2": "82",
         "EdgeType": -100,
@@ -3156,7 +3156,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.5044089645930961,
-        "hexagonrectangle": [839,406,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "123",
         "id2": "103",
         "EdgeType": -100,
@@ -3188,7 +3188,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "angle": -0.3307059746301684,
-        "hexagonrectangle": [116,323,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "69",
         "id2": "82",
         "EdgeType": -100,
@@ -3213,7 +3213,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [454,267,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "39",
         "id2": "-k079g4l1iie581-l8c00jdg3i691k",
         "EdgeType": -100,
@@ -3233,7 +3233,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.27536486751763223,
-        "hexagonrectangle": [825,352,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "169",
         "id2": "103",
         "EdgeType": -100,
@@ -3263,7 +3263,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [593,510,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "342",
         "id2": "123",
         "EdgeType": -100,
@@ -3281,9 +3281,9 @@
           }
         ],
         "elbows": [
-          [186.8373705852977,701.7655749657416],
-          [398.83737058529766,612.7655749657416],
-          [599.8373705852977,501.7655749657416],
+          [null,null],
+          [null,null],
+          [null,null],
           [818,459.7647058823529]
         ]
       },
@@ -3299,7 +3299,7 @@
         "brokencoordinate": 0.24007894446252057,
         "weakensindex": 10,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [574,828,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "113",
         "id2": "133",
         "EdgeType": -100,
@@ -3317,31 +3317,31 @@
           }
         ],
         "elbows": [
-          [52.19252432221293,584.8035411105307],
-          [38.19252432221293,593.8035411105307],
-          [23.192524322212932,610.8035411105307],
-          [20.192524322212932,625.8035411105307],
-          [20.192524322212932,782.8035411105307],
-          [27.192524322212932,803.8035411105307],
-          [41.19252432221293,816.8035411105307],
-          [66.19252432221293,829.8035411105307],
-          [85.19252432221293,834.8035411105307],
-          [107.19252432221293,838.8035411105307],
-          [756.1925243222129,838.8035411105307],
-          [814.1925243222129,831.8035411105307],
-          [867.1925243222129,816.8035411105307],
-          [903.1925243222129,786.8035411105307],
-          [918.1925243222129,753.8035411105307],
-          [918.1925243222129,676.8035411105307],
-          [918.1925243222129,594.8035411105307],
-          [918.1925243222129,285.80354111053066],
-          [918.1925243222129,244.80354111053066],
-          [911.1925243222129,215.80354111053066],
-          [903.1925243222129,197.80354111053066],
-          [888.1925243222129,181.80354111053066],
-          [869.1925243222129,169.80354111053066],
-          [845.1925243222129,166.80354111053066],
-          [824.1925243222129,166.80354111053066],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null],
           [796,170.5]
         ]
       },
@@ -3357,7 +3357,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [315,427,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "123",
         "id2": "82",
         "EdgeType": -100,
@@ -3376,8 +3376,8 @@
         ],
         "elbows": [
           [818,451.05882352941177],
-          [312,473.05882352941177],
-          [225,412.05882352941177],
+          [823,451.05882352941177],
+          [823,451.05882352941177],
           [128,400.38235294117646]
         ]
       },
@@ -3392,7 +3392,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 2,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [454,15,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "569",
         "id2": "ll21akkf69kf7a-164j490l25l4a5f",
         "EdgeType": -100,
@@ -3400,9 +3400,9 @@
         "color": "grey",
         "type": "solid",
         "elbows": [
-          [162,208],
-          [133,208],
-          [133,27.48514851485149],
+          [189,208],
+          [189,208],
+          [189,27.48514851485149],
           [828,27.48514851485149]
         ]
       },
@@ -3418,7 +3418,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [781,639,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "260",
         "id2": "225",
         "EdgeType": -100,
@@ -3437,9 +3437,9 @@
         ],
         "elbows": [
           [463,796.9705882352941],
-          [582,720.9705882352941],
-          [778,722.9705882352941],
-          [826.9362952080338,594.843332606986]
+          [468,796.9705882352941],
+          [468,796.9705882352941],
+          [822.2829242379083,582.393719784008]
         ]
       },
       {
@@ -3453,7 +3453,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 0,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [648,61,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "583",
         "id2": "596",
         "EdgeType": -100,
@@ -3473,7 +3473,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [142,582,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "202",
         "EdgeType": -100,
@@ -3492,8 +3492,8 @@
         ],
         "elbows": [
           [312,768.8823529411765],
-          [239,688.8823529411765],
-          [216,634.8823529411765],
+          [317,768.8823529411765],
+          [317,768.8823529411765],
           [75,519.8529411764706]
         ]
       },
@@ -3509,7 +3509,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [626,581,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "301",
         "id2": "123",
         "EdgeType": -100,
@@ -3528,8 +3528,8 @@
         ],
         "elbows": [
           [636.1470588235294,765],
-          [576.1470588235294,581],
-          [701.1470588235294,552],
+          [641.1470588235294,765],
+          [641.1470588235294,765],
           [818,471.7352941176471]
         ]
       },
@@ -3545,7 +3545,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [777,612,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "225",
         "EdgeType": -100,
@@ -3564,9 +3564,9 @@
         ],
         "elbows": [
           [335,767.7941176470588],
-          [500,692.7941176470588],
-          [702,726.7941176470588],
-          [822.6543841964487,588.6249944002524]
+          [340,767.7941176470588],
+          [340,767.7941176470588],
+          [822.1343023905838,579.6618595927063]
         ]
       },
       {
@@ -3581,7 +3581,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [153,563,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "260",
         "id2": "202",
         "EdgeType": -100,
@@ -3599,9 +3599,9 @@
           }
         ],
         "elbows": [
-          [438.3716317040199,794.1379668708994],
-          [321.3716317040199,707.1379668708994],
-          [241.37163170401988,613.1379668708994],
+          [null,null],
+          [null,null],
+          [null,null],
           [75,512.2352941176471]
         ]
       },
@@ -3616,7 +3616,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.4203457636285258,
-        "hexagonrectangle": [870,299,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "123",
         "id2": "133",
         "EdgeType": -100,
@@ -3649,7 +3649,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.16203596390680297,
-        "hexagonrectangle": [401,61,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "593",
         "id2": "181",
         "EdgeType": -100,
@@ -3669,7 +3669,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [206,186,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "5d2ifljl880f7f-12l817kh9dl2c8a",
         "id2": "569",
         "EdgeType": -100,
@@ -3688,7 +3688,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": -0.44790847002214645,
-        "hexagonrectangle": [685,773,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "301",
         "id2": "225",
         "EdgeType": -100,
@@ -3718,7 +3718,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [320,485,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "82",
         "EdgeType": -100,
@@ -3737,8 +3737,8 @@
         ],
         "elbows": [
           [322.1470588235294,758],
-          [374.1470588235294,507],
-          [385.1470588235294,487],
+          [327.1470588235294,758],
+          [327.1470588235294,758],
           [127.3235294117647,408]
         ]
       },
@@ -3754,7 +3754,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [198,543,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "342",
         "id2": "192",
         "EdgeType": -100,
@@ -3772,9 +3772,9 @@
           }
         ],
         "elbows": [
-          [180.64432536712582,687.1125349279581],
-          [226.64432536712582,570.1125349279581],
-          [239.64432536712582,543.1125349279581],
+          [null,null],
+          [null,null],
+          [null,null],
           [96,469.9117647058824]
         ]
       },
@@ -3790,7 +3790,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [563,172,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "103",
         "id2": "19",
         "EdgeType": -100,
@@ -3809,9 +3809,9 @@
         ],
         "elbows": [
           [802.6764705882352,368],
-          [682.6764705882352,93],
-          [448.67647058823525,215],
-          [341.76424423594347,269.41738133366755]
+          [807.6764705882352,368],
+          [807.6764705882352,368],
+          [341.96377270686804,279.098052157987]
         ]
       },
       {
@@ -3826,7 +3826,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [486,314,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "103",
         "id2": "29",
         "EdgeType": -100,
@@ -3845,9 +3845,9 @@
         ],
         "elbows": [
           [802,379.97058823529414],
-          [677,362.97058823529414],
-          [550,312.97058823529414],
-          [403.9857697713345,329.8826318378182]
+          [807,379.97058823529414],
+          [807,379.97058823529414],
+          [403.9862682407978,333.08854764211526]
         ]
       },
       {
@@ -3862,7 +3862,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [243,534,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "270",
         "id2": "192",
         "EdgeType": -100,
@@ -3881,8 +3881,8 @@
         ],
         "elbows": [
           [316.05882352941177,758],
-          [312.05882352941177,625],
-          [282.05882352941177,504],
+          [321.05882352941177,758],
+          [321.05882352941177,758],
           [96,459.02941176470586]
         ]
       },
@@ -3898,7 +3898,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [260,521,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "260",
         "id2": "192",
         "EdgeType": -100,
@@ -3916,9 +3916,9 @@
           }
         ],
         "elbows": [
-          [440.74624185558906,783.2333019586101],
-          [367.74624185558906,636.2333019586101],
-          [300.74624185558906,496.2333019586101],
+          [null,null],
+          [null,null],
+          [null,null],
           [96,453.5882352941176]
         ]
       },
@@ -3934,7 +3934,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [128,595,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "291",
         "id2": "202",
         "EdgeType": -100,
@@ -3952,9 +3952,9 @@
           }
         ],
         "elbows": [
-          [223.76871191605537,733.2039512525508],
-          [178.76871191605537,669.2039512525508],
-          [181.76871191605537,642.2039512525508],
+          [null,null],
+          [null,null],
+          [null,null],
           [75,526.3823529411765]
         ]
       },
@@ -3970,7 +3970,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [886,412,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "215",
         "id2": "48dld2hil070af-iac1f814848ib4",
         "EdgeType": -100,
@@ -3989,9 +3989,9 @@
         ],
         "elbows": [
           [846,519.9411764705883],
-          [935,422.9411764705883],
-          [899,316.9411764705883],
-          [705.9999488474176,315.5965548815536]
+          [851,519.9411764705883],
+          [851,519.9411764705883],
+          [705.2008465679977,332.4158046549439]
         ]
       },
       {
@@ -4006,7 +4006,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [414,409,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "123",
         "id2": "29",
         "EdgeType": -100,
@@ -4025,9 +4025,9 @@
         ],
         "elbows": [
           [818,440.1764705882353],
-          [468,429.1764705882353],
-          [399,476.1764705882353],
-          [390.9475361630389,349.9994150083042]
+          [823,440.1764705882353],
+          [823,440.1764705882353],
+          [403.93834785696765,334.9162157090812]
         ]
       },
       {
@@ -4037,7 +4037,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [844,89,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "248",
         "id2": "e2h1cbccgadch3-k55gf20acf0bjd",
         "EdgeType": -100,
@@ -4052,7 +4052,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [56,165,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "554",
         "id2": "331",
         "EdgeType": -100,
@@ -4072,7 +4072,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [766,520,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "225",
         "id2": "103",
         "EdgeType": -100,
@@ -4090,9 +4090,9 @@
           }
         ],
         "elbows": [
-          [822.0483137193336,571.488428444627],
-          [760.0483137193336,556.488428444627],
-          [789.0483137193336,470.48842844462695],
+          [null,null],
+          [null,null],
+          [null,null],
           [811.4705882352941,405]
         ]
       },
@@ -4108,7 +4108,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 0,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [682,262,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "2h2gd7cehklf39-193l30i86030093",
         "id2": "48dld2hil070af-iac1f814848ib4",
         "EdgeType": -100,
@@ -4128,7 +4128,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [643,591,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "355",
         "id2": "123",
         "EdgeType": -100,
@@ -4147,8 +4147,8 @@
         ],
         "elbows": [
           [748.0588235294117,702],
-          [550.0588235294117,598],
-          [739.0588235294117,576],
+          [753.0588235294117,702],
+          [753.0588235294117,702],
           [818.6764705882352,475]
         ]
       },
@@ -4164,7 +4164,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 0,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [654,266,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "48dld2hil070af-iac1f814848ib4",
         "id2": "157",
         "EdgeType": -100,
@@ -4198,7 +4198,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [517,370,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "202",
         "id2": "103",
         "EdgeType": -100,
@@ -4217,9 +4217,9 @@
         ],
         "elbows": [
           [75,498.0882352941177],
-          [303,439.0882352941177],
-          [528,358.0882352941177],
-          [800.0094973417246,385.1805886840241]
+          [80,498.0882352941177],
+          [80,498.0882352941177],
+          [800.0224479046743,388.53647427813394]
         ]
       },
       {
@@ -4234,7 +4234,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [527,401,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "113",
         "id2": "103",
         "EdgeType": -100,
@@ -4252,9 +4252,9 @@
           }
         ],
         "elbows": [
-          [78.88493736977854,573.7523512748221],
-          [317.8849373697785,490.7523512748221],
-          [545.8849373697785,367.7523512748221],
+          [null,null],
+          [null,null],
+          [null,null],
           [802,387.5882352941176]
         ]
       },
@@ -4270,7 +4270,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 0,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [409,366,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "192",
         "id2": "48dld2hil070af-iac1f814848ib4",
         "EdgeType": -100,
@@ -4302,7 +4302,7 @@
         "organismspecificlink": false,
         "brokencoordinate": 0.3,
         "angle": 0.3929613537347654,
-        "hexagonrectangle": [769,114,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "133",
         "id2": "248",
         "EdgeType": -100,
@@ -4332,7 +4332,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [540,302,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "103",
         "id2": "39",
         "EdgeType": -100,
@@ -4351,8 +4351,8 @@
         ],
         "elbows": [
           [802,375.61764705882354],
-          [697,365.61764705882354],
-          [592,331.61764705882354],
+          [807,375.61764705882354],
+          [807,375.61764705882354],
           [434,276.5]
         ]
       },
@@ -4368,7 +4368,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [113,604,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "342",
         "id2": "202",
         "EdgeType": -100,
@@ -4386,9 +4386,9 @@
           }
         ],
         "elbows": [
-          [172.01492874992732,701.5597149997093],
-          [176.01492874992732,697.5597149997093],
-          [119.01492874992732,621.5597149997093],
+          [null,null],
+          [null,null],
+          [null,null],
           [75,532.9117647058823]
         ]
       },
@@ -4404,7 +4404,7 @@
         "brokencoordinate": 0.3,
         "weakensindex": 16,
         "weakenscoordinate": 0.3,
-        "hexagonrectangle": [326,210,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "39",
         "id2": "5d2ifljl880f7f-12l817kh9dl2c8a",
         "EdgeType": -100,
@@ -4422,10 +4422,10 @@
           }
         ],
         "elbows": [
-          [409.38799114101096,266.87086849417994],
-          [350.38799114101096,219.87086849417994],
-          [285.38799114101096,193.87086849417994],
-          [265.91556802290273,189.52682126247885]
+          [null,null],
+          [null,null],
+          [null,null],
+          [null,null]
         ]
       },
       {
@@ -4439,7 +4439,7 @@
         "brokencoordinate": 0.3,
         "weakenscoordinate": 0.3,
         "angle": 0.1643910017369009,
-        "hexagonrectangle": [705,135,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "238",
         "id2": "133",
         "EdgeType": -100,
@@ -4464,7 +4464,7 @@
         "weakens": false,
         "enhances": false,
         "organismspecificlink": false,
-        "hexagonrectangle": [540,201,20,18],
+        "hexagonrectangle": [false,false,false,false],
         "id1": "-k079g4l1iie581-l8c00jdg3i691k",
         "id2": "238",
         "EdgeType": -100,
@@ -4554,6 +4554,7 @@
     "moveParentsWithChildren": true,
     "ignoreEventlessOrder": true,
     "networkVendor": "Metabase",
+    "graphOrientation": "horizontal",
     "skipRender": false
   },
   "events": false,
@@ -4562,33 +4563,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [605,605,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [589,592,null,null,null,null],
       {},
-      1634083061643
+      1666748097332
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MzA1MDg4Njo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/network-13.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": true,
     "isReveal": false,
     "isZoom": false,
@@ -4600,6 +4600,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

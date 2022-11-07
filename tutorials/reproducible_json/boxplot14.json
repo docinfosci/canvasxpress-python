@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "boxplot14",
   "data": {
     "y": {
@@ -30,7 +30,8 @@
     "groupingFactors": ["dose","supp"],
     "guides": "solid",
     "guidesColor": "white",
-    "legendScaleFontFactor": 1.8,
+    "legendTextScaleFontFactor": 1.8,
+    "legendTitleScaleFontFactor": 1.8,
     "showLegend": true,
     "smpLabelRotate": 90,
     "smpLabelScaleFontFactor": 1.8,
@@ -40,8 +41,8 @@
     "stringSampleFactors": ["dose"],
     "title": "The Effect of Vitamin C on Tooth Growth in Guinea Pigs",
     "xAxis2Show": false,
-    "xAxisMinorTicks": false,
     "xAxisTickColor": "white",
+    "xAxisTicksMinorShow": false,
     "xAxisTitle": "len"
   },
   "events": false,
@@ -50,40 +51,39 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "switchNumericToString",
       ["dose",true],
       {},
-      1634079494021,
+      1666748060292,
       true
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634079504535
+      1666748080688
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3OTQ5Mzk4Njo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/boxplot-14.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -95,6 +95,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

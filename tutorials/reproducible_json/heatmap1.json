@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "heatmap1",
   "data": {
     "z": {
@@ -62,7 +62,8 @@
   "config": {
     "colorSpectrum": ["navy","white","firebrick3"],
     "graphType": "Heatmap",
-    "title": "Simple Heatmap"
+    "title": "Simple Heatmap",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -70,33 +71,115 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [600,600,null,null,null,null],
       {},
-      1634081192764
+      1666761212205
+    ],
+    [
+      "userEventsClick",
+      [
+        {
+          "y": {
+            "vars": ["V3"],
+            "smps": ["S2"],
+            "data": [
+              [2.15]
+            ]
+          },
+          "z": {
+            "Type": ["Pho"],
+            "Sens": [3]
+          },
+          "x": {
+            "Treatment": ["Control"],
+            "Site": ["Site1"],
+            "Dose-Type": [""],
+            "Dose": [0]
+          },
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rect",79.575,74.495,13.23,21.23,"rgb(253,248,248)","rgb(253,248,248)","solid"],
+              "idx": [2,1],
+              "id": "2:1",
+              "n": 49,
+              "modifier": false,
+              "group": 49,
+              "area": ["rect",72.96000000000001,63.88,86.19,85.11],
+              "layout": false,
+              "type": "Data",
+              "baseline": [48.00000000000001,74.495,0,21.23]
+            }
+          ]
+        },
+        {
+          "srcElement": "heatmap1-events",
+          "target": "heatmap1-events",
+          "ac": {
+            "x": 74.015625,
+            "y": 74.609375
+          },
+          "altKey": false,
+          "bubbles": true,
+          "button": 0,
+          "buttons": 0,
+          "cancelBubble": false,
+          "cancelable": true,
+          "clientX": 547,
+          "clientY": 520,
+          "ctrlKey": false,
+          "defaultPrevented": false,
+          "detail": 1,
+          "eventPhase": 0,
+          "isTrusted": true,
+          "layerX": 74,
+          "layerY": 74,
+          "metaKey": false,
+          "movementX": 0,
+          "movementY": 0,
+          "offsetX": 74,
+          "offsetY": 75,
+          "pageX": 547,
+          "pageY": 533,
+          "returnValue": true,
+          "screenX": 547,
+          "screenY": 520,
+          "shiftKey": false,
+          "timeStamp": 14296.5,
+          "type": "click",
+          "which": 1,
+          "x": 547,
+          "y": 520,
+          "xMouseDown": 599
+        },
+        false,
+        [2,1]
+      ],
+      {},
+      1666761213107
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTE4MjIxNjo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/heatmap-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -108,6 +191,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "contour2",
   "data": {
     "y": {
@@ -15,12 +15,13 @@
     }
   },
   "config": {
-    "contourType": "color",
+    "contourType": "normal",
     "graphType": "Heatmap",
     "heatmapCellBox": false,
     "showSampleNames": false,
     "showVariableNames": false,
-    "title": "Basic Contour Plot"
+    "title": "Basic Contour Plot",
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -28,19 +29,19 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "createContour",
-      [],
+      [null,null],
       {},
-      1634079938451
+      1666751232607
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634079956907
+      1666751323568
     ],
     [
       "userEventsClick",
@@ -48,20 +49,35 @@
         {
           "y": {
             "vars": ["v1"],
-            "smps": ["s5"],
+            "smps": ["s1"],
             "data": [
-              [10]
+              [20]
             ]
           },
           "z": {},
-          "x": {}
+          "x": {},
+          "render": [
+            {
+              "func": "drawShape",
+              "params": ["rect",61.515,98.355,108.63,109.91,"rgba(0,0,0,0)","rgba(0,0,0,0)","solid"],
+              "idx": [0,0],
+              "id": "0:0",
+              "n": 6,
+              "modifier": false,
+              "group": 6,
+              "area": ["rect",7.200000000000003,43.400000000000006,115.83,153.31],
+              "layout": false,
+              "type": "Data",
+              "baseline": [7.2,98.355,0,109.91]
+            }
+          ]
         },
         {
           "srcElement": "contour2-events",
           "target": "contour2-events",
           "ac": {
-            "x": 30.015625,
-            "y": 569.25
+            "x": 75.015625,
+            "y": 74.609375
           },
           "altKey": false,
           "bubbles": true,
@@ -69,59 +85,58 @@
           "buttons": 0,
           "cancelBubble": false,
           "cancelable": true,
-          "clientX": 501,
-          "clientY": 911,
+          "clientX": 548,
+          "clientY": 520,
           "ctrlKey": false,
           "defaultPrevented": false,
           "detail": 1,
           "eventPhase": 0,
           "isTrusted": true,
-          "layerX": 31,
-          "layerY": 570,
+          "layerX": 75,
+          "layerY": 74,
           "metaKey": false,
           "movementX": 0,
           "movementY": 0,
-          "offsetX": 30,
-          "offsetY": 569,
-          "pageX": 501,
-          "pageY": 911,
+          "offsetX": 75,
+          "offsetY": 75,
+          "pageX": 548,
+          "pageY": 533,
           "returnValue": true,
-          "screenX": 501,
-          "screenY": 911,
+          "screenX": 548,
+          "screenY": 520,
           "shiftKey": false,
-          "timeStamp": 20391.300000000745,
+          "timeStamp": 97680.5,
           "type": "click",
           "which": 1,
-          "x": 501,
-          "y": 911,
+          "x": 548,
+          "y": 520,
           "xMouseDown": false,
           "yMouseDown": false
         },
         false,
-        [0,4]
+        [0,0]
       ],
       {},
-      1634079957934
+      1666751325161
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3OTkzODM5ODo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/contour-2.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -133,6 +148,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

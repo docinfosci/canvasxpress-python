@@ -1,5 +1,5 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "circular8",
   "data": {
     "y": {
@@ -17,7 +17,7 @@
   "config": {
     "arcSegmentsSeparation": 1,
     "circularLabelsAlign": "inside",
-    "colorScheme": "ColorSpectrum",
+    "colorScheme": "Favorite",
     "connections": [
       ["EA832040","EA1011925A27"],
       ["EA832040","EA832496"],
@@ -238,7 +238,8 @@
     "showLegend": false,
     "smpLabelScaleFontFactor": 0.3,
     "xAxis": ["var1"],
-    "xAxisShow": false
+    "xAxisShow": false,
+    "graphOrientation": "horizontal"
   },
   "events": false,
   "info": false,
@@ -246,33 +247,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [713,613,true]
+      [709,609,true]
     ],
     [
       "setDimensions",
-      [603,600,null,null,null,null],
+      [600,600,null,null,null,null],
       {},
-      1634079898257
+      1666750500859
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA3OTg4NjU1Mjo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/circular-8.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -284,6 +284,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }

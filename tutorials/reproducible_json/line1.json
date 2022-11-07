@@ -1,46 +1,35 @@
 {
-  "version": 36.4,
+  "version": 40.6,
   "renderTo": "line1",
   "data": {
-    "z": {
-      "Annt1": ["Desc:1","Desc:2","Desc:3","Desc:4"],
-      "Annt2": ["Desc:A","Desc:B","Desc:A","Desc:B"],
-      "Annt3": ["Desc:X","Desc:X","Desc:Y","Desc:Y"],
-      "Annt4": [5,10,15,20],
-      "Annt5": [8,16,24,32],
-      "Annt6": [10,20,30,40]
-    },
-    "x": {
-      "Factor1": ["Lev:1","Lev:2","Lev:3","Lev:1","Lev:2","Lev:3"],
-      "Factor2": ["Lev:A","Lev:B","Lev:A","Lev:B","Lev:A","Lev:B"],
-      "Factor3": ["Lev:X","Lev:X","Lev:Y","Lev:Y","Lev:Z","Lev:Z"],
-      "Factor4": [5,10,15,20,25,30],
-      "Factor5": [8,16,24,32,40,48],
-      "Factor6": [10,20,30,40,50,60]
-    },
     "y": {
-      "vars": ["V1","V2","V3","V4"],
-      "smps": ["S1","S2","S3","S4","S5","S6"],
+      "vars": [1,2,3,4,5],
+      "smps": [118,484,664,1004,1231,1372,1582],
       "data": [
-        [5,10,25,40,45,50],
-        [95,80,75,70,55,40],
-        [25,30,45,60,65,70],
-        [55,40,35,30,15,1]
+        [30,58,87,115,120,142,145],
+        [33,69,111,156,172,203,203],
+        [30,51,75,108,115,139,140],
+        [32,62,112,167,179,209,214],
+        [30,49,81,125,142,174,177]
       ]
     }
   },
   "config": {
+    "background": "rgb(226,236,248)",
+    "backgroundType": "window",
+    "blockContrast": true,
+    "evenColor": "rgb(226,236,248)",
     "graphOrientation": "vertical",
     "graphType": "Line",
-    "lineType": "spline",
-    "showTransition": false,
-    "smpLabelRotate": 45,
-    "smpOverlays": ["Factor1","Factor2","Factor3"],
-    "smpTitle": "Collection of Samples",
-    "smpTitleFontStyle": "italic",
-    "subtitle": "Random Data",
-    "theme": "CanvasXpress",
-    "title": "Line Graphs"
+    "legendInside": true,
+    "legendKeyBackgroundBorderColor": "rgba(255,255,255,0)",
+    "legendKeyBackgroundColor": "rgba(255,255,255,0)",
+    "legendPosition": "bottomRight",
+    "smpLabelRotate": 90,
+    "smpTitle": "Days Old",
+    "theme": "GGPlot",
+    "title": "Growth of Orange Trees",
+    "xAxisTitle": "Circumference (mm)"
   },
   "events": false,
   "info": false,
@@ -48,33 +37,32 @@
   "afterRender": [
     [
       "setDimensions",
-      [613,613,true]
+      [609,609,true]
     ],
     [
       "setDimensions",
       [603,600,null,null,null,null],
       {},
-      1634082012192
+      1666765779321
     ]
   ],
   "noValidate": true,
   "factory": {
-    "version": 36.4,
-    "buildDate": "10-03-2021",
-    "client": "MTYzNDA4MTk5OTI1NDo6MTo6MzYuNDo6",
+    "version": 40.6,
+    "buildDate": "10-20-2022",
+    "client": "MDo6MTo6NDAuNjo6",
     "siteSrc": false,
-    "valid": 0,
     "href": "https://canvasxpress.org/examples/line-1.html",
     "services": "https://www.canvasxpress.org/cgi-bin/services.pl"
   },
   "system": {
     "browser": "Chrome",
-    "browserVersion": "94",
-    "os": "Mac OS",
-    "alt": "&#8997;",
+    "browserVersion": "106",
+    "os": "Linux",
+    "alt": "Alt",
     "command": "&#8984;",
-    "control": "&#8963;",
-    "shift": "&#8679;",
+    "control": "Ctrl",
+    "shift": "Shift",
     "isjQuery": false,
     "isReveal": false,
     "isZoom": false,
@@ -86,6 +74,9 @@
     "isShiny": false,
     "isRViewer": false,
     "isRConsole": false,
-    "isNode": false
+    "isNode": false,
+    "isCxplot": false,
+    "isTainted": false,
+    "isDebugger": true
   }
 }
