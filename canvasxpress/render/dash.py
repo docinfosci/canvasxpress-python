@@ -48,7 +48,7 @@ class CXElementFactory(CXRenderFactory):
             ),
             events=element_parts["events"],
             after_render=json.dumps(element_parts["afterRender"]),
-            cdn_edition=cx.cdn_edition(),
+            cdn_edition=cx.cdn_edition,
             width=str(element_parts["width"]),
             height=str(element_parts["height"]),
         )

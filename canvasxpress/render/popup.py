@@ -160,12 +160,12 @@ class CXBrowserPopup(CXRenderable):
 
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
-        if CanvasXpress.cdn_edition() is not None:
+        if CanvasXpress.cdn_edition is not None:
             css_url = _cx_versioned_css_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
+                "@cx_version@", CanvasXpress.cdn_edition
             )
             js_url = _cx_versioned_js_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
+                "@cx_version@", CanvasXpress.cdn_edition
             )
 
         html = (

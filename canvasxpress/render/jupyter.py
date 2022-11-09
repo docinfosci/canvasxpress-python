@@ -81,12 +81,12 @@ class CXNoteBook(CXRenderable):
     def display_canvasxpress_header(self):
         css_url = _cx_default_css_url
         js_url = _cx_default_js_url
-        if CanvasXpress.cdn_edition() is not None:
+        if CanvasXpress.cdn_edition is not None:
             css_url = _cx_versioned_css_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
+                "@cx_version@", CanvasXpress.cdn_edition
             )
             js_url = _cx_versioned_js_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
+                "@cx_version@", CanvasXpress.cdn_edition
             )
 
         header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
