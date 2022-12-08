@@ -5,6 +5,8 @@ pytz>=2020.1
 pandas>=1.1.5
 requests>=2
 Deprecated>=1.2.12
+nodejs-bin>=18a
+nodejs-bin[cmd]>=18a
 
 # jupyter
 IPython>=7
