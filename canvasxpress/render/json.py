@@ -1,3 +1,4 @@
+import json
 from types import NoneType
 from typing import Any, Union, List
 
@@ -13,7 +14,7 @@ JSON_TEMPLATE: str = """
     "otherParams": @otherParams@,
     "events": @events@,
     "width": @width@,
-    "height": @height@,
+    "height": @height@
 }
 """.strip()
 
@@ -72,7 +73,11 @@ class CXJSON(CXRenderable):
 
         reproducible_json = JSON_TEMPLATE
         for key in cx_element_params.keys():
-            reproducible_json.replace(f"@{key}@", cx_element_params[key])
+            if isinstance(cx_element_params[key], str):
+                value = cx_element_params[key]
+            else:
+                value = json.dumps(cx_element_params[key])
+            reproducible_json = reproducible_json.replace(f"@{key}@", value)
 
         return reproducible_json
 
