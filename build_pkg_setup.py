@@ -65,12 +65,14 @@ def get_version() -> str:
     # PEP 44 sanctioned version format:
     # https://www.python.org/dev/peps/pep-0440/
 
-    repo = Repo('.')
+    repo = Repo(".")
     branch = repo.active_branch
 
-    return f"{buildtime.year}.{buildtime.month}.{buildtime.day}" \
-           f".{'dev' if branch.name not in ['main', 'master'] else ''}" \
-           f"{buildtime.strftime('%H%M%S')}"
+    return (
+        f"{buildtime.year}.{buildtime.month}.{buildtime.day}"
+        f".{'dev' if branch.name not in ['main', 'master'] else ''}"
+        f"{buildtime.strftime('%H%M%S')}"
+    )
 
 
 def get_requirements() -> dict:
@@ -80,7 +82,7 @@ def get_requirements() -> dict:
         "jupyter": [],
     }
 
-    with open('requirements.txt') as reqs_file:
+    with open("requirements.txt") as reqs_file:
         topics = [str(k) for k in packages.keys()]
         topic = topics[0]
         requirements_text = reqs_file.read()
@@ -99,50 +101,42 @@ def get_requirements() -> dict:
 
 
 def get_description() -> str:
-    with open('README.md') as readme_file:
+    with open("README.md") as readme_file:
         return readme_file.read()
 
 
 if __name__ == "__main__":
     package_version = get_version()
     packages = get_requirements()
-    package_requirements_core = ',\n    '.join(packages["core"])
-    package_requirements_dash = ',\n    '.join(packages["dash"])
-    package_requirements_jupyter = ',\n    '.join(packages["jupyter"])
+    package_requirements_core = ",\n    ".join(packages["core"])
+    package_requirements_dash = ",\n    ".join(packages["dash"])
+    package_requirements_jupyter = ",\n    ".join(packages["jupyter"])
     python_version = python_version()
 
     setup_instructions = setup_instructions_template.replace(
-        '@PKG_VERSION@',
-        package_version
+        "@PKG_VERSION@", package_version
     )
 
-    setup_instructions = setup_instructions \
-        .replace(
-            '@PKG_REQUIREMENTS@',
-            f"[\n    {package_requirements_core}\n]"
-        ) \
-        .replace(
-            '@PKG_REQUIREMENTS_DASH@',
-            f"[\n    {package_requirements_dash}\n]"
-        ) \
-        .replace(
-            '@PKG_REQUIREMENTS_JUPYTER@',
-            f"[\n    {package_requirements_jupyter}\n]"
+    setup_instructions = (
+        setup_instructions.replace(
+            "@PKG_REQUIREMENTS@", f"[\n    {package_requirements_core}\n]"
         )
-
-    setup_instructions = setup_instructions.replace(
-        '@PRESENT_YEAR@',
-        str(buildtime.year)
+        .replace("@PKG_REQUIREMENTS_DASH@", f"[\n    {package_requirements_dash}\n]")
+        .replace(
+            "@PKG_REQUIREMENTS_JUPYTER@", f"[\n    {package_requirements_jupyter}\n]"
+        )
     )
 
     setup_instructions = setup_instructions.replace(
-        '@PKG_DESCRIPTION@',
-        get_description()
+        "@PRESENT_YEAR@", str(buildtime.year)
     )
 
     setup_instructions = setup_instructions.replace(
-        '@PY_VERSION_MJR@',
-        python_version[:1]
+        "@PKG_DESCRIPTION@", get_description()
+    )
+
+    setup_instructions = setup_instructions.replace(
+        "@PY_VERSION_MJR@", python_version[:1]
     )
 
     setup_py_file = open("setup.py", "w")
