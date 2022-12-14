@@ -12,7 +12,8 @@ from canvasxpress.config.type import (
     CXList,
     CXDict,
     CXRGBColor,
-    CXRGBAColor, CXNone,
+    CXRGBAColor,
+    CXNone,
 )
 from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 

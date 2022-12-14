@@ -238,7 +238,7 @@ class CXNone(CXConfig):
         return self.__value
 
     @value.setter
-    def value(self, value = None) -> None:
+    def value(self, value=None) -> None:
         """
         Sets the value of the configuration.
         :param value: `None`
@@ -249,7 +249,7 @@ class CXNone(CXConfig):
 
         self.__value = None
 
-    def __init__(self, label: str, value = None):
+    def __init__(self, label: str, value=None):
         """
         Initializes the configuration with a None value.
         """
