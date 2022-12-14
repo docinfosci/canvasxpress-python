@@ -114,4 +114,6 @@ def test_cx_converst_to_image_base64():
     for result in results:
         assert isinstance(result, dict)
         assert result.get("id") == cx_example.render_to
-        assert isinstance(result.get("image_base64"), str)
+        assert isinstance(result.get("image"), dict)
+        assert isinstance(result["image"].get("binary"), bytes)
+        assert isinstance(result["image"].get("format"), str)
