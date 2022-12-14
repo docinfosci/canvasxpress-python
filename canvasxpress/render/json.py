@@ -1,5 +1,4 @@
 import json
-from types import NoneType
 from typing import Any, Union, List
 
 from canvasxpress.canvas import CanvasXpress
@@ -89,7 +88,7 @@ class CXJSON(CXRenderable):
         :returns: `list[str]`
             A list of `str`, one each of a reproducible JSON representation per tracked CanvasXpress object.
         """
-        if isinstance(self.canvas, NoneType):
+        if self.canvas is None:
             return []
         elif isinstance(self.canvas, list):
             reproducible_jsons: list = []
