@@ -7,13 +7,13 @@ import pandas as pd
 # use pandas to read each at their URL to create dataframes
 
 y_data_url = "https://www.canvasxpress.org/data/cX-heatmapR-dat.txt"
-y_data = pd.read_csv(y_data_url, sep='\t', index_col=0)
+y_data = pd.read_csv(y_data_url, sep="\t", index_col=0)
 
 x_data_url = "https://www.canvasxpress.org/data/cX-heatmapR-smp.txt"
-x_data = pd.read_csv(x_data_url, sep='\t', index_col=0)
+x_data = pd.read_csv(x_data_url, sep="\t", index_col=0)
 
 z_data_url = "https://www.canvasxpress.org/data/cX-heatmapR-var.txt"
-z_data = pd.read_csv(z_data_url, sep='\t', index_col=0)
+z_data = pd.read_csv(z_data_url, sep="\t", index_col=0)
 
 # The dict structure is an easy way to shape and submit data to CanvasXpress
 hm_data = {
@@ -29,7 +29,7 @@ hm_data = {
     # Sample annotations
     "x": {col: x_data[col].to_list() for col in x_data.columns.to_list()},
     # Variable annotations
-    "z": {col: z_data[col].to_list() for col in z_data.columns.to_list()}
+    "z": {col: z_data[col].to_list() for col in z_data.columns.to_list()},
 }
 
 if __name__ == "__main__":
@@ -37,7 +37,6 @@ if __name__ == "__main__":
     chart = CanvasXpress(
         # Data can be structured many ways, and here we use a dict
         data=hm_data,
-
         # Configuration options are key-value pairs of formatting instructions
         config={
             "graphType": "Heatmap",
@@ -52,13 +51,12 @@ if __name__ == "__main__":
             "heatmapSmpSeparateBy": "Treatment",
             "samplesClustered": True,
             "smpOverlays": ["Treatment", "Site"],
-            "variablesClustered": True
+            "variablesClustered": True,
         },
-
         # The effect depends on the renderer, and for browser popups these set
         # the canvas element width and height
         width=675,
-        height=600
+        height=600,
     )
 
     browser = CXBrowserPopup(chart)

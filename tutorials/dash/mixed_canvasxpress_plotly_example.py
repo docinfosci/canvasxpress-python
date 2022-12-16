@@ -192,7 +192,7 @@ _g_app.layout = html.Div(
     Input("crossfilter-year--slider", "value"),
 )
 def update_graph(
-        xaxis_column_name, yaxis_column_name, xaxis_type, yaxis_type, year_value
+    xaxis_column_name, yaxis_column_name, xaxis_type, yaxis_type, year_value
 ):
     dff = _g_country_indicators_df[_g_country_indicators_df["Year"] == year_value]
 
@@ -231,7 +231,7 @@ def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
     country_name = hoverData["points"][0]["customdata"]
     dff = _g_country_indicators_df[
         _g_country_indicators_df["Country Name"] == country_name
-        ]
+    ]
     dff = dff[dff["Indicator Name"] == xaxis_column_name]
 
     dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)
@@ -264,7 +264,7 @@ def update_x_timeseries(hoverData, yaxis_column_name, axis_type):
     country_name = hoverData["points"][0]["customdata"]
     dff = _g_country_indicators_df[
         _g_country_indicators_df["Country Name"] == country_name
-        ]
+    ]
     dff = dff[dff["Indicator Name"] == yaxis_column_name]
 
     dff.drop(columns=["Country Name", "Indicator Name"], inplace=True)

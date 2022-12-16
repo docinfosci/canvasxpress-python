@@ -58,7 +58,7 @@ if (("PROSPECTOR_EXIT" != 0)); then
   exit 1
 fi
 
-# Generate documentation
-./build_docs.sh
+# Generate documentation - deprecated, switching to alternate format.
+# ./build_docs.sh
 
 deactivate

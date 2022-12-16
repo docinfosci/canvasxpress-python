@@ -15,7 +15,8 @@ from canvasxpress.config.type import (
     CXList,
     CXRGBAColor,
     CXGraphType,
-    CXGraphTypeOptions, CXNone,
+    CXGraphTypeOptions,
+    CXNone,
 )
 
 

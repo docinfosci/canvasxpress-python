@@ -58,9 +58,7 @@ _g_y_time_series_chart = CanvasXpress(
 )
 
 # Associate the charts with a factory to produce Dash elements per the configs.
-_g_timeseries_factory = CXElementFactory(
-    _g_x_time_series_chart, _g_y_time_series_chart
-)
+_g_timeseries_factory = CXElementFactory(_g_x_time_series_chart, _g_y_time_series_chart)
 
 
 _g_app.layout = html.Div(
