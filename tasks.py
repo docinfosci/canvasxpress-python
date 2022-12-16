@@ -2,7 +2,7 @@ from invoke import task
 
 
 @task
-def clean(c, docs=False, bytecode=False, extra=''):
+def clean(c, docs=False, bytecode=False, extra=""):
     """
     Cleans the project in terms of build items and directories.
     :param c:
@@ -14,14 +14,14 @@ def clean(c, docs=False, bytecode=False, extra=''):
     c.run("pip freeze | xargs pip uninstall -y")
 
     patterns = [
-        'dist',
-        '*.egg-info',
-        '.requirements',
+        "dist",
+        "*.egg-info",
+        ".requirements",
     ]
     if docs:
-        patterns.append('docs/build')
+        patterns.append("docs/build")
     if bytecode:
-        patterns.append('**/*.pyc')
+        patterns.append("**/*.pyc")
     if extra:
         patterns.append(extra)
 
@@ -60,7 +60,7 @@ def test(c):
     """
     c.run(
         "python -m pytest"
-        " --junitxml=\"pytest_result.xml\""
+        ' --junitxml="pytest_result.xml"'
         " --cov=canvasxpress"
         " --cov-fail-under=85"
         " --cov-report xml"
@@ -77,6 +77,4 @@ def report(c):
     :param c:
     :return:
     """
-    c.run(
-        "coveralls"
-    )
+    c.run("coveralls")
