@@ -14,6 +14,9 @@ SVG_IMAGE: str = "svg"
 
 
 def install_cx_in_nodejs() -> None:
+    """
+    Installs the canvasxpress-cli NodeJS package if it is not available.
+    """
     availability_status = subprocess.run(
         ["npm", "ls", "canvasxpress-cli"], capture_output=True
     )
@@ -45,6 +48,56 @@ def nodejs_modules_path() -> Path:
                 raise RuntimeError("node_modules is not available.")
             else:
                 search_path = search_path.parent
+
+
+def render_html_as_image(url: str) -> list:
+    """
+    Renders a Web page with CanvasXpress chart declarations into one image per chart.
+    :param url: `str`
+        The URL to the HTML.  Can be file:// or http[s]://.
+    :param format: `str`
+        A `str` or list indicating whether PNG or SVG images should be produced.
+    :returns: `list`
+        A `list[dict]` of image data, if any.
+    """
+    formats = format if isinstance(format, list) else [format]
+
+    rendered_images: list = []
+    for image_format in formats:
+        if image_format not in [PNG_IMAGE, SVG_IMAGE]:
+            raise ValueError(
+                "format must be one of PNG_IMAGE or SVG_IMAGE, or a list of each."
+            )
+
+        work_dir = Path(gettempdir()) / "canvasxpress-python"
+        work_dir.mkdir(exist_ok=True)
+        work_image_path = work_dir
+
+        result = subprocess.run(
+            [
+                f"{CX_NODEJS_PATH} {image_format} -i {url} -o {work_image_path}",
+            ],
+            shell=True,
+            capture_output=True,
+        )
+        if result.returncode == 0:
+
+            image_file_options = list(work_image_path.glob(f"**/*.{image_format}"))
+            for image_file_path in image_file_options:
+                with open(Path(image_file_path), "rb") as image_file:
+                    image: bytes = image_file.read()
+                image_file_path.unlink()
+                rendered_images.append(
+                    {
+                        "id": url,
+                        "image": {
+                            "binary": image,
+                            "format": image_format,
+                        },
+                    }
+                )
+
+    return rendered_images
 
 
 CX_NODEJS_PATH: Path = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpress"
@@ -92,7 +145,7 @@ class CXImage(CXRenderable):
                 )
 
             for reproducible_json in reproducible_jsons:
-                work_dir = Path(gettempdir()) / "org.canvasxpress.render"
+                work_dir = Path(gettempdir()) / "canvasxpress-python"
                 work_dir.mkdir(exist_ok=True)
                 work_json_path = Path(work_dir, "cx_data.json")
                 work_image_path = work_dir
@@ -107,29 +160,26 @@ class CXImage(CXRenderable):
                     shell=True,
                     capture_output=True,
                 )
+                work_json_path.unlink()
                 if result.returncode == 0:
 
                     image_file_options = list(
                         work_image_path.glob(f"**/*.{image_format}")
                     )
-                    image_file_path = image_file_options[0]
-
-                    with open(Path(image_file_path), "rb") as image_file:
-                        image: bytes = image_file.read()
-                    image_file_path.unlink()
-
-                    rendered_images.append(
-                        {
-                            "id": json.loads(reproducible_json).get(
-                                "renderTo", "anonymous"
-                            ),
-                            "image": {
-                                "binary": image,
-                                "format": image_format,
-                            },
-                        }
-                    )
-
-                work_json_path.unlink()
+                    for image_file_path in image_file_options:
+                        with open(Path(image_file_path), "rb") as image_file:
+                            image: bytes = image_file.read()
+                        image_file_path.unlink()
+                        rendered_images.append(
+                            {
+                                "id": json.loads(reproducible_json).get(
+                                    "renderTo", "anonymous"
+                                ),
+                                "image": {
+                                    "binary": image,
+                                    "format": image_format,
+                                },
+                            }
+                        )
 
         return rendered_images
