@@ -18,11 +18,11 @@ def install_cx_in_nodejs() -> None:
     Installs the canvasxpress-cli NodeJS package if it is not available.
     """
     availability_status = subprocess.run(
-        ["npm", "ls", "canvasxpress-cli"], capture_output=True
+        ["npm ls canvasxpress-cli"], capture_output=True
     )
     if availability_status.returncode != 0:
         installation_status = subprocess.run(
-            ["npm", "install", "canvasxpress-cli", "--save"], capture_output=True
+            ["npm install canvasxpress-cli --save"], capture_output=True
         )
         if installation_status.returncode != 0:
             raise RuntimeError(
