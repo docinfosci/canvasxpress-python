@@ -50,7 +50,15 @@ def nodejs_modules_path() -> Path:
                 search_path = search_path.parent
 
 
-def render_html_as_image(url: str) -> list:
+CX_NODEJS_PATH: Path = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpress"
+
+
+def render_html_as_image(
+        url: str,
+        format: Union[str, list] = PNG_IMAGE,
+        width: Union[int, None] = None,
+        height: Union[int, None] = None,
+) -> list:
     """
     Renders a Web page with CanvasXpress chart declarations into one image per chart.
     :param url: `str`
@@ -61,6 +69,20 @@ def render_html_as_image(url: str) -> list:
         A `list[dict]` of image data, if any.
     """
     formats = format if isinstance(format, list) else [format]
+
+    if not (isinstance(width, int) or width is None):
+        raise ValueError("width must be an int or None.")
+    elif width is None:
+        width_text = ""
+    else:
+        width_text = f" -x {width}"
+
+    if not (isinstance(height, int) or height is None):
+        raise ValueError("height must be an int or None.")
+    elif height is None:
+        height_text = ""
+    else:
+        height_text = f" -y {height}"
 
     rendered_images: list = []
     for image_format in formats:
@@ -75,7 +97,7 @@ def render_html_as_image(url: str) -> list:
 
         result = subprocess.run(
             [
-                f"{CX_NODEJS_PATH} {image_format} -i {url} -o {work_image_path}",
+                f"{CX_NODEJS_PATH} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}",
             ],
             shell=True,
             capture_output=True,
@@ -98,9 +120,6 @@ def render_html_as_image(url: str) -> list:
                 )
 
     return rendered_images
-
-
-CX_NODEJS_PATH: Path = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpress"
 
 
 class CXImage(CXRenderable):
