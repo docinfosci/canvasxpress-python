@@ -12,23 +12,36 @@ from canvasxpress.render.json import CXJSON
 PNG_IMAGE: str = "png"
 SVG_IMAGE: str = "svg"
 
+MAX_NODE_WAIT_SECONDS: int = 60
+
 
 def install_cx_in_nodejs() -> None:
     """
     Installs the canvasxpress-cli NodeJS package if it is not available.
     """
-    availability_status = subprocess.run(
-        ["npm ls canvasxpress-cli"], capture_output=True
-    )
-    if availability_status.returncode != 0:
-        installation_status = subprocess.run(
-            ["npm install canvasxpress-cli --save"], capture_output=True
+    try:
+        availability_status = subprocess.run(
+            ["npm", "ls", "canvasxpress-cli"],
+            capture_output=True,
+            timeout=MAX_NODE_WAIT_SECONDS,
         )
-        if installation_status.returncode != 0:
-            raise RuntimeError(
-                f"Image rendering is unavailable. "
-                f"Cannot install canvasxpress NodeJS package: {installation_status.stderr.decode('utf-8')}"
+        if availability_status.returncode != 0:
+            installation_status = subprocess.run(
+                ["npm", "install", "canvasxpress-cli", "--save"],
+                capture_output=True,
+                timeout=MAX_NODE_WAIT_SECONDS,
             )
+            if installation_status.returncode != 0:
+                raise RuntimeError(
+                    f"Image rendering is unavailable. "
+                    f"Cannot install canvasxpress NodeJS package: {installation_status.stderr.decode('utf-8')}"
+                )
+
+    except subprocess.TimeoutExpired as te:
+        raise RuntimeError(
+            f"Image rendering is unavailable. "
+            f"Cannot interact with Node: {str(te)}"
+        )
 
 
 def nodejs_modules_path() -> Path:
@@ -38,8 +51,8 @@ def nodejs_modules_path() -> Path:
         The path for the NodeJS' modules installation.
     """
     install_cx_in_nodejs()
-    search_path = Path(os.path.abspath(__file__)).parent
-    while search_path != "":
+    search_path = Path(os.getcwd())
+    while search_path != "/":
         test_path = Path(search_path, "node_modules")
         if test_path.exists():
             return test_path
@@ -95,29 +108,34 @@ def render_html_as_image(
         work_dir.mkdir(exist_ok=True)
         work_image_path = work_dir
 
-        result = subprocess.run(
-            [
-                f"{CX_NODEJS_PATH} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}",
-            ],
-            shell=True,
-            capture_output=True,
-        )
-        if result.returncode == 0:
+        try:
+            result = subprocess.run(
+                [
+                    f"{CX_NODEJS_PATH} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}"
+                ],
+                shell=True,
+                capture_output=True,
+                timeout=MAX_NODE_WAIT_SECONDS,
+            )
+            if result.returncode == 0:
 
-            image_file_options = list(work_image_path.glob(f"**/*.{image_format}"))
-            for image_file_path in image_file_options:
-                with open(Path(image_file_path), "rb") as image_file:
-                    image: bytes = image_file.read()
-                image_file_path.unlink()
-                rendered_images.append(
-                    {
-                        "id": url,
-                        "image": {
-                            "binary": image,
-                            "format": image_format,
-                        },
-                    }
-                )
+                image_file_options = list(work_image_path.glob(f"**/*.{image_format}"))
+                for image_file_path in image_file_options:
+                    with open(Path(image_file_path), "rb") as image_file:
+                        image: bytes = image_file.read()
+                    image_file_path.unlink()
+                    rendered_images.append(
+                        {
+                            "id": url,
+                            "image": {
+                                "binary": image,
+                                "format": image_format,
+                            },
+                        }
+                    )
+
+        except subprocess.TimeoutExpired as te:
+            pass
 
     return rendered_images
 
