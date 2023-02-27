@@ -196,6 +196,7 @@ class CXImage(CXRenderable):
                     ],
                     shell=True,
                     capture_output=True,
+                    timeout=MAX_NODE_WAIT_SECONDS,
                 )
                 work_json_path.unlink()
                 if result.returncode == 0:
