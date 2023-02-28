@@ -1,6 +1,5 @@
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.image import CXImage, PNG_IMAGE, SVG_IMAGE
-from canvasxpress.render.json import CXJSON
+from canvasxpress.render.image import CXImage, PNG_IMAGE, SVG_IMAGE, render_html_as_image
 
 cx_example = CanvasXpress(
     render_to="area2",
@@ -117,3 +116,11 @@ def test_cx_converst_to_image_base64():
         assert isinstance(result.get("image"), dict)
         assert isinstance(result["image"].get("binary"), bytes)
         assert isinstance(result["image"].get("format"), str)
+
+
+def test_render_html_as_image():
+    images_found = render_html_as_image(
+        "https://canvasxpress.org/examples/area-1.html",
+        format=PNG_IMAGE,
+    )
+    assert len(images_found) == 1
