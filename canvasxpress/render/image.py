@@ -126,7 +126,9 @@ def render_html_as_image(
                     image_file_path.unlink()
                     rendered_images.append(
                         {
-                            "id": url,
+                            "id": os.path.basename(
+                                os.path.splitext(image_file_path)[0]
+                            ),
                             "image": {
                                 "binary": image,
                                 "format": image_format,
