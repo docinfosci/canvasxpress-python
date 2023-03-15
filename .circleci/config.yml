@@ -141,7 +141,7 @@ jobs:
 
   build-python-oldest:
     docker:
-      - image: python:3.6.8-bullseye
+      - image: python:3.6.15-bullseye
 
     steps:
       - checkout
