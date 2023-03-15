@@ -27,7 +27,7 @@ def image_files_match(image1_path: Path, image2_path: Path) -> float:
     image1r = resize(image1, (image1_w, image1_h))
     image2r = resize(image2, (image1_w, image1_h))
 
-    return ssim(img_as_float(image1r), img_as_float(image2r), multichannel=True)
+    return ssim(img_as_float(image1r), img_as_float(image2r), channel_axis=1, multichannel=True)
 
 
 def assert_chart_visuals_match(
