@@ -22,13 +22,15 @@ def install_cx_in_nodejs() -> None:
     try:
         availability_status = subprocess.run(
             ["npm", "ls", "canvasxpress-cli"],
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
             timeout=MAX_NODE_WAIT_SECONDS,
         )
         if availability_status.returncode != 0:
             installation_status = subprocess.run(
                 ["npm", "install", "canvasxpress-cli", "--save"],
-                capture_output=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
                 timeout=MAX_NODE_WAIT_SECONDS,
             )
             if installation_status.returncode != 0:
@@ -114,7 +116,8 @@ def render_html_as_image(
                     f"{CX_NODEJS_PATH} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}"
                 ],
                 shell=True,
-                capture_output=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
                 timeout=MAX_NODE_WAIT_SECONDS,
             )
             if result.returncode == 0:
@@ -126,7 +129,9 @@ def render_html_as_image(
                     image_file_path.unlink()
                     rendered_images.append(
                         {
-                            "id": url,
+                            "id": os.path.basename(
+                                os.path.splitext(image_file_path)[0]
+                            ),
                             "image": {
                                 "binary": image,
                                 "format": image_format,
@@ -195,7 +200,8 @@ class CXImage(CXRenderable):
                         f"{CX_NODEJS_PATH} {image_format} -i {work_json_path} -o {work_image_path}",
                     ],
                     shell=True,
-                    capture_output=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
                     timeout=MAX_NODE_WAIT_SECONDS,
                 )
                 work_json_path.unlink()
