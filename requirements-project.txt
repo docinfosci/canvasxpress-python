@@ -1,4 +1,4 @@
-pip>=22
+pip>=21
 setuptools>=58.2
 wheel>=0.37
 invoke>=1.6
