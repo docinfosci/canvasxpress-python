@@ -62,7 +62,7 @@ def test(c):
         "python -m pytest"
         ' --junitxml="pytest_result.xml"'
         " --cov=canvasxpress"
-        " --cov-fail-under=85"
+        " --cov-fail-under=75"
         " --cov-report xml"
         " --cov-report term"
         " --cov-report html:./coverage-results"

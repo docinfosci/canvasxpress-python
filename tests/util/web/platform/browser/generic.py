@@ -6,7 +6,6 @@ from abc import abstractmethod
 from os import environ
 from typing import Union
 
-import allure
 import psutil
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -296,15 +295,6 @@ class ManagedBrowser(GenericBrowser):
                     f" PID {browser_pid}"
                     f" reset nice: {browser_proc.nice()}"
                 )
-
-        allure.attach(
-            name=f"New session for {self.platform} running on {os.name}",
-            body=f"{self.platform} on {os.name} {platform.system()} "
-            f"{platform.release()} at {self.url}"
-            f" (remote: {self.remote_browser})"
-            f" (headless: {self.headless})",
-            attachment_type=allure.attachment_type.TEXT,
-        )
 
     def _close_session(self):
         if not self.remote_browser:

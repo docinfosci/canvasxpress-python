@@ -1,6 +1,5 @@
 from typing import List
 
-import allure
 import pytest
 
 from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
@@ -23,11 +22,6 @@ def sessions(url: str = TEST_SERVER_URL) -> ManagedBrowser:
     :return: A WebDriver for each supported browser per request
     """
     with ChromeManagedBrowser(url) as browser:
-        allure.attach(
-            name=f"Info - {browser.platform} browser provided",
-            body=url,
-            attachment_type=allure.attachment_type.TEXT,
-        )
         yield browser
 
 

@@ -13,4 +13,4 @@ htmlmin>=0.1.12
 requests
 
 # dash
-dash>=1.15.0
+dash

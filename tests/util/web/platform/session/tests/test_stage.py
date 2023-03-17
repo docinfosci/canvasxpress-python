@@ -1,6 +1,5 @@
 from os import path
 
-import allure
 import git
 
 from tests.util.web.platform.session.stage import (
@@ -9,7 +8,6 @@ from tests.util.web.platform.session.stage import (
 )
 
 
-@allure.feature("Test Framework Self-Check")
 def test_get_stage_from_working_branch():
     stage = _get_stage_from_working_branch()
 
