@@ -1,14 +1,13 @@
+pytest
 prospector
 hypothesis
-pytest
 pytest-cov
-allure-pytest
 pytest-flask
 coveralls
 click>=7,<8
-flask<2.1
+flask
 selenium
 requests
 scikit-image
 psutil
-dash[dev]
+dash[dev]<=2.7
