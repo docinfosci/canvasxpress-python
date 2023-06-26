@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 
 import htmlmin
+from IPython.display import HTML
 from bs4 import BeautifulSoup
 
 from canvasxpress.canvas import CanvasXpress
@@ -127,21 +128,21 @@ class CXRStudio(CXRenderable):
 
         chart_count = len(canvases)
 
-        canvas_table = '<div class="d-flex flex-column">'
+        canvas_table = '<table>'
 
         while chart_count > 0:
-            canvas_table += '<div class="d-flex flex-row">'
+            canvas_table += '<tr>'
             for c in range(columns):
-                canvas_table += '<div class="p-2">'
+                canvas_table += '<td">'
                 if chart_count > 0:
                     canvas_table += canvases[chart_count - 1]
 
-                canvas_table += "</div>"
+                canvas_table += "</td>"
                 chart_count = chart_count - 1
 
-            canvas_table += "</div>"
+            canvas_table += "</tr>"
 
-        canvas_table += "</div>"
+        canvas_table += "</table>"
 
         js_functions = "\n".join(
             [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
@@ -208,7 +209,7 @@ class CXRStudio(CXRenderable):
             if debug_output:
                 self.display_debug_code(code)
 
-            return header + body
+            return HTML(header + body)
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output cell: {e}")
