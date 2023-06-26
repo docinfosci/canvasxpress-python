@@ -3,7 +3,6 @@ from pathlib import Path
 from typing import Any, Union, List
 
 import htmlmin
-from IPython.display import HTML
 from bs4 import BeautifulSoup
 
 from canvasxpress.canvas import CanvasXpress
@@ -209,9 +208,7 @@ class CXRStudio(CXRenderable):
             if debug_output:
                 self.display_debug_code(code)
 
-            return HTML(
-                header + body
-            )
+            return header + body
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output cell: {e}")
