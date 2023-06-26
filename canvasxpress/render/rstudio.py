@@ -126,18 +126,23 @@ class CXRStudio(CXRenderable):
                 cx_license = part["cx_license"]
                 break
 
-        chart_count = len(canvases)
-
         canvas_table = '<table>'
-        while chart_count > 0:
-            canvas_table += '<tr>'
-            for c in range(columns):
-                if chart_count > 0:
-                    canvas_table += '<td"><div>'
-                    chart_count = chart_count - 1
-                    canvas_table += canvases[chart_count]
-                    canvas_table += "</div></td>"
-            canvas_table += "</tr>"
+        column_index = 0
+        for chart_index in range(len(canvases)):
+            if column_index == 0:
+                canvas_table += '<tr>'
+
+            canvas_table += '<td style="padding: 5px"><div>'
+            canvas_table += canvases[chart_index]
+            canvas_table += "</div></td>"
+
+            if column_index == 0:
+                canvas_table += "</tr>"
+
+            column_index += 1
+            if column_index == columns:
+                column_index = 0
+
         canvas_table += "</table>"
 
         js_functions = "\n".join(
