@@ -178,7 +178,7 @@ class CXRStudio(CXRenderable):
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
 
-        code
+        bytes(code, "UTF-8")
 
         # HTML(
         #     data=code,
