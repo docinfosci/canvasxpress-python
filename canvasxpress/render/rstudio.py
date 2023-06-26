@@ -136,12 +136,10 @@ class CXRStudio(CXRenderable):
             canvas_table += canvases[chart_index]
             canvas_table += "</div></td>"
 
-            if column_index == 0:
-                canvas_table += "</tr>"
-
             column_index += 1
             if column_index == columns:
                 column_index = 0
+                canvas_table += "</tr>"
 
         canvas_table += "</table>"
 
