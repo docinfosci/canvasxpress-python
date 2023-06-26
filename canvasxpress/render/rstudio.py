@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 
 import htmlmin
-from IPython.display import display, HTML, Code
+from IPython.display import display, Code
 from bs4 import BeautifulSoup
 
 from canvasxpress.canvas import CanvasXpress
@@ -81,11 +81,11 @@ class CXRStudio(CXRenderable):
             "@js_url@", js_url
         )
 
-        display(
-            HTML(
-                data=header_html_text,
-            ),
-        )
+        bytes(header_html_text, "UTF-8")
+
+        # HTML(
+        #     data=header_html_text,
+        # )
 
     def display_debug_code(self, code: str):
         minified_code = htmlmin.Minifier().minify(code)
