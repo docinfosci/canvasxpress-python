@@ -129,19 +129,15 @@ class CXRStudio(CXRenderable):
         chart_count = len(canvases)
 
         canvas_table = '<table>'
-
         while chart_count > 0:
             canvas_table += '<tr>'
             for c in range(columns):
-                canvas_table += '<td">'
                 if chart_count > 0:
-                    canvas_table += canvases[chart_count - 1]
-
-                canvas_table += "</td>"
-                chart_count = chart_count - 1
-
+                    canvas_table += '<td"><div>'
+                    chart_count = chart_count - 1
+                    canvas_table += canvases[chart_count]
+                    canvas_table += "</div></td>"
             canvas_table += "</tr>"
-
         canvas_table += "</table>"
 
         js_functions = "\n".join(
