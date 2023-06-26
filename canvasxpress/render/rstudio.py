@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 
 import htmlmin
-from IPython.display import Code, HTML
+from IPython.display import HTML
 from bs4 import BeautifulSoup
 
 from canvasxpress.canvas import CanvasXpress
@@ -81,17 +81,12 @@ class CXRStudio(CXRenderable):
             "@js_url@", js_url
         )
 
-        HTML(
-            data=header_html_text,
-        )
+        return header_html_text
 
     def display_debug_code(self, code: str):
         minified_code = htmlmin.Minifier().minify(code)
         pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
-        Code(
-            data=pretty_code,
-            language="html",
-        )
+        return pretty_code
 
     def get_chart_display_code(self, columns: int) -> str:
         render_targets = list()
@@ -174,9 +169,7 @@ class CXRStudio(CXRenderable):
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
 
-        HTML(
-            data=code,
-        )
+        return code
 
     def render(self, **kwargs: Any):
         """
@@ -211,10 +204,14 @@ class CXRStudio(CXRenderable):
         code = self.get_chart_display_code(columns)
 
         try:
-            self.display_canvasxpress_header()
-            self.display_charts(code, output_file)
+            header = self.display_canvasxpress_header()
+            body = self.display_charts(code, output_file)
             if debug_output:
                 self.display_debug_code(code)
+
+            return HTML(
+                header + body
+            )
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output cell: {e}")
