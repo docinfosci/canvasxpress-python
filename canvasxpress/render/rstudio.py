@@ -178,9 +178,11 @@ class CXRStudio(CXRenderable):
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
 
-        HTML(
-            data=code,
-        )
+        code
+
+        # HTML(
+        #     data=code,
+        # )
 
     def render(self, **kwargs: Any):
         """
