@@ -49,15 +49,15 @@ _cx_html_intermixed_template = """
 """
 
 
-class CXHtmlElement(CXRenderable):
+class CXHtml(CXRenderable):
     """
-    CXHtmlElement is a `CXRenderable` that renders `CanvasXpress` objects into
+    CXHtml is a `CXRenderable` that renders `CanvasXpress` objects into
     HTML Snippets suitable for use in RStudio
     """
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXHtmlElement` object.
+        Initializes a new `CXHtml` object.
         :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
             The `CanvasXpress` object(s) to be tracked.  See the `canvas`
             property, except that on initialization cx can be `None`.
