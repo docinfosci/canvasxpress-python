@@ -51,7 +51,7 @@ class CXDataframeData(CXMatrixData):
 
     @data.setter
     def data(
-        self, value: Union["CXDataframeData", DataFrame, dict, str, None] = None
+            self, value: Union["CXDataframeData", DataFrame, dict, str, None] = None
     ) -> None:
         """
         Sets the dataframe managed by the object.
@@ -87,9 +87,9 @@ class CXDataframeData(CXMatrixData):
 
                 except:
                     if value.strip().startswith(","):
-                        candidate = pandas.read_csv(StringIO(value), index_col=0)
+                        candidate = pandas.read_csv(StringIO(value).read(), index_col=0)
                     else:
-                        candidate = pandas.read_csv(StringIO(value))
+                        candidate = pandas.read_csv(StringIO(value).read())
 
             self.__data = DataFrame(candidate)
 
@@ -124,9 +124,9 @@ class CXDataframeData(CXMatrixData):
         return candidate
 
     def __init__(
-        self,
-        data: Union["CXDataframeData", DataFrame, dict, str, None] = None,
-        profile: Union[CXDataProfile, None] = None,
+            self,
+            data: Union["CXDataframeData", DataFrame, dict, str, None] = None,
+            profile: Union[CXDataProfile, None] = None,
     ) -> None:
         """
         Initializes the CXData object with data.  Only `DataFrame` or compatible
@@ -280,9 +280,9 @@ class CXCSVData(CXDataframeData):
         self.data = value
 
     def __init__(
-        self,
-        data: Union["CXCSVData", DataFrame, dict, str, None] = None,
-        profile: Union[CXDataProfile, None] = None,
+            self,
+            data: Union["CXCSVData", DataFrame, dict, str, None] = None,
+            profile: Union[CXDataProfile, None] = None,
     ) -> None:
         """
         Initializes the CXData object with data.  Only CSV `str` or compatible

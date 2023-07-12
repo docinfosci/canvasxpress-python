@@ -105,7 +105,7 @@ class CXHtml(CXRenderable):
             original_render_target = target.render_to
             if original_render_target in used_render_targets:
                 target.render_to = (
-                        original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
+                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
                 )
 
             used_render_targets.append(target.render_to)
@@ -126,11 +126,11 @@ class CXHtml(CXRenderable):
                 cx_license = part["cx_license"]
                 break
 
-        canvas_table = '<table>'
+        canvas_table = "<table>"
         column_index = 0
         for chart_index in range(len(canvases)):
             if column_index == 0:
-                canvas_table += '<tr>'
+                canvas_table += "<tr>"
 
             canvas_table += '<td style="padding: 5px"><div>'
             canvas_table += canvases[chart_index]
@@ -148,8 +148,8 @@ class CXHtml(CXRenderable):
         )
         html_text = (
             _cx_html_intermixed_template.replace("@canvases@", canvas_table)
-                .replace("@canvasxpress_license@", cx_license)
-                .replace("@js_functions@", js_functions)
+            .replace("@canvasxpress_license@", cx_license)
+            .replace("@js_functions@", js_functions)
         )
 
         return html_text

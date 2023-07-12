@@ -41,8 +41,7 @@ def install_cx_in_nodejs() -> None:
 
     except subprocess.TimeoutExpired as te:
         raise RuntimeError(
-            f"Image rendering is unavailable. "
-            f"Cannot interact with Node: {str(te)}"
+            f"Image rendering is unavailable. " f"Cannot interact with Node: {str(te)}"
         )
 
 
@@ -69,10 +68,10 @@ CX_NODEJS_PATH: Path = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpres
 
 
 def render_html_as_image(
-        url: str,
-        format: Union[str, list] = PNG_IMAGE,
-        width: Union[int, None] = None,
-        height: Union[int, None] = None,
+    url: str,
+    format: Union[str, list] = PNG_IMAGE,
+    width: Union[int, None] = None,
+    height: Union[int, None] = None,
 ) -> list:
     """
     Renders a Web page with CanvasXpress chart declarations into one image per chart.
