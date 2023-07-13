@@ -136,7 +136,9 @@ class CXProfiledData(CXData):
         pass
 
     def __init__(
-        self, data: Union[object, None], profile: Union[CXDataProfile, None] = None
+        self,
+        data: Union[object, None],
+        profile: Union[CXDataProfile, None] = None,
     ) -> None:
         """
         Initializes the CXData object with data.

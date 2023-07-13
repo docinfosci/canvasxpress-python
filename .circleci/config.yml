@@ -3,9 +3,9 @@
 version: 2.1
 
 jobs:
-  build-python-latest:
+  build-python-general:
     docker:
-      - image: python:3.10.8-bullseye
+      - image: python:3.10.12-bullseye
 
     steps:
       - checkout
@@ -138,6 +138,89 @@ jobs:
 
             fi
 
+  build-python-latest:
+    docker:
+      - image: python:3.11.4-bullseye
+
+    steps:
+      - checkout
+      - run:
+          name: Review checkout
+          command: ls -la
+
+      - run:
+          name: Indicate build profile
+          command: |
+            echo "User: $(whoami) | User ID: ${UID} | Group ID: ${GID}"
+
+            GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
+            if [ $GIT_WORKING_BRANCH = "main" ]
+            then
+                BRANCH_STAGE=${BRANCH_STAGE:="master"}
+            else
+                BRANCH_STAGE=${BRANCH_STAGE:="develop"}
+            fi
+            echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
+
+      - run:
+          name: Install Web drivers
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            export DEBIAN_PRIORITY=critical
+            apt-get update -y
+            apt-get install -yq apt-utils
+
+            # Install the Chromium browser
+            apt-get install -yq chromium
+            which chromium
+            chromium --version
+
+            # Install the Chromium webdriver
+            apt-get -yq update
+            apt-get -yq install --fix-missing chromium-driver
+            which chromedriver
+            chromedriver --version
+
+      - run:
+          name: Install Node dependencies
+          command: |
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
+            node -v
+
+      - run:
+          name: Install Python dependencies
+          command: |
+            pip install --no-cache-dir -U -r ./requirements-project.txt
+            invoke init --dev --list
+
+      - run:
+          name: Generate Dash Component
+          command: |
+            cd plotly/cxdash/
+
+            #  Ensure the presence of a virtual environment
+            if ! [[ -d ./venv ]] ; then
+                python3 -m venv ./venv
+            fi
+            source ./venv/bin/activate
+
+            # Ensure that essential project utilities are available
+            pip install -U pip setuptools wheel
+            pip install -U -r requirements.txt
+
+            npm install canvasxpress
+            npm install canvasxpress-react
+
+            npm run build
+            cp -R ./cxdash ../../
+
+      - run:
+          name: Test
+          command: invoke test
+
+      - store_test_results:
+          path: pytest_result.xml
 
   build-python-oldest:
     docker:
@@ -227,16 +310,20 @@ workflows:
   github-commit:
     jobs:
       - build-python-oldest
-      - build-python-latest:
+      - build-python-latest
+      - build-python-general:
           requires:
             - build-python-oldest
+            - build-python-latest
 
   weekly:
     jobs:
       - build-python-oldest
-      - build-python-latest:
+      - build-python-latest
+      - build-python-general:
           requires:
             - build-python-oldest
+            - build-python-latest
 
     triggers:
       - schedule:

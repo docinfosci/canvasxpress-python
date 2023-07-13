@@ -4,18 +4,18 @@ from typing import Union
 from pandas import DataFrame
 
 from canvasxpress.data.base import (
+    X,
+    Y,
+    Z,
     CXData,
     CXDataProfile,
     VARS,
     SMPS,
     CXDataProfileException,
     CXMatrixData,
-    Y,
     DATA,
     CORS,
     CXKeyPairData,
-    X,
-    Z,
     VENN,
     LEGEND,
     NODES,
@@ -318,7 +318,7 @@ class CXStandardProfile(CXDataProfile):
     @match_vars_to_rows.setter
     def match_vars_to_rows(self, value: bool) -> None:
         """
-        Sets whether vars will be match to rows when formatting data.
+        Sets whether vars will be matched to rows when formatting data.
         :param value: `bool`
             True if an error shall be raised if the number of `vars` does not
             match the number of `data` rows.
@@ -347,7 +347,7 @@ class CXStandardProfile(CXDataProfile):
     @match_smps_to_cols.setter
     def match_smps_to_cols(self, value: bool) -> None:
         """
-        Sets whether smps will be match to rows when formatting data.
+        Sets whether smps will be matched to rows when formatting data.
         :param value: `bool`
             True if an error shall be raised if the number of `smps` does not
             match the number of `data` columns.
@@ -423,10 +423,10 @@ class CXStandardProfile(CXDataProfile):
             self.__match_z_to_vars = value
 
     def add_data_section(
-        self,
-        section: str,
-        source: dict,
-        target: dict,
+            self,
+            section: str,
+            source: dict,
+            target: dict,
     ) -> None:
         """
         Adds a source data section, such as X, to the target if such a section
@@ -457,9 +457,9 @@ class CXStandardProfile(CXDataProfile):
                 raise TypeError(f"data[{section}][{key}] must be of type list")
 
     def render_to_profiled_dict(
-        self,
-        data: CXData,
-        **kwargs,
+            self,
+            data: CXData,
+            **kwargs,
     ) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by
