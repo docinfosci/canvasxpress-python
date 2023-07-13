@@ -87,9 +87,9 @@ class CXDataframeData(CXMatrixData):
 
                 except:
                     if value.strip().startswith(","):
-                        candidate = pandas.read_csv(StringIO(value).read(), index_col=0)
+                        candidate = pandas.read_csv(StringIO(value), index_col=0)
                     else:
-                        candidate = pandas.read_csv(StringIO(value).read())
+                        candidate = pandas.read_csv(StringIO(value))
 
             self.__data = DataFrame(candidate)
 
