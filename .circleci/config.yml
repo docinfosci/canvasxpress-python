@@ -216,17 +216,6 @@ jobs:
             cp -R ./cxdash ../../
 
       - run:
-          name: Static analysis
-          command: |
-            prospector \
-                --zero-exit \
-                --show-profile \
-                --no-autodetect \
-                --strictness low \
-                -o text \
-                ./canvasxpress
-
-      - run:
           name: Test
           command: invoke test
 
