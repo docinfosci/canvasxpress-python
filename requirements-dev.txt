@@ -4,10 +4,10 @@ hypothesis
 pytest-cov
 pytest-flask
 coveralls
-click>=7,<8
+click
 flask
 selenium<=4.9.1
 requests
 scikit-image
 psutil
-dash[dev]<=2.7
+dash[dev]
