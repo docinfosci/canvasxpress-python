@@ -3,9 +3,9 @@
 version: 2.1
 
 jobs:
-  build-python-latest:
+  build-python-general:
     docker:
-      - image: python:3.11.4-bullseye
+      - image: python:3.10.12-bullseye
 
     steps:
       - checkout
@@ -138,9 +138,9 @@ jobs:
 
             fi
 
-  build-python-general:
+  build-python-latest:
     docker:
-      - image: python:3.10.12-bullseye
+      - image: python:3.11.4-bullseye
 
     steps:
       - checkout
@@ -321,20 +321,20 @@ workflows:
   github-commit:
     jobs:
       - build-python-oldest
-      - build-python-general
-      - build-python-latest:
+      - build-python-latest
+      - build-python-general:
           requires:
             - build-python-oldest
-            - build-python-general
+            - build-python-latest
 
   weekly:
     jobs:
       - build-python-oldest
-      - build-python-general
-      - build-python-latest:
+      - build-python-latest
+      - build-python-general:
           requires:
             - build-python-oldest
-            - build-python-general
+            - build-python-latest
 
     triggers:
       - schedule:
