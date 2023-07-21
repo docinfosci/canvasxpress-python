@@ -14,3 +14,7 @@ requests
 
 # dash
 dash
+
+# streamlit
+streamlit
+jinja2

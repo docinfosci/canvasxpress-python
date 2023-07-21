@@ -2,9 +2,7 @@ from datetime import datetime
 from platform import python_version
 
 import pytz
-import requirements
 from git import Repo
-
 
 setup_instructions_template = """
 from setuptools import setup, find_packages
@@ -18,7 +16,7 @@ jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
-    packages=find_packages(exclude=["tests*", "plotly", "tutorials",]),
+    packages=find_packages(exclude=["tests*", "plotly", "streamlit", "tutorials",]),
     package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.sql', '*.txt', '*.zip']},
     include_package_data=True,
     package_dir={'': '.'},
@@ -26,6 +24,7 @@ setup(
     extras_require={
         "core": core_pkgs, 
         "dash": core_pkgs + dash_pkgs,
+        "streamlit": core_pkgs + streamlit_pkgs,
         "jupyter": core_pkgs + jupyter_pkgs,
         "all": core_pkgs + dash_pkgs + jupyter_pkgs,
     },
@@ -79,6 +78,7 @@ def get_requirements() -> dict:
     packages = {
         "core": [],
         "dash": [],
+        "streamlit": [],
         "jupyter": [],
     }
 
@@ -110,6 +110,7 @@ if __name__ == "__main__":
     packages = get_requirements()
     package_requirements_core = ",\n    ".join(packages["core"])
     package_requirements_dash = ",\n    ".join(packages["dash"])
+    package_requirements_streamlit = ",\n    ".join(packages["streamlit"])
     package_requirements_jupyter = ",\n    ".join(packages["jupyter"])
     python_version = python_version()
 
@@ -121,8 +122,8 @@ if __name__ == "__main__":
         setup_instructions.replace(
             "@PKG_REQUIREMENTS@", f"[\n    {package_requirements_core}\n]"
         )
-        .replace("@PKG_REQUIREMENTS_DASH@", f"[\n    {package_requirements_dash}\n]")
-        .replace(
+            .replace("@PKG_REQUIREMENTS_DASH@", f"[\n    {package_requirements_dash}\n]")
+            .replace(
             "@PKG_REQUIREMENTS_JUPYTER@", f"[\n    {package_requirements_jupyter}\n]"
         )
     )
