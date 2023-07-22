@@ -95,8 +95,12 @@ jobs:
             # Build the React component
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
-            npm install
+            echo "Installling JS packages..."
+            npm install --production --package-lock=false
+            ls -lah
+            echo "Building JS package..."
             npm run build
+            ls -lah
             cd ./../../
 
             # Copy the Python package
@@ -259,8 +263,12 @@ jobs:
             # Build the React component
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
-            npm install
+            echo "Installling JS packages..."
+            npm install --production --package-lock=false
+            ls -lah
+            echo "Building JS package..."
             npm run build
+            ls -lah
             cd ./../../
 
             # Copy the Python package
@@ -372,8 +380,12 @@ jobs:
             # Build the React component
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
-            npm install
+            echo "Installling JS packages..."
+            npm install --production --package-lock=false
+            ls -lah
+            echo "Building JS package..."
             npm run build
+            ls -lah
             cd ./../../
 
             # Copy the Python package
