@@ -49,9 +49,15 @@ jobs:
       - run:
           name: Install Node dependencies
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
-            node -v
+            curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
+            sh ./setup_14.sh
+            apt update
+            apt install nodejs
+
+            # apt-get -yq install --fix-missing nodejs
+            # apt-get -yq install --fix-missing npm
+            node --version
+            npm --version
 
       - run:
           name: Install Python dependencies
@@ -217,9 +223,15 @@ jobs:
       - run:
           name: Install Node dependencies
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
-            node -v
+            curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
+            sh ./setup_14.sh
+            apt update
+            apt install nodejs
+
+            # apt-get -yq install --fix-missing nodejs
+            # apt-get -yq install --fix-missing npm
+            node --version
+            npm --version
 
       - run:
           name: Install Python dependencies
@@ -334,9 +346,15 @@ jobs:
       - run:
           name: Install Node dependencies
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
-            node -v
+            curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
+            sh ./setup_14.sh
+            apt update
+            apt install nodejs
+
+            # apt-get -yq install --fix-missing nodejs
+            # apt-get -yq install --fix-missing npm
+            node --version
+            npm --version
 
       - run:
           name: Install Python dependencies
