@@ -261,7 +261,7 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
             sh ./setup_14.sh
             apt update
-            apt install nodejs
+            apt install -yq --fix-missing nodejs
             node --version
             npm --version
 
