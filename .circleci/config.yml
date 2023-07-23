@@ -264,6 +264,7 @@ jobs:
             apt install -yq --fix-missing nodejs
             node --version
             npm --version
+            npm cache clear --force
 
       - run:
           name: Generate Streamlit Component
