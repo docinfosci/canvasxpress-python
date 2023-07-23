@@ -221,18 +221,18 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Python dependencies
-          command: |
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            invoke init --dev --list
-
-      - run:
-          name: Install Dash Node dependencies
+          name: Install General Node dependencies
           command: |
             apt-get -yq install --fix-missing nodejs
             apt-get -yq install --fix-missing npm
             node --version
             npm --version
+
+      - run:
+          name: Install Python dependencies
+          command: |
+            pip install --no-cache-dir -U -r ./requirements-project.txt
+            invoke init --dev --list
 
       - run:
           name: Generate Dash Component
@@ -256,7 +256,7 @@ jobs:
             cp -R ./cxdash ../../
 
       - run:
-          name: Install Streamlit Node dependencies
+          name: Upgrade Node Dependencies for Streamlit
           command: |
             curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
             sh ./setup_14.sh
