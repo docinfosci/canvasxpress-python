@@ -5,7 +5,8 @@
     "dependencies": {
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "stream": "",
+        "crypto-browserify": "",
+        "stream-browserify": "",
         "streamlit-component-lib": "^2.0.0",
         "canvasxpress": "",
         "canvasxpress-react": "github:neuhausi/canvasxpress-react"
@@ -18,10 +19,6 @@
     },
     "eslintConfig": {
         "extends": "react-app"
-    },
-    "browser": {
-        "crypto": false,
-        "stream": false
     },
     "browserslist": {
         "production": [
