@@ -269,6 +269,9 @@ jobs:
       - run:
           name: Generate Streamlit Component
           command: |
+
+            export "process.env.CI"="false"
+            
             cd streamlit/
 
             #  Ensure the presence of a virtual environment
