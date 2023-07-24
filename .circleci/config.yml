@@ -269,9 +269,6 @@ jobs:
       - run:
           name: Generate Streamlit Component
           command: |
-
-            export "process.env.CI"="false"
-            
             cd streamlit/
 
             #  Ensure the presence of a virtual environment
@@ -285,7 +282,7 @@ jobs:
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
             echo "Installling JS packages..."
-            npm install --package-lock=false
+            npm install
             ls -lah
             echo "Building JS package..."
             npm run build
