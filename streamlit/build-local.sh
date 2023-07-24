@@ -12,14 +12,15 @@ pip install -r ./requirements.txt
 cd ./cxstreamlit/frontend/
 npm install
 npm run build
-cd ./../../
+cd ../../../
 
 # Copy the Python package
-rm -rf ./../cxstreamlit
-cp -R ./cxstreamlit ./../cxstreamlit
-rm -rf \
-  ./../cxstreamlit/frontend/public \
-  ./../cxstreamlit/frontend/src \
-  ./../cxstreamlit/frontend/node_modules \
-  ./../cxstreamlit/frontend/.* \
-  ./../cxstreamlit/frontend/tsconfig.json
+mkdir -p cxstreamlit/frontend/
+cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+cp -R streamlit/cxstreamlit/*.py cxstreamlit/
+
+ls -lah cxstreamlit
+ls -lah cxstreamlit/frontend/
+ls -lah cxstreamlit/frontend/build/

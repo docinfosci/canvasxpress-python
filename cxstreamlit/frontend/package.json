@@ -5,7 +5,14 @@
     "dependencies": {
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "crypto-js": "",
+        "buffer": "",
+        "crypto": "npm:crypto-browserify",
+        "crypto-browserify": "",
+        "stream": "npm:stream-browserify",
+        "stream-browserify": "",
+        "stream-http": "",
+        "https-browserify": "",
+        "os-browserify": "",
         "streamlit-component-lib": "^2.0.0",
         "canvasxpress": "",
         "canvasxpress-react": "github:neuhausi/canvasxpress-react"
