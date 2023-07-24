@@ -287,17 +287,14 @@ jobs:
             echo "Building JS package..."
             npm run build
             ls -lah
-            cd ./../../
+            cd ../../../
 
             # Copy the Python package
-            cp -R ./cxstreamlit ./../cxstreamlit
-            cd ../
-            rm -rf \
-              cxstreamlit/frontend/public \
-              cxstreamlit/frontend/src \
-              cxstreamlit/frontend/node_modules \
-              cxstreamlit/frontend/.* \
-              cxstreamlit/frontend/tsconfig.json
+            mkdir -p cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
 
       - run:
           name: Test
