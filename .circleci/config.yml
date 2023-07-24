@@ -290,14 +290,14 @@ jobs:
             cd ./../../
 
             # Copy the Python package
-            rm -rf ./../cxstreamlit
             cp -R ./cxstreamlit ./../cxstreamlit
+            cd ../
             rm -rf \
-              ./../cxstreamlit/frontend/public \
-              ./../cxstreamlit/frontend/src \
-              ./../cxstreamlit/frontend/node_modules \
-              ./../cxstreamlit/frontend/.* \
-              ./../cxstreamlit/frontend/tsconfig.json
+              cxstreamlit/frontend/public \
+              cxstreamlit/frontend/src \
+              cxstreamlit/frontend/node_modules \
+              cxstreamlit/frontend/.* \
+              cxstreamlit/frontend/tsconfig.json
 
       - run:
           name: Test
