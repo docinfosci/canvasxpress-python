@@ -221,12 +221,15 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install General Node dependencies
+          name: Install Node and NPM
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
             node --version
             npm --version
+            npm cache clear --force
 
       - run:
           name: Install Python dependencies
@@ -256,17 +259,6 @@ jobs:
             cp -R ./cxdash ../../
 
       - run:
-          name: Upgrade Node Dependencies for Streamlit
-          command: |
-            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
-            sh ./setup_nodejs.sh
-            apt update
-            apt install -yq --fix-missing nodejs
-            node --version
-            npm --version
-            npm cache clear --force
-
-      - run:
           name: Generate Streamlit Component
           command: |
             cd streamlit/
@@ -282,7 +274,7 @@ jobs:
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
             echo "Installling JS packages..."
-            npm install --production --package-lock=false
+            npm install --package-lock=false
             ls -lah
             echo "Building JS package..."
             npm run build
