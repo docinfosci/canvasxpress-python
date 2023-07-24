@@ -221,15 +221,12 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Node and NPM
+          name: Install Node and NPM for Dash and General Python
           command: |
-            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
-            sh ./setup_nodejs.sh
-            apt update
-            apt install -yq --fix-missing nodejs
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
             node --version
             npm --version
-            npm cache clear --force
 
       - run:
           name: Install Python dependencies
@@ -257,6 +254,17 @@ jobs:
 
             npm run build
             cp -R ./cxdash ../../
+
+      - run:
+          name: Install Node and NPM for Streamlit
+          command: |
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
+            node --version
+            npm --version
+            npm cache clear --force
 
       - run:
           name: Generate Streamlit Component
