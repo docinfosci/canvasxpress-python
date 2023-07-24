@@ -47,15 +47,10 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Node dependencies
+          name: Install Node and NPM for Dash and General Python
           command: |
-            curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
-            sh ./setup_14.sh
-            apt update
-            apt install nodejs
-
-            # apt-get -yq install --fix-missing nodejs
-            # apt-get -yq install --fix-missing npm
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
             node --version
             npm --version
 
@@ -87,6 +82,17 @@ jobs:
             cp -R ./cxdash ../../
 
       - run:
+          name: Install Node and NPM for Streamlit
+          command: |
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
+            node --version
+            npm --version
+            npm cache clear --force
+
+      - run:
           name: Generate Streamlit Component
           command: |
             cd streamlit/
@@ -102,22 +108,23 @@ jobs:
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
             echo "Installling JS packages..."
-            npm install --production --package-lock=false
+            npm install
             ls -lah
             echo "Building JS package..."
             npm run build
             ls -lah
-            cd ./../../
+            cd ../../../
 
             # Copy the Python package
-            rm -rf ./../cxstreamlit
-            cp -R ./cxstreamlit ./../cxstreamlit
-            rm -rf \
-              ./../cxstreamlit/frontend/public \
-              ./../cxstreamlit/frontend/src \
-              ./../cxstreamlit/frontend/node_modules \
-              ./../cxstreamlit/frontend/.* \
-              ./../cxstreamlit/frontend/tsconfig.json
+            mkdir -p cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
+
+            ls -lah cxstreamlit
+            ls -lah cxstreamlit/frontend/
+            ls -lah cxstreamlit/frontend/build/
 
       - run:
           name: Static analysis
@@ -296,6 +303,10 @@ jobs:
             cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
             cp -R streamlit/cxstreamlit/*.py cxstreamlit/
 
+            ls -lah cxstreamlit
+            ls -lah cxstreamlit/frontend/
+            ls -lah cxstreamlit/frontend/build/
+
       - run:
           name: Test
           command: invoke test
@@ -347,15 +358,10 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Node dependencies
+          name: Install Node and NPM for Dash and General Python
           command: |
-            curl -sL https://deb.nodesource.com/setup_14.x -o setup_14.sh
-            sh ./setup_14.sh
-            apt update
-            apt install nodejs
-
-            # apt-get -yq install --fix-missing nodejs
-            # apt-get -yq install --fix-missing npm
+            apt-get -yq install --fix-missing nodejs
+            apt-get -yq install --fix-missing npm
             node --version
             npm --version
 
@@ -387,6 +393,17 @@ jobs:
             cp -R ./cxdash ../../
 
       - run:
+          name: Install Node and NPM for Streamlit
+          command: |
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
+            node --version
+            npm --version
+            npm cache clear --force
+
+      - run:
           name: Generate Streamlit Component
           command: |
             cd streamlit/
@@ -402,22 +419,23 @@ jobs:
             # shellcheck disable=SC2164
             cd ./cxstreamlit/frontend/
             echo "Installling JS packages..."
-            npm install --production --package-lock=false
+            npm install
             ls -lah
             echo "Building JS package..."
             npm run build
             ls -lah
-            cd ./../../
+            cd ../../../
 
             # Copy the Python package
-            rm -rf ./../cxstreamlit
-            cp -R ./cxstreamlit ./../cxstreamlit
-            rm -rf \
-              ./../cxstreamlit/frontend/public \
-              ./../cxstreamlit/frontend/src \
-              ./../cxstreamlit/frontend/node_modules \
-              ./../cxstreamlit/frontend/.* \
-              ./../cxstreamlit/frontend/tsconfig.json
+            mkdir -p cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
+
+            ls -lah cxstreamlit
+            ls -lah cxstreamlit/frontend/
+            ls -lah cxstreamlit/frontend/build/
 
       - run:
           name: Test
