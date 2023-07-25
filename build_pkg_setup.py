@@ -12,6 +12,7 @@ long_description = '''@PKG_DESCRIPTION@'''
 core_pkgs = @PKG_REQUIREMENTS@
 dash_pkgs = @PKG_REQUIREMENTS_DASH@
 jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
+streamlit_pkgs = @PKG_REQUIREMENTS_STREAMLIT@
 
 setup(
     name='canvasxpress',
@@ -125,10 +126,12 @@ if __name__ == "__main__":
             .replace("@PKG_REQUIREMENTS_DASH@", f"[\n    {package_requirements_dash}\n]")
             .replace(
             "@PKG_REQUIREMENTS_JUPYTER@", f"[\n    {package_requirements_jupyter}\n]"
+                .replace(
+                "@PKG_REQUIREMENTS_STREAMLIT@", f"[\n    {package_requirements_streamlit}\n]"
+            )
         )
-    )
 
-    setup_instructions = setup_instructions.replace(
+        setup_instructions = setup_instructions.replace(
         "@PRESENT_YEAR@", str(buildtime.year)
     )
 
