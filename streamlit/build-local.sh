@@ -21,6 +21,13 @@ cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
 cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
 cp -R streamlit/cxstreamlit/*.py cxstreamlit/
 
+# Add package markers for build inclusion
+touch cxstreamlit/frontend/__init__.py
+touch cxstreamlit/frontend/build/__init__.py
+touch cxstreamlit/frontend/build/static/__init__.py
+touch cxstreamlit/frontend/build/static/css/__init__.py
+touch cxstreamlit/frontend/build/static/js/__init__.py
+
 ls -lah cxstreamlit
 ls -lah cxstreamlit/frontend/
 ls -lah cxstreamlit/frontend/build/
