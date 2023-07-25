@@ -1,5 +1,5 @@
 # core
-deepdiff<5
+deepdiff
 gitpython>=3
 pytz>=2020.1
 pandas>=1.1.5
