@@ -28,6 +28,30 @@ jobs:
             echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
       - run:
+          name: Install Linux Packages
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            export DEBIAN_PRIORITY=critical
+
+            apt-get -yq update
+            apt-get -yq upgrade
+
+            # Package installation support
+            apt-get install -yq --fix-missing debconf-utils
+            apt-get install -yq --fix-missing dialog
+            apt-get install -yq --fix-missing apt-utils
+
+            # File acquisition support
+            apt-get install -yq --fix-missing wget
+            apt-get install -yq --fix-missing curl
+
+            # Fundamental software build support
+            apt-get install -yq --fix-missing gcc
+            apt-get install -yq --fix-missing make
+            apt-get install -yq --fix-missing cmake
+            apt-get install -yq --fix-missing build-essential
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -47,11 +71,12 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Node dependencies
+          name: Install Node and NPM for Dash and General Python
           command: |
             apt-get -yq install --fix-missing nodejs
             apt-get -yq install --fix-missing npm
-            node -v
+            node --version
+            npm --version
 
       - run:
           name: Install Python dependencies
@@ -79,6 +104,61 @@ jobs:
 
             npm run build
             cp -R ./cxdash ../../
+
+      - run:
+          name: Install Node and NPM for Streamlit
+          command: |
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
+            node --version
+            npm --version
+            npm cache clear --force
+
+      - run:
+          name: Generate Streamlit Component
+          command: |
+            cd streamlit/
+
+            #  Ensure the presence of a virtual environment
+            if ! [[ -d ./venv ]] ; then
+                python3 -m venv ./venv
+            fi
+            source ./venv/bin/activate
+            pip install -r ./requirements.txt
+
+            # Build the React component
+            # shellcheck disable=SC2164
+            cd ./cxstreamlit/frontend/
+            echo "Installling JS packages..."
+            npm install
+            ls -lah
+            echo "Building JS package..."
+            npm run build
+            ls -lah
+            cd ../../../
+
+            # Copy the Python package
+            mkdir -p cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
+
+            # Add package markers for build inclusion
+            touch cxstreamlit/frontend/__init__.py
+            touch cxstreamlit/frontend/build/__init__.py
+            touch cxstreamlit/frontend/build/static/__init__.py
+            touch cxstreamlit/frontend/build/static/css/__init__.py
+            touch cxstreamlit/frontend/build/static/js/__init__.py
+
+            ls -lah cxstreamlit
+            ls -lah cxstreamlit/frontend/
+            ls -lah cxstreamlit/frontend/build/
+            ls -lah cxstreamlit/frontend/build/static/
+            ls -lah cxstreamlit/frontend/build/static/js/
+            ls -lah cxstreamlit/frontend/build/static/css/
 
       - run:
           name: Static analysis
@@ -163,6 +243,30 @@ jobs:
             echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
       - run:
+          name: Install Linux Packages
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            export DEBIAN_PRIORITY=critical
+
+            apt-get -yq update
+            apt-get -yq upgrade
+
+            # Package installation support
+            apt-get install -yq --fix-missing debconf-utils
+            apt-get install -yq --fix-missing dialog
+            apt-get install -yq --fix-missing apt-utils
+
+            # File acquisition support
+            apt-get install -yq --fix-missing wget
+            apt-get install -yq --fix-missing curl
+
+            # Fundamental software build support
+            apt-get install -yq --fix-missing gcc
+            apt-get install -yq --fix-missing make
+            apt-get install -yq --fix-missing cmake
+            apt-get install -yq --fix-missing build-essential
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -182,11 +286,12 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Node dependencies
+          name: Install Node and NPM for Dash and General Python
           command: |
             apt-get -yq install --fix-missing nodejs
             apt-get -yq install --fix-missing npm
-            node -v
+            node --version
+            npm --version
 
       - run:
           name: Install Python dependencies
@@ -214,6 +319,61 @@ jobs:
 
             npm run build
             cp -R ./cxdash ../../
+
+      - run:
+          name: Install Node and NPM for Streamlit
+          command: |
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
+            node --version
+            npm --version
+            npm cache clear --force
+
+      - run:
+          name: Generate Streamlit Component
+          command: |
+            cd streamlit/
+
+            #  Ensure the presence of a virtual environment
+            if ! [[ -d ./venv ]] ; then
+                python3 -m venv ./venv
+            fi
+            source ./venv/bin/activate
+            pip install -r ./requirements.txt
+
+            # Build the React component
+            # shellcheck disable=SC2164
+            cd ./cxstreamlit/frontend/
+            echo "Installling JS packages..."
+            npm install
+            ls -lah
+            echo "Building JS package..."
+            npm run build
+            ls -lah
+            cd ../../../
+
+            # Copy the Python package
+            mkdir -p cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
+
+            # Add package markers for build inclusion
+            touch cxstreamlit/frontend/__init__.py
+            touch cxstreamlit/frontend/build/__init__.py
+            touch cxstreamlit/frontend/build/static/__init__.py
+            touch cxstreamlit/frontend/build/static/css/__init__.py
+            touch cxstreamlit/frontend/build/static/js/__init__.py
+
+            ls -lah cxstreamlit
+            ls -lah cxstreamlit/frontend/
+            ls -lah cxstreamlit/frontend/build/
+            ls -lah cxstreamlit/frontend/build/static/
+            ls -lah cxstreamlit/frontend/build/static/js/
+            ls -lah cxstreamlit/frontend/build/static/css/
 
       - run:
           name: Test
@@ -247,6 +407,30 @@ jobs:
             echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
       - run:
+          name: Install Linux Packages
+          command: |
+            export DEBIAN_FRONTEND=noninteractive
+            export DEBIAN_PRIORITY=critical
+
+            apt-get -yq update
+            apt-get -yq upgrade
+
+            # Package installation support
+            apt-get install -yq --fix-missing debconf-utils
+            apt-get install -yq --fix-missing dialog
+            apt-get install -yq --fix-missing apt-utils
+
+            # File acquisition support
+            apt-get install -yq --fix-missing wget
+            apt-get install -yq --fix-missing curl
+
+            # Fundamental software build support
+            apt-get install -yq --fix-missing gcc
+            apt-get install -yq --fix-missing make
+            apt-get install -yq --fix-missing cmake
+            apt-get install -yq --fix-missing build-essential
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -266,11 +450,12 @@ jobs:
             chromedriver --version
 
       - run:
-          name: Install Node dependencies
+          name: Install Node and NPM for Dash and General Python
           command: |
             apt-get -yq install --fix-missing nodejs
             apt-get -yq install --fix-missing npm
-            node -v
+            node --version
+            npm --version
 
       - run:
           name: Install Python dependencies
@@ -298,6 +483,62 @@ jobs:
 
             npm run build
             cp -R ./cxdash ../../
+
+      - run:
+          name: Install Node and NPM for Streamlit
+          command: |
+            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
+            sh ./setup_nodejs.sh
+            apt update
+            apt install -yq --fix-missing nodejs
+            node --version
+            npm --version
+            npm cache clear --force
+
+      - run:
+          name: Generate Streamlit Component
+          command: |
+            echo "Streamlit requires Python 3.7 and later due to PyArrow."
+            #            cd streamlit/
+            #
+            #            #  Ensure the presence of a virtual environment
+            #            if ! [[ -d ./venv ]] ; then
+            #                python3 -m venv ./venv
+            #            fi
+            #            source ./venv/bin/activate
+            #            pip install -r ./requirements.txt
+            #
+            #            # Build the React component
+            #            # shellcheck disable=SC2164
+            #            cd ./cxstreamlit/frontend/
+            #            echo "Installling JS packages..."
+            #            npm install
+            #            ls -lah
+            #            echo "Building JS package..."
+            #            npm run build
+            #            ls -lah
+            #            cd ../../../
+            #
+            #            # Copy the Python package
+            #            mkdir -p cxstreamlit/frontend/
+            #            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
+            #            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
+            #            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
+            #            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
+            #
+            #            # Add package markers for build inclusion
+            #            touch cxstreamlit/frontend/__init__.py
+            #            touch cxstreamlit/frontend/build/__init__.py
+            #            touch cxstreamlit/frontend/build/static/__init__.py
+            #            touch cxstreamlit/frontend/build/static/css/__init__.py
+            #            touch cxstreamlit/frontend/build/static/js/__init__.py
+            #
+            #            ls -lah cxstreamlit
+            #            ls -lah cxstreamlit/frontend/
+            #            ls -lah cxstreamlit/frontend/build/
+            #            ls -lah cxstreamlit/frontend/build/static/
+            #            ls -lah cxstreamlit/frontend/build/static/js/
+            #            ls -lah cxstreamlit/frontend/build/static/css/
 
       - run:
           name: Test
