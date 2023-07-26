@@ -18,7 +18,7 @@ setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
     packages=find_packages(exclude=["tests*", "plotly", "streamlit", "tutorials",]),
-    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.sql', '*.txt', '*.zip']},
+    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.css', '*.html', '*.sql', '*.txt', '*.zip']},
     include_package_data=True,
     package_dir={'': '.'},
     install_requires=core_pkgs,
