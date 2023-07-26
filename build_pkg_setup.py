@@ -2,9 +2,7 @@ from datetime import datetime
 from platform import python_version
 
 import pytz
-import requirements
 from git import Repo
-
 
 setup_instructions_template = """
 from setuptools import setup, find_packages
@@ -14,18 +12,20 @@ long_description = '''@PKG_DESCRIPTION@'''
 core_pkgs = @PKG_REQUIREMENTS@
 dash_pkgs = @PKG_REQUIREMENTS_DASH@
 jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
+streamlit_pkgs = @PKG_REQUIREMENTS_STREAMLIT@
 
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
-    packages=find_packages(exclude=["tests*", "plotly", "tutorials",]),
-    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.sql', '*.txt', '*.zip']},
+    packages=find_packages(exclude=["tests*", "plotly", "streamlit", "tutorials",]),
+    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.css', '*.html', '*.sql', '*.txt', '*.zip']},
     include_package_data=True,
     package_dir={'': '.'},
     install_requires=core_pkgs,
     extras_require={
         "core": core_pkgs, 
         "dash": core_pkgs + dash_pkgs,
+        "streamlit": core_pkgs + streamlit_pkgs,
         "jupyter": core_pkgs + jupyter_pkgs,
         "all": core_pkgs + dash_pkgs + jupyter_pkgs,
     },
@@ -79,6 +79,7 @@ def get_requirements() -> dict:
     packages = {
         "core": [],
         "dash": [],
+        "streamlit": [],
         "jupyter": [],
     }
 
@@ -110,6 +111,7 @@ if __name__ == "__main__":
     packages = get_requirements()
     package_requirements_core = ",\n    ".join(packages["core"])
     package_requirements_dash = ",\n    ".join(packages["dash"])
+    package_requirements_streamlit = ",\n    ".join(packages["streamlit"])
     package_requirements_jupyter = ",\n    ".join(packages["jupyter"])
     python_version = python_version()
 
@@ -117,26 +119,25 @@ if __name__ == "__main__":
         "@PKG_VERSION@", package_version
     )
 
-    setup_instructions = (
-        setup_instructions.replace(
-            "@PKG_REQUIREMENTS@", f"[\n    {package_requirements_core}\n]"
-        )
-        .replace("@PKG_REQUIREMENTS_DASH@", f"[\n    {package_requirements_dash}\n]")
-        .replace(
-            "@PKG_REQUIREMENTS_JUPYTER@", f"[\n    {package_requirements_jupyter}\n]"
-        )
+    setup_instructions = setup_instructions.replace("@PKG_DESCRIPTION@", get_description())
+
+    setup_instructions = setup_instructions.replace("@PY_VERSION_MJR@", python_version[:1])
+
+    setup_instructions = setup_instructions.replace(
+        "@PKG_REQUIREMENTS@", f"[\n    {package_requirements_core}\n]"
+    )
+    setup_instructions = setup_instructions.replace(
+        "@PKG_REQUIREMENTS_DASH@", f"[\n    {package_requirements_dash}\n]"
+    )
+    setup_instructions = setup_instructions.replace(
+        "@PKG_REQUIREMENTS_JUPYTER@", f"[\n    {package_requirements_jupyter}\n]"
+    )
+    setup_instructions = setup_instructions.replace(
+        "@PKG_REQUIREMENTS_STREAMLIT@", f"[\n    {package_requirements_streamlit}\n]"
     )
 
     setup_instructions = setup_instructions.replace(
         "@PRESENT_YEAR@", str(buildtime.year)
-    )
-
-    setup_instructions = setup_instructions.replace(
-        "@PKG_DESCRIPTION@", get_description()
-    )
-
-    setup_instructions = setup_instructions.replace(
-        "@PY_VERSION_MJR@", python_version[:1]
     )
 
     setup_py_file = open("setup.py", "w")
