@@ -62,7 +62,7 @@ def CXStreamlit(
         events: Optional[str] = None,
         height: Optional[str] = None,
         width: Optional[str] = None,
-):
+) -> object:
     """Create a new instance of "my_component".
 
     Parameters
