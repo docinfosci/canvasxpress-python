@@ -9,7 +9,7 @@ from canvasxpress.canvas import CanvasXpress
 from cxstreamlit import CXStreamlit
 
 
-def display(cx: CanvasXpress) -> Union[object, None]:
+def plot(cx: CanvasXpress) -> Union[object, None]:
     """
     Converts the provided CanvasXpress object into a CXStreamlit object that is
     primed by the configuration represented by the CanvasXpress object.
