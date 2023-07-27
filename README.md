@@ -117,31 +117,31 @@ pip install canvasxpress
 or
 
 ```terminal
-pip install canvasxpress[core]
+pip install "canvasxpress[core]"
 ```
 
 Jupyter components can be additionally installed with the core package via:
 
 ```terminal
-pip install canvasxpress[jupyter]
+pip install "canvasxpress[jupyter]"
 ```
 
 Dash components can be additionally installed as:
 
 ```terminal
-pip install canvasxpress[dash]
+pip install "canvasxpress[dash]"
 ```
 
 And Streamlit components can be additionally installed as:
 
 ```terminal
-pip install canvasxpress[streamlit]
+pip install "canvasxpress[streamlit]"
 ```
 
 To get everything in one installation use:
 
 ```terminal
-pip install canvasxpress[all]
+pip install "canvasxpress[all]"
 ```
 
 ### A Quick Script/Console Example
@@ -206,7 +206,7 @@ import streamlit as st
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render import streamlit as cx_st
 
-# A basic bar chart.  It's anonymous, so no render_to.  Data is added duringt he draw phase.
+# A basic bar chart.  It's anonymous, so no render_to.  Data is added during the draw phase.
 chord_chart = CanvasXpress(
     config={
         "graphOrientation": "vertical",
