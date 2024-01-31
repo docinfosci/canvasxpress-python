@@ -2,7 +2,7 @@ import csv
 from copy import copy, deepcopy
 
 import pytest
-from hypothesis import given
+from hypothesis import given, settings, HealthCheck
 from hypothesis.extra.pandas import data_frames, column
 
 from canvasxpress.data.matrix import CXCSVData
@@ -15,6 +15,7 @@ csv_sample = """
 """
 
 
+@settings(suppress_health_check=(HealthCheck.too_slow,))
 @given(data_frames([column("A", dtype=int), column("B", dtype=int)]))
 def test_CXCSVData_init_valid_input(sample):
     csv_sample = sample.to_csv(index=False, quoting=csv.QUOTE_NONNUMERIC)
@@ -22,6 +23,7 @@ def test_CXCSVData_init_valid_input(sample):
     assert csv_sample == cxdata.csv
 
 
+@settings(suppress_health_check=(HealthCheck.too_slow,))
 @given(everything_except(dict, str))
 def test_CXCSVData_init_invalid_input(sample):
     if sample is not None:
@@ -29,6 +31,7 @@ def test_CXCSVData_init_invalid_input(sample):
             CXCSVData(sample)
 
 
+@settings(suppress_health_check=(HealthCheck.too_slow,))
 @given(everything_except(dict, str))
 def test_CXCSVData_set_data_invalid(sample):
     csvdata = CXCSVData()

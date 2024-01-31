@@ -896,8 +896,11 @@ class CanvasXpress(CXHtmlConvertable):
             self.data, fix_missing_profile, match_profile_to_graphtype
         )
 
+        #  Capture the ID once to avoid anonymous object calls producing different IDs.
+        render_id = self.render_to
+
         primary_params = {
-            "renderTo": self.render_to,
+            "renderTo": render_id,
             "data": self.data.render_to_dict(config=self.config),
             "config": self.config.render_to_dict(),
             "events": "js_events",
@@ -908,7 +911,7 @@ class CanvasXpress(CXHtmlConvertable):
         for fx in self.after_render.render_to_list():
             params = [json.dumps(p) for p in fx[1]]
             after_render_functions.append(
-                f"CanvasXpress.$('{self.render_to}').{fx[0]}({', '.join(params)})"
+                f"CanvasXpress.$('{render_id}').{fx[0]}({', '.join(params)})"
             )
 
         # Support unique data without JSON data structure
@@ -918,7 +921,7 @@ class CanvasXpress(CXHtmlConvertable):
         cx_js = render_from_template(
             _CX_JS_TEMPLATE,
             {
-                "cx_target_id": self.render_to,
+                "cx_target_id": render_id,
                 "cx_json": json.dumps(canvasxpress),
                 "cx_functions": "\n" + "; ".join(after_render_functions) + ";\n",
             },
@@ -931,7 +934,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         canvas_configs = CXConfigs(
             {
-                "id": self.render_to,
+                "id": render_id,
                 "width": self.width,
                 "height": self.height,
             }
