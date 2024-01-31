@@ -29,6 +29,7 @@ def test_CXDataframeData_init_valid_input():
     df_sample.equals(cxdata.dataframe)
 
 
+@settings(suppress_health_check=(HealthCheck.too_slow,))
 @given(everything_except(dict, str))
 def test_CXDataframeData_init_invalid_input(sample):
     if sample is not None:
@@ -36,6 +37,7 @@ def test_CXDataframeData_init_invalid_input(sample):
             CXDataframeData(sample)
 
 
+@settings(suppress_health_check=(HealthCheck.too_slow,))
 @given(everything_except(dict, str))
 def test_CXDataframeData_set_data_invalid(sample):
     dictdata = CXDataframeData()
