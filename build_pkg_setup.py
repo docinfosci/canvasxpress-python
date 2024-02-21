@@ -83,6 +83,7 @@ def get_requirements() -> dict:
         "dash": [],
         "streamlit": [],
         "jupyter": [],
+        "shiny": [],
     }
 
     with open("requirements.txt") as reqs_file:
