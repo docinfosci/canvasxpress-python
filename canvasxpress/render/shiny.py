@@ -91,3 +91,7 @@ class CXShinyWidget(object):
 
         except Exception as e:
             return None
+
+
+def shiny_cx(canvas: CanvasXpress) -> None:
+    repr(CXShinyWidget(canvas))
