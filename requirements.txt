@@ -18,3 +18,7 @@ dash
 # streamlit
 streamlit
 jinja2
+
+# shiny
+ipywidgets
+shinywidgets
