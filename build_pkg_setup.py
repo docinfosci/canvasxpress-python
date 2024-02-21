@@ -13,6 +13,7 @@ core_pkgs = @PKG_REQUIREMENTS@
 dash_pkgs = @PKG_REQUIREMENTS_DASH@
 jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
 streamlit_pkgs = @PKG_REQUIREMENTS_STREAMLIT@
+shiny_pkgs = @PKG_REQUIREMENTS_SHINY@
 
 setup(
     name='canvasxpress',
@@ -27,6 +28,7 @@ setup(
         "dash": core_pkgs + dash_pkgs,
         "streamlit": core_pkgs + streamlit_pkgs,
         "jupyter": core_pkgs + jupyter_pkgs,
+        "shiny": core_pkgs + shiny_pkgs,
         "all": core_pkgs + dash_pkgs + jupyter_pkgs,
     },
     url='https://github.com/docinfosci/canvasxpress-python.git',
@@ -113,6 +115,7 @@ if __name__ == "__main__":
     package_requirements_dash = ",\n    ".join(packages["dash"])
     package_requirements_streamlit = ",\n    ".join(packages["streamlit"])
     package_requirements_jupyter = ",\n    ".join(packages["jupyter"])
+    package_requirements_shiny = ",\n    ".join(packages["shiny"])
     python_version = python_version()
 
     setup_instructions = setup_instructions_template.replace(
@@ -134,6 +137,9 @@ if __name__ == "__main__":
     )
     setup_instructions = setup_instructions.replace(
         "@PKG_REQUIREMENTS_STREAMLIT@", f"[\n    {package_requirements_streamlit}\n]"
+    )
+    setup_instructions = setup_instructions.replace(
+        "@PKG_REQUIREMENTS_SHINY@", f"[\n    {package_requirements_shiny}\n]"
     )
 
     setup_instructions = setup_instructions.replace(
