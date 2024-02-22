@@ -2,6 +2,11 @@ from shiny import ui
 
 from canvasxpress.canvas import CanvasXpress
 
+_html_header_modified: bool = False
+"""
+An internal marker indicating whether or not header values such as script and CSS have been injected into the page.
+"""
+
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
 
 _cx_versioned_css_url = (
@@ -12,6 +17,24 @@ _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
+_cx_intermixed_header = """
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link 
+                href='@css_url@' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='@js_url@' 
+                type='text/javascript'>
+        </script>
+    </head>
+    <body></body>
+</html>
+"""
+
 _cx_js_intermixed_template = """
 <script type="text/javascript">
     @code@
@@ -20,9 +43,14 @@ _cx_js_intermixed_template = """
 
 _cx_html_intermixed_template = """
 <html>
-    @canvasxpress_license@
-    @canvase@
-    @js_functions@
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        @canvasxpress_license@
+        @canvase@
+        @js_functions@
+    </body>
 </html>
 """
 
@@ -52,46 +80,72 @@ class CXShinyWidget(object):
         """
         Renders the object as Shiny compliant HTML.
         """
-        try:
-            # Get the header assets.
-            css_url = _cx_default_css_url
-            js_url = _cx_default_js_url
-            if CanvasXpress.cdn_edition() is not None:
-                css_url = _cx_versioned_css_url.replace(
-                    "@cx_version@", CanvasXpress.cdn_edition()
-                )
-                js_url = _cx_versioned_js_url.replace(
-                    "@cx_version@", CanvasXpress.cdn_edition()
-                )
-
-            # Get the HTML and JS assets.
-            html_parts: dict = self._canvas.render_to_html_parts()
-
-            # Provide the taglist.
-            return ui.TagList(
-                ui.div(
-                    ui.HTMLDependency(
-                        stylesheet=[{"href": css_url}],
-                        script=[{"src": js_url}],
-                    ),
-                    ui.HTML(
-                        _cx_html_intermixed_template.replace(
-                            "@canvasxpress_license@",
-                            "",
-                        ).replace(
-                            "@canvase@",
-                            html_parts["canvas"],
-                        ).replace(
-                            "@js_functions@",
-                            html_parts["cx_js"],
-                        )
-                    ),
-                )
+        # Get the header assets.
+        css_url = _cx_default_css_url
+        js_url = _cx_default_js_url
+        if CanvasXpress.cdn_edition() is not None:
+            css_url = _cx_versioned_css_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
+            js_url = _cx_versioned_js_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        except Exception as e:
-            return None
+        header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
+            "@js_url@", js_url
+        )
+
+        # Get the HTML and JS assets.
+        html_parts: dict = self._canvas.render_to_html_parts()
+
+        # Provide the taglist.
+        components = [
+            ui.div(
+                ui.HTML(
+                    _cx_html_intermixed_template.replace(
+                        "@canvasxpress_license@",
+                        html_parts.get("cx_license", ""),
+                    )
+                        .replace(
+                        "@canvase@",
+                        html_parts["cx_canvas"],
+                    )
+                        .replace(
+                        "@js_functions@",
+                        _cx_js_intermixed_template.replace(
+                            "@code@",
+                            html_parts["cx_js"],
+                        ),
+                    )
+                )
+            ),
+        ]
+
+        # Add a header instruction if this is the first plot rendering.  Shiny for Python will automaytically
+        # edit the HTML header to include this information because of  the <head> tag.
+        global _html_header_modified
+        if not _html_header_modified:
+            components.append(
+                ui.HTML(
+                    ui.HTML(header_html_text),
+                )
+            )
+            _html_header_modified = True
+
+        # Generate the chart DIV and provide it for rendering.
+        ui_components = ui.TagList(components)
+        return ui_components.get_html_string()
+
+    def _repr_png_(self):
+        """
+        Renders the object as Shiny compliant PNG.
+        """
+        return self._repr_html_()
 
 
-def shiny_cx(canvas: CanvasXpress) -> None:
-    repr(CXShinyWidget(canvas))
+def plot(canvas: CanvasXpress):
+    """
+    `plot` accommodates syntactic sugar for Shiny for Python so that developers used to working with functions as
+    page elements can feel comfortable with the UI code.  It wraps an instance of `CXShinyWidget`.
+    """
+    return CXShinyWidget(canvas)
