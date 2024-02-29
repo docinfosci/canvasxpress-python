@@ -1,6 +1,7 @@
 from shiny import ui
 
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.render.image import CXImage, PNG_IMAGE
 
 _html_header_modified: bool = False
 """
@@ -140,7 +141,17 @@ class CXShinyWidget(object):
         """
         Renders the object as Shiny compliant PNG.
         """
-        return self._repr_html_()
+        image_generator = CXImage(self._canvas)
+        images = image_generator.render()
+        if images is None:
+            return None
+        elif len(images) == 0:
+            return None
+        else:
+            for image in images:
+                if image["image"]["format"] == PNG_IMAGE:
+                    return image["image"]["binary"]
+            return None
 
 
 def plot(canvas: CanvasXpress):

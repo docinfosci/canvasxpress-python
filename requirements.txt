@@ -20,5 +20,7 @@ streamlit
 jinja2
 
 # shiny
+shiny
+htmltools
 ipywidgets
 shinywidgets
