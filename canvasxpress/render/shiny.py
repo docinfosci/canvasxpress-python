@@ -1,7 +1,6 @@
 from shiny import ui
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.image import CXImage, PNG_IMAGE
 
 _html_header_modified: bool = False
 """
@@ -137,26 +136,90 @@ class CXShinyWidget(object):
         ui_components = ui.TagList(components)
         return ui_components.get_html_string()
 
-    def _repr_png_(self):
+    def _repr_rstudio_viewer_(self):
         """
-        Renders the object as Shiny compliant PNG.
+        Renders the object as Shiny compliant HTML.
         """
-        image_generator = CXImage(self._canvas)
-        images = image_generator.render()
-        if images is None:
-            return None
-        elif len(images) == 0:
-            return None
-        else:
-            for image in images:
-                if image["image"]["format"] == PNG_IMAGE:
-                    return image["image"]["binary"]
-            return None
+        try:
+            import warnings
+            warnings.filterwarnings("ignore")
 
+            import logging
+            logging.getLogger('rpy2.rinterface_lib.embedded').setLevel(logging.ERROR)
 
-def plot(canvas: CanvasXpress):
-    """
-    `plot` accommodates syntactic sugar for Shiny for Python so that developers used to working with functions as
-    page elements can feel comfortable with the UI code.  It wraps an instance of `CXShinyWidget`.
-    """
-    return CXShinyWidget(canvas)
+            from rpy2 import robjects
+        except:
+            robjects = None
+
+        intermixed_header = """
+        <link 
+                href='@css_url@' 
+                rel='stylesheet' 
+                type='text/css'
+        />
+        <script 
+                src='@js_url@' 
+                type='text/javascript'>
+        </script>
+        """
+
+        html_intermixed_template = """
+        <div>
+            @canvasxpress_license@
+            @canvase@
+            @js_functions@
+        </div>
+        """
+
+        # Get the header assets.
+        css_url = _cx_default_css_url
+        js_url = _cx_default_js_url
+        if CanvasXpress.cdn_edition() is not None:
+            css_url = _cx_versioned_css_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
+            js_url = _cx_versioned_js_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
+
+        header_html_text = intermixed_header.replace("@css_url@", css_url).replace("@js_url@", js_url)
+
+        # Get the HTML and JS assets.
+        html_parts: dict = self._canvas.render_to_html_parts()
+
+        # Provide the taglist.
+        components = [
+            ui.div(
+                ui.HTML(header_html_text),
+                ui.HTML(
+                    html_intermixed_template.replace(
+                        "@canvasxpress_license@",
+                        html_parts.get("cx_license", ""),
+                    )
+                        .replace(
+                        "@canvase@",
+                        html_parts["cx_canvas"],
+                    )
+                        .replace(
+                        "@js_functions@",
+                        _cx_js_intermixed_template.replace(
+                            "@code@",
+                            html_parts["cx_js"],
+                        ),
+                    )
+                )
+            ),
+        ]
+
+        # Generate the chart DIV and provide it for rendering.
+        ui_components = ui.TagList(components)
+        html = ui_components.get_html_string().replace('\n', '')
+
+        robjects.globalenv["html"] = html
+        robjects.r(
+            """
+            tf <- tempfile(fileext = ".html")
+            writeLines(html, tf)
+            rstudioapi::viewer(tf)
+            """
+        )
