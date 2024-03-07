@@ -25,7 +25,7 @@ def show_in_browser(canvas: CanvasXpress) -> None:
     plotter.render()
 
 
-def show(canvas: CanvasXpress) -> Any:
+def graph(canvas: CanvasXpress) -> Any:
     """
     Displays the CanvasXpress object as a visualized chart in a manner appropriate to the running context.
 
