@@ -2,6 +2,7 @@
 This module provides an integration solution for the CanvasXpress class and the base dash component for a feature-
 rich integration with Plotly's Dash framework.
 """
+
 import json
 from typing import List, Union, Any
 
@@ -40,9 +41,11 @@ class CXElementFactory(CXRenderFactory):
         element_parts = cx.prepare_html_element_parts()
         dash_element = CXDashElement(
             id=element_parts["renderTo"],
-            data=element_parts["data"]
-            if isinstance(element_parts["data"], str)
-            else json.dumps(element_parts["data"]),
+            data=(
+                element_parts["data"]
+                if isinstance(element_parts["data"], str)
+                else json.dumps(element_parts["data"])
+            ),
             config=json.dumps(
                 {**element_parts["config"], **element_parts["otherParams"]}
             ),

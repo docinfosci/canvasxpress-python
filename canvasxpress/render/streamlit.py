@@ -2,6 +2,7 @@
 This module provides an integration solution for the CanvasXpress class and the base streamlit component for a feature-
 rich integration with Streamlit's framework.
 """
+
 import json
 from typing import Union
 
@@ -29,9 +30,11 @@ def plot(cx: CanvasXpress) -> Union[object, None]:
         element_parts = cx.prepare_html_element_parts()
         streamlit_element: object = CXStreamlit(
             id=element_parts["renderTo"],
-            data=element_parts["data"]
-            if isinstance(element_parts["data"], str)
-            else json.dumps(element_parts["data"]),
+            data=(
+                element_parts["data"]
+                if isinstance(element_parts["data"], str)
+                else json.dumps(element_parts["data"])
+            ),
             config=json.dumps(
                 {**element_parts["config"], **element_parts["otherParams"]}
             ),

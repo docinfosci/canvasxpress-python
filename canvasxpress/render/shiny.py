@@ -106,11 +106,11 @@ class CXShinyWidget(object):
                         "@canvasxpress_license@",
                         html_parts.get("cx_license", ""),
                     )
-                        .replace(
+                    .replace(
                         "@canvase@",
                         html_parts["cx_canvas"],
                     )
-                        .replace(
+                    .replace(
                         "@js_functions@",
                         _cx_js_intermixed_template.replace(
                             "@code@",
@@ -142,10 +142,12 @@ class CXShinyWidget(object):
         """
         try:
             import warnings
+
             warnings.filterwarnings("ignore")
 
             import logging
-            logging.getLogger('rpy2.rinterface_lib.embedded').setLevel(logging.ERROR)
+
+            logging.getLogger("rpy2.rinterface_lib.embedded").setLevel(logging.ERROR)
 
             from rpy2 import robjects
         except:
@@ -182,7 +184,9 @@ class CXShinyWidget(object):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        header_html_text = intermixed_header.replace("@css_url@", css_url).replace("@js_url@", js_url)
+        header_html_text = intermixed_header.replace("@css_url@", css_url).replace(
+            "@js_url@", js_url
+        )
 
         # Get the HTML and JS assets.
         html_parts: dict = self._canvas.render_to_html_parts()
@@ -196,24 +200,24 @@ class CXShinyWidget(object):
                         "@canvasxpress_license@",
                         html_parts.get("cx_license", ""),
                     )
-                        .replace(
+                    .replace(
                         "@canvase@",
                         html_parts["cx_canvas"],
                     )
-                        .replace(
+                    .replace(
                         "@js_functions@",
                         _cx_js_intermixed_template.replace(
                             "@code@",
                             html_parts["cx_js"],
                         ),
                     )
-                )
+                ),
             ),
         ]
 
         # Generate the chart DIV and provide it for rendering.
         ui_components = ui.TagList(components)
-        html = ui_components.get_html_string().replace('\n', '')
+        html = ui_components.get_html_string().replace("\n", "")
 
         robjects.globalenv["html"] = html
         robjects.r(
