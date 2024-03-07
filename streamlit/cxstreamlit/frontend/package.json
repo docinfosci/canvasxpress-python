@@ -10,7 +10,6 @@
         "crypto-browserify": "",
         "stream": "npm:stream-browserify",
         "stream-browserify": "",
-        "vm-browserify": "",
         "stream-http": "",
         "https-browserify": "",
         "os-browserify": "",
