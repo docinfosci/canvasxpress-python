@@ -29,6 +29,9 @@
         ],
         "stream": [
             "node_modules/stream-browserify"
+        ],
+        "vm": [
+            "node_modules/vm-browserify"
         ]
     }
 }
