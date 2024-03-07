@@ -20,8 +20,10 @@ streamlit
 jinja2
 
 # shiny
-rpy2
 shiny
 htmltools
 ipywidgets
 shinywidgets
+
+# rstudio
+rpy2
