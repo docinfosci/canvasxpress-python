@@ -51,6 +51,10 @@ jobs:
             apt-get install -yq --fix-missing cmake
             apt-get install -yq --fix-missing build-essential
 
+            # R for RStudio support
+            apt-get install -yq --fix-missing r-base
+            apt-get install -yq --fix-missing r-base-dev
+
       - run:
           name: Install Web drivers
           command: |
@@ -266,6 +270,10 @@ jobs:
             apt-get install -yq --fix-missing cmake
             apt-get install -yq --fix-missing build-essential
 
+            # R for RStudio support
+            apt-get install -yq --fix-missing r-base
+            apt-get install -yq --fix-missing r-base-dev
+
       - run:
           name: Install Web drivers
           command: |
@@ -429,6 +437,10 @@ jobs:
             apt-get install -yq --fix-missing make
             apt-get install -yq --fix-missing cmake
             apt-get install -yq --fix-missing build-essential
+
+            # R for RStudio support
+            apt-get install -yq --fix-missing r-base
+            apt-get install -yq --fix-missing r-base-dev
 
       - run:
           name: Install Web drivers
