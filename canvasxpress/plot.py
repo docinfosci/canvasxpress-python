@@ -17,7 +17,7 @@ from canvasxpress.render.popup import CXBrowserPopup
 from canvasxpress.render.shiny import CXShinyWidget
 
 
-def browser(canvas: CanvasXpress) -> None:
+def show_in_browser(canvas: CanvasXpress) -> None:
     """
     Opens a browser and displays the canvas.
     """
