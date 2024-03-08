@@ -357,6 +357,4 @@ streamlit/cxstreamlit/frontend/.idea
 streamlit/cxstreamlit/frontend/build
 streamlit/cxstreamlit/frontend/node_modules
 
-package-lock.json
-
 pytest_result.xml
