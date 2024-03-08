@@ -342,6 +342,10 @@ cxdash/cxdash.min.js.map
 cxdash/CXDashElement.py
 cxdash/metadata.json
 cxdash/package-info.json
+cxdash/__init__.py~origin_develop
+cxdash/_imports_.py~origin_develop
+cxdash/cxdash.min.js~origin_develop
+cxdash/CXDashElement.py~origin_develop
 
 plotly/cxdash/cxdash/cxdash.min.js
 plotly/cxdash/deps/cxdash.min.js
@@ -352,16 +356,7 @@ streamlit/venv
 streamlit/cxstreamlit/frontend/.idea
 streamlit/cxstreamlit/frontend/build
 streamlit/cxstreamlit/frontend/node_modules
-streamlit/cxstreamlit/frontend/package-lock.json
 
 package-lock.json
 
 pytest_result.xml
-
-cxdash/__init__.py~origin_develop
-
-cxdash/_imports_.py~origin_develop
-
-cxdash/cxdash.min.js~origin_develop
-
-cxdash/CXDashElement.py~origin_develop
