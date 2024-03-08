@@ -1,31 +1,27 @@
 {
     "name": "cxstreamlit",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "private": true,
-    "config-overrides-path": "node_modules/react-app-rewired/config-overrides.js",
     "dependencies": {
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-app-rewired": "",
-        "assert": "",
-        "url": "",
         "buffer": "",
         "crypto": "npm:crypto-browserify",
         "crypto-browserify": "",
         "stream": "npm:stream-browserify",
         "stream-browserify": "",
-        "vm-browserify": "",
         "stream-http": "",
         "https-browserify": "",
         "os-browserify": "",
+        "vm-browserify": "",
         "streamlit-component-lib": "^2.0.0",
         "canvasxpress": "",
         "canvasxpress-react": "github:neuhausi/canvasxpress-react"
     },
     "scripts": {
-        "start": "react-app-rewired start",
-        "build": "react-app-rewired build",
-        "test": "react-app-rewired test",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
