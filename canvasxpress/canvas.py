@@ -338,7 +338,7 @@ class CanvasXpress(CXHtmlConvertable):
 
             except Exception:
                 if (value.find(",") >= 0 or value.find("\t") >= 0) and value.find(
-                        "\n"
+                    "\n"
                 ) >= 0:
                     self.__data = CXCSVData(value)
 
@@ -400,7 +400,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @config.setter
     def config(
-            self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
+        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
         """
         Sets the CXConfigs associated with this CanvasXpress chart.
@@ -452,7 +452,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @after_render.setter
     def after_render(
-            self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
+        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
         """
         Sets the CXConfigs associated with this CanvasXpress chart's afterRender
@@ -501,7 +501,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @other_init_params.setter
     def other_init_params(
-            self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
+        self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
         """
         Set the additional parameters to be used with the `CanvasXpress` for
@@ -557,7 +557,7 @@ class CanvasXpress(CXHtmlConvertable):
 
     @classmethod
     def from_reproducible_json(
-            cls, cx_json: str, include_factory: bool = False, include_system: bool = False
+        cls, cx_json: str, include_factory: bool = False, include_system: bool = False
     ) -> "CanvasXpress":
         """
         Initializes a new `CanvasXpress` object using a reproducable research
@@ -598,15 +598,15 @@ class CanvasXpress(CXHtmlConvertable):
                 (str(param), cx_json_dict[param])
                 for param in cx_json_dict.keys()
                 if param
-                   not in [
-                       "id",
-                       "width",
-                       "height",
-                       "data",
-                       "config",
-                       "afterRender",
-                       "renderTo",
-                   ]
+                not in [
+                    "id",
+                    "width",
+                    "height",
+                    "data",
+                    "config",
+                    "afterRender",
+                    "renderTo",
+                ]
             ]
 
             # Capure and remove setDimensions width, height
@@ -645,15 +645,15 @@ class CanvasXpress(CXHtmlConvertable):
             )
 
     def __init__(
-            self,
-            render_to: str = None,
-            data: Union[CXData, dict, DataFrame, str, None] = None,
-            events: Union[List[CXEvent], CXEvents] = None,
-            config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
-            after_render: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
-            other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
-            width: int = CHART_WIDTH_DEFAULT,
-            height: int = CHART_HEIGHT_DEFAULT,
+        self,
+        render_to: str = None,
+        data: Union[CXData, dict, DataFrame, str, None] = None,
+        events: Union[List[CXEvent], CXEvents] = None,
+        config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        after_render: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
+        width: int = CHART_WIDTH_DEFAULT,
+        height: int = CHART_HEIGHT_DEFAULT,
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
@@ -682,7 +682,7 @@ class CanvasXpress(CXHtmlConvertable):
         self.height = height
 
     def update_data_profile(
-            self, data: CXData, fix_missing_profile: bool, match_profile_to_graphtype: bool
+        self, data: CXData, fix_missing_profile: bool, match_profile_to_graphtype: bool
     ):
         """
         Inspects the `CXData` object to see if it is a `CXProfiledData` object.
@@ -731,7 +731,7 @@ class CanvasXpress(CXHtmlConvertable):
 
                         if special_types.get(graphType.value):
                             if not isinstance(
-                                    data.profile, type(special_types[graphType.value])
+                                data.profile, type(special_types[graphType.value])
                             ):
                                 data.profile = special_types[graphType.value]
 
@@ -740,9 +740,9 @@ class CanvasXpress(CXHtmlConvertable):
                                 data.profile = CXStandardProfile()
 
     def prepare_html_element_parts(
-            self,
-            fix_missing_profile: bool = True,
-            match_profile_to_graphtype: bool = True,
+        self,
+        fix_missing_profile: bool = True,
+        match_profile_to_graphtype: bool = True,
     ) -> dict:
         """
         Converts the CanvasXpress object into CanvasXpress element components in
@@ -800,9 +800,9 @@ class CanvasXpress(CXHtmlConvertable):
         return cx_element_params
 
     def render_to_html_parts(
-            self,
-            fix_missing_profile: bool = True,
-            match_profile_to_graphtype: bool = True,
+        self,
+        fix_missing_profile: bool = True,
+        match_profile_to_graphtype: bool = True,
     ) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.
@@ -939,14 +939,14 @@ class CanvasXpress(CXHtmlConvertable):
             }
         )
         cx_canvas = (
-                "<canvas "
-                + " ".join(
-            [
-                f"{str(config.label)}={json.dumps(config.value)}"
-                for config in canvas_configs.configs
-            ]
-        )
-                + "></canvas>"
+            "<canvas "
+            + " ".join(
+                [
+                    f"{str(config.label)}={json.dumps(config.value)}"
+                    for config in canvas_configs.configs
+                ]
+            )
+            + "></canvas>"
         )
 
         cx_license = render_from_template(
@@ -1015,16 +1015,16 @@ class CanvasXpress(CXHtmlConvertable):
 
         repr_str = (
             _CX_REPR_TEMPLATE.replace("@render_to@", self.render_to)
-                .replace("@data@", str_data)
-                .replace("@config@", str_config)
-                .replace("@width@", json.dumps(self.width))
-                .replace("@height@", json.dumps(self.height))
-                .replace("@events@", repr(self.events))
-                .replace("@after_render@", str_after_render)
-                .replace("@other_init_params@", str_other_init_params)
-                .replace("true", "True")
-                .replace("false", "False")
-                .replace("null", "None")
+            .replace("@data@", str_data)
+            .replace("@config@", str_config)
+            .replace("@width@", json.dumps(self.width))
+            .replace("@height@", json.dumps(self.height))
+            .replace("@events@", repr(self.events))
+            .replace("@after_render@", str_after_render)
+            .replace("@other_init_params@", str_other_init_params)
+            .replace("true", "True")
+            .replace("false", "False")
+            .replace("null", "None")
         )
 
         return repr_str
