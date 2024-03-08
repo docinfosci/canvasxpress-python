@@ -24,17 +24,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-        "path": [
-            "./node_modules/path-browserify"
-        ],
         "crypto": [
             "node_modules/crypto-browserify"
         ],
         "stream": [
             "node_modules/stream-browserify"
-        ],
-        "vm": [
-            "node_modules/vm-browserify"
         ]
     }
 }
