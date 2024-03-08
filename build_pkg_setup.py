@@ -30,7 +30,7 @@ setup(
         "streamlit": core_pkgs + streamlit_pkgs,
         "jupyter": core_pkgs + jupyter_pkgs,
         "shiny": core_pkgs + shiny_pkgs,
-        "rstudio": core_pkgs + shiny_pkgs + rstudio_pkgs,
+        "rstudio": core_pkgs + shiny_pkgs + jupyter_pkgs + rstudio_pkgs,
         "all": core_pkgs + dash_pkgs + jupyter_pkgs,
     },
     url='https://github.com/docinfosci/canvasxpress-python.git',
