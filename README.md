@@ -168,7 +168,7 @@ pip install "canvasxpress[all]"
 ### Universal rendering is now available!
 
 The traditional means of rendering CanvasXPress for Python charts in various contexts, such as Jupyter Notebooks, still
-works, but now a universal function has been provided to streamline code sharing amonst users of different contexts and
+works, but now a universal function has been provided to streamline code sharing amongst users of different contexts and
 environments: `graph()`.
 
 To use `graph()` import it from `canvasxpress.plot` and then call it by passing a CanvasXpress object. For example, a
