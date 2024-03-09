@@ -1,8 +1,6 @@
 from typing import Any
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render import streamlit
-from canvasxpress.render.dash import CXElementFactory
 from canvasxpress.render.environment import (
     get_target_context,
     CONTEXT_RSTUDIO,
@@ -12,9 +10,7 @@ from canvasxpress.render.environment import (
     CONTEXT_STREAMLIT,
     CONTEXT_BROWSER,
 )
-from canvasxpress.render.jupyter import CXNoteBook
 from canvasxpress.render.popup import CXBrowserPopup
-from canvasxpress.render.shiny import CXShinyWidget
 
 
 def show_in_browser(canvas: CanvasXpress) -> None:
@@ -23,6 +19,9 @@ def show_in_browser(canvas: CanvasXpress) -> None:
     """
     plotter = CXBrowserPopup(canvas)
     plotter.render()
+
+
+_contexts_imported: list = []
 
 
 def graph(canvas: CanvasXpress) -> Any:
@@ -45,22 +44,37 @@ def graph(canvas: CanvasXpress) -> Any:
     context = get_target_context()
 
     if context == CONTEXT_RSTUDIO:
+        if not context in _contexts_imported:
+            from canvasxpress.render.shiny import CXShinyWidget
+
         plotter = CXShinyWidget(canvas)
         plotter._repr_rstudio_viewer_()
 
     elif context == CONTEXT_SHINY:
+        if not context in _contexts_imported:
+            from canvasxpress.render.shiny import CXShinyWidget
+
         plotter = CXShinyWidget(canvas)
         return plotter
 
     elif context == CONTEXT_DASH:
+        if not context in _contexts_imported:
+            from canvasxpress.render.dash import CXElementFactory
+
         plotter = CXElementFactory()
         return plotter.render(canvas)
 
     elif context == CONTEXT_JUPYTER:
+        if not context in _contexts_imported:
+            from canvasxpress.render.jupyter import CXNoteBook
+
         plotter = CXNoteBook(canvas)
         return plotter.render()
 
     elif context == CONTEXT_STREAMLIT:
+        if not context in _contexts_imported:
+            from canvasxpress.render import streamlit
+
         return streamlit.plot(canvas)
 
     elif context == CONTEXT_BROWSER:
