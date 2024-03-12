@@ -1,7 +1,7 @@
 """
 This module provides functionality for detecting the platform context that is active, such as RStudio.
 """
-
+import os
 from os import environ
 
 CANVASXPRESS_TARGET_CONTEXT: str = "CANVASXPRESS_TARGET_CONTEXT"
@@ -22,6 +22,7 @@ CONTEXT_JUPYTER: str = "jupyter"
 CONTEXT_RSTUDIO: str = "rstudio"
 CONTEXT_SHINY: str = "shiny"
 CONTEXT_STREAMLIT: str = "streamlit"
+CONTEXT_UNKNOWN: str = "UNKNOWN"
 
 VALID_CONTEXTS: list = [
     CONTEXT_BROWSER,
@@ -55,7 +56,7 @@ def is_shiny_available() -> bool:
     try:
         import shiny
 
-        return True
+        return os.environ.get("SHINY_HOST") is not None
 
     except ModuleNotFoundError:
         return False
@@ -69,9 +70,12 @@ def is_dash_available() -> bool:
     try:
         import dash
 
-        return True
+        return dash.get_app() is not None
 
     except ModuleNotFoundError:
+        return False
+
+    except Exception:
         return False
 
 
@@ -81,11 +85,14 @@ def is_ipython_available() -> bool:
     :returns" `bool` `True` if IPython is available.
     """
     try:
-        import IPython
+        from IPython import get_ipython
 
-        return True
+        return get_ipython().__class__.__name__ != "NoneType"
 
     except ModuleNotFoundError:
+        return False
+
+    except NameError:
         return False
 
 
@@ -115,13 +122,15 @@ def get_target_context() -> str:
             return target
 
     else:
+        if is_ipython_available():
+            return CONTEXT_JUPYTER
+        if is_dash_available():
+            return CONTEXT_DASH
         if is_rstudio_active():
             return CONTEXT_RSTUDIO
         if is_shiny_available():
             return CONTEXT_SHINY
-        if is_dash_available():
-            return CONTEXT_DASH
-        if is_ipython_available():
-            return CONTEXT_JUPYTER
         if is_streamlit_available():
             return CONTEXT_STREAMLIT
+
+        return CONTEXT_UNKNOWN
