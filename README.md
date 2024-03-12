@@ -485,65 +485,34 @@ pip install canvasxpress[dash]
 Then create a demo file, such as `app.py`, and insert:
 
 ```python
+from random import random
+
 from dash import Dash, html
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
 
 g_app = Dash(__name__)
 
-# No need to create_element many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
-_g_csv = """, Apples, Oranges, Bananas
-SF      ,      4,       1,       2
-Montreal,      2,       4,       5
-"""
-
-_g_cx_colors = {
+colors = {
     "background": "#111111",
     "text": "rgb(127,219,255)",
-    "bars": ["rgb(99,110,250)", "rgb(239,85,59)"],
 }
-
-# Work with data as normal Python values.  cx_data could also have been a DataFrame, JSON, URL, etc.
-_g_cx_chart = CanvasXpress(
-    render_to="",  # Dash charts need to be anonymous becayse of React, so use an empty ID
-    data=_g_csv,
-    config={
-        "colors": _g_cx_colors["bars"],
-        "graphOrientation": "vertical",
-        "smpLabelRotate": 90,
-        "plotBox": True,
-        "plotBoxColor": "White",
-        "background": _g_cx_colors["background"],
-        "theme": "Plotly",
-        "xAxis": ["Fruit", "City"],
-        "xAxisTitle": "Amount",
-        "xAxis2Show": False,
-        "xAxisMinorTicks": False,
-        "axisTitleColor": _g_cx_colors["text"],
-        "axisTickColor": _g_cx_colors["text"],
-        "legendColor": _g_cx_colors["text"],
-        "smpTitle": "Fruit",
-        "smpTitleFontColor": _g_cx_colors["text"],
-        "smpLabelFontColor": _g_cx_colors["text"],
-    },
-    width=650,
-    height=450,
-)
 
 # Application
 g_app.layout = html.Div(
-    style={"backgroundColor": _g_cx_colors["background"]},
+    style={"backgroundColor": colors["background"]},
     children=[
         html.H1(
             children="Hello Dash",
-            style={"textAlign": "center", "color": _g_cx_colors["text"]},
+            style={"textAlign": "center", "color": colors["text"]},
         ),
         html.H2(
             children=(
                 "An Example of the Advanced CanvasXpress and CXDashElementFactory"
                 " Classes for Plotting a CanvasXpress Chart"
             ),
-            style={"textAlign": "center", "color": _g_cx_colors["text"]},
+            style={"textAlign": "center", "color": colors["text"]},
         ),
         html.Div(
             id="chart-container",
@@ -551,7 +520,36 @@ g_app.layout = html.Div(
                 html.Div(
                     id="cx-container",
                     style={"textAlign": "center"},
-                    children=graph(_g_cx_chart),
+                    children=graph(
+                        CanvasXpress(
+                            data={
+                                "y": {
+                                    "data": [
+                                        [random() % 100 for i in range(5)]
+                                    ],
+                                    "vars": ["A"],
+                                }
+                            },
+                            config={
+                                "background": "rgb(255,255,255)",
+                                "colorScheme": "CanvasXpress",
+                                "graphOrientation": "vertical",
+                                "graphType": "Area",
+                                "objectBorderColor": False,
+                                "plotBox": False,
+                                "plotBoxColor": "rgb(204,204,204)",
+                                "showLegend": False,
+                                "showLegendBorder": True,
+                                "smpLabelRotate": 90,
+                                "smpTitle": "time",
+                                "xAxis": ["A"],
+                                "xAxisTickRightShow": False,
+                                "yAxisTickTopShow": False
+                            },
+                            width=500,
+                            height=500
+                        )
+                    ),
                 ),
             ],
         ),
