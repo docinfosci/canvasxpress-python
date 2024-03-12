@@ -4,7 +4,8 @@ from typing import Any, Union, List
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
-JSON_TEMPLATE: str = """
+JSON_TEMPLATE: str = (
+    """
 {
     "renderTo": "@renderTo@",
     "data": @data@,
@@ -16,6 +17,7 @@ JSON_TEMPLATE: str = """
     "height": @height@
 }
 """.strip()
+)
 
 
 class CXJSON(CXRenderable):

@@ -21,11 +21,14 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 
 ***CanvasXpress*** can be now be used within Python for native integration into IPython and Web environments, such as:
 
+- [Shiny for Python](https://shiny.posit.co/py/)
 - [Streamlit](https://streamlit.io/)
 - [Plotly Dash](https://dash.plotly.com/)
 - [Jupyter](https://jupyter.org/)
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 - [Django](https://www.djangoproject.com/)
+
+The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
 
 Complete examples using the ***CanvasXpress*** library including the mouse events, zooming, and broadcasting
 capabilities are included in this package. This
@@ -51,6 +54,16 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Enhancements
 
+_A universal graph function has been added!_ 🥳 🎉
+
+CanvasXpress applications, notebooks, and similar can now use a single function -- `graph()` -- to display CanvasXpress
+charts in any context!  Examples below have been updated.
+
+_Shiny for Python Dashboards are now supported!_ 🥳 🎉
+
+Shiny for Python is Posit's powerful reactive framework for Python, inspired by Shiny for R. CanvasXpress can now be
+used in Shiny for Python applications!
+
 _Streamlit Dashboards are now supported!_ 🥳 🎉
 
 Streamlit is a popular dashboard framework that is generally simpler to use than Plotly Dash or Shiny for Python, but
@@ -67,25 +80,20 @@ _Pinned CanvasXpress versions are now supported!_
 To facilitate productin and reproducible research environments, the edition of CanvasXpress to be used can now be set.
 For example, version `34.9`. By default the latest available edition of CanvasXpress will be used.
 
-A complete list of enhancements by release date is available at the
-[CanvasXpress for Python Status Page](https://canvasxpress-python.readthedocs.io/en/latest/status/).
-
 ### Known Issues
 
 None
 
 ### Roadmap
 
-This package is actively maintained and developed. Our focus for 2023 is:
+This package is actively maintained and developed. Our focus for 2024 is:
 
 #### Immediate Focus
 
 * Updated and detailed documentation and working examples of all Python functionality
-* Shiny for Python support
 
 #### General Focus
 
-* Integraton with dashboard frameworks for easier applet creation
 * Continued alignment with the CanvasXpress Javascript library
 * Continued stability and security, if/as needed
 
@@ -102,7 +110,7 @@ at [https://www.canvasxpress.org](https://www.canvasxpress.org).
 **Note**: We will begin replacing readthedocs with Quarto based examples this year.
 
 **
-New:** [Jupyter Notebook based examples](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
+[Jupyter Notebook based examples](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
 for hundreds of chart configurations!
 
 ### Installation
@@ -121,10 +129,22 @@ or
 pip install "canvasxpress[core]"
 ```
 
-Jupyter components can be additionally installed with the core package via:
+Jupyter/Quarto components can be additionally installed with the core package via:
 
 ```terminal
 pip install "canvasxpress[jupyter]"
+```
+
+Shiny for Python components can be additionally installed as:
+
+```terminal
+pip install "canvasxpress[shiny]"
+```
+
+RStudio viewport support (which includes shiny and Jupyter/Quarto support) can be additionally installed as:
+
+```terminal
+pip install "canvasxpress[rstudio]"
 ```
 
 Dash components can be additionally installed as:
@@ -145,6 +165,57 @@ To get everything in one installation use:
 pip install "canvasxpress[all]"
 ```
 
+### Universal rendering is now available!
+
+The traditional means of rendering CanvasXPress for Python charts in various contexts, such as Jupyter Notebooks, still
+works, but now a universal function has been provided to streamline code sharing amongst users of different contexts and
+environments: `graph()`.
+
+To use `graph()` import it from `canvasxpress.plot` and then call it by passing a CanvasXpress object. For example, a
+Quarto, RMD, or Jupyter Notebook code chunk could be:
+
+```python
+from random import random
+
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+
+graph(
+    CanvasXpress(
+        data={
+            "y": {
+                "data": [
+                    [random() % 100 for i in range(20)]
+                ],
+                "vars": ["A"],
+            }
+        },
+        config={
+            "background": "rgb(255,255,255)",
+            "colorScheme": "CanvasXpress",
+            "graphOrientation": "vertical",
+            "graphType": "Area",
+            "objectBorderColor": False,
+            "plotBox": False,
+            "plotBoxColor": "rgb(204,204,204)",
+            "showLegend": False,
+            "showLegendBorder": True,
+            "smpLabelRotate": 90,
+            "smpTitle": "time",
+            "xAxis": ["A"],
+            "xAxisTickRightShow": False,
+            "yAxisTickTopShow": False
+        },
+        width=609,
+        height=609
+    )
+)
+```
+
+In each case the chart will render according to the context's expectations.  (Note that some contexts, such as Shiny,
+expect an object to be returned so `graph()` would return an object to be used like any other UI element in that
+context.)
+
 ### A Quick Script/Console Example
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
@@ -152,7 +223,7 @@ graphical browser with Javascript support is available on the host system.
 
 ```python
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.popup import CXBrowserPopup
+from canvasxpress.plot import show_in_browser
 
 if __name__ == "__main__":
     # Define a CX bar chart with some basic data
@@ -170,14 +241,123 @@ if __name__ == "__main__":
     )
 
     # Display the chart in its own Web page
-    browser = CXBrowserPopup(chart)
-    browser.render()
+    show_in_browser(chart)
 ```
 
 Upon running the example the following chart will be displayed on systems such as MacOS X, Windows, and Linux with
 graphical systems:
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
+
+### CanvasXpress charts in the RStudio IDE Viewer
+
+The RStudio IDE's Viewer panel is now supported for rendering interactive charts in the Viewer!  When the `graph()`
+function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, such as
+for Quarto code chunks.
+
+### A Quick Shiny for Python Example
+
+[Shiny for Python](https://shiny.posit.co/py/) is a new dashboard framework inspired by the highly successful Shiny for
+R framework produced by Posit (formerly RStudio). This example shows how to create a basic Shiny for Python application
+using a CanvasXpress Shiny element.
+
+A basic Shiny for Python app provides a means by which:
+
+1. A local development server can be started
+1. A function can respond to input or draw an initial UI
+
+First install Shiny for Python and CanvasXpress for Python:
+
+```terminal
+pip install shiny
+pip install canvasxpress[shiny]
+```
+
+Then create a demo file, such as `app.py`, and insert:
+
+```python
+from random import random
+
+from shiny import App, ui, render, reactive
+
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+
+app_ui = ui.page_fluid(
+    ui.row(
+        ui.input_slider(
+            "points_desired",
+            "Points",
+            min=0,
+            max=100,
+            value=0,
+        ),
+    ),
+    ui.row(
+        ui.output_ui("chart_view"),
+    )
+)
+
+
+def server(input, output, session):
+    @render.ui
+    @reactive.event(input.points_desired)
+    def chart_view():
+        return graph(
+            CanvasXpress(
+                data={
+                    "y": {
+                        "data": [
+                            [random() % 100 for i in range(input.points_desired())]
+                        ],
+                        "vars": ["A"],
+                    }
+                },
+                config={
+                    "background": "rgb(255,255,255)",
+                    "colorScheme": "CanvasXpress",
+                    "graphOrientation": "vertical",
+                    "graphType": "Area",
+                    "objectBorderColor": False,
+                    "plotBox": False,
+                    "plotBoxColor": "rgb(204,204,204)",
+                    "showLegend": False,
+                    "showLegendBorder": True,
+                    "smpLabelRotate": 90,
+                    "smpTitle": "time",
+                    "xAxis": ["A"],
+                    "xAxisTickRightShow": False,
+                    "yAxisTickTopShow": False
+                },
+                width=609,
+                height=609
+            )
+        )
+
+
+app = App(app_ui, server)
+```
+
+#### Run the App and View the Page
+
+On the command line, execute:
+
+```terminal
+shiny run --reload --launch-browser app.py
+```
+
+And output similar to the following will be provided:
+
+```terminal
+Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+Browsing to `http://localhost:8000/` will result in a page with a CanvasXpress chart, which is being hosted by the Shiny
+for Python framework:
+
+<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/shiny_chart_example.png" align="center" width="600"></a>
+
+Congratulations!  You have created a Shiny for Python CanvasXpress app!
 
 ### A Quick Streamlit Example
 
@@ -205,7 +385,7 @@ import random
 import streamlit as st
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render import streamlit as cx_st
+from canvasxpress.plot import graph
 
 # A basic bar chart.  It's anonymous, so no render_to.  Data is added during the draw phase.
 chord_chart = CanvasXpress(
@@ -257,7 +437,7 @@ chord_chart.data = {
 }
 column2.write(
     # This plots the CanvasXpress chart into the UI.
-    cx_st.plot(chord_chart)
+    graph(chord_chart)
 )
 ```
 
@@ -305,65 +485,34 @@ pip install canvasxpress[dash]
 Then create a demo file, such as `app.py`, and insert:
 
 ```python
+from random import random
+
 from dash import Dash, html
+
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.dash import CXElementFactory
+from canvasxpress.plot import graph
 
 g_app = Dash(__name__)
 
-# No need to create_element many forms of data into CanvasXpress data objects; for example, use this CSV as-is.
-_g_csv = """, Apples, Oranges, Bananas
-SF      ,      4,       1,       2
-Montreal,      2,       4,       5
-"""
-
-_g_cx_colors = {
+colors = {
     "background": "#111111",
     "text": "rgb(127,219,255)",
-    "bars": ["rgb(99,110,250)", "rgb(239,85,59)"],
 }
-
-# Work with data as normal Python values.  cx_data could also have been a DataFrame, JSON, URL, etc.
-_g_cx_chart = CanvasXpress(
-    render_to="fruit_consumption",
-    data=_g_csv,
-    config={
-        "colors": _g_cx_colors["bars"],
-        "graphOrientation": "vertical",
-        "smpLabelRotate": 90,
-        "plotBox": True,
-        "plotBoxColor": "White",
-        "background": _g_cx_colors["background"],
-        "theme": "Plotly",
-        "xAxis": ["Fruit", "City"],
-        "xAxisTitle": "Amount",
-        "xAxis2Show": False,
-        "xAxisMinorTicks": False,
-        "axisTitleColor": _g_cx_colors["text"],
-        "axisTickColor": _g_cx_colors["text"],
-        "legendColor": _g_cx_colors["text"],
-        "smpTitle": "Fruit",
-        "smpTitleFontColor": _g_cx_colors["text"],
-        "smpLabelFontColor": _g_cx_colors["text"],
-    },
-    width=650,
-    height=450,
-)
 
 # Application
 g_app.layout = html.Div(
-    style={"backgroundColor": _g_cx_colors["background"]},
+    style={"backgroundColor": colors["background"]},
     children=[
         html.H1(
             children="Hello Dash",
-            style={"textAlign": "center", "color": _g_cx_colors["text"]},
+            style={"textAlign": "center", "color": colors["text"]},
         ),
         html.H2(
             children=(
                 "An Example of the Advanced CanvasXpress and CXDashElementFactory"
                 " Classes for Plotting a CanvasXpress Chart"
             ),
-            style={"textAlign": "center", "color": _g_cx_colors["text"]},
+            style={"textAlign": "center", "color": colors["text"]},
         ),
         html.Div(
             id="chart-container",
@@ -371,7 +520,36 @@ g_app.layout = html.Div(
                 html.Div(
                     id="cx-container",
                     style={"textAlign": "center"},
-                    children=CXElementFactory.render(_g_cx_chart),
+                    children=graph(
+                        CanvasXpress(
+                            data={
+                                "y": {
+                                    "data": [
+                                        [random() % 100 for i in range(5)]
+                                    ],
+                                    "vars": ["A"],
+                                }
+                            },
+                            config={
+                                "background": "rgb(255,255,255)",
+                                "colorScheme": "CanvasXpress",
+                                "graphOrientation": "vertical",
+                                "graphType": "Area",
+                                "objectBorderColor": False,
+                                "plotBox": False,
+                                "plotBoxColor": "rgb(204,204,204)",
+                                "showLegend": False,
+                                "showLegendBorder": True,
+                                "smpLabelRotate": 90,
+                                "smpTitle": "time",
+                                "xAxis": ["A"],
+                                "xAxisTickRightShow": False,
+                                "yAxisTickTopShow": False
+                            },
+                            width=500,
+                            height=500
+                        )
+                    ),
                 ),
             ],
         ),
