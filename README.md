@@ -19,7 +19,7 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
 
-***CanvasXpress*** can be now be used within Python for native integration into IPython and Web environments, such as:
+***CanvasXpress*** can be now be used with Python for native integration in environments, such as:
 
 - [Shiny for Python](https://shiny.posit.co/py/)
 - [Streamlit](https://streamlit.io/)
@@ -31,10 +31,9 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
 
 Complete examples using the ***CanvasXpress*** library including the mouse events, zooming, and broadcasting
-capabilities are included in this package. This
-***CanvasXpress*** Python package was created by Dr. Todd C. Brett, with support from
-[Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with the
-***CanvasXpress*** team.
+capabilities are included in this package. This ***CanvasXpress*** Python package was created by Dr. Todd C. Brett, 
+with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with the
+Dr. Isaac Neuhaus and the ***CanvasXpress*** team.
 
 The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
 
@@ -42,7 +41,7 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 | Topic | Status | 
 |---|---|
-| **Release** |[![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
+| **Release** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
 | **Python** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
 | **Edition** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
 | **Popularity** | [![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress) |
@@ -81,8 +80,8 @@ In addition to _core_, the following additional targets can be used:
 - _jupyter_ - installs additional packages to support rendering in Jupyter, Quarto, and IPython documents
 - _dash_ - installs additional packages to support rendering in Plotly Dash applications
 - _streamlit_ - installs additional packages to support rendering in Snowflake Streamlit applications
-- _shiny_ - installs additional packages to support rendering in Shiny for Python applications
-- _rstudio_ - installs additional packages to support rendering in the RStudio IDE Viewer, plus includes the same packages for jupyter and shiny
+- _shiny_ - installs additional packages to support rendering in Posit Shiny for Python applications
+- _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same packages for jupyter and shiny
 - _all_ - installs all additional packages to support rendering in any supported document or application
 
 ### Universal Rendering (Almost)
@@ -134,13 +133,13 @@ graph(
 Some application frameworks, such as _Shiny for Python_ and _Plotly Dash_ expect an object to be rendered to the 
 framework as part of the reactive flow.  In these contexts, the `graph()` functions creates an appropriate object
 and returns it.  That value can be assigned to a variable to be returned at a later point in the code, or be 
-immediately returned.  See the examples for explicit code.
+immediately returned.  See the Shiny for Python and Dash examples for specific usage.
 
-`show_in_browser()` is similar to `graph()` except that it explicitly opens a browser window on the local system and
-displays the chart.  It's used to facilitate learning and debugging.
+`show_in_browser()` is similar to `graph()` except that it opens a browser window on the local system and displays the 
+chart.  It's used to facilitate learning and debugging.
 
 `graph()` does a good job of determining the runtime context to choose how the chart should be rendered, but in the 
-event installed packages or runtime configurations confuse the function an environment variable can be set to override
+case installed packages or runtime configurations confuse the function an environment variable can be set to override
 how `graph()` performs the rendering.  Set `CANVASXPRESS_TARGET_CONTEXT` to be on the these values as appropriate in
 this situation (and don't forget to pip install the necessary package support):
 
@@ -151,6 +150,19 @@ this situation (and don't forget to pip install the necessary package support):
 - streamlit
 - browser
 
+For example:
+
+```python
+from os import environ
+environ["CANVASXPRESS_TARGET_CONTEXT"] = "jupyter"
+```
+
+or via a shell (_bash_ example provided):
+
+```shell
+export CANVASXPRESS_TARGET_CONTEXT="jupyter"
+```
+
 ## Chart Basics
 
 Generally speaking, a `CanvasXpress` object accepts the following parameters:
@@ -158,30 +170,81 @@ Generally speaking, a `CanvasXpress` object accepts the following parameters:
 ### render_to
 
 `render_to` is a `str` value that identifies the chart when rendered into HTML.  JavaScript functions can use this ID
-to access the chart and perform CanvasXpress operations within the browser.  Ommitting `render_to` or setting it to 
-`None` will make the `CanvasXpress` assume an anonymous mode in which a new GUID will be generated each time `graph()`
-is called.  If the chart will not be maniluated using JavaScript in the browser it is fine for charts to be anonymous.
+to access the chart and perform CanvasXpress operations within the browser.  Omitting `render_to` or setting it to 
+`None` will make the `CanvasXpress` object assume an anonymous mode in which a new GUID will be generated each time 
+`graph()` is called.  If the chart will not be maniluated using JavaScript in the browser it is fine for charts to be anonymous.
 
 __NOTE:__ React environments regularly destroy and rebuild objects as the page is updated.  In these environments it is
 possible for the timing of object destruction and JavaScript execution to cause a crash.  The best defense is to either 
 use anonymous mode, or if an ID must be known then a unique identifier should be set each time `graph()` is called.  In
 this manner an ID for a chart in the middle of being recreated is never referenced.  For example:
 
-    chart = CanvasXpress(...)
-    chart.render_to = str(guid4()).replace("-", "_")
-    return graph(chart)
+```python
+chart = CanvasXpress(...)
+chart.render_to = str(guid4()).replace("-", "_")
+return graph(chart)
+```
 
 Plotly's Dash framework uses React, and Dash applications should consider using only anonymous charts or assigning
-unique values as the ID similar to the above code.
+unique values as the ID similar to the above code.  Shiny for Python does not seem to suffer from this challenge.
 
 ### data
 
 `data` sets the chart's data and metadata.  This is an involved topic, and the [introductory article](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
 is an excellent read to understand how data should be shaped.  In general, data will be a `dict`, Web URL, or `str`.
 
+Data dict example:
+
+```python
+data_for_use_in_chart = {
+    "y": {
+        "data": [
+            [random() % 100 for i in range(20)]
+        ],
+        "vars": ["A"],
+    }
+}
+```
+
+Data URL example:
+
+```python
+data_for_use_in_chart = "https://corgis-edu.github.io/corgis/datasets/csv/state_demographics/state_demographics.csv"
+```
+
+Data text (CSV) example:
+
+```python
+data_for_use_in_chart = """
+"State","Population.Population Percent Change","Population.2014 Population"
+"Connecticut","-10.2","3605944"
+"Delaware","8.4","989948"
+"""
+```
+
 ### config
 
-`config` describes the chart's formatting.  It is a `dict` in which properties are specified and assigned values.
+`config` describes the chart's formatting.  It is a `dict` in which properties are specified and assigned values. All
+of the values must be compliant with Python's `json.dumps()` function.  For example:
+
+```python
+config={
+    "background": "rgb(255,255,255)",
+    "colorScheme": "CanvasXpress",
+    "graphOrientation": "vertical",
+    "graphType": "Area",
+    "objectBorderColor": False,
+    "plotBox": False,
+    "plotBoxColor": "rgb(204,204,204)",
+    "showLegend": False,
+    "showLegendBorder": True,
+    "smpLabelRotate": 90,
+    "smpTitle": "time",
+    "xAxis": ["A"],
+    "xAxisTickRightShow": False,
+    "yAxisTickTopShow": False
+},
+```
 
 ### width and height
 
@@ -191,10 +254,8 @@ browser will assign default values, such as 500px by 500px.
 ### Javascript Events
 
 CanvasXpress provides support for Javascript events via hook functions that are called when events occur, such as mouse 
-movement or clicks.
-
-These events are supported via the canvasxpress.js sub-package. `CXEvent` objects hold the Javascript instructions for
-Web events.  An example event for graph clicks with popup information is:
+movement or clicks. These events are supported via the canvasxpress.js sub-package. `CXEvent` objects hold the 
+Javascript instructions for Web events.  An example event for graph clicks with popup information is:
 
 ```python
 from canvasxpress.js.function import CXEvent
@@ -208,7 +269,7 @@ CXEvent(
 )
 ```
 
-The general template of a CanvasXpress Javascript hook function is:
+The general JavaScript template of a CanvasXpress Javascript hook function is:
 
 ```javascript
 function (o, e, t) {
@@ -216,7 +277,8 @@ function (o, e, t) {
 };
 ```
 
-Here's an example of an event the provides additional information about chart data upon a user click:
+`CXEvent` objects can be provided as a single object or as a list.  Here's an example of an event the provides 
+additional information about chart data upon a user click:
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -261,13 +323,15 @@ graph(
 ### Rendering Charts in the RStudio IDE Viewer Pane 
 
 The RStudio IDE's Viewer panel is now supported for rendering interactive charts in the Viewer!  When the `graph()`
-function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, such as
-for Quarto code chunks.
+function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, 
+such as for Quarto code chunks.  However, if the document is a Quarto or RMD file and the appropriate HTML (etc.)
+generation is performed then the CanvasXpress charts will be embedded in the generated output file as normal.
 
 ### A Basic Python Script / Console Example
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
-graphical browser with Javascript support is available on the host system.
+graphical browser with Javascript support is available on the host system.  To do so use the `show_in_browser()`
+function instead of graph()`.
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -506,7 +570,7 @@ Congratulations!  You have created a Streamlit CanvasXpress app!
 
 ### A Dash Example
 
-[Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to R/shiny for Python. Dash
+[Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to Shiny for Python or R. Dash
 applications are Web pages with widgets and elements facilitating the interactive presentation of information. This
 example shows how to create a basic Dash application using a CanvasXpress Dash element.
 
