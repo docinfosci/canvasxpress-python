@@ -32,7 +32,7 @@ The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto,
 
 Complete examples using the ***CanvasXpress*** library including the mouse events, zooming, and broadcasting
 capabilities are included in this package. This ***CanvasXpress*** Python package was created by Dr. Todd C. Brett, 
-with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with the
+with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with
 Dr. Isaac Neuhaus and the ***CanvasXpress*** team.
 
 The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
@@ -51,7 +51,13 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 <!-- End Badges -->
 
-## Getting Started
+## CanvasXpress Topics on this Page
+
+- [Getting Started](#topic-getting-started)
+- [Chart Basics](#topic-chart-basics)
+- [Application, NoteBook, and Console Examples](#topic-examples)
+
+## Getting Started {#topic-getting-started}
 
 ### Documentation
 
@@ -163,7 +169,7 @@ or via a shell (_bash_ example provided):
 export CANVASXPRESS_TARGET_CONTEXT="jupyter"
 ```
 
-## Chart Basics
+## Chart Basics {#topic-chart-basics}
 
 Generally speaking, a `CanvasXpress` object accepts the following parameters:
 
@@ -318,7 +324,7 @@ graph(
 )
 ```
 
-## Application, NoteBook, and Console Examples
+## Application, NoteBook, and Console Examples {#topic-examples}
 
 ### Rendering Charts in the RStudio IDE Viewer Pane 
 
