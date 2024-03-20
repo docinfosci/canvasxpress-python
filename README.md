@@ -1,4 +1,4 @@
-# CanvasXpress Python Library
+# CanvasXpress for Python
 
 <a href="https://www.canvasxpress.org">
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175" style="vertical-align:middle;margin:10px 10px"> 
@@ -39,17 +39,13 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 
 ### Project Status
 
-| Topic | Status | 
-|---|---|
-| **Release** | [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
-| **Python** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
-| **Edition** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
-| **Popularity** | [![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress) |
-| **Build** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) |
-| **Coverage** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | 
-| **Code** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) |
-
-<!-- End Badges -->
+[![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
+[![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
+[![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress)
+[![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
+[![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python)
 
 ## CanvasXpress Topics on this Page
 
@@ -57,7 +53,8 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 - [Chart Basics](#topic-chart-basics)
 - [Application, NoteBook, and Console Examples](#topic-examples)
 
-## Getting Started {#topic-getting-started}
+<a name="topic-getting-started"></a>
+## Getting Started
 
 ### Documentation
 
@@ -169,11 +166,12 @@ or via a shell (_bash_ example provided):
 export CANVASXPRESS_TARGET_CONTEXT="jupyter"
 ```
 
-## Chart Basics {#topic-chart-basics}
+<a name="topic-chart-basics"></a>
+## Chart Basics
 
 Generally speaking, a `CanvasXpress` object accepts the following parameters:
 
-### render_to
+#### render_to
 
 `render_to` is a `str` value that identifies the chart when rendered into HTML.  JavaScript functions can use this ID
 to access the chart and perform CanvasXpress operations within the browser.  Omitting `render_to` or setting it to 
@@ -194,7 +192,7 @@ return graph(chart)
 Plotly's Dash framework uses React, and Dash applications should consider using only anonymous charts or assigning
 unique values as the ID similar to the above code.  Shiny for Python does not seem to suffer from this challenge.
 
-### data
+#### data
 
 `data` sets the chart's data and metadata.  This is an involved topic, and the [introductory article](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
 is an excellent read to understand how data should be shaped.  In general, data will be a `dict`, Web URL, or `str`.
@@ -228,7 +226,7 @@ data_for_use_in_chart = """
 """
 ```
 
-### config
+#### config
 
 `config` describes the chart's formatting.  It is a `dict` in which properties are specified and assigned values. All
 of the values must be compliant with Python's `json.dumps()` function.  For example:
@@ -252,12 +250,12 @@ config={
 },
 ```
 
-### width and height
+#### width and height
 
 `width` and `height` specify the chart's dimensions as pixels.  If ommitted the CanvasXpress edition active for the 
 browser will assign default values, such as 500px by 500px.
 
-### Javascript Events
+#### Javascript Events
 
 CanvasXpress provides support for Javascript events via hook functions that are called when events occur, such as mouse 
 movement or clicks. These events are supported via the canvasxpress.js sub-package. `CXEvent` objects hold the 
