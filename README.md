@@ -3,8 +3,7 @@
 <a href="https://www.canvasxpress.org">
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175" style="vertical-align:middle;margin:10px 10px"> 
 </a>
-
-## About CanvasXpress for Python
+<br>
 
 [***CanvasXpress***](https://www.canvasxpress.org) was developed as the core visualization component for bioinformatics
 and systems biology analysis at Bristol-Myers Squibb. It supports a large number
@@ -19,7 +18,7 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
 
-***CanvasXpress*** can be now be used with Python for native integration in environments, such as:
+***CanvasXpress*** can be used for native Python integration for the following environments:
 
 - [Shiny for Python](https://shiny.posit.co/py/)
 - [Streamlit](https://streamlit.io/)
@@ -30,14 +29,11 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 
 The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
 
-Complete examples using the ***CanvasXpress*** library including the mouse events, zooming, and broadcasting
-capabilities are included in this package. This ***CanvasXpress*** Python package was created by Dr. Todd C. Brett, 
-with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with
-Dr. Isaac Neuhaus and the ***CanvasXpress*** team.
+This ***CanvasXpress*** Python package is maintained by [Dr. Todd C. Brett](https://github.com/docinfosci), with support 
+from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with Dr. Isaac Neuhaus and the 
+***CanvasXpress*** team.
 
-The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
-
-### Project Status
+## Project Status
 
 [![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
 [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
@@ -47,14 +43,7 @@ The maintainer of the Python edition of this package is [Dr. Todd C. Brett](http
 [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
 [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python)
 
-## CanvasXpress Topics on this Page
-
-- [Getting Started](#topic-getting-started)
-- [Chart Basics](#topic-chart-basics)
-- [Application, NoteBook, and Console Examples](#topic-examples)
-
-<a name="topic-getting-started"></a>
-## Getting Started
+## Documentation, Installation, and Usage
 
 ### Documentation
 
@@ -87,7 +76,7 @@ In addition to _core_, the following additional targets can be used:
 - _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same packages for jupyter and shiny
 - _all_ - installs all additional packages to support rendering in any supported document or application
 
-### Universal Rendering (Almost)
+### Drawing Charts
 
 The `CanvasXpress` object defines what a chart should contain and how it should be formatted, but rendering the chart
 is performed by the functions `graph()` and `show_in_browser()`.  
@@ -166,8 +155,7 @@ or via a shell (_bash_ example provided):
 export CANVASXPRESS_TARGET_CONTEXT="jupyter"
 ```
 
-<a name="topic-chart-basics"></a>
-## Chart Basics
+### Customizing Charts
 
 Generally speaking, a `CanvasXpress` object accepts the following parameters:
 
@@ -322,7 +310,7 @@ graph(
 )
 ```
 
-## Application, NoteBook, and Console Examples {#topic-examples}
+## Application, NoteBook, and Console Examples
 
 ### Rendering Charts in the RStudio IDE Viewer Pane 
 
