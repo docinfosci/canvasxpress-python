@@ -1,10 +1,9 @@
-# CanvasXpress Python Library
+# CanvasXpress for Python
 
 <a href="https://www.canvasxpress.org">
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175" style="vertical-align:middle;margin:10px 10px"> 
 </a>
-
-## About CanvasXpress for Python
+<br>
 
 [***CanvasXpress***](https://www.canvasxpress.org) was developed as the core visualization component for bioinformatics
 and systems biology analysis at Bristol-Myers Squibb. It supports a large number
@@ -19,7 +18,7 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
 
-***CanvasXpress*** can be now be used within Python for native integration into IPython and Web environments, such as:
+***CanvasXpress*** can be used for native Python integration for the following environments:
 
 - [Shiny for Python](https://shiny.posit.co/py/)
 - [Streamlit](https://streamlit.io/)
@@ -30,88 +29,27 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 
 The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
 
-Complete examples using the ***CanvasXpress*** library including the mouse events, zooming, and broadcasting
-capabilities are included in this package. This
-***CanvasXpress*** Python package was created by Dr. Todd C. Brett, with support from
-[Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with the
+This ***CanvasXpress*** Python package is maintained by [Dr. Todd C. Brett](https://github.com/docinfosci), with support 
+from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with Dr. Isaac Neuhaus and the 
 ***CanvasXpress*** team.
 
-The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
+## Project Status
 
-### Project Status
+[![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
+[![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
+[![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress)
+[![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
+[![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python)
 
-| Topic | Status | 
-|---|---|
-| **Release** |[![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
-| **Python** | [![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress) |
-| **Edition** | [![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress) | 
-| **Popularity** | [![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress) |
-| **Build** | [![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) |
-| **Coverage** | [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) | 
-| **Code** | [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/main)](https://github.com/docinfosci/canvasxpress-python) |
-
-<!-- End Badges -->
-
-### Enhancements
-
-_A universal graph function has been added!_ 🥳 🎉
-
-CanvasXpress applications, notebooks, and similar can now use a single function -- `graph()` -- to display CanvasXpress
-charts in any context!  Examples below have been updated.
-
-_Shiny for Python Dashboards are now supported!_ 🥳 🎉
-
-Shiny for Python is Posit's powerful reactive framework for Python, inspired by Shiny for R. CanvasXpress can now be
-used in Shiny for Python applications!
-
-_Streamlit Dashboards are now supported!_ 🥳 🎉
-
-Streamlit is a popular dashboard framework that is generally simpler to use than Plotly Dash or Shiny for Python, but
-just as powerful in terms of extensions and reactivity.
-
-_Jupyter Notebook exports are now supported!_
-
-Rendering in Notebooks has been available since Day 1, but now exporting saved notebooks to PDF, HTML, and other formats
-is supported!  The HTML export includes _live_ CanvasXpress charts, which makes this an excellent option for
-distributing rendered materials on the Web or with colleagues unfamiliar with notebook functionality.
-
-_Pinned CanvasXpress versions are now supported!_
-
-To facilitate productin and reproducible research environments, the edition of CanvasXpress to be used can now be set.
-For example, version `34.9`. By default the latest available edition of CanvasXpress will be used.
-
-### Known Issues
-
-None
-
-### Roadmap
-
-This package is actively maintained and developed. Our focus for 2024 is:
-
-#### Immediate Focus
-
-* Updated and detailed documentation and working examples of all Python functionality
-
-#### General Focus
-
-* Continued alignment with the CanvasXpress Javascript library
-* Continued stability and security, if/as needed
-
-## Getting Started
+## Documentation, Installation, and Usage
 
 ### Documentation
 
-The [documentation site](https://canvasxpress-python.readthedocs.io/en/latest/)
-contains complete [examples](https://canvasxpress-python.readthedocs.io/en/latest/examples/)
-and [API documentation](https://canvasxpress-python.readthedocs.io/en/latest/api/). There is also a wealth of additional
-information, including full Javascript API documentation,
-at [https://www.canvasxpress.org](https://www.canvasxpress.org).
+Documentation is maintained at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
 
-**Note**: We will begin replacing readthedocs with Quarto based examples this year.
-
-**
-[Jupyter Notebook based examples](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
-for hundreds of chart configurations!
+- [Introduction to CanvasXpress for Python](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
 
 ### Installation
 
@@ -129,49 +67,21 @@ or
 pip install "canvasxpress[core]"
 ```
 
-Jupyter/Quarto components can be additionally installed with the core package via:
+In addition to _core_, the following additional targets can be used:
 
-```terminal
-pip install "canvasxpress[jupyter]"
-```
+- _jupyter_ - installs additional packages to support rendering in Jupyter, Quarto, and IPython documents
+- _dash_ - installs additional packages to support rendering in Plotly Dash applications
+- _streamlit_ - installs additional packages to support rendering in Snowflake Streamlit applications
+- _shiny_ - installs additional packages to support rendering in Posit Shiny for Python applications
+- _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same packages for jupyter and shiny
+- _all_ - installs all additional packages to support rendering in any supported document or application
 
-Shiny for Python components can be additionally installed as:
+### Drawing Charts
 
-```terminal
-pip install "canvasxpress[shiny]"
-```
+The `CanvasXpress` object defines what a chart should contain and how it should be formatted, but rendering the chart
+is performed by the functions `graph()` and `show_in_browser()`.  
 
-RStudio viewport support (which includes shiny and Jupyter/Quarto support) can be additionally installed as:
-
-```terminal
-pip install "canvasxpress[rstudio]"
-```
-
-Dash components can be additionally installed as:
-
-```terminal
-pip install "canvasxpress[dash]"
-```
-
-And Streamlit components can be additionally installed as:
-
-```terminal
-pip install "canvasxpress[streamlit]"
-```
-
-To get everything in one installation use:
-
-```terminal
-pip install "canvasxpress[all]"
-```
-
-### Universal rendering is now available!
-
-The traditional means of rendering CanvasXPress for Python charts in various contexts, such as Jupyter Notebooks, still
-works, but now a universal function has been provided to streamline code sharing amongst users of different contexts and
-environments: `graph()`.
-
-To use `graph()` import it from `canvasxpress.plot` and then call it by passing a CanvasXpress object. For example, a
+To use `graph()` import it from `canvasxpress.plot` and then call it by passing a `CanvasXpress` object. For example, a
 Quarto, RMD, or Jupyter Notebook code chunk could be:
 
 ```python
@@ -212,14 +122,208 @@ graph(
 )
 ```
 
-In each case the chart will render according to the context's expectations.  (Note that some contexts, such as Shiny,
-expect an object to be returned so `graph()` would return an object to be used like any other UI element in that
-context.)
+Some application frameworks, such as _Shiny for Python_ and _Plotly Dash_ expect an object to be rendered to the 
+framework as part of the reactive flow.  In these contexts, the `graph()` functions creates an appropriate object
+and returns it.  That value can be assigned to a variable to be returned at a later point in the code, or be 
+immediately returned.  See the Shiny for Python and Dash examples for specific usage.
 
-### A Quick Script/Console Example
+`show_in_browser()` is similar to `graph()` except that it opens a browser window on the local system and displays the 
+chart.  It's used to facilitate learning and debugging.
+
+`graph()` does a good job of determining the runtime context to choose how the chart should be rendered, but in the 
+case installed packages or runtime configurations confuse the function an environment variable can be set to override
+how `graph()` performs the rendering.  Set `CANVASXPRESS_TARGET_CONTEXT` to be on the these values as appropriate in
+this situation (and don't forget to pip install the necessary package support):
+
+- rstudio
+- shiny
+- jupyter
+- dash
+- streamlit
+- browser
+
+For example:
+
+```python
+from os import environ
+environ["CANVASXPRESS_TARGET_CONTEXT"] = "jupyter"
+```
+
+or via a shell (_bash_ example provided):
+
+```shell
+export CANVASXPRESS_TARGET_CONTEXT="jupyter"
+```
+
+### Customizing Charts
+
+Generally speaking, a `CanvasXpress` object accepts the following parameters:
+
+#### render_to
+
+`render_to` is a `str` value that identifies the chart when rendered into HTML.  JavaScript functions can use this ID
+to access the chart and perform CanvasXpress operations within the browser.  Omitting `render_to` or setting it to 
+`None` will make the `CanvasXpress` object assume an anonymous mode in which a new GUID will be generated each time 
+`graph()` is called.  If the chart will not be maniluated using JavaScript in the browser it is fine for charts to be anonymous.
+
+__NOTE:__ React environments regularly destroy and rebuild objects as the page is updated.  In these environments it is
+possible for the timing of object destruction and JavaScript execution to cause a crash.  The best defense is to either 
+use anonymous mode, or if an ID must be known then a unique identifier should be set each time `graph()` is called.  In
+this manner an ID for a chart in the middle of being recreated is never referenced.  For example:
+
+```python
+chart = CanvasXpress(...)
+chart.render_to = str(guid4()).replace("-", "_")
+return graph(chart)
+```
+
+Plotly's Dash framework uses React, and Dash applications should consider using only anonymous charts or assigning
+unique values as the ID similar to the above code.  Shiny for Python does not seem to suffer from this challenge.
+
+#### data
+
+`data` sets the chart's data and metadata.  This is an involved topic, and the [introductory article](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
+is an excellent read to understand how data should be shaped.  In general, data will be a `dict`, Web URL, or `str`.
+
+Data dict example:
+
+```python
+data_for_use_in_chart = {
+    "y": {
+        "data": [
+            [random() % 100 for i in range(20)]
+        ],
+        "vars": ["A"],
+    }
+}
+```
+
+Data URL example:
+
+```python
+data_for_use_in_chart = "https://corgis-edu.github.io/corgis/datasets/csv/state_demographics/state_demographics.csv"
+```
+
+Data text (CSV) example:
+
+```python
+data_for_use_in_chart = """
+"State","Population.Population Percent Change","Population.2014 Population"
+"Connecticut","-10.2","3605944"
+"Delaware","8.4","989948"
+"""
+```
+
+#### config
+
+`config` describes the chart's formatting.  It is a `dict` in which properties are specified and assigned values. All
+of the values must be compliant with Python's `json.dumps()` function.  For example:
+
+```python
+config={
+    "background": "rgb(255,255,255)",
+    "colorScheme": "CanvasXpress",
+    "graphOrientation": "vertical",
+    "graphType": "Area",
+    "objectBorderColor": False,
+    "plotBox": False,
+    "plotBoxColor": "rgb(204,204,204)",
+    "showLegend": False,
+    "showLegendBorder": True,
+    "smpLabelRotate": 90,
+    "smpTitle": "time",
+    "xAxis": ["A"],
+    "xAxisTickRightShow": False,
+    "yAxisTickTopShow": False
+},
+```
+
+#### width and height
+
+`width` and `height` specify the chart's dimensions as pixels.  If ommitted the CanvasXpress edition active for the 
+browser will assign default values, such as 500px by 500px.
+
+#### Javascript Events
+
+CanvasXpress provides support for Javascript events via hook functions that are called when events occur, such as mouse 
+movement or clicks. These events are supported via the canvasxpress.js sub-package. `CXEvent` objects hold the 
+Javascript instructions for Web events.  An example event for graph clicks with popup information is:
+
+```python
+from canvasxpress.js.function import CXEvent
+
+CXEvent(
+    id="click",
+    script="""
+    var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0];
+    t.showInfoSpan(e, s);
+    """
+)
+```
+
+The general JavaScript template of a CanvasXpress Javascript hook function is:
+
+```javascript
+function (o, e, t) {
+    // script logic goes here
+};
+```
+
+`CXEvent` objects can be provided as a single object or as a list.  Here's an example of an event the provides 
+additional information about chart data upon a user click:
+
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+from canvasxpress.js.function import CXEvent
+
+graph(
+    CanvasXpress(
+        render_to="example_chart",
+        data={
+            "y": {
+                "vars": ["Gene1"],
+                "smps": ["Smp1", "Smp2", "Smp3"],
+                "data": [[10, 35, 88]]
+            }
+        },
+        config={
+            "graphOrientation": "vertical",
+            "graphType": "Bar",
+            "showLegend": False,
+            "smpLabelRotate": 90,
+            "smpTitle": "Samples",
+            "theme": "CanvasXpress",
+            "title": "Bar Graph Title",
+            "xAxisTitle": "Value"
+        },
+        events=[
+            CXEvent(
+                id="click",
+                script="""
+                var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0];
+                t.showInfoSpan(e, s);
+                """
+            ),
+        ]
+    )
+)
+```
+
+## Application, NoteBook, and Console Examples
+
+### Rendering Charts in the RStudio IDE Viewer Pane 
+
+The RStudio IDE's Viewer panel is now supported for rendering interactive charts in the Viewer!  When the `graph()`
+function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, 
+such as for Quarto code chunks.  However, if the document is a Quarto or RMD file and the appropriate HTML (etc.)
+generation is performed then the CanvasXpress charts will be embedded in the generated output file as normal.
+
+### A Basic Python Script / Console Example
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
-graphical browser with Javascript support is available on the host system.
+graphical browser with Javascript support is available on the host system.  To do so use the `show_in_browser()`
+function instead of graph()`.
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -249,13 +353,7 @@ graphical systems:
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
 
-### CanvasXpress charts in the RStudio IDE Viewer
-
-The RStudio IDE's Viewer panel is now supported for rendering interactive charts in the Viewer!  When the `graph()`
-function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, such as
-for Quarto code chunks.
-
-### A Quick Shiny for Python Example
+### A Shiny for Python Example
 
 [Shiny for Python](https://shiny.posit.co/py/) is a new dashboard framework inspired by the highly successful Shiny for
 R framework produced by Posit (formerly RStudio). This example shows how to create a basic Shiny for Python application
@@ -329,8 +427,8 @@ def server(input, output, session):
                     "xAxisTickRightShow": False,
                     "yAxisTickTopShow": False
                 },
-                width=609,
-                height=609
+                width=500,
+                height=500
             )
         )
 
@@ -359,7 +457,7 @@ for Python framework:
 
 Congratulations!  You have created a Shiny for Python CanvasXpress app!
 
-### A Quick Streamlit Example
+### A Streamlit Example
 
 [Streamlit](https://streamlit.io) is a popular dashboard framework that is simplified compared to Dash and Shiny, but
 just as powerful in terms of reactivity and extensions. This example shows how to create a basic Streamlit application
@@ -462,9 +560,9 @@ Streamlit framework:
 
 Congratulations!  You have created a Streamlit CanvasXpress app!
 
-### A Quick Dash Example
+### A Dash Example
 
-[Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to R/shiny for Python. Dash
+[Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to Shiny for Python or R. Dash
 applications are Web pages with widgets and elements facilitating the interactive presentation of information. This
 example shows how to create a basic Dash application using a CanvasXpress Dash element.
 
@@ -581,7 +679,7 @@ framework:
 
 Congratulations!  You have created a Plotly Dash CanvasXpress app!
 
-### A Quick Flask Example
+### A Flask Example
 
 [Flask](https://palletsprojects.com/p/flask/) is a popular lean Web development framework for Python based applications.
 Flask applications can serve Web pages, RESTful APIs, and similar backend service concepts. This example shows how to
