@@ -122,8 +122,8 @@ graph(
 )
 ```
 
-Some application frameworks, such as _Shiny for Python_ and _Plotly Dash_ expect an object to be rendered to the 
-framework as part of the reactive flow.  In these contexts, the `graph()` functions creates an appropriate object
+Some application frameworks, such as _Shiny for Python_ and _Plotly Dash_, expect an object to be rendered to the 
+framework as part of the reactive flow.  In these contexts, the `graph()` function creates an appropriate object
 and returns it.  That value can be assigned to a variable to be returned at a later point in the code, or be 
 immediately returned.  See the Shiny for Python and Dash examples for specific usage.
 
@@ -132,7 +132,7 @@ chart.  It's used to facilitate learning and debugging.
 
 `graph()` does a good job of determining the runtime context to choose how the chart should be rendered, but in the 
 case installed packages or runtime configurations confuse the function an environment variable can be set to override
-how `graph()` performs the rendering.  Set `CANVASXPRESS_TARGET_CONTEXT` to be on the these values as appropriate in
+how `graph()` performs the rendering.  Set `CANVASXPRESS_TARGET_CONTEXT` to be one of these values as appropriate for
 this situation (and don't forget to pip install the necessary package support):
 
 - rstudio
@@ -154,6 +154,27 @@ or via a shell (_bash_ example provided):
 ```shell
 export CANVASXPRESS_TARGET_CONTEXT="jupyter"
 ```
+
+### Default and Pinned CanvasXpress JavaScript Editions
+
+CanvasXpress for Python generates JavaScript that assumes use of the latest available edition of CanvasXpress for
+JavaScript, but it can be set to use a specific edition.
+
+Review this site for available versions:
+https://cdnjs.com/libraries/canvasXpress
+
+The desired version is expressed as a `str`.  Prior to generating a CanvasXpress chart use the following code to set 
+the edition that shall be used:
+
+```python
+from canvasxpress.canvas import CanvasXpress
+CanvasXpress.set_cdn_edition("48.3")  # Or whatever available version is desired.
+```
+
+To use the default edition once again during the runtime session set the value to `None`.
+
+This is the best way to assure a specific chart behavior for production application releases; however, once set any
+new JavaScript edition features or fixes will not be available until the code is removed or a different version is set.
 
 ### Customizing Charts
 
