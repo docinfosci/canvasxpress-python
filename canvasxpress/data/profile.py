@@ -423,10 +423,10 @@ class CXStandardProfile(CXDataProfile):
             self.__match_z_to_vars = value
 
     def add_data_section(
-            self,
-            section: str,
-            source: dict,
-            target: dict,
+        self,
+        section: str,
+        source: dict,
+        target: dict,
     ) -> None:
         """
         Adds a source data section, such as X, to the target if such a section
@@ -457,9 +457,9 @@ class CXStandardProfile(CXDataProfile):
                 raise TypeError(f"data[{section}][{key}] must be of type list")
 
     def render_to_profiled_dict(
-            self,
-            data: CXData,
-            **kwargs,
+        self,
+        data: CXData,
+        **kwargs,
     ) -> dict:
         """
         Converts a given `CXData` instance into a dict suitable for use by

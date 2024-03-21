@@ -3,7 +3,6 @@ import uuid
 from typing import Union, List
 
 from pandas import DataFrame
-from deprecated import deprecated
 
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
@@ -22,6 +21,8 @@ from canvasxpress.data.text import CXTextData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
+
+# from deprecated import deprecated
 
 _CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@"
 """
@@ -117,12 +118,10 @@ class CanvasXpress(CXHtmlConvertable):
         Sets the render_to of the CanvasXpress instance.  Sets the `id`
         attribute of the `<canvas>` element.
         :param value:
-            `str` The ID to be associated.  Cannot be `None`, and
-            must be alphanumeric.  Non-alphanumeric characters will
-            be removed, except for `_`, and if the remaining string
-            is empty then a UUID4 will be substituted.  This is to preserve JS
-            compatibility during rendering. `None` can also be provided to
-            indicate that this object should be anonymous, such as for use
+            `str` The ID to be associated.  Must be alphanumeric.  Non-alphanumeric characters will
+            be removed, except for `_`, and if the remaining string is empty then a UUID4 will be
+            substituted.  This is to preserve JS compatibility during rendering. `None` can also
+            be provided to indicate that this object should be anonymous, such as for use
             in rapidly changing React interfaces.
         """
         if not isinstance(value, str) and value is not None:
@@ -134,7 +133,7 @@ class CanvasXpress(CXHtmlConvertable):
                 if c.isalnum() or c == "_":
                     candidate += c
             if candidate == "":
-                candidate = str(uuid.uuid4()).replace("-", "")
+                candidate = None
 
         else:
             candidate = value

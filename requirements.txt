@@ -18,3 +18,12 @@ dash
 # streamlit
 streamlit
 jinja2
+
+# shiny
+shiny
+htmltools
+ipywidgets
+shinywidgets
+
+# rstudio
+rpy2

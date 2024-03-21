@@ -21,6 +21,7 @@ chmod +x ./*.sh
 ./init-drivers.sh
 
 # Bootstrap Python
+python3 ./build_pkg_setup.py
 pip install --no-cache-dir -U -r ./requirements-project.txt
 invoke init --dev --list
 
