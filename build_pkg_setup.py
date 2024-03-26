@@ -14,7 +14,7 @@ dash_pkgs = @PKG_REQUIREMENTS_DASH@
 jupyter_pkgs = @PKG_REQUIREMENTS_JUPYTER@
 streamlit_pkgs = @PKG_REQUIREMENTS_STREAMLIT@
 shiny_pkgs = @PKG_REQUIREMENTS_SHINY@
-rstudio_pkgs = @PKG_REQUIREMENTS_SHINY@
+rstudio_pkgs = @PKG_REQUIREMENTS_RSTUDIO@
 
 setup(
     name='canvasxpress',
@@ -81,12 +81,12 @@ def get_version() -> str:
 
 def get_requirements() -> dict:
     packages = {
-        "core": [],
-        "dash": [],
-        "streamlit": [],
-        "jupyter": [],
-        "shiny": [],
-        "rstudio": [],
+        "# core": [],
+        "# dash": [],
+        "# streamlit": [],
+        "# jupyter": [],
+        "# shiny": [],
+        "# rstudio": [],
     }
 
     with open("requirements.txt") as reqs_file:
@@ -94,7 +94,7 @@ def get_requirements() -> dict:
         topic = topics[0]
         requirements_text = reqs_file.read()
         for line in requirements_text.splitlines():
-            candidate = line.replace("#", "").strip()
+            candidate = line.strip()
             if not line:
                 continue
 
@@ -115,12 +115,12 @@ def get_description() -> str:
 if __name__ == "__main__":
     package_version = get_version()
     packages = get_requirements()
-    package_requirements_core = ",\n    ".join(packages["core"])
-    package_requirements_dash = ",\n    ".join(packages["dash"])
-    package_requirements_streamlit = ",\n    ".join(packages["streamlit"])
-    package_requirements_jupyter = ",\n    ".join(packages["jupyter"])
-    package_requirements_shiny = ",\n    ".join(packages["shiny"])
-    package_requirements_rstudio = ",\n    ".join(packages["rstudio"])
+    package_requirements_core = ",\n    ".join(packages["# core"])
+    package_requirements_dash = ",\n    ".join(packages["# dash"])
+    package_requirements_streamlit = ",\n    ".join(packages["# streamlit"])
+    package_requirements_jupyter = ",\n    ".join(packages["# jupyter"])
+    package_requirements_shiny = ",\n    ".join(packages["# shiny"])
+    package_requirements_rstudio = ",\n    ".join(packages["# rstudio"])
     python_version = python_version()
 
     setup_instructions = setup_instructions_template.replace(
