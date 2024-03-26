@@ -7,6 +7,7 @@ requests>=2
 Deprecated>=1.2.12
 
 # jupyter
+jupyter
 IPython>=7
 beautifulsoup4>=4
 htmlmin>=0.1.12
