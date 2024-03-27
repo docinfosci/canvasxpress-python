@@ -120,9 +120,9 @@ def test_cx_converst_to_image_base64():
 
 def test_render_html_as_image():
     images_found = render_html_as_image(
-        "https://canvasxpress.org/examples/network-3.html",
+        "https://canvasxpress.org/examples/area-1.html",
         format=PNG_IMAGE,
     )
     assert len(images_found) == 1
-    assert images_found[0]["id"] == "network3"
+    assert images_found[0]["id"] == "area1"
 
