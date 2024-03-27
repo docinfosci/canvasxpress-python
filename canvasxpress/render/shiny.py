@@ -1,22 +1,16 @@
+import warnings
+import logging
+
 from shiny import ui
 
 from canvasxpress.canvas import CanvasXpress
 
-_html_header_modified: bool = False
-"""
-An internal marker indicating whether or not header values such as script and CSS have been injected into the page.
-"""
-
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
-
 _cx_versioned_css_url = (
     "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
 )
-
 _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
-
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
-
 _cx_intermixed_header = """
 <html>
     <head>
@@ -34,13 +28,11 @@ _cx_intermixed_header = """
     <body></body>
 </html>
 """
-
 _cx_js_intermixed_template = """
 <script type="text/javascript">
     @code@
 </script>
 """
-
 _cx_html_intermixed_template = """
 <html>
     <head>
@@ -91,16 +83,42 @@ class CXShinyWidget(object):
                 "@cx_version@", CanvasXpress.cdn_edition()
             )
 
-        header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
-            "@js_url@", js_url
-        )
-
         # Get the HTML and JS assets.
         html_parts: dict = self._canvas.render_to_html_parts()
 
         # Provide the taglist.
         components = [
             ui.div(
+                ui.HTML(
+                    """
+                    <script type="text/javascript">
+                    // CSS inclusion
+                    css_dom_rsrc_id = "CXDashElementIncludeCSS";
+                    if (!document.getElementById(css_dom_rsrc_id)) {
+                        var head = document.getElementsByTagName("head")[0];
+                        var s = document.createElement("link");
+                        s.type = "text/css";
+                        s.href = "@css_url@";
+                        s.id = css_dom_rsrc_id;
+                        head.appendChild(s);
+                    }
+                    // JS inclusion
+                    js_dom_rsrc_id = "CXDashElementIncludeScript";
+                    if (!document.getElementById(js_dom_rsrc_id)) {
+                        var head = document.getElementsByTagName("head")[0];
+                        var s = document.createElement("script");
+                        s.type = "text/javascript";
+                        s.src = "@js_url@";
+                        s.id = js_dom_rsrc_id;
+                        head.appendChild(s);
+                    }
+                    </script>
+                    """.replace(
+                        "@css_url@", css_url
+                    ).replace(
+                        "@js_url@", js_url
+                    )
+                ),
                 ui.HTML(
                     _cx_html_intermixed_template.replace(
                         "@canvasxpress_license@",
@@ -117,20 +135,9 @@ class CXShinyWidget(object):
                             html_parts["cx_js"],
                         ),
                     )
-                )
+                ),
             ),
         ]
-
-        # Add a header instruction if this is the first plot rendering.  Shiny for Python will automaytically
-        # edit the HTML header to include this information because of  the <head> tag.
-        global _html_header_modified
-        if not _html_header_modified:
-            components.append(
-                ui.HTML(
-                    ui.HTML(header_html_text),
-                )
-            )
-            _html_header_modified = True
 
         # Generate the chart DIV and provide it for rendering.
         ui_components = ui.TagList(components)
@@ -141,12 +148,7 @@ class CXShinyWidget(object):
         Renders the object as Shiny compliant HTML.
         """
         try:
-            import warnings
-
             warnings.filterwarnings("ignore")
-
-            import logging
-
             logging.getLogger("rpy2.rinterface_lib.embedded").setLevel(logging.ERROR)
 
             from rpy2 import robjects

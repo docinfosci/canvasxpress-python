@@ -51,9 +51,9 @@ export default class CXDashElement extends Component {
         const dom_rsrc_id = "CXDashElementIncludeCSS";
         if (!document.getElementById(dom_rsrc_id)) {
             var head = document.getElementsByTagName("head")[0];
-            var s = document.createElement("style");
+            var s = document.createElement("link");
             s.type = "text/css";
-            s.src = resource_url;
+            s.href = resource_url;
             s.id = dom_rsrc_id;
             head.appendChild(s);
         }
