@@ -331,6 +331,79 @@ graph(
 )
 ```
 
+## Converting to and from Reproducible JSON
+
+CanvasXpress for Python can also convert to and from reproducible JSONs usable with the JavaScript and R editions of the
+library.  `convert_to_reproducible_json` takes an existing CanvasXpress object and provides a `str` copy of the JSON, 
+which can then be logged for debugging or saved to disk for use elsewhere.  `convert_from_reproducible_json` does the
+opposite by taking a reproducible JSON `str` and providing the CanvasXpress object equivalent.
+
+_Note: Events are not currently supported for import.  This will be provided in a future edition.  Export supports events._
+
+For example, do the following to see the JSON in the Python console:
+
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import convert_to_reproducible_json
+from canvasxpress.js.function import CXEvent
+
+print(
+    convert_to_reproducible_json(
+        CanvasXpress(
+            render_to="example_chart",
+            data={
+                "y": {
+                    "vars": ["Gene1"],
+                    "smps": ["Smp1", "Smp2", "Smp3"],
+                    "data": [[10, 35, 88]]
+                }
+            },
+            config={
+                "graphOrientation": "vertical",
+                "graphType": "Bar",
+                "showLegend": False,
+                "smpLabelRotate": 90,
+                "smpTitle": "Samples",
+                "theme": "CanvasXpress",
+                "title": "Bar Graph Title",
+                "xAxisTitle": "Value"
+            },
+            events=[
+                CXEvent(
+                    id="click",
+                    script="""
+                    var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0];
+                    t.showInfoSpan(e, s);
+                    """
+                ),
+            ]
+        )
+    )
+)
+```
+
+The console would display:
+
+```text
+{
+    "renderTo": "example_chart",
+    "data": {"y": {"vars": ["Gene1"], "smps": ["Smp1", "Smp2", "Smp3"], "data": [[10, 35, 88]]}, "x": {}, "z": {}},
+    "config": {"graphOrientation": "vertical", "graphType": "Bar", "showLegend": false, "smpLabelRotate": 90, "smpTitle": "Samples", "theme": "CanvasXpress", "title": "Bar Graph Title", "xAxisTitle": "Value"},
+    "afterRender": [],
+    "otherParams": {},
+    "events": {'click': function(o, e, t){
+                    var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0];
+                    t.showInfoSpan(e, s);
+                    }},
+    "width": 500,
+    "height": 500
+}
+```
+
+This text could be saved to a file, such as `example.json`, and then dragged onto a CanvasXpress chart in a browser
+to load the equivalent chart.  In fact, CanvasXpress for Python uses the core functionality producing JSON output to 
+make charts available in contexts such as Dash and Shiny.
+
 ## Application, NoteBook, and Console Examples
 
 ### Rendering Charts in the RStudio IDE Viewer Pane 
