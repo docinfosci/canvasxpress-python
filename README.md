@@ -338,6 +338,8 @@ library.  `convert_to_reproducible_json` takes an existing CanvasXpress object a
 which can then be logged for debugging or saved to disk for use elsewhere.  `convert_from_reproducible_json` does the
 opposite by taking a reproducible JSON `str` and providing the CanvasXpress object equivalent.
 
+_Note: Events are not currently supported for import.  This will be provided in a future edition.  Export supports events._
+
 For example, do the following to see the JSON in the Python console:
 
 ```python
