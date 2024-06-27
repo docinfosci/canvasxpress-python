@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.environment import (
@@ -13,6 +13,15 @@ from canvasxpress.render.environment import (
 from canvasxpress.render.popup import CXBrowserPopup
 from canvasxpress.render.image import CXImage
 from canvasxpress.render.json import CXJSON
+
+_contexts_imported: list = []
+
+
+def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
+    """
+    Accepts a str with a reproducible JSON and returns a CanvasXpress object.
+    """
+    return CanvasXpress.from_reproducible_json(json)
 
 
 def convert_to_reproducible_json(canvas: CanvasXpress) -> str:
@@ -39,9 +48,6 @@ def show_in_browser(canvas: CanvasXpress) -> None:
     """
     plotter = CXBrowserPopup(canvas)
     plotter.render()
-
-
-_contexts_imported: list = []
 
 
 def graph(canvas: CanvasXpress) -> Any:
