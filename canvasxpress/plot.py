@@ -11,6 +11,26 @@ from canvasxpress.render.environment import (
     CONTEXT_BROWSER,
 )
 from canvasxpress.render.popup import CXBrowserPopup
+from canvasxpress.render.image import CXImage
+from canvasxpress.render.json import CXJSON
+
+
+def convert_to_reproducible_json(canvas: CanvasXpress) -> str:
+    """
+    Converts the CanvasXpress object into a reproducible JSON string.
+    """
+    return CXJSON.render_to_json(canvas)
+
+
+def convert_to_image(canvas: CanvasXpress, type: str = "png") -> Union[None, bytes]:
+    """
+    Converts the CanvasXpress object to an image of the specified type.
+    """
+    converter = CXImage(canvas)
+    candidates = converter.render(format=type)
+    for conversion in candidates:
+        if conversion.get("image", {}).get("format") == type:
+            return conversion.get("image", {}).get("binary")
 
 
 def show_in_browser(canvas: CanvasXpress) -> None:
