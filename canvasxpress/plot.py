@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.environment import (
@@ -11,6 +11,35 @@ from canvasxpress.render.environment import (
     CONTEXT_BROWSER,
 )
 from canvasxpress.render.popup import CXBrowserPopup
+from canvasxpress.render.image import CXImage
+from canvasxpress.render.json import CXJSON
+
+_contexts_imported: list = []
+
+
+def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
+    """
+    Accepts a str with a reproducible JSON and returns a CanvasXpress object.
+    """
+    return CanvasXpress.from_reproducible_json(json)
+
+
+def convert_to_reproducible_json(canvas: CanvasXpress) -> str:
+    """
+    Converts the CanvasXpress object into a reproducible JSON string.
+    """
+    return CXJSON.render_to_json(canvas)
+
+
+def convert_to_image(canvas: CanvasXpress, type: str = "png") -> Union[None, bytes]:
+    """
+    Converts the CanvasXpress object to an image of the specified type.
+    """
+    converter = CXImage(canvas)
+    candidates = converter.render(format=type)
+    for conversion in candidates:
+        if conversion.get("image", {}).get("format") == type:
+            return conversion.get("image", {}).get("binary")
 
 
 def show_in_browser(canvas: CanvasXpress) -> None:
@@ -19,9 +48,6 @@ def show_in_browser(canvas: CanvasXpress) -> None:
     """
     plotter = CXBrowserPopup(canvas)
     plotter.render()
-
-
-_contexts_imported: list = []
 
 
 def graph(canvas: CanvasXpress) -> Any:
