@@ -64,7 +64,15 @@ def nodejs_modules_path() -> Path:
                 search_path = search_path.parent
 
 
-CX_NODEJS_PATH: Path = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpress"
+CX_NODEJS_PATH: Path = None
+
+
+def get_nodejs_path() -> str:
+    global CX_NODEJS_PATH
+    if CX_NODEJS_PATH is None:
+        CX_NODEJS_PATH = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpress"
+
+    return CX_NODEJS_PATH
 
 
 def render_html_as_image(
@@ -112,7 +120,7 @@ def render_html_as_image(
         try:
             result = subprocess.run(
                 [
-                    f"{CX_NODEJS_PATH} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}"
+                    f"{get_nodejs_path()} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}"
                 ],
                 shell=True,
                 stdout=subprocess.PIPE,
@@ -196,7 +204,7 @@ class CXImage(CXRenderable):
 
                 result = subprocess.run(
                     [
-                        f"{CX_NODEJS_PATH} {image_format} -i {work_json_path} -o {work_image_path}",
+                        f"{get_nodejs_path()} {image_format} -i {work_json_path} -o {work_image_path}",
                     ],
                     shell=True,
                     stdout=subprocess.PIPE,

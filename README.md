@@ -473,6 +473,7 @@ from random import random
 from shiny import App, ui, render, reactive
 
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.render.shiny import output_canvasxpress
 from canvasxpress.plot import graph
 
 app_ui = ui.page_fluid(
@@ -486,7 +487,7 @@ app_ui = ui.page_fluid(
         ),
     ),
     ui.row(
-        ui.output_ui("chart_view"),
+        output_canvasxpress("chart_view"),
     )
 )
 
