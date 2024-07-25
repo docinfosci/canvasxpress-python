@@ -26,6 +26,36 @@ _cx_html_intermixed_template = """
 """
 
 
+def output_canvasxpress(id: str) -> ui.TagList:
+    """
+    Establishes an output reactive placeholder into which a CanvasXpress chart can be rendered.
+    """
+    if id is None:
+        raise ValueError("output_canvasxpress requires that id be of type str and not None.")
+
+    elif not isinstance(id, str):
+        raise TypeError("output_canvasxpress requires that id be of type str.")
+
+    else:
+        css_url = _cx_default_css_url
+        js_url = _cx_default_js_url
+        if CanvasXpress.cdn_edition() is not None:
+            css_url = _cx_versioned_css_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
+            js_url = _cx_versioned_js_url.replace(
+                "@cx_version@", CanvasXpress.cdn_edition()
+            )
+
+        return ui.TagList(
+            ui.head_content(
+                ui.tags.link(href=css_url, rel="stylesheet"),
+                ui.tags.script(src=js_url),
+            ),
+            ui.output_ui(id),
+        )
+
+
 class CXShinyWidget(object):
     """
     A Shiny for Python compatible class that can be used with Shiny syntax to establish CanvasXpress charts in the
@@ -51,50 +81,36 @@ class CXShinyWidget(object):
         """
         Renders the object as Shiny compliant HTML.
         """
-        # Get the header assets.
-        css_url = _cx_default_css_url
-        js_url = _cx_default_js_url
-        if CanvasXpress.cdn_edition() is not None:
-            css_url = _cx_versioned_css_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
-            )
-            js_url = _cx_versioned_js_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
-            )
-
         # Get the HTML and JS assets.
         html_parts: dict = self._canvas.render_to_html_parts()
 
         # Provide the taglist.
-        components = [
-            ui.div(
-                ui.head_content(
-                    ui.tags.link(href=css_url, rel="stylesheet"),
-                    ui.tags.script(src=js_url),
+        components = ui.TagList(
+            [
+                ui.div(
+                    ui.HTML(
+                        _cx_html_intermixed_template.replace(
+                            "@canvasxpress_license@",
+                            html_parts.get("cx_license", ""),
+                        )
+                        .replace(
+                            "@canvase@",
+                            html_parts["cx_canvas"],
+                        )
+                        .replace(
+                            "@js_functions@",
+                            _cx_js_intermixed_template.replace(
+                                "@code@",
+                                html_parts["cx_js"],
+                            ),
+                        )
+                    ),
                 ),
-                ui.HTML(
-                    _cx_html_intermixed_template.replace(
-                        "@canvasxpress_license@",
-                        html_parts.get("cx_license", ""),
-                    )
-                    .replace(
-                        "@canvase@",
-                        html_parts["cx_canvas"],
-                    )
-                    .replace(
-                        "@js_functions@",
-                        _cx_js_intermixed_template.replace(
-                            "@code@",
-                            html_parts["cx_js"],
-                        ),
-                    )
-                ),
-            ),
-        ]
+            ]
+        )
 
         # Generate the chart DIV and provide it for rendering.
-        ui_components = ui.TagList(components)
-        return ui_components.get_html_string()
+        return components.get_html_string()
 
     def _repr_rstudio_viewer_(self):
         """
