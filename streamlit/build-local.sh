@@ -7,6 +7,9 @@ fi
 source ./venv/bin/activate
 pip install -r ./requirements.txt
 
+# Remove current installation
+rm -rf ../cxstreamlit
+
 # Build the React component
 # shellcheck disable=SC2164
 cd ./cxstreamlit/frontend/
