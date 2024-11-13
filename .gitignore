@@ -359,6 +359,5 @@ streamlit/cxstreamlit/frontend/node_modules
 
 pytest_result.xml
 
-cxstreamlit/frontend/package-lock.json
-
 streamlit/cxstreamlit/frontend/package-lock.json
+cxstreamlit/
