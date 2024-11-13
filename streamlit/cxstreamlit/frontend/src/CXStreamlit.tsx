@@ -20,7 +20,7 @@ class CXStreamlit extends StreamlitComponentBase<State> {
     private add_canvasxpress_script(cdn_edition: string) {
 
         let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js";
-        if (typeof (cdn_edition) !== "undefined") {
+        if ((typeof (cdn_edition) !== "undefined") && (cdn_edition !== null)) {
             resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
                 + cdn_edition
                 + "/canvasXpress.min.js";
@@ -43,10 +43,10 @@ class CXStreamlit extends StreamlitComponentBase<State> {
     private add_canvasxpress_css(cdn_edition: string) {
 
         let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.css";
-        if (typeof (cdn_edition) !== "undefined") {
+        if ((typeof (cdn_edition) !== "undefined") && (cdn_edition !== null)) {
             resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
                 + cdn_edition
-                + "canvasXpress.css";
+                + "/canvasXpress.css";
         }
 
         const dom_rsrc_id = "CXStreamlitElementIncludeCSS";
