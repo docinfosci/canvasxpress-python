@@ -91,23 +91,24 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
-            cd plotly/cxdash/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-
-            # Ensure that essential project utilities are available
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
-
-            npm install canvasxpress
-            npm install canvasxpress-react
-
-            npm run build
-            cp -R ./cxdash ../../
+            echo "Temporarily disabled"
+            #            cd plotly/cxdash/
+            #
+            #            #  Ensure the presence of a virtual environment
+            #            if ! [[ -d ./venv ]] ; then
+            #                python3 -m venv ./venv
+            #            fi
+            #            source ./venv/bin/activate
+            #
+            #            # Ensure that essential project utilities are available
+            #            pip install -U pip setuptools wheel
+            #            pip install -U -r requirements.txt
+            #
+            #            npm install canvasxpress
+            #            npm install canvasxpress-react
+            #
+            #            npm run build
+            #            cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
@@ -313,23 +314,24 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
-            cd plotly/cxdash/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-
-            # Ensure that essential project utilities are available
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
-
-            npm install canvasxpress
-            npm install canvasxpress-react
-
-            npm run build
-            cp -R ./cxdash ../../
+            echo "Temporarily disabled"
+            #            cd plotly/cxdash/
+            #
+            #            #  Ensure the presence of a virtual environment
+            #            if ! [[ -d ./venv ]] ; then
+            #                python3 -m venv ./venv
+            #            fi
+            #            source ./venv/bin/activate
+            #
+            #            # Ensure that essential project utilities are available
+            #            pip install -U pip setuptools wheel
+            #            pip install -U -r requirements.txt
+            #
+            #            npm install canvasxpress
+            #            npm install canvasxpress-react
+            #
+            #            npm run build
+            #            cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
@@ -484,23 +486,24 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
-            cd plotly/cxdash/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-
-            # Ensure that essential project utilities are available
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
-
-            npm install canvasxpress
-            npm install canvasxpress-react
-
-            npm run build
-            cp -R ./cxdash ../../
+            echo "Temporarily disabled"
+            #            cd plotly/cxdash/
+            #
+            #            #  Ensure the presence of a virtual environment
+            #            if ! [[ -d ./venv ]] ; then
+            #                python3 -m venv ./venv
+            #            fi
+            #            source ./venv/bin/activate
+            #
+            #            # Ensure that essential project utilities are available
+            #            pip install -U pip setuptools wheel
+            #            pip install -U -r requirements.txt
+            #
+            #            npm install canvasxpress
+            #            npm install canvasxpress-react
+            #
+            #            npm run build
+            #            cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
