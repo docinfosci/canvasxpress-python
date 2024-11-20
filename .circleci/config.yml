@@ -471,13 +471,11 @@ jobs:
             ./nodesource_setup.sh
 
             # Install Node
-            apt-get --purge remove nodejs node npm
             apt-get clean
             apt-get autoclean
-            apt-get -f install
             apt-get autoremove
 
-            apt-get -yq install -f nodejs
+            apt-get install -yqf nodejs
             # apt-get -yq install --fix-missing npm
 
             node --version
