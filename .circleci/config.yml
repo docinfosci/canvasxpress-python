@@ -464,8 +464,13 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
+            # apt-get -yq install --fix-missing nodejs
+            # apt-get -yq install --fix-missing npm
+
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+            sudo apt install -y nodejs
+
             node --version
             npm --version
 
