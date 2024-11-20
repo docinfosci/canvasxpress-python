@@ -468,8 +468,9 @@ jobs:
             # apt-get -yq install --fix-missing npm
 
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x | -E bash -
-            apt install -y nodejs
+            curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
 
             node --version
             npm --version
