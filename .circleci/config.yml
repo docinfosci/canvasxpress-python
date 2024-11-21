@@ -77,8 +77,19 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
+            # Configure Node 22 repository config
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
+
+            # Install Node
+            apt-get clean
+            apt-get autoclean
+            apt-get autoremove
+
+            apt-get install -yqf nodejs
+
             node --version
             npm --version
 
@@ -95,30 +106,42 @@ jobs:
 
             #  Ensure the presence of a virtual environment
             if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
+            python3 -m venv ./venv
             fi
             source ./venv/bin/activate
 
             # Ensure that essential project utilities are available
+            echo "Install Python components"
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
 
+            echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
             npm install canvasxpress-react
 
+            echo "Run build"
             npm run build
             cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
           command: |
-            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
-            sh ./setup_nodejs.sh
-            apt update
-            apt install -yq --fix-missing nodejs
+            # Configure Node 20 repository config
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
+
+            # Install Node
+            apt-get clean
+            apt-get autoclean
+            apt-get autoremove
+
+            apt-get install -yqf nodejs
+            npm cache clear --force
+
             node --version
             npm --version
-            npm cache clear --force
 
       - run:
           name: Generate Streamlit Component
@@ -296,8 +319,19 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
+            # Configure Node 22 repository config
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
+
+            # Install Node
+            apt-get clean
+            apt-get autoclean
+            apt-get autoremove
+
+            apt-get install -yqf nodejs
+
             node --version
             npm --version
 
@@ -314,30 +348,42 @@ jobs:
 
             #  Ensure the presence of a virtual environment
             if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
+            python3 -m venv ./venv
             fi
             source ./venv/bin/activate
 
             # Ensure that essential project utilities are available
+            echo "Install Python components"
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
 
+            echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
             npm install canvasxpress-react
 
+            echo "Run build"
             npm run build
             cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
           command: |
-            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
-            sh ./setup_nodejs.sh
-            apt update
-            apt install -yq --fix-missing nodejs
+            # Configure Node 20 repository config
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
+
+            # Install Node
+            apt-get clean
+            apt-get autoclean
+            apt-get autoremove
+
+            apt-get install -yqf nodejs
+            npm cache clear --force
+
             node --version
             npm --version
-            npm cache clear --force
 
       - run:
           name: Generate Streamlit Component
@@ -464,8 +510,19 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            apt-get -yq install --fix-missing nodejs
-            apt-get -yq install --fix-missing npm
+            # Configure Node 22 repository config
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
+
+            # Install Node
+            apt-get clean
+            apt-get autoclean
+            apt-get autoremove
+
+            apt-get install -yqf nodejs
+
             node --version
             npm --version
 
@@ -482,30 +539,42 @@ jobs:
 
             #  Ensure the presence of a virtual environment
             if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
+            python3 -m venv ./venv
             fi
             source ./venv/bin/activate
 
             # Ensure that essential project utilities are available
+            echo "Install Python components"
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
 
+            echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
             npm install canvasxpress-react
 
+            echo "Run build"
             npm run build
             cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
           command: |
-            curl -sL https://deb.nodesource.com/setup_20.x -o setup_nodejs.sh
-            sh ./setup_nodejs.sh
-            apt update
-            apt install -yq --fix-missing nodejs
+            # Configure Node 20 repository config
+            cd /tmp
+            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
+            chmod +x ./nodesource_setup.sh
+            ./nodesource_setup.sh
+
+            # Install Node
+            apt-get clean
+            apt-get autoclean
+            apt-get autoremove
+
+            apt-get install -yqf nodejs
+            npm cache clear --force
+
             node --version
             npm --version
-            npm cache clear --force
 
       - run:
           name: Generate Streamlit Component
