@@ -915,7 +915,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         # Support unique data without JSON data structure
         if canvasxpress["data"].get("raw"):
-            canvasxpress["data"] = canvasxpress["data"]["raw"]
+            canvasxpress["data"] = str(canvasxpress["data"]["raw"])
 
         cx_js = render_from_template(
             _CX_JS_TEMPLATE,

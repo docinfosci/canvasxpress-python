@@ -1,19 +1,17 @@
-import uuid
 import os
-from copy import deepcopy
 import tempfile
+import uuid
+import webbrowser
+from copy import deepcopy
 from time import sleep
 from typing import Any, Union, List
-import webbrowser
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
 _cx_fx_template = """
 <script type="text/javascript">
-    onReady(function () {
-        @code@
-    })
+    @code@
 </script>
 """
 
@@ -39,19 +37,19 @@ _cx_html_template = """
                 href='@css_url@' 
                 rel='stylesheet' 
                 type='text/css'
+                referrerpolicy='origin-when-cross-origin'
         />
         <script 
                 src='@js_url@' 
                 type='text/javascript'>
+                referrerpolicy='origin-when-cross-origin'
         </script>
-
-        <!-- 2. Include script to initialize object -->
-        @js_functions@
-
     </head>
     <body>
         <!-- 3. DOM element where the visualization will be displayed -->
         @canvases@
+        <!-- 2. Include script to initialize object -->
+        @js_functions@
      </body>
 </html>
 """
