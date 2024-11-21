@@ -498,15 +498,19 @@ jobs:
             source ./venv/bin/activate
 
             # Ensure that essential project utilities are available
+            echo "Install Python components"
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
 
+            echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
             npm install canvasxpress-react
 
+            echo "Update NodeJS components"
             npm update
             npm audit fix --force
 
+            echo "Run build"
             npm run build
             cp -R ./cxdash ../../
 
