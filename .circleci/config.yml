@@ -476,7 +476,6 @@ jobs:
             apt-get autoremove
 
             apt-get install -yqf nodejs
-            # apt-get -yq install --fix-missing npm
 
             node --version
             npm --version
@@ -504,6 +503,9 @@ jobs:
 
             npm install canvasxpress
             npm install canvasxpress-react
+
+            npm update
+            npm audit fix --force
 
             npm run build
             cp -R ./cxdash ../../
