@@ -466,7 +466,7 @@ jobs:
           command: |
             # Configure Node 22 repository config
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
             chmod +x ./nodesource_setup.sh
             ./nodesource_setup.sh
 
@@ -489,29 +489,29 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
-            cd plotly/cxdash/
+                     cd plotly/cxdash/
 
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
+                     #  Ensure the presence of a virtual environment
+                     if ! [[ -d ./venv ]] ; then
+                     python3 -m venv ./venv
+                     fi
+                     source ./venv/bin/activate
 
-            # Ensure that essential project utilities are available
-            echo "Install Python components"
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
+                     # Ensure that essential project utilities are available
+                     echo "Install Python components"
+                     pip install -U pip setuptools wheel
+                     pip install -U -r requirements.txt
 
-            echo "Install CanvasXpress NodeJS components"
-            npm install canvasxpress
-            npm install canvasxpress-react
+                     echo "Install CanvasXpress NodeJS components"
+                     npm install canvasxpress
+                     npm install canvasxpress-react
 
-            echo "Update NodeJS components"
-            npm audit fix --force
+            #            echo "Update NodeJS components"
+            #            npm audit fix --force
 
-            echo "Run build"
-            npm run build
-            cp -R ./cxdash ../../
+                     echo "Run build"
+                     npm run build
+                     cp -R ./cxdash ../../
 
       - run:
           name: Install Node and NPM for Streamlit
