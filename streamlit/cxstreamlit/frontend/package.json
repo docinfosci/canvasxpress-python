@@ -16,7 +16,7 @@
         "vm-browserify": "",
         "streamlit-component-lib": "^2.0.0",
         "canvasxpress": "",
-        "canvasxpress-react": "github:neuhausi/canvasxpress-react"
+        "canvasxpress-react": "github:neuhausi/canvasxpress-react#86006bd4c550398f24e262e9c4eb9d149fb47e9f"
     },
     "scripts": {
         "start": "react-scripts start",
