@@ -99,11 +99,9 @@ def graph(canvas: CanvasXpress) -> Any:
 
     elif context == CONTEXT_STREAMLIT:
         if not context in _contexts_imported:
-            # from canvasxpress.render import streamlit
-            from canvasxpress.render.streamlit_new import CXStreamlitNew
+            from canvasxpress.render import streamlit_new
 
-        plotter = CXStreamlitNew(canvas)
-        plotter.render()
+        streamlit_new.plot(canvas)
 
     elif context == CONTEXT_BROWSER:
         plotter = CXBrowserPopup(canvas)
