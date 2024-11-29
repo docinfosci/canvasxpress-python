@@ -351,13 +351,4 @@ plotly/cxdash/cxdash/cxdash.min.js
 plotly/cxdash/deps/cxdash.min.js
 plotly/cxdash/inst/deps/cxdash.min.js
 
-streamlit/.idea
-streamlit/venv
-streamlit/cxstreamlit/frontend/.idea
-streamlit/cxstreamlit/frontend/build
-streamlit/cxstreamlit/frontend/node_modules
-
 pytest_result.xml
-
-streamlit/cxstreamlit/frontend/package-lock.json
-cxstreamlit/
