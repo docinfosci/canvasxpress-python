@@ -77,7 +77,7 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node 22 repository config
+            # Configure Node 16 repository config
             cd /tmp
             curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
             chmod +x ./nodesource_setup.sh
@@ -122,73 +122,6 @@ jobs:
             echo "Run build"
             npm run build
             cp -R ./cxdash ../../
-
-      - run:
-          name: Install Node and NPM for Streamlit
-          command: |
-            # Configure Node 20 repository config
-            cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
-            chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh
-
-            # Install Node
-            apt-get clean
-            apt-get autoclean
-            apt-get autoremove
-
-            apt-get install -yqf nodejs
-            npm cache clear --force
-
-            node --version
-            npm --version
-
-      - run:
-          name: Generate Streamlit Component
-          command: |
-            cd streamlit/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-            pip install -r ./requirements.txt
-            
-            # Remove current installation
-            rm -rf ../cxstreamlit
-
-            # Build the React component
-            # shellcheck disable=SC2164
-            cd ./cxstreamlit/frontend/
-            echo "Installling JS packages..."
-            npm install
-            ls -lah
-            echo "Building JS package..."
-            npm run build
-            ls -lah
-            cd ../../../
-
-            # Copy the Python package
-            mkdir -p cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
-
-            # Add package markers for build inclusion
-            touch cxstreamlit/frontend/__init__.py
-            touch cxstreamlit/frontend/build/__init__.py
-            touch cxstreamlit/frontend/build/static/__init__.py
-            touch cxstreamlit/frontend/build/static/css/__init__.py
-            touch cxstreamlit/frontend/build/static/js/__init__.py
-
-            ls -lah cxstreamlit
-            ls -lah cxstreamlit/frontend/
-            ls -lah cxstreamlit/frontend/build/
-            ls -lah cxstreamlit/frontend/build/static/
-            ls -lah cxstreamlit/frontend/build/static/js/
-            ls -lah cxstreamlit/frontend/build/static/css/
 
       - run:
           name: Static analysis
@@ -322,7 +255,7 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node 22 repository config
+            # Configure Node 16 repository config
             cd /tmp
             curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
             chmod +x ./nodesource_setup.sh
@@ -367,73 +300,6 @@ jobs:
             echo "Run build"
             npm run build
             cp -R ./cxdash ../../
-
-      - run:
-          name: Install Node and NPM for Streamlit
-          command: |
-            # Configure Node 20 repository config
-            cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
-            chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh
-
-            # Install Node
-            apt-get clean
-            apt-get autoclean
-            apt-get autoremove
-
-            apt-get install -yqf nodejs
-            npm cache clear --force
-
-            node --version
-            npm --version
-
-      - run:
-          name: Generate Streamlit Component
-          command: |
-            cd streamlit/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-                python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-            pip install -r ./requirements.txt
-            
-            # Remove current installation
-            rm -rf ../cxstreamlit
-
-            # Build the React component
-            # shellcheck disable=SC2164
-            cd ./cxstreamlit/frontend/
-            echo "Installling JS packages..."
-            npm install
-            ls -lah
-            echo "Building JS package..."
-            npm run build
-            ls -lah
-            cd ../../../
-
-            # Copy the Python package
-            mkdir -p cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
-            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
-
-            # Add package markers for build inclusion
-            touch cxstreamlit/frontend/__init__.py
-            touch cxstreamlit/frontend/build/__init__.py
-            touch cxstreamlit/frontend/build/static/__init__.py
-            touch cxstreamlit/frontend/build/static/css/__init__.py
-            touch cxstreamlit/frontend/build/static/js/__init__.py
-
-            ls -lah cxstreamlit
-            ls -lah cxstreamlit/frontend/
-            ls -lah cxstreamlit/frontend/build/
-            ls -lah cxstreamlit/frontend/build/static/
-            ls -lah cxstreamlit/frontend/build/static/js/
-            ls -lah cxstreamlit/frontend/build/static/css/
 
       - run:
           name: Test
@@ -516,7 +382,7 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node 22 repository config
+            # Configure Node 16 repository config
             cd /tmp
             curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
             chmod +x ./nodesource_setup.sh
@@ -561,71 +427,6 @@ jobs:
             echo "Run build"
             npm run build
             cp -R ./cxdash ../../
-
-      - run:
-          name: Install Node and NPM for Streamlit
-          command: |
-            # Configure Node 20 repository config
-            cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
-            chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh
-
-            # Install Node
-            apt-get clean
-            apt-get autoclean
-            apt-get autoremove
-
-            apt-get install -yqf nodejs
-            npm cache clear --force
-
-            node --version
-            npm --version
-
-      - run:
-          name: Generate Streamlit Component
-          command: |
-            echo "Streamlit requires Python 3.7 and later due to PyArrow."
-            #            cd streamlit/
-            #
-            #            #  Ensure the presence of a virtual environment
-            #            if ! [[ -d ./venv ]] ; then
-            #                python3 -m venv ./venv
-            #            fi
-            #            source ./venv/bin/activate
-            #            pip install -r ./requirements.txt
-            #
-            #            # Build the React component
-            #            # shellcheck disable=SC2164
-            #            cd ./cxstreamlit/frontend/
-            #            echo "Installling JS packages..."
-            #            npm install
-            #            ls -lah
-            #            echo "Building JS package..."
-            #            npm run build
-            #            ls -lah
-            #            cd ../../../
-            #
-            #            # Copy the Python package
-            #            mkdir -p cxstreamlit/frontend/
-            #            cp -R streamlit/cxstreamlit/frontend/build cxstreamlit/frontend/
-            #            cp -R streamlit/cxstreamlit/frontend/*.json cxstreamlit/frontend/
-            #            cp -R streamlit/cxstreamlit/frontend/*.js cxstreamlit/frontend/
-            #            cp -R streamlit/cxstreamlit/*.py cxstreamlit/
-            #
-            #            # Add package markers for build inclusion
-            #            touch cxstreamlit/frontend/__init__.py
-            #            touch cxstreamlit/frontend/build/__init__.py
-            #            touch cxstreamlit/frontend/build/static/__init__.py
-            #            touch cxstreamlit/frontend/build/static/css/__init__.py
-            #            touch cxstreamlit/frontend/build/static/js/__init__.py
-            #
-            #            ls -lah cxstreamlit
-            #            ls -lah cxstreamlit/frontend/
-            #            ls -lah cxstreamlit/frontend/build/
-            #            ls -lah cxstreamlit/frontend/build/static/
-            #            ls -lah cxstreamlit/frontend/build/static/js/
-            #            ls -lah cxstreamlit/frontend/build/static/css/
 
       - run:
           name: Test
