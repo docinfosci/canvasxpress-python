@@ -51,7 +51,11 @@ _cx_html_template = """
 </html>
 """
 
-def plot(cx: Union[CanvasXpress, List[CanvasXpress]], columns: int = 1,) -> Union[object, None]:
+
+def plot(
+    cx: Union[CanvasXpress, List[CanvasXpress]],
+    columns: int = 1,
+) -> Union[object, None]:
     """
     Renders the provided CanvasXpress object(s) for display in a Streamlit application.
     :param cx: `Union[CanvasXpress, List[CanvasXpress]]`
@@ -85,7 +89,7 @@ def plot(cx: Union[CanvasXpress, List[CanvasXpress]], columns: int = 1,) -> Unio
         original_render_target = target.render_to
         if original_render_target in used_render_targets:
             target.render_to = (
-                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
+                original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
             )
 
         used_render_targets.append(target.render_to)
