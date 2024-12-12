@@ -59,15 +59,15 @@ def plot(
     """
     Renders the provided CanvasXpress object(s) for display in a Streamlit application.
     :param cx: `Union[CanvasXpress, List[CanvasXpress]]`
-        The `CanvasXpress` object(s) to be tracked. Charts cannot
-        have the same name, so render_to will be updated with a uuid for each
-        conflicting chart.
+        The `CanvasXpress` object(s) to be tracked. Charts cannot have the same name,
+        so render_to will be updated with a uuid for each conflicting chart.
     :param columns: `int`
-        Indicates how many charts should be rendered horizontally in the
-        Streamlit application if more than one chart is being tracked.
-        Any positive `int` of `1` or greater is accepted, with a default value of `1`.
-        Values less that `1` are ignored.
-    :returns: An `object` or `None` if cx is invalid.
+        Indicates how many charts should be rendered horizontally in the Streamlit
+        application if more than one chart is being tracked. Any positive `int` of `1`
+        or greater is accepted, with a default value of `1`. Values less than `1`
+        are ignored.
+    :returns: An `object` or raises a `TypeError` exception if `cx` is not a CanvasXpress
+        object or list of CanvasXpress objects.
     """
 
     columns = int(columns)
@@ -85,7 +85,10 @@ def plot(
         render_targets.extend(cx)
 
     used_render_targets = list()
-    for target in render_targets:
+    for i, target in enumerate(render_targets):
+        if not isinstance(target, CanvasXpress):
+            raise TypeError(f"Item {i} in argument 'cx' is not a CanvasXpress object")
+
         original_render_target = target.render_to
         if original_render_target in used_render_targets:
             target.render_to = (
