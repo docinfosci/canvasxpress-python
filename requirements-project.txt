@@ -6,5 +6,4 @@ gitpython>=3
 pytz
 requirements-parser
 twine
-jinja2
 click
