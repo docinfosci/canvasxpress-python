@@ -352,7 +352,3 @@ plotly/cxdash/deps/cxdash.min.js
 plotly/cxdash/inst/deps/cxdash.min.js
 
 pytest_result.xml
-
-cxstreamlit/frontend/package-lock.json
-
-streamlit/cxstreamlit/frontend/package-lock.json
