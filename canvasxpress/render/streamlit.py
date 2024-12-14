@@ -66,7 +66,7 @@ def plot(
         application if more than one chart is being tracked. Any positive `int` of `1`
         or greater is accepted, with a default value of `1`. Values less than `1`
         are ignored.
-    :returns: An `object` or raises a `TypeError` exception if `cx` is not a CanvasXpress
+    :returns: `None` or raises a `TypeError` exception if `cx` is not a CanvasXpress
         object or list of CanvasXpress objects.
     """
 
@@ -169,4 +169,4 @@ def plot(
         .replace("@js_url@", js_url)
     )
 
-    return components.html(html, width=iframe_width, height=iframe_height)
+    components.html(html, width=iframe_width, height=iframe_height)
