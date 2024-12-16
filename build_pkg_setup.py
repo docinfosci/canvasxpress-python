@@ -40,8 +40,9 @@ setup(
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
     author=(
         ' Dr. Isaac Neuhaus for CanvasXpress JS, PHP, and R;'
-        ' Dr. Constance M. Brett for R; and'
-        ' Dr. Todd C. Brett for Python and Dash.'
+        ' Dr. Constance M. Brett for R;'
+        ' Dr. Todd C. Brett for Python and Dash; and'
+        ' Dr. Jennifer Walker for Python.'
     ),
     author_email='todd@aggregate-genius.com',
     description='CanvasXpress for Python',

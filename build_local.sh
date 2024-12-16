@@ -31,11 +31,6 @@ cd plotly/cxdash/
 ./build-local.sh
 cd ../../
 
-# Build Streamlit components
-cd streamlit
-./build-local.sh
-cd ../
-
 # Force conformance to project styles (see pyproject,toml)
 # We will manually perform formatting here and there, as the latest black breaks the doc generation.
 # black --safe canvasxpress cxdash tests
