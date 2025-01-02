@@ -319,8 +319,6 @@ class CanvasXpress(CXHtmlConvertable):
             object; otherwise, a new CXData object will be created to manage
             the content.
         """
-        print(value)
-        print(value is bool)
         if value is None or isinstance(value, bool):
             self.__data = CXDictData()
 
