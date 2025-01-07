@@ -584,7 +584,7 @@ class CXList(CXConfig):
 
 class CXGraphWeight(CXConfig):
     """
-    A `CXConfig` object that manages `list` values.
+    A `CXConfig` object that manages and normalizes `CXGraphWeight list` values.
     """
 
     __value: list = list()
@@ -607,7 +607,9 @@ class CXGraphWeight(CXConfig):
         :returns: `bool`
             True if all conditions are valid
         """
-        valid_label = 'weight' in label.lower()
+        valid_label = False
+        if label is not None:
+            valid_label = "weight" in label.lower()
         valid_list = True
 
         if valid_label:
@@ -617,7 +619,7 @@ class CXGraphWeight(CXConfig):
                 valid_list = False
             elif not all(isinstance(x, (int, float)) for x in value):
                 valid_list = False
-            elif sum(value) != 100:
+            elif sum(value) != 100 and sum(value) != 1:
                 valid_list = False
 
         return valid_label and valid_list
@@ -637,14 +639,17 @@ class CXGraphWeight(CXConfig):
         :param value: `list`
             If `None` then `list()` will be used.
         """
+        # return empty value if the weight list or its sum is invalid
         final_value = list()
 
-        if value is not None:
-            final_value = [x / 100 for x in value]
+        # normalize graph weight only if it has non normalized and valid weight list
+        if value is not None and all(isinstance(x, (int, float)) for x in value):
+            if sum(value) == 100:
+                final_value = [x / 100 for x in value]
+            elif sum(value) == 1:
+                final_value = value
 
         self.__value = final_value
-
-
 
     def __init__(self, label: str, value: list):
         """
