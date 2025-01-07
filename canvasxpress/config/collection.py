@@ -175,7 +175,7 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                         config.value = value
                         existing_config_used = True
                         break
-            value_type = ""
+
             if not existing_config_used:
                 value_type = type(value)
                 if value is None:
