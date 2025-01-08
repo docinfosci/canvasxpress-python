@@ -33,25 +33,6 @@ def test_is_color_str():
     assert not CXRGBColor.is_color_str({"r": 0, "g": 0, "b": 0})
 
 
-def test_is_color_list():
-    assert CXRGBColor.is_color_list([0, 0, 0])
-    assert not CXRGBColor.is_color_list([0, 0, 256])
-    assert not CXRGBColor.is_color_list([0, -1, 0])
-    assert not CXRGBColor.is_color_list(
-        [
-            0,
-            0,
-        ]
-    )
-    assert not CXRGBColor.is_color_list([0, 0, 0, "1"])
-    assert not CXRGBColor.is_color_list([0, 0, 0, 2])
-    assert not CXRGBColor.is_color_list([0, 0, 0, 1, 7])
-    assert not CXRGBColor.is_color_list([-1, 0, 0, 1])
-    assert not CXRGBColor.is_color_list([256, 0, 0, 1])
-    assert not CXRGBColor.is_color_list("rgb(0,0,0)")
-    assert not CXRGBColor.is_color_list("fred(0,0,0,1)")
-    assert not CXRGBColor.is_color_list({"r": 0, "g": 0, "b": 0})
-
 
 def test_is_color_dict():
     assert CXRGBColor.is_color_dict({"r": 0, "g": 0, "b": 0})

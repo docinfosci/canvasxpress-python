@@ -187,19 +187,15 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                 elif value_type is bool:
                     candidate = CXBool(label, value)
                 elif value_type is dict:
-                    if CXRGBAColor.is_color_dict(value):
-                        candidate = CXRGBAColor(label, value)
-                    elif CXRGBColor.is_color_dict(value):
-                        candidate = CXRGBColor(label, value)
-                    else:
-                        candidate = CXDict(label, value)
+                    #if CXRGBAColor.is_color_dict(value):
+                     #   candidate = CXRGBAColor(label, value)
+                    #elif CXRGBColor.is_color_dict(value):
+                     #   candidate = CXRGBColor(label, value)
+                    #else:
+                    candidate = CXDict(label, value)
                 elif value_type is list:
                     if CXGraphWeight.is_graph_weight_list(label, value):
                         candidate = CXGraphWeight(label, value)
-                    elif CXRGBAColor.is_color_list(value):
-                        candidate = CXRGBAColor(label, value)
-                    elif CXRGBColor.is_color_list(value):
-                        candidate = CXRGBColor(label, value)
                     else:
                         candidate = CXList(label, value)
                 elif value_type is set:
