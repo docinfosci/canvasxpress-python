@@ -662,7 +662,7 @@ class CXGraphWeight(CXConfig):
         self.value = value
 
 
-@deprecated
+@deprecated(action="ignore")
 class CXRGBAColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgba() values.
@@ -918,7 +918,7 @@ class CXRGBAColor(CXDict):
         )
 
 
-@deprecated
+@deprecated(action="ignore")
 class CXRGBColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgb() values.
