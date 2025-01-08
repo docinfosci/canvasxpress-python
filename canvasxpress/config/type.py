@@ -582,6 +582,85 @@ class CXList(CXConfig):
         self.value = value
 
 
+class CXGraphWeight(CXConfig):
+    """
+    A `CXConfig` object that manages and normalizes `CXGraphWeight list` values.
+    """
+
+    __value: list = list()
+    """
+    The managed value.
+    """
+
+    def is_graph_weight_list(label: str, value: list):
+        """
+        A static method that evaluates a given list and label to check
+        if it represents  graph wight list.
+        :param label: 'str'
+            A string represents the value label i.e "ringGraphWeight".
+            It must contain "weight" word
+        :param value: `list`
+            A list to evaluate.  It must be:
+              - non-empty list
+              - all its values are numeric
+              - summation of its values is 100
+        :returns: `bool`
+            True if all conditions are valid
+        """
+        valid_label = False
+        if label is not None:
+            valid_label = "weight" in label.lower()
+        valid_list = True
+
+        if valid_label:
+            if value is None:
+                valid_list = False
+            elif not isinstance(value, list):
+                valid_list = False
+            elif not all(isinstance(x, (int, float)) for x in value):
+                valid_list = False
+            elif sum(value) != 100 and sum(value) != 1:
+                valid_list = False
+
+        return valid_label and valid_list
+
+    @property
+    def value(self) -> list:
+        """
+        Provides the value for the configuration.
+        :returns: `list`
+        """
+        return self.__value
+
+    @value.setter
+    def value(self, value: Union[object, list]) -> None:
+        """
+        Sets the value of the configuration.
+        :param value: `list`
+            If `None` then `list()` will be used.
+        """
+        # return empty value if the weight list or its sum is invalid
+        final_value = list()
+
+        # normalize graph weight only if it has non normalized and valid weight list
+        if value is not None and all(isinstance(x, (int, float)) for x in value):
+            if sum(value) == 100:
+                final_value = [x / 100 for x in value]
+            elif sum(value) == 1:
+                final_value = value
+
+        self.__value = final_value
+
+    def __init__(self, label: str, value: list):
+        """
+        Initializes the configuration with a `list` value.
+        """
+        super().__init__(label, value)
+        self.__value = list()
+
+        self.value = value
+
+
 class CXRGBAColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgba() values.
