@@ -662,6 +662,7 @@ class CXGraphWeight(CXConfig):
         self.value = value
 
 
+@deprecated
 class CXRGBAColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgba() values.
@@ -708,7 +709,6 @@ class CXRGBAColor(CXDict):
         else:
             return False
 
-    @deprecated
     @staticmethod
     def is_color_list(value: list):
         """
@@ -821,18 +821,38 @@ class CXRGBAColor(CXDict):
 
         else:
             if isinstance(value, str):
-                components = value.split(",")
-                r = components[0].strip().split("rgba(")[1]
-                g = components[1].strip()
-                b = components[2].strip()
-                a = components[3].strip().split(")")[0]
+                if not CXRGBAColor.is_color_str(value):
+                    raise ValueError(
+                        "str RGBA values must be in the format"
+                        " rgb(int,int,int,float)"
+                    )
+                else:
+                    components = value.split(",")
+                    r = components[0].strip().split("rgba(")[1]
+                    g = components[1].strip()
+                    b = components[2].strip()
+                    a = components[3].strip().split(")")[0]
 
-                candidate = {
-                    "r": int(r),
-                    "g": int(g),
-                    "b": int(b),
-                    "a": float(a),
-                }
+                    candidate = {
+                        "r": int(r),
+                        "g": int(g),
+                        "b": int(b),
+                        "a": float(a),
+                    }
+
+            elif isinstance(value, list):
+                if not CXRGBAColor.is_color_list(value):
+                    raise ValueError(
+                        "list RGBA values must be in the format" " (int,int,int,float)"
+                    )
+                else:
+                    candidate = {
+                        "r": value[0],
+                        "g": value[1],
+                        "b": value[2],
+                        "a": value[3],
+                    }
+
             elif isinstance(value, dict):
                 if not CXRGBAColor.is_color_dict(value):
                     raise ValueError(
@@ -898,6 +918,7 @@ class CXRGBAColor(CXDict):
         )
 
 
+@deprecated
 class CXRGBColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgb() values.
@@ -939,7 +960,6 @@ class CXRGBColor(CXDict):
         else:
             return False
 
-    @deprecated
     @staticmethod
     def is_color_list(value: list):
         """
@@ -1054,6 +1074,19 @@ class CXRGBColor(CXDict):
                         "g": int(g),
                         "b": int(b),
                     }
+
+            elif isinstance(value, list):
+                if not CXRGBColor.is_color_list(value):
+                    raise ValueError(
+                        "list RGB values must be in the format" " (int,int,int)"
+                    )
+                else:
+                    candidate = {
+                        "r": value[0],
+                        "g": value[1],
+                        "b": value[2],
+                    }
+
             elif isinstance(value, dict):
                 if not CXRGBColor.is_color_dict(value):
                     raise ValueError(
