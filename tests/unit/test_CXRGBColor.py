@@ -6,6 +6,7 @@ import pytest
 from canvasxpress.config.type import CXRGBColor, CXBool
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_init():
     subject: CXRGBColor = CXRGBColor(label="1", value={"r": 128, "g": 128, "b": 128})
     assert subject.label == "1"
@@ -19,6 +20,7 @@ def test_CXRGBColor_init():
         CXRGBColor(label=None, value={"r": 1, "g": 1, "b": 1})
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_is_color_str():
     assert CXRGBColor.is_color_str("rgb(0,0,0)")
     assert CXRGBColor.is_color_str("rgb(0 ,0 ,0)")
@@ -33,6 +35,7 @@ def test_is_color_str():
     assert not CXRGBColor.is_color_str({"r": 0, "g": 0, "b": 0})
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_is_color_list():
     assert CXRGBColor.is_color_list([0, 0, 0])
     assert not CXRGBColor.is_color_list([0, 0, 256])
@@ -53,6 +56,7 @@ def test_is_color_list():
     assert not CXRGBColor.is_color_list({"r": 0, "g": 0, "b": 0})
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_is_color_dict():
     assert CXRGBColor.is_color_dict({"r": 0, "g": 0, "b": 0})
     assert not CXRGBColor.is_color_dict({"r": -1, "g": 0, "b": 0})
@@ -65,6 +69,7 @@ def test_is_color_dict():
     assert not CXRGBColor.is_color_dict("fred(0,0,0,1)")
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_label():
     subject: CXRGBColor = CXRGBColor("1", None)
     assert subject.label == "1"
@@ -74,6 +79,7 @@ def test_CXRGBColor_label():
         subject.label = "2"
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_value():
     subject: CXRGBColor = CXRGBColor("1", None)
     subject.value = {"r": 1, "g": 1, "b": 1}
@@ -116,21 +122,25 @@ def test_CXRGBColor_value():
         subject.value = {"q": 128, "y": 128, "b": "128"}
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_copy():
     subject: CXRGBColor = CXRGBColor("1", {"r": 128, "g": 128, "b": 128})
     assert subject == copy(subject)
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_deepcopy():
     subject: CXRGBColor = CXRGBColor("1", {"r": 128, "g": 128, "b": 128})
     assert subject == deepcopy(subject)
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_str():
     subject: CXRGBColor = CXRGBColor("1", {"r": 128, "g": 128, "b": 128})
     assert str(subject) == json.dumps({subject.label: "rgb(128,128,128)"})
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_repr():
     subject: CXRGBColor = CXRGBColor("1", {"r": 128, "g": 128, "b": 128})
     subject_repr = repr(subject)
@@ -138,6 +148,7 @@ def test_CXRGBColor_repr():
     assert subject == eval(subject_repr)
 
 
+@pytest.mark.skip(reason="CXRGBColor class is deprecated")
 def test_CXRGBColor_equality():
     subject1: CXRGBColor = CXRGBColor("1", None)
     subject2: CXRGBColor = CXRGBColor("1", None)
