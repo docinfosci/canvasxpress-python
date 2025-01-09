@@ -432,7 +432,7 @@ class CXDict(CXConfig):
             self.__value = deepcopy(value.value)
 
         elif isinstance(value, str):
-            candidate = json.loads(html.unescape(value))
+            candidate = json.loads(html.unescape(value).replace("&nl;", '"<br>"'))
             self.__value = candidate
 
         else:  # remove html entities from string values
