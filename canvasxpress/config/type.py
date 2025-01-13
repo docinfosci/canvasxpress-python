@@ -6,6 +6,7 @@ from functools import total_ordering
 from typing import Union, Any
 
 from deepdiff import DeepDiff
+from deprecated import deprecated
 
 
 @total_ordering
@@ -661,6 +662,7 @@ class CXGraphWeight(CXConfig):
         self.value = value
 
 
+@deprecated(action="ignore")
 class CXRGBAColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgba() values.
@@ -916,6 +918,7 @@ class CXRGBAColor(CXDict):
         )
 
 
+@deprecated(action="ignore")
 class CXRGBColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgb() values.

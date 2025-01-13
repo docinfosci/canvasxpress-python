@@ -13,10 +13,8 @@ from canvasxpress.config.type import (
     CXBool,
     CXDict,
     CXList,
-    CXRGBAColor,
-    CXGraphType,
-    CXGraphTypeOptions,
     CXNone,
+    CXGraphWeight,
 )
 
 
@@ -142,12 +140,7 @@ def test_CXConfigs_set_param():
         (CXDict, "dict", {"k": "v"}),
         (CXList, "list", [0, 1]),
         (CXList, "set", {0, 1}),
-        (CXRGBColor, "rgb_dict", {"r": 128, "g": 128, "b": 128}),
-        (CXRGBColor, "rgb_list", [128, 128, 128]),
-        (CXRGBColor, "rgb_str", "rgb(128,128,128)"),
-        (CXRGBAColor, "rgba_dict", {"r": 128, "g": 128, "b": 128, "a": 1}),
-        (CXRGBAColor, "rgba_list", [128, 128, 128, 1]),
-        (CXRGBAColor, "rgba_str", "rgba(128,128,128,1)"),
+        (CXGraphWeight, "graph_weight", [0, 1]),
         (CXString, "str", "0"),
     ]
     for item in test_items:
@@ -158,19 +151,9 @@ def test_CXConfigs_set_param():
         if test_item[1] == "set":
             assert (CXList, "set", [0, 1]) in cfg_items
         elif test_item[1] in [
-            "rgb_list",
-            "rgb_str",
+            "graph_weight",
         ]:
-            assert (CXRGBColor, "rgb_dict", {"r": 128, "g": 128, "b": 128}) in cfg_items
-        elif test_item[1] in [
-            "rgba_list",
-            "rgba_str",
-        ]:
-            assert (
-                CXRGBAColor,
-                "rgba_dict",
-                {"r": 128, "g": 128, "b": 128, "a": 1},
-            ) in cfg_items
+            assert (CXGraphWeight, "graph_weight", [0, 1]) in cfg_items
         else:
             assert test_item in cfg_items
 
