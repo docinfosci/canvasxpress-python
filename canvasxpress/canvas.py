@@ -319,7 +319,7 @@ class CanvasXpress(CXHtmlConvertable):
             object; otherwise, a new CXData object will be created to manage
             the content.
         """
-        if value is None:
+        if value is None or isinstance(value, bool):
             self.__data = CXDictData()
 
         elif isinstance(value, CXData):
@@ -347,7 +347,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         else:
             raise TypeError(
-                "data must be of type CXData, dict, DataFrame, str, or None"
+                "data must be of type CXData, dict, DataFrame, str, bool, or None"
             )
 
     __events: CXEvents = None

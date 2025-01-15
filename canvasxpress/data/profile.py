@@ -20,6 +20,7 @@ from canvasxpress.data.base import (
     LEGEND,
     NODES,
 )
+from deprecated import deprecated
 
 
 class CXStandardProfile(CXDataProfile):
@@ -305,7 +306,8 @@ class CXStandardProfile(CXDataProfile):
     Tracks whether vars will be matched to rows when formatting data.
     """
 
-    @property
+    @deprecated
+    #@property
     def match_vars_to_rows(self) -> bool:
         """
         Indicates whether vars will be match to rows when formatting data.
@@ -315,7 +317,8 @@ class CXStandardProfile(CXDataProfile):
         """
         return self.__match_vars_to_rows
 
-    @match_vars_to_rows.setter
+    @deprecated
+    #@match_vars_to_rows.setter
     def match_vars_to_rows(self, value: bool) -> None:
         """
         Sets whether vars will be matched to rows when formatting data.
@@ -334,7 +337,8 @@ class CXStandardProfile(CXDataProfile):
     Tracks whether smps will be matched to columns when formatting data.
     """
 
-    @property
+    @deprecated
+    #@property
     def match_smps_to_cols(self) -> bool:
         """
         Indicates whether smps will be match to columns when formatting data.
@@ -344,7 +348,8 @@ class CXStandardProfile(CXDataProfile):
         """
         return self.__match_smps_to_cols
 
-    @match_smps_to_cols.setter
+    @deprecated
+    #@match_smps_to_cols.setter
     def match_smps_to_cols(self, value: bool) -> None:
         """
         Sets whether smps will be matched to rows when formatting data.
@@ -364,7 +369,8 @@ class CXStandardProfile(CXDataProfile):
     formatting data.
     """
 
-    @property
+    @deprecated
+    #@property
     def match_x_to_smps(self) -> bool:
         """
         Indicates whether x member attribute elements will be matched to smps
@@ -375,7 +381,8 @@ class CXStandardProfile(CXDataProfile):
         """
         return self.__match_x_to_smps
 
-    @match_x_to_smps.setter
+    @deprecated
+    #@match_x_to_smps.setter
     def match_x_to_smps(self, value: bool) -> None:
         """
         Sets whether x member attribute elements will be matched to smps
@@ -396,7 +403,8 @@ class CXStandardProfile(CXDataProfile):
     formatting data.
     """
 
-    @property
+    @deprecated
+    #@property
     def match_z_to_vars(self) -> bool:
         """
         Indicates whether z member attribute elements will be matched to vars
@@ -407,7 +415,8 @@ class CXStandardProfile(CXDataProfile):
         """
         return self.__match_z_to_vars
 
-    @match_z_to_vars.setter
+    @deprecated
+    #@match_z_to_vars.setter
     def match_z_to_vars(self, value: bool) -> None:
         """
         Sets whether z member attribute elements will be matched to vars
@@ -731,8 +740,8 @@ class CXStandardProfile(CXDataProfile):
         self.x = None
         self.y = None
         self.z = None
-        self.match_vars_to_rows = True
-        self.match_smps_to_cols = True
+        self.match_vars_to_rows = False
+        self.match_smps_to_cols = False
         self.match_z_to_vars = False
         self.match_x_to_smps = False
 
