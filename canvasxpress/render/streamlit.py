@@ -1,5 +1,3 @@
-import uuid
-from typing import Union, List
 
 from canvasxpress.canvas import CanvasXpress
 import streamlit.components.v1 as components
@@ -52,104 +50,27 @@ _cx_html_template = """
 """
 
 
-def plot(
-    cx: Union[CanvasXpress, List[CanvasXpress]],
-    columns: int = 1,
-) -> Union[object, None]:
+def plot(cx: CanvasXpress) -> None:
     """
-    Renders the provided CanvasXpress object(s) for display in a Streamlit application.
-    :param cx: `Union[CanvasXpress, List[CanvasXpress]]`
-        The `CanvasXpress` object(s) to be tracked. Charts cannot have the same name,
-        so render_to will be updated with a uuid for each conflicting chart.
-    :param columns: `int`
-        Indicates how many charts should be rendered horizontally in the Streamlit
-        application if more than one chart is being tracked. Any positive `int` of `1`
-        or greater is accepted, with a default value of `1`. Values less than `1`
-        are ignored.
+    Renders the provided CanvasXpress object for display in a Streamlit application.
+    :param cx: `CanvasXpress`
+        The `CanvasXpress` object to be rendered.
     :returns: `None` or raises a `TypeError` exception if `cx` is not a CanvasXpress
-        object or list of CanvasXpress objects.
+        object.
     """
-
-    columns = int(columns)
-    columns = columns if columns > 0 else 1
-
-    render_targets = list()
-
     if cx is None:
         return None
 
-    elif isinstance(cx, CanvasXpress):
-        render_targets.append(cx)
+    elif not isinstance(cx, CanvasXpress):
+        raise TypeError(f"Argument 'cx' is not a CanvasXpress object")
 
-    else:
-        render_targets.extend(cx)
-
-    used_render_targets = list()
-    for i, target in enumerate(render_targets):
-        if not isinstance(target, CanvasXpress):
-            raise TypeError(f"Item {i} in argument 'cx' is not a CanvasXpress object")
-
-        original_render_target = target.render_to
-        if original_render_target in used_render_targets:
-            target.render_to = (
-                original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
-            )
-
-        used_render_targets.append(target.render_to)
-
-    render_targets.reverse()
-
-    html_parts = [target.render_to_html_parts() for target in render_targets]
-
-    canvases = [part["cx_canvas"] for part in html_parts]
-    if len(canvases) < columns:
-        columns = len(canvases)
-
-    functions = [part["cx_js"] for part in html_parts]
+    html_parts = cx.render_to_html_parts()
+    canvases = html_parts["cx_canvas"]
+    js_functions = _cx_fx_template.replace("@code@", html_parts["cx_js"])
 
     cx_license = ""
-    for part in html_parts:
-        if part.get("cx_license"):
-            cx_license = part["cx_license"]
-            break
-
-    iframe_width = 0
-    iframe_height = 0
-    chart_count = len(canvases)
-
-    canvas_table = '<div class="d-flex flex-column">'
-
-    while chart_count > 0:
-        candidate_width = 0
-        candidate_height = 0
-
-        canvas_table += '<div class="d-flex flex-row">'
-        for c in range(columns):
-            canvas_table += '<div class="p-2">'
-            if chart_count > 0:
-                canvas_table += canvases[chart_count - 1]
-
-                candidate_width += render_targets[chart_count - 1].width
-                if render_targets[chart_count - 1].height > candidate_height:
-                    candidate_height = render_targets[chart_count - 1].height
-
-            canvas_table += "</div>"
-            chart_count = chart_count - 1
-
-        canvas_table += "</div>"
-
-        if candidate_width > iframe_width:
-            iframe_width = candidate_width
-        iframe_height += candidate_height
-
-    canvas_table += "</div>"
-
-    iframe_width += _cx_iframe_padding
-    iframe_height += _cx_iframe_padding
-
-    js_functions = "\n".join(
-        [_cx_fx_template.replace("@code@", fx) for fx in functions]
-    )
+    if html_parts.get("cx_license"):
+        cx_license = html_parts["cx_license"]
 
     css_url = _cx_default_css_url
     js_url = _cx_default_js_url
@@ -162,11 +83,14 @@ def plot(
         )
 
     html = (
-        _cx_html_template.replace("@canvases@", canvas_table)
+        _cx_html_template.replace("@canvases@", canvases)
         .replace("@canvasxpress_license@", cx_license)
         .replace("@js_functions@", js_functions)
         .replace("@css_url@", css_url)
         .replace("@js_url@", js_url)
     )
+
+    iframe_width = cx.width + _cx_iframe_padding
+    iframe_height = cx.height + _cx_iframe_padding
 
     components.html(html, width=iframe_width, height=iframe_height)
