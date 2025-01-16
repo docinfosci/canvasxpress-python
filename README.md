@@ -581,7 +581,7 @@ from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
 
 # A basic bar chart.  It's anonymous, so no render_to.  Data is added during the draw phase.
-chord_chart = CanvasXpress(
+bar_chart = CanvasXpress(
     config={
         "graphOrientation": "vertical",
         "plotBox": True,
@@ -605,17 +605,16 @@ chord_chart = CanvasXpress(
 st.title('CanvasXpress in Streamlit!')
 
 # Some columns to organize the button and chart
-column1, column2 = st.columns(2)
+column1, column2 = st.columns([1, 3])
 
 # A column with our data generator button
-column1.write(
+with column1:
     # This has no associated action, so by default it triggers a redraw of the UI.
     st.button("Generate New Data")
-)
 
 # Another column with the chart displayed
 # With each redraw generate new random values
-chord_chart.data = {
+bar_chart.data = {
     "y": {
         "vars": ["V1"],
         "smps": ["S1", "S2", "S3"],
@@ -628,10 +627,9 @@ chord_chart.data = {
         ]
     }
 }
-column2.write(
+with column2:
     # This plots the CanvasXpress chart into the UI.
-    graph(chord_chart)
-)
+    graph(bar_chart)
 ```
 
 #### Run the App and View the Page
