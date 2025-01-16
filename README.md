@@ -406,16 +406,6 @@ make charts available in contexts such as Dash and Shiny.
 
 ## Application, NoteBook, and Console Examples
 
-<style>
-    details summary {
-        font-size: large;
-    }
-    details {
-        border: 1px solid #E0E0E0;
-        padding: 10px;
-    }
-</style>
-
 <details>
 <summary><h3>Rendering Charts in the RStudio IDE Viewer Pane</h3></summary>
 
