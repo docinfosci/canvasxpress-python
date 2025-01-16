@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# Install essential packages
+chmod +x ./*.sh
+./init-drivers.sh
+
+# Build Dash components
+cd plotly/cxdash/
+./init-project.sh
+./build-local.sh
+cd ../../
+
 #  Ensure the presence of a virtual environment
 if ! [[ -d ./venv ]] ; then
     python3 -m venv ./venv
@@ -16,20 +26,10 @@ else
 fi
 echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
-# Install essential packages
-chmod +x ./*.sh
-./init-drivers.sh
-
 # Bootstrap Python
 python3 ./build_pkg_setup.py
 pip install --no-cache-dir -U -r ./requirements-project.txt
 invoke init --dev --list
-
-# Build Dash components
-cd plotly/cxdash/
-./init-project.sh
-./build-local.sh
-cd ../../
 
 # Force conformance to project styles (see pyproject,toml)
 # We will manually perform formatting here and there, as the latest black breaks the doc generation.

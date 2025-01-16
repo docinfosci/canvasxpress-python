@@ -14,6 +14,7 @@ from canvasxpress.config.type import (
     CXRGBColor,
     CXRGBAColor,
     CXNone,
+    CXGraphWeight,
 )
 from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
@@ -193,7 +194,9 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                     else:
                         candidate = CXDict(label, value)
                 elif value_type is list:
-                    if CXRGBAColor.is_color_list(value):
+                    if CXGraphWeight.is_graph_weight_list(label, value):
+                        candidate = CXGraphWeight(label, value)
+                    elif CXRGBAColor.is_color_list(value):
                         candidate = CXRGBAColor(label, value)
                     elif CXRGBColor.is_color_list(value):
                         candidate = CXRGBColor(label, value)
