@@ -1,13 +1,58 @@
+import random
+
 import streamlit as st
 st.set_page_config(layout="wide")
 
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXList
-from canvasxpress.plot import graph
-from canvasxpress.render.streamlit import plot
 
-st.title("Test multi-chart layouts and broadcasting")
+st.title('CanvasXpress in Streamlit!')
+
+st.write("## Basic Chart")
+
+bar_chart = CanvasXpress(
+    config={
+        "graphOrientation": "vertical",
+        "plotBox": True,
+        "showLegend": False,
+        "smpLabelRotate": 90,
+        "smpTitle": "Samples",
+        "theme": "CanvasXpress",
+        "title": "Bar Graph Title",
+        "xAxis": ["V1"],
+        "xAxisTitle": "Value",
+        "graphType": "Bar"
+    },
+    width=500,
+    height=500
+)
+
+column1, column2 = st.columns([1, 3])
+
+with column1:
+    # This has no associated action, so by default it triggers a redraw of the UI.
+    st.button("Generate New Data")
+
+bar_chart.data = {
+    "y": {
+        "vars": ["V1"],
+        "smps": ["S1", "S2", "S3"],
+        "data": [
+            [
+                random.randint(100, 10000),
+                random.randint(100, 10000),
+                random.randint(100, 10000),
+            ]
+        ]
+    }
+}
+
+with column2:
+    graph(bar_chart)
+
+st.write("## Broadcasting")
 
 chart1 = CanvasXpress(
     data={
@@ -132,7 +177,7 @@ chart6 = CanvasXpress(
     data={
         "z": {
             "Gender": ["Male", "Female", "Male", "Female", "Female", "Female"],
-            "Excercise": ["Low", "Moderate", "Moderate", "Moderate", "Low", "Intense"]
+            "Exercise": ["Low", "Moderate", "Moderate", "Moderate", "Low", "Intense"]
         },
         "y": {
             "vars": ["Keith", "Nina", "Freddy", "Tracey", "Isabelle", "Penny"],
@@ -154,9 +199,20 @@ chart6 = CanvasXpress(
         "theme": "CanvasXpress",
         "title": "Chart 6"
     },
-    after_render=CXConfigs(CXList("createPie", ["Gender"])),
     width=300,
     height=300
 )
 
-plot([chart1, chart2, chart3, chart4, chart5, chart6], columns=3)
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    graph(chart1)
+    graph(chart4)
+
+with col2:
+    graph(chart2)
+    graph(chart5)
+
+with col3:
+    graph(chart3)
+    graph(chart6)
