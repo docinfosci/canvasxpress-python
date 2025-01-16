@@ -417,7 +417,7 @@ make charts available in contexts such as Dash and Shiny.
 </style>
 
 <details>
-<summary>Rendering Charts in the RStudio IDE Viewer Pane</summary>
+<summary><h3>Rendering Charts in the RStudio IDE Viewer Pane</h3></summary>
 
 The RStudio IDE's Viewer panel is now supported for rendering interactive charts in the Viewer!  When the `graph()`
 function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, 
@@ -427,7 +427,7 @@ generation is performed then the CanvasXpress charts will be embedded in the gen
 </details>
 
 <details>
-<summary>A Basic Python Script / Console Example</summary>
+<summary><h3>A Basic Python Script / Console Example</h3></summary>
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
 graphical browser with Javascript support is available on the host system.  To do so use the `show_in_browser()`
@@ -463,7 +463,7 @@ graphical systems:
 </details>
 
 <details>
-<summary>A Shiny for Python Example</summary>
+<summary><h3>A Shiny for Python Example</h3></summary>
 
 [Shiny for Python](https://shiny.posit.co/py/) is a new dashboard framework inspired by the highly successful Shiny for
 R framework produced by Posit (formerly RStudio). This example shows how to create a basic Shiny for Python application
@@ -570,7 +570,7 @@ Congratulations!  You have created a Shiny for Python CanvasXpress app!
 </details>
 
 <details>
-<summary>A Streamlit Example</summary>
+<summary><h3>A Streamlit Example</h3></summary>
 
 [Streamlit](https://streamlit.io) is a popular dashboard framework that is simplified compared to Dash and Shiny, but
 just as powerful in terms of reactivity and extensions. This example shows how to create a basic Streamlit application
@@ -673,7 +673,7 @@ Congratulations!  You have created a Streamlit CanvasXpress app!
 </details>
 
 <details>
-<summary>A Dash Example</summary>
+<summary><h3>A Dash Example</h3></summary>
 
 [Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to Shiny for Python or R. Dash
 applications are Web pages with widgets and elements facilitating the interactive presentation of information. This
@@ -794,7 +794,7 @@ Congratulations!  You have created a Plotly Dash CanvasXpress app!
 </details>
 
 <details>
-<summary>A Flask Example</summary>
+<summary><h3>A Flask Example</h3></summary>
 
 [Flask](https://palletsprojects.com/p/flask/) is a popular lean Web development framework for Python based applications.
 Flask applications can serve Web pages, RESTful APIs, and similar backend service concepts. This example shows how to
