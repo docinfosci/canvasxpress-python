@@ -1,4 +1,3 @@
-
 from canvasxpress.canvas import CanvasXpress
 import streamlit.components.v1 as components
 
@@ -50,20 +49,14 @@ _cx_html_template = """
 """
 
 
-def plot(cx: CanvasXpress) -> None:
+def get_chart_display_code(cx: CanvasXpress) -> tuple:
     """
-    Renders the provided CanvasXpress object for display in a Streamlit application.
+    Get the html display code and iframe dimensions for rendering a CanvasXpress
+    object in a Streamlit application.
     :param cx: `CanvasXpress`
         The `CanvasXpress` object to be rendered.
-    :returns: `None` or raises a `TypeError` exception if `cx` is not a CanvasXpress
-        object.
+    :returns: `tuple` of html, iframe_width, iframe_height
     """
-    if cx is None:
-        return None
-
-    elif not isinstance(cx, CanvasXpress):
-        raise TypeError(f"Argument 'cx' is not a CanvasXpress object")
-
     html_parts = cx.render_to_html_parts()
     canvases = html_parts["cx_canvas"]
     js_functions = _cx_fx_template.replace("@code@", html_parts["cx_js"])
@@ -92,5 +85,24 @@ def plot(cx: CanvasXpress) -> None:
 
     iframe_width = cx.width + _cx_iframe_padding
     iframe_height = cx.height + _cx_iframe_padding
+
+    return html, iframe_width, iframe_height
+
+
+def plot(cx: CanvasXpress) -> None:
+    """
+    Renders the provided CanvasXpress object for display in a Streamlit application.
+    :param cx: `CanvasXpress`
+        The `CanvasXpress` object to be rendered.
+    :returns: `None` or raises a `TypeError` exception if `cx` is not a CanvasXpress
+        object.
+    """
+    if cx is None:
+        return None
+
+    elif not isinstance(cx, CanvasXpress):
+        raise TypeError(f"Argument 'cx' is not a CanvasXpress object")
+
+    html, iframe_width, iframe_height = get_chart_display_code(cx)
 
     components.html(html, width=iframe_width, height=iframe_height)
