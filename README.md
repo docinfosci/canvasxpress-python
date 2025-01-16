@@ -406,22 +406,21 @@ make charts available in contexts such as Dash and Shiny.
 
 ## Application, NoteBook, and Console Examples
 
-<details>
-<summary><h3>Rendering Charts in the RStudio IDE Viewer Pane</h3></summary>
+### Rendering Charts in the RStudio IDE Viewer Pane
 
 The RStudio IDE's Viewer panel is now supported for rendering interactive charts in the Viewer!  When the `graph()`
 function is called it detects that RStudio is running and renders the chart in the Viewer instead of a document, 
 such as for Quarto code chunks.  However, if the document is a Quarto or RMD file and the appropriate HTML (etc.)
 generation is performed then the CanvasXpress charts will be embedded in the generated output file as normal.
 
-</details>
-
-<details>
-<summary><h3>A Basic Python Script / Console Example</h3></summary>
+### A Basic Python Script / Console Example
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
 graphical browser with Javascript support is available on the host system.  To do so use the `show_in_browser()`
-function instead of graph()`.
+function instead of `graph()`.
+
+<details>
+<summary>Click to read more</summary>
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -452,12 +451,14 @@ graphical systems:
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
 </details>
 
-<details>
-<summary><h3>A Shiny for Python Example</h3></summary>
+### A Shiny for Python Example
 
 [Shiny for Python](https://shiny.posit.co/py/) is a new dashboard framework inspired by the highly successful Shiny for
 R framework produced by Posit (formerly RStudio). This example shows how to create a basic Shiny for Python application
 using a CanvasXpress Shiny element.
+
+<details>
+<summary>Click to read more</summary>
 
 A basic Shiny for Python app provides a means by which:
 
@@ -559,12 +560,14 @@ for Python framework:
 Congratulations!  You have created a Shiny for Python CanvasXpress app!
 </details>
 
-<details>
-<summary><h3>A Streamlit Example</h3></summary>
+### A Streamlit Example
 
 [Streamlit](https://streamlit.io) is a popular dashboard framework that is simplified compared to Dash and Shiny, but
 just as powerful in terms of reactivity and extensions. This example shows how to create a basic Streamlit application
 using a CanvasXpress Streamlit element.
+
+<details>
+<summary>Click to read more</summary>
 
 A basic Streamlit app provides a means by which:
 
@@ -662,12 +665,14 @@ Streamlit framework:
 Congratulations!  You have created a Streamlit CanvasXpress app!
 </details>
 
-<details>
-<summary><h3>A Dash Example</h3></summary>
+### A Dash Example
 
 [Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to Shiny for Python or R. Dash
 applications are Web pages with widgets and elements facilitating the interactive presentation of information. This
 example shows how to create a basic Dash application using a CanvasXpress Dash element.
+
+<details>
+<summary>Click to read more</summary>
 
 #### Create a Basic Dash App
 
@@ -783,8 +788,7 @@ framework:
 Congratulations!  You have created a Plotly Dash CanvasXpress app!
 </details>
 
-<details>
-<summary><h3>A Flask Example</h3></summary>
+### A Flask Example
 
 [Flask](https://palletsprojects.com/p/flask/) is a popular lean Web development framework for Python based applications.
 Flask applications can serve Web pages, RESTful APIs, and similar backend service concepts. This example shows how to
@@ -792,6 +796,9 @@ create a basic Flask application that provides a basic Web page with a CanvasXpr
 backend.
 
 The concepts in this example equally apply to other frameworks that can serve Web pages, such as Django and Tornado.
+
+<details>
+<summary>Click to read more</summary>
 
 #### Create a Basic Flask App
 
