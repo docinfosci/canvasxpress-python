@@ -1,7 +1,7 @@
 import pytest
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.streamlit import get_chart_display_code, plot
+from canvasxpress.render.streamlit import _get_chart_display_code, plot
 
 
 def test_valid_chart_argument():
@@ -21,7 +21,7 @@ def test_valid_chart_argument():
         },
     )
 
-    html, iframe_width, iframe_height = get_chart_display_code(cx=chart)
+    html, iframe_width, iframe_height = _get_chart_display_code(cx=chart)
     assert type(html) == str
     assert type(iframe_width) == int
     assert type(iframe_height) == int

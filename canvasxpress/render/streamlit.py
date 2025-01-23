@@ -49,7 +49,7 @@ _cx_html_template = """
 """
 
 
-def get_chart_display_code(cx: CanvasXpress) -> tuple:
+def _get_chart_display_code(cx: CanvasXpress) -> tuple:
     """
     Get the html display code and iframe dimensions for rendering a CanvasXpress
     object in a Streamlit application.
@@ -103,6 +103,6 @@ def plot(cx: CanvasXpress) -> None:
     elif not isinstance(cx, CanvasXpress):
         raise TypeError(f"Argument 'cx' is not a CanvasXpress object")
 
-    html, iframe_width, iframe_height = get_chart_display_code(cx)
+    html, iframe_width, iframe_height = _get_chart_display_code(cx)
 
     components.html(html, width=iframe_width, height=iframe_height)
