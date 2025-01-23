@@ -3,10 +3,9 @@ from copy import deepcopy
 from functools import total_ordering
 from typing import Union
 
-import requests
 from deepdiff import DeepDiff
 
-from canvasxpress.data.base import CXKeyPairData, CXDataProfile
+from canvasxpress.data.base import CXKeyPairData
 
 
 @total_ordering
@@ -72,29 +71,17 @@ class CXDictData(CXKeyPairData):
         :returns: `dict`
             The data in `dict` form.
         """
-        if self.profile:
-            candidate = self.profile.render_to_profiled_dict(self)
+        return self.get_raw_dict_form()
 
-        else:
-            candidate = self.get_raw_dict_form()
-
-        return candidate
-
-    def __init__(
-        self, data: Union[dict, None] = None, profile: Union[CXDataProfile, None] = None
-    ) -> None:
+    def __init__(self, data: Union[dict, None] = None) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
         types are accepted.
         :param data: `Union[dict, None]`
             `None` to initialize with an empty dictionary, or a `dict`-like
             object to assign mapped data.
-        :param profile: `Union[CXDataProfile, None]`
-            Specify the desired profile object to facilitate transformation of
-            data into a CanvasXpress JSON data object.  `None` to avoid use of
-            a profile.
         """
-        super().__init__(data, profile)
+        super().__init__(data)
         self.data = data
 
     def __copy__(self) -> "CXDictData":
@@ -255,23 +242,15 @@ class CXJSONData(CXDictData):
         else:
             CXDictData.data.fset(self, value)
 
-    def __init__(
-        self,
-        data: Union[dict, str, None] = None,
-        profile: Union[CXDataProfile, None] = None,
-    ) -> None:
+    def __init__(self, data: Union[dict, str, None] = None) -> None:
         """
         Initializes the CXData object with data.  Only dict or compatible data
         types are accepted.
         :param data: `Union[dict, str, None]`
             `None` to initialize with an empty JSON, or a JSON/`dict`-like
             object to assign mapped data.
-        :param profile: `Union[CXDataProfile, None]`
-            Specify the desired profile object to facilitate transformation of
-            data into a CanvasXpress JSON data object.  `None` to avoid use of
-            a profile.
         """
-        super().__init__(data, profile)
+        super().__init__(data)
 
     def __copy__(self) -> "CXJSONData":
         """
