@@ -3,6 +3,7 @@ from copy import deepcopy
 from functools import total_ordering
 from typing import Union
 
+import requests
 from deepdiff import DeepDiff
 
 from canvasxpress.data.base import CXKeyPairData
