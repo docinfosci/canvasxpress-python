@@ -264,8 +264,6 @@ box_chart: CanvasXpress = CanvasXpress(
         "graphOrientation": "vertical",
         "graphType": "Boxplot",
         "groupingFactors": ["dose"],
-        "llmHeader": [["len", "supp", "order", "dose"]],
-        "loadLLMDatasets": False,
         "showLegend": False,
         "smpTextRotate": 90,
         "smpTitle": "dose",
