@@ -43,11 +43,11 @@ from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation w
 [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
 [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python)
 
-## Documentation, Installation, and Usage
+## Documentation and Installation
 
 ### Documentation
 
-Documentation is maintained at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
+Documentation is maintained on this page and at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
 
 - [Introduction to CanvasXpress for Python](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
 
@@ -75,6 +75,13 @@ In addition to _core_, the following additional targets can be used:
 - _shiny_ - installs additional packages to support rendering in Posit Shiny for Python applications
 - _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same packages for jupyter and shiny
 - _all_ - installs all additional packages to support rendering in any supported document or application
+
+## Usage
+
+This section provides general instructions on creating and customizing charts.
+
+<details>
+<summary>Click to read more</summary>
 
 ### Drawing Charts
 
@@ -331,7 +338,7 @@ graph(
 )
 ```
 
-## Converting to and from Reproducible JSON
+### Converting to and from Reproducible JSON
 
 CanvasXpress for Python can also convert to and from reproducible JSONs usable with the JavaScript and R editions of the
 library.  `convert_to_reproducible_json` takes an existing CanvasXpress object and provides a `str` copy of the JSON, 
@@ -403,6 +410,7 @@ The console would display:
 This text could be saved to a file, such as `example.json`, and then dragged onto a CanvasXpress chart in a browser
 to load the equivalent chart.  In fact, CanvasXpress for Python uses the core functionality producing JSON output to 
 make charts available in contexts such as Dash and Shiny.
+</details>
 
 ## Application, NoteBook, and Console Examples
 
