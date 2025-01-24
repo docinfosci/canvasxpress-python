@@ -43,11 +43,11 @@ from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation w
 [![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
 [![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python)
 
-## Documentation, Installation, and Usage
+## Documentation and Installation
 
 ### Documentation
 
-Documentation is maintained at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
+Documentation is maintained on this page and at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
 
 - [Introduction to CanvasXpress for Python](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
 
@@ -76,6 +76,13 @@ In addition to _core_, the following additional targets can be used:
 - _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same
   packages for jupyter and shiny
 - _all_ - installs all additional packages to support rendering in any supported document or application
+
+## Usage
+
+This section provides general instructions on creating and customizing charts.
+
+<details>
+<summary>Click to read more</summary>
 
 ### Drawing Charts
 
@@ -484,7 +491,7 @@ graph(
 )
 ```
 
-## Converting to and from Reproducible JSON
+### Converting to and from Reproducible JSON
 
 CanvasXpress for Python can also convert to and from reproducible JSONs usable with the JavaScript and R editions of the
 library.  `convert_to_reproducible_json` takes an existing CanvasXpress object and provides a `str` copy of the JSON,
@@ -554,9 +561,10 @@ The console would display:
 }
 ```
 
-This text could be saved to a file, such as `example.json`, and then dragged onto a CanvasXpress chart in a browser to
-load the equivalent chart. In fact, CanvasXpress for Python uses the core functionality producing JSON output to make
-charts available in contexts such as Dash and Shiny.
+This text could be saved to a file, such as `example.json`, and then dragged onto a CanvasXpress chart in a browser
+to load the equivalent chart.  In fact, CanvasXpress for Python uses the core functionality producing JSON output to 
+make charts available in contexts such as Dash and Shiny.
+</details>
 
 ## Application, NoteBook, and Console Examples
 
@@ -570,8 +578,11 @@ generation is performed then the CanvasXpress charts will be embedded in the gen
 ### A Basic Python Script / Console Example
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
-graphical browser with Javascript support is available on the host system. To do so use the `show_in_browser()`
-function instead of graph()`.
+graphical browser with Javascript support is available on the host system.  To do so use the `show_in_browser()`
+function instead of `graph()`.
+
+<details>
+<summary>Click to read more</summary>
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -600,12 +611,16 @@ Upon running the example the following chart will be displayed on systems such a
 graphical systems:
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
+</details>
 
 ### A Shiny for Python Example
 
 [Shiny for Python](https://shiny.posit.co/py/) is a new dashboard framework inspired by the highly successful Shiny for
 R framework produced by Posit (formerly RStudio). This example shows how to create a basic Shiny for Python application
 using a CanvasXpress Shiny element.
+
+<details>
+<summary>Click to read more</summary>
 
 A basic Shiny for Python app provides a means by which:
 
@@ -705,12 +720,16 @@ for Python framework:
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/shiny_chart_example.png" align="center" width="600"></a>
 
 Congratulations!  You have created a Shiny for Python CanvasXpress app!
+</details>
 
 ### A Streamlit Example
 
 [Streamlit](https://streamlit.io) is a popular dashboard framework that is simplified compared to Dash and Shiny, but
 just as powerful in terms of reactivity and extensions. This example shows how to create a basic Streamlit application
 using a CanvasXpress Streamlit element.
+
+<details>
+<summary>Click to read more</summary>
 
 A basic Streamlit app provides a means by which:
 
@@ -735,7 +754,7 @@ from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
 
 # A basic bar chart.  It's anonymous, so no render_to.  Data is added during the draw phase.
-chord_chart = CanvasXpress(
+bar_chart = CanvasXpress(
     config={
         "graphOrientation": "vertical",
         "plotBox": True,
@@ -759,17 +778,16 @@ chord_chart = CanvasXpress(
 st.title('CanvasXpress in Streamlit!')
 
 # Some columns to organize the button and chart
-column1, column2 = st.columns(2)
+column1, column2 = st.columns([1, 3])
 
 # A column with our data generator button
-column1.write(
+with column1:
     # This has no associated action, so by default it triggers a redraw of the UI.
     st.button("Generate New Data")
-)
 
 # Another column with the chart displayed
 # With each redraw generate new random values
-chord_chart.data = {
+bar_chart.data = {
     "y": {
         "vars": ["V1"],
         "smps": ["S1", "S2", "S3"],
@@ -782,10 +800,9 @@ chord_chart.data = {
         ]
     }
 }
-column2.write(
+with column2:
     # This plots the CanvasXpress chart into the UI.
-    graph(chord_chart)
-)
+    graph(bar_chart)
 ```
 
 #### Run the App and View the Page
@@ -808,12 +825,16 @@ Streamlit framework:
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/streamlit_chart_basic.png" align="center" width="600"></a>
 
 Congratulations!  You have created a Streamlit CanvasXpress app!
+</details>
 
 ### A Dash Example
 
 [Plotly Dash](https://dash.plotly.com/) is a popular dashboard framework similar to Shiny for Python or R. Dash
 applications are Web pages with widgets and elements facilitating the interactive presentation of information. This
 example shows how to create a basic Dash application using a CanvasXpress Dash element.
+
+<details>
+<summary>Click to read more</summary>
 
 #### Create a Basic Dash App
 
@@ -927,6 +948,7 @@ framework:
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/dash_chart_basic.png" align="center" width="600"></a>
 
 Congratulations!  You have created a Plotly Dash CanvasXpress app!
+</details>
 
 ### A Flask Example
 
@@ -936,6 +958,9 @@ create a basic Flask application that provides a basic Web page with a CanvasXpr
 backend.
 
 The concepts in this example equally apply to other frameworks that can serve Web pages, such as Django and Tornado.
+
+<details>
+<summary>Click to read more</summary>
 
 #### Create a Basic Flask App
 
@@ -1076,3 +1101,4 @@ displayed:
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/examples/flask_bar_chart_basic.png" align="center" width="600"></a>
 
 Congratulations!  You have created a Flask CanvasXpress app!
+</details>
