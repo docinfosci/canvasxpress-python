@@ -239,8 +239,8 @@ def merge_dataframes_into_xyz_object(
     if data is not None:
         xyz_data["y"] = {}
         xyz_data["y"]["data"] = data.dataframe.values.tolist()
-        xyz_data["y"]["smps"] = data.dataframe.columns.values.tolist()
-        xyz_data["y"]["vars"] = data.dataframe.index.values.tolist()
+        xyz_data["y"]["smps"] = data.dataframe.columns.tolist()
+        xyz_data["y"]["vars"] = data.dataframe.index.tolist()
 
     if sample_annotation is not None and sample_annotation.dataframe.size > 0:
 
@@ -264,9 +264,10 @@ def merge_dataframes_into_xyz_object(
 
             if found_strategy:
                 for row_index in range(sample_annotation.dataframe.shape[0]):
-                    xyz_data["x"][
-                        sample_annotation.dataframe.iloc[row_index, 0]
-                    ] = sample_annotation.dataframe.iloc[row_index].values[1:]
+                    key = sample_annotation.dataframe.iloc[row_index, 0]
+                    if not isinstance(key, str):
+                        x_key = key.item()
+                    xyz_data["x"][key] = sample_annotation.dataframe.iloc[row_index][1:]
 
             # 2.  Else use first row - use values in each column
             else:
@@ -282,8 +283,10 @@ def merge_dataframes_into_xyz_object(
                 if found_strategy:
                     for column_index in range(sample_annotation.dataframe.shape[1]):
                         column = sample_annotation.dataframe.columns[column_index]
-                        meta_name = sample_annotation.dataframe[column].to_list()[0]
-                        meta_data = sample_annotation.dataframe[column].to_list()[1:]
+                        meta_name = sample_annotation.dataframe[column][0]
+                        if not isinstance(meta_name, str):
+                            meta_name = meta_name.item()
+                        meta_data = sample_annotation.dataframe[column][1:]
                         xyz_data["x"][meta_name] = meta_data
 
                 # 3.  Else scan header for a matching sample identifier - use values in each column.
@@ -298,16 +301,16 @@ def merge_dataframes_into_xyz_object(
                         for column_index, column in enumerate(
                             sample_annotation.dataframe.columns.values
                         ):
-                            xyz_data["x"][column] = sample_annotation.dataframe[
-                                column
-                            ].values
+                            xyz_data["x"][
+                                column if isinstance(column, str) else column.item()
+                            ] = sample_annotation.dataframe[column]
 
-                    # 4.  Else scan the index - use values in each rpw
+                    # 4.  Else scan the index - use values in each row
                     else:
                         for index in sample_annotation.dataframe.index.values:
-                            xyz_data["x"][index] = sample_annotation.dataframe.loc[
-                                index
-                            ].values.tolist()
+                            xyz_data["x"][
+                                index if isinstance(index, str) else index.item()
+                            ] = sample_annotation.dataframe.loc[index]
 
         except Exception as e:
             raise ValueError(
@@ -336,9 +339,12 @@ def merge_dataframes_into_xyz_object(
 
             if found_strategy:
                 for row_index in range(variable_annotation.dataframe.shape[0]):
-                    xyz_data["z"][
-                        variable_annotation.dataframe.iloc[row_index, 0]
-                    ] = variable_annotation.dataframe.iloc[row_index].values[1:]
+                    key = variable_annotation.dataframe.iloc[row_index, 0]
+                    if not isinstance(key, str):
+                        key = key.item()
+                    xyz_data["z"][key] = variable_annotation.dataframe.iloc[row_index][
+                        1:
+                    ]
 
             # 2.  Else use first row - use values in each column
             else:
@@ -354,8 +360,10 @@ def merge_dataframes_into_xyz_object(
                 if found_strategy:
                     for column_index in range(variable_annotation.dataframe.shape[1]):
                         column = sample_annotation.dataframe.columns[column_index]
-                        meta_name = sample_annotation.dataframe[column].to_list()[0]
-                        meta_data = sample_annotation.dataframe[column].to_list()[1:]
+                        meta_name = sample_annotation.dataframe[column][0]
+                        if not isinstance(meta_name, str):
+                            meta_name = meta_name.item()
+                        meta_data = sample_annotation.dataframe[column][1:]
                         xyz_data["z"][meta_name] = meta_data
 
                 # 3.  Else scan header for a matching sample identifier - use values in each column.
@@ -370,20 +378,36 @@ def merge_dataframes_into_xyz_object(
                         for column_index, column in enumerate(
                             variable_annotation.dataframe.columns.values
                         ):
-                            xyz_data["z"][column] = variable_annotation.dataframe[
-                                column
-                            ].values
+                            xyz_data["z"][
+                                column if isinstance(column, str) else column.item()
+                            ] = variable_annotation.dataframe[column]
 
                     # 4.  Else scan the index - use values in each rpw
                     else:
                         for index in variable_annotation.dataframe.index.values:
-                            xyz_data["z"][index] = variable_annotation.dataframe.loc[
-                                index
-                            ].values.tolist()
+                            xyz_data["z"][
+                                index if isinstance(index, str) else index.item()
+                            ] = variable_annotation.dataframe.loc[index]
 
         except Exception as e:
             raise ValueError(
                 "Variable Annotation data (z) cannot be parsed or aligned with Chart data (y)"
             )
+
+    # Convert to Python native types for serialization
+
+    if "x" in xyz_data:
+        for annotation in xyz_data["x"].keys():
+            xyz_data["x"][annotation] = [
+                element if isinstance(element, str) else element.item()
+                for element in xyz_data["x"][annotation]
+            ]
+
+    if "z" in xyz_data:
+        for annotation in xyz_data["z"].keys():
+            xyz_data["z"][annotation] = [
+                element if isinstance(element, str) else element.item()
+                for element in xyz_data["z"][annotation]
+            ]
 
     return xyz_data
