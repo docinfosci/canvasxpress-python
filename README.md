@@ -235,50 +235,119 @@ import pandas
 import io
 import requests
 
-data_url = "https://www.canvasxpress.org/data/cX-toothgrowth-dat.txt"
+data_url = "https://www.canvasxpress.org/data/cX-generic-dat.txt"
 data_raw = requests.get(data_url).content
 data_df = pandas.read_csv(
     io.StringIO(data_raw.decode('utf-8')),
-    sep="\t"
+    sep="\t",
+    index_col=0,
 )
 
-sample_annot_url = "https://www.canvasxpress.org/data/cX-toothgrowth-smp.txt"
+sample_annot_url = "https://www.canvasxpress.org/data/cX-generic-smp.txt"
 sample_annot_raw = requests.get(sample_annot_url).content
 sample_annot_df = pandas.read_csv(
     io.StringIO(sample_annot_raw.decode('utf-8')),
-    sep="\t"
+    sep="\t",
+    index_col=0,
 )
 
-CanvasXpress(
+variable_annot_url = "https://www.canvasxpress.org/data/cX-generic-var.txt"
+variable_annot_raw = requests.get(variable_annot_url).content
+variable_annot_df = pandas.read_csv(
+    io.StringIO(variable_annot_raw.decode('utf-8')),
+    sep="\t",
+    index_col=0,
+)
+
+cx = CanvasXpress(
     data=data_df,
     sample_annotation=sample_annot_df,
+    variable_annotation=variable_annot_df,
     config={
-        "axisAlgorithm": "rPretty",
-        "axisTitleFontStyle": "bold",
-        "background": "white",
-        "backgroundType": "panel",
-        "colorBy": "dose",
-        "colorScheme": "GGPlot",
         "graphOrientation": "vertical",
-        "graphType": "Boxplot",
-        "groupingFactors": ["dose"],
-        "guidesColor": "white",
-        "guidesLineType": "solid",
-        "guidesShow": True,
-        "jitter": True,
-        "panelBackgroundColor": "#E5E5E5",
-        "shapeBy": "supp",
-        "showBoxplotOriginalData": True,
-        "showLegend": True,
-        "smpTextRotate": 90,
-        "smpTitle": "dose",
-        "smpTitleFontStyle": "bold",
-        "stringSampleFactors": ["dose"],
-        "title": "The Effect of Vitamin C on Tooth Growth in Guinea Pigs",
-        "xAxis2Show": False,
-        "xAxisGridMajorColor": "white",
-        "xAxisGridMinorShow": False,
-        "xAxisTitle": "len",
+        "graphType": "Dotplot",
+        "lineType": "spline",
+        "llmHeader": [
+            ["V1", "V2", "V3", "V4", "Factor1", "Factor2", "Factor3", "Factor4", "Factor5", "Factor6"]
+        ],
+        "showSmpOverlaysLegend": True,
+        "smpOverlayProperties": {
+            "Factor4": {
+                "color": "blue",
+                "thickness": 50,
+                "type": "Bar",
+                "showLegend": "True"
+            },
+            "Factor5": {
+                "thickness": 50,
+                "color": "grey",
+                "type": "Bar",
+                "showLegend": "True"
+            },
+            "Factor6": {
+                "showLegend": "True",
+                "thickness": 50,
+                "color": "red",
+                "type": "Bar"
+            },
+            "Factor1": {
+                "type": "Default",
+                "color": "rgb(10,176,219)",
+                "spectrum": ["rgb(69,117,180)", "rgb(145,191,219)", "rgb(224,243,248)", "rgb(255,255,191)",
+                             "rgb(254,224,144)", "rgb(252,141,89)", "rgb(215,48,39)"],
+                "scheme": "CanvasXpress",
+                "hideName": False,
+                "hideValue": False,
+                "showLegend": True,
+                "legendColumns": False,
+                "showBox": True,
+                "ticksOnBottomOrLeft": True,
+                "rotate": False,
+                "invert": False,
+                "position": "bottom"
+            },
+            "Factor2": {
+                "type": "Default",
+                "color": "rgb(254,211,133)",
+                "spectrum": ["rgb(69,117,180)", "rgb(145,191,219)", "rgb(224,243,248)", "rgb(255,255,191)",
+                             "rgb(254,224,144)", "rgb(252,141,89)", "rgb(215,48,39)"],
+                "scheme": "CanvasXpress",
+                "hideName": False,
+                "hideValue": False,
+                "showLegend": True,
+                "legendColumns": False,
+                "showBox": True,
+                "ticksOnBottomOrLeft": True,
+                "rotate": False,
+                "invert": False,
+                "position": "bottom"
+            },
+            "Factor3": {
+                "type": "Default",
+                "color": "rgb(254,105,105)",
+                "spectrum": ["rgb(69,117,180)", "rgb(145,191,219)", "rgb(224,243,248)", "rgb(255,255,191)",
+                             "rgb(254,224,144)", "rgb(252,141,89)", "rgb(215,48,39)"],
+                "scheme": "CanvasXpress",
+                "hideName": False,
+                "hideValue": False,
+                "showLegend": True,
+                "legendColumns": False,
+                "showBox": True,
+                "ticksOnBottomOrLeft": True,
+                "rotate": False,
+                "invert": False,
+                "position": "bottom"
+            }
+        },
+        "smpOverlays": ["Factor1", "Factor2", "Factor3"],
+        "smpTextRotate": 45,
+        "smpTitle": "Collection of Samples",
+        "smpTitleFontStyle": "italic",
+        "subtitle": "Random Data",
+        "theme": "CanvasXpress",
+        "title": "Dotplot Graph",
+        "xAxis": ["V1", "V2", "V3", "V4"],
+        "xAxisTickFormat": "%.0f Mil."
     },
 )
 ```
