@@ -225,9 +225,9 @@ data_for_use_in_chart = {
 }
 ```
 
-CanvasXpress for Python also supports Pandas DataFrame assignments to `data`, plus supporting `sample_annotation` and
+CanvasXpress for Python supports Pandas DataFrame assignments to `data`, plus supporting `sample_annotation` and
 `variable_annotation` properties. If data is assigned in this manner, then on generation of the JavaScript the
-CanvasXpress object will create an XYZ object using the DataFrame(s).
+CanvasXpress object will create an XYZ object using the DataFrame(s). 
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -352,6 +352,9 @@ cx = CanvasXpress(
 )
 ```
 
+If a DataFrame is assigned to `data` then its index will be used for `xyz["y"]["vars"]` values and its header will be
+used for the `xyz["y"]["smps"]` values.
+
 If a DataFrame is assigned to `sample_annotation` or `variable_annotation` then the following strategy will be used to
 determine how the DataFrame should be parsed to create the corresponding `x` and `z` properties, respectively:
 
@@ -363,6 +366,11 @@ determine how the DataFrame should be parsed to create the corresponding `x` and
 
 If no DataFrame is assigned to the `sample_annotation` or `variable_annotation` properties then those portions of the
 xyz object will simply be ommitted.
+
+`sample_annotation` and `variable_annotation` can only be used if the `data` property is already a DataFrame.  If any
+other type is used, such as a `dict` or `str` then an exception will be raised.
+
+`data`, `sample_annotation`, and `variable_annotation` can be set to `None` to remove their values.
 
 Data URL example:
 
