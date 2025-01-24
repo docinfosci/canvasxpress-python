@@ -16,6 +16,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Install Node
     brew reinstall node
 
+    # Install R
+    brew install Caskroom/cask/xquartz
+    brew install r
+
 else
     echo "Unkown OS -- manually install Selenium drivers such as for gecko"
 

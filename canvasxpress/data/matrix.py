@@ -1,14 +1,10 @@
-import csv
 import json
 from functools import total_ordering
-from io import StringIO
 from typing import Union
 
-import pandas
 from pandas import DataFrame
 
-from canvasxpress.data.base import CXDataProfile, CXMatrixData
-from canvasxpress.data.profile import CXStandardProfile
+from canvasxpress.data.base import CXMatrixData
 
 
 @total_ordering
@@ -39,7 +35,14 @@ class CXDataframeData(CXMatrixData):
             `None` results in an empty `DataFrame`.  A deepcopy will be made of
             `DataFrame` values.
         """
-        self.data = value
+        if not isinstance(value, (DataFrame, type(None))):
+            raise TypeError("The assignment value must be a DataFrame or None.")
+
+        candidate = value
+        if candidate is None:
+            candidate = DataFrame()
+
+        self.data = candidate
 
     @property
     def data(self) -> dict:
@@ -50,9 +53,7 @@ class CXDataframeData(CXMatrixData):
         return self.dataframe.to_dict(orient="list")
 
     @data.setter
-    def data(
-        self, value: Union["CXDataframeData", DataFrame, dict, str, None] = None
-    ) -> None:
+    def data(self, value: Union["CXDataframeData", DataFrame, None] = None) -> None:
         """
         Sets the dataframe managed by the object.
         :param value: `Union['CXDataframeData', DataFrame, dict, str, None]`
@@ -62,8 +63,8 @@ class CXDataframeData(CXMatrixData):
         if value is None:
             self.__data = DataFrame()
 
-        elif not type(value) in [CXDataframeData, DataFrame, dict, str]:
-            raise TypeError("value must be type DataFrame or compatible.")
+        elif not isinstance(value, (CXDataframeData, DataFrame, type(None))):
+            raise TypeError("The assignment value must be a DataFrame or None.")
 
         elif isinstance(value, CXDataframeData):
             self.__data = value.dataframe.copy(deep=True)
@@ -71,27 +72,8 @@ class CXDataframeData(CXMatrixData):
         elif isinstance(value, DataFrame):
             self.__data = value.copy(deep=True)
 
-        elif isinstance(value, dict):
-            self.__data = DataFrame.from_dict(value)
-
         else:
-            # Try a JSON edition
-            try:
-                candidate_json = json.loads(value)
-                candidate = DataFrame.from_dict(candidate_json)
-
-            except:
-                # Try to load a CSV or read it from memory
-                try:
-                    candidate = pandas.read_csv(value)
-
-                except:
-                    if value.strip().startswith(","):
-                        candidate = pandas.read_csv(StringIO(value), index_col=0)
-                    else:
-                        candidate = pandas.read_csv(StringIO(value))
-
-            self.__data = DataFrame(candidate)
+            self.__data = DataFrame()
 
     def get_raw_dict_form(self) -> dict:
         """ "
@@ -115,31 +97,18 @@ class CXDataframeData(CXMatrixData):
         :returns: `dict`
             The data in `dict` form.
         """
-        if self.profile:
-            candidate = self.profile.render_to_profiled_dict(self)
-
-        else:
-            candidate = self.get_raw_dict_form()
-
+        candidate = self.get_raw_dict_form()
         return candidate
 
-    def __init__(
-        self,
-        data: Union["CXDataframeData", DataFrame, dict, str, None] = None,
-        profile: Union[CXDataProfile, None] = None,
-    ) -> None:
+    def __init__(self, data: Union["CXDataframeData", DataFrame, None] = None) -> None:
         """
         Initializes the CXData object with data.  Only `DataFrame` or compatible
          data types are accepted.
         :param data: `Union['CXDataframeData', DataFrame, dict, str, None]`
             `None` to initialize with an empty `DataFrame`, or a `DataFrame`
             like object to assign mapped data.
-        :param profile: `Union[CXDataProfile, None]`
-            Specify the desired profile object to facilitate transformation of
-            data into a CanvasXpress JSON data object.  `None` will default to
-            the CXStandardProfile.
         """
-        super().__init__(data, profile if profile is not None else CXStandardProfile())
+        super().__init__(data)
         self.data = data
 
     def __copy__(self) -> "CXDataframeData":
@@ -148,7 +117,7 @@ class CXDataframeData(CXMatrixData):
         :returns: `CXDataframeData`
             A copy of the wrapping object.
         """
-        return self.__class__(self.data)
+        return self.__class__(self.dataframe)
 
     def __deepcopy__(self, memo) -> "CXDataframeData":
         """
@@ -156,7 +125,7 @@ class CXDataframeData(CXMatrixData):
         :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
             the tracked data.
         """
-        return self.__class__(self.data, self.profile)
+        return self.__class__(self.dataframe)
 
     def __lt__(self, other: "CXDataframeData") -> bool:
         """
@@ -233,7 +202,11 @@ class CXDataframeData(CXMatrixData):
         representation.
         :returns" `str` JSON form of the `CXDataframeData`.
         """
-        return json.dumps(self.render_to_dict())
+        if self.dataframe is None:
+            return str(None)
+
+        else:
+            return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
         """
@@ -253,62 +226,188 @@ class CXDataframeData(CXMatrixData):
         return candidate
 
 
-class CXCSVData(CXDataframeData):
+def merge_dataframes_into_xyz_object(
+    data: CXDataframeData,
+    sample_annotation: CXDataframeData = None,
+    variable_annotation: CXDataframeData = None,
+) -> dict:
     """
-    A CXData class dedicated to processing Python CSV-based, matrix-structured
-     data.
+    Converts a set of DataFrame like objects into an XYZ dict.
     """
+    xyz_data = {}
 
-    @property
-    def csv(self) -> str:
-        """
-        Provides the data managed by the object.
-        :returns: `str` The managed data.
-        """
-        candidate = self.dataframe.to_csv(index=False, quoting=csv.QUOTE_NONNUMERIC)
-        candidate = candidate.replace("nan", "")
-        return candidate
+    if data is not None:
+        xyz_data["y"] = {}
+        xyz_data["y"]["data"] = data.dataframe.values.tolist()
+        xyz_data["y"]["smps"] = data.dataframe.columns.tolist()
+        xyz_data["y"]["vars"] = data.dataframe.index.tolist()
 
-    @csv.setter
-    def csv(self, value: str = None) -> None:
-        """
-        Sets the CSV data managed by the object.
-        :param value: `str`
-            `None` results in an empty CSV.  A deepcopy will be made of
-            valid CSV `str` values.
-        """
-        self.data = value
+    if sample_annotation is not None and sample_annotation.dataframe.size > 0:
 
-    def __init__(
-        self,
-        data: Union["CXCSVData", DataFrame, dict, str, None] = None,
-        profile: Union[CXDataProfile, None] = None,
-    ) -> None:
-        """
-        Initializes the CXData object with data.  Only CSV `str` or compatible
-         data types are accepted.
-        :param data: `Union['CXCSVData', DataFrame, dict, str, None]`
-            `None` to initialize with an empty CSV, or a CSV `str`
-            like object to assign mapped data.
-        :param profile: `Union[CXDataProfile, None]`
-            Specify the desired profile object to facilitate transformation of
-            data into a CanvasXpress JSON data object.  `None` to avoid use of
-            a profile.
-        """
-        super().__init__(data, profile)
+        xyz_data["x"] = {}
 
-    def __str__(self) -> str:
-        """
-        *str* function.  Converts the CXCSVData object into a JSON
-        representation.
-        :returns" `str` JSON form of the `CXCSVData`.
-        """
-        return self.csv
+        try:
 
-    def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXCSVData object into a pickle
-         string that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
-        """
-        return f'CXCSVData(data="""{self.dataframe.to_csv(index=True)}""")'
+            # 1.  Scan first column - use values in each row.
+            # 2.  Else use first row - use values in each column
+            # 3.  Else scan index for a matching sample identifier - use values in each row.
+            # 4.  Else scan the header - use values in each column
+
+            # 1.  Scan first column - use values in each row.
+            found_strategy = True
+            for field in sample_annotation.dataframe[
+                sample_annotation.dataframe.columns[0]
+            ].values:
+                if field not in xyz_data["y"]["smps"]:
+                    found_strategy = False
+                    break
+
+            if found_strategy:
+                for row_index in range(sample_annotation.dataframe.shape[0]):
+                    key = sample_annotation.dataframe.iloc[row_index, 0]
+                    if not isinstance(key, str):
+                        x_key = key.item()
+                    xyz_data["x"][key] = sample_annotation.dataframe.iloc[row_index][1:]
+
+            # 2.  Else use first row - use values in each column
+            else:
+                found_strategy = True
+                for column_index in range(sample_annotation.dataframe.shape[1]):
+                    if (
+                        sample_annotation.dataframe.iloc[0, column_index]
+                        not in xyz_data["y"]["smps"]
+                    ):
+                        found_strategy = False
+                        break
+
+                if found_strategy:
+                    for column_index in range(sample_annotation.dataframe.shape[1]):
+                        column = sample_annotation.dataframe.columns[column_index]
+                        meta_name = sample_annotation.dataframe[column][0]
+                        if not isinstance(meta_name, str):
+                            meta_name = meta_name.item()
+                        meta_data = sample_annotation.dataframe[column][1:]
+                        xyz_data["x"][meta_name] = meta_data
+
+                # 3.  Else scan header for a matching sample identifier - use values in each column.
+                else:
+                    found_strategy = True
+                    for header in sample_annotation.dataframe.columns.values:
+                        if header not in xyz_data["y"]["smps"]:
+                            found_strategy = False
+                            break
+
+                    if found_strategy:
+                        for column_index, column in enumerate(
+                            sample_annotation.dataframe.columns.values
+                        ):
+                            xyz_data["x"][
+                                column if isinstance(column, str) else column.item()
+                            ] = sample_annotation.dataframe[column]
+
+                    # 4.  Else scan the index - use values in each row
+                    else:
+                        for index in sample_annotation.dataframe.index.values:
+                            xyz_data["x"][
+                                index if isinstance(index, str) else index.item()
+                            ] = sample_annotation.dataframe.loc[index]
+
+        except Exception as e:
+            raise ValueError(
+                "Sample Annotation data (x) cannot be parsed or aligned with Chart data (y)"
+            )
+
+    if variable_annotation is not None and variable_annotation.dataframe.size > 0:
+
+        xyz_data["z"] = {}
+
+        try:
+
+            # 1.  Scan first column - use values in each row.
+            # 2.  Else use first row - use values in each column
+            # 3.  Else scan index for a matching sample identifier - use values in each row.
+            # 4.  Else scan the header - use values in each column
+
+            # 1.  Scan first column - use values in each row.
+            found_strategy = True
+            for field in variable_annotation.dataframe[
+                variable_annotation.dataframe.columns[0]
+            ].values:
+                if field not in xyz_data["y"]["vars"]:
+                    found_strategy = False
+                    break
+
+            if found_strategy:
+                for row_index in range(variable_annotation.dataframe.shape[0]):
+                    key = variable_annotation.dataframe.iloc[row_index, 0]
+                    if not isinstance(key, str):
+                        key = key.item()
+                    xyz_data["z"][key] = variable_annotation.dataframe.iloc[row_index][
+                        1:
+                    ]
+
+            # 2.  Else use first row - use values in each column
+            else:
+                found_strategy = True
+                for column_index in range(variable_annotation.dataframe.shape[1]):
+                    if (
+                        variable_annotation.dataframe.iloc[0, column_index]
+                        not in xyz_data["y"]["vars"]
+                    ):
+                        found_strategy = False
+                        break
+
+                if found_strategy:
+                    for column_index in range(variable_annotation.dataframe.shape[1]):
+                        column = sample_annotation.dataframe.columns[column_index]
+                        meta_name = sample_annotation.dataframe[column][0]
+                        if not isinstance(meta_name, str):
+                            meta_name = meta_name.item()
+                        meta_data = sample_annotation.dataframe[column][1:]
+                        xyz_data["z"][meta_name] = meta_data
+
+                # 3.  Else scan header for a matching sample identifier - use values in each column.
+                else:
+                    found_strategy = True
+                    for header in variable_annotation.dataframe.columns.values:
+                        if header not in xyz_data["y"]["vars"]:
+                            found_strategy = False
+                            break
+
+                    if found_strategy:
+                        for column_index, column in enumerate(
+                            variable_annotation.dataframe.columns.values
+                        ):
+                            xyz_data["z"][
+                                column if isinstance(column, str) else column.item()
+                            ] = variable_annotation.dataframe[column]
+
+                    # 4.  Else scan the index - use values in each rpw
+                    else:
+                        for index in variable_annotation.dataframe.index.values:
+                            xyz_data["z"][
+                                index if isinstance(index, str) else index.item()
+                            ] = variable_annotation.dataframe.loc[index]
+
+        except Exception as e:
+            raise ValueError(
+                "Variable Annotation data (z) cannot be parsed or aligned with Chart data (y)"
+            )
+
+    # Convert to Python native types for serialization
+
+    if "x" in xyz_data:
+        for annotation in xyz_data["x"].keys():
+            xyz_data["x"][annotation] = [
+                element if isinstance(element, str) else element.item()
+                for element in xyz_data["x"][annotation]
+            ]
+
+    if "z" in xyz_data:
+        for annotation in xyz_data["z"].keys():
+            xyz_data["z"][annotation] = [
+                element if isinstance(element, str) else element.item()
+                for element in xyz_data["z"][annotation]
+            ]
+
+    return xyz_data

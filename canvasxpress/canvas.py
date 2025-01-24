@@ -5,18 +5,11 @@ from typing import Union, List
 from pandas import DataFrame
 
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXConfig, CXGraphTypeOptions
-from canvasxpress.data.base import CXData, CXProfiledData
+from canvasxpress.config.type import CXConfig
+from canvasxpress.data.base import CXData
 from canvasxpress.data.convert import CXHtmlConvertable
-from canvasxpress.data.keypair import CXDictData, CXJSONData
-from canvasxpress.data.matrix import CXDataframeData, CXCSVData
-from canvasxpress.data.profile import (
-    CXVennProfile,
-    CXStandardProfile,
-    CXNetworkProfile,
-    CXGenomeProfile,
-    CXRawProfile,
-)
+from canvasxpress.data.keypair import CXDictData
+from canvasxpress.data.matrix import CXDataframeData, merge_dataframes_into_xyz_object
 from canvasxpress.data.text import CXTextData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
@@ -319,7 +312,7 @@ class CanvasXpress(CXHtmlConvertable):
             object; otherwise, a new CXData object will be created to manage
             the content.
         """
-        if value is None:
+        if value is None or isinstance(value, bool):
             self.__data = CXDictData()
 
         elif isinstance(value, CXData):
@@ -332,23 +325,94 @@ class CanvasXpress(CXHtmlConvertable):
             self.__data = CXDataframeData(value)
 
         elif isinstance(value, str):
-            try:
-                json.loads(value)
-                self.__data = CXJSONData(value)
-
-            except Exception:
-                if (value.find(",") >= 0 or value.find("\t") >= 0) and value.find(
-                    "\n"
-                ) >= 0:
-                    self.__data = CXCSVData(value)
-
-                else:
-                    self.__data = CXTextData(value)
+            self.__data = CXTextData(value)
 
         else:
             raise TypeError(
-                "data must be of type CXData, dict, DataFrame, str, or None"
+                "data must be of type CXData, dict, DataFrame, str, bool, or None"
             )
+
+    __sample_annotation: CXData = None
+    """
+    Provides convenience support when working with DataFrames similar to R.
+    """
+
+    @property
+    def sample_annotation(self) -> CXData:
+        """
+        Provides access to the CXData associated with this CanvasXpress chart.
+        :returns: `CXData` The data to be associated with the chart.
+        """
+        return self.__sample_annotation
+
+    @sample_annotation.setter
+    def sample_annotation(self, value: Union[CXDataframeData, DataFrame, None]) -> None:
+        """
+        Sets the CXData associated with this CanvasXpress chart.
+        :param value: `Union[CXData, dict, DataFrame, str, None]`
+            An object translatable into a CXData type. If the object is an
+            instance of CXData then it will be tracked by the CanvasXpress
+            object; otherwise, a new CXData object will be created to manage
+            the content.
+        """
+        if value is not None and not isinstance(self.data, CXDataframeData):
+            raise ValueError(
+                "The data property must be a DataFrame before this property can be set."
+            )
+
+        elif value is None or isinstance(value, bool):
+            self.__sample_annotation = None
+
+        elif isinstance(value, DataFrame):
+            self.__sample_annotation = CXDataframeData(value)
+
+        elif isinstance(value, CXDataframeData):
+            self.__sample_annotation = CXDataframeData(value)
+
+        else:
+            raise TypeError("data must be of type CXDataframeData,  DataFrame, or None")
+
+    __variable_annotation: CXData = None
+    """
+    Provides convenience support when working with DataFrames similar to R.
+    """
+
+    @property
+    def variable_annotation(self) -> CXData:
+        """
+        Provides access to the CXData associated with this CanvasXpress chart.
+        :returns: `CXData` The data to be associated with the chart.
+        """
+        return self.__variable_annotation
+
+    @variable_annotation.setter
+    def variable_annotation(
+        self, value: Union[CXDataframeData, DataFrame, None]
+    ) -> None:
+        """
+        Sets the CXData associated with this CanvasXpress chart.
+        :param value: `Union[CXData, dict, DataFrame, str, None]`
+            An object translatable into a CXData type. If the object is an
+            instance of CXData then it will be tracked by the CanvasXpress
+            object; otherwise, a new CXData object will be created to manage
+            the content.
+        """
+        if value is not None and not isinstance(self.data, CXDataframeData):
+            raise ValueError(
+                "The data property must be a DataFrame before this property can be set."
+            )
+
+        elif value is None or isinstance(value, bool):
+            self.__variable_annotation = None
+
+        elif isinstance(value, DataFrame):
+            self.__variable_annotation = CXDataframeData(value)
+
+        elif isinstance(value, CXDataframeData):
+            self.__variable_annotation = CXDataframeData(value)
+
+        else:
+            raise TypeError("data must be of type CXDataframeData,  DataFrame, or None")
 
     __events: CXEvents = None
     """
@@ -557,7 +621,10 @@ class CanvasXpress(CXHtmlConvertable):
 
     @classmethod
     def from_reproducible_json(
-        cls, cx_json: str, include_factory: bool = False, include_system: bool = False
+        cls,
+        cx_json: str,
+        include_factory: bool = False,
+        include_system: bool = False,
     ) -> "CanvasXpress":
         """
         Initializes a new `CanvasXpress` object using a reproducable research
@@ -648,6 +715,8 @@ class CanvasXpress(CXHtmlConvertable):
         self,
         render_to: str = None,
         data: Union[CXData, dict, DataFrame, str, None] = None,
+        sample_annotation: Union[CXDataframeData, DataFrame, None] = None,
+        variable_annotation: Union[CXDataframeData, DataFrame, None] = None,
         events: Union[List[CXEvent], CXEvents] = None,
         config: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         after_render: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
@@ -674,6 +743,8 @@ class CanvasXpress(CXHtmlConvertable):
 
         self.render_to = render_to
         self.data = data
+        self.sample_annotation = sample_annotation
+        self.variable_annotation = variable_annotation
         self.events = events
         self.config = config
         self.after_render = after_render
@@ -681,69 +752,20 @@ class CanvasXpress(CXHtmlConvertable):
         self.width = width
         self.height = height
 
-    def update_data_profile(
-        self, data: CXData, fix_missing_profile: bool, match_profile_to_graphtype: bool
-    ):
-        """
-        Inspects the `CXData` object to see if it is a `CXProfiledData` object.
-        If so, then `fix_missing_profile` and `match_profile_to_graphtype` are
-        evaluated to determine if profile adjustments are to be made, and then
-        applied if/as appropriate.
+    def provide_data_object(self) -> CXData:
+        if isinstance(self.data, CXDataframeData):
+            return CXDictData(
+                merge_dataframes_into_xyz_object(
+                    self.data,
+                    self.sample_annotation,
+                    self.variable_annotation,
+                )
+            )
 
-        :param data: `CXData`
-            The data to inspect.  Only `CXProfiledData` objects will be
-            modified.
+        else:
+            return self.data
 
-        :param fix_missing_profile: `bool`
-            Defaults to `True`.  If `True` then CXData used for the chart will
-            be provided with a data profile appropriate to the `graphType`
-            (or CXStandardProfile if no graphType is provided).  If `False`
-            then no profile will be applied to those data objects without
-            profiles.
-
-        :param match_profile_to_graphtype: `bool`
-            Defaults to `True`.  If `True` then the `graphType` will be
-            inspected and an appropriate data profile will be applied to
-            the data object.  If a profile of an appropriate type is already
-            associated then nothing is changed.  If a CXRawProfile is associated
-            then no change is made regardless of the paranmeter value.
-            Missing profiles are ignored unless fix_missing_profile is also
-            `True`.  If `False` then no change to the data profile will be made
-            if a profile is already associated with the data object.
-        """
-        if isinstance(data, CXProfiledData):
-            if fix_missing_profile and not data.profile:
-                data.profile = CXStandardProfile
-
-            if match_profile_to_graphtype and data.profile:
-                if not isinstance(data.profile, CXRawProfile):
-                    graphType = self.config.get_param("graphType")
-                    if not graphType:
-                        if not isinstance(data.profile, CXStandardProfile):
-                            data.profile = CXStandardProfile()
-
-                    else:
-                        special_types = {
-                            CXGraphTypeOptions.Venn.value: CXVennProfile(),
-                            CXGraphTypeOptions.Network.value: CXNetworkProfile(),
-                            CXGraphTypeOptions.Genome.value: CXGenomeProfile(),
-                        }
-
-                        if special_types.get(graphType.value):
-                            if not isinstance(
-                                data.profile, type(special_types[graphType.value])
-                            ):
-                                data.profile = special_types[graphType.value]
-
-                        else:
-                            if not isinstance(data.profile, CXStandardProfile):
-                                data.profile = CXStandardProfile()
-
-    def prepare_html_element_parts(
-        self,
-        fix_missing_profile: bool = True,
-        match_profile_to_graphtype: bool = True,
-    ) -> dict:
+    def prepare_html_element_parts(self) -> dict:
         """
         Converts the CanvasXpress object into CanvasXpress element components in
         anticipation of further use in renderable objects or conversion into HTML.
@@ -754,35 +776,12 @@ class CanvasXpress(CXHtmlConvertable):
         `CXRawProfile` then the `graphType` can be reassessed, and if
         appropriate a new profile better aligned to the data can be provided.
 
-        :param fix_missing_profile: `bool`
-            Defaults to `True`.  If `True` then CXData used for the chart will
-            be provided with a data profile appropriate to the `graphType`
-            (or CXStandardProfile if no graphType is provided).  If `False`
-            then no profile will be applied to those data objects without
-            profiles.
-
-        :param match_profile_to_graphtype: `bool`
-            Defaults to `True`.  If `True` then the `graphType` will be
-            inspected and an appropriate data profile will be applied to
-            the data object.  If a profile of an appropriate type is already
-            associated then nothing is changed.  If a CXRawProfile is associated
-            then no change is made regardless of the paranmeter value.
-            Missing profiles are ignored unless fix_missing_profile is also
-            `True`.  If `False` then no change to the data profile will be made
-            if a profile is already associated with the data object.
-
         :returns: `dict` A map of values in anticipation of further conversion
             into html or a renderable.
         """
-        self.update_data_profile(
-            self.data,
-            fix_missing_profile,
-            match_profile_to_graphtype,
-        )
-
         cx_element_params = {
             "renderTo": self.render_to,
-            "data": self.data.render_to_dict(config=self.config),
+            "data": self.provide_data_object().render_to_dict(),
             "config": self.config.render_to_dict(),
             "afterRender": self.after_render.render_to_list(),
             "otherParams": self.other_init_params.render_to_dict(),
@@ -799,11 +798,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         return cx_element_params
 
-    def render_to_html_parts(
-        self,
-        fix_missing_profile: bool = True,
-        match_profile_to_graphtype: bool = True,
-    ) -> dict:
+    def render_to_html_parts(self, fix_missing_profile: bool = True) -> dict:
         """
         Converts the CanvasXpress object into HTML5 complant script.
 
@@ -891,16 +886,12 @@ class CanvasXpress(CXHtmlConvertable):
             `True`.  If `False` then no change to the data profile will be made
             if a profile is already associated with the data object.
         """
-        self.update_data_profile(
-            self.data, fix_missing_profile, match_profile_to_graphtype
-        )
-
         #  Capture the ID once to avoid anonymous object calls producing different IDs.
         render_id = self.render_to
 
         primary_params = {
             "renderTo": render_id,
-            "data": self.data.render_to_dict(config=self.config),
+            "data": self.provide_data_object().render_to_dict(),
             "config": self.config.render_to_dict(),
             "events": "js_events",
         }

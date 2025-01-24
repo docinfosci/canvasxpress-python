@@ -8,11 +8,10 @@ from pandas import DataFrame  # Required for eval
 FORCE_INCLUDE_DATAFRAME_IN_PYCHARM = DataFrame()  # Prevents clean=up removal
 
 import pytest
-from deepdiff import DeepDiff
 from hypothesis import given, settings, HealthCheck
 from hypothesis.extra.pandas import data_frames, column
 
-from canvasxpress.data.matrix import CXDataframeData
+from canvasxpress.data.matrix import CXDataframeData, merge_dataframes_into_xyz_object
 from tests.util.hypothesis_support import everything_except
 
 csv_sample = """
@@ -25,8 +24,14 @@ df_sample = pandas.read_csv(StringIO(csv_sample), index_col=False)
 
 
 def test_CXDataframeData_init_valid_input():
-    cxdata = CXDataframeData(csv_sample)
+    cxdata = CXDataframeData(df_sample)
     df_sample.equals(cxdata.dataframe)
+
+    cxdata = CXDataframeData(DataFrame())
+    DataFrame().equals(cxdata.dataframe)
+
+    cxdata = CXDataframeData(None)
+    DataFrame().equals(cxdata.dataframe)
 
 
 @settings(suppress_health_check=(HealthCheck.too_slow,))
@@ -47,13 +52,6 @@ def test_CXDataframeData_set_data_invalid(sample):
 
 
 def test_CXDataframeData_get_valid_data():
-    dict_sample = df_sample.to_dict(orient="list")
-
-    cxdata = CXDataframeData()
-    cxdf_sample = json.dumps(dict_sample)
-    cxdata.dataframe = cxdf_sample
-    assert cxdf_sample == json.dumps(cxdata.data)
-
     cxdata = CXDataframeData()
     cxdf_sample = df_sample
     cxdata.dataframe = cxdf_sample
@@ -65,26 +63,8 @@ def test_CXDataframeData_get_valid_data():
     assert set(df_sample.columns.unique()) == set(cxdata.dataframe.columns.unique())
 
     cxdata = CXDataframeData()
-    cxdf_sample = CXDataframeData(csv_sample)
-    cxdata.dataframe = cxdf_sample
-    assert cxdf_sample == cxdata
-
-    cxdata = CXDataframeData()
-    cxdf_sample = CXDataframeData(csv_sample)
-    cxdata.data = cxdf_sample
-    assert cxdf_sample == cxdata
-
-    cxdata = CXDataframeData()
     cxdata.dataframe = df_sample
     assert df_sample.equals(cxdata.dataframe)
-
-    cxdata = CXDataframeData()
-    cxdata.dataframe = dict_sample
-    assert not DeepDiff(dict_sample, cxdata.data)
-
-    cxdata = CXDataframeData()
-    cxdata.data = dict_sample
-    assert not DeepDiff(dict_sample, cxdata.data)
 
 
 def test_copy_CXDataframeData():
@@ -112,12 +92,6 @@ def test_CXDataframeData_repr_perspective():
 
     cxdata2: CXDataframeData = eval(cxdata1_repr)
     assert cxdata1 == cxdata2
-
-
-def test_CXDataframeData_render_to_dict():
-    dict_sample = df_sample.to_dict(orient="list")
-    cxdata1 = CXDataframeData(dict_sample)
-    assert isinstance(cxdata1.render_to_dict(), dict)
 
 
 def test_CXDataframeData_equality_None():
@@ -180,3 +154,171 @@ def test_CXDataframeData_equality(sample1, sample2, sample3, sample4):
         assert sample_c != sample_f
         assert sample_c < sample_f
         assert sample_f > sample_c
+
+
+def test_CXDataFrameData_xyz_assembly_meta_in_indexes():
+    data = pandas.read_csv(
+        StringIO('\n"C1","C2","C3"\n1,2,3\n4,5,6'),
+        index_col=False,
+    )
+
+    sample_annotation = pandas.read_csv(
+        StringIO('\n"C1", "a", "b"\n"C2", "c", "d"\n"C3", "e", "f"'),
+        index_col=0,
+        header=None,
+    )
+
+    variable_annotation = pandas.read_csv(
+        StringIO('\n"0", "a", "b", "c"\n"1", "e", "f", "g"'),
+        index_col=0,
+        header=None,
+    )
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+        variable_annotation=CXDataframeData(variable_annotation),
+    )
+
+    assert "y" in xyz
+    assert "data" in xyz["y"]
+    assert "smps" in xyz["y"]
+    assert "vars" in xyz["y"]
+
+    assert "x" in xyz
+    assert all([key in xyz["y"]["smps"] for key in xyz["x"].keys()])
+
+    assert "z" in xyz
+    assert all([key in xyz["y"]["vars"] for key in xyz["z"].keys()])
+
+
+def test_CXDataFrameData_xyz_assembly_meta_in_first_column():
+    data = pandas.read_csv(
+        StringIO('"C1","C2","C3"\n1,2,3\n4,5,6'),
+        index_col=False,
+    )
+
+    sample_annotation = pandas.read_csv(
+        StringIO('"C1","a","b"\n"C2","c","d"\n"C3","e","f"'),
+        index_col=False,
+        header=None,
+    )
+
+    variable_annotation = pandas.read_csv(
+        StringIO('0,"a","b","c"\n1,"e","f","g"'),
+        index_col=False,
+        header=None,
+    )
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+        variable_annotation=CXDataframeData(variable_annotation),
+    )
+
+    assert "y" in xyz
+    assert "data" in xyz["y"]
+    assert "smps" in xyz["y"]
+    assert "vars" in xyz["y"]
+
+    assert "x" in xyz
+    assert all([key in xyz["y"]["smps"] for key in xyz["x"].keys()])
+
+    assert "z" in xyz
+    assert all([key in xyz["y"]["vars"] for key in xyz["z"].keys()])
+
+
+def test_CXDataFrameData_xyz_assembly_meta_in_header():
+    data = pandas.read_csv(
+        StringIO('"C1","C2","C3"\n1,2,3\n4,5,6'),
+        index_col=False,
+    )
+
+    sample_annotation = pandas.read_csv(
+        StringIO('"C1","C2","C3"\n"a","b","c"\n"d","e","f"'),
+        index_col=False,
+    )
+
+    variable_annotation = pandas.read_csv(
+        StringIO('0,1\n"a","b"\n"c","d"\n"e","f"'),
+        index_col=False,
+    )
+    variable_annotation.columns = variable_annotation.columns.astype(int)
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+        variable_annotation=CXDataframeData(variable_annotation),
+    )
+
+    assert "y" in xyz
+    assert "data" in xyz["y"]
+    assert "smps" in xyz["y"]
+    assert "vars" in xyz["y"]
+
+    assert "x" in xyz
+    assert all([key in xyz["y"]["smps"] for key in xyz["x"].keys()])
+
+    assert "z" in xyz
+    assert all([key in xyz["y"]["vars"] for key in xyz["z"].keys()])
+
+
+def test_CXDataFrameData_xyz_assembly_meta_in_first_row():
+    data = pandas.read_csv(
+        StringIO('"C1","C2","C3"\n1,2,3\n4,5,6'),
+        index_col=False,
+    )
+
+    sample_annotation = pandas.read_csv(
+        StringIO('"C1","C2","C3"\n"a","b","c"\n"d","e","f"'),
+        index_col=False,
+        header=None,
+    )
+
+    variable_annotation = pandas.read_csv(
+        StringIO('0,1\n"a","b"\n"c","d"\n"e","f"'),
+        index_col=False,
+        header=None,
+    )
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+        variable_annotation=CXDataframeData(variable_annotation),
+    )
+
+    assert "y" in xyz
+    assert "data" in xyz["y"]
+    assert "smps" in xyz["y"]
+    assert "vars" in xyz["y"]
+
+    assert "x" in xyz
+    assert all([key in xyz["y"]["smps"] for key in xyz["x"].keys()])
+
+    assert "z" in xyz
+    assert all([key in xyz["y"]["vars"] for key in xyz["z"].keys()])
+
+
+def test_CXDataFrameData_xyz_assembly_empty_annotations():
+    data = pandas.read_csv(
+        StringIO('"C1","C2","C3"\n1,2,3\n4,5,6'),
+        index_col=False,
+    )
+
+    sample_annotation = DataFrame()
+    variable_annotation = DataFrame()
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+        variable_annotation=CXDataframeData(variable_annotation),
+    )
+
+    assert "y" in xyz
+    assert "data" in xyz["y"]
+    assert "smps" in xyz["y"]
+    assert "vars" in xyz["y"]
+
+    assert "x" not in xyz
+
+    assert "z" not in xyz
