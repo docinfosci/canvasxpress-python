@@ -11,8 +11,6 @@ from canvasxpress.config.type import (
     CXBool,
     CXList,
     CXDict,
-    CXRGBColor,
-    CXRGBAColor,
     CXNone,
     CXGraphWeight,
 )
@@ -187,31 +185,17 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                 elif value_type is bool:
                     candidate = CXBool(label, value)
                 elif value_type is dict:
-                    if CXRGBAColor.is_color_dict(value):
-                        candidate = CXRGBAColor(label, value)
-                    elif CXRGBColor.is_color_dict(value):
-                        candidate = CXRGBColor(label, value)
-                    else:
-                        candidate = CXDict(label, value)
+                    candidate = CXDict(label, value)
                 elif value_type is list:
                     if CXGraphWeight.is_graph_weight_list(label, value):
                         candidate = CXGraphWeight(label, value)
-                    elif CXRGBAColor.is_color_list(value):
-                        candidate = CXRGBAColor(label, value)
-                    elif CXRGBColor.is_color_list(value):
-                        candidate = CXRGBColor(label, value)
                     else:
                         candidate = CXList(label, value)
                 elif value_type is set:
                     set_persona: set = value
                     candidate = CXList(label, list(set_persona))
                 else:
-                    if CXRGBAColor.is_color_str(value):
-                        candidate = CXRGBAColor(label, value)
-                    elif CXRGBColor.is_color_str(value):
-                        candidate = CXRGBColor(label, value)
-                    else:
-                        candidate = CXString(label, value)
+                    candidate = CXString(label, value)
 
                 self.add(candidate)
 
