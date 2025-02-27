@@ -601,7 +601,7 @@ class CXGraphWeight(CXConfig):
     def is_graph_weight_list(label: str, value: list):
         """
         A static method that evaluates a given list and label to check
-        if it represents  graph wight list.
+        if it represents  graph weight list.
         :param label: 'str'
             A string represents the value label i.e "ringGraphWeight".
             It must contain "weight" word
