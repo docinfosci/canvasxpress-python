@@ -724,7 +724,7 @@ class CanvasXpress(CXHtmlConvertable):
         other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         width: int = CHART_WIDTH_DEFAULT,
         height: int = CHART_HEIGHT_DEFAULT,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
