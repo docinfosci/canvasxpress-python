@@ -34,6 +34,34 @@ def test_CanvasXpress_init():
     assert subject.config == data_sample
 
 
+def test_CanvasXpress_init_kwargs():
+    subject: CanvasXpress = CanvasXpress(
+        graphType="Bar", graphOrientation="vertical", renderTo="this_is_a_test"
+    )
+    expected_config: CXConfigs = CXConfigs(
+        {"graphType": "Bar", "graphOrientation": "vertical"}
+    )
+    assert subject.config == expected_config
+    assert subject.render_to == "this_is_a_test"
+
+    subject: CanvasXpress = CanvasXpress(
+        render_to="test1",
+        config={
+            "graphType": "Bar",
+            "graphOrientation": "horizontal",
+            "title": "Bar chart",
+        },
+        title="New bar chart",
+        graphOrientation="vertical",
+        renderTo="this_is_a_test",
+    )
+    expected_config: CXConfigs = CXConfigs(
+        {"graphType": "Bar", "graphOrientation": "vertical", "title": "New bar chart"}
+    )
+    assert subject.config == expected_config
+    assert subject.render_to == "this_is_a_test"
+
+
 def test_CanvasXpress_render_to():
     subject: CanvasXpress = CanvasXpress()
     subject.render_to = "this_is_a_test"
