@@ -1,6 +1,7 @@
 import json
 import uuid
-from typing import Union, List
+from typing import Union, List, Any
+from copy import deepcopy
 
 from pandas import DataFrame
 
@@ -723,6 +724,7 @@ class CanvasXpress(CXHtmlConvertable):
         other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         width: int = CHART_WIDTH_DEFAULT,
         height: int = CHART_HEIGHT_DEFAULT,
+        **kwargs: Any
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
@@ -737,16 +739,49 @@ class CanvasXpress(CXHtmlConvertable):
         :param other_init_params: See the 'other_init_params` property
         :param width: See the `width` property
         :param height: See the `height` property
+        :param kwargs: `Any`
+            Additional keyword arguments. Primary keywords (e.g. `renderTo`) are
+            mapped to the corresponding property (e.g. `render_to`). Secondary
+            keywords are added to the `config` property, overwriting any existing
+            values corresponding to those keywords.
         """
 
         super().__init__()
+
+        config_updated = CXConfigs()
+
+        if isinstance(config, list):
+            config_updated = deepcopy(CXConfigs(*config))
+
+        elif isinstance(config, dict):
+            config_updated = deepcopy(CXConfigs(config))
+
+        elif isinstance(config, CXConfigs):
+            config_updated = deepcopy(config)
+
+        elif not config is None:
+            raise TypeError(
+                "config must be one of Union[List[CXConfig], List[tuple], "
+                "dict, CXConfigs]"
+            )
+
+        existing_config_labels = [item.label for item in config_updated.configs]
+
+        for key, value in kwargs.items():
+            if key == "renderTo":
+                render_to = value
+            else:
+                if key in existing_config_labels:
+                    config_updated.remove(key)
+
+                config_updated.set_param(label=key, value=value)
 
         self.render_to = render_to
         self.data = data
         self.sample_annotation = sample_annotation
         self.variable_annotation = variable_annotation
         self.events = events
-        self.config = config
+        self.config = config_updated
         self.after_render = after_render
         self.other_init_params = other_init_params
         self.width = width
