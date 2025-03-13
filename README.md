@@ -419,6 +419,32 @@ config = {
          },
 ```
 
+Configuration options may also be specified as keyword arguments in the `CanvasXpress` function call. For example:
+
+```python
+CanvasXpress(
+    data={
+        "y": {
+            "vars": ["Gene1"],
+            "smps": ["Smp1", "Smp2", "Smp3"],
+            "data": [[10, 35, 88]]
+        }
+    },
+    graphOrientation="vertical",
+    graphType="Bar",
+    showLegend=False,
+    smpLabelRotate=90,
+    smpTitle="Samples",
+    theme="CanvasXpress",
+    title="Bar Graph Title",
+    xAxisTitle="Value"
+)
+```
+
+If configuration keyword arguments are specified in addition to a `config` argument, the keyword arguments override any 
+configuration option of the same name in `config`. This approach can be used to define a generic configuration, but 
+then periodically allow for ad hoc modifications.
+
 #### width and height
 
 `width` and `height` specify the chart's dimensions as pixels. If ommitted the CanvasXpress edition active for the
