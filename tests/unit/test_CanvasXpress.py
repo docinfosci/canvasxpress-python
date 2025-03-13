@@ -36,16 +36,19 @@ def test_CanvasXpress_init():
 
 def test_CanvasXpress_init_kwargs():
     subject: CanvasXpress = CanvasXpress(
-        graphType="Bar", graphOrientation="vertical", renderTo="this_is_a_test"
+        graphType="Bar",
+        graphOrientation="vertical",
+        renderTo="this_is_a_test",
+        afterRender=CXConfigs(CXList("label", ["Gender"])),
     )
     expected_config: CXConfigs = CXConfigs(
         {"graphType": "Bar", "graphOrientation": "vertical"}
     )
     assert subject.config == expected_config
     assert subject.render_to == "this_is_a_test"
+    assert subject.after_render == CXConfigs(CXList("label", ["Gender"]))
 
     subject: CanvasXpress = CanvasXpress(
-        render_to="test1",
         config={
             "graphType": "Bar",
             "graphOrientation": "horizontal",
@@ -53,13 +56,25 @@ def test_CanvasXpress_init_kwargs():
         },
         title="New bar chart",
         graphOrientation="vertical",
-        renderTo="this_is_a_test",
     )
     expected_config: CXConfigs = CXConfigs(
         {"graphType": "Bar", "graphOrientation": "vertical", "title": "New bar chart"}
     )
     assert subject.config == expected_config
+
+    with pytest.warns(UserWarning):
+        subject: CanvasXpress = CanvasXpress(
+            render_to="test1",
+            renderTo="this_is_a_test",
+        )
     assert subject.render_to == "this_is_a_test"
+
+    with pytest.warns(UserWarning):
+        subject: CanvasXpress = CanvasXpress(
+            after_render=CXConfigs(CXList("groupSamples", ["Country"])),
+            afterRender=CXConfigs(CXList("label", ["Gender"])),
+        )
+    assert subject.after_render == CXConfigs(CXList("label", ["Gender"]))
 
 
 def test_CanvasXpress_render_to():

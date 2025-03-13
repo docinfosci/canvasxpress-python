@@ -2,6 +2,7 @@ import json
 import uuid
 from typing import Union, List, Any
 from copy import deepcopy
+from warnings import warn
 
 from pandas import DataFrame
 
@@ -740,10 +741,10 @@ class CanvasXpress(CXHtmlConvertable):
         :param width: See the `width` property
         :param height: See the `height` property
         :param kwargs: `Any`
-            Additional keyword arguments. Primary keywords (e.g. `renderTo`) are
-            mapped to the corresponding property (e.g. `render_to`). Secondary
-            keywords are added to the `config` property, overwriting any existing
-            values corresponding to those keywords.
+            Additional keyword arguments for CanvasXpress. Secondary keywords are
+            added to the `config` property, overriding any existing values for
+            those keywords. Primary keywords `renderTo` or `afterRender` are
+            mapped to the corresponding property (`render_to` or `after_render`).
         """
 
         super().__init__()
@@ -759,7 +760,7 @@ class CanvasXpress(CXHtmlConvertable):
         elif isinstance(config, CXConfigs):
             config_updated = deepcopy(config)
 
-        elif not config is None:
+        elif config is not None:
             raise TypeError(
                 "config must be one of Union[List[CXConfig], List[tuple], "
                 "dict, CXConfigs]"
@@ -769,7 +770,17 @@ class CanvasXpress(CXHtmlConvertable):
 
         for key, value in kwargs.items():
             if key == "renderTo":
+                if render_to is not None:
+                    warn("`render_to` argument has been overridden by `renderTo`")
+
                 render_to = value
+
+            elif key == "afterRender":
+                if after_render is not None:
+                    warn("`after_render` argument has been overridden by `afterRender`")
+
+                after_render = value
+
             else:
                 if key in existing_config_labels:
                     config_updated.remove(key)
