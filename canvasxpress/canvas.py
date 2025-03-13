@@ -742,9 +742,9 @@ class CanvasXpress(CXHtmlConvertable):
         :param height: See the `height` property
         :param kwargs: `Any`
             Additional keyword arguments for CanvasXpress. Secondary keywords are
-            added to the `config` property, overriding any existing values for
-            those keywords. Primary keywords `renderTo` or `afterRender` are
-            mapped to the corresponding property (`render_to` or `after_render`).
+            added to the `config` property, overriding any existing items of the
+            same name. Primary keywords `renderTo` or `afterRender` are mapped to
+            the corresponding property (`render_to` or `after_render`).
         """
 
         super().__init__()
