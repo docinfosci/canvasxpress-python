@@ -441,7 +441,7 @@ CanvasXpress(
 )
 ```
 
-If `config` and configuration keyword arguments specified together, their configuration options are combined,
+If `config` and configuration keyword arguments are specified together, their configuration options are combined,
 with the keyword arguments overriding any item of the same name in `config`. This approach can be used to 
 define a generic configuration and allow for ad hoc modifications.
 
