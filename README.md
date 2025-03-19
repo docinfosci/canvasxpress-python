@@ -186,6 +186,16 @@ To use the default edition once again during the runtime session set the value t
 This is the best way to assure a specific chart behavior for production application releases; however, once set any new
 JavaScript edition features or fixes will not be available until the code is removed or a different version is set.
 
+Similarly, a custom URL for the JavaScript or CSS libraries can be set as well (for example, to facilitate development
+of CanvasXpress JS).
+
+```python
+from canvasxpress.canvas import CanvasXpress
+
+CanvasXpress.js_library_url("http://localhost:8080/js")
+CanvasXpress.css_library_url("http://localhost:8080/css")
+```
+
 ### Customizing Charts
 
 Generally speaking, a `CanvasXpress` object accepts the following parameters:
@@ -234,7 +244,7 @@ data_for_use_in_chart = {
 
 CanvasXpress for Python supports Pandas DataFrame assignments to `data`, plus supporting `sample_annotation` and
 `variable_annotation` properties. If data is assigned in this manner, then on generation of the JavaScript the
-CanvasXpress object will create an XYZ object using the DataFrame(s). 
+CanvasXpress object will create an XYZ object using the DataFrame(s).
 
 ```python
 from canvasxpress.canvas import CanvasXpress
@@ -374,7 +384,7 @@ determine how the DataFrame should be parsed to create the corresponding `x` and
 If no DataFrame is assigned to the `sample_annotation` or `variable_annotation` properties then those portions of the
 xyz object will simply be ommitted.
 
-`sample_annotation` and `variable_annotation` can only be used if the `data` property is already a DataFrame.  If any
+`sample_annotation` and `variable_annotation` can only be used if the `data` property is already a DataFrame. If any
 other type is used, such as a `dict` or `str` then an exception will be raised.
 
 `data`, `sample_annotation`, and `variable_annotation` can be set to `None` to remove their values.
@@ -441,9 +451,9 @@ CanvasXpress(
 )
 ```
 
-If `config` and configuration keyword arguments are specified together, their configuration options are combined,
-with the keyword arguments overriding any item of the same name in `config`. This approach can be used to 
-define a generic configuration and allow for ad hoc modifications.
+If `config` and configuration keyword arguments are specified together, their configuration options are combined, with
+the keyword arguments overriding any item of the same name in `config`. This approach can be used to define a generic
+configuration and allow for ad hoc modifications.
 
 #### width and height
 
@@ -587,9 +597,9 @@ The console would display:
 }
 ```
 
-This text could be saved to a file, such as `example.json`, and then dragged onto a CanvasXpress chart in a browser
-to load the equivalent chart.  In fact, CanvasXpress for Python uses the core functionality producing JSON output to 
-make charts available in contexts such as Dash and Shiny.
+This text could be saved to a file, such as `example.json`, and then dragged onto a CanvasXpress chart in a browser to
+load the equivalent chart. In fact, CanvasXpress for Python uses the core functionality producing JSON output to make
+charts available in contexts such as Dash and Shiny.
 </details>
 
 ## Application, NoteBook, and Console Examples
@@ -604,7 +614,7 @@ generation is performed then the CanvasXpress charts will be embedded in the gen
 ### A Basic Python Script / Console Example
 
 Charts can be defined in scripts or a console session and then displayed using the default browser, assuming that a
-graphical browser with Javascript support is available on the host system.  To do so use the `show_in_browser()`
+graphical browser with Javascript support is available on the host system. To do so use the `show_in_browser()`
 function instead of `graph()`.
 
 <details>
