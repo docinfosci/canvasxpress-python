@@ -1,7 +1,7 @@
 import json
 import uuid
-from typing import Union, List, Any
 from copy import deepcopy
+from typing import Union, List, Any
 from warnings import warn
 
 from pandas import DataFrame
@@ -18,6 +18,14 @@ from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
 
 # from deprecated import deprecated
+
+_DEFAULT_JS_URL: str = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
+_DEFAULT_VERSIONED_JS_URL = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
+
+_DEFAULT_CSS_URL: str = "https://www.canvasxpress.org/dist/canvasXpress.css"
+_DEFAULT_VERSIONED_CSS_URL = (
+    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+)
 
 _CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@"
 """
@@ -205,6 +213,68 @@ class CanvasXpress(CXHtmlConvertable):
             `Union[str, None]` The CDN version, such as `38.1`, or None if the latest version is preferred.
         """
         cls.__cdn_edition = None if value is None else str(value)
+
+    __js_url: Union[str] = _DEFAULT_JS_URL
+    """
+    The preferred JS library URL.  By default the standard URL.
+    """
+
+    @classmethod
+    def js_library_url(cls) -> Union[str, None]:
+        """
+        Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdnjs, or
+        a fully qualified URL to the CanvasXpress library.
+
+        :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
+        """
+        candidate_url = cls.__js_url
+        if cls.__cdn_edition is not None:
+            candidate_url = _DEFAULT_VERSIONED_JS_URL.replace(
+                "@cx_version@", cls.__cdn_edition
+            )
+
+        return candidate_url
+
+    @classmethod
+    def set_js_library_url(cls, value) -> None:
+        """
+        Sets the non-versioned URL to use for the CanvasXpress library.
+
+        :param value:
+            The HTTP(S) URL providing the JS library.
+        """
+        cls.__js_url = _DEFAULT_JS_URL if value is None else str(value)
+
+    __css_url: Union[str] = _DEFAULT_CSS_URL
+    """
+    The preferred CSS library URL.  By default the standard URL.
+    """
+
+    @classmethod
+    def css_library_url(cls) -> Union[str, None]:
+        """
+        Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdncss, or
+        a fully qualified URL to the CanvasXpress library.
+
+        :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
+        """
+        candidate_url = cls.__css_url
+        if cls.__cdn_edition is not None:
+            candidate_url = _DEFAULT_VERSIONED_CSS_URL.replace(
+                "@cx_version@", cls.__cdn_edition
+            )
+
+        return candidate_url
+
+    @classmethod
+    def set_css_library_url(cls, value) -> None:
+        """
+        Sets the non-versioned URL to use for the CanvasXpress library.
+
+        :param value:
+            The HTTP(S) URL providing the JS library.
+        """
+        cls.__css_url = _DEFAULT_CSS_URL if value is None else str(value)
 
     CHART_WIDTH_DEFAULT: int = 500
     """

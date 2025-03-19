@@ -1,5 +1,6 @@
-from canvasxpress.canvas import CanvasXpress
 import streamlit.components.v1 as components
+
+from canvasxpress.canvas import CanvasXpress
 
 _cx_iframe_padding = 50
 
@@ -8,16 +9,6 @@ _cx_fx_template = """
     @code@
 </script>
 """
-
-_cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
-
-_cx_versioned_css_url = (
-    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
-)
-
-_cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
-
-_cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
 _cx_html_template = """
 <html>
@@ -65,15 +56,8 @@ def _get_chart_display_code(cx: CanvasXpress) -> tuple:
     if html_parts.get("cx_license"):
         cx_license = html_parts["cx_license"]
 
-    css_url = _cx_default_css_url
-    js_url = _cx_default_js_url
-    if CanvasXpress.cdn_edition() is not None:
-        css_url = _cx_versioned_css_url.replace(
-            "@cx_version@", CanvasXpress.cdn_edition()
-        )
-        js_url = _cx_versioned_js_url.replace(
-            "@cx_version@", CanvasXpress.cdn_edition()
-        )
+    css_url = CanvasXpress.css_library_url()
+    js_url = CanvasXpress.js_library_url()
 
     html = (
         _cx_html_template.replace("@canvases@", canvases)
