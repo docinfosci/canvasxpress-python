@@ -6,7 +6,9 @@ from shiny import ui
 from canvasxpress.canvas import CanvasXpress
 
 _cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
-_cx_versioned_css_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+_cx_versioned_css_url = (
+    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+)
 
 _cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
@@ -31,7 +33,9 @@ def output_canvasxpress(id: str) -> ui.TagList:
     Establishes an output reactive placeholder into which a CanvasXpress chart can be rendered.
     """
     if id is None:
-        raise ValueError("output_canvasxpress requires that id be of type str and not None.")
+        raise ValueError(
+            "output_canvasxpress requires that id be of type str and not None."
+        )
 
     elif not isinstance(id, str):
         raise TypeError("output_canvasxpress requires that id be of type str.")
