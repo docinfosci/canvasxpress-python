@@ -1,6 +1,6 @@
 
 name = "Cxdash"
-uuid = "1b08a953-4be3-4667-9a23-9619cadea094"
+uuid = "1b08a953-4be3-4667-9a23-2fd7acd3869d"
 authors = ["Original JS library and React by Isaac Neuhaus; Python and Dash JS by Todd Brett. <todd@aggregate-genius.com>"]
 version = "1.1.0"
 
