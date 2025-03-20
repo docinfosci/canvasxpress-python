@@ -192,8 +192,8 @@ of CanvasXpress JS).
 ```python
 from canvasxpress.canvas import CanvasXpress
 
-CanvasXpress.js_library_url("http://localhost:8080/js")
-CanvasXpress.css_library_url("http://localhost:8080/css")
+CanvasXpress.set_js_library_url("http://localhost:8080/js")
+CanvasXpress.set_css_library_url("http://localhost:8080/css")
 ```
 
 ### Customizing Charts

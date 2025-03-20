@@ -214,7 +214,7 @@ class CanvasXpress(CXHtmlConvertable):
         """
         cls.__cdn_edition = None if value is None else str(value)
 
-    __js_url: Union[str] = _DEFAULT_JS_URL
+    __js_url: str = _DEFAULT_JS_URL
     """
     The preferred JS library URL.  By default the standard URL.
     """
@@ -225,7 +225,7 @@ class CanvasXpress(CXHtmlConvertable):
         Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdnjs, or
         a fully qualified URL to the CanvasXpress library.
 
-        :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
+        :returns: `str`: The Javascript CDN version used.
         """
         candidate_url = cls.__js_url
         if cls.__cdn_edition is not None:
@@ -245,18 +245,18 @@ class CanvasXpress(CXHtmlConvertable):
         """
         cls.__js_url = _DEFAULT_JS_URL if value is None else str(value)
 
-    __css_url: Union[str] = _DEFAULT_CSS_URL
+    __css_url: str = _DEFAULT_CSS_URL
     """
     The preferred CSS library URL.  By default the standard URL.
     """
 
     @classmethod
-    def css_library_url(cls) -> Union[str, None]:
+    def css_library_url(cls) -> str:
         """
         Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdncss, or
         a fully qualified URL to the CanvasXpress library.
 
-        :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
+        :returns: `str`: The Javascript CDN version used.
         """
         candidate_url = cls.__css_url
         if cls.__cdn_edition is not None:
