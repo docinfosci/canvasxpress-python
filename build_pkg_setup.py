@@ -128,9 +128,13 @@ if __name__ == "__main__":
         "@PKG_VERSION@", package_version
     )
 
-    setup_instructions = setup_instructions.replace("@PKG_DESCRIPTION@", get_description())
+    setup_instructions = setup_instructions.replace(
+        "@PKG_DESCRIPTION@", get_description()
+    )
 
-    setup_instructions = setup_instructions.replace("@PY_VERSION_MJR@", python_version[:1])
+    setup_instructions = setup_instructions.replace(
+        "@PY_VERSION_MJR@", python_version[:1]
+    )
 
     setup_instructions = setup_instructions.replace(
         "@PKG_REQUIREMENTS@", f"[\n    {package_requirements_core}\n]"
