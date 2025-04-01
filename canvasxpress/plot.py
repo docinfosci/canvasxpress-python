@@ -22,7 +22,8 @@ _g_context = get_target_context()
 if _g_context == CONTEXT_JUPYTER:
     if not _g_context in _g_contexts_imported:
         from canvasxpress.render.jupyter import CXNoteBook
-    CXNoteBook.display_canvasxpress_header()
+
+        CXNoteBook.display_canvasxpress_header()
 
 
 def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
