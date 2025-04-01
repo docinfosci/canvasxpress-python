@@ -231,7 +231,7 @@ class CXNoteBook(CXRenderable):
         code = self.get_chart_display_code(columns)
 
         try:
-            self.display_canvasxpress_header()
+            # self.display_canvasxpress_header()
             self.display_charts(code, output_file)
             if debug_output:
                 self.display_debug_code(code)
