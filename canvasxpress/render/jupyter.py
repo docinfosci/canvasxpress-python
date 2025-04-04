@@ -68,7 +68,8 @@ class CXNoteBook(CXRenderable):
         """
         super().__init__(*cx)
 
-    def display_canvasxpress_header(self):
+    @classmethod
+    def display_canvasxpress_header(cls):
         css_url = CanvasXpress.css_library_url()
         js_url = CanvasXpress.js_library_url()
 
@@ -230,7 +231,7 @@ class CXNoteBook(CXRenderable):
         code = self.get_chart_display_code(columns)
 
         try:
-            self.display_canvasxpress_header()
+            # self.display_canvasxpress_header()
             self.display_charts(code, output_file)
             if debug_output:
                 self.display_debug_code(code)
