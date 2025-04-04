@@ -10,11 +10,20 @@ from canvasxpress.render.environment import (
     CONTEXT_STREAMLIT,
     CONTEXT_BROWSER,
 )
-from canvasxpress.render.popup import CXBrowserPopup
 from canvasxpress.render.image import CXImage
 from canvasxpress.render.json import CXJSON
+from canvasxpress.render.popup import CXBrowserPopup
 
-_contexts_imported: list = []
+# Track the runtime context
+_g_contexts_imported: list = []
+_g_context = get_target_context()
+
+# Pre-load Jupyter JS and CSS.
+if _g_context == CONTEXT_JUPYTER:
+    if not _g_context in _g_contexts_imported:
+        from canvasxpress.render.jupyter import CXNoteBook
+
+        CXNoteBook.display_canvasxpress_header()
 
 
 def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
@@ -67,43 +76,41 @@ def graph(canvas: CanvasXpress) -> Any:
     :returns: An `object` or `None` depending on the target context.  In the case of `browser` a popup browser will
         be launched.`
     """
-    context = get_target_context()
-
-    if context == CONTEXT_RSTUDIO:
-        if not context in _contexts_imported:
+    if _g_context == CONTEXT_RSTUDIO:
+        if not _g_context in _g_contexts_imported:
             from canvasxpress.render.shiny import CXShinyWidget
 
         plotter = CXShinyWidget(canvas)
         plotter._repr_rstudio_viewer_()
 
-    elif context == CONTEXT_SHINY:
-        if not context in _contexts_imported:
+    elif _g_context == CONTEXT_SHINY:
+        if not _g_context in _g_contexts_imported:
             from canvasxpress.render.shiny import CXShinyWidget
 
         plotter = CXShinyWidget(canvas)
         return plotter
 
-    elif context == CONTEXT_DASH:
-        if not context in _contexts_imported:
+    elif _g_context == CONTEXT_DASH:
+        if not _g_context in _g_contexts_imported:
             from canvasxpress.render.dash import CXElementFactory
 
         plotter = CXElementFactory()
         return plotter.render(canvas)
 
-    elif context == CONTEXT_JUPYTER:
-        if not context in _contexts_imported:
+    elif _g_context == CONTEXT_JUPYTER:
+        if not _g_context in _g_contexts_imported:
             from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
         return plotter.render()
 
-    elif context == CONTEXT_STREAMLIT:
-        if not context in _contexts_imported:
+    elif _g_context == CONTEXT_STREAMLIT:
+        if not _g_context in _g_contexts_imported:
             from canvasxpress.render import streamlit
 
         streamlit.plot(canvas)
 
-    elif context == CONTEXT_BROWSER:
+    elif _g_context == CONTEXT_BROWSER:
         plotter = CXBrowserPopup(canvas)
         plotter.render()
 

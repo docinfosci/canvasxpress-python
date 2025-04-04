@@ -16,21 +16,14 @@ export default class CXDashElement extends Component {
     /**
      * Adds the CanvasXpress script resource if it is not yet part of the DOM.
      */
-    add_canvasxpress_script(cdn_edition) {
-
-        let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js";
-        if (typeof(cdn_edition) !== "undefined") {
-            resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
-                + cdn_edition
-                + "/canvasXpress.min.js";
-        }
+    add_canvasxpress_script(js_url) {
 
         const dom_rsrc_id = "CXDashElementIncludeScript";
         if (!document.getElementById(dom_rsrc_id)) {
             var head = document.getElementsByTagName("head")[0];
             var s = document.createElement("script");
             s.type = "text/javascript";
-            s.src = resource_url;
+            s.src = js_url;
             s.id = dom_rsrc_id;
             head.appendChild(s);
         }
@@ -39,21 +32,14 @@ export default class CXDashElement extends Component {
     /**
      * Adds the CanvasXpress CSS resource if it is not yet part of the DOM.
      */
-    add_canvasxpress_css(cdn_edition) {
-
-        let resource_url = "https://www.canvasxpress.org/dist/canvasXpress.css";
-        if (typeof(cdn_edition) !== "undefined") {
-            resource_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/"
-                + cdn_edition
-                + "canvasXpress.css";
-        }
+    add_canvasxpress_css(css_url) {
 
         const dom_rsrc_id = "CXDashElementIncludeCSS";
         if (!document.getElementById(dom_rsrc_id)) {
             var head = document.getElementsByTagName("head")[0];
             var s = document.createElement("link");
             s.type = "text/css";
-            s.href = resource_url;
+            s.href = css_url;
             s.id = dom_rsrc_id;
             head.appendChild(s);
         }
@@ -71,7 +57,7 @@ export default class CXDashElement extends Component {
                     if (first_param === false) {
                         fx_string = fx_string + ", ";
                     }
-                    if (typeof(p) !== "undefined") {
+                    if (typeof (p) !== "undefined") {
                         fx_string = fx_string + p;
                     }
                     else {
@@ -88,7 +74,7 @@ export default class CXDashElement extends Component {
                 eval(fx_string);
             }
         }
-        catch(err) {
+        catch (err) {
             console.log(
                 "CanvasXpress afterRender error: " + err.toString()
             )
@@ -100,50 +86,50 @@ export default class CXDashElement extends Component {
      * @returns {JSX.Element}
      */
     render() {
-        const {id, data, config, events, after_render, cdn_edition, width, height} = this.props;
+        const {id, data, config, events, after_render, js_url, css_url, width, height} = this.props;
 
         // Provide CX resources to the page
-        this.add_canvasxpress_script(cdn_edition);
-        this.add_canvasxpress_css(cdn_edition);
+        this.add_canvasxpress_script(js_url);
+        this.add_canvasxpress_css(css_url);
 
-        if (typeof(after_render) !== "undefined") {
+        if (typeof (after_render) !== "undefined") {
             try {
                 // eslint-disable-next-line no-eval
                 this.after_render_functions = eval("(" + after_render + ")")
             }
-            catch(err) {
+            catch (err) {
                 this.after_render_functions = []
             }
         }
         this.after_render_target = id
 
         let adjusted_data;
-        if (typeof(data) !== "undefined") {
+        if (typeof (data) !== "undefined") {
             try {
                 adjusted_data = JSON.parse(data)
             }
-            catch(err) {
+            catch (err) {
                 adjusted_data = data
             }
         }
 
         let adjusted_config;
-        if (typeof(config) !== "undefined") {
+        if (typeof (config) !== "undefined") {
             try {
                 adjusted_config = JSON.parse(config)
             }
-            catch(err) {
+            catch (err) {
                 adjusted_config = config
             }
         }
 
         let adjusted_events;
-        if (typeof(events) !== "undefined") {
+        if (typeof (events) !== "undefined") {
             try {
                 // eslint-disable-next-line no-eval
                 adjusted_events = eval("(" + events + ")")
             }
-            catch(err) {
+            catch (err) {
                 adjusted_events = events
             }
         }
@@ -192,9 +178,14 @@ CXDashElement.propTypes = {
     after_render: PropTypes.string,
 
     /**
-     * The Javascript and CSS CDN edition that should be used for CanvasXpress functionality.
+     * The Javascript URL that should be used for CanvasXpress functionality.
      */
-    cdn_edition: PropTypes.string,
+    js_url: PropTypes.string,
+
+    /**
+     * The CSS CDN URL that should be used for CanvasXpress functionality.
+     */
+    css_url: PropTypes.string,
 
     /**
      * The element width.

@@ -9,16 +9,6 @@ from bs4 import BeautifulSoup
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
 
-_cx_default_css_url = "https://www.canvasxpress.org/dist/canvasXpress.css"
-
-_cx_versioned_css_url = (
-    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
-)
-
-_cx_default_js_url = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
-
-_cx_versioned_js_url = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
-
 _cx_intermixed_header = """
 <html>
     <meta charset="UTF-8">
@@ -67,15 +57,8 @@ class CXHtml(CXRenderable):
         super().__init__(*cx)
 
     def display_canvasxpress_header(self):
-        css_url = _cx_default_css_url
-        js_url = _cx_default_js_url
-        if CanvasXpress.cdn_edition() is not None:
-            css_url = _cx_versioned_css_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
-            )
-            js_url = _cx_versioned_js_url.replace(
-                "@cx_version@", CanvasXpress.cdn_edition()
-            )
+        css_url = CanvasXpress.css_library_url()
+        js_url = CanvasXpress.js_library_url()
 
         header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
             "@js_url@", js_url

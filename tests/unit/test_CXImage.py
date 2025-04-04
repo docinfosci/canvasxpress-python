@@ -1,5 +1,10 @@
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.image import CXImage, PNG_IMAGE, SVG_IMAGE, render_html_as_image
+from canvasxpress.render.image import (
+    CXImage,
+    PNG_IMAGE,
+    SVG_IMAGE,
+    render_html_as_image,
+)
 
 cx_example = CanvasXpress(
     render_to="area2",
@@ -125,4 +130,3 @@ def test_render_html_as_image():
     )
     assert len(images_found) == 1
     assert images_found[0]["id"] == "area1"
-

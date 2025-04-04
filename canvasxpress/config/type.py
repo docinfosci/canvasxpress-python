@@ -1,3 +1,4 @@
+import html
 import json
 from abc import ABC, abstractmethod
 from copy import deepcopy
@@ -6,6 +7,7 @@ from functools import total_ordering
 from typing import Union, Any
 
 from deepdiff import DeepDiff
+from deprecated import deprecated
 
 
 @total_ordering
@@ -431,11 +433,16 @@ class CXDict(CXConfig):
             self.__value = deepcopy(value.value)
 
         elif isinstance(value, str):
-            candidate = json.loads(value)
+            candidate = json.loads(html.unescape(value).replace("&nl;", '"<br>"'))
             self.__value = candidate
 
-        else:
-            self.__value = deepcopy(value)
+        else:  # remove html entities from string values
+            clean_value = {}
+            for k, v in value.items():
+                clean_value[k] = v
+                if isinstance(v, str):
+                    clean_value[k] = html.unescape(v).replace("&nl;", '"<br>"')
+            self.__value = deepcopy(clean_value)
 
     def __init__(self, label: str, value: Union[dict, str, None]) -> None:
         """
@@ -595,7 +602,7 @@ class CXGraphWeight(CXConfig):
     def is_graph_weight_list(label: str, value: list):
         """
         A static method that evaluates a given list and label to check
-        if it represents  graph wight list.
+        if it represents  graph weight list.
         :param label: 'str'
             A string represents the value label i.e "ringGraphWeight".
             It must contain "weight" word
@@ -661,6 +668,7 @@ class CXGraphWeight(CXConfig):
         self.value = value
 
 
+@deprecated(action="ignore")
 class CXRGBAColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgba() values.
@@ -916,6 +924,7 @@ class CXRGBAColor(CXDict):
         )
 
 
+@deprecated(action="ignore")
 class CXRGBColor(CXDict):
     """
     A `CXConfig` object that manages `str` Javascript rgb() values.

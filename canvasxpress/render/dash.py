@@ -7,8 +7,8 @@ import json
 from typing import List, Union, Any
 
 from canvasxpress.canvas import CanvasXpress
-from cxdash import CXDashElement
 from canvasxpress.render.base import CXRenderFactory
+from cxdash import CXDashElement
 
 
 class CXElementFactory(CXRenderFactory):
@@ -51,7 +51,8 @@ class CXElementFactory(CXRenderFactory):
             ),
             events=element_parts["events"],
             after_render=json.dumps(element_parts["afterRender"]),
-            cdn_edition=cx.cdn_edition(),
+            js_url=cx.js_library_url(),
+            css_url=cx.css_library_url(),
             width=str(element_parts["width"]),
             height=str(element_parts["height"]),
         )

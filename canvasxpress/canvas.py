@@ -1,6 +1,8 @@
 import json
 import uuid
-from typing import Union, List
+from copy import deepcopy
+from typing import Union, List, Any
+from warnings import warn
 
 from pandas import DataFrame
 
@@ -16,6 +18,14 @@ from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
 
 # from deprecated import deprecated
+
+_DEFAULT_JS_URL: str = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
+_DEFAULT_VERSIONED_JS_URL = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
+
+_DEFAULT_CSS_URL: str = "https://www.canvasxpress.org/dist/canvasXpress.css"
+_DEFAULT_VERSIONED_CSS_URL = (
+    "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
+)
 
 _CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@"
 """
@@ -203,6 +213,68 @@ class CanvasXpress(CXHtmlConvertable):
             `Union[str, None]` The CDN version, such as `38.1`, or None if the latest version is preferred.
         """
         cls.__cdn_edition = None if value is None else str(value)
+
+    __js_url: str = _DEFAULT_JS_URL
+    """
+    The preferred JS library URL.  By default the standard URL.
+    """
+
+    @classmethod
+    def js_library_url(cls) -> Union[str, None]:
+        """
+        Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdnjs, or
+        a fully qualified URL to the CanvasXpress library.
+
+        :returns: `str`: The Javascript CDN version used.
+        """
+        candidate_url = cls.__js_url
+        if cls.__cdn_edition is not None:
+            candidate_url = _DEFAULT_VERSIONED_JS_URL.replace(
+                "@cx_version@", cls.__cdn_edition
+            )
+
+        return candidate_url
+
+    @classmethod
+    def set_js_library_url(cls, value) -> None:
+        """
+        Sets the non-versioned URL to use for the CanvasXpress library.
+
+        :param value:
+            The HTTP(S) URL providing the JS library.
+        """
+        cls.__js_url = _DEFAULT_JS_URL if value is None else str(value)
+
+    __css_url: str = _DEFAULT_CSS_URL
+    """
+    The preferred CSS library URL.  By default the standard URL.
+    """
+
+    @classmethod
+    def css_library_url(cls) -> str:
+        """
+        Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdncss, or
+        a fully qualified URL to the CanvasXpress library.
+
+        :returns: `str`: The Javascript CDN version used.
+        """
+        candidate_url = cls.__css_url
+        if cls.__cdn_edition is not None:
+            candidate_url = _DEFAULT_VERSIONED_CSS_URL.replace(
+                "@cx_version@", cls.__cdn_edition
+            )
+
+        return candidate_url
+
+    @classmethod
+    def set_css_library_url(cls, value) -> None:
+        """
+        Sets the non-versioned URL to use for the CanvasXpress library.
+
+        :param value:
+            The HTTP(S) URL providing the JS library.
+        """
+        cls.__css_url = _DEFAULT_CSS_URL if value is None else str(value)
 
     CHART_WIDTH_DEFAULT: int = 500
     """
@@ -723,6 +795,7 @@ class CanvasXpress(CXHtmlConvertable):
         other_init_params: Union[List[CXConfig], List[tuple], dict, CXConfigs] = None,
         width: int = CHART_WIDTH_DEFAULT,
         height: int = CHART_HEIGHT_DEFAULT,
+        **kwargs: Any,
     ) -> None:
         """
         Initializes a new CanvasXpress object.  Default values are provided for
@@ -737,16 +810,59 @@ class CanvasXpress(CXHtmlConvertable):
         :param other_init_params: See the 'other_init_params` property
         :param width: See the `width` property
         :param height: See the `height` property
+        :param kwargs: `Any`
+            Additional keyword arguments for CanvasXpress. Secondary keywords are
+            added to the `config` property, overriding any existing items of the
+            same name. Primary keywords `renderTo` or `afterRender` are mapped to
+            the corresponding property (`render_to` or `after_render`).
         """
 
         super().__init__()
+
+        config_updated = CXConfigs()
+
+        if isinstance(config, list):
+            config_updated = deepcopy(CXConfigs(*config))
+
+        elif isinstance(config, dict):
+            config_updated = deepcopy(CXConfigs(config))
+
+        elif isinstance(config, CXConfigs):
+            config_updated = deepcopy(config)
+
+        elif config is not None:
+            raise TypeError(
+                "config must be one of Union[List[CXConfig], List[tuple], "
+                "dict, CXConfigs]"
+            )
+
+        existing_config_labels = [item.label for item in config_updated.configs]
+
+        for key, value in kwargs.items():
+            if key == "renderTo":
+                if render_to is not None:
+                    warn("`render_to` argument has been overridden by `renderTo`")
+
+                render_to = value
+
+            elif key == "afterRender":
+                if after_render is not None:
+                    warn("`after_render` argument has been overridden by `afterRender`")
+
+                after_render = value
+
+            else:
+                if key in existing_config_labels:
+                    config_updated.remove(key)
+
+                config_updated.set_param(label=key, value=value)
 
         self.render_to = render_to
         self.data = data
         self.sample_annotation = sample_annotation
         self.variable_annotation = variable_annotation
         self.events = events
-        self.config = config
+        self.config = config_updated
         self.after_render = after_render
         self.other_init_params = other_init_params
         self.width = width
