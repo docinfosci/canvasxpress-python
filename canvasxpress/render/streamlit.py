@@ -5,8 +5,33 @@ from canvasxpress.canvas import CanvasXpress
 _cx_iframe_padding = 50
 
 _cx_fx_template = """
-<script type="text/javascript">
-    @code@
+<script type="text/javascript">    
+    function checkData(x) {
+        if (x instanceof Object && x.hasOwnProperty('data') && x.data.hasOwnProperty('y') && x.data.y.hasOwnProperty('data')) {
+          if (x.data.y.data instanceof Array && x.data.y.data[0] instanceof Array && x.data.y.hasOwnProperty('vars') && x.data.y.hasOwnProperty('smps')) {
+            for (var i = 0; i < x.data.y.data.length; i++) {
+              for (var j = 0; j < x.data.y.data[i].length; j++) {
+                var v = x.data.y.data[i][j];
+                var n = v === null || v === undefined ? true : !isNaN(parseFloat(v)) && isFinite(v);
+                if (!n) {
+                  for (var ii = 0; ii < x.data.y.data.length; ii++) {
+                    x.data.y.data[ii].unshift(x.data.y.vars[ii]);
+                  }
+                  x.data.y.data.unshift(x.data.y.smps);
+                  x.data.y.data[0].unshift('');
+                  x.data = x.data.y.data;
+                  if (x.hasOwnProperty('config')) {
+                    x.config.isDataFrame = true;
+                  }
+                  return x;
+                }
+              }
+            }
+          }
+        }
+        return x;
+      }
+      @code@
 </script>
 """
 

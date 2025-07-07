@@ -27,7 +27,7 @@ _DEFAULT_VERSIONED_CSS_URL = (
     "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
 )
 
-_CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@"
+_CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(checkData(@cx_json@)); @cx_functions@"
 """
 The template for declaring a CanvasXpress Javascript object using data
 from the Python edition.
