@@ -1005,9 +1005,14 @@ class CanvasXpress(CXHtmlConvertable):
         #  Capture the ID once to avoid anonymous object calls producing different IDs.
         render_id = self.render_to
 
+        formatted_data = self.provide_data_object().render_to_dict()
+
+        if len(formatted_data) == 0:
+            formatted_data = "false"
+
         primary_params = {
             "renderTo": render_id,
-            "data": self.provide_data_object().render_to_dict(),
+            "data": formatted_data,
             "config": self.config.render_to_dict(),
             "events": "js_events",
         }
@@ -1021,7 +1026,7 @@ class CanvasXpress(CXHtmlConvertable):
             )
 
         # Support unique data without JSON data structure
-        if canvasxpress["data"].get("raw"):
+        if canvasxpress["data"] != "false" and canvasxpress["data"].get("raw"):
             canvasxpress["data"] = str(canvasxpress["data"]["raw"])
 
         cx_js = render_from_template(
