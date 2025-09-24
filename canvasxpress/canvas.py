@@ -1010,6 +1010,12 @@ class CanvasXpress(CXHtmlConvertable):
         if len(formatted_data) == 0:
             formatted_data = "false"
 
+        if "x" not in formatted_data.keys():
+            formatted_data["x"] = None
+
+        if "z" not in formatted_data.keys():
+            formatted_data["z"] = None
+
         primary_params = {
             "renderTo": render_id,
             "data": formatted_data,
