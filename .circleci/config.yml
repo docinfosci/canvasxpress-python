@@ -276,6 +276,7 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            python3 -m ensurepip --default-pip
             pip install --no-cache-dir -U -r ./requirements-project.txt
             pip install --no-cache-dir -U -r ./requirements.txt
             pip install --no-cache-dir -U -r ./requirements-dev.txt
