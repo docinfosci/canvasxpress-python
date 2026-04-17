@@ -185,7 +185,7 @@ jobs:
 
   build-python-latest:
     docker:
-      - image: python:3.13.13-bullseye
+      - image: python:3.13-bullseye
 
     steps:
       - checkout
