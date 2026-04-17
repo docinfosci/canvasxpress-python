@@ -97,6 +97,8 @@ jobs:
           name: Install Python dependencies
           command: |
             pip install --no-cache-dir -U -r ./requirements-project.txt
+            pip install --no-cache-dir -U -r ./requirements.txt
+            pip install --no-cache-dir -U -r ./requirements-dev.txt
             invoke init --dev --list
 
       - run:
@@ -183,7 +185,7 @@ jobs:
 
   build-python-latest:
     docker:
-      - image: python:3.11.4-bullseye
+      - image: python:3.13.13-bullseye
 
     steps:
       - checkout
@@ -275,6 +277,8 @@ jobs:
           name: Install Python dependencies
           command: |
             pip install --no-cache-dir -U -r ./requirements-project.txt
+            pip install --no-cache-dir -U -r ./requirements.txt
+            pip install --no-cache-dir -U -r ./requirements-dev.txt
             invoke init --dev --list
 
       - run:
@@ -402,6 +406,8 @@ jobs:
           name: Install Python dependencies
           command: |
             pip install --no-cache-dir -U -r ./requirements-project.txt
+            pip install --no-cache-dir -U -r ./requirements.txt
+            pip install --no-cache-dir -U -r ./requirements-dev.txt
             invoke init --dev --list
 
       - run:
