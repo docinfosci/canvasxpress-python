@@ -102,7 +102,6 @@ def graph(canvas: CanvasXpress) -> Any:
             from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
-        CXNoteBook.display_canvasxpress_header()
         return plotter.render()
 
     elif _g_context == CONTEXT_STREAMLIT:
