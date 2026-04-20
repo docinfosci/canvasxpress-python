@@ -193,11 +193,7 @@ class CXNoteBook(CXRenderable):
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
 
-        display(
-            HTML(
-                data=code,
-            ),
-        )
+        return HTML(data=code)
 
     def render(self, **kwargs: Any):
         """
@@ -234,10 +230,10 @@ class CXNoteBook(CXRenderable):
         code = self.get_chart_display_code(columns)
 
         try:
-            # self.display_canvasxpress_header()
-            self.display_charts(code, output_file)
             if debug_output:
-                self.display_debug_code(code)
+                return self.display_debug_code(code)
+            else:
+                self.display_charts(code, output_file)
 
         except Exception as e:
-            raise RuntimeError(f"Cannot create output cell: {e}")
+            return f"Cannot create output cell: {e}"
