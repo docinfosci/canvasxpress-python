@@ -447,7 +447,7 @@ workflows:
     jobs:
 #      - build-python-oldest
 #      - build-python-latest
-      - build-python-general:
+      - build-python-general
 #          requires:
 #            - build-python-oldest
 #            - build-python-latest
