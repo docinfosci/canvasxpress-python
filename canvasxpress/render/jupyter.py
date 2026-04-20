@@ -54,6 +54,7 @@ _nb_iframe_template = "data:text/html,@html@"
 
 
 def _get_cx_header_html() -> str:
+    css_url = CanvasXpress.css_library_url()
     js_url = CanvasXpress.js_library_url()
 
     header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
