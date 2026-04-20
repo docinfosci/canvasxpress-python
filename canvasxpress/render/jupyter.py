@@ -51,6 +51,16 @@ _cx_html_intermixed_template = """
 _nb_iframe_template = "data:text/html,@html@"
 
 
+def _get_cx_header_html() -> str:
+    js_url = CanvasXpress.js_library_url()
+
+    header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
+        "@js_url@", js_url
+    )
+
+    return header_html_text
+
+
 class CXNoteBook(CXRenderable):
     """
     CXNoteBook is a `CXRenderable` that renders `CanvasXpress` objects into
@@ -70,16 +80,9 @@ class CXNoteBook(CXRenderable):
 
     @classmethod
     def display_canvasxpress_header(cls):
-        css_url = CanvasXpress.css_library_url()
-        js_url = CanvasXpress.js_library_url()
-
-        header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
-            "@js_url@", js_url
-        )
-
         display(
             HTML(
-                data=header_html_text,
+                data=_get_cx_header_html(),
             ),
         )
 
@@ -180,7 +183,7 @@ class CXNoteBook(CXRenderable):
             .replace("@js_functions@", js_functions)
         )
 
-        return html_text
+        return _get_cx_header_html() + html_text
 
     def display_charts(self, code: str, output_file: str):
         try:
