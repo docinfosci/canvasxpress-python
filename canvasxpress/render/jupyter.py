@@ -39,9 +39,7 @@ _cx_js_intermixed_template = """
 
 _cx_html_intermixed_template = """
 <html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
+    @header@
     <body>
         @canvasxpress_license@
         @canvases@
@@ -181,12 +179,13 @@ class CXNoteBook(CXRenderable):
             [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
         )
         html_text = (
-            _cx_html_intermixed_template.replace("@canvases@", canvas_table)
+            _cx_html_intermixed_template.replace("@header@", _get_cx_header_html())
+            .replace("@canvases@", canvas_table)
             .replace("@canvasxpress_license@", cx_license)
             .replace("@js_functions@", js_functions)
         )
 
-        return _get_cx_header_html() + html_text
+        return html_text
 
     def display_charts(self, code: str, output_file: str):
         try:
