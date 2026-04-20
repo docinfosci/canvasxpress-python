@@ -12,37 +12,32 @@ from canvasxpress.render.base import CXRenderable
 _cx_iframe_padding = 50
 
 _cx_intermixed_header = """
-    <head>
-        <meta charset="UTF-8">
-        <link 
-                href='@css_url@' 
-                rel='preload'
-                as='style'
-        />
-        <script 
-                src='@js_url@' 
-                rel='preload'
-                as='script'
-        >
-        </script>
-    </head>
+<link 
+        href='@css_url@' 
+        rel='preload'
+        as='style'
+/>
+<script 
+        src='@js_url@' 
+        rel='preload'
+        as='script'
+>
+</script>
 """
 
 _cx_js_intermixed_template = """
 <script type="text/javascript">
-    @code@
+    window.addEventListener('load', (event) => {
+        @code@
+    });
 </script>
 """
 
 _cx_html_intermixed_template = """
-<html>
-    @header@
-    <body>
-        @canvasxpress_license@
-        @canvases@
-        @js_functions@
-    </body>
-</html>
+@header@
+@canvasxpress_license@
+@canvases@
+@js_functions@
 """
 
 _nb_iframe_template = "data:text/html,@html@"

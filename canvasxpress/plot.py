@@ -18,13 +18,6 @@ from canvasxpress.render.popup import CXBrowserPopup
 _g_contexts_imported: list = []
 _g_context = get_target_context()
 
-# Pre-load Jupyter JS and CSS.
-if _g_context == CONTEXT_JUPYTER:
-    if not _g_context in _g_contexts_imported:
-        from canvasxpress.render.jupyter import CXNoteBook
-
-        CXNoteBook.display_canvasxpress_header()
-
 
 def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
     """
@@ -99,10 +92,16 @@ def graph(canvas: CanvasXpress) -> Any:
 
     elif _g_context == CONTEXT_JUPYTER:
         if not _g_context in _g_contexts_imported:
+            from IPython.display import display, HTML, Code
             from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
-        return plotter.render()
+        # return plotter.render()
+        display(
+            HTML(
+                data=plotter.render(),
+            ),
+        )
 
     elif _g_context == CONTEXT_STREAMLIT:
         if not _g_context in _g_contexts_imported:
