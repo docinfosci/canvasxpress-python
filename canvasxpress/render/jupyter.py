@@ -17,12 +17,14 @@ _cx_intermixed_header = """
         <meta charset="UTF-8">
         <link 
                 href='@css_url@' 
-                rel='stylesheet' 
-                type='text/css'
+                rel='preload'
+                as='style'
         />
         <script 
                 src='@js_url@' 
-                type='text/javascript'>
+                rel='preload'
+                as='script'
+        >
         </script>
     </head>
     <body></body>
