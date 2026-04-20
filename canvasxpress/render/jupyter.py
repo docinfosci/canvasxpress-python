@@ -27,7 +27,7 @@ _cx_intermixed_header = """
 
 _cx_js_intermixed_template = """
 <script type="text/javascript">
-    window.addEventListener('load', (event) => {
+    Jupyter.notebook.events.on('finished_execute.CodeCell', function(evt, data) {
         @code@
     });
 </script>
