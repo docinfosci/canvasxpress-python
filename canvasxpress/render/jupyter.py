@@ -27,9 +27,7 @@ _cx_intermixed_header = """
 
 _cx_js_intermixed_template = """
 <script type="text/javascript">
-    Jupyter.notebook.events.on('finished_execute.CodeCell', function(evt, data) {
-        @code@
-    });
+    @code@
 </script>
 """
 
@@ -39,8 +37,6 @@ _cx_html_intermixed_template = """
 @canvases@
 @js_functions@
 """
-
-_nb_iframe_template = "data:text/html,@html@"
 
 
 def _get_cx_header_html() -> str:
@@ -88,11 +84,9 @@ class CXNoteBook(CXRenderable):
         )
 
         pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
-        display(
-            Code(
-                data=pretty_code,
-                language="html",
-            ),
+        return Code(
+            data=pretty_code,
+            language="javascript",
         )
 
     def get_chart_display_code(self, columns: int) -> str:
@@ -191,7 +185,7 @@ class CXNoteBook(CXRenderable):
                     render_file.write(code)
 
         except Exception as e:
-            raise RuntimeError(f"Cannot create output file: {e}")
+            return HTML("<div>Cannot create output file: {e}</div>")
 
         return HTML(data=code)
 
@@ -238,4 +232,4 @@ class CXNoteBook(CXRenderable):
                 return self.display_charts(code, output_file)
 
         except Exception as e:
-            return f"Cannot create output cell: {e}"
+            return HTML(f"<div>Cannot create output cell: {e}</div>")
