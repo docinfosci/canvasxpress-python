@@ -214,26 +214,28 @@ class CXNoteBook(CXRenderable):
               that the HTML code shall be displayed prior to the parsed output.
               Default is False.
         """
-        debug_output_arg = kwargs.get("debug")
-        debug_output = bool(debug_output_arg) if debug_output_arg is not None else False
-
-        columns_arg = int(kwargs.get("columns", 1))
-        columns = columns_arg if columns_arg > 0 else 1
-
-        output_file_arg = kwargs.get("output_file")
-        output_file = (
-            output_file_arg
-            if output_file_arg is not None and isinstance(output_file_arg, str)
-            else None
-        )
-
-        code = self.get_chart_display_code(columns)
-
         try:
+            debug_output_arg = kwargs.get("debug")
+            debug_output = (
+                bool(debug_output_arg) if debug_output_arg is not None else False
+            )
+
+            columns_arg = int(kwargs.get("columns", 1))
+            columns = columns_arg if columns_arg > 0 else 1
+
+            output_file_arg = kwargs.get("output_file")
+            output_file = (
+                output_file_arg
+                if output_file_arg is not None and isinstance(output_file_arg, str)
+                else None
+            )
+
+            code = self.get_chart_display_code(columns)
+
             if debug_output:
                 return self.display_debug_code(code)
             else:
-                self.display_charts(code, output_file)
+                return self.display_charts(code, output_file)
 
         except Exception as e:
             return f"Cannot create output cell: {e}"
