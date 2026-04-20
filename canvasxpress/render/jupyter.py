@@ -12,7 +12,6 @@ from canvasxpress.render.base import CXRenderable
 _cx_iframe_padding = 50
 
 _cx_intermixed_header = """
-<html>
     <head>
         <meta charset="UTF-8">
         <link 
@@ -27,8 +26,6 @@ _cx_intermixed_header = """
         >
         </script>
     </head>
-    <body></body>
-</html>
 """
 
 _cx_js_intermixed_template = """
