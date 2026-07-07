@@ -21,13 +21,27 @@ _cx_intermixed_header = """
         src='@js_url@' 
         rel='preload'
         as='script'
->
-</script>
+/>
 """
 
 _cx_js_intermixed_template = """
 <script type="text/javascript">
-    @code@
+    const cx_async_helper_@id@ = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    
+    async function run_cx_async_@id@() {
+        await cx_async_helper_@id@(1000); 
+        try {
+            @code@
+        } catch (error) {
+            console.error("An error occurred:", error.message);
+            
+            const newDiv = document.createElement("div");
+            newDiv.textContent = error.message;
+            document.body.appendChild(newDiv);
+        }
+    }
+    
+    run_cx_async_@id@();
 </script>
 """
 
@@ -162,7 +176,12 @@ class CXNoteBook(CXRenderable):
         iframe_height += _cx_iframe_padding
 
         js_functions = "\n".join(
-            [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
+            [
+                _cx_js_intermixed_template.replace("@code@", fx)
+                .replace("@id@", str(uuid.uuid4()))
+                .replace("-", "")
+                for fx in functions
+            ]
         )
         html_text = (
             _cx_html_intermixed_template.replace("@header@", _get_cx_header_html())
