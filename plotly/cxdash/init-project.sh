@@ -5,6 +5,8 @@ if ! [[ -d ./venv ]] ; then
     python3 -m venv ./venv
 fi
 source ./venv/bin/activate
+python3 --version
+python3 -m ensurepip --default-pip
 
 # Ensure that node.js is available.
 if [[ "$OSTYPE" == "linux-gnu"* ]]
@@ -26,8 +28,8 @@ else
 fi
 
 # Ensure that essential project utilities are available
-pip install -U pip setuptools wheel
-pip install -U -r requirements.txt
+python3 -m pip install -U pip setuptools wheel
+python3 -m pip install -U -r requirements.txt
 
 npm install canvasxpress
 npm install canvasxpress-react
