@@ -112,7 +112,6 @@ class CanvasXpress(CXHtmlConvertable):
         :returns: `str` The ID, if configured; `None` if anonymous.
         """
         return (
-
             "cX" + str(uuid.uuid4()).replace("-", "")
             if self.anonymous
             else self.__target_id
