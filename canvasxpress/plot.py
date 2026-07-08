@@ -15,7 +15,15 @@ from canvasxpress.render.json import CXJSON
 from canvasxpress.render.popup import CXBrowserPopup
 
 # Track the runtime context
+_g_contexts_imported: list = []
 _g_context = get_target_context()
+
+# Pre-load Jupyter JS and CSS.
+if _g_context == CONTEXT_JUPYTER:
+    if not _g_context in _g_contexts_imported:
+        from canvasxpress.render.jupyter import CXNoteBook
+
+        CXNoteBook.display_canvasxpress_header()
 
 
 def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
@@ -69,26 +77,29 @@ def graph(canvas: CanvasXpress, debug: bool = False) -> Any:
         be launched.`
     """
     if _g_context == CONTEXT_RSTUDIO:
-        from canvasxpress.render.shiny import CXShinyWidget
+        if not _g_context in _g_contexts_imported:
+            from canvasxpress.render.shiny import CXShinyWidget
 
         plotter = CXShinyWidget(canvas)
         plotter._repr_rstudio_viewer_()
 
     elif _g_context == CONTEXT_SHINY:
-        from canvasxpress.render.shiny import CXShinyWidget
+        if not _g_context in _g_contexts_imported:
+            from canvasxpress.render.shiny import CXShinyWidget
 
         plotter = CXShinyWidget(canvas)
         return plotter
 
     elif _g_context == CONTEXT_DASH:
-        from canvasxpress.render.dash import CXElementFactory
+        if not _g_context in _g_contexts_imported:
+            from canvasxpress.render.dash import CXElementFactory
 
         plotter = CXElementFactory()
         return plotter.render(canvas)
 
     elif _g_context == CONTEXT_JUPYTER:
-        from IPython.display import display
-        from canvasxpress.render.jupyter import CXNoteBook
+        if not _g_context in _g_contexts_imported:
+            from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
         content = plotter.render(debug=debug)
@@ -99,7 +110,8 @@ def graph(canvas: CanvasXpress, debug: bool = False) -> Any:
             display(content)
 
     elif _g_context == CONTEXT_STREAMLIT:
-        from canvasxpress.render import streamlit
+        if not _g_context in _g_contexts_imported:
+            from canvasxpress.render import streamlit
 
         streamlit.plot(canvas)
 

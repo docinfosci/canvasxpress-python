@@ -22,18 +22,18 @@ ComponentType = typing.Union[
 
 class CXDashElement(Component):
     """A CXDashElement component.
-CXDashElement implements a Plotly Dash integration of CanvasXpress React.
-Properties are defined for use by the CanvasXpress class to update
-CanvasXpress aspects such as data, config, and sizing.
+    CXDashElement implements a Plotly Dash integration of CanvasXpress React.
+    Properties are defined for use by the CanvasXpress class to update
+    CanvasXpress aspects such as data, config, and sizing.
 
-Keyword arguments:
+    Keyword arguments:
 
-- id (string; required):
-    The ID of the element for use in function calls and element
-    identification.
+    - id (string; required):
+        The ID of the element for use in function calls and element
+        identification.
 
-- after_render (string; optional):
-    The events functions for increased reactivity.
+    - after_render (string; optional):
+        The events functions for increased reactivity.
 
 - config (string; optional):
     The configuration JSON dictating formatting and content
@@ -46,11 +46,11 @@ Keyword arguments:
 - data (string; optional):
     The data JSON, generally in the XYZ format.
 
-- events (string; optional):
-    The events functions for increased reactivity.
+    - events (string; optional):
+        The events functions for increased reactivity.
 
-- height (string; optional):
-    The element height.
+    - height (string; optional):
+        The element height.
 
 - js_url (string; optional):
     The Javascript URL that should be used for CanvasXpress
@@ -86,10 +86,9 @@ Keyword arguments:
         _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args}
 
-        for k in ['id']:
+        for k in ["id"]:
             if k not in args:
-                raise TypeError(
-                    'Required argument `' + k + '` was not specified.')
+                raise TypeError("Required argument `" + k + "` was not specified.")
 
         super(CXDashElement, self).__init__(**args)
 
