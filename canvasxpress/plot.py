@@ -87,12 +87,16 @@ def graph(canvas: CanvasXpress, debug: bool = False) -> Any:
         return plotter.render(canvas)
 
     elif _g_context == CONTEXT_JUPYTER:
-        from IPython.core.display_functions import display
+        from IPython.display import display
         from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
         content = plotter.render(debug=debug)
-        display(content)
+        if isinstance(content, list):
+            for element in content:
+                display(element)
+        else:
+            display(content)
 
     elif _g_context == CONTEXT_STREAMLIT:
         from canvasxpress.render import streamlit

@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Union, List
 
 import minify_html
-from IPython.display import display, HTML, Code
+from IPython.display import display, HTML, Javascript, Code
 from bs4 import BeautifulSoup
 
 from canvasxpress.canvas import CanvasXpress
@@ -13,43 +13,19 @@ _cx_iframe_padding = 50
 
 _cx_intermixed_header = """
 <link 
-        href='@css_url@' 
-        rel='preload'
-        as='style'
+    href='@css_url@' 
+    rel='preload'
+    as='style'
 />
 <script 
-        src='@js_url@' 
-        rel='preload'
-        as='script'
+    src='@js_url@' 
+    rel='preload'
+    as='script'
 />
 """
 
 _cx_js_intermixed_template = """
-<script type="text/javascript">
-    const cx_async_helper_@id@ = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    
-    async function run_cx_async_@id@() {
-        await cx_async_helper_@id@(1000); 
-        try {
-            @code@
-        } catch (error) {
-            console.error("An error occurred:", error.message);
-            
-            const newDiv = document.createElement("div");
-            newDiv.textContent = error.message;
-            document.body.appendChild(newDiv);
-        }
-    }
-    
-    run_cx_async_@id@();
-</script>
-"""
-
-_cx_html_intermixed_template = """
-@header@
-@canvasxpress_license@
-@canvases@
-@js_functions@
+@code@
 """
 
 
@@ -103,7 +79,7 @@ class CXNoteBook(CXRenderable):
             language="javascript",
         )
 
-    def get_chart_display_code(self, columns: int) -> str:
+    def get_chart_display_code(self, columns: int) -> list:
         render_targets = list()
 
         if self.canvas is None:
@@ -183,14 +159,18 @@ class CXNoteBook(CXRenderable):
                 for fx in functions
             ]
         )
-        html_text = (
-            _cx_html_intermixed_template.replace("@header@", _get_cx_header_html())
-            .replace("@canvases@", canvas_table)
-            .replace("@canvasxpress_license@", cx_license)
-            .replace("@js_functions@", js_functions)
-        )
 
-        return html_text
+        content: list = [
+            HTML(data=cx_license),
+            HTML(data=canvas_table),
+            Javascript(
+                data=js_functions,
+                lib=CanvasXpress.js_library_url(),
+                css=CanvasXpress.css_library_url(),
+            ),
+        ]
+
+        return content
 
     def display_charts(self, code: str, output_file: str):
         try:
@@ -201,12 +181,25 @@ class CXNoteBook(CXRenderable):
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
                 with open(str(file_path), "w") as render_file:
-                    render_file.write(code)
+                    render_file.write(
+                        """
+                        <html>
+                        <body>
+                        """
+                    )
+                    for element in code:
+                        render_file.write(str(element))
+                    render_file.write(
+                        """
+                        </body>
+                        </html>
+                        """
+                    )
 
         except Exception as e:
             return HTML("<div>Cannot create output file: {e}</div>")
 
-        return HTML(data=code)
+        return code
 
     def render(self, **kwargs: Any):
         """
