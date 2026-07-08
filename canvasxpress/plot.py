@@ -59,7 +59,7 @@ def show_in_browser(canvas: CanvasXpress) -> None:
     plotter.render()
 
 
-def graph(canvas: CanvasXpress) -> Any:
+def graph(canvas: CanvasXpress, debug: bool = False) -> Any:
     """
     Displays the CanvasXpress object as a visualized chart in a manner appropriate to the running context.
 
@@ -102,7 +102,12 @@ def graph(canvas: CanvasXpress) -> Any:
             from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
-        return plotter.render()
+        content = plotter.render(debug=debug)
+        if isinstance(content, list):
+            for element in content:
+                display(element)
+        else:
+            display(content)
 
     elif _g_context == CONTEXT_STREAMLIT:
         if not _g_context in _g_contexts_imported:

@@ -87,13 +87,29 @@ def is_ipython_available() -> bool:
     try:
         from IPython import get_ipython
 
-        return get_ipython().__class__.__name__ != "NoneType"
+        shell = get_ipython().__class__.__name__
+        if shell == "ZMQInteractiveShell":
+            return True  # Jupyter notebook or qtconsole
 
-    except ModuleNotFoundError:
-        return False
+        elif shell == "TerminalInteractiveShell":
+            return False  # Terminal running IPython
+
+        else:
+            return False  # Other type (?)
 
     except NameError:
         return False
+
+    # try:
+    #     from IPython import get_ipython
+    #
+    #     return get_ipython().__class__.__name__ != "NoneType"
+    #
+    # except ModuleNotFoundError:
+    #     return False
+    #
+    # except NameError:
+    #     return False
 
 
 def is_streamlit_available() -> bool:

@@ -15,6 +15,8 @@ if ! [[ -d ./venv ]] ; then
     python3 -m venv ./venv
 fi
 source ./venv/bin/activate
+python3 --version
+python3 -m ensurepip --default-pip
 
 # Track which profile should be used for work
 GIT_WORKING_BRANCH="$(git branch | grep \* | cut -d ' ' -f2)"
@@ -28,7 +30,9 @@ echo "Source edition matches '${BRANCH_STAGE}' (branch '${GIT_WORKING_BRANCH}')"
 
 # Bootstrap Python
 python3 ./build_pkg_setup.py
-pip install --no-cache-dir -U -r ./requirements-project.txt
+python3 -m pip install --no-cache-dir -U -r ./requirements-project.txt
+python3 -m pip install --no-cache-dir -U -r ./requirements.txt
+python3 -m pip install --no-cache-dir -U -r ./requirements-dev.txt
 invoke init --dev --list
 
 # Force conformance to project styles (see pyproject,toml)

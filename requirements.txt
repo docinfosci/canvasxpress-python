@@ -1,16 +1,16 @@
 # core
 deepdiff
-gitpython>=3
-pytz>=2020.1
-pandas>=1.1.5
-requests>=2
-Deprecated>=1.2.12
+gitpython
+pytz
+pandas
+requests
+Deprecated
 
 # jupyter
 jupyter
 IPython>=7
 beautifulsoup4>=4
-htmlmin>=0.1.12
+minify-html
 requests
 
 # dash
