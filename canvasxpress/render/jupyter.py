@@ -117,58 +117,30 @@ class CXNoteBook(CXRenderable):
                 cx_license = part["cx_license"]
                 break
 
-        iframe_width = 0
-        iframe_height = 0
-        chart_count = len(canvases)
+        canvas_table = f'\n<div style="display: grid; grid-template-columns: repeat({columns}, 1fr); gap: 10px; width: 100%;">'
 
-        canvas_table = '<div class="d-flex flex-column">'
+        for canvas in reversed(canvases):
+            canvas_table += f"\n  <div>{canvas}</div>"
 
-        while chart_count > 0:
-            candidate_width = 0
-            candidate_height = 0
-
-            canvas_table += '<div class="d-flex flex-row">'
-            for c in range(columns):
-                canvas_table += '<div class="p-2">'
-                if chart_count > 0:
-                    canvas_table += canvases[chart_count - 1]
-
-                    candidate_width += render_targets[chart_count - 1].width
-                    if render_targets[chart_count - 1].height > candidate_height:
-                        candidate_height = render_targets[chart_count - 1].height
-
-                canvas_table += "</div>"
-                chart_count = chart_count - 1
-
-            canvas_table += "</div>"
-
-            if candidate_width > iframe_width:
-                iframe_width = candidate_width
-            iframe_height += candidate_height
-
-        canvas_table += "</div>"
-
-        iframe_width += _cx_iframe_padding
-        iframe_height += _cx_iframe_padding
-
-        js_functions = "\n".join(
-            [
-                _cx_js_intermixed_template.replace("@code@", fx)
-                .replace("@id@", str(uuid.uuid4()))
-                .replace("-", "")
-                for fx in functions
-            ]
-        )
+        canvas_table += "\n</div>"
 
         content: list = [
             HTML(data=cx_license),
             HTML(data=canvas_table),
-            Javascript(
-                data=js_functions,
-                lib=CanvasXpress.js_library_url(),
-                css=CanvasXpress.css_library_url(),
-            ),
         ]
+
+        for fx in functions:
+            content.append(
+                Javascript(
+                    data=(
+                        _cx_js_intermixed_template.replace("@code@", fx)
+                        .replace("@id@", str(uuid.uuid4()))
+                        .replace("-", "")
+                    ),
+                    lib=CanvasXpress.js_library_url(),
+                    css=CanvasXpress.css_library_url(),
+                ),
+            )
 
         return content
 
