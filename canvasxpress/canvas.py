@@ -112,7 +112,9 @@ class CanvasXpress(CXHtmlConvertable):
         :returns: `str` The ID, if configured; `None` if anonymous.
         """
         return (
-            str(uuid.uuid4()).replace("-", "") if self.anonymous else self.__target_id
+            "cX" + str(uuid.uuid4()).replace("-", "")
+            if self.anonymous
+            else self.__target_id
         )
 
     @render_to.setter
@@ -1005,9 +1007,21 @@ class CanvasXpress(CXHtmlConvertable):
         #  Capture the ID once to avoid anonymous object calls producing different IDs.
         render_id = self.render_to
 
+        formatted_data = self.provide_data_object().render_to_dict()
+
+        if len(formatted_data) == 0:
+            formatted_data = "false"
+
+        if isinstance(formatted_data, dict):
+            if "x" not in formatted_data.keys():
+                formatted_data["x"] = None
+
+            if "z" not in formatted_data.keys():
+                formatted_data["z"] = None
+
         primary_params = {
             "renderTo": render_id,
-            "data": self.provide_data_object().render_to_dict(),
+            "data": formatted_data,
             "config": self.config.render_to_dict(),
             "events": "js_events",
         }
@@ -1021,7 +1035,7 @@ class CanvasXpress(CXHtmlConvertable):
             )
 
         # Support unique data without JSON data structure
-        if canvasxpress["data"].get("raw"):
+        if canvasxpress["data"] != "false" and canvasxpress["data"].get("raw"):
             canvasxpress["data"] = str(canvasxpress["data"]["raw"])
 
         cx_js = render_from_template(

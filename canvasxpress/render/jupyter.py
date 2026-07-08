@@ -2,8 +2,8 @@ import uuid
 from pathlib import Path
 from typing import Any, Union, List
 
-import htmlmin
-from IPython.display import display, HTML, Code
+import minify_html
+from IPython.display import display, HTML, Javascript, Code
 from bs4 import BeautifulSoup
 
 from canvasxpress.canvas import CanvasXpress
@@ -12,43 +12,32 @@ from canvasxpress.render.base import CXRenderable
 _cx_iframe_padding = 50
 
 _cx_intermixed_header = """
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <link 
-                href='@css_url@' 
-                rel='stylesheet' 
-                type='text/css'
-        />
-        <script 
-                src='@js_url@' 
-                type='text/javascript'>
-        </script>
-    </head>
-    <body></body>
-</html>
+<link 
+    href='@css_url@' 
+    rel='preload'
+    as='style'
+/>
+<script 
+    src='@js_url@' 
+    rel='preload'
+    as='script'
+/>
 """
 
 _cx_js_intermixed_template = """
-<script type="text/javascript">
-    @code@
-</script>
+@code@
 """
 
-_cx_html_intermixed_template = """
-<html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-        @canvasxpress_license@
-        @canvases@
-        @js_functions@
-    </body>
-</html>
-"""
 
-_nb_iframe_template = "data:text/html,@html@"
+def _get_cx_header_html() -> str:
+    css_url = CanvasXpress.css_library_url()
+    js_url = CanvasXpress.js_library_url()
+
+    header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
+        "@js_url@", js_url
+    )
+
+    return header_html_text
 
 
 class CXNoteBook(CXRenderable):
@@ -70,30 +59,27 @@ class CXNoteBook(CXRenderable):
 
     @classmethod
     def display_canvasxpress_header(cls):
-        css_url = CanvasXpress.css_library_url()
-        js_url = CanvasXpress.js_library_url()
-
-        header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
-            "@js_url@", js_url
-        )
-
         display(
             HTML(
-                data=header_html_text,
+                data=_get_cx_header_html(),
             ),
         )
 
     def display_debug_code(self, code: str):
-        minified_code = htmlmin.Minifier().minify(code)
-        pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
-        display(
-            Code(
-                data=pretty_code,
-                language="html",
-            ),
+        minified_code = minify_html.minify(
+            code,
+            minify_js=True,
+            minify_css=True,
+            remove_processing_instructions=True,
         )
 
-    def get_chart_display_code(self, columns: int) -> str:
+        pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
+        return Code(
+            data=pretty_code,
+            language="javascript",
+        )
+
+    def get_chart_display_code(self, columns: int) -> list:
         render_targets = list()
 
         if self.canvas is None:
@@ -166,15 +152,25 @@ class CXNoteBook(CXRenderable):
         iframe_height += _cx_iframe_padding
 
         js_functions = "\n".join(
-            [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
-        )
-        html_text = (
-            _cx_html_intermixed_template.replace("@canvases@", canvas_table)
-            .replace("@canvasxpress_license@", cx_license)
-            .replace("@js_functions@", js_functions)
+            [
+                _cx_js_intermixed_template.replace("@code@", fx)
+                .replace("@id@", str(uuid.uuid4()))
+                .replace("-", "")
+                for fx in functions
+            ]
         )
 
-        return html_text
+        content: list = [
+            HTML(data=cx_license),
+            HTML(data=canvas_table),
+            Javascript(
+                data=js_functions,
+                lib=CanvasXpress.js_library_url(),
+                css=CanvasXpress.css_library_url(),
+            ),
+        ]
+
+        return content
 
     def display_charts(self, code: str, output_file: str):
         try:
@@ -185,16 +181,25 @@ class CXNoteBook(CXRenderable):
                     file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
 
                 with open(str(file_path), "w") as render_file:
-                    render_file.write(code)
+                    render_file.write(
+                        """
+                        <html>
+                        <body>
+                        """
+                    )
+                    for element in code:
+                        render_file.write(str(element))
+                    render_file.write(
+                        """
+                        </body>
+                        </html>
+                        """
+                    )
 
         except Exception as e:
-            raise RuntimeError(f"Cannot create output file: {e}")
+            return HTML("<div>Cannot create output file: {e}</div>")
 
-        display(
-            HTML(
-                data=code,
-            ),
-        )
+        return code
 
     def render(self, **kwargs: Any):
         """
@@ -215,26 +220,28 @@ class CXNoteBook(CXRenderable):
               that the HTML code shall be displayed prior to the parsed output.
               Default is False.
         """
-        debug_output_arg = kwargs.get("debug")
-        debug_output = bool(debug_output_arg) if debug_output_arg is not None else False
-
-        columns_arg = int(kwargs.get("columns", 1))
-        columns = columns_arg if columns_arg > 0 else 1
-
-        output_file_arg = kwargs.get("output_file")
-        output_file = (
-            output_file_arg
-            if output_file_arg is not None and isinstance(output_file_arg, str)
-            else None
-        )
-
-        code = self.get_chart_display_code(columns)
-
         try:
-            # self.display_canvasxpress_header()
-            self.display_charts(code, output_file)
+            debug_output_arg = kwargs.get("debug")
+            debug_output = (
+                bool(debug_output_arg) if debug_output_arg is not None else False
+            )
+
+            columns_arg = int(kwargs.get("columns", 1))
+            columns = columns_arg if columns_arg > 0 else 1
+
+            output_file_arg = kwargs.get("output_file")
+            output_file = (
+                output_file_arg
+                if output_file_arg is not None and isinstance(output_file_arg, str)
+                else None
+            )
+
+            code = self.get_chart_display_code(columns)
+
             if debug_output:
-                self.display_debug_code(code)
+                return self.display_debug_code(code)
+            else:
+                return self.display_charts(code, output_file)
 
         except Exception as e:
-            raise RuntimeError(f"Cannot create output cell: {e}")
+            return HTML(f"<div>Cannot create output cell: {e}</div>")
