@@ -6,10 +6,10 @@ import pandas as pd
 # Each file is a tab-delimited matrix with columns and an index, and we can
 # use pandas to read each at their URL to create dataframes
 
-y_data_url = "https://www.canvasxpress.org/data/cX-scatterR2-dat.txt"
+y_data_url = "https://www.canvasxpress.org/data/r/cX-scatterR2-dat.txt"
 y_data = pd.read_csv(y_data_url, sep="\t", index_col=0)
 
-z_data_url = "https://www.canvasxpress.org/data/cX-scatterR2-var.txt"
+z_data_url = "https://www.canvasxpress.org/data/r/cX-scatterR2-var.txt"
 z_data = pd.read_csv(z_data_url, sep="\t", index_col=0)
 
 # The dict structure is an easy way to shape and submit data to CanvasXpress

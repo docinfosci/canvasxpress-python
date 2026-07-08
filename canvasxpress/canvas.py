@@ -112,6 +112,7 @@ class CanvasXpress(CXHtmlConvertable):
         :returns: `str` The ID, if configured; `None` if anonymous.
         """
         return (
+
             "cX" + str(uuid.uuid4()).replace("-", "")
             if self.anonymous
             else self.__target_id
@@ -142,6 +143,9 @@ class CanvasXpress(CXHtmlConvertable):
 
         else:
             candidate = value
+
+        if candidate is not None and candidate[:1].isdigit():
+            candidate = "_" + candidate
 
         self.__target_id = candidate
 
@@ -586,6 +590,8 @@ class CanvasXpress(CXHtmlConvertable):
         :returns: `CXConfigs`
             The after_render configuration to be associated with the chart.
         """
+        if self.__after_render is None:
+            self.__after_render = CXConfigs()
         return self.__after_render
 
     @after_render.setter
@@ -619,6 +625,10 @@ class CanvasXpress(CXHtmlConvertable):
                 "value must be one of Union[List[CXConfig], List[tuple], "
                 "dict, CXConfigs, CXConfigs]"
             )
+
+    @staticmethod
+    def set_dimensions(width: int, height: int, *extra) -> tuple:
+        return ("setDimensions", [width, height, *extra])
 
     __canvas_attributes = CXConfigs()
     """
@@ -749,24 +759,6 @@ class CanvasXpress(CXHtmlConvertable):
                     "renderTo",
                 ]
             ]
-
-            # Capure and remove setDimensions width, height
-            setDimensions_indexes = list()
-            for instruction_index, instruction in enumerate(cx_after_render):
-                if isinstance(instruction, list):
-                    if len(instruction) >= 2:
-                        if instruction[0] == "setDimensions":
-                            dimensions = instruction[1]
-                            if isinstance(dimensions, list):
-                                if len(dimensions) >= 2:
-                                    if isinstance(dimensions[0], int):
-                                        cx_width = dimensions[0]
-                                    if isinstance(dimensions[1], int):
-                                        cx_height = dimensions[1]
-                            setDimensions_indexes.append(instruction_index)
-
-            for index in reversed(setDimensions_indexes):
-                del cx_after_render[index]
 
             candidate = CanvasXpress(
                 render_to=cx_render_to,
