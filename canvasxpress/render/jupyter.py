@@ -12,53 +12,81 @@ from canvasxpress.render.base import CXRenderable
 _cx_iframe_padding = 50
 
 _cx_js_intermixed_template = """
-new Promise(function(resolve, reject) {
-    // 1. Handle CSS Insertion
-    const url = "{{css_url}}";
-    let existingLink = document.querySelector(`head link[href="${url}"]`);
+// 1. First, handle CSS Insertion and wait for it to be completely ready
+new Promise((cssResolve, cssReject) => {
+    const cssUrl = "{{css_url}}";
+    let existingLink = document.querySelector(`head link[href="${cssUrl}"]`);
+
     if (!existingLink) {
-        var link = document.createElement("link");
+        const link = document.createElement("link");
         link.rel = "stylesheet";
         link.type = "text/css";
-        link.href = url;
-        link.onerror = () => reject(new Error(`Failed to load CSS: ${url}`));
-        document.head.appendChild(link);
-    }
-
-    // 2. Handle JS Insertion
-    const scriptUrl = '{{js_url}}';
-    let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
-    
-    if (existingScript) {
-        // Check if the existing script has already finished executing
-        // (Modern browsers set data-loaded or you can check window object flags)
-        if (existingScript.dataset.loaded === "true") {
-            resolve();
-        } else {
-            // Script is still downloading! Attach to its load/error events
-            existingScript.addEventListener('load', () => resolve());
-            existingScript.addEventListener('error', () => reject(new Error(`Failed to load script: ${scriptUrl}`)));
-        }
-    } else {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = scriptUrl;
-        
-        // Mark it as loaded when done so future runs know it's ready
-        script.onload = () => {
-            script.dataset.loaded = "true";
-            resolve();
+        link.href = cssUrl;
+        link.onload = () => {
+            link.dataset.state = "loaded";
+            link.dispatchEvent(new Event("assetLoaded"));
+            cssResolve();
         };
-        script.onerror = () => reject(new Error(`Failed to load script: ${scriptUrl}`));
-        document.head.appendChild(script);
+        link.onerror = () => {
+            link.dataset.state = "failed";
+            link.dispatchEvent(new Event("assetFailed"));
+            cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
+        };
+        document.head.appendChild(link);
+    } else if (existingLink.dataset.state === "loaded") {
+        cssResolve();
+    } else if (existingLink.dataset.state === "failed") {
+        cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
+    } else {
+        // Safe queueing for subsequent runs initiated while CSS is downloading
+        existingLink.addEventListener('assetLoaded', () => cssResolve(), { once: true });
+        existingLink.addEventListener('assetFailed', () => cssReject(new Error(`Failed to load CSS: ${cssUrl}`)), { once: true });
     }
+})
+.then(() => {
+    // 2. CSS is guaranteed ready. Now handle JS Insertion
+    return new Promise((jsResolve, jsReject) => {
+        const scriptUrl = '{{js_url}}';
+        let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+
+        if (existingScript) {
+            if (existingScript.dataset.state === "loaded") {
+                jsResolve();
+            } else if (existingScript.dataset.state === "failed") {
+                jsReject(new Error(`Failed to load script: ${scriptUrl}`));
+            } else {
+                // Safe queueing for subsequent runs initiated while JS is downloading
+                existingScript.addEventListener('assetLoaded', () => jsResolve(), { once: true });
+                existingScript.addEventListener('assetFailed', () => jsReject(new Error(`Failed to load script: ${scriptUrl}`)), { once: true });
+            }
+        } else {
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = scriptUrl;
+            script.dataset.state = "loading";
+
+            script.onload = () => {
+                script.dataset.state = "loaded";
+                script.dispatchEvent(new Event("assetLoaded"));
+                jsResolve();
+            };
+            script.onerror = () => {
+                script.dataset.state = "failed";
+                script.dispatchEvent(new Event("assetFailed"));
+                jsReject(new Error(`Failed to load script: ${scriptUrl}`));
+            };
+            document.head.appendChild(script);
+        }
+    });
 })
 .then(() => { 
-  {{code}} 
+    // 3. Both CSS and JS are ready in order. Run user payload.
+    {{code}} 
 })
 .catch((error) => {
-  console.error("CanvasXpress injection failed:", error);
+    console.error("CanvasXpress injection failed:", error);
 });
+
 """
 
 
