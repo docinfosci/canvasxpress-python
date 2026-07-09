@@ -11,33 +11,83 @@ from canvasxpress.render.base import CXRenderable
 
 _cx_iframe_padding = 50
 
-_cx_intermixed_header = """
-<link 
-    href='@css_url@' 
-    rel='preload'
-    as='style'
-/>
-<script 
-    src='@js_url@' 
-    rel='preload'
-    as='script'
-/>
-"""
-
 _cx_js_intermixed_template = """
-@code@
+// 1. First, handle CSS Insertion and wait for it to be completely ready
+new Promise((cssResolve, cssReject) => {
+    const cssUrl = "{{css_url}}";
+    let existingLink = document.querySelector(`head link[href="${cssUrl}"]`);
+
+    if (!existingLink) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = cssUrl;
+        link.onload = () => {
+            link.dataset.state = "loaded";
+            link.dispatchEvent(new Event("assetLoaded"));
+            cssResolve();
+        };
+        link.onerror = () => {
+            link.dataset.state = "failed";
+            link.dispatchEvent(new Event("assetFailed"));
+            cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
+        };
+        document.head.appendChild(link);
+    } else if (existingLink.dataset.state === "loaded") {
+        cssResolve();
+    } else if (existingLink.dataset.state === "failed") {
+        cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
+    } else {
+        // Safe queueing for subsequent runs initiated while CSS is downloading
+        existingLink.addEventListener('assetLoaded', () => cssResolve(), { once: true });
+        existingLink.addEventListener('assetFailed', () => cssReject(new Error(`Failed to load CSS: ${cssUrl}`)), { once: true });
+    }
+})
+.then(() => {
+    // 2. CSS is guaranteed ready. Now handle JS Insertion
+    return new Promise((jsResolve, jsReject) => {
+        const scriptUrl = '{{js_url}}';
+        let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+
+        if (existingScript) {
+            if (existingScript.dataset.state === "loaded") {
+                jsResolve();
+            } else if (existingScript.dataset.state === "failed") {
+                jsReject(new Error(`Failed to load script: ${scriptUrl}`));
+            } else {
+                // Safe queueing for subsequent runs initiated while JS is downloading
+                existingScript.addEventListener('assetLoaded', () => jsResolve(), { once: true });
+                existingScript.addEventListener('assetFailed', () => jsReject(new Error(`Failed to load script: ${scriptUrl}`)), { once: true });
+            }
+        } else {
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = scriptUrl;
+            script.dataset.state = "loading";
+
+            script.onload = () => {
+                script.dataset.state = "loaded";
+                script.dispatchEvent(new Event("assetLoaded"));
+                jsResolve();
+            };
+            script.onerror = () => {
+                script.dataset.state = "failed";
+                script.dispatchEvent(new Event("assetFailed"));
+                jsReject(new Error(`Failed to load script: ${scriptUrl}`));
+            };
+            document.head.appendChild(script);
+        }
+    });
+})
+.then(() => { 
+    // 3. Both CSS and JS are ready in order. Run user payload.
+    {{code}} 
+})
+.catch((error) => {
+    console.error("CanvasXpress injection failed:", error);
+});
+
 """
-
-
-def _get_cx_header_html() -> str:
-    css_url = CanvasXpress.css_library_url()
-    js_url = CanvasXpress.js_library_url()
-
-    header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
-        "@js_url@", js_url
-    )
-
-    return header_html_text
 
 
 class CXNoteBook(CXRenderable):
@@ -56,14 +106,6 @@ class CXNoteBook(CXRenderable):
             they have distinct `render_to` targets.
         """
         super().__init__(*cx)
-
-    @classmethod
-    def display_canvasxpress_header(cls):
-        display(
-            HTML(
-                data=_get_cx_header_html(),
-            ),
-        )
 
     def display_debug_code(self, code: str):
         minified_code = minify_html.minify(
@@ -133,12 +175,12 @@ class CXNoteBook(CXRenderable):
             content.append(
                 Javascript(
                     data=(
-                        _cx_js_intermixed_template.replace("@code@", fx)
+                        _cx_js_intermixed_template.replace("{{code}}", fx)
+                        .replace("{{css_url}}", CanvasXpress.css_library_url())
+                        .replace("{{js_url}}", CanvasXpress.js_library_url())
                         .replace("@id@", str(uuid.uuid4()))
                         .replace("-", "")
                     ),
-                    lib=CanvasXpress.js_library_url(),
-                    css=CanvasXpress.css_library_url(),
                 ),
             )
 
