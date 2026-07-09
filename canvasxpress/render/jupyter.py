@@ -25,7 +25,34 @@ _cx_intermixed_header = """
 """
 
 _cx_js_intermixed_template = """
-@code@
+new Promise(function(resolve, reject) { 
+  // Insert the CX CSS link ONLY if not yet in the page header. 
+  const url = "{{css_url}}";
+  var link = document.createElement("link"); 
+  link.rel = "stylesheet"; 
+  link.type = "text/css"; 
+  link.href = url; // Fixed: Removed trailing backtick
+  
+  if (!document.querySelector(`head link[href="${url}"]`)) { 
+    document.head.appendChild(link); 
+  }
+
+  // Insert the CX JS script ONLY if not yet in the page header. 
+  const scriptUrl = '{{js_url}}'; 
+  var script = document.createElement("script"); 
+  
+  const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+  if (existingScript) {
+    resolve();
+  } else {
+    script.onload = resolve; 
+    script.onerror = reject; 
+    script.src = scriptUrl; 
+    document.head.appendChild(script); 
+  }
+}).then(() => { 
+  {{code}} 
+});
 """
 
 
@@ -133,12 +160,12 @@ class CXNoteBook(CXRenderable):
             content.append(
                 Javascript(
                     data=(
-                        _cx_js_intermixed_template.replace("@code@", fx)
+                        _cx_js_intermixed_template.replace("{{code}}", fx)
+                        .replace("{{css_url}}", CanvasXpress.css_library_url())
+                        .replace("{{js_url}}", CanvasXpress.js_library_url())
                         .replace("@id@", str(uuid.uuid4()))
                         .replace("-", "")
                     ),
-                    lib=CanvasXpress.js_library_url(),
-                    css=CanvasXpress.css_library_url(),
                 ),
             )
 
