@@ -11,60 +11,55 @@ from canvasxpress.render.base import CXRenderable
 
 _cx_iframe_padding = 50
 
-_cx_intermixed_header = """
-<link 
-    href='@css_url@' 
-    rel='preload'
-    as='style'
-/>
-<script 
-    src='@js_url@' 
-    rel='preload'
-    as='script'
-/>
-"""
-
 _cx_js_intermixed_template = """
-new Promise(function(resolve, reject) { 
-  // Insert the CX CSS link ONLY if not yet in the page header. 
-  const url = "{{css_url}}";
-  var link = document.createElement("link"); 
-  link.rel = "stylesheet"; 
-  link.type = "text/css"; 
-  link.href = url; // Fixed: Removed trailing backtick
-  
-  if (!document.querySelector(`head link[href="${url}"]`)) { 
-    document.head.appendChild(link); 
-  }
+new Promise(function(resolve, reject) {
+    // 1. Handle CSS Insertion
+    const url = "{{css_url}}";
+    let existingLink = document.querySelector(`head link[href="${url}"]`);
+    if (!existingLink) {
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = url;
+        link.onerror = () => reject(new Error(`Failed to load CSS: ${url}`));
+        document.head.appendChild(link);
+    }
 
-  // Insert the CX JS script ONLY if not yet in the page header. 
-  const scriptUrl = '{{js_url}}'; 
-  var script = document.createElement("script"); 
-  
-  const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
-  if (existingScript) {
-    resolve();
-  } else {
-    script.onload = resolve; 
-    script.onerror = reject; 
-    script.src = scriptUrl; 
-    document.head.appendChild(script); 
-  }
-}).then(() => { 
+    // 2. Handle JS Insertion
+    const scriptUrl = '{{js_url}}';
+    let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+    
+    if (existingScript) {
+        // Check if the existing script has already finished executing
+        // (Modern browsers set data-loaded or you can check window object flags)
+        if (existingScript.dataset.loaded === "true") {
+            resolve();
+        } else {
+            // Script is still downloading! Attach to its load/error events
+            existingScript.addEventListener('load', () => resolve());
+            existingScript.addEventListener('error', () => reject(new Error(`Failed to load script: ${scriptUrl}`)));
+        }
+    } else {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = scriptUrl;
+        
+        // Mark it as loaded when done so future runs know it's ready
+        script.onload = () => {
+            script.dataset.loaded = "true";
+            resolve();
+        };
+        script.onerror = () => reject(new Error(`Failed to load script: ${scriptUrl}`));
+        document.head.appendChild(script);
+    }
+})
+.then(() => { 
   {{code}} 
+})
+.catch((error) => {
+  console.error("CanvasXpress injection failed:", error);
 });
 """
-
-
-def _get_cx_header_html() -> str:
-    css_url = CanvasXpress.css_library_url()
-    js_url = CanvasXpress.js_library_url()
-
-    header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
-        "@js_url@", js_url
-    )
-
-    return header_html_text
 
 
 class CXNoteBook(CXRenderable):
@@ -83,14 +78,6 @@ class CXNoteBook(CXRenderable):
             they have distinct `render_to` targets.
         """
         super().__init__(*cx)
-
-    @classmethod
-    def display_canvasxpress_header(cls):
-        display(
-            HTML(
-                data=_get_cx_header_html(),
-            ),
-        )
 
     def display_debug_code(self, code: str):
         minified_code = minify_html.minify(
