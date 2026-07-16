@@ -149,6 +149,9 @@ class CXEvents(CXJavascriptConvertable):
         for event in self.events:
             html = html.replace(f"'js_{event.id}'", event.render_to_js())
 
+        if html == "{}":
+            html = "null"
+
         return html
 
     def __init__(self, *events):

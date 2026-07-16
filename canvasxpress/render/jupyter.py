@@ -11,6 +11,89 @@ from canvasxpress.render.base import CXRenderable
 
 _cx_iframe_padding = 50
 
+
+def inject_cx_assets():
+    injection_script = """
+        // 1. First, handle CSS Insertion and wait for it to be completely ready
+        new Promise((cssResolve, cssReject) => {
+            const cssUrl = "{{css_url}}";
+            let existingLink = document.querySelector(`head link[href="${cssUrl}"]`);
+        
+            if (!existingLink) {
+                const link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.type = "text/css";
+                link.href = cssUrl;
+                link.onload = () => {
+                    link.dataset.state = "loaded";
+                    link.dispatchEvent(new Event("assetLoaded"));
+                    cssResolve();
+                };
+                link.onerror = () => {
+                    link.dataset.state = "failed";
+                    link.dispatchEvent(new Event("assetFailed"));
+                    cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
+                };
+                document.head.appendChild(link);
+            } else if (existingLink.dataset.state === "loaded") {
+                cssResolve();
+            } else if (existingLink.dataset.state === "failed") {
+                cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
+            } else {
+                // Safe queueing for subsequent runs initiated while CSS is downloading
+                existingLink.addEventListener('assetLoaded', () => cssResolve(), { once: true });
+                existingLink.addEventListener('assetFailed', () => cssReject(new Error(`Failed to load CSS: ${cssUrl}`)), { once: true });
+            }
+        })
+        .then(() => {
+            // 2. CSS is guaranteed ready. Now handle JS Insertion
+            return new Promise((jsResolve, jsReject) => {
+                const scriptUrl = '{{js_url}}';
+                let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+        
+                if (existingScript) {
+                    if (existingScript.dataset.state === "loaded") {
+                        jsResolve();
+                    } else if (existingScript.dataset.state === "failed") {
+                        jsReject(new Error(`Failed to load script: ${scriptUrl}`));
+                    } else {
+                        // Safe queueing for subsequent runs initiated while JS is downloading
+                        existingScript.addEventListener('assetLoaded', () => jsResolve(), { once: true });
+                        existingScript.addEventListener('assetFailed', () => jsReject(new Error(`Failed to load script: ${scriptUrl}`)), { once: true });
+                    }
+                } else {
+                    const script = document.createElement("script");
+                    script.type = "text/javascript";
+                    script.src = scriptUrl;
+                    script.dataset.state = "loading";
+        
+                    script.onload = () => {
+                        script.dataset.state = "loaded";
+                        script.dispatchEvent(new Event("assetLoaded"));
+                        jsResolve();
+                    };
+                    script.onerror = () => {
+                        script.dataset.state = "failed";
+                        script.dispatchEvent(new Event("assetFailed"));
+                        jsReject(new Error(`Failed to load script: ${scriptUrl}`));
+                    };
+                    document.head.appendChild(script);
+                }
+            });
+        })
+        .catch((error) => {
+            console.error("CanvasXpress injection failed:", error);
+        });
+    """
+    return Javascript(
+        data=(
+            injection_script.replace(
+                "{{css_url}}", CanvasXpress.css_library_url()
+            ).replace("{{js_url}}", CanvasXpress.js_library_url())
+        ),
+    )
+
+
 _cx_js_intermixed_template = """
 // 1. First, handle CSS Insertion and wait for it to be completely ready
 new Promise((cssResolve, cssReject) => {
@@ -178,8 +261,6 @@ class CXNoteBook(CXRenderable):
                         _cx_js_intermixed_template.replace("{{code}}", fx)
                         .replace("{{css_url}}", CanvasXpress.css_library_url())
                         .replace("{{js_url}}", CanvasXpress.js_library_url())
-                        .replace("@id@", str(uuid.uuid4()))
-                        .replace("-", "")
                     ),
                 ),
             )
