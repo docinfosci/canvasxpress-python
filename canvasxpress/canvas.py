@@ -35,13 +35,13 @@ try {
   // 2. Check if the chart exists before trying to delete it
   if (myChart) {
     myChart.destroy();
-    console.log("Chart @cx_target_id@ successfully destroyed in anticipation of recreation.");
+    console.log("Chart @cx_target_id@ removed for re-rendering.");
   } else {
-    console.log("No cleanup performed for @cx_target_id@ as it was not found.");
+    console.log("Chart @cx_target_id@ ready for rendering.");
   }
 } catch (error) {
   // 3. Handle any unexpected errors safely
-  console.error("An error occurred while attempting to delete @cx_target_id@:", error);
+  console.error("Chart @cx_target_id@ could not be cleaned for re-rendering:", error);
 }
 
 var chart_@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@
