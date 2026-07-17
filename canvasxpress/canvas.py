@@ -27,7 +27,25 @@ _DEFAULT_VERSIONED_CSS_URL = (
     "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.css"
 )
 
-_CX_JS_TEMPLATE = "var cX@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@"
+_CX_JS_TEMPLATE = """
+try {
+  // 1. Get the chart object using the HTML element ID
+  let myChart = CanvasXpress.getObject("@cx_target_id@");
+  
+  // 2. Check if the chart exists before trying to delete it
+  if (myChart) {
+    myChart.destroy();
+    console.log("Chart @cx_target_id@ removed for re-rendering.");
+  } else {
+    console.log("Chart @cx_target_id@ ready for rendering.");
+  }
+} catch (error) {
+  // 3. Handle any unexpected errors safely
+  console.error("Chart @cx_target_id@ could not be cleaned for re-rendering:", error);
+}
+
+var chart_@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@
+"""
 """
 The template for declaring a CanvasXpress Javascript object using data
 from the Python edition.
