@@ -4,6 +4,7 @@ import platform
 import plistlib
 import re
 import subprocess
+from typing import Tuple, Union
 
 try:
     import winreg
@@ -97,7 +98,7 @@ def detect_os() -> str:
         return system
 
 
-def detect_browser_macos() -> tuple[str, str]:
+def detect_browser_macos() -> Tuple[str, str]:
     """
     Detects the default web browser on macOS by reading the LaunchServices preferences.
 
@@ -131,7 +132,7 @@ def detect_browser_macos() -> tuple[str, str]:
     return UNKNOWN_BROWSER
 
 
-def app_version_macos(app_path: str | None) -> str:
+def app_version_macos(app_path: Union[str, None]) -> str:
     """
     Retrieves the version string from a macOS application's Info.plist.
 
@@ -187,7 +188,7 @@ def get_file_version(file_path: str) -> str:
         return UNKNOWN_VERSION
 
 
-def detect_browser_windows() -> tuple[str, str]:
+def detect_browser_windows() -> Tuple[str, str]:
     """
     Detects the default web browser on Windows by reading the registry.
 
@@ -263,7 +264,7 @@ def browser_version_windows(prog_id: str) -> str:
     return UNKNOWN_VERSION
 
 
-def detect_browser_linux() -> tuple[str, str]:
+def detect_browser_linux() -> Tuple[str, str]:
     """
     Detects the default web browser on Linux.
 
@@ -302,7 +303,7 @@ def detect_browser_linux() -> tuple[str, str]:
     return UNKNOWN_BROWSER
 
 
-def get_exec_from_desktop(desktop_file: str) -> str | None:
+def get_exec_from_desktop(desktop_file: str) -> Union[str, None]:
     """
     Extracts the executable command from the Exec= line of a Linux .desktop file.
 
@@ -377,7 +378,7 @@ def browser_version_linux(browser_command: str) -> str:
     return match.group(1) if match else UNKNOWN_VERSION
 
 
-def detect_browser_installed() -> tuple[str, str]:
+def detect_browser_installed() -> Tuple[str, str]:
     """
     Detects the default web browser using the installed-browsers package.
 
@@ -418,7 +419,7 @@ BROWSER_DETECTORS = {
 }
 
 
-def detect_browser() -> tuple[str, str]:
+def detect_browser() -> Tuple[str, str]:
     """
     Detects the default web browser on the current system.
 
