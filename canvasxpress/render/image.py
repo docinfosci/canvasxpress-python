@@ -1,6 +1,7 @@
 import os
 import subprocess
 import json
+import shlex
 from typing import Any, Union, List
 from tempfile import gettempdir
 from pathlib import Path
@@ -196,22 +197,21 @@ class CXImage(CXRenderable):
             for reproducible_json in reproducible_jsons:
                 work_dir = Path(gettempdir()) / "canvasxpress-python"
                 work_dir.mkdir(exist_ok=True)
-                work_json_path = Path(work_dir, "cx_data.json")
                 work_image_path = work_dir
 
-                with open(work_json_path, "w") as json_temp_file:
-                    json_temp_file.write(reproducible_json)
+                reproducible_data = json.loads(reproducible_json)
+                data_text = json.dumps(reproducible_data.get("data"))
+                config_text = json.dumps(reproducible_data.get("config"))
 
                 result = subprocess.run(
                     [
-                        f"{get_nodejs_path()} {image_format} -i {work_json_path} -o {work_image_path}",
+                        f"{get_nodejs_path()} {image_format} -d {shlex.quote(data_text)} -c {shlex.quote(config_text)} -o {work_image_path}",
                     ],
                     shell=True,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     timeout=MAX_NODE_WAIT_SECONDS,
                 )
-                work_json_path.unlink()
                 if result.returncode == 0:
 
                     image_file_options = list(
@@ -223,9 +223,7 @@ class CXImage(CXRenderable):
                         image_file_path.unlink()
                         rendered_images.append(
                             {
-                                "id": json.loads(reproducible_json).get(
-                                    "renderTo", "anonymous"
-                                ),
+                                "id": reproducible_data.get("renderTo", "anonymous"),
                                 "image": {
                                     "binary": image,
                                     "format": image_format,

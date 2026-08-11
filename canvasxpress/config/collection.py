@@ -109,6 +109,10 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                             "value."
                         )
                     self.set_param(str(config[0]), config[1])
+                    if len(config) > 2:
+                        stored_config = self.get_param(str(config[0]))
+                        if stored_config is not None:
+                            stored_config.extra = config[2:]
 
         elif isinstance(config, CXConfig):
             if config not in self.__configs:
