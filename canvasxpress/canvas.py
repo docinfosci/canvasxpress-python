@@ -847,7 +847,7 @@ class CanvasXpress(CXHtmlConvertable):
                 "dict, CXConfigs]"
             )
 
-        existing_config_labels = [item.label for item in config_updated.configs]
+        existing_config_labels = [item.label for item in config_updated]
 
         for key, value in kwargs.items():
             if key == "renderTo":
@@ -1037,7 +1037,7 @@ class CanvasXpress(CXHtmlConvertable):
         secondary_params = self.other_init_params.render_to_dict()
         canvasxpress = {**primary_params, **secondary_params}
         after_render_functions = []
-        for after_render_config in self.after_render.configs:
+        for after_render_config in self.after_render:
             js_function_name = after_render_config.label
             js_function_arguments = [
                 json.dumps(js_function_arguments_value)
@@ -1077,7 +1077,7 @@ class CanvasXpress(CXHtmlConvertable):
             + " ".join(
                 [
                     f"{str(config.label)}={json.dumps(config.value)}"
-                    for config in canvas_configs.configs
+                    for config in canvas_configs
                 ]
             )
             + "></canvas>"
@@ -1108,10 +1108,10 @@ class CanvasXpress(CXHtmlConvertable):
             f"CanvasXpress ({hex(id(self))}):"
             f" render_to '{self.render_to}';"
             f" data <{data}>;"
-            f" config {len(self.config.configs)} item(s);"
-            f" after_render {len(self.after_render.configs)} item(s));"
+            f" config {len(self.config)} item(s);"
+            f" after_render {len(self.after_render)} item(s));"
             f" other_init_params"
-            f" {len(self.other_init_params.configs)} item(s);"
+            f" {len(self.other_init_params)} item(s);"
             f" events {len(self.events.events)} function(s)."
         )
 
@@ -1135,8 +1135,12 @@ class CanvasXpress(CXHtmlConvertable):
 
         str_after_render = json.dumps(
             [
-                [config.label, config.value, *config.extra]
-                for config in self.after_render.configs
+                [
+                    after_render_config.label,
+                    after_render_config.value,
+                    *after_render_config.extra,
+                ]
+                for after_render_config in self.after_render
             ]
         )
         str_after_render_parts = str_after_render.split("\n")

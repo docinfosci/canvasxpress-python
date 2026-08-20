@@ -1,8 +1,10 @@
 import base64
 import json
-import os
+import re
+import urllib.request
 from datetime import datetime
-from typing import Any
+from pathlib import Path
+from typing import Any, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -19,11 +21,26 @@ from canvasxpress.context.platform import (
 from canvasxpress.util.template import render_from_template
 
 with open(
-    os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "util", "json_template.json"
-    )
+    Path(__file__).parent.parent / "util" / "json_template.json"
 ) as template_file:
     JSON_TEMPLATE = template_file.read()
+
+
+def query_latest_canvasxpress_version() -> Union[str, None]:
+    """
+    Determines the current CanvasXpress JavaScript library version.
+    :returns: `Union[str, None]`
+        The version number, or None if undetermined.
+    """
+    request = urllib.request.Request(
+        CanvasXpress.js_library_url(),
+        headers={"User-Agent": "canvasxpress-python", "Range": "bytes=0-600"},
+    )
+    with urllib.request.urlopen(request, timeout=5) as response:
+        content = response.read().decode("utf-8", errors="ignore")
+
+    match = re.search(r"CanvasXpress\s+([0-9]+\.[0-9]+)", content)
+    return match.group(1) if match else None
 
 
 class CXJSON(CXRenderable):
@@ -45,6 +62,9 @@ class CXJSON(CXRenderable):
             raise ValueError("cx cannot be None.")
 
         current_version = CanvasXpress.cdn_edition()
+        if current_version is None:
+            current_version = query_latest_canvasxpress_version()
+
         os_name = detect_os()
         browser_name, browser_version = detect_browser()
         is_jupyter = is_ipython_available()
@@ -63,11 +83,11 @@ class CXJSON(CXRenderable):
             "events": {event.id: {} for event in cx.events.events},
             "afterRender": [
                 [config.label, config.value, *config.extra]
-                for config in cx.after_render.configs
+                for config in cx.after_render
             ],
             "buildDate": datetime.now().strftime("%m-%d-%Y"),
             "client": base64.b64encode(f"0::1::{current_version}::".encode()).decode(),
-            "href": f"file://{os.path.abspath('.')}",
+            "href": f"file://{Path('.')}",
             "services": "https://www.canvasxpress.org/cgi-bin/services.py",
             "browser": browser_name,
             "browserVersion": browser_version,

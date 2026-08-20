@@ -70,7 +70,7 @@ class CXRenderAssociation(ABC):
         charts = list()
         for arg in cx:
             if arg is None:
-                pass
+                continue
 
             if isinstance(arg, (list, tuple)):
                 for item in arg:

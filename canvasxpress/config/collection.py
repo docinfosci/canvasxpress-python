@@ -1,7 +1,7 @@
 import json
 from copy import deepcopy
 from functools import total_ordering
-from typing import List, Any, Union
+from typing import Iterator, List, Any, Union
 
 from canvasxpress.config.type import (
     CXConfig,
@@ -212,6 +212,20 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         :returns: `List[CXConfig]`
         """
         return self.__configs
+
+    def __iter__(self) -> Iterator[CXConfig]:
+        """
+        Iterates over `CXConfig` objects.
+        :returns: `Iterator[CXConfig]`
+        """
+        return iter(self.__configs)
+
+    def __len__(self) -> int:
+        """
+        Provides the number of `CXConfig` objects.
+        :returns: `int`
+        """
+        return len(self.__configs)
 
     def render_to_dict(self) -> dict:
         """
