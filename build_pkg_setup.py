@@ -43,6 +43,8 @@ setup(
         ' Dr. Constance M. Brett for R;'
         ' Dr. Todd C. Brett for Python and Dash; and'
         ' Dr. Jennifer Walker for Python.'
+        'Eng. Mennahtullah Mabrouk for Python.'
+        'Eng. Mohamed Ali for R and Python.'
     ),
     author_email='todd@aggregate-genius.com',
     description='CanvasXpress for Python',

@@ -7,7 +7,7 @@ from warnings import warn
 from pandas import DataFrame
 
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXConfig
+from canvasxpress.config.type import CXConfig, CXList
 from canvasxpress.data.base import CXData
 from canvasxpress.data.convert import CXHtmlConvertable
 from canvasxpress.data.keypair import CXDictData
@@ -644,8 +644,8 @@ class CanvasXpress(CXHtmlConvertable):
             )
 
     @staticmethod
-    def set_dimensions(width: int, height: int, *extra) -> tuple:
-        return ("setDimensions", [width, height, *extra])
+    def set_dimensions(width: int, height: int, *extra) -> CXList:
+        return CXList("setDimensions", [width, height, *extra])
 
     __canvas_attributes = CXConfigs()
     """
@@ -847,7 +847,7 @@ class CanvasXpress(CXHtmlConvertable):
                 "dict, CXConfigs]"
             )
 
-        existing_config_labels = [item.label for item in config_updated.configs]
+        existing_config_labels = [item.label for item in config_updated]
 
         for key, value in kwargs.items():
             if key == "renderTo":
@@ -1037,10 +1037,14 @@ class CanvasXpress(CXHtmlConvertable):
         secondary_params = self.other_init_params.render_to_dict()
         canvasxpress = {**primary_params, **secondary_params}
         after_render_functions = []
-        for fx in self.after_render.render_to_list():
-            params = [json.dumps(p) for p in fx[1]]
+        for after_render_config in self.after_render:
+            js_function_name = after_render_config.label
+            js_function_arguments = [
+                json.dumps(js_function_arguments_value)
+                for js_function_arguments_value in after_render_config.value
+            ]
             after_render_functions.append(
-                f"CanvasXpress.$('{render_id}').{fx[0]}({', '.join(params)})"
+                f"CanvasXpress.$('{render_id}').{js_function_name}({', '.join(js_function_arguments)})"
             )
 
         # Support unique data without JSON data structure
@@ -1073,7 +1077,7 @@ class CanvasXpress(CXHtmlConvertable):
             + " ".join(
                 [
                     f"{str(config.label)}={json.dumps(config.value)}"
-                    for config in canvas_configs.configs
+                    for config in canvas_configs
                 ]
             )
             + "></canvas>"
@@ -1104,10 +1108,10 @@ class CanvasXpress(CXHtmlConvertable):
             f"CanvasXpress ({hex(id(self))}):"
             f" render_to '{self.render_to}';"
             f" data <{data}>;"
-            f" config {len(self.config.configs)} item(s);"
-            f" after_render {len(self.after_render.configs)} item(s));"
+            f" config {len(self.config)} item(s);"
+            f" after_render {len(self.after_render)} item(s));"
             f" other_init_params"
-            f" {len(self.other_init_params.configs)} item(s);"
+            f" {len(self.other_init_params)} item(s);"
             f" events {len(self.events.events)} function(s)."
         )
 
@@ -1129,7 +1133,16 @@ class CanvasXpress(CXHtmlConvertable):
         str_config_parts = str_config.split("\n")
         str_config = "\n".join(["    " + line for line in str_config_parts])[4:]
 
-        str_after_render = json.dumps(self.after_render.render_to_list())
+        str_after_render = json.dumps(
+            [
+                [
+                    after_render_config.label,
+                    after_render_config.value,
+                    *after_render_config.extra,
+                ]
+                for after_render_config in self.after_render
+            ]
+        )
         str_after_render_parts = str_after_render.split("\n")
         str_after_render = "\n".join(
             ["    " + line for line in str_after_render_parts]

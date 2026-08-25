@@ -22,6 +22,34 @@ class CXConfig(ABC):
     The configuration object's label.
     """
 
+    __extra: tuple = ()
+    """
+    Additional trailing elements beyond `label` and `value` that were imported
+    when the configuration was created from a multi-element list
+    """
+
+    @property
+    def extra(self) -> tuple:
+        """
+        Provides any trailing elements beyond `label` and `value` that were
+        originally imported with the configuration.
+        :returns: `tuple`
+            The trailing elements, if any, otherwise an empty `tuple`.
+        """
+        return self.__extra
+
+    @extra.setter
+    def extra(self, extra: Union[tuple, list]) -> None:
+        """
+        Sets the trailing elements associated with the configuration.
+        :param extra: `Union[tuple, list]`
+            The trailing elements to associate.
+        """
+        if extra is None:
+            self.__extra = ()
+        else:
+            self.__extra = tuple(extra)
+
     @property
     def label(self) -> str:
         """
