@@ -25,22 +25,40 @@ if _g_context == CONTEXT_JUPYTER:
 
 
 def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
-    """
-    Accepts a str with a reproducible JSON and returns a CanvasXpress object.
+    """Accepts a str with a reproducible JSON and returns a CanvasXpress object.
+
+    Args:
+        json: `str` A valid reproducible research JSON string.
+
+    Returns:
+        `Union[None, CanvasXpress]`: A CanvasXpress object constructed from
+        the JSON, or None if the JSON is invalid.
     """
     return CanvasXpress.from_reproducible_json(json)
 
 
 def convert_to_reproducible_json(canvas: CanvasXpress) -> str:
-    """
-    Converts the CanvasXpress object into a reproducible JSON string.
+    """Converts the CanvasXpress object into a reproducible JSON string.
+
+    Args:
+        canvas: `CanvasXpress` The CanvasXpress object to convert.
+
+    Returns:
+        `str`: A reproducible JSON string representation of the canvas.
     """
     return CXJSON.render_to_json(canvas)
 
 
 def convert_to_image(canvas: CanvasXpress, type: str = "png") -> Union[None, bytes]:
-    """
-    Converts the CanvasXpress object to an image of the specified type.
+    """Converts the CanvasXpress object to an image of the specified type.
+
+    Args:
+        canvas: `CanvasXpress` The CanvasXpress object to convert.
+        type: `str` The image format (e.g., 'png', 'jpg'). Defaults to 'png'.
+
+    Returns:
+        `Union[None, bytes]`: The image binary data, or None if conversion
+        fails.
     """
     converter = CXImage(canvas)
     candidates = converter.render(format=type)
@@ -50,19 +68,23 @@ def convert_to_image(canvas: CanvasXpress, type: str = "png") -> Union[None, byt
 
 
 def show_in_browser(canvas: CanvasXpress) -> None:
-    """
-    Opens a browser and displays the canvas.
+    """Opens a browser and displays the canvas.
+
+    Args:
+        canvas: `CanvasXpress` The CanvasXpress object to display.
     """
     plotter = CXBrowserPopup(canvas)
     plotter.render()
 
 
 def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
-    """
-    Displays the CanvasXpress object as a visualized chart in a manner appropriate to the running context.
+    """Displays the CanvasXpress object as a visualized chart in a manner
+    appropriate to the running context.
 
-    To override an assumed context the ENV variable `CANVASXPRESS_TARGET_CONTEXT` can be set to one of the following
-    values, in which case `show` will attempt to illustrate the chart of the set target.
+    To override an assumed context the ENV variable
+    `CANVASXPRESS_TARGET_CONTEXT` can be set to one of the following values,
+    in which case `show` will attempt to illustrate the chart of the set
+    target.
 
     - rstudio
     - shiny
@@ -71,8 +93,14 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
     - streamlit
     - browser
 
-    :returns: An `object` or `None` depending on the target context.  In the case of `browser` a popup browser will
-        be launched.`
+    Args:
+        canvas: `CanvasXpress` The CanvasXpress object to display.
+        debug: `bool` Whether to enable debug mode. Defaults to False.
+        **kwargs: Additional keyword arguments passed to the renderer.
+
+    Returns:
+        `Any`: An object or None depending on the target context. In the
+        case of `browser` a popup browser will be launched.
     """
     if _g_context == CONTEXT_RSTUDIO:
         from canvasxpress.render.shiny import CXShinyWidget
