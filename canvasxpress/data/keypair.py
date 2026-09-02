@@ -11,8 +11,7 @@ from canvasxpress.data.base import CXKeyPairData
 
 @total_ordering
 class CXDictData(CXKeyPairData):
-    """
-    A CXData class dedicated to processing Python dict-structured data.
+    """A CXData class dedicated to processing Python dict-structured data.
     """
 
     __data: dict = dict()
@@ -22,21 +21,21 @@ class CXDictData(CXKeyPairData):
 
     @property
     def data(self) -> dict:
-        """
-        Provides a reference to the dict tracked by the object.
-        :returns: `dict`
-            The associated dictionary, with zero or more keys as appropriate.
+        """Provides a reference to the dict tracked by the object.
+
+        Returns:
+            dict: The associated dictionary, with zero or more keys as appropriate.
         """
         return self.__data
 
     @data.setter
     def data(self, value: dict) -> None:
-        """
-        Sets the data associated with the object.
-        :param value: `dict`
-            The dictionary to be tracked by the object.  `None` will result in
-            an empty dict.  A deep copy will be made of a valid `CXDict` or
-            `dict` provided.
+        """Sets the data associated with the object.
+
+        Args:
+            value: The dictionary to be tracked by the object.  `None` will result in
+                an empty dict.  A deep copy will be made of a valid `CXDict` or
+                `dict` provided.
         """
         if value == None:
             self.__data = dict()
@@ -51,68 +50,70 @@ class CXDictData(CXKeyPairData):
             self.__data = deepcopy(value)
 
     def get_raw_dict_form(self) -> dict:
-        """
-        Provides a simple dict perspective of the data with no metadata or other
-        contextual transformations performed.  For example, if the data is
-        natively in `dict` form then it would be passed-through with no
-        modification or enhancement.
+        """Provides a simple dict perspective of the data with no metadata or other
+        contextual transformations performed.
+
+        For example, if the data is natively in `dict` form then it would be
+        passed-through with no modification or enhancement.
 
         This implementation provides matrix data formatted in a `dict` object
         with `DataFrame.to_dict('split')` behaviour.
 
-        :returns: `dict`
-            The `dict` perspective of the data with as little modification or
-            interpretation as is reasonable.
+        Returns:
+            dict: The `dict` perspective of the data with as little modification or
+                interpretation as is reasonable.
         """
         return deepcopy(self.data)
 
     def render_to_dict(self, **kwargs) -> dict:
-        """
-        Provides a dict representation of the data.
-        :returns: `dict`
-            The data in `dict` form.
+        """Provides a dict representation of the data.
+
+        Returns:
+            dict: The data in `dict` form.
         """
         return self.get_raw_dict_form()
 
     def __init__(self, data: Union[dict, None] = None) -> None:
-        """
-        Initializes the CXData object with data.  Only dict or compatible data
-        types are accepted.
-        :param data: `Union[dict, None]`
-            `None` to initialize with an empty dictionary, or a `dict`-like
-            object to assign mapped data.
+        """Initializes the CXData object with data.
+
+        Only dict or compatible data types are accepted.
+
+        Args:
+            data: `None` to initialize with an empty dictionary, or a `dict`-like
+                object to assign mapped data.
         """
         super().__init__(data)
         self.data = data
 
     def __copy__(self) -> "CXDictData":
-        """
-        *copy constructor* that returns a copy of the CXDictData object.
-        :returns: `CXDictData` A copy of the wrapping object.
+        """copy constructor that returns a copy of the CXDictData object.
+
+        Returns:
+            CXDictData: A copy of the wrapping object.
         """
         return self.__class__(self.data)
 
     def __deepcopy__(self, memo) -> "CXDictData":
-        """
-        *deepcopy constructor* that returns a copy of the CXDictData object.
-        :returns: `CXDictData` A copy of the wrapping object and deepcopy of
-            the tracked data.
+        """deepcopy constructor that returns a copy of the CXDictData object.
+
+        Returns:
+            CXDictData: A copy of the wrapping object and deepcopy of the tracked
+                data.
         """
         return self.__class__(deepcopy(self.data))
 
     def __lt__(self, other: "CXDictData") -> bool:
-        """
-        *less than* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDictData` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDictData` object then False
-            <li> If `other` is a `CXDictData` object then True of all
-                `CXDictData` objects are also less than the data tracked by
-                `self`.
-            </ul>
+        """less than comparison.
+
+        Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: The object to compare.
+
+        Returns:
+            bool: True if `other` is a `CXDictData` object and all of its data is
+                less than the data tracked by `self`. False if `other` is `None`,
+                not a `CXDictData` object, or if `self` is not less than `other`.
         """
         if other is None:
             return False
@@ -141,18 +142,17 @@ class CXDictData(CXKeyPairData):
                 return (other_added - other_removed) > 0
 
     def __eq__(self, other: "CXDictData") -> bool:
-        """
-        *equals* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDictData` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDictData` object then False
-            <li> If `other` is a `CXDictData` object then True of all
-                `CXDictData` objects are also equal to the data tracked by
-                `self`.
-            </ul>
+        """equals comparison.
+
+        Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: The object to compare.
+
+        Returns:
+            bool: True if `other` is a `CXDictData` object and all of its data is
+                equal to the data tracked by `self`. False if `other` is `None`,
+                not a `CXDictData` object, or if `self` is not equal to `other`.
         """
         if other is None:
             return False
@@ -179,44 +179,48 @@ class CXDictData(CXKeyPairData):
                 return False
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the CXDictData object into a JSON
-        representation.
-        :returns" `str` JSON form of the `CXDictData`.
+        """str function.
+
+        Converts the CXDictData object into a JSON representation.
+
+        Returns:
+            str: JSON form of the `CXDictData`.
         """
         return json.dumps(self.data)
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXDictData object into a pickle string
-        that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """repr function.
+
+        Converts the CXDictData object into a pickle string that can be used with
+        `eval` to establish a copy of the object.
+
+        Returns:
+            str: An evaluatable representation of the object.
         """
         return f"CXDictData(data={json.dumps(self.data)})"
 
 
 class CXJSONData(CXDictData):
-    """
-    A CXData class dedicated to processing JSON data.
+    """A CXData class dedicated to processing JSON data.
     """
 
     @property
     def json(self) -> str:
-        """
-        Provides a copy of the JSON tracked by the object.
-        :returns: `str`
-            The associated JSON, with zero or more keys as appropriate.
+        """Provides a copy of the JSON tracked by the object.
+
+        Returns:
+            str: The associated JSON, with zero or more keys as appropriate.
         """
         return str(self)
 
     @json.setter
     def json(self, value: Union[dict, str]) -> None:
-        """
-        Sets the data associated with the object.
-        :param value: `str`
-            The JSON to be tracked by the object.  `None` will result in
-            an empty JSON.  If `value` is URL beginning with *http/s*
-            then `json` will attempt to download the data.
+        """Sets the data associated with the object.
+
+        Args:
+            value: The JSON to be tracked by the object.  `None` will result in
+                an empty JSON.  If `value` is URL beginning with *http/s*
+                then `json` will attempt to download the data.
         """
         if isinstance(value, str) and value.lower().startswith("http"):
             try:
@@ -244,34 +248,40 @@ class CXJSONData(CXDictData):
             CXDictData.data.fset(self, value)
 
     def __init__(self, data: Union[dict, str, None] = None) -> None:
-        """
-        Initializes the CXData object with data.  Only dict or compatible data
-        types are accepted.
-        :param data: `Union[dict, str, None]`
-            `None` to initialize with an empty JSON, or a JSON/`dict`-like
-            object to assign mapped data.
+        """Initializes the CXData object with data.
+
+        Only dict or compatible data types are accepted.
+
+        Args:
+            data: `None` to initialize with an empty JSON, or a JSON/`dict`-like
+                object to assign mapped data.
         """
         super().__init__(data)
 
     def __copy__(self) -> "CXJSONData":
-        """
-        *copy constructor* that returns a copy of the CXDictData objct.
-        :returns: `CXDictData` A copy of the wrapping object.
+        """copy constructor that returns a copy of the CXDictData object.
+
+        Returns:
+            CXJSONData: A copy of the wrapping object.
         """
         return CXJSONData(self.data)
 
     def __deepcopy__(self, memo) -> "CXJSONData":
-        """
-        *deepcopy constructor* that returns a copy of the CXJSONData object.
-        :returns: `CXJSONData` A copy of the wrapping object and deepcopy of
-            the tracked data.
+        """deepcopy constructor that returns a copy of the CXJSONData object.
+
+        Returns:
+            CXJSONData: A copy of the wrapping object and deepcopy of the tracked
+                data.
         """
         return CXJSONData(self.data)
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXJSONData object into a pickle string
-        that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """repr function.
+
+        Converts the CXJSONData object into a pickle string that can be used with
+        `eval` to establish a copy of the object.
+
+        Returns:
+            str: An evaluatable representation of the object.
         """
         return f"CXJSONData(data={str(self.data)})"
