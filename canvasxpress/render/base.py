@@ -7,22 +7,21 @@ from canvasxpress.canvas import CanvasXpress
 
 class CXRenderAssociation(ABC):
     """
-    CXRenderAssociation tracks A set of CanvasXpress objects that will be used to produce
+    CXRenderAssociation tracks a set of CanvasXpress objects that will be used to produce
     a domain- or container-specific rendering (e.g., for display in a Jupyter notebook).
     """
 
     __cx: List[CanvasXpress] = list()
-    """
-    The CanvasXpress object to be managed by this CXRenderAssociation.
-    """
+    """The CanvasXpress objects to be managed by this CXRenderAssociation."""
 
     @property
     def canvas(self) -> Union[List[CanvasXpress], CanvasXpress, None]:
         """
-        Provides the tracked CanvasXpress object.
-        :returns: `value: Union[List[CanvasXpress], CanvasXpress, None]`
-            A `list` of `CanvasXpress` objects if multiple are tracked,
-            or one `CanvasXpress object, or `None` if no objects are tracked.
+        Provides the tracked CanvasXpress object(s).
+
+        Returns:
+            A list of CanvasXpress objects if multiple are tracked,
+            a single CanvasXpress object, or None if no objects are tracked.
         """
         if len(self.__cx) == 0:
             return None
@@ -36,11 +35,16 @@ class CXRenderAssociation(ABC):
     @canvas.setter
     def canvas(self, value: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Sets the CanvasXpress object to be tracked.
-        :praram value: `value: Union[List[CanvasXpress], CanvasXpress, None]`
-            A `list` of `CanvasXpress` objects if multiple are tracked,
-            or one `CanvasXpress object, or `None` if no objects are to be
-            tracked.
+        Sets the CanvasXpress object(s) to be tracked.
+
+        Args:
+            value: A list of CanvasXpress objects if multiple are tracked,
+                a single CanvasXpress object, or None if no objects are to be
+                tracked.
+
+        Raises:
+            TypeError: If value is not None, a CanvasXpress instance, or a list
+                of CanvasXpress instances.
         """
         if value is None:
             self.__cx = list()
@@ -60,12 +64,16 @@ class CXRenderAssociation(ABC):
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXRenderable` object.
-        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXRenderAssociation object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         charts = list()
         for arg in cx:
@@ -96,12 +104,16 @@ class CXRenderable(CXRenderAssociation):
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXRenderable` object.
-        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXRenderable object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         super().__init__(*cx)
 
@@ -109,11 +121,14 @@ class CXRenderable(CXRenderAssociation):
     def render(self, **kwargs: Any):
         """
         Renders the associated CanvasXpress object appropriate to the render_to.
-        Not implemented.
-        :param kwargs: `Any`
-            Parameters specific to implementations are supported.  The essential
-            render call should work with no extra parameters, and with
-            parameters that do not apply to the implementation.
+
+        Note:
+            This method is not implemented. Subclasses must provide an implementation.
+
+        Args:
+            kwargs: Parameters specific to implementations are supported.
+                The essential render call should work with no extra parameters,
+                and with parameters that do not apply to the implementation.
         """
         pass
 
@@ -126,12 +141,16 @@ class CXRenderFactory(CXRenderAssociation):
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXRenderFactory` object.
-        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXRenderFactory object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         super().__init__(*cx)
 
@@ -140,10 +159,16 @@ class CXRenderFactory(CXRenderAssociation):
         """
         Provides a list of objects that can be used by the target domain or container
         to create CanvasXpress illustrations or instantiations.
-        Not implemented.
-        :param kwargs: `Any`
-            Parameters specific to implementations are supported.  The essential
-            render call should work with no extra parameters, and with
-            parameters that do not apply to the implementation.
+
+        Note:
+            This method is not implemented. Subclasses must provide an implementation.
+
+        Args:
+            kwargs: Parameters specific to implementations are supported.
+                The essential render call should work with no extra parameters,
+                and with parameters that do not apply to the implementation.
+
+        Returns:
+            A list of objects usable by the target domain or container.
         """
         pass
