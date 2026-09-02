@@ -46,6 +46,8 @@ try {
 
 var chart_@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@
 """
+
+"""
 The template for declaring a CanvasXpress Javascript object using data
 from the Python edition.
 """
@@ -84,9 +86,10 @@ class CanvasXpress(CXHtmlConvertable):
             data=CXDictData(
                 {
                     "y": {
-                    "vars": ["Gene1"],
-                    "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]],
+                        "vars": ["Gene1"],
+                        "smps": ["Smp1", "Smp2", "Smp3"],
+                        "data": [[10, 35, 88]],
+                    }
                 }
             ),
             config=CXConfigs(
