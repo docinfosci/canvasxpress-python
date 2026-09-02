@@ -8,13 +8,13 @@ from canvasxpress.data.base import CXData
 
 
 class CXTextData(CXData):
-    """
-    `CXTextData` is a `CXData` class that provides plain-text data directly to
-    the CanvasXpress for Javascript object.  In this manner, the Python tier
-    makes no assumptions about the data content and permits the Javascript tier
-    to address any required adjustments in order to properly display the data
-    within a chart.  If the data is erroneously formatted then the only
-    feedback will be at the Javascript tier.
+    """CXTextData is a `CXData` class that provides plain-text data directly to
+    the CanvasXpress for Javascript object.
+
+    In this manner, the Python tier makes no assumptions about the data content
+    and permits the Javascript tier to address any required adjustments in order
+    to properly display the data within a chart.  If the data is erroneously
+    formatted then the only feedback will be at the Javascript tier.
     """
 
     __raw_text = ""
@@ -25,10 +25,10 @@ class CXTextData(CXData):
 
     @property
     def text(self) -> str:
-        """
-        Returns the raw text form of the data.
-        :returns: `str`
-            The text to be provided to CanvasXpress.
+        """Returns the raw text form of the data.
+
+        Returns:
+            str: The text to be provided to CanvasXpress.
         """
         return self.__raw_text
 
@@ -52,24 +52,26 @@ class CXTextData(CXData):
 
     @property
     def data(self) -> dict:
-        """
-        A property accessor for the data managed by the object.  Regardless of
-        the input data the returned data structure will be a dict-type for use
-        with CanvasXpress.
-        :returns: `dict`
-            A dictionary representing a data map suitable for use with a chart.
+        """A property accessor for the data managed by the object.
+
+        Regardless of the input data the returned data structure will be a
+        dict-type for use with CanvasXpress.
+
+        Returns:
+            dict: A dictionary representing a data map suitable for use with a chart.
         """
         return self.get_raw_dict_form()
 
     def get_raw_dict_form(self) -> dict:
-        """
-        Provides a simple dict perspective of the data with no metadata or other
-        contextual transformations performed.  For example, if the data is
-        natively in `dict` form then it would be passed-through with no
-        modification or enhancement.
-        :returns: `dict`
-            The `dict` perspective of the data with as little modification or
-            interpretation as is reasonable.
+        """Provides a simple dict perspective of the data with no metadata or other
+        contextual transformations performed.
+
+        For example, if the data is natively in `dict` form then it would be
+        passed-through with no modification or enhancement.
+
+        Returns:
+            dict: The `dict` perspective of the data with as little modification or
+                interpretation as is reasonable.
         """
         try:
             # Check the data as a JSON object.  If the JSON object equates to
@@ -88,28 +90,28 @@ class CXTextData(CXData):
             return {"raw": self.text}
 
     def render_to_dict(self, **kwargs) -> dict:
-        """
-        Converts the object into a dict representation.
-        :returns: `dict`
-            A dictionary representation of the object, such as what might be
-            needed for a JSON export.
+        """Converts the object into a dict representation.
+
+        Returns:
+            dict: A dictionary representation of the object, such as what might be
+                needed for a JSON export.
         """
         return self.get_raw_dict_form()
 
     def __init__(self, data: Union[object, None] = None) -> None:
-        """
-        Initializes the CXData object with data.
-        :param data: `Union[object, None]`
-            Given an object or no data prepares a new CXData instance ready for
-            use by a `CanvasXpress` object.
+        """Initializes the CXData object with data.
+
+        Args:
+            data: Given an object or no data prepares a new CXData instance ready for
+                use by a `CanvasXpress` object.
         """
         self.text = data
 
 
 class CXDataframeData(CXTextData):
-    """
-    `CXDataframeData` is a `CXTextData` class that provides plain-text data directly to
-    the CanvasXpress for Javascript object by converting a Pandas DataFrame into a text matrix.
+    """CXDataframeData is a `CXTextData` class that provides plain-text data
+    directly to the CanvasXpress for Javascript object by converting a Pandas
+    DataFrame into a text matrix.
     """
 
     __data: DataFrame = DataFrame()
@@ -124,15 +126,26 @@ class CXDataframeData(CXTextData):
 
     @property
     def delimiter(self) -> str:
-        """
-        Provides the delimiter (separator) used when creating the text matrix.
+        """Provides the delimiter (separator) used when creating the text matrix.
+
+        Returns:
+            str: The delimiter character (comma or tab).
         """
         return self.__delimiter
 
     @delimiter.setter
     def delimiter(self, value) -> None:
-        """
-        Sets the delimiter to the desired value.  Must be CSV or TSV compliant.
+        """Sets the delimiter to the desired value.
+
+        Must be CSV or TSV compliant.
+
+        Args:
+            value: The delimiter character. Must be a single character str
+                bearing a comma or tab.
+
+        Raises:
+            TypeError: If the delimiter is not a string.
+            ValueError: If the delimiter is not a comma or tab.
         """
         if not isinstance(value, str):
             raise TypeError(
@@ -149,19 +162,20 @@ class CXDataframeData(CXTextData):
 
     @property
     def dataframe(self) -> DataFrame:
-        """
-        Provides the data managed by the object.
-        :returns: `DataFrame` The managed data.
+        """Provides the data managed by the object.
+
+        Returns:
+            DataFrame: The managed data.
         """
         return self.__data
 
     @dataframe.setter
     def dataframe(self, value: Union[DataFrame, None] = None) -> None:
-        """
-        Sets the dataframe managed by the object.
-        :param value: `Union[DataFrame, None]`
-            `None` results in an empty `DataFrame`.  A deepcopy will be made of
-            `DataFrame` values.
+        """Sets the dataframe managed by the object.
+
+        Args:
+            value: `None` results in an empty `DataFrame`.  A deepcopy will be made of
+                `DataFrame` values.
         """
 
         if value is not None and not isinstance(value, DataFrame):
@@ -185,12 +199,12 @@ class CXDataframeData(CXTextData):
 
     @text.setter
     def text(self, value: str) -> None:
-        """
-        Sets the text to be provided to CanvasXpress.
-        :param value: `str`
-            The text to provide as-is to CanvasXpress.  `None` will be
-            converted to an empty `str`.  Values of type other than `str`
-            will be converted using `str()`.
+        """Sets the text to be provided to CanvasXpress.
+
+        Args:
+            value: The text to provide as-is to CanvasXpress.  `None` will be
+                converted to an empty `str`.  Values of type other than `str`
+                will be converted using `str()`.
         """
         if value is None:
             self.__raw_text = ""
@@ -206,47 +220,48 @@ class CXDataframeData(CXTextData):
         data: Union[DataFrame, None] = None,
         delimiter: str = ",",
     ) -> None:
-        """
-        Initializes the CXDataFrameData object with data.
-        :param data: `Union[DataFrame, None]`
-            Given an DataFrame or no data prepares a new CXDataFrameData instance ready for
-            use by a `CanvasXpress` object.
-        :param delimiter: `str`
-            A single character `str` with a comma or tab as the value.  The default is a comma.
+        """Initializes the CXDataFrameData object with data.
+
+        Args:
+            data: Given an DataFrame or no data prepares a new CXDataFrameData instance
+                ready for use by a `CanvasXpress` object.
+            delimiter: A single character `str` with a comma or tab as the value.
+                The default is a comma.
         """
         super().__init__(None)
         self.delimiter = delimiter
         self.dataframe = data
 
     def __copy__(self) -> "CXDataframeData":
-        """
-        *copy constructor* that returns a copy of the CXDataframeData object.
-        :returns: `CXDataframeData`
-            A copy of the wrapping object.
+        """copy constructor that returns a copy of the CXDataframeData object.
+
+        Returns:
+            CXDataframeData: A copy of the wrapping object.
         """
         return self.__class__(self.dataframe)
 
     def __deepcopy__(self, memo) -> "CXDataframeData":
-        """
-        *deepcopy constructor* that returns a copy of the CXDataframeData object.
-        :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
-            the tracked data.
+        """deepcopy constructor that returns a copy of the CXDataframeData object.
+
+        Returns:
+            CXDataframeData: A copy of the wrapping object and deepcopy of the
+                tracked data.
         """
         return self.__class__(self.data)
 
     def __lt__(self, other: "CXDataframeData") -> bool:
-        """
-        *less than* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDataframeData` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDataframeData` object then False
-            <li> If `other` is a `CXDataframeData` object then True of all
-                `CXDataframeData` aspects are also less than the data tracked by
-                `self`.
-            </ul>
+        """less than comparison.
+
+        Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: The object to compare.
+
+        Returns:
+            bool: True if `other` is a `CXDataframeData` object and all of its
+                aspects are less than the data tracked by `self`. False if `other`
+                is `None`, not a `CXDataframeData` object, or if `self` is not less
+                than `other`.
         """
         if other is None:
             return False
@@ -272,18 +287,18 @@ class CXDataframeData(CXTextData):
                 return self.dataframe.lt(other.dataframe).all(axis=None)
 
     def __eq__(self, other: "CXDataframeData") -> bool:
-        """
-        *equals* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDataframeData` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDataframeData` object then False
-            <li> If `other` is a `CXDataframeData` object then True of all
-                `CXDataframeData` aspects are also less than the data tracked by
-                `self`.
-            </ul>
+        """equals comparison.
+
+        Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: The object to compare.
+
+        Returns:
+            bool: True if `other` is a `CXDataframeData` object and all of its
+                aspects are equal to the data tracked by `self`. False if `other`
+                is `None`, not a `CXDataframeData` object, or if `self` is not equal
+                to `other`.
         """
         if other is None:
             return False
@@ -304,18 +319,23 @@ class CXDataframeData(CXTextData):
             return self.dataframe.eq(other.dataframe).all(axis=None)
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the CXDataframeData object into a JSON
-        representation.
-        :returns" `str` JSON form of the `CXDataframeData`.
+        """str function.
+
+        Converts the CXDataframeData object into a JSON representation.
+
+        Returns:
+            str: JSON form of the `CXDataframeData`.
         """
         return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXDataframeData object into a pickle
-         string that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """repr function.
+
+        Converts the CXDataframeData object into a pickle string that can be used
+        with `eval` to establish a copy of the object.
+
+        Returns:
+            str: An evaluatable representation of the object.
         """
         candidate = (
             f"CXDataframeData("
