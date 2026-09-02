@@ -29,8 +29,9 @@ with open(
 def query_latest_canvasxpress_version() -> Union[str, None]:
     """
     Determines the current CanvasXpress JavaScript library version.
-    :returns: `Union[str, None]`
-        The version number, or None if undetermined.
+
+    Returns:
+        The version number as a string, or None if undetermined.
     """
     request = urllib.request.Request(
         CanvasXpress.js_library_url(),
@@ -45,17 +46,25 @@ def query_latest_canvasxpress_version() -> Union[str, None]:
 
 class CXJSON(CXRenderable):
     """
-    CXJSON is a `CXRenderable` that renders `CanvasXpress` objects into reproducible JSON descriptions.
+    CXJSON is a CXRenderable that renders CanvasXpress objects into reproducible JSON descriptions.
     """
 
     @staticmethod
     def render_to_json(cx: CanvasXpress) -> str:
         """
         Renders the given CanvasXpress object into a reproducible JSON form.
-        :param cx: `CanvasXpress`
-            The `CanvasXpress` object to be converted.
-        :returns: `str`
-            A `str` bearing the reproducible JSON.
+
+        The JSON includes version information, data, configuration, events,
+        browser detection, and client information.
+
+        Args:
+            cx: The CanvasXpress object to be converted.
+
+        Returns:
+            A string bearing the reproducible JSON.
+
+        Raises:
+            ValueError: If cx is None.
         """
 
         if cx is None:
@@ -109,11 +118,14 @@ class CXJSON(CXRenderable):
 
     def render(self, **kwargs: Any) -> list:
         """
-        Renders the associated CanvasXpress object appropriate to create reproducible JSON.
-        :param kwargs: `Any`
-            * Unused.
-        :returns: `list[str]`
-            A list of `str`, one each of a reproducible JSON representation per tracked CanvasXpress object.
+        Renders the associated CanvasXpress objects into reproducible JSON.
+
+        Args:
+            kwargs: Unused.
+
+        Returns:
+            A list of strings, one for each reproducible JSON representation
+            of a tracked CanvasXpress object.
         """
         if self.canvas is None:
             return []
