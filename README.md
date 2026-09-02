@@ -77,6 +77,63 @@ In addition to _core_, the following additional targets can be used:
   packages for jupyter and shiny
 - _all_ - installs all additional packages to support rendering in any supported document or application
 
+## Agent Integration
+
+CanvasXpress includes a built-in skill for AI coding agents (OpenCode and Claude Code)
+that generates production-ready chart code. The skill is automatically installed when
+you install the package:
+
+```terminal
+pip install canvasxpress
+```
+
+The skill will be auto-injected into:
+
+- `~/.opencode/skills/canvasxpress/SKILL.md` (OpenCode)
+- `~/.agents/skills/canvasxpress/SKILL.md` (Claude Code)
+
+### Required Profile for Your Framework
+
+CanvasXpress supports multiple rendering frameworks. Install the package with the
+appropriate profile for your use case:
+
+```terminal
+# For Jupyter notebooks:
+pip install "canvasxpress[jupyter]"
+
+# For Plotly Dash apps:
+pip install "canvasxpress[dash]"
+
+# For Streamlit apps:
+pip install "canvasxpress[streamlit]"
+
+# For Shiny for Python apps:
+pip install "canvasxpress[shiny]"
+
+# For RStudio IDE:
+pip install "canvasxpress[rstudio]"
+
+# For all frameworks:
+pip install "canvasxpress[all]"
+
+# Core only (browser/Flask CLI usage):
+pip install "canvasxpress[core]"
+```
+
+Available profiles: `core`, `dash`, `streamlit`, `jupyter`, `shiny`, `rstudio`, `all`.
+
+After installation, restart your coding agent to activate the CanvasXpress skill.
+
+The skill enables agents to:
+
+- Generate charts from scratch (DataFrame, XYZ dict, or fabricated data)
+- Convert existing Plotly or Matplotlib code to CanvasXpress equivalents
+- Convert DataFrames to XYZ format for manual metadata enhancement
+- Render to any supported framework (Jupyter, Dash, Shiny, Streamlit, Flask, browser)
+- Export charts to PNG/SVG images or reproducible JSON
+
+See the skill documentation at [agent-skill.md](https://github.com/docinfosci/canvasxpress-python/blob/main/agent-skill.md) for details.
+
 ## Usage
 
 This section provides general instructions on creating and customizing charts.
