@@ -47,31 +47,37 @@ _cx_html_template = """
 
 class CXBrowserPopup(CXRenderable):
     """
-    CXBrowserPopup is a `CXRenderable` that renders `CanvasXpress` objects into
+    CXBrowserPopup is a CXRenderable that renders CanvasXpress objects into
     a Web page that is displayed in a pop-up browser window.
     """
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXBrowserPopup` object.
-        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXBrowserPopup object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         super().__init__(*cx)
 
     def render(self, **kwargs: Any):
         """
-        Renders the associated CanvasXpress object appropriate for display in
-        a pop-up browser window.  Charts cannot have the same name,
+        Renders the associated CanvasXpress objects for display in
+        a pop-up browser window. Charts cannot have the same name,
         so render_to will be updated with a uuid for each conflicting chart.
-        :param kwargs: `Any`
-            Supports `columns` for any positive `int` of `1` or greater, with a
-            default value of `1`.  Values less that `1` are ignored.  `columns`
-            indicates how many charts should be rendered horizontally in the
-            browser if more than one chart is being tracked.
+
+        Args:
+            kwargs: Supports the following parameter:
+                columns: Any positive int of 1 or greater, with a default
+                    value of 1. Values less than 1 are ignored. Indicates
+                    how many charts should be rendered horizontally in the
+                    browser if more than one chart is being tracked.
         """
         render_targets = list()
 
