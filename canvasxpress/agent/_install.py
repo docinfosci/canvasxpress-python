@@ -22,8 +22,7 @@ CLAUDE_DEST = Path.home() / '.agents/skills/canvasxpress/SKILL.md'
 
 
 def _install_skill(target_path: Path, force: bool = False) -> bool:
-    """
-    Install the CanvasXpress skill file to the specified path.
+    """Install the CanvasXpress skill file to the specified path.
 
     Args:
         target_path: The path where the SKILL.md file should be installed.
@@ -47,12 +46,14 @@ def _install_skill(target_path: Path, force: bool = False) -> bool:
 
 
 def install(target: str = 'both', force: bool = False) -> None:
-    """
-    Install the CanvasXpress agent skill to OpenCode and/or Claude Code.
+    """Install the CanvasXpress agent skill to OpenCode and/or Claude Code.
 
     Args:
         target: Where to install the skill. Options: 'opencode', 'claude', 'both'.
         force: If True, overwrite existing skill files.
+
+    Returns:
+        None. Prints status messages to stdout/stderr.
     """
     targets = []
     if target in ('opencode', 'both'):
@@ -80,15 +81,21 @@ def install(target: str = 'both', force: bool = False) -> None:
 
 
 def cli() -> None:
-    """
-    Command-line interface for installing the CanvasXpress agent skill.
+    """Command-line interface for installing the CanvasXpress agent skill.
+
+    Parses command-line arguments and calls install() to perform the
+    actual installation.
 
     Usage:
         python -m canvasxpress.agent._install [--target TARGET] [--force]
 
-    Arguments:
-        --target TARGET: Where to install the skill. Options: 'opencode', 'claude', 'both'. Default: 'both'
+    Args:
+        --target: Where to install the skill. Options: 'opencode', 'claude', 'both'.
+            Default: 'both'.
         --force: Overwrite existing skill files.
+
+    Returns:
+        None. Exits with status code 0 on success, 1 on error.
     """
     target = 'both'
     force = False
