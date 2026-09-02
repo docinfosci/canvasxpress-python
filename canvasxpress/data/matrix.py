@@ -9,9 +9,8 @@ from canvasxpress.data.base import CXMatrixData
 
 @total_ordering
 class CXDataframeData(CXMatrixData):
-    """
-    A CXData class dedicated to processing Python DataFrame, matrix-structured
-     data.
+    """A CXData class dedicated to processing Python DataFrame, matrix-structured
+    data.
     """
 
     __data: DataFrame = DataFrame()
@@ -21,19 +20,20 @@ class CXDataframeData(CXMatrixData):
 
     @property
     def dataframe(self) -> DataFrame:
-        """
-        Provides the data managed by the object.
-        :returns: `DataFrame` The managed data.
+        """Provides the data managed by the object.
+
+        Returns:
+            DataFrame: The managed data.
         """
         return self.__data
 
     @dataframe.setter
     def dataframe(self, value: Union[DataFrame, None] = None) -> None:
-        """
-        Sets the dataframe managed by the object.
-        :param value: `Union[DataFrame, None]`
-            `None` results in an empty `DataFrame`.  A deepcopy will be made of
-            `DataFrame` values.
+        """Sets the dataframe managed by the object.
+
+        Args:
+            value: `None` results in an empty `DataFrame`.  A deepcopy will be made of
+                `DataFrame` values.
         """
         if not isinstance(value, (DataFrame, type(None))):
             raise TypeError("The assignment value must be a DataFrame or None.")
@@ -46,19 +46,20 @@ class CXDataframeData(CXMatrixData):
 
     @property
     def data(self) -> dict:
-        """
-        Provides the data managed by the object.
-        :returns: `DataFrame` The managed data.
+        """Provides the data managed by the object.
+
+        Returns:
+            dict: The managed data as a dictionary.
         """
         return self.dataframe.to_dict(orient="list")
 
     @data.setter
     def data(self, value: Union["CXDataframeData", DataFrame, None] = None) -> None:
-        """
-        Sets the dataframe managed by the object.
-        :param value: `Union['CXDataframeData', DataFrame, dict, str, None]`
-            `None` results in an empty `DataFrame`.  A deepcopy will be made of
-            `DataFrame` or equivalent values.
+        """Sets the dataframe managed by the object.
+
+        Args:
+            value: `None` results in an empty `DataFrame`.  A deepcopy will be made of
+                `DataFrame` or equivalent values.
         """
         if value is None:
             self.__data = DataFrame()
@@ -76,70 +77,71 @@ class CXDataframeData(CXMatrixData):
             self.__data = DataFrame()
 
     def get_raw_dict_form(self) -> dict:
-        """ "
-        Provides a simple dict perspective of the data with no metadata or other
-        contextual transformations performed.  For example, if the data is
-        natively in `dict` form then it would be passed-through with no
-        modification or enhancement.
+        """Provides a simple dict perspective of the data with no metadata or other
+        contextual transformations performed.
+
+        For example, if the data is natively in `dict` form then it would be
+        passed-through with no modification or enhancement.
 
         This implementation provides matrix data formatted in a `dict` object
         with `DataFrame.to_dict('split')` behaviour.
 
-        :returns: `dict`
-            The `dict` perspective of the data with as little modification or
-            interpretation as is reasonable.
+        Returns:
+            dict: The `dict` perspective of the data with as little modification or
+                interpretation as is reasonable.
         """
         return self.__data.to_dict(orient="split")
 
     def render_to_dict(self, **kwargs) -> dict:
-        """
-        Provides a dict representation of the data.
-        :returns: `dict`
-            The data in `dict` form.
+        """Provides a dict representation of the data.
+
+        Returns:
+            dict: The data in `dict` form.
         """
         candidate = self.get_raw_dict_form()
         return candidate
 
     def __init__(self, data: Union["CXDataframeData", DataFrame, None] = None) -> None:
-        """
-        Initializes the CXData object with data.  Only `DataFrame` or compatible
-         data types are accepted.
-        :param data: `Union['CXDataframeData', DataFrame, dict, str, None]`
-            `None` to initialize with an empty `DataFrame`, or a `DataFrame`
-            like object to assign mapped data.
+        """Initializes the CXData object with data.
+
+        Only `DataFrame` or compatible data types are accepted.
+
+        Args:
+            data: `None` to initialize with an empty `DataFrame`, or a `DataFrame`
+                like object to assign mapped data.
         """
         super().__init__(data)
         self.data = data
 
     def __copy__(self) -> "CXDataframeData":
-        """
-        *copy constructor* that returns a copy of the CXDataframeData object.
-        :returns: `CXDataframeData`
-            A copy of the wrapping object.
+        """copy constructor that returns a copy of the CXDataframeData object.
+
+        Returns:
+            CXDataframeData: A copy of the wrapping object.
         """
         return self.__class__(self.dataframe)
 
     def __deepcopy__(self, memo) -> "CXDataframeData":
-        """
-        *deepcopy constructor* that returns a copy of the CXDataframeData object.
-        :returns: `CXDataframeData` A copy of the wrapping object and deepcopy of
-            the tracked data.
+        """deepcopy constructor that returns a copy of the CXDataframeData object.
+
+        Returns:
+            CXDataframeData: A copy of the wrapping object and deepcopy of the
+                tracked data.
         """
         return self.__class__(self.dataframe)
 
     def __lt__(self, other: "CXDataframeData") -> bool:
-        """
-        *less than* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDataframeData` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDataframeData` object then False
-            <li> If `other` is a `CXDataframeData` object then True of all
-                `CXDataframeData` aspects are also less than the data tracked by
-                `self`.
-            </ul>
+        """less than comparison.
+
+        Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: The object to compare.
+
+        Returns:
+            bool: True if `other` is a `CXDataframeData` object and all of its aspects
+                are less than the data tracked by `self`. False if `other` is `None`,
+                not a `CXDataframeData` object, or if `self` is not less than `other`.
         """
         if other is None:
             return False
@@ -165,18 +167,17 @@ class CXDataframeData(CXMatrixData):
                 return self.dataframe.lt(other.dataframe).all(axis=None)
 
     def __eq__(self, other: "CXDataframeData") -> bool:
-        """
-        *equals* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDataframeData` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDataframeData` object then False
-            <li> If `other` is a `CXDataframeData` object then True of all
-                `CXDataframeData` aspects are also less than the data tracked by
-                `self`.
-            </ul>
+        """equals comparison.
+
+        Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: The object to compare.
+
+        Returns:
+            bool: True if `other` is a `CXDataframeData` object and all of its aspects
+                are equal to the data tracked by `self`. False if `other` is `None`,
+                not a `CXDataframeData` object, or if `self` is not equal to `other`.
         """
         if other is None:
             return False
@@ -197,10 +198,12 @@ class CXDataframeData(CXMatrixData):
             return self.dataframe.eq(other.dataframe).all(axis=None)
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the CXDataframeData object into a JSON
-        representation.
-        :returns" `str` JSON form of the `CXDataframeData`.
+        """str function.
+
+        Converts the CXDataframeData object into a JSON representation.
+
+        Returns:
+            str: JSON form of the `CXDataframeData`.
         """
         if self.dataframe is None:
             return str(None)
@@ -209,10 +212,13 @@ class CXDataframeData(CXMatrixData):
             return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXDataframeData object into a pickle
-         string that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """repr function.
+
+        Converts the CXDataframeData object into a pickle string that can be used
+        with `eval` to establish a copy of the object.
+
+        Returns:
+            str: An evaluatable representation of the object.
         """
         candidate = (
             f"CXDataframeData("
@@ -231,8 +237,19 @@ def merge_dataframes_into_xyz_object(
     sample_annotation: CXDataframeData = None,
     variable_annotation: CXDataframeData = None,
 ) -> dict:
-    """
-    Converts a set of DataFrame like objects into an XYZ dict.
+    """Converts a set of DataFrame like objects into an XYZ dict.
+
+    Args:
+        data: The primary data DataFrame.
+        sample_annotation: Optional sample annotation DataFrame.
+        variable_annotation: Optional variable annotation DataFrame.
+
+    Returns:
+        dict: An XYZ dictionary containing the merged data.
+
+    Raises:
+        ValueError: If sample annotation or variable annotation data cannot be
+            parsed or aligned with chart data.
     """
     xyz_data = {}
 
