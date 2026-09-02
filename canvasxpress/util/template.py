@@ -1,9 +1,17 @@
 def render_from_template(template: str, data: dict) -> str:
     """
     Updates the template text with the provided data.
-    :param template: `str` The name of the template file
-    :param data: The `dict` of str values with which to update the template text
-    :returns The adjusted template text
+
+    Replaces all occurrences of `@key@` in the template with the
+    corresponding value from the data dictionary.
+
+    Args:
+        template: The template string containing `@key@` placeholders.
+        data: A dictionary of key-value pairs used to replace placeholders.
+
+    Returns:
+        The template string with all placeholders replaced by their
+        corresponding values.
     """
     template_text = template
 
