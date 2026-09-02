@@ -6,6 +6,7 @@ from git import Repo
 
 setup_instructions_template = """
 from setuptools import setup, find_packages
+from setuptools.command.install import install
 
 long_description = '''@PKG_DESCRIPTION@'''
 
@@ -16,11 +17,41 @@ streamlit_pkgs = @PKG_REQUIREMENTS_STREAMLIT@
 shiny_pkgs = @PKG_REQUIREMENTS_SHINY@
 rstudio_pkgs = @PKG_REQUIREMENTS_RSTUDIO@
 
+
+class PostInstallCommand(install):
+    '''Post-installation for skill auto-injection.'''
+
+    def run(self):
+        install.run(self)
+        import os
+        import shutil
+        from pathlib import Path
+
+        try:
+            import canvasxpress
+
+            package_dir = os.path.dirname(canvasxpress.__file__)
+            skill_file = os.path.join(package_dir, 'agent', 'canvasxpress.md')
+
+            if os.path.exists(skill_file):
+                opencode_dest = Path.home() / '.opencode/skills/canvasxpress/SKILL.md'
+                opencode_dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(skill_file, opencode_dest)
+
+                claude_dest = Path.home() / '.agents/skills/canvasxpress/SKILL.md'
+                claude_dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(skill_file, claude_dest)
+
+                print("CanvasXpress agent skill installed successfully.")
+        except Exception:
+            pass
+
+
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
     packages=find_packages(exclude=["tests*", "plotly", "streamlit", "tutorials",]),
-    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.css', '*.html', '*.sql', '*.txt', '*.zip']},
+    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.css', '*.html', '*.sql', '*.txt', '*.zip', '*.md']},
     include_package_data=True,
     package_dir={'': '.'},
     install_requires=core_pkgs,
@@ -33,9 +64,15 @@ setup(
         "rstudio": core_pkgs + shiny_pkgs + jupyter_pkgs + rstudio_pkgs,
         "all": core_pkgs + dash_pkgs + jupyter_pkgs,
     },
+    cmdclass={'install': PostInstallCommand},
+    entry_points={
+        'console_scripts': [
+            'canvasxpress = canvasxpress.agent._install:cli',
+        ],
+    },
     url='https://github.com/docinfosci/canvasxpress-python.git',
     project_urls={
-        'Documentation': 'https://canvasxpress-python.readthedocs.io',
+        'Documentation': 'https://github.com/docinfosci/canvasxpress-python',
     },
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
     author=(
