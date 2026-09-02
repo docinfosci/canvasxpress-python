@@ -44,9 +44,13 @@ def _get_chart_display_code(cx: CanvasXpress) -> tuple:
     """
     Get the html display code and iframe dimensions for rendering a CanvasXpress
     object in a Streamlit application.
-    :param cx: `CanvasXpress`
-        The `CanvasXpress` object to be rendered.
-    :returns: `tuple` of html, iframe_width, iframe_height
+
+    Args:
+        cx: The CanvasXpress object to be rendered.
+
+    Returns:
+        A tuple of (html, iframe_width, iframe_height) containing the HTML string,
+        the iframe width in pixels, and the iframe height in pixels.
     """
     html_parts = cx.render_to_html_parts()
     canvases = html_parts["cx_canvas"]
@@ -76,10 +80,12 @@ def _get_chart_display_code(cx: CanvasXpress) -> tuple:
 def plot(cx: CanvasXpress) -> None:
     """
     Renders the provided CanvasXpress object for display in a Streamlit application.
-    :param cx: `CanvasXpress`
-        The `CanvasXpress` object to be rendered.
-    :returns: `None` or raises a `TypeError` exception if `cx` is not a CanvasXpress
-        object.
+
+    Args:
+        cx: The CanvasXpress object to be rendered.
+
+    Raises:
+        TypeError: If cx is not a CanvasXpress object.
     """
     if cx is None:
         return None
