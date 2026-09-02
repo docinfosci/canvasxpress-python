@@ -79,18 +79,28 @@ In addition to _core_, the following additional targets can be used:
 
 ## Agent Integration
 
-CanvasXpress includes a built-in skill for AI coding agents (OpenCode and Claude Code)
-that generates production-ready chart code. The skill is automatically installed when
-you install the package:
+CanvasXpress includes a built-in skill for AI coding agents (Claude, Qwen, OpenCode, and others)
+that generates production-ready chart code. Installing the package with `pip install` or `uv add`
+will automatically make the skill available to your AI agent.
+
+Install the package:
 
 ```terminal
 pip install canvasxpress
 ```
 
-The skill will be auto-injected into:
+or with uv:
 
+```terminal
+uv add canvasxpress
+```
+
+The skill files are auto-installed during package installation into standard agent directories:
+
+- `~/.agents/skills/canvasxpress/SKILL.md` (Claude, Qwen, and other agents using this convention)
 - `~/.opencode/skills/canvasxpress/SKILL.md` (OpenCode)
-- `~/.agents/skills/canvasxpress/SKILL.md` (Claude Code)
+
+After installation, restart your coding agent to activate the CanvasXpress skill.
 
 ### Required Profile for Your Framework
 
@@ -121,8 +131,6 @@ pip install "canvasxpress[core]"
 ```
 
 Available profiles: `core`, `dash`, `streamlit`, `jupyter`, `shiny`, `rstudio`, `all`.
-
-After installation, restart your coding agent to activate the CanvasXpress skill.
 
 The skill enables agents to:
 
