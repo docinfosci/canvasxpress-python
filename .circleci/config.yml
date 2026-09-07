@@ -111,6 +111,9 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
+            # Create temp directory for downloading packages
+            mkdir -p /tmp/node-packages
+
             # Configure Node.js 16 repository config (required for build compatibility)
             cd /tmp
             curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
@@ -122,21 +125,30 @@ jobs:
               exit 0
             }
             chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh || {
-              echo "WARNING: NodeSource setup failed, using system Node.js"
-              apt-get update -y -o Acquire::Retries=3 || true
-              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
-              node --version || true
-              npm --version || true
-              exit 0
+
+            # Run NodeSource setup with error handling for 404s
+            ./nodesource_setup.sh 2>&1 || {
+              echo "WARNING: NodeSource setup had errors, continuing with manual install"
             }
 
-            # Install Node and NPM with retry logic
+            # Download packages before installing to handle 404s gracefully
+            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get download nodejs npm 2>/dev/null || true
+            for pkg in gnupg-l10n gnupg gpgsm python3-pkg-resources; do
+              apt-get download $pkg 2>/dev/null || true
+            done
+
+            # Install downloaded packages with dpkg (ignore missing dependencies)
+            dpkg -i /tmp/node-packages/*.deb 2>/dev/null || true
+
+            # Fix broken dependencies
+            apt-get install -y -f --fix-missing -o Acquire::Retries=3 || true
+
+            # Clean up
             apt-get clean
             apt-get autoclean
             apt-get autoremove
-
-            apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+            rm -rf /tmp/node-packages
 
             # Verify installations
             node --version
@@ -340,6 +352,9 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
+            # Create temp directory for downloading packages
+            mkdir -p /tmp/node-packages
+
             # Configure Node.js 16 repository config (required for build compatibility)
             cd /tmp
             curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
@@ -351,21 +366,30 @@ jobs:
               exit 0
             }
             chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh || {
-              echo "WARNING: NodeSource setup failed, using system Node.js"
-              apt-get update -y -o Acquire::Retries=3 || true
-              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
-              node --version || true
-              npm --version || true
-              exit 0
+
+            # Run NodeSource setup with error handling for 404s
+            ./nodesource_setup.sh 2>&1 || {
+              echo "WARNING: NodeSource setup had errors, continuing with manual install"
             }
 
-            # Install Node and NPM with retry logic
+            # Download packages before installing to handle 404s gracefully
+            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get download nodejs npm 2>/dev/null || true
+            for pkg in gnupg-l10n gnupg gpgsm python3-pkg-resources; do
+              apt-get download $pkg 2>/dev/null || true
+            done
+
+            # Install downloaded packages with dpkg (ignore missing dependencies)
+            dpkg -i /tmp/node-packages/*.deb 2>/dev/null || true
+
+            # Fix broken dependencies
+            apt-get install -y -f --fix-missing -o Acquire::Retries=3 || true
+
+            # Clean up
             apt-get clean
             apt-get autoclean
             apt-get autoremove
-
-            apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+            rm -rf /tmp/node-packages
 
             # Verify installations
             node --version
@@ -519,6 +543,9 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
+            # Create temp directory for downloading packages
+            mkdir -p /tmp/node-packages
+
             # Configure Node.js 16 repository config (required for build compatibility)
             cd /tmp
             curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
@@ -530,21 +557,30 @@ jobs:
               exit 0
             }
             chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh || {
-              echo "WARNING: NodeSource setup failed, using system Node.js"
-              apt-get update -y -o Acquire::Retries=3 || true
-              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
-              node --version || true
-              npm --version || true
-              exit 0
+
+            # Run NodeSource setup with error handling for 404s
+            ./nodesource_setup.sh 2>&1 || {
+              echo "WARNING: NodeSource setup had errors, continuing with manual install"
             }
 
-            # Install Node and NPM with retry logic
+            # Download packages before installing to handle 404s gracefully
+            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get download nodejs npm 2>/dev/null || true
+            for pkg in gnupg-l10n gnupg gpgsm python3-pkg-resources; do
+              apt-get download $pkg 2>/dev/null || true
+            done
+
+            # Install downloaded packages with dpkg (ignore missing dependencies)
+            dpkg -i /tmp/node-packages/*.deb 2>/dev/null || true
+
+            # Fix broken dependencies
+            apt-get install -y -f --fix-missing -o Acquire::Retries=3 || true
+
+            # Clean up
             apt-get clean
             apt-get autoclean
             apt-get autoremove
-
-            apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+            rm -rf /tmp/node-packages
 
             # Verify installations
             node --version
