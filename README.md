@@ -1010,8 +1010,7 @@ g_app.layout = html.Div(
         ),
         html.H2(
             children=(
-                "An Example of the Advanced CanvasXpress and CXDashElementFactory"
-                " Classes for Plotting a CanvasXpress Chart"
+                "An Example of CanvasXpress Chart in Plotly Dash"
             ),
             style={"textAlign": "center", "color": colors["text"]},
         ),
