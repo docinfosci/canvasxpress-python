@@ -71,31 +71,42 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
 
+            # Create temp directory for downloading packages
+            mkdir -p /tmp/chromium-packages
+
             # Refresh package lists with retries
             apt-get update -y -o Acquire::Retries=3 || true
 
-            # Install apt-utils first for better error messages
-            apt-get install -y -o Acquire::Retries=3 apt-utils || true
+            # Download chromium and its dependencies (don't install yet)
+            apt-get download chromium chromium-driver 2>/dev/null || true
 
-            # Download chromium packages with retry logic
-            apt-get install -y -d -o Acquire::Retries=3 chromium chromium-driver || true
+            # Download any missing dependencies that failed
+            for pkg in libsystemd0 libudev1 libcap2 libnss3 libglx-mesa0 libpam-systemd libnss-systemd samba-libs libpam-modules libperl5.32 python3-pkg-resources; do
+              apt-get download $pkg 2>/dev/null || true
+            done
 
-            # Fix any broken packages and retry failed downloads
-            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
+            # Install downloaded packages with dpkg (ignore missing dependencies)
+            dpkg -i /tmp/chromium-packages/*.deb 2>/dev/null || true
 
-            # Download any missing chromium dependencies
-            apt-get -y -d -o Acquire::Retries=3 install --fix-missing chromium chromium-driver || true
-
-            # Final fix for broken dependencies
-            apt-get --fix-broken install -y || true
+            # Fix broken dependencies and install remaining packages
+            apt-get install -y -f --fix-missing -o Acquire::Retries=3 || true
 
             # Verify chromium installation
-            which chromium || true
-            chromium --version || true
+            if which chromium; then
+              chromium --version
+            else
+              echo "WARNING: Chromium installation failed, skipping browser tests"
+            fi
 
             # Verify chromedriver installation
-            which chromedriver || true
-            chromedriver --version || true
+            if which chromedriver; then
+              chromedriver --version
+            else
+              echo "WARNING: Chromedriver installation failed"
+            fi
+
+            # Clean up temp directory
+            rm -rf /tmp/chromium-packages
 
       - run:
           name: Install Node and NPM for Dash and General Python
@@ -274,31 +285,42 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
 
+            # Create temp directory for downloading packages
+            mkdir -p /tmp/chromium-packages
+
             # Refresh package lists with retries
             apt-get update -y -o Acquire::Retries=3 || true
 
-            # Install apt-utils first for better error messages
-            apt-get install -y -o Acquire::Retries=3 apt-utils || true
+            # Download chromium and its dependencies (don't install yet)
+            apt-get download chromium chromium-driver 2>/dev/null || true
 
-            # Download chromium packages with retry logic
-            apt-get install -y -d -o Acquire::Retries=3 chromium chromium-driver || true
+            # Download any missing dependencies that failed
+            for pkg in libsystemd0 libudev1 libcap2 libnss3 libglx-mesa0 libpam-systemd libnss-systemd samba-libs libpam-modules libperl5.32 python3-pkg-resources; do
+              apt-get download $pkg 2>/dev/null || true
+            done
 
-            # Fix any broken packages and retry failed downloads
-            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
+            # Install downloaded packages with dpkg (ignore missing dependencies)
+            dpkg -i /tmp/chromium-packages/*.deb 2>/dev/null || true
 
-            # Download any missing chromium dependencies
-            apt-get -y -d -o Acquire::Retries=3 install --fix-missing chromium chromium-driver || true
-
-            # Final fix for broken dependencies
-            apt-get --fix-broken install -y || true
+            # Fix broken dependencies and install remaining packages
+            apt-get install -y -f --fix-missing -o Acquire::Retries=3 || true
 
             # Verify chromium installation
-            which chromium || true
-            chromium --version || true
+            if which chromium; then
+              chromium --version
+            else
+              echo "WARNING: Chromium installation failed, skipping browser tests"
+            fi
 
             # Verify chromedriver installation
-            which chromedriver || true
-            chromedriver --version || true
+            if which chromedriver; then
+              chromedriver --version
+            else
+              echo "WARNING: Chromedriver installation failed"
+            fi
+
+            # Clean up temp directory
+            rm -rf /tmp/chromium-packages
 
       - run:
           name: Install Node and NPM for Dash and General Python
@@ -427,31 +449,42 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
 
+            # Create temp directory for downloading packages
+            mkdir -p /tmp/chromium-packages
+
             # Refresh package lists with retries
             apt-get update -y -o Acquire::Retries=3 || true
 
-            # Install apt-utils first for better error messages
-            apt-get install -y -o Acquire::Retries=3 apt-utils || true
+            # Download chromium and its dependencies (don't install yet)
+            apt-get download chromium chromium-driver 2>/dev/null || true
 
-            # Download chromium packages with retry logic
-            apt-get install -y -d -o Acquire::Retries=3 chromium chromium-driver || true
+            # Download any missing dependencies that failed
+            for pkg in libsystemd0 libudev1 libcap2 libnss3 libglx-mesa0 libpam-systemd libnss-systemd samba-libs libpam-modules libperl5.32 python3-pkg-resources; do
+              apt-get download $pkg 2>/dev/null || true
+            done
 
-            # Fix any broken packages and retry failed downloads
-            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
+            # Install downloaded packages with dpkg (ignore missing dependencies)
+            dpkg -i /tmp/chromium-packages/*.deb 2>/dev/null || true
 
-            # Download any missing chromium dependencies
-            apt-get -y -d -o Acquire::Retries=3 install --fix-missing chromium chromium-driver || true
-
-            # Final fix for broken dependencies
-            apt-get --fix-broken install -y || true
+            # Fix broken dependencies and install remaining packages
+            apt-get install -y -f --fix-missing -o Acquire::Retries=3 || true
 
             # Verify chromium installation
-            which chromium || true
-            chromium --version || true
+            if which chromium; then
+              chromium --version
+            else
+              echo "WARNING: Chromium installation failed, skipping browser tests"
+            fi
 
             # Verify chromedriver installation
-            which chromedriver || true
-            chromedriver --version || true
+            if which chromedriver; then
+              chromedriver --version
+            else
+              echo "WARNING: Chromedriver installation failed"
+            fi
+
+            # Clean up temp directory
+            rm -rf /tmp/chromium-packages
 
       - run:
           name: Install Node and NPM for Dash and General Python
