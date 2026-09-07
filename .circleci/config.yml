@@ -111,9 +111,9 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node.js 20 LTS repository (recommended LTS version)
+            # Configure Node.js 16 repository config (required for build compatibility)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh || {
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
               echo "WARNING: NodeSource setup failed, using system Node.js"
               apt-get update -y -o Acquire::Retries=3 || true
               apt-get install -y -o Acquire::Retries=3 nodejs npm || true
@@ -340,9 +340,9 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node.js 20 LTS repository (recommended LTS version)
+            # Configure Node.js 16 repository config (required for build compatibility)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh || {
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
               echo "WARNING: NodeSource setup failed, using system Node.js"
               apt-get update -y -o Acquire::Retries=3 || true
               apt-get install -y -o Acquire::Retries=3 nodejs npm || true
@@ -519,9 +519,9 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node.js 20 LTS repository (recommended LTS version)
+            # Configure Node.js 16 repository config (required for build compatibility)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh || {
+            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
               echo "WARNING: NodeSource setup failed, using system Node.js"
               apt-get update -y -o Acquire::Retries=3 || true
               apt-get install -y -o Acquire::Retries=3 nodejs npm || true
