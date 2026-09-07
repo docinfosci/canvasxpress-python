@@ -70,19 +70,32 @@ jobs:
           command: |
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
-            apt-get update -y
-            apt-get install -yq apt-utils
 
-            # Install the Chromium browser
-            apt-get install -yq chromium
-            which chromium
-            chromium --version
+            # Refresh package lists with retries
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # Install the Chromium webdriver
-            apt-get -yq update
-            apt-get -yq install --fix-missing chromium-driver
-            which chromedriver
-            chromedriver --version
+            # Install apt-utils first for better error messages
+            apt-get install -y -o Acquire::Retries=3 apt-utils || true
+
+            # Download chromium packages with retry logic
+            apt-get install -y -d -o Acquire::Retries=3 chromium chromium-driver || true
+
+            # Fix any broken packages and retry failed downloads
+            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
+
+            # Download any missing chromium dependencies
+            apt-get -y -d -o Acquire::Retries=3 install --fix-missing chromium chromium-driver || true
+
+            # Final fix for broken dependencies
+            apt-get --fix-broken install -y || true
+
+            # Verify chromium installation
+            which chromium || true
+            chromium --version || true
+
+            # Verify chromedriver installation
+            which chromedriver || true
+            chromedriver --version || true
 
       - run:
           name: Install Node and NPM for Dash and General Python
@@ -260,19 +273,32 @@ jobs:
           command: |
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
-            apt-get update -y
-            apt-get install -yq apt-utils
 
-            # Install the Chromium browser
-            apt-get install -yq chromium
-            which chromium
-            chromium --version
+            # Refresh package lists with retries
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # Install the Chromium webdriver
-            apt-get -yq update
-            apt-get -yq install --fix-missing chromium-driver
-            which chromedriver
-            chromedriver --version
+            # Install apt-utils first for better error messages
+            apt-get install -y -o Acquire::Retries=3 apt-utils || true
+
+            # Download chromium packages with retry logic
+            apt-get install -y -d -o Acquire::Retries=3 chromium chromium-driver || true
+
+            # Fix any broken packages and retry failed downloads
+            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
+
+            # Download any missing chromium dependencies
+            apt-get -y -d -o Acquire::Retries=3 install --fix-missing chromium chromium-driver || true
+
+            # Final fix for broken dependencies
+            apt-get --fix-broken install -y || true
+
+            # Verify chromium installation
+            which chromium || true
+            chromium --version || true
+
+            # Verify chromedriver installation
+            which chromedriver || true
+            chromedriver --version || true
 
       - run:
           name: Install Node and NPM for Dash and General Python
@@ -400,19 +426,32 @@ jobs:
           command: |
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
-            apt-get update -y
-            apt-get install -yq apt-utils
 
-            # Install the Chromium browser
-            apt-get install -yq chromium
-            which chromium
-            chromium --version
+            # Refresh package lists with retries
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # Install the Chromium webdriver
-            apt-get -yq update
-            apt-get -yq install --fix-missing chromium-driver
-            which chromedriver
-            chromedriver --version
+            # Install apt-utils first for better error messages
+            apt-get install -y -o Acquire::Retries=3 apt-utils || true
+
+            # Download chromium packages with retry logic
+            apt-get install -y -d -o Acquire::Retries=3 chromium chromium-driver || true
+
+            # Fix any broken packages and retry failed downloads
+            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
+
+            # Download any missing chromium dependencies
+            apt-get -y -d -o Acquire::Retries=3 install --fix-missing chromium chromium-driver || true
+
+            # Final fix for broken dependencies
+            apt-get --fix-broken install -y || true
+
+            # Verify chromium installation
+            which chromium || true
+            chromium --version || true
+
+            # Verify chromedriver installation
+            which chromedriver || true
+            chromedriver --version || true
 
       - run:
           name: Install Node and NPM for Dash and General Python
