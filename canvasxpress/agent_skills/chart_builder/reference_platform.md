@@ -5,19 +5,35 @@ description: "CanvasXpress rendering for different frameworks (Jupyter, Dash, Sh
 
 # Platform Reference
 
-## Framework-Specific Rendering
+## Rendering
 
-| Framework | Code Pattern |
-|---|---|
-| Auto-detect (default) | `graph(cx)` |
-| Jupyter/IPython | `graph(cx)` or `CXNoteBook(cx).render()` |
-| Dash | `CXElementFactory().render(cx)` returns Dash component |
-| Shiny for Python | `CXShinyWidget(cx)` returned from reactive function |
-| Streamlit | `streamlit.plot(cx)` |
-| Flask/Django | `html_parts = cx.render_to_html_parts()` + Jinja template |
-| Browser/CLI | `show_in_browser(cx)` |
-| Image export | `convert_to_image(cx, type="png")` |
-| JSON export | `convert_to_reproducible_json(cx)` |
+The `graph(cx)` function from `canvasxpress.plot` auto-detects the environment and renders appropriately:
+
+```python
+from canvasxpress.plot import graph
+graph(cx)  # Works in Jupyter, Dash, Shiny, Streamlit, Flask, CLI, browser
+```
+
+### Environment-Specific Notes
+
+- **Jupyter**: Inline rendering with auto-detection
+- **Dash**: Works in `dcc.Graph(figure=graph(cx))`
+- **Shiny**: Works in `@render.ui` functions
+- **Streamlit**: Works directly in Streamlit apps
+- **Flask/FastAPI**: Use `render_to="unique_id"` for chart identification
+- **CLI**: Opens in browser automatically
+
+### Unique Chart IDs
+
+For environments requiring unique identifiers (Jupyter, Flask, FastAPI), use `render_to`:
+
+```python
+# Named chart (Jupyter, Flask, FastAPI)
+CanvasXpress(render_to="my_chart_id", ...)
+
+# Anonymous chart (Dash, React-based)
+CanvasXpress(render_to="", ...)
+```
 
 ## Event Hook Patterns
 
@@ -59,7 +75,7 @@ def show_selection():
     print(input.point_selected())
 ```
 
-## Complete Code Templates by Framework
+## Complete Code Templates
 
 ### Template 1: Minimal with auto-rendering
 
@@ -74,16 +90,6 @@ cx = CanvasXpress(
     config={"graphType": "Bar", "title": "My Chart"}
 )
 graph(cx)
-```
-
-**Note:** The `render_to` parameter provides a unique identifier for the chart. For environments that require unique IDs (Jupyter, Flask), use a descriptive name. For React-based environments (Dash), use an empty string for anonymous charts with auto-generated IDs.
-
-```python
-# Named chart (Jupyter, Flask)
-CanvasXpress(render_to="my_chart_id", ...)
-
-# Anonymous chart (Dash, React-based)
-CanvasXpress(render_to="", ...)
 ```
 
 ### Template 2: DataFrame with sample annotation
@@ -109,7 +115,7 @@ cx = CanvasXpress(
 graph(cx)
 ```
 
-### Template 3: Full Dash integration
+### Template 3: Dash integration
 
 ```python
 from dash import Dash, html, dcc
@@ -121,7 +127,7 @@ app.layout = html.Div(children=[
     html.H1("My CanvasXpress Dashboard"),
     dcc.Graph(
         id="chart",
-        figure=graph(CanvasXpress(...))
+        figure=graph(CanvasXpress(render_to="", ...))
     )
 ])
 
@@ -129,16 +135,15 @@ if __name__ == "__main__":
     app.run_server(debug=True)
 ```
 
-### Template 4: Full Shiny for Python
+### Template 4: Shiny for Python
 
 ```python
 from shiny import App, ui, render, reactive
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.shiny import output_canvasxpress
 from canvasxpress.plot import graph
 
 app_ui = ui.page_fluid(
-    ui.row(output_canvasxpress("chart_view"))
+    ui.markdown("My CanvasXpress Chart")
 )
 
 def server(input, output, session):
@@ -155,11 +160,9 @@ app = App(app_ui, server)
 from shiny import App, ui, render, reactive
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.js.function import CXEvent
-from canvasxpress.render.shiny import output_canvasxpress
 from canvasxpress.plot import graph
 
 app_ui = ui.page_fluid(
-    ui.row(output_canvasxpress("chart_view")),
     ui.output_text_verbatim("selected_point")
 )
 
@@ -167,27 +170,21 @@ def server(input, output, session):
     @reactive.effect
     @reactive.event(input.point_selected)
     def show_selection():
-        # React to chart point selection
         print(input.point_selected())
 
     @render.ui
-    @reactive.event(house_data.cell_selection)
     def chart_view():
-        chart = CanvasXpress(
+        return graph(CanvasXpress(
             render_to="example",
             data=xyz_data,
-            config={
-                "graphType": "Scatter2D",
-                "title": "Interactive Chart"
-            },
+            config={"graphType": "Scatter2D", "title": "Interactive Chart"},
             events=[
                 CXEvent(
                     id="click",
                     script="Shiny.setInputValue('point_selected', o.y);"
                 )
             ]
-        )
-        return graph(chart)
+        ))
 
 app = App(app_ui, server)
 ```
@@ -199,7 +196,6 @@ import streamlit as st
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
 
-# Create chart
 cx = CanvasXpress(
     data={
         "y": {
@@ -216,7 +212,6 @@ cx = CanvasXpress(
     }
 )
 
-# Render in Streamlit
 graph(cx)
 ```
 
@@ -248,7 +243,6 @@ show_in_browser(cx)
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
 
-# XYZ data
 xyz = {
     "y": {
         "vars": ["V1", "V2", "V3"],
@@ -263,7 +257,7 @@ cx = CanvasXpress(
         "graphType": "Scatter2D",
         "title": "Chart with Pre-selected Point",
         "selectedDataPoints": [
-            ["V1", "S1"]  # Pre-select variable V1, sample S1
+            ["V1", "S1"]
         ]
     }
 )
