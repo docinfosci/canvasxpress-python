@@ -108,7 +108,7 @@ jobs:
             # Clean up temp directory
             rm -rf /tmp/chromium-packages
 
-- run:
+      - run:
           name: Install Node and NPM for Dash and General Python
           command: |
             # Configure Node.js 16 repository manually (bypass setup script's apt-get install)
@@ -375,7 +375,7 @@ jobs:
             # Clean up temp directory
             rm -rf /tmp/chromium-packages
 
-- run:
+      - run:
           name: Install Node and NPM for Dash and General Python
           command: |
             # Configure Node.js 16 repository manually (bypass setup script's apt-get install)
@@ -592,7 +592,7 @@ jobs:
             # Clean up temp directory
             rm -rf /tmp/chromium-packages
 
-- run:
+      - run:
           name: Install Node and NPM for Dash and General Python
           command: |
             # Configure Node.js 16 repository manually (bypass setup script's apt-get install)
