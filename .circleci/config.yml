@@ -33,27 +33,37 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
 
-            apt-get -yq update
-            apt-get -yq upgrade
+            # Refresh package lists with retries
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # Package installation support
-            apt-get install -yq --fix-missing debconf-utils
-            apt-get install -yq --fix-missing dialog
-            apt-get install -yq --fix-missing apt-utils
+            # Upgrade only packages that can be upgraded without removing any
+            apt-get upgrade -y -d -o Acquire::Retries=3 || true
 
-            # File acquisition support
-            apt-get install -yq --fix-missing wget
-            apt-get install -yq --fix-missing curl
+            # Download any missing packages that failed in the previous step
+            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
 
-            # Fundamental software build support
-            apt-get install -yq --fix-missing gcc
-            apt-get install -yq --fix-missing make
-            apt-get install -yq --fix-missing cmake
-            apt-get install -yq --fix-missing build-essential
+            # Final update to ensure all package lists are current
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # R for RStudio support
-            apt-get install -yq --fix-missing r-base
-            apt-get install -yq --fix-missing r-base-dev
+            # Install essential packages with retry logic
+            apt-get install -y -o Acquire::Retries=3 \
+              debconf-utils \
+              dialog \
+              apt-utils \
+              wget \
+              curl \
+              gcc \
+              make \
+              cmake \
+              build-essential \
+              r-base \
+              r-base-dev \
+              unzip \
+              || true
+
+            # Clean up apt cache to save disk space
+            apt-get clean
+            rm -rf /var/lib/apt/lists/*
 
       - run:
           name: Install Web drivers
@@ -213,27 +223,37 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
 
-            apt-get -yq update
-            apt-get -yq upgrade
+            # Refresh package lists with retries
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # Package installation support
-            apt-get install -yq --fix-missing debconf-utils
-            apt-get install -yq --fix-missing dialog
-            apt-get install -yq --fix-missing apt-utils
+            # Upgrade only packages that can be upgraded without removing any
+            apt-get upgrade -y -d -o Acquire::Retries=3 || true
 
-            # File acquisition support
-            apt-get install -yq --fix-missing wget
-            apt-get install -yq --fix-missing curl
+            # Download any missing packages that failed in the previous step
+            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
 
-            # Fundamental software build support
-            apt-get install -yq --fix-missing gcc
-            apt-get install -yq --fix-missing make
-            apt-get install -yq --fix-missing cmake
-            apt-get install -yq --fix-missing build-essential
+            # Final update to ensure all package lists are current
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # R for RStudio support
-            apt-get install -yq --fix-missing r-base
-            apt-get install -yq --fix-missing r-base-dev
+            # Install essential packages with retry logic
+            apt-get install -y -o Acquire::Retries=3 \
+              debconf-utils \
+              dialog \
+              apt-utils \
+              wget \
+              curl \
+              gcc \
+              make \
+              cmake \
+              build-essential \
+              r-base \
+              r-base-dev \
+              unzip \
+              || true
+
+            # Clean up apt cache to save disk space
+            apt-get clean
+            rm -rf /var/lib/apt/lists/*
 
       - run:
           name: Install Web drivers
@@ -343,27 +363,37 @@ jobs:
             export DEBIAN_FRONTEND=noninteractive
             export DEBIAN_PRIORITY=critical
 
-            apt-get -yq update
-            apt-get -yq upgrade
+            # Refresh package lists with retries
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # Package installation support
-            apt-get install -yq --fix-missing debconf-utils
-            apt-get install -yq --fix-missing dialog
-            apt-get install -yq --fix-missing apt-utils
+            # Upgrade only packages that can be upgraded without removing any
+            apt-get upgrade -y -d -o Acquire::Retries=3 || true
 
-            # File acquisition support
-            apt-get install -yq --fix-missing wget
-            apt-get install -yq --fix-missing curl
+            # Download any missing packages that failed in the previous step
+            apt-get --fix-broken install -y -o Acquire::Retries=3 || true
 
-            # Fundamental software build support
-            apt-get install -yq --fix-missing gcc
-            apt-get install -yq --fix-missing make
-            apt-get install -yq --fix-missing cmake
-            apt-get install -yq --fix-missing build-essential
+            # Final update to ensure all package lists are current
+            apt-get update -y -o Acquire::Retries=3 || true
 
-            # R for RStudio support
-            apt-get install -yq --fix-missing r-base
-            apt-get install -yq --fix-missing r-base-dev
+            # Install essential packages with retry logic
+            apt-get install -y -o Acquire::Retries=3 \
+              debconf-utils \
+              dialog \
+              apt-utils \
+              wget \
+              curl \
+              gcc \
+              make \
+              cmake \
+              build-essential \
+              r-base \
+              r-base-dev \
+              unzip \
+              || true
+
+            # Clean up apt cache to save disk space
+            apt-get clean
+            rm -rf /var/lib/apt/lists/*
 
       - run:
           name: Install Web drivers
