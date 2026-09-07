@@ -111,31 +111,14 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node.js 16 repository manually (bypass setup script's apt-get install)
+            # Manually configure Node.js 16 repository (no setup script)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh || {
-              echo "WARNING: NodeSource setup script download failed, using system Node.js"
-              apt-get update -y -o Acquire::Retries=3 || true
-              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
-              node --version || true
-              npm --version || true
-              exit 0
-            }
 
-            # Extract just the repository configuration from the setup script
-            grep -E 'deb http' nodesource_setup.sh > /tmp/nodesource.list || true
+            # Add NodeSource repository directly
+            echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
 
-            # If we couldn't extract the repo config, try a different approach
-            if [ ! -s /tmp/nodesource.list ]; then
-              echo "Manual repo config extraction failed, using NodeSource setup script"
-              chmod +x ./nodesource_setup.sh
-              ./nodesource_setup.sh 2>&1 || true
-            else
-              # Add the repository manually without running apt-get install
-              cp /tmp/nodesource.list /etc/apt/sources.list.d/nodesource.list
-              # Download and sign the NodeSource GPG key
-              curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg 2>/dev/null || true
-            fi
+            # Download and sign the NodeSource GPG key
+            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg 2>/dev/null || true
 
             # Create temp directory for downloading packages
             mkdir -p /tmp/node-packages
