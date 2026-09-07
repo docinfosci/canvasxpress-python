@@ -12,6 +12,7 @@ IPython>=7
 beautifulsoup4>=4
 minify-html
 requests
+jupytext
 
 # dash
 dash

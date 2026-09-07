@@ -142,10 +142,9 @@ def render_html_as_image(
         work_image_path = work_dir
 
         try:
+            cmd = f"{get_nodejs_path()} {image_format}{width_text}{height_text} -i {shlex.quote(url)} -o {shlex.quote(str(work_image_path))}"
             result = subprocess.run(
-                [
-                    f"{get_nodejs_path()} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}"
-                ],
+                cmd,
                 shell=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
@@ -239,9 +238,7 @@ class CXImage(CXRenderable):
                 config_text = json.dumps(reproducible_data.get("config"))
 
                 result = subprocess.run(
-                    [
-                        f"{get_nodejs_path()} {image_format} -d {shlex.quote(data_text)} -c {shlex.quote(config_text)} -o {work_image_path}",
-                    ],
+                    f"{get_nodejs_path()} {image_format} -d {shlex.quote(data_text)} -c {shlex.quote(config_text)} -o {shlex.quote(str(work_image_path))}",
                     shell=True,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,

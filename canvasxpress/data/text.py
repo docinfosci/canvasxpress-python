@@ -181,13 +181,13 @@ class CXDataframeData(CXTextData):
         if value is not None and not isinstance(value, DataFrame):
             raise TypeError("The value of dataframe must be a valid DataFrame or None.")
 
-        self.dataframe = value
+        self.__data = value if value is not None else DataFrame()
 
-        if self.dataframe is None:
-            self.text = None
+        if self.__data is None or self.__data.empty:
+            self.text = ""
 
         else:
-            self.text = self.dataframe.to_csv(
+            self.text = self.__data.to_csv(
                 index=False,
                 sep=self.delimiter,
                 quoting=csv.QUOTE_NONNUMERIC,
@@ -206,14 +206,7 @@ class CXDataframeData(CXTextData):
                 converted to an empty `str`.  Values of type other than `str`
                 will be converted using `str()`.
         """
-        if value is None:
-            self.__raw_text = ""
-
-        elif isinstance(value, str):
-            self.__raw_text = value
-
-        else:
-            self.__raw_text = str(value)
+        CXTextData.text.fset(self, value)
 
     def __init__(
         self,

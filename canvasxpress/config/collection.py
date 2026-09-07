@@ -314,7 +314,7 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
             `dict`: A dict of zero or more keys representing the CXConfigs.
         """
         unique_configs = list()
-        if not configs is None:
+        if configs is not None:
             for config in configs:
                 if not config in unique_configs:
                     unique_configs.append(config)

@@ -31,18 +31,21 @@ class PostInstallCommand(install):
             import canvasxpress
 
             package_dir = os.path.dirname(canvasxpress.__file__)
-            skill_file = os.path.join(package_dir, 'agent', 'canvasxpress.md')
+            skill_names = ['chart_builder', 'notebook_builder', 'code_validator']
 
-            if os.path.exists(skill_file):
-                opencode_dest = Path.home() / '.opencode/skills/canvasxpress/SKILL.md'
-                opencode_dest.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(skill_file, opencode_dest)
+            for skill_name in skill_names:
+                skill_file = os.path.join(package_dir, 'agent_skills', skill_name, 'SKILL.md')
 
-                claude_dest = Path.home() / '.agents/skills/canvasxpress/SKILL.md'
-                claude_dest.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(skill_file, claude_dest)
+                if os.path.exists(skill_file):
+                    opencode_dest = Path.home() / '.opencode/skills' / skill_name / 'SKILL.md'
+                    opencode_dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(skill_file, opencode_dest)
 
-                print("CanvasXpress agent skill installed successfully.")
+                    claude_dest = Path.home() / '.agents/skills' / skill_name / 'SKILL.md'
+                    claude_dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(skill_file, claude_dest)
+
+            print("CanvasXpress agent skills installed successfully.")
         except Exception:
             pass
 
@@ -62,12 +65,20 @@ setup(
         "jupyter": core_pkgs + jupyter_pkgs,
         "shiny": core_pkgs + shiny_pkgs,
         "rstudio": core_pkgs + shiny_pkgs + jupyter_pkgs + rstudio_pkgs,
-        "all": core_pkgs + dash_pkgs + jupyter_pkgs,
+        "all": core_pkgs + dash_pkgs + jupyter_pkgs + shiny_pkgs + rstudio_pkgs,
     },
     cmdclass={'install': PostInstallCommand},
     entry_points={
         'console_scripts': [
-            'canvasxpress = canvasxpress.agent._install:cli',
+            'canvasxpress = canvasxpress.agent_skills.registry:cli',
+        ],
+        'canvasxpress.skills': [
+            'chart_builder = canvasxpress.agent_skills.chart_builder',
+            'notebook_builder = canvasxpress.agent_skills.notebook_builder',
+            'code_validator = canvasxpress.agent_skills.code_validator',
+        ],
+        'agent_skills.plugins': [
+            'canvasxpress = canvasxpress.agent_skills.registry:discover_skills',
         ],
     },
     url='https://github.com/docinfosci/canvasxpress-python.git',
@@ -87,7 +98,7 @@ setup(
     description='CanvasXpress for Python',
     long_description=long_description,
     long_description_content_type='text/markdown; charset=UTF-8; variant=GFM',
-    python_requires='>=3.6',
+    python_requires='>=3.10',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

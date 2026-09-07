@@ -17,12 +17,6 @@ from canvasxpress.render.popup import CXBrowserPopup
 # Track the runtime context
 _g_context = get_target_context()
 
-if _g_context == CONTEXT_JUPYTER:
-    from canvasxpress.render.jupyter import inject_cx_assets
-    from IPython.core.display_functions import display
-
-    display(inject_cx_assets())
-
 
 def convert_from_reproducible_json(json: str) -> Union[None, CanvasXpress]:
     """Accepts a str with a reproducible JSON and returns a CanvasXpress object.
@@ -139,12 +133,13 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
 
     elif _g_context == CONTEXT_BROWSER:
         plotter = CXBrowserPopup(canvas)
-        plotter.render(kwargs)
+        plotter.render(**kwargs)
 
     else:
-        return """
-        show() cannot identify the target context.  Either explicitly use a module from canvasxpress.render to 
-        illustrate the CanvasXpress object, which requires the proper canvasxpress package option to be installed 
-        (for example, pip install canvasxpress[shiny]) or set the environment variable CANVASXPRESS_TARGET_CONTEXT 
-        to be one of rstudio, shiny, jupyter, streamlit, dash, or browser.
-        """
+        raise RuntimeError(
+            "show() cannot identify the target context. Either explicitly use a module "
+            "from canvasxpress.render to illustrate the CanvasXpress object, which requires "
+            "the proper canvasxpress package option to be installed (for example, pip install "
+            "canvasxpress[shiny]) or set the environment variable CANVASXPRESS_TARGET_CONTEXT "
+            "to be one of rstudio, shiny, jupyter, streamlit, dash, or browser."
+        )

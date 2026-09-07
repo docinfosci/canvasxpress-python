@@ -13,9 +13,9 @@ def render_from_template(template: str, data: dict) -> str:
         The template string with all placeholders replaced by their
         corresponding values.
     """
-    template_text = template
+    compiled = {f"@{k}@": str(v).replace("@", "\\@") for k, v in data.items()}
 
-    for key in data.keys():
-        template_text = template_text.replace(f"@{str(key)}@", str(data[key]))
+    for placeholder, value in compiled.items():
+        template = template.replace(placeholder, value)
 
-    return template_text
+    return template

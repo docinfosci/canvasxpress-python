@@ -3,7 +3,6 @@ import tempfile
 import uuid
 import webbrowser
 from copy import deepcopy
-from time import sleep
 from typing import Any, Union, List
 
 from canvasxpress.canvas import CanvasXpress
@@ -163,13 +162,9 @@ class CXBrowserPopup(CXRenderable):
             .replace("@js_url@", js_url)
         )
 
-        tempdir = tempfile.TemporaryDirectory()
+        with tempfile.TemporaryDirectory() as tempdir:
+            temp_filename = os.path.join(tempdir, f"{str(uuid.uuid4())}.html")
+            with open(temp_filename, "w") as temp_file:
+                temp_file.write(html)
 
-        temp_filename = os.path.join(tempdir.name, f"{str(uuid.uuid4())}.html")
-        with open(temp_filename, "w") as temp_file:
-            temp_file.write(html)
-
-        webbrowser.open("file://" + temp_filename, new=1)
-
-        sleep(2)
-        tempdir.cleanup()
+            webbrowser.open("file://" + temp_filename, new=1)

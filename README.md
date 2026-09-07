@@ -5,16 +5,9 @@
 </a>
 <br>
 
-[***CanvasXpress***](https://www.canvasxpress.org) was developed as the core visualization component for bioinformatics
-and systems biology analysis at Bristol-Myers Squibb. It supports a large number
-of [visualizations ](https://www.canvasxpress.org/examples.html)
-to display scientific and non-scientific data. ***CanvasXpress*** also includes a simple and unobtrusive
-[user interface](https://www.canvasxpress.org/docs/interface.html) to explore complex data sets, a sophisticated and
-unique mechanism to keep track of all user customization for
-[Reproducible Research ](https://www.canvasxpress.org/docs/audit.html) purposes, as well as an 'out of the box'
-broadcasting capability to synchronize selected data points across all ***CanvasXpress*** plots in a page. Data can be
-easily sorted, grouped, transposed, transformed or clustered dynamically. The fully customizable mouse events as well as
-the zooming, panning and drag-and-drop capabilities are features that make this library unique in its class.
+**CanvasXpress** is a comprehensive visualization library developed by Dr. Isaac Neuhaus for bioinformatics and systems biology analysis at Bristol-Myers Squibb. It supports more than 30 chart types to display scientific and non-scientific data, with a sophisticated user interface for exploring complex datasets, reproducible research auditing, and broadcasting capabilities to synchronize data points across plots.
+
+The CanvasXpress Python package is maintained by [Dr. Todd C. Brett](https://github.com/docinfosci), with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com). Dr. Constance Brett leads the R library development, while Dr. Isaac Neuhaus maintains the original JavaScript library along with the PHP and R implementations.
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
 
@@ -28,10 +21,6 @@ the zooming, panning and drag-and-drop capabilities are features that make this 
 - [Django](https://www.djangoproject.com/)
 
 The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
-
-This ***CanvasXpress*** Python package is maintained by [Dr. Todd C. Brett](https://github.com/docinfosci), with support
-from [Aggregate Genius Inc.](https://www.aggregate-genius.com), in cooperation with Dr. Isaac Neuhaus and the
-***CanvasXpress*** team.
 
 ## Project Status
 
@@ -77,35 +66,56 @@ In addition to _core_, the following additional targets can be used:
   packages for jupyter and shiny
 - _all_ - installs all additional packages to support rendering in any supported document or application
 
-## Agent Integration
+## CanvasXpress AI Skills
 
-CanvasXpress includes a built-in skill for AI coding agents (Claude, Qwen, OpenCode, and others)
-that generates production-ready chart code. Installing the package with `pip install` or `uv add`
-will automatically make the skill available to your AI agent.
+CanvasXpress includes specialized skills for AI coding assistants (such as Claude, Qwen, and OpenCode) to generate production-ready visualization code. Upon installation, three skills are automatically distributed to standard agent directories:
 
-Install the package:
+1. **`chart_builder`** — Generates production-ready CanvasXpress chart code from DataFrame or XYZ data, converts Plotly or Matplotlib code, and renders to any supported framework (Jupyter, Dash, Shiny, Streamlit, Flask).
+
+2. **`notebook_builder`** — Creates Jupyter notebooks (`.ipynb`) with CanvasXpress charts using jupytext for MyST markdown to notebook conversion. Includes proper cell structure and validation workflows.
+
+3. **`code_validator`** — Validates generated CanvasXpress code for syntax correctness before presenting solutions to users. Creates temporary validation scripts, runs syntax checks using `convert_to_reproducible_json()`, and iteratively fixes errors until the code is correct.
+
+### Installation
+
+Install the package using pip or uv:
 
 ```terminal
 pip install canvasxpress
 ```
 
-or with uv:
+or
 
 ```terminal
 uv add canvasxpress
 ```
 
-The skill files are auto-installed during package installation into standard agent directories:
+The skills are automatically installed during package setup to:
 
-- `~/.agents/skills/canvasxpress/SKILL.md` (Claude, Qwen, and other agents using this convention)
-- `~/.opencode/skills/canvasxpress/SKILL.md` (OpenCode)
+- `~/.agents/skills/chart_builder/SKILL.md`
+- `~/.agents/skills/notebook_builder/SKILL.md`
+- `~/.agents/skills/code_validator/SKILL.md`
+- `~/.opencode/skills/chart_builder/SKILL.md`
+- `~/.opencode/skills/notebook_builder/SKILL.md`
+- `~/.opencode/skills/code_validator/SKILL.md`
 
-After installation, restart your coding agent to activate the CanvasXpress skill.
+After installation, restart your AI coding agent to activate the skills.
 
-### Required Profile for Your Framework
+### Manual Reinstallation
 
-CanvasXpress supports multiple rendering frameworks. Install the package with the
-appropriate profile for your use case:
+To manually reinstall or update the skills, use the CanvasXpress CLI:
+
+```terminal
+canvasxpress --target both --force
+```
+
+Available targets: `opencode`, `claude`, or `both`.
+
+For detailed documentation on each skill, refer to the respective `SKILL.md` files in your agent's skill directory.
+
+### Rendering Framework Profiles
+
+CanvasXpress supports multiple rendering frameworks. Install the package with the appropriate profile for your use case:
 
 ```terminal
 # For Jupyter notebooks:
@@ -131,16 +141,6 @@ pip install "canvasxpress[core]"
 ```
 
 Available profiles: `core`, `dash`, `streamlit`, `jupyter`, `shiny`, `rstudio`, `all`.
-
-The skill enables agents to:
-
-- Generate charts from scratch (DataFrame, XYZ dict, or fabricated data)
-- Convert existing Plotly or Matplotlib code to CanvasXpress equivalents
-- Convert DataFrames to XYZ format for manual metadata enhancement
-- Render to any supported framework (Jupyter, Dash, Shiny, Streamlit, Flask, browser)
-- Export charts to PNG/SVG images or reproducible JSON
-
-See the skill documentation at [agent-skill.md](https://github.com/docinfosci/canvasxpress-python/blob/main/agent-skill.md) for details.
 
 ## Usage
 
@@ -228,6 +228,38 @@ or via a shell (_bash_ example provided):
 ```shell
 export CANVASXPRESS_TARGET_CONTEXT="jupyter"
 ```
+
+### Example Agent Prompts
+
+The CanvasXpress AI skills enable you to generate production-ready chart code using natural language prompts. Below are example prompts you can use with AI coding assistants:
+
+#### Bar Charts
+
+**Prompt:** "Create a vertical bar chart using CanvasXpress showing monthly sales data. The x-axis should display 5 categories labeled Jan through May. The y-axis shows sales values: 120, 150, 180, 200, 250. Title the chart 'Monthly Sales' and set dimensions to 600x600 pixels."
+
+**Prompt:** "Generate a horizontal bar chart comparing two variables (Var 1 and Var 2) across five categories (Cat 1 through Cat 5). Display the data values inside each bar in white text. Use a blue color scheme with the title 'Bar Graph Showing Data Values'. The chart should be 600x600 pixels."
+
+#### Heatmaps
+
+**Prompt:** "Create a heatmap visualization of gene expression data with 3 genes (GeneA, GeneB, GeneC) and 3 samples (Sample1, Sample2, Sample3). Use a diverging color scheme. Display the title 'Gene Expression Heatmap' and add a subtitle 'Relative Expression Levels'. Set dimensions to 600x600 pixels."
+
+#### Scatter Plots
+
+**Prompt:** "Generate a scatter plot showing the relationship between two continuous variables. The x-axis represents 'Age' (values 20-60) and the y-axis represents 'Response' (values 10-100). Add a regression line, label both axes, and title the chart 'Age vs Response Relationship'. Use a blue color scheme with circular markers. Dimensions: 600x600."
+
+#### Multi-Series Charts
+
+**Prompt:** "Create a grouped bar chart showing sales data for three products (Product A, Product B, Product C) across six months (Jan-Jun). Group the bars by month and use distinct colors for each product. Display a legend at the bottom with 3 columns. Add axis labels and title 'Product Sales by Month'. Set dimensions to 600x600 pixels."
+
+#### Tips for Effective Prompts
+
+When crafting your prompts, include:
+- **Chart type**: Specify the desired chart (bar, heatmap, scatter, line, etc.)
+- **Data description**: Describe your data structure (categories, values, variables)
+- **Visual preferences**: Mention colors, themes, dimensions, axis labels
+- **Special features**: Note if you need legends, annotations, or data values
+
+The AI agent will validate the generated code for syntax correctness before presenting it to you.
 
 ### Default and Pinned CanvasXpress JavaScript Editions
 

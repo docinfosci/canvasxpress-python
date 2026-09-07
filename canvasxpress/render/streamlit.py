@@ -87,6 +87,8 @@ def plot(cx: CanvasXpress) -> None:
     Raises:
         TypeError: If cx is not a CanvasXpress object.
     """
+    import streamlit.components.v1 as components
+
     if cx is None:
         return None
 

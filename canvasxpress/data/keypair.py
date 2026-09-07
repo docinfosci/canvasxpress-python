@@ -37,7 +37,7 @@ class CXDictData(CXKeyPairData):
                 an empty dict.  A deep copy will be made of a valid `CXDict` or
                 `dict` provided.
         """
-        if value == None:
+        if value is None:
             self.__data = dict()
 
         elif not type(value) in [dict, CXDictData]:

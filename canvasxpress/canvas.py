@@ -153,7 +153,7 @@ class CanvasXpress(CXHtmlConvertable):
                 object should be anonymous, such as for use in rapidly
                 changing React interfaces.
         """
-        if not isinstance(value, str) and value is not None:
+        if value is not None and not isinstance(value, str):
             raise TypeError("value must be of type str or None")
 
         elif value is not None:
@@ -1056,7 +1056,7 @@ class CanvasXpress(CXHtmlConvertable):
             f" after_render {len(self.after_render)} item(s));"
             f" other_init_params"
             f" {len(self.other_init_params)} item(s);"
-            f" events {len(self.events.events)} function(s)."
+            f" events {len(self.events.events) if self.events else 0} function(s)."
         )
 
     def __repr__(self) -> str:

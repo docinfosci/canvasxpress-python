@@ -382,8 +382,6 @@ class CXFloat(CXConfig):
             value: `float` The float value for the configuration.
         """
         super().__init__(label, value)
-        self.__value = 0.0
-
         self.value = value
 
 
@@ -422,8 +420,6 @@ class CXInt(CXConfig):
             value: `int` The integer value for the configuration.
         """
         super().__init__(label, value)
-        self.__value = 0
-
         self.value = value
 
 
@@ -730,7 +726,7 @@ class CXRGBAColor(CXDict):
 
                 return True
 
-            except:
+            except Exception:
                 return False
 
         else:
@@ -769,7 +765,7 @@ class CXRGBAColor(CXDict):
 
                 return True
 
-            except:
+            except Exception:
                 return False
 
         else:
@@ -985,7 +981,7 @@ class CXRGBColor(CXDict):
 
                 return True
 
-            except:
+            except Exception:
                 return False
 
         else:

@@ -1,190 +1,172 @@
 import os
+import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from canvasxpress.agent._install import (
-    OPENCODE_DEST,
-    CLAUDE_DEST,
-    _install_skill,
-    install,
-)
+
+class TestDiscoverSkills:
+    def test_discover_skills_returns_both_skills(self):
+        """Test that discover_skills returns chart_builder, notebook_builder, and code_validator."""
+        from canvasxpress.agent_skills.registry import discover_skills
+
+        skills = discover_skills()
+        assert "chart_builder" in skills
+        assert "notebook_builder" in skills
+        assert "code_validator" in skills
+        assert "content" in skills["chart_builder"]
+        assert "name" in skills["chart_builder"]
+        assert skills["chart_builder"]["name"] == "chart_builder"
+
+    def test_discover_skills_content_not_empty(self):
+        """Test that discovered skills have non-empty content."""
+        from canvasxpress.agent_skills.registry import discover_skills
+
+        skills = discover_skills()
+        assert len(skills["chart_builder"]["content"]) > 100
+        assert len(skills["notebook_builder"]["content"]) > 100
+        assert len(skills["code_validator"]["content"]) > 100
+
+    def test_discover_skills_has_frontmatter(self):
+        """Test that skill content has YAML frontmatter."""
+        from canvasxpress.agent_skills.registry import discover_skills
+
+        skills = discover_skills()
+        assert skills["chart_builder"]["content"].startswith("---")
+        assert skills["notebook_builder"]["content"].startswith("---")
+        assert skills["code_validator"]["content"].startswith("---")
 
 
-@pytest.fixture
-def mock_skill_file():
-    """Create a temporary mock skill file for testing."""
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".md", delete=False
-    ) as f:
-        f.write("# Mock Skill File")
-        skill_path = f.name
-    yield skill_path
-    os.unlink(skill_path)
+class TestInstallSkills:
+    @pytest.fixture
+    def mock_entry_points(self):
+        """Mock entry points for testing."""
+        mock_ep = MagicMock()
+        mock_ep.name = "chart_builder"
+        mock_ep.value = "canvasxpress.agent_skills.chart_builder"
 
+        with patch("canvasxpress.agent_skills.registry._get_entry_points") as mock:
+            mock.return_value = [mock_ep]
+            yield mock_ep
 
-@pytest.fixture
-def mock_canvasxpress(mock_skill_file):
-    """Mock the canvasxpress module to return a mock skill file path."""
-    mock_module = MagicMock()
-    mock_module.__file__ = "/mock/path/canvasxpress/__init__.py"
+    def test_install_skills_opencode(self, mock_entry_points, tmp_path, monkeypatch):
+        """Test installing skills to OpenCode directory."""
+        from canvasxpress.agent_skills.registry import install_skills
 
-    with patch("canvasxpress.agent._install._SKILL_FILE", mock_skill_file):
-        yield mock_skill_file
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
+        install_skills(target="opencode", force=True)
 
-class TestInstallSkill:
-    def test_install_skill_success(self, mock_canvasxpress, tmp_path):
-        """Test successful skill installation."""
-        dest = tmp_path / "test" / "SKILL.md"
-        result = _install_skill(dest, force=False)
-        assert result is True
-        assert dest.exists()
-        assert dest.read_text() == "# Mock Skill File"
+        expected_path = mock_home / ".opencode/skills/chart_builder/SKILL.md"
+        assert expected_path.exists()
+        assert "chart_builder" in expected_path.read_text()
 
-    def test_install_skill_file_not_found(self, tmp_path):
-        """Test when skill file does not exist."""
-        with patch("canvasxpress.agent._install._SKILL_FILE", "/nonexistent/path.md"):
-            dest = tmp_path / "test" / "SKILL.md"
-            result = _install_skill(dest, force=False)
-            assert result is False
+    def test_install_skills_claude(self, mock_entry_points, tmp_path, monkeypatch):
+        """Test installing skills to Claude directory."""
+        from canvasxpress.agent_skills.registry import install_skills
 
-    def test_install_skill_no_force(self, mock_canvasxpress, tmp_path):
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        install_skills(target="claude", force=True)
+
+        expected_path = mock_home / ".agents/skills/chart_builder/SKILL.md"
+        assert expected_path.exists()
+        assert "chart_builder" in expected_path.read_text()
+
+    def test_install_skills_both(self, mock_entry_points, tmp_path, monkeypatch):
+        """Test installing skills to both directories."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        install_skills(target="both", force=True)
+
+        opencode_path = mock_home / ".opencode/skills/chart_builder/SKILL.md"
+        claude_path = mock_home / ".agents/skills/chart_builder/SKILL.md"
+        assert opencode_path.exists()
+        assert claude_path.exists()
+
+    def test_install_skills_no_force(self, mock_entry_points, tmp_path, monkeypatch):
         """Test that existing file is not overwritten without force."""
-        dest = tmp_path / "test" / "SKILL.md"
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text("Existing content")
+        from canvasxpress.agent_skills.registry import install_skills
 
-        result = _install_skill(dest, force=False)
-        assert result is False
-        assert dest.read_text() == "Existing content"
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
-    def test_install_skill_with_force(self, mock_canvasxpress, tmp_path):
+        # Create existing file
+        existing_path = mock_home / ".opencode/skills/chart_builder/SKILL.md"
+        existing_path.parent.mkdir(parents=True, exist_ok=True)
+        existing_path.write_text("Old content")
+
+        install_skills(target="opencode", force=False)
+
+        assert existing_path.read_text() == "Old content"
+
+    def test_install_skills_with_force(self, mock_entry_points, tmp_path, monkeypatch):
         """Test that existing file is overwritten with force."""
-        dest = tmp_path / "test" / "SKILL.md"
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text("Existing content")
+        from canvasxpress.agent_skills.registry import install_skills
 
-        result = _install_skill(dest, force=True)
-        assert result is True
-        assert dest.read_text() == "# Mock Skill File"
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
+        # Create existing file
+        existing_path = mock_home / ".opencode/skills/chart_builder/SKILL.md"
+        existing_path.parent.mkdir(parents=True, exist_ok=True)
+        existing_path.write_text("Old content")
 
-class TestInstallFunction:
-    def test_install_invalid_target(self, capsys):
+        install_skills(target="opencode", force=True)
+
+        assert "chart_builder" in existing_path.read_text()
+
+    def test_install_skills_invalid_target(self, capsys):
         """Test that invalid target raises exit."""
-        with pytest.raises(SystemExit):
-            install(target="invalid")
+        from canvasxpress.agent_skills.registry import install_skills
 
-    def test_install_skill_not_found(self, capsys):
-        """Test when skill file is not found."""
-        with patch("canvasxpress.agent._install._SKILL_FILE", "/nonexistent/path.md"):
-            with pytest.raises(SystemExit):
-                install(target="opencode")
+        with pytest.raises(SystemExit):
+            install_skills(target="invalid")
 
 
 class TestCLI:
     def test_cli_help(self, monkeypatch, capsys):
         """Test that --help displays help message."""
-        from canvasxpress.agent._install import cli
+        from canvasxpress.agent_skills.registry import cli
 
-        monkeypatch.setattr("sys.argv", ["_install", "--help"])
+        monkeypatch.setattr("sys.argv", ["canvasxpress", "--help"])
         with pytest.raises(SystemExit) as exc_info:
             cli()
         assert exc_info.value.code == 0
 
-    def test_cli_target_opencode(self, monkeypatch, mock_canvasxpress, tmp_path,
-                                 capsys):
-        """Test CLI with opencode target."""
-        from canvasxpress.agent import _install
+    def test_cli_short_help(self, monkeypatch, capsys):
+        """Test that -h displays help message."""
+        from canvasxpress.agent_skills.registry import cli
 
-        mock_home = tmp_path / "home"
-        mock_home.mkdir()
-        monkeypatch.setattr(_install, "OPENCODE_DEST", mock_home / ".opencode/skills/canvasxpress/SKILL.md")
-
-        monkeypatch.setattr("sys.argv", ["_install", "--target", "opencode"])
-        cli = _install.cli
-        cli()
-
-        expected_path = mock_home / ".opencode/skills/canvasxpress/SKILL.md"
-        assert expected_path.exists()
-
-    def test_cli_target_claude(self, monkeypatch, mock_canvasxpress, tmp_path,
-                               capsys):
-        """Test CLI with claude target."""
-        from canvasxpress.agent import _install
-
-        mock_home = tmp_path / "home"
-        mock_home.mkdir()
-        monkeypatch.setattr(_install, "CLAUDE_DEST", mock_home / ".agents/skills/canvasxpress/SKILL.md")
-
-        monkeypatch.setattr("sys.argv", ["_install", "--target", "claude"])
-        cli = _install.cli
-        cli()
-
-        expected_path = mock_home / ".agents/skills/canvasxpress/SKILL.md"
-        assert expected_path.exists()
-
-    def test_cli_target_both(self, monkeypatch, mock_canvasxpress, tmp_path,
-                             capsys):
-        """Test CLI with both targets."""
-        from canvasxpress.agent import _install
-
-        mock_home = tmp_path / "home"
-        mock_home.mkdir()
-        monkeypatch.setattr(_install, "OPENCODE_DEST", mock_home / ".opencode/skills/canvasxpress/SKILL.md")
-        monkeypatch.setattr(_install, "CLAUDE_DEST", mock_home / ".agents/skills/canvasxpress/SKILL.md")
-
-        monkeypatch.setattr("sys.argv", ["_install", "--target", "both"])
-        cli = _install.cli
-        cli()
-
-        opencode_path = mock_home / ".opencode/skills/canvasxpress/SKILL.md"
-        claude_path = mock_home / ".agents/skills/canvasxpress/SKILL.md"
-        assert opencode_path.exists()
-        assert claude_path.exists()
-
-    def test_cli_force(self, monkeypatch, mock_canvasxpress, tmp_path, capsys):
-        """Test CLI with force flag."""
-        from canvasxpress.agent import _install
-
-        mock_home = tmp_path / "home"
-        mock_home.mkdir()
-        monkeypatch.setattr(_install, "OPENCODE_DEST", mock_home / ".opencode/skills/canvasxpress/SKILL.md")
-
-        # Create existing skill file
-        opencode_path = mock_home / ".opencode/skills/canvasxpress/SKILL.md"
-        opencode_path.parent.mkdir(parents=True, exist_ok=True)
-        opencode_path.write_text("Old content")
-
-        monkeypatch.setattr("sys.argv", ["_install", "--target", "opencode", "--force"])
-        cli = _install.cli
-        cli()
-
-        assert opencode_path.read_text() == "# Mock Skill File"
-
-    def test_cli_short_options(self, monkeypatch, mock_canvasxpress, tmp_path,
-                               capsys):
-        """Test CLI with short options."""
-        from canvasxpress.agent import _install
-
-        mock_home = tmp_path / "home"
-        mock_home.mkdir()
-        monkeypatch.setattr(_install, "CLAUDE_DEST", mock_home / ".agents/skills/canvasxpress/SKILL.md")
-
-        monkeypatch.setattr("sys.argv", ["_install", "-t", "claude", "-f"])
-        cli = _install.cli
-        cli()
-
-        expected_path = mock_home / ".agents/skills/canvasxpress/SKILL.md"
-        assert expected_path.exists()
+        monkeypatch.setattr("sys.argv", ["canvasxpress", "-h"])
+        with pytest.raises(SystemExit) as exc_info:
+            cli()
+        assert exc_info.value.code == 0
 
     def test_cli_unknown_argument(self, monkeypatch, capsys):
         """Test CLI with unknown argument."""
-        from canvasxpress.agent._install import cli
+        from canvasxpress.agent_skills.registry import cli
 
-        monkeypatch.setattr("sys.argv", ["_install", "--unknown"])
+        monkeypatch.setattr("sys.argv", ["canvasxpress", "--unknown"])
+        with pytest.raises(SystemExit):
+            cli()
+
+    def test_cli_target_missing_value(self, monkeypatch, capsys):
+        """Test CLI with --target but no value."""
+        from canvasxpress.agent_skills.registry import cli
+
+        monkeypatch.setattr("sys.argv", ["canvasxpress", "--target"])
         with pytest.raises(SystemExit):
             cli()
