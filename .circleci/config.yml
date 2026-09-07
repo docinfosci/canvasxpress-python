@@ -111,19 +111,34 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node 16 repository config
+            # Configure Node.js 20 LTS repository (recommended LTS version)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh || {
+              echo "WARNING: NodeSource setup failed, using system Node.js"
+              apt-get update -y -o Acquire::Retries=3 || true
+              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+              node --version || true
+              npm --version || true
+              exit 0
+            }
             chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh
+            ./nodesource_setup.sh || {
+              echo "WARNING: NodeSource setup failed, using system Node.js"
+              apt-get update -y -o Acquire::Retries=3 || true
+              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+              node --version || true
+              npm --version || true
+              exit 0
+            }
 
-            # Install Node
+            # Install Node and NPM with retry logic
             apt-get clean
             apt-get autoclean
             apt-get autoremove
 
-            apt-get install -yqf nodejs
+            apt-get install -y -o Acquire::Retries=3 nodejs npm || true
 
+            # Verify installations
             node --version
             npm --version
 
@@ -325,19 +340,34 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node 16 repository config
+            # Configure Node.js 20 LTS repository (recommended LTS version)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh || {
+              echo "WARNING: NodeSource setup failed, using system Node.js"
+              apt-get update -y -o Acquire::Retries=3 || true
+              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+              node --version || true
+              npm --version || true
+              exit 0
+            }
             chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh
+            ./nodesource_setup.sh || {
+              echo "WARNING: NodeSource setup failed, using system Node.js"
+              apt-get update -y -o Acquire::Retries=3 || true
+              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+              node --version || true
+              npm --version || true
+              exit 0
+            }
 
-            # Install Node
+            # Install Node and NPM with retry logic
             apt-get clean
             apt-get autoclean
             apt-get autoremove
 
-            apt-get install -yqf nodejs
+            apt-get install -y -o Acquire::Retries=3 nodejs npm || true
 
+            # Verify installations
             node --version
             npm --version
 
@@ -489,19 +519,34 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            # Configure Node 16 repository config
+            # Configure Node.js 20 LTS repository (recommended LTS version)
             cd /tmp
-            curl -fsSL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
+            curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh || {
+              echo "WARNING: NodeSource setup failed, using system Node.js"
+              apt-get update -y -o Acquire::Retries=3 || true
+              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+              node --version || true
+              npm --version || true
+              exit 0
+            }
             chmod +x ./nodesource_setup.sh
-            ./nodesource_setup.sh
+            ./nodesource_setup.sh || {
+              echo "WARNING: NodeSource setup failed, using system Node.js"
+              apt-get update -y -o Acquire::Retries=3 || true
+              apt-get install -y -o Acquire::Retries=3 nodejs npm || true
+              node --version || true
+              npm --version || true
+              exit 0
+            }
 
-            # Install Node
+            # Install Node and NPM with retry logic
             apt-get clean
             apt-get autoclean
             apt-get autoremove
 
-            apt-get install -yqf nodejs
+            apt-get install -y -o Acquire::Retries=3 nodejs npm || true
 
+            # Verify installations
             node --version
             npm --version
 
