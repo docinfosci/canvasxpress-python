@@ -85,7 +85,7 @@ Consult these reference files for detailed guidance on specific topics:
 
 | Reference File | When to Load |
 |---|---|
-| `reference_chart_types.md` | Converting from Plotly/Matplotlib, looking up CXGraphTypeOptions, mapping chart types |
+| `reference_conversion.md` | Converting from Plotly/Matplotlib, looking up CXGraphTypeOptions, mapping chart types |
 | `reference_platform.md` | Building Dash, Shiny, Streamlit, Flask, or Jupyter apps; adding event hooks; exporting charts |
 | `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs |
 
