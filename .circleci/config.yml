@@ -124,44 +124,23 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            cd /tmp
+            # Install NVM (Node Version Manager) to avoid apt repository issues
+            export NVM_DIR="$HOME/.nvm"
+            mkdir -p "$NVM_DIR"
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-            # Add NodeSource repository directly
-            echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
+            # Load NVM immediately
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            # Download and sign the NodeSource GPG key
-            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg 2>/dev/null || true
-
-            # Force refresh of all repositories (including NodeSource)
-            rm -rf /var/lib/apt/lists/*
-            apt-get clean
-            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
-
-            # Install nodejs and npm directly with retry logic
-            apt-get install -y -o Acquire::Retries=3 nodejs npm || {
-              echo "ERROR: Failed to install nodejs and npm"
-              exit 1
-            }
-
-            # Clean up
-            apt-get clean
-            apt-get autoclean
-            apt-get autoremove
+            # Install Node.js 18
+            nvm install 18
+            nvm use 18
+            nvm alias default 18
 
             # Verify installations
-            if command -v node &> /dev/null; then
-              node --version
-            else
-              echo "ERROR: node command not found after installation"
-              exit 1
-            fi
-
-            if command -v npm &> /dev/null; then
-              npm --version
-            else
-              echo "ERROR: npm command not found after installation"
-              exit 1
-            fi
+            node --version
+            npm --version
       - run:
           name: Install Python dependencies
           command: |
@@ -373,44 +352,23 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            cd /tmp
+            # Install NVM (Node Version Manager) to avoid apt repository issues
+            export NVM_DIR="$HOME/.nvm"
+            mkdir -p "$NVM_DIR"
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-            # Add NodeSource repository directly
-            echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
+            # Load NVM immediately
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            # Download and sign the NodeSource GPG key
-            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg 2>/dev/null || true
-
-            # Force refresh of all repositories (including NodeSource)
-            rm -rf /var/lib/apt/lists/*
-            apt-get clean
-            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
-
-            # Install nodejs and npm directly with retry logic
-            apt-get install -y -o Acquire::Retries=3 nodejs npm || {
-              echo "ERROR: Failed to install nodejs and npm"
-              exit 1
-            }
-
-            # Clean up
-            apt-get clean
-            apt-get autoclean
-            apt-get autoremove
+            # Install Node.js 18
+            nvm install 18
+            nvm use 18
+            nvm alias default 18
 
             # Verify installations
-            if command -v node &> /dev/null; then
-              node --version
-            else
-              echo "ERROR: node command not found after installation"
-              exit 1
-            fi
-
-            if command -v npm &> /dev/null; then
-              npm --version
-            else
-              echo "ERROR: npm command not found after installation"
-              exit 1
-            fi
+            node --version
+            npm --version
       - run:
           name: Install Python dependencies
           command: |
@@ -572,44 +530,23 @@ jobs:
       - run:
           name: Install Node and NPM for Dash and General Python
           command: |
-            cd /tmp
+            # Install NVM (Node Version Manager) to avoid apt repository issues
+            export NVM_DIR="$HOME/.nvm"
+            mkdir -p "$NVM_DIR"
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-            # Add NodeSource repository directly
-            echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" > /etc/apt/sources.list.d/nodesource.list
+            # Load NVM immediately
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-            # Download and sign the NodeSource GPG key
-            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg 2>/dev/null || true
-
-            # Force refresh of all repositories (including NodeSource)
-            rm -rf /var/lib/apt/lists/*
-            apt-get clean
-            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
-
-            # Install nodejs and npm directly with retry logic
-            apt-get install -y -o Acquire::Retries=3 nodejs npm || {
-              echo "ERROR: Failed to install nodejs and npm"
-              exit 1
-            }
-
-            # Clean up
-            apt-get clean
-            apt-get autoclean
-            apt-get autoremove
+            # Install Node.js 18
+            nvm install 18
+            nvm use 18
+            nvm alias default 18
 
             # Verify installations
-            if command -v node &> /dev/null; then
-              node --version
-            else
-              echo "ERROR: node command not found after installation"
-              exit 1
-            fi
-
-            if command -v npm &> /dev/null; then
-              npm --version
-            else
-              echo "ERROR: npm command not found after installation"
-              exit 1
-            fi
+            node --version
+            npm --version
       - run:
           name: Install Python dependencies
           command: |
