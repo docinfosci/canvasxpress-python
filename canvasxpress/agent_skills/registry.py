@@ -12,24 +12,24 @@ from pathlib import Path
 
 
 def _get_entry_points():
-    """Get entry points for canvasxpress.skills namespace (Python 3.8+ compatible)."""
+    """Get entry points for canvasxpress.skills namespace (Python 3.8+)."""
     eps = entry_points()
-    if hasattr(eps, 'get'):
-        # Python < 3.10
-        return eps.get('canvasxpress.skills', [])
-    else:
-        # Python >= 3.10
+    if sys.version_info >= (3, 10):
+        # Python 3.10+ supports group parameter directly
         return eps
+    else:
+        # Python 3.8-3.9 requires get() method
+        return eps.get('canvasxpress.skills', [])
 
 
 def _read_module_file(module_path, filename):
     """Read a file from a module (Python 3.8+ compatible)."""
     import importlib.resources
-    if hasattr(importlib.resources, 'files'):
-        # Python 3.9+
+    if sys.version_info >= (3, 9):
+        # Python 3.9+ has importlib.resources.files()
         return importlib.resources.files(module_path).joinpath(filename).read_text(encoding='utf-8')
     else:
-        # Python 3.8
+        # Python 3.8 uses read_text()
         return importlib.resources.read_text(module_path, filename, encoding='utf-8')
 
 
