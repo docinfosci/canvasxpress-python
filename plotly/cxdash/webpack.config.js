@@ -84,7 +84,6 @@ module.exports = (env, argv) => {
         optimization: {
             minimizer: [
                 new TerserPlugin({
-                    sourceMap: true,
                     parallel: true,
                     terserOptions: {
                         warnings: false,
