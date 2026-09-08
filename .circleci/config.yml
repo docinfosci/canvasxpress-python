@@ -207,7 +207,16 @@ jobs:
 
       - run:
           name: Test
-          command: invoke test
+          command: |
+            # Load NVM for Node.js access
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Activate virtual environment
+            source ./venv/bin/activate
+
+            # Run tests
+            invoke test
 
       - store_test_results:
           path: pytest_result.xml
@@ -433,7 +442,16 @@ jobs:
 
       - run:
           name: Test
-          command: invoke test
+          command: |
+            # Load NVM for Node.js access
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Activate virtual environment
+            source ./venv/bin/activate
+
+            # Run tests
+            invoke test
 
       - store_test_results:
           path: pytest_result.xml
@@ -631,7 +649,16 @@ jobs:
 
       - run:
           name: Test
-          command: invoke test
+          command: |
+            # Load NVM for Node.js access
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Activate virtual environment
+            source ./venv/bin/activate
+
+            # Run tests
+            invoke test
 
       - store_test_results:
           path: pytest_result.xml
