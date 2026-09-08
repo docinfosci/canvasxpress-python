@@ -5,6 +5,7 @@ try:
 except ImportError:
     from importlib_resources import files
 from pathlib import Path
+from typing import Optional, List
 
 CHART_SKILLS = [
     "area_skill.md",
@@ -36,7 +37,7 @@ CHART_SKILLS = [
 ]
 
 
-def get_skill_content(skill_name: str) -> str | None:
+def get_skill_content(skill_name: str) -> Optional[str]:
     """
     Retrieve the content of a specific chart skill file.
 
@@ -56,7 +57,7 @@ def get_skill_content(skill_name: str) -> str | None:
     return None
 
 
-def get_available_skills() -> list[str]:
+def get_available_skills() -> List[str]:
     """Return a sorted list of all available chart skill names."""
     return sorted(CHART_SKILLS)
 
