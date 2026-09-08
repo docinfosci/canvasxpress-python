@@ -8,11 +8,29 @@ setuptools entry points for platform-agnostic discovery.
 
 import sys
 from importlib.metadata import entry_points
+from pathlib import Path
 
 
 def _get_entry_points():
-    """Get entry points for canvasxpress.skills namespace."""
-    return entry_points(group='canvasxpress.skills')
+    """Get entry points for canvasxpress.skills namespace (Python 3.8+ compatible)."""
+    eps = entry_points()
+    if hasattr(eps, 'get'):
+        # Python < 3.10
+        return eps.get('canvasxpress.skills', [])
+    else:
+        # Python >= 3.10
+        return eps
+
+
+def _read_module_file(module_path, filename):
+    """Read a file from a module (Python 3.8+ compatible)."""
+    import importlib.resources
+    if hasattr(importlib.resources, 'files'):
+        # Python 3.9+
+        return importlib.resources.files(module_path).joinpath(filename).read_text(encoding='utf-8')
+    else:
+        # Python 3.8
+        return importlib.resources.read_text(module_path, filename, encoding='utf-8')
 
 
 def discover_skills():
@@ -24,20 +42,17 @@ def discover_skills():
         dict: Mapping of skill names to their content with metadata.
               Example: {"chart_builder": {"name": "chart_builder", "content": "..."}, ...}
     """
-    import importlib.resources
-
     skills_map = {}
     eps = _get_entry_points()
 
     for ep in eps:
         module_path = ep.value
         try:
-            skill_md = importlib.resources.files(module_path).joinpath("SKILL.md")
-            if skill_md.exists():
-                skills_map[ep.name] = {
-                    "name": ep.name,
-                    "content": skill_md.read_text(encoding="utf-8")
-                }
+            content = _read_module_file(module_path, "SKILL.md")
+            skills_map[ep.name] = {
+                "name": ep.name,
+                "content": content
+            }
         except Exception:
             pass
 
@@ -73,17 +88,15 @@ def install_skills(target: str = 'both', force: bool = False) -> None:
     for ep in eps:
         module_path = ep.value
         try:
-            skill_md = importlib.resources.files(module_path).joinpath("SKILL.md")
-            if skill_md.exists():
-                skill_content = skill_md.read_text(encoding="utf-8")
-                for skills_dir in targets:
-                    dest = skills_dir / ep.name / "SKILL.md"
-                    dest.parent.mkdir(parents=True, exist_ok=True)
-                    if dest.exists() and not force:
-                        print(f"Skill file already exists at {dest}. Use --force to overwrite.")
-                        continue
-                    dest.write_text(skill_content, encoding="utf-8")
-                    print(f"CanvasXpress skill '{ep.name}' installed to: {dest}")
+            skill_content = _read_module_file(module_path, "SKILL.md")
+            for skills_dir in targets:
+                dest = skills_dir / ep.name / "SKILL.md"
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                if dest.exists() and not force:
+                    print(f"Skill file already exists at {dest}. Use --force to overwrite.")
+                    continue
+                dest.write_text(skill_content, encoding="utf-8")
+                print(f"CanvasXpress skill '{ep.name}' installed to: {dest}")
         except Exception as e:
             print(f"Failed to install skill '{ep.name}': {e}")
 
