@@ -56,6 +56,14 @@ module.exports = (env, argv) => {
         },
         devtool,
         externals,
+        resolve: {
+            fallback: {
+                crypto: false
+            },
+            alias: {
+                'canvasxpress/src/canvasXpress.css': 'canvasxpress/style'
+            }
+        },
         module: {
             rules: [
                 {
@@ -70,9 +78,6 @@ module.exports = (env, argv) => {
                     use: [
                         {
                             loader: 'style-loader',
-                            options: {
-                                insertAt: 'top'
-                            }
                         },
                         {
                             loader: 'css-loader',
@@ -84,40 +89,16 @@ module.exports = (env, argv) => {
         optimization: {
             minimizer: [
                 new TerserPlugin({
-                    sourceMap: true,
                     parallel: true,
-                    cache: './.build_cache/terser',
                     terserOptions: {
                         warnings: false,
                         ie8: false
                     }
                 })
-            ],
-            splitChunks: {
-                name: true,
-                cacheGroups: {
-                    async: {
-                        chunks: 'async',
-                        minSize: 0,
-                        name(module, chunks, cacheGroupKey) {
-                            return `${cacheGroupKey}-${chunks[0].name}`;
-                        }
-                    },
-                    shared: {
-                        chunks: 'all',
-                        minSize: 0,
-                        minChunks: 2,
-                        name: 'cxdash-shared'
-                    }
-                }
-            }
+            ]
         },
         plugins: [
-            new WebpackDashDynamicImport(),
-            new webpack.SourceMapDevToolPlugin({
-                filename: '[file].map',
-                exclude: ['async-plotlyjs']
-            })
+            new WebpackDashDynamicImport()
         ]
     }
 };

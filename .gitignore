@@ -352,3 +352,8 @@ plotly/cxdash/deps/cxdash.min.js
 plotly/cxdash/inst/deps/cxdash.min.js
 
 pytest_result.xml
+
+# Agent plan file
+plan.md
+
+uv.lock

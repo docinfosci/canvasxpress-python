@@ -1,0 +1,42 @@
+{
+  "version": @version@,
+  "renderTo": @renderTo@,
+  "data": @data@,
+  "config": @config@,
+  "events": @events@,
+  "info": false,
+  "afterRender": @afterRender@,
+  "noValidate": true,
+  "factory": {
+    "version": @version@,
+    "buildDate": @buildDate@,
+    "client": @client@,
+    "siteSrc": true,
+    "href": @href@,
+    "services": @services@
+  },
+  "system": {
+    "browser": @browser@,
+    "browserVersion": @browserVersion@,
+    "os": @os@,
+    "alt": @alt@,
+    "command": @command@,
+    "control": @control@,
+    "shift": @shift@,
+    "isNode": false,
+    "isReact": false,
+    "isjQuery": false,
+    "isReveal": false,
+    "isZoom": false,
+    "isIE": false,
+    "isInIframe": false,
+    "isR": false,
+    "isHTMLWidgets": false,
+    "isShiny": @isShiny@,
+    "isRViewer": false,
+    "isRConsole": false,
+    "isCxplot": false,
+    "isGGMatrix": false,
+    "isJupyter": @isJupyter@
+  }
+}

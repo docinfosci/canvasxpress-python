@@ -1,6 +1,7 @@
 import os
 import subprocess
 import json
+import shlex
 from typing import Any, Union, List
 from tempfile import gettempdir
 from pathlib import Path
@@ -18,6 +19,9 @@ MAX_NODE_WAIT_SECONDS: int = 60
 def install_cx_in_nodejs() -> None:
     """
     Installs the canvasxpress-cli NodeJS package if it is not available.
+
+    Raises:
+        RuntimeError: If the canvasxpress-cli package cannot be installed.
     """
     try:
         availability_status = subprocess.run(
@@ -47,9 +51,15 @@ def install_cx_in_nodejs() -> None:
 
 def nodejs_modules_path() -> Path:
     """
-    Returns the path to the NodeJS' modules installation.
-    :returns: `str`
-        The path for the NodeJS' modules installation.
+    Returns the path to the NodeJS modules installation directory.
+
+    Searches upward from the current working directory for a node_modules folder.
+
+    Returns:
+        The path to the node_modules directory.
+
+    Raises:
+        RuntimeError: If node_modules is not found.
     """
     install_cx_in_nodejs()
     search_path = Path(os.getcwd())
@@ -67,7 +77,13 @@ def nodejs_modules_path() -> Path:
 CX_NODEJS_PATH: Path = None
 
 
-def get_nodejs_path() -> str:
+def get_nodejs_path() -> Path:
+    """
+    Returns the path to the CanvasXpress NodeJS CLI tool.
+
+    Returns:
+        The path to the canvasxpress CLI executable.
+    """
     global CX_NODEJS_PATH
     if CX_NODEJS_PATH is None:
         CX_NODEJS_PATH = nodejs_modules_path() / "canvasxpress-cli/bin/canvasxpress"
@@ -83,12 +99,20 @@ def render_html_as_image(
 ) -> list:
     """
     Renders a Web page with CanvasXpress chart declarations into one image per chart.
-    :param url: `str`
-        The URL to the HTML.  Can be file:// or http[s]://.
-    :param format: `str`
-        A `str` or list indicating whether PNG or SVG images should be produced.
-    :returns: `list`
-        A `list[dict]` of image data, if any.
+
+    Args:
+        url: The URL to the HTML. Can be file:// or http[s]://.
+        format: A str or list indicating whether PNG or SVG images should be produced.
+        width: The width of the rendered image in pixels.
+        height: The height of the rendered image in pixels.
+
+    Returns:
+        A list of dicts containing image data, if any. Each dict contains the chart
+        id and the image binary data with format information.
+
+    Raises:
+        ValueError: If width or height are not integers or None, or if format is not
+            PNG_IMAGE or SVG_IMAGE.
     """
     formats = format if isinstance(format, list) else [format]
 
@@ -118,10 +142,9 @@ def render_html_as_image(
         work_image_path = work_dir
 
         try:
+            cmd = f"{get_nodejs_path()} {image_format}{width_text}{height_text} -i {shlex.quote(url)} -o {shlex.quote(str(work_image_path))}"
             result = subprocess.run(
-                [
-                    f"{get_nodejs_path()} {image_format}{width_text}{height_text} -i {url} -o {work_image_path}"
-                ],
+                cmd,
                 shell=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
@@ -154,30 +177,42 @@ def render_html_as_image(
 
 class CXImage(CXRenderable):
     """
-    CXPng is a `CXRenderable` that renders `CanvasXpress` objects into PNG images without the need for a Web session
-    at the client code level.  NodeJS must be installed in the system, and the Python process must have permission
-    to interact with NodeJS.
+    CXImage is a CXRenderable that renders CanvasXpress objects into PNG or SVG images
+    without the need for a Web session at the client code level. NodeJS must be installed
+    in the system, and the Python process must have permission to interact with NodeJS.
     """
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXNoteBook` object.
-        :param cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXImage object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         super().__init__(*cx)
 
     def render(self, **kwargs: Any) -> list:
         """
-        Renders the associated CanvasXpress object appropriate to create PNGs.
-        :param kwargs: `Any`
-            * `format`: Accepts a `str` or `list[str]` with the values `png`, or `svg`.  Each tracked CanvasXpress
-              object will be rendered into the specified image formats.  If not provided, then `png` is assumed.
-        :returns: `list{dict}`
-            A list `dict`, each containing a PNGs or SVG and the `render_to` ID of the corresponding CanvasXpress.
+        Renders the associated CanvasXpress objects into images using NodeJS.
+
+        Args:
+            kwargs: Supports the following parameters:
+                format: A str or list[str] with the values 'png' or 'svg'.
+                    Each tracked CanvasXpress object will be rendered into the
+                    specified image formats. If not provided, then 'png' is assumed.
+
+        Returns:
+            A list of dicts, each containing image data and the render_to ID
+            of the corresponding CanvasXpress chart.
+
+        Raises:
+            ValueError: If format is not PNG_IMAGE or SVG_IMAGE.
         """
         format_arg = kwargs.get("format", [PNG_IMAGE])
         formats = format_arg if isinstance(format_arg, list) else [format_arg]
@@ -196,22 +231,19 @@ class CXImage(CXRenderable):
             for reproducible_json in reproducible_jsons:
                 work_dir = Path(gettempdir()) / "canvasxpress-python"
                 work_dir.mkdir(exist_ok=True)
-                work_json_path = Path(work_dir, "cx_data.json")
                 work_image_path = work_dir
 
-                with open(work_json_path, "w") as json_temp_file:
-                    json_temp_file.write(reproducible_json)
+                reproducible_data = json.loads(reproducible_json)
+                data_text = json.dumps(reproducible_data.get("data"))
+                config_text = json.dumps(reproducible_data.get("config"))
 
                 result = subprocess.run(
-                    [
-                        f"{get_nodejs_path()} {image_format} -i {work_json_path} -o {work_image_path}",
-                    ],
+                    f"{get_nodejs_path()} {image_format} -d {shlex.quote(data_text)} -c {shlex.quote(config_text)} -o {shlex.quote(str(work_image_path))}",
                     shell=True,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     timeout=MAX_NODE_WAIT_SECONDS,
                 )
-                work_json_path.unlink()
                 if result.returncode == 0:
 
                     image_file_options = list(
@@ -223,9 +255,7 @@ class CXImage(CXRenderable):
                         image_file_path.unlink()
                         rendered_images.append(
                             {
-                                "id": json.loads(reproducible_json).get(
-                                    "renderTo", "anonymous"
-                                ),
+                                "id": reproducible_data.get("renderTo", "anonymous"),
                                 "image": {
                                     "binary": image,
                                     "format": image_format,

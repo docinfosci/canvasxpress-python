@@ -12,7 +12,7 @@ The project overview is documented in the `README.md` file located in the root d
 Automated tests are maintained in the `./tests` directory. These tests ensure that the project functions as expected and cover various scenarios.
 
 ## Python Version Compatibility
-The project is developed using Python 3.13 but must be compatible with Python 3.10 to maintain broad compatibility across different environments.
+The project is developed using Python 3.13 but must be compatible with Python 3.8+ to maintain broad compatibility across different environments.
 
 ## Code Formatting
 Code formatting adheres to the Black style guide, ensuring consistent and readable code throughout the project.

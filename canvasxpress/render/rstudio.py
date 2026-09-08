@@ -41,18 +41,22 @@ _cx_html_intermixed_template = """
 
 class CXHtml(CXRenderable):
     """
-    CXHtml is a `CXRenderable` that renders `CanvasXpress` objects into
-    HTML Snippets suitable for use in RStudio
+    CXHtml is a CXRenderable that renders CanvasXpress objects into
+    HTML Snippets suitable for use in RStudio.
     """
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXHtml` object.
-        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXHtml object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         super().__init__(*cx)
 
@@ -155,20 +159,27 @@ class CXHtml(CXRenderable):
 
     def render(self, **kwargs: Any):
         """
-        Renders the associated CanvasXpress object appropriate for display in
-        a RStudio environment.  Charts cannot have the same name, so render_to
+        Renders the associated CanvasXpress objects for display in
+        a RStudio environment. Charts cannot have the same name, so render_to
         will be updated with a uuid for each conflicting chart.
-        :param kwargs: `Any`
-            * Supports `columns` for any positive `int` of `1` or greater, with a
-              default value of `1`.  Values less that `1` are ignored.  `columns`
-              indicates how many charts should be rendered horizontally if more
-              than one chart is being tracked.
-            * Supports `output_file` as a string for a path at which the output
-              should be saved.  If a file exists at the specified path then
-              it will be overwritten.
-            * Supports `debug` for displaying the output source.  True indicates
-              that the HTML code shall be displayed prior to the parsed output.
-              Default is False.
+
+        Args:
+            kwargs: Supports the following parameters:
+                columns: Any positive int of 1 or greater, with a default
+                    value of 1. Values less than 1 are ignored. Indicates
+                    how many charts should be rendered horizontally if more
+                    than one chart is being tracked.
+                output_file: A string for a path at which the output should
+                    be saved. If a file exists at the specified path then
+                    it will be overwritten.
+                debug: True indicates that the HTML code shall be displayed
+                    prior to the parsed output. Default is False.
+
+        Returns:
+            An IPython HTML object containing the rendered chart(s).
+
+        Raises:
+            RuntimeError: If there is an error creating the output cell.
         """
         debug_output_arg = kwargs.get("debug")
         debug_output = bool(debug_output_arg) if debug_output_arg is not None else False

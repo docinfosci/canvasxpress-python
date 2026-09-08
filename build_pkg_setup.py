@@ -6,6 +6,7 @@ from git import Repo
 
 setup_instructions_template = """
 from setuptools import setup, find_packages
+from setuptools.command.install import install
 
 long_description = '''@PKG_DESCRIPTION@'''
 
@@ -16,11 +17,44 @@ streamlit_pkgs = @PKG_REQUIREMENTS_STREAMLIT@
 shiny_pkgs = @PKG_REQUIREMENTS_SHINY@
 rstudio_pkgs = @PKG_REQUIREMENTS_RSTUDIO@
 
+
+class PostInstallCommand(install):
+    '''Post-installation for skill auto-injection.'''
+
+    def run(self):
+        install.run(self)
+        import os
+        import shutil
+        from pathlib import Path
+
+        try:
+            import canvasxpress
+
+            package_dir = os.path.dirname(canvasxpress.__file__)
+            skill_names = ['chart_builder', 'notebook_builder', 'code_validator']
+
+            for skill_name in skill_names:
+                skill_file = os.path.join(package_dir, 'agent_skills', skill_name, 'SKILL.md')
+
+                if os.path.exists(skill_file):
+                    opencode_dest = Path.home() / '.opencode/skills' / skill_name / 'SKILL.md'
+                    opencode_dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(skill_file, opencode_dest)
+
+                    claude_dest = Path.home() / '.agents/skills' / skill_name / 'SKILL.md'
+                    claude_dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(skill_file, claude_dest)
+
+            print("CanvasXpress agent skills installed successfully.")
+        except Exception:
+            pass
+
+
 setup(
     name='canvasxpress',
     version='@PKG_VERSION@',
     packages=find_packages(exclude=["tests*", "plotly", "streamlit", "tutorials",]),
-    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.css', '*.html', '*.sql', '*.txt', '*.zip']},
+    package_data={'': ['*.json', '*.yaml', '*.yml', '*.js', '*.css', '*.html', '*.sql', '*.txt', '*.zip', '*.md']},
     include_package_data=True,
     package_dir={'': '.'},
     install_requires=core_pkgs,
@@ -31,11 +65,25 @@ setup(
         "jupyter": core_pkgs + jupyter_pkgs,
         "shiny": core_pkgs + shiny_pkgs,
         "rstudio": core_pkgs + shiny_pkgs + jupyter_pkgs + rstudio_pkgs,
-        "all": core_pkgs + dash_pkgs + jupyter_pkgs,
+        "all": core_pkgs + dash_pkgs + jupyter_pkgs + shiny_pkgs + rstudio_pkgs,
+    },
+    cmdclass={'install': PostInstallCommand},
+    entry_points={
+        'console_scripts': [
+            'canvasxpress = canvasxpress.agent_skills.registry:cli',
+        ],
+        'canvasxpress.skills': [
+            'chart_builder = canvasxpress.agent_skills.chart_builder',
+            'notebook_builder = canvasxpress.agent_skills.notebook_builder',
+            'code_validator = canvasxpress.agent_skills.code_validator',
+        ],
+        'agent_skills.plugins': [
+            'canvasxpress = canvasxpress.agent_skills.registry:discover_skills',
+        ],
     },
     url='https://github.com/docinfosci/canvasxpress-python.git',
     project_urls={
-        'Documentation': 'https://canvasxpress-python.readthedocs.io',
+        'Documentation': 'https://github.com/docinfosci/canvasxpress-python',
     },
     license='Copyright 2020 to @PRESENT_YEAR@ CanvasXpress all rights reserved',
     author=(
@@ -43,12 +91,14 @@ setup(
         ' Dr. Constance M. Brett for R;'
         ' Dr. Todd C. Brett for Python and Dash; and'
         ' Dr. Jennifer Walker for Python.'
+        'Eng. Mennahtullah Mabrouk for Python.'
+        'Eng. Mohamed Ali for R and Python.'
     ),
     author_email='todd@aggregate-genius.com',
     description='CanvasXpress for Python',
     long_description=long_description,
     long_description_content_type='text/markdown; charset=UTF-8; variant=GFM',
-    python_requires='>=3.6',
+    python_requires='>=3.10',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

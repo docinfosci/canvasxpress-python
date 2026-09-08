@@ -24,8 +24,13 @@ JUPYTER_EXAMPLES_DIR_PATH = (
 def get_json_file_paths() -> List[str]:
     """
     Returns a list of all reproducible JSON files tracked for tutorials.
-    :returns: `list[str]`
-        The file paths as a list of strings.
+
+    Scans the JSON directory for files ending with `.json` and returns
+    them as a sorted list of full file paths.
+
+    Returns:
+        A sorted list of file paths as strings for all JSON files in the
+        JSON directory.
     """
     json_files = list()
     for file in os.listdir(JSON_DIR_PATH):
@@ -36,11 +41,17 @@ def get_json_file_paths() -> List[str]:
 
 def get_type_from_filename(file_name: str) -> str:
     """
-    Returns the type of chart from a reproducible JSON filename.
-    :param file_name: `str`
-        The name of the file without parent path.
-    :returns: `str`
-        The name of the chart (e.g., bar) or an empty string.
+    Returns the chart type from a reproducible JSON filename.
+
+    Extracts the chart type by parsing the filename, skipping trailing
+    numeric characters (the index) and reversing the remaining string.
+
+    Args:
+        file_name: The name of the file without the parent path.
+
+    Returns:
+        The name of the chart type (e.g., `bar`), or an empty string if
+        none is found.
     """
     assembled_type = ""
     started_type = False
@@ -57,11 +68,17 @@ def get_type_from_filename(file_name: str) -> str:
 
 def get_index_from_filename(file_name: str) -> str:
     """
-    Returns the index of chart from a reproducible JSON filename.
-    :param file_name: `str`
-        The name of the file without parent path.
-    :returns: `str`
-        The index of the chart (e.g., 1) or an empty string.
+    Returns the chart index from a reproducible JSON filename.
+
+    Extracts the trailing numeric characters from the filename as the
+    chart index.
+
+    Args:
+        file_name: The name of the file without the parent path.
+
+    Returns:
+        The index of the chart (e.g., `1`), or an empty string if none
+        is found.
     """
     assembled_index = ""
     for name_char in file_name.replace(".json", "")[::-1]:
@@ -78,16 +95,21 @@ def create_jupyer_template_text(
     chart_type: str, chart_index: str, chart_code: str
 ) -> str:
     """
-    Generates the text for a Jupyter Notebook example given a chart's type,
-    index, and code.
-    :param: chart_type: `str`
-        The type text (e.g., bar) for the chart.
-    :param chart_index: `str`
-        The index text (e.g., 1) for the chart.
-    :param chart_code: `str`
-        The chart source code.
-    :returns: `str`
-        The text for the full example and instruction.
+    Generates the text for a Jupyter Notebook example.
+
+    Reads a Jupyter Notebook template, replaces the chart type and index
+    placeholders, and appends the provided chart source code to the second
+    cell. If a `display.render()` statement is found, it is converted to
+    an explicit `display.render(output_file=...)` call.
+
+    Args:
+        chart_type: The type text (e.g., `bar`) for the chart.
+        chart_index: The index text (e.g., `1`) for the chart.
+        chart_code: The chart source code to append to the notebook.
+
+    Returns:
+        The JSON string representation of the full Jupyter Notebook
+        example with instructions and code.
     """
     with open(JUPYTER_TEMPLATE_PATH, "r") as template_file:
         example_text = template_file.read()

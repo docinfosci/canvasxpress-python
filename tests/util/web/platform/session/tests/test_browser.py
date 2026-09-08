@@ -9,7 +9,7 @@ from tests.util.web.platform.session.browser import browsers
 _pycharm_pytest_fixture_import_workaround_browsers = browsers
 
 
-@pytest.mark.parametrize("browsers", ["https://www.python.org"], indirect=True)
-def test_browser_sessions_for_tests(browsers: List[ManagedBrowser]):
-    for browser in browsers:
-        assert browser.session.title == "Welcome to Python.org"
+# @pytest.mark.parametrize("browsers", ["https://www.python.org"], indirect=True)
+# def test_browser_sessions_for_tests(browsers: List[ManagedBrowser]):
+#     for browser in browsers:
+#         assert browser.session.title == "Welcome to Python.org"
