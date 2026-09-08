@@ -86,8 +86,21 @@ Consult these reference files for detailed guidance on specific topics:
 | Reference File | When to Load |
 |---|---|
 | `reference_conversion.md` | Converting from Plotly/Matplotlib, looking up CXGraphTypeOptions, mapping chart types |
-| `reference_platform.md` | Building Dash, Shiny, Streamlit, Flask, or Jupyter apps; adding event hooks; exporting charts |
 | `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs |
+
+## Framework Subskills
+
+For detailed framework-specific guidance, see the subskill files:
+
+| Framework | Subskill File | Key Topics |
+|---|---|---|
+| Streamlit | `streamlit_skill.md` | Prerequisites, `graph(cx)`, caching, session state, architecture, API, databases, testing |
+| Jupyter | `jupyter_skill.md` | Widgets, caching, annotations, events, multiple charts, `notebook_builder` skill integration |
+| Dash | `dash_skill.md` | Callbacks, layouts, events, export, dcc components, auto-generated IDs |
+| Shiny | `shiny_skill.md` | Reactive effects, sidebar, events, export, `@render.ui` decorator |
+| Flask/FastAPI | `flask_skill.md` | Templates, HTMLResponse, API endpoints, `render_to_html_parts()`, unique chart IDs |
+
+**Workflow:** When a user requests a specific framework, load the corresponding framework subskill for detailed guidance on prerequisites, rendering patterns, and best practices.
 
 ## Agent Interaction Pattern
 
