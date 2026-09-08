@@ -178,6 +178,10 @@ jobs:
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
 
+            # Load NVM for Node.js access
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
             echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
             npm install canvasxpress-react
@@ -407,6 +411,10 @@ jobs:
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
 
+            # Load NVM for Node.js access
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
             echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
             npm install canvasxpress-react
@@ -596,6 +604,10 @@ jobs:
             echo "Install Python components"
             pip install -U pip setuptools wheel
             pip install -U -r requirements.txt
+
+            # Load NVM for Node.js access
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
             echo "Install CanvasXpress NodeJS components"
             npm install canvasxpress
