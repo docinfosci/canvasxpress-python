@@ -10,7 +10,7 @@ sleep 2
 python3 -m pip install -r ./requirements.txt
 
 # Run the toolchain
-export NODE_OPTIONS=--openssl-legacy-provider
+export NODE_OPTIONS=--experimental-openssl-legacy-provider
 npm run build
 # npm run build:js
 # dash-generate-components ./src/lib/components CXDash -p package-info.json
