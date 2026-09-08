@@ -406,7 +406,19 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            python3 -m ensurepip --default-pip
+            # Create virtual environment for isolated Python installation
+            if ! [[ -d ./venv ]] ; then
+              python3 -m venv ./venv
+            fi
+            source ./venv/bin/activate
+
+            # Configure pip to ignore root user warnings
+            pip config set global.root-user-action ignore
+
+            # Upgrade pip in virtual environment
+            pip install --no-cache-dir -U pip setuptools wheel
+
+            # Install dependencies in order
             pip install --no-cache-dir -U -r ./requirements-project.txt
             pip install --no-cache-dir -U -r ./requirements.txt
             pip install --no-cache-dir -U -r ./requirements-dev.txt
