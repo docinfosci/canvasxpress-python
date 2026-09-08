@@ -14,9 +14,9 @@ from pathlib import Path
 def _get_entry_points():
     """Get entry points for canvasxpress.skills namespace (Python 3.8+)."""
     eps = entry_points()
-    if sys.version_info >= (3, 10):
-        # Python 3.10+ supports group parameter directly
-        return eps
+    if hasattr(eps, 'select'):
+        # Python 3.10+ has select() method
+        return eps.select(group='canvasxpress.skills')
     else:
         # Python 3.8-3.9 requires get() method
         return eps.get('canvasxpress.skills', [])
