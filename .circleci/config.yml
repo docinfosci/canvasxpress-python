@@ -150,6 +150,9 @@ jobs:
             fi
             source ./venv/bin/activate
 
+            # Configure pip to ignore root user warnings
+            pip config set global.root-user-action ignore
+
             # Upgrade pip in virtual environment
             pip install --no-cache-dir -U pip setuptools wheel
 
@@ -565,6 +568,9 @@ jobs:
               python3 -m venv ./venv
             fi
             source ./venv/bin/activate
+
+            # Configure pip to ignore root user warnings
+            pip config set global.root-user-action ignore
 
             # Upgrade pip in virtual environment
             pip install --no-cache-dir -U pip setuptools wheel
