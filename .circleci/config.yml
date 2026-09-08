@@ -144,6 +144,16 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Create virtual environment for isolated Python installation
+            if ! [[ -d ./venv ]] ; then
+              python3 -m venv ./venv
+            fi
+            source ./venv/bin/activate
+
+            # Upgrade pip in virtual environment
+            pip install --no-cache-dir -U pip setuptools wheel
+
+            # Install dependencies in order
             pip install --no-cache-dir -U -r ./requirements-project.txt
             pip install --no-cache-dir -U -r ./requirements.txt
             pip install --no-cache-dir -U -r ./requirements-dev.txt
@@ -550,6 +560,16 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Create virtual environment for isolated Python installation
+            if ! [[ -d ./venv ]] ; then
+              python3 -m venv ./venv
+            fi
+            source ./venv/bin/activate
+
+            # Upgrade pip in virtual environment
+            pip install --no-cache-dir -U pip setuptools wheel
+
+            # Install dependencies in order
             pip install --no-cache-dir -U -r ./requirements-project.txt
             pip install --no-cache-dir -U -r ./requirements.txt
             pip install --no-cache-dir -U -r ./requirements-dev.txt
