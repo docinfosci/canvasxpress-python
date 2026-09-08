@@ -5,8 +5,8 @@ import os
 from os import environ
 
 CANVASXPRESS_TARGET_CONTEXT: str = "CANVASXPRESS_TARGET_CONTEXT"
-"""
-The ENV variable that can be set to indicate which context should be targetted regardless of what is detected.
+"""The ENV variable that can be set to indicate which context should be targetted regardless of what is detected.
+
 Valid options are:
 
 - shiny
@@ -37,35 +37,34 @@ VALID_CONTEXTS: list = [
 def is_rstudio_active() -> bool:
     """
     Indicates if RStudio is active at the time of function call.
-    :returns" `bool` `True` if the RStudio IDE is running.
+
+    Returns:
+        True if the RStudio IDE is running, False otherwise.
     """
-    try:
-        import shiny
-
-        return bool(environ.get("RSTUDIO", False))
-
-    except ModuleNotFoundError:
-        return False
+    return bool(environ.get("RSTUDIO", False))
 
 
 def is_shiny_available() -> bool:
     """
     Indicates if shiny is available at the time of function call.
-    :returns" `bool` `True` if shiny is available.
+
+    Returns:
+        True if shiny is available, False otherwise.
     """
     try:
-        import shiny
-
-        return os.environ.get("SHINY_HOST") is not None
-
+        import shiny  # noqa: F401
     except ModuleNotFoundError:
         return False
+
+    return os.environ.get("SHINY_HOST") is not None
 
 
 def is_dash_available() -> bool:
     """
     Indicates if dash is available at the time of function call.
-    :returns" `bool` `True` if dash is available.
+
+    Returns:
+        True if dash is available, False otherwise.
     """
     try:
         import dash
@@ -82,12 +81,19 @@ def is_dash_available() -> bool:
 def is_ipython_available() -> bool:
     """
     Indicates if IPython is available at the time of function call.
-    :returns" `bool` `True` if IPython is available.
+
+    Returns:
+        True if IPython is available with an active shell (Jupyter notebook or qtconsole),
+        False otherwise.
     """
     try:
         from IPython import get_ipython
 
-        shell = get_ipython().__class__.__name__
+        ipython_instance = get_ipython()
+        if ipython_instance is None:
+            return False
+
+        shell = ipython_instance.__class__.__name__
         if shell == "ZMQInteractiveShell":
             return True  # Jupyter notebook or qtconsole
 
@@ -115,7 +121,9 @@ def is_ipython_available() -> bool:
 def is_streamlit_available() -> bool:
     """
     Indicates if streamlit is available at the time of function call.
-    :returns" `bool` `True` if streamlit is available.
+
+    Returns:
+        True if streamlit is available, False otherwise.
     """
     try:
         import streamlit
@@ -129,7 +137,12 @@ def is_streamlit_available() -> bool:
 def get_target_context() -> str:
     """
     Indicates the runtime context that should be targetted for illustrating charts.
-    :returns" `str` One of the options for VALID_CONTEXTS.
+
+    The context is determined by checking the environment variable CANVASXPRESS_TARGET_CONTEXT,
+    then checking in order: Jupyter/IPython, Dash, RStudio, Shiny, Streamlit.
+
+    Returns:
+        One of the options from VALID_CONTEXTS, or CONTEXT_UNKNOWN if no context is detected.
     """
     target = environ.get(CANVASXPRESS_TARGET_CONTEXT)
 

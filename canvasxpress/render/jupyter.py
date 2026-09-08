@@ -175,18 +175,22 @@ new Promise((cssResolve, cssReject) => {
 
 class CXNoteBook(CXRenderable):
     """
-    CXNoteBook is a `CXRenderable` that renders `CanvasXpress` objects into
-    `IPython` containers (Jupyter Notebooks).
+    CXNoteBook is a CXRenderable that renders CanvasXpress objects into
+    IPython containers (Jupyter Notebooks).
     """
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
         """
-        Initializes a new `CXNoteBook` object.
-        :praram cx: `Union[List[CanvasXpress], CanvasXpress, None], ...`
-            The `CanvasXpress` object(s) to be tracked.  See the `canvas`
-            property, except that on initialization cx can be `None`.
-            Multiple CanvasXpress objects are supported provided that
-            they have distinct `render_to` targets.
+        Initializes a new CXNoteBook object.
+
+        Args:
+            cx: The CanvasXpress object(s) to be tracked. See the `canvas`
+                property, except that on initialization cx can be None.
+                Multiple CanvasXpress objects are supported provided that
+                they have distinct `render_to` targets.
+
+        Raises:
+            TypeError: If any cx member is not a CanvasXpress instance.
         """
         super().__init__(*cx)
 
@@ -298,22 +302,28 @@ class CXNoteBook(CXRenderable):
 
     def render(self, **kwargs: Any):
         """
-        Renders the associated CanvasXpress object appropriate for display in
-        an IPython (e.g., Jupyter NoteBook/Lab) environment.  Charts cannot
+        Renders the associated CanvasXpress objects for display in
+        an IPython (e.g., Jupyter NoteBook/Lab) environment. Charts cannot
         have the same name, so render_to will be updated with a uuid for each
         conflicting chart.
-        :param kwargs: `Any`
-            * Supports `columns` for any positive `int` of `1` or greater, with a
-              default value of `1`.  Values less that `1` are ignored.  `columns`
-              indicates how many charts should be rendered horizontally in the
-              Jupyter Notebook if more than one chart is being tracked.
-            * Supports `output_file` as a string for a path at which the output
-              should be saved.  If a file exists at the specified path then
-              it will be overwritten.  This permits Jupyter sessions to render
-              output that is saved and accessible in later sessions.
-            * Supports `debug` for displaying the output source.  True indicates
-              that the HTML code shall be displayed prior to the parsed output.
-              Default is False.
+
+        Args:
+            kwargs: Supports the following parameters:
+                columns: Any positive int of 1 or greater, with a default
+                    value of 1. Values less than 1 are ignored. Indicates
+                    how many charts should be rendered horizontally in the
+                    Jupyter Notebook if more than one chart is being tracked.
+                output_file: A string for a path at which the output should
+                    be saved. If a file exists at the specified path then
+                    it will be overwritten. This permits Jupyter sessions
+                    to render output that is saved and accessible in later
+                    sessions.
+                debug: True indicates that the HTML code shall be displayed
+                    prior to the parsed output. Default is False.
+
+        Returns:
+            IPython display objects containing the rendered charts, or debug
+            code output if debug is True.
         """
         try:
             debug_output_arg = kwargs.get("debug")

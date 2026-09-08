@@ -46,15 +46,15 @@ try {
 
 var chart_@cx_target_id@ = new CanvasXpress(@cx_json@); @cx_functions@
 """
+
 """
 The template for declaring a CanvasXpress Javascript object using data
 from the Python edition.
 """
 
 _CX_LICENSE_TEMPLATE = "<script src='@cx_license@' type='text/javascript'></script>"
-"""
-The template for declaring a CanvasXpress license file so that charts do 
-not create_element with unlicensed watermarks.
+"""The template for declaring a CanvasXpress license file so that charts do
+not render with unlicensed watermarks.
 """
 
 _CX_REPR_TEMPLATE = """CanvasXpress(
@@ -86,9 +86,10 @@ class CanvasXpress(CXHtmlConvertable):
             data=CXDictData(
                 {
                     "y": {
-                    "vars": ["Gene1"],
-                    "smps": ["Smp1", "Smp2", "Smp3"],
-                    "data": [[10, 35, 88]],
+                        "vars": ["Gene1"],
+                        "smps": ["Smp1", "Smp2", "Smp3"],
+                        "data": [[10, 35, 88]],
+                    }
                 }
             ),
             config=CXConfigs(
@@ -107,27 +108,30 @@ class CanvasXpress(CXHtmlConvertable):
     """
 
     __target_id: Union[str, None] = None
-    """
-    __target_id is used by the JS renderTo param.  None indicates that the object is anonymous.
-    """
+    """__target_id is used by the JS renderTo param. None indicates that the object is anonymous."""
 
     @property
     def anonymous(self) -> bool:
-        """
-        Indicates whether the object is anonymous.  If `True`, then `render_to()` will result in a one-time random
-        ID string being returned for use in contexts such as rapidly changing React environments.  If `False`, then
-        the ID string returned is the one set for the object by the developer.
-        :returns: `bool` `True` if the object is anonymous; otherwise `False`.
+        """Indicates whether the object is anonymous.
+
+        If `True`, then `render_to()` will result in a one-time random
+        ID string being returned for use in contexts such as rapidly
+        changing React environments. If `False`, then the ID string
+        returned is the one set for the object by the developer.
+
+        Returns:
+            `bool`: `True` if the object is anonymous; otherwise `False`.
         """
         return self.__target_id is None
 
     @property
     def render_to(self) -> Union[str, None]:
-        """
-        The ID of the CanvasXpress object's associated HTML components, such as
-        the create_element canvas element.  Sets the `id` attribute of the `<canvas>`
+        """The ID of the CanvasXpress object's associated HTML components, such as
+        the create_element canvas element. Sets the `id` attribute of the `<canvas>`
         element.
-        :returns: `str` The ID, if configured; `None` if anonymous.
+
+        Returns:
+            `str`: The ID, if configured; `None` if anonymous.
         """
         return (
             "cX" + str(uuid.uuid4()).replace("-", "")
@@ -137,17 +141,19 @@ class CanvasXpress(CXHtmlConvertable):
 
     @render_to.setter
     def render_to(self, value: Union[str, None]) -> None:
-        """
-        Sets the render_to of the CanvasXpress instance.  Sets the `id`
+        """Sets the render_to of the CanvasXpress instance. Sets the `id`
         attribute of the `<canvas>` element.
-        :param value:
-            `str` The ID to be associated.  Must be alphanumeric.  Non-alphanumeric characters will
-            be removed, except for `_`, and if the remaining string is empty then a UUID4 will be
-            substituted.  This is to preserve JS compatibility during rendering. `None` can also
-            be provided to indicate that this object should be anonymous, such as for use
-            in rapidly changing React interfaces.
+
+        Args:
+            value: `str` The ID to be associated. Must be alphanumeric.
+                Non-alphanumeric characters will be removed, except for `_`,
+                and if the remaining string is empty then a UUID4 will be
+                substituted. This is to preserve JS compatibility during
+                rendering. `None` can also be provided to indicate that this
+                object should be anonymous, such as for use in rapidly
+                changing React interfaces.
         """
-        if not isinstance(value, str) and value is not None:
+        if value is not None and not isinstance(value, str):
             raise TypeError("value must be of type str or None")
 
         elif value is not None:
@@ -167,35 +173,35 @@ class CanvasXpress(CXHtmlConvertable):
         self.__target_id = candidate
 
     __license_url: Union[str, None] = None
-    """
-    Location of the CanvasXpressLicense.js file for use in rendering.
-    """
+    """Location of the CanvasXpressLicense.js file for use in rendering."""
 
     @property
     def license_available(self) -> bool:
-        """
-        Indicates if a license is associated with the CanvasXpress object.
-        :returns: `True` if a license file URL has been set.
+        """Indicates if a license is associated with the CanvasXpress object.
+
+        Returns:
+            `True` if a license file URL has been set.
         """
         return self.__license_url is not None
 
     @property
     def license_url(self) -> str:
-        """
-        Returns the location of the license file associated with the
+        """Returns the location of the license file associated with the
         CanvasXpress object.
-        :returns: `str` URL of the file or `None` if no file is associated.
+
+        Returns:
+            `str`: URL of the file or `None` if no file is associated.
         """
         return self.__license_url
 
     @license_url.setter
     def license_url(self, value: str) -> None:
-        """
-        Sets the location of the license file to be associated with the
+        """Sets the location of the license file to be associated with the
         CanvasXpress object.
-        :param value:
-            `str` The path to the license file or `None` if a previously set URL
-            is no longer valid.
+
+        Args:
+            value: `str` The path to the license file or `None` if a
+                previously set URL is no longer valid.
         """
         if value is None:
             self.__license_url = None
@@ -212,43 +218,42 @@ class CanvasXpress(CXHtmlConvertable):
                 self.__license_url = candidate
 
     __cdn_edition: Union[str, None] = None
-    """
-    The edition of CanvasXpress to use.  None indicates that the latest edition available shall be used.
-    Used as a class variable.
-    """
+    """The edition of CanvasXpress to use. None indicates that the latest
+    edition available shall be used. Used as a class variable."""
 
     @classmethod
     def cdn_edition(cls) -> Union[str, None]:
-        """
-        Indicates the version of CanvasXpress being used.
+        """Indicates the version of CanvasXpress being used.
 
-        :returns: `Union[str, None]`: The Javascript CDN version used or None if the latest.
+        Returns:
+            `Union[str, None]`: The Javascript CDN version used or None if
+            the latest.
         """
         return cls.__cdn_edition
 
     @classmethod
     def set_cdn_edition(cls, value) -> None:
-        """
-        Sets the version of the Javascript CDN to use when generating HTML or React components.  See thr CDN page
-        for CanvasXpress to identify the versions available: https://cdnjs.com/libraries/canvasXpress.
+        """Sets the version of the Javascript CDN to use when generating HTML
+        or React components. See the CDN page for CanvasXpress to identify
+        the versions available: https://cdnjs.com/libraries/canvasXpress.
 
-        :param value:
-            `Union[str, None]` The CDN version, such as `38.1`, or None if the latest version is preferred.
+        Args:
+            value: `Union[str, None]` The CDN version, such as `38.1`, or
+                None if the latest version is preferred.
         """
         cls.__cdn_edition = None if value is None else str(value)
 
     __js_url: str = _DEFAULT_JS_URL
-    """
-    The preferred JS library URL.  By default the standard URL.
-    """
+    """The preferred JS library URL. By default the standard URL."""
 
     @classmethod
     def js_library_url(cls) -> Union[str, None]:
-        """
-        Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdnjs, or
-        a fully qualified URL to the CanvasXpress library.
+        """Indicates the version of CanvasXpress being used. This can be
+        either a version number, such as for cdnjs, or a fully qualified URL
+        to the CanvasXpress library.
 
-        :returns: `str`: The Javascript CDN version used.
+        Returns:
+            `str`: The Javascript CDN version used.
         """
         candidate_url = cls.__js_url
         if cls.__cdn_edition is not None:
@@ -260,26 +265,24 @@ class CanvasXpress(CXHtmlConvertable):
 
     @classmethod
     def set_js_library_url(cls, value) -> None:
-        """
-        Sets the non-versioned URL to use for the CanvasXpress library.
+        """Sets the non-versioned URL to use for the CanvasXpress library.
 
-        :param value:
-            The HTTP(S) URL providing the JS library.
+        Args:
+            value: The HTTP(S) URL providing the JS library.
         """
         cls.__js_url = _DEFAULT_JS_URL if value is None else str(value)
 
     __css_url: str = _DEFAULT_CSS_URL
-    """
-    The preferred CSS library URL.  By default the standard URL.
-    """
+    """The preferred CSS library URL. By default the standard URL."""
 
     @classmethod
     def css_library_url(cls) -> str:
-        """
-        Indicates the version of CanvasXpress being used.  This can be either a version number, such as for cdncss, or
-        a fully qualified URL to the CanvasXpress library.
+        """Indicates the version of CanvasXpress being used. This can be
+        either a version number, such as for cdncss, or a fully qualified URL
+        to the CanvasXpress library.
 
-        :returns: `str`: The Javascript CDN version used.
+        Returns:
+            `str`: The Javascript CDN version used.
         """
         candidate_url = cls.__css_url
         if cls.__cdn_edition is not None:
@@ -291,43 +294,40 @@ class CanvasXpress(CXHtmlConvertable):
 
     @classmethod
     def set_css_library_url(cls, value) -> None:
-        """
-        Sets the non-versioned URL to use for the CanvasXpress library.
+        """Sets the non-versioned URL to use for the CanvasXpress library.
 
-        :param value:
-            The HTTP(S) URL providing the JS library.
+        Args:
+            value: The HTTP(S) URL providing the JS library.
         """
         cls.__css_url = _DEFAULT_CSS_URL if value is None else str(value)
 
     CHART_WIDTH_DEFAULT: int = 500
-    """
-    Default width of the chart when rendered, such as into HTML.
-    """
+    """Default width of the chart when rendered, such as into HTML."""
 
     __chart_width: int = CHART_WIDTH_DEFAULT
-    """
-    Preferred width of the chart when rendered, such as into HTML.
-    """
+    """Preferred width of the chart when rendered, such as into HTML."""
 
     @property
     def width(self) -> int:
-        """
-        Indicates the preferred <canvas> Web element width when rendered.  This
-        property is used to facilitate integration with Web containers such
-        as Jupyter notebooks. Added to the `<canvas>` element, and also
-        influences create_element containers for contexts such as Jupyter Notebooks.
-        :returns: `int` The width
+        """Indicates the preferred <canvas> Web element width when rendered.
+        This property is used to facilitate integration with Web containers
+        such as Jupyter notebooks. Added to the `<canvas>` element, and also
+        influences create_element containers for contexts such as Jupyter
+        Notebooks.
+
+        Returns:
+            `int`: The width
         """
         return self.__chart_width
 
     @width.setter
     def width(self, value: int):
-        """
-        Sets the preferred Web element width when rendered. Added to the
-        `<canvas>` element, and also influences create_element containers for contexts
-        such as Jupyter Notebooks.
-        :param value: `int`
-            The pixel count.  Cannot be `None` or less than `1`.
+        """Sets the preferred Web element width when rendered. Added to the
+        `<canvas>` element, and also influences create_element containers for
+        contexts such as Jupyter Notebooks.
+
+        Args:
+            value: `int` The pixel count. Cannot be `None` or less than `1`.
         """
         if value is None:
             raise ValueError("element_width cannot be None")
@@ -342,33 +342,32 @@ class CanvasXpress(CXHtmlConvertable):
             self.__chart_width = value
 
     CHART_HEIGHT_DEFAULT: int = 500
-    """
-    Default height of the chart in pixels when rendered, such as into HTML.
-    """
+    """Default height of the chart in pixels when rendered, such as into HTML."""
 
     __chart_height: int = CHART_HEIGHT_DEFAULT
-    """
-    Preferred height of the chart in pixels when rendered, such as into HTML.
-    """
+    """Preferred height of the chart in pixels when rendered, such as into HTML."""
 
     @property
     def height(self) -> int:
-        """
-        Indicates the preferred Web element height when rendered.  This
+        """Indicates the preferred Web element height when rendered. This
         property is used to facilitate integration with Web containers such
-        as Jupyter notebooks.  Added to the `<canvas>` element, and also
-        influences create_element containers for contexts such as Jupyter Notebooks.
-        :returns: `int` The pixel count
+        as Jupyter notebooks. Added to the `<canvas>` element, and also
+        influences create_element containers for contexts such as Jupyter
+        Notebooks.
+
+        Returns:
+            `int`: The pixel count
         """
         return self.__chart_height
 
     @height.setter
     def height(self, value: int):
-        """
-        Sets the preferred Web element height when rendered.  Added to the
-        `<canvas>` element, and also influences create_element containers for contexts
-        such as Jupyter Notebooks.
-        :param value: `int`
+        """Sets the preferred Web element height when rendered. Added to the
+        `<canvas>` element, and also influences create_element containers for
+        contexts such as Jupyter Notebooks.
+
+        Args:
+            value: `int` The pixel count.
         """
         if value is None:
             raise ValueError("element_height cannot be None")
@@ -383,29 +382,29 @@ class CanvasXpress(CXHtmlConvertable):
             self.__chart_height = value
 
     __data: CXData = None
-    """
-    _data is used by the JS data param, and it can be of numerous forms.  This
-    class provides mapping mechanisms to translate Python objects into 
-    structures usable by CanvasXpress.
-    """
+    """_data is used by the JS data param, and it can be of numerous forms.
+    This class provides mapping mechanisms to translate Python objects into
+    structures usable by CanvasXpress."""
 
     @property
     def data(self) -> CXData:
-        """
-        Provides access to the CXData associated with this CanvasXpress chart.
-        :returns: `CXData` The data to be associated with the chart.
+        """Provides access to the CXData associated with this CanvasXpress chart.
+
+        Returns:
+            `CXData`: The data to be associated with the chart.
         """
         return self.__data
 
     @data.setter
     def data(self, value: Union[CXData, dict, DataFrame, str, None]) -> None:
-        """
-        Sets the CXData associated with this CanvasXpress chart.
-        :param value: `Union[CXData, dict, DataFrame, str, None]`
-            An object translatable into a CXData type. If the object is an
-            instance of CXData then it will be tracked by the CanvasXpress
-            object; otherwise, a new CXData object will be created to manage
-            the content.
+        """Sets the CXData associated with this CanvasXpress chart.
+
+        Args:
+            value: `Union[CXData, dict, DataFrame, str, None]` An object
+                translatable into a CXData type. If the object is an instance
+                of CXData then it will be tracked by the CanvasXpress object;
+                otherwise, a new CXData object will be created to manage the
+                content.
         """
         if value is None or isinstance(value, bool):
             self.__data = CXDictData()
@@ -428,27 +427,29 @@ class CanvasXpress(CXHtmlConvertable):
             )
 
     __sample_annotation: CXData = None
-    """
-    Provides convenience support when working with DataFrames similar to R.
-    """
+    """Provides convenience support when working with DataFrames similar to R."""
 
     @property
     def sample_annotation(self) -> CXData:
-        """
-        Provides access to the CXData associated with this CanvasXpress chart.
-        :returns: `CXData` The data to be associated with the chart.
+        """Provides access to the CXData associated with this CanvasXpress chart.
+
+        Returns:
+            `CXData`: The data to be associated with the chart.
         """
         return self.__sample_annotation
 
     @sample_annotation.setter
-    def sample_annotation(self, value: Union[CXDataframeData, DataFrame, None]) -> None:
-        """
-        Sets the CXData associated with this CanvasXpress chart.
-        :param value: `Union[CXData, dict, DataFrame, str, None]`
-            An object translatable into a CXData type. If the object is an
-            instance of CXData then it will be tracked by the CanvasXpress
-            object; otherwise, a new CXData object will be created to manage
-            the content.
+    def sample_annotation(
+        self, value: Union[CXDataframeData, DataFrame, None]
+    ) -> None:
+        """Sets the CXData associated with this CanvasXpress chart.
+
+        Args:
+            value: `Union[CXData, dict, DataFrame, str, None]` An object
+                translatable into a CXData type. If the object is an instance
+                of CXData then it will be tracked by the CanvasXpress object;
+                otherwise, a new CXData object will be created to manage the
+                content.
         """
         if value is not None and not isinstance(self.data, CXDataframeData):
             raise ValueError(
@@ -468,15 +469,14 @@ class CanvasXpress(CXHtmlConvertable):
             raise TypeError("data must be of type CXDataframeData,  DataFrame, or None")
 
     __variable_annotation: CXData = None
-    """
-    Provides convenience support when working with DataFrames similar to R.
-    """
+    """Provides convenience support when working with DataFrames similar to R."""
 
     @property
     def variable_annotation(self) -> CXData:
-        """
-        Provides access to the CXData associated with this CanvasXpress chart.
-        :returns: `CXData` The data to be associated with the chart.
+        """Provides access to the CXData associated with this CanvasXpress chart.
+
+        Returns:
+            `CXData`: The data to be associated with the chart.
         """
         return self.__variable_annotation
 
@@ -484,13 +484,14 @@ class CanvasXpress(CXHtmlConvertable):
     def variable_annotation(
         self, value: Union[CXDataframeData, DataFrame, None]
     ) -> None:
-        """
-        Sets the CXData associated with this CanvasXpress chart.
-        :param value: `Union[CXData, dict, DataFrame, str, None]`
-            An object translatable into a CXData type. If the object is an
-            instance of CXData then it will be tracked by the CanvasXpress
-            object; otherwise, a new CXData object will be created to manage
-            the content.
+        """Sets the CXData associated with this CanvasXpress chart.
+
+        Args:
+            value: `Union[CXData, dict, DataFrame, str, None]` An object
+                translatable into a CXData type. If the object is an instance
+                of CXData then it will be tracked by the CanvasXpress object;
+                otherwise, a new CXData object will be created to manage the
+                content.
         """
         if value is not None and not isinstance(self.data, CXDataframeData):
             raise ValueError(
@@ -510,27 +511,26 @@ class CanvasXpress(CXHtmlConvertable):
             raise TypeError("data must be of type CXDataframeData,  DataFrame, or None")
 
     __events: CXEvents = None
-    """
-    __events is used by the JS events param.
-    """
+    """__events is used by the JS events param."""
 
     @property
     def events(self) -> CXEvents:
-        """
-        Provides access to the CXEvents associated with this CanvasXpress chart.
-        :returns: `CXEvents` The events to be associated with the chart.
+        """Provides access to the CXEvents associated with this CanvasXpress chart.
+
+        Returns:
+            `CXEvents`: The events to be associated with the chart.
         """
         return self.__events
 
     @events.setter
     def events(self, events: Union[CXEvents, List[CXEvent], None]) -> None:
-        """
-        Sets the CXEvents associated with this CanvasXpress chart.
-        :param events:
-            `CXEvents, List[CXEvent], None` An object translatable into a
-            CXEvents type.  If the object is an instance of CXEvents then it
-            will be tracked by the CanvasXpress object; otherwise, a new
-            CXEvents object will be created to manage the content.
+        """Sets the CXEvents associated with this CanvasXpress chart.
+
+        Args:
+            events: `CXEvents, List[CXEvent], None` An object translatable
+                into a CXEvents type. If the object is an instance of CXEvents
+                then it will be tracked by the CanvasXpress object; otherwise,
+                a new CXEvents object will be created to manage the content.
         """
         if not events:
             self.__events = CXEvents()
@@ -545,15 +545,14 @@ class CanvasXpress(CXHtmlConvertable):
             raise TypeError("value must be List[CXEvent] or CXEvents")
 
     __config: CXConfigs = None
-    """
-    __config is used to compose the config settings for the CanvasXpress object.
-    """
+    """__config is used to compose the config settings for the CanvasXpress object."""
 
     @property
     def config(self) -> CXConfigs:
-        """
-        Provides access to the CXConfigs associated with this CanvasXpress chart.
-        :returns: `CXConfigs` The config to be associated with the chart.
+        """Provides access to the CXConfigs associated with this CanvasXpress chart.
+
+        Returns:
+            `CXConfigs`: The config to be associated with the chart.
         """
         return self.__config
 
@@ -561,19 +560,14 @@ class CanvasXpress(CXHtmlConvertable):
     def config(
         self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
-        """
-        Sets the CXConfigs associated with this CanvasXpress chart.
-        :param value: `Union[
-                List[CXConfig],
-                List[tuple],
-                List[list],
-                dict,
-                CXConfigs
-            ]`
-            An object translatable into a CXConfigs type.  If the object is an
-            instance of CXConfigs then it will be
-            tracked by the CanvasXpress object; otherwise, a new CXConfigs
-            object will be created to manage the content.
+        """Sets the CXConfigs associated with this CanvasXpress chart.
+
+        Args:
+            value: `Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]`
+                An object translatable into a CXConfigs type. If the object is
+                an instance of CXConfigs then it will be tracked by the
+                CanvasXpress object; otherwise, a new CXConfigs object will be
+                created to manage the content.
         """
         if value is None:
             self.__config = CXConfigs()
@@ -594,18 +588,17 @@ class CanvasXpress(CXHtmlConvertable):
             )
 
     __after_render: CXConfigs = None
-    """
-    __after_render is used to compose the afterRender settings for the 
-    CanvasXpress object.
-    """
+    """__after_render is used to compose the afterRender settings for the
+    CanvasXpress object."""
 
     @property
     def after_render(self) -> CXConfigs:
-        """
-        Provides access to the CXConfigs associated with this CanvasXpress
+        """Provides access to the CXConfigs associated with this CanvasXpress
         chart's afterRender property.
-        :returns: `CXConfigs`
-            The after_render configuration to be associated with the chart.
+
+        Returns:
+            `CXConfigs`: The after_render configuration to be associated with
+            the chart.
         """
         if self.__after_render is None:
             self.__after_render = CXConfigs()
@@ -615,15 +608,15 @@ class CanvasXpress(CXHtmlConvertable):
     def after_render(
         self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
-        """
-        Sets the CXConfigs associated with this CanvasXpress chart's afterRender
+        """Sets the CXConfigs associated with this CanvasXpress chart's afterRender
         property.
-        :param value: `Union[List[CXConfig], List[tuple], dict, CXConfigs,
-            CXConfigs]`
-            An object translatable into a CXConfigs
-            type.  If the object is an instance of CXConfigs then it will be
-            tracked by the CanvasXpress object; otherwise, a new CXConfigs
-            object will be created to manage the content.
+
+        Args:
+            value: `Union[List[CXConfig], List[tuple], dict, CXConfigs, CXConfigs]`
+                An object translatable into a CXConfigs type. If the object is
+                an instance of CXConfigs then it will be tracked by the
+                CanvasXpress object; otherwise, a new CXConfigs object will be
+                created to manage the content.
         """
         if value is None:
             self.__after_render = CXConfigs()
@@ -645,22 +638,30 @@ class CanvasXpress(CXHtmlConvertable):
 
     @staticmethod
     def set_dimensions(width: int, height: int, *extra) -> CXList:
+        """Sets the chart dimensions.
+
+        Args:
+            width: `int` The width in pixels.
+            height: `int` The height in pixels.
+            *extra: Additional dimension parameters.
+
+        Returns:
+            `CXList`: A CXList containing the setDimensions command with
+            the width, height, and extra parameters.
+        """
         return CXList("setDimensions", [width, height, *extra])
 
     __canvas_attributes = CXConfigs()
-    """
-    __canvas_attributes modify the <canvas> element generated by this object.
-    """
+    """__canvas_attributes modify the <canvas> element generated by this object."""
 
     @property
     def other_init_params(self) -> CXConfigs:
-        """
-        Provides access to additional parameters that will be used with the
+        """Provides access to additional parameters that will be used with the
         `CanvasXpress` for Javascript constructor, such as `afterRencderInit`.
 
-        :returns: `CXConfigs`
-            `CXConfig` objects to be provided as additional Javascript
-            constructor parameter values.
+        Returns:
+            `CXConfigs`: `CXConfig` objects to be provided as additional
+            Javascript constructor parameter values.
         """
         return self.__canvas_attributes
 
@@ -668,9 +669,8 @@ class CanvasXpress(CXHtmlConvertable):
     def other_init_params(
         self, value: Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]
     ):
-        """
-        Set the additional parameters to be used with the `CanvasXpress` for
-        Javascript constructor, such as `afterRencderInit`. The following
+        """Set the additional parameters to be used with the `CanvasXpress`
+        for Javascript constructor, such as `afterRencderInit`. The following
         parameters will be ignored and the properties for this class should
         be used instead due to Python tier functionality useful to the
         developer:
@@ -682,12 +682,12 @@ class CanvasXpress(CXHtmlConvertable):
         * `width`: Use `CanvasXpress.width`
         * `height`: Use `CanvasXpress.height`
 
-        :param value: `Union[List[CXConfig], List[tuple], List[list], dict,
-            CXConfigs]`
-            An object translatable into a CXConfigs type.  If the object is an
-            instance of CXConfigs then it will be tracked by the CanvasXpress
-            object; otherwise, a new CXConfigs object will be created to manage
-            the content.
+        Args:
+            value: `Union[List[CXConfig], List[tuple], List[list], dict, CXConfigs]`
+                An object translatable into a CXConfigs type. If the object is
+                an instance of CXConfigs then it will be tracked by the
+                CanvasXpress object; otherwise, a new CXConfigs object will be
+                created to manage the content.
         """
         if value is None:
             self.__canvas_attributes = CXConfigs()
@@ -727,23 +727,21 @@ class CanvasXpress(CXHtmlConvertable):
         include_factory: bool = False,
         include_system: bool = False,
     ) -> "CanvasXpress":
-        """
-        Initializes a new `CanvasXpress` object using a reproducable research
+        """Initializes a new `CanvasXpress` object using a reproducable research
         JSON saved from a CanvasXpress chart rendered in a Web browser.
 
-        :param cx_json: `str`
-            A valid reproducable research JSON typical of those created by
-            CanvasXpress when running a Web browser.
+        Args:
+            cx_json: `str` A valid reproducable research JSON typical of those
+                created by CanvasXpress when running a Web browser.
+            include_factory: `bool` Default `False`. If `False` remove the
+                `factory` attribute.
+            include_system: `bool` Default `False`. If `False` remove the
+                `system` attribute.
 
-        :param include_factory: `bool`
-            Default `False`.  If `False` remove the `factory` attribute.
-
-        :param include_system: `bool`
-            Default `False`.  If `False` remove the `system` attribute.
-
-        :returns: `CanvasXpress`
-            Returns a new `CanvasXpress` object will all properties filled using
-            the information provided by the reproducable research JSON.
+        Returns:
+            `CanvasXpress` A new `CanvasXpress` object with all properties
+            filled using the information provided by the reproducable research
+            JSON.
         """
         try:
             cx_json_dict = json.loads(cx_json)
@@ -789,9 +787,10 @@ class CanvasXpress(CXHtmlConvertable):
 
             return candidate
 
-        except Exception as e:
+        except Exception:
             raise ValueError(
-                "cx_json must be a valid CanvasXpress reproducable" " research JSON"
+                "cx_json must be a valid CanvasXpress reproducable"
+                " research JSON"
             )
 
     def __init__(
@@ -808,24 +807,27 @@ class CanvasXpress(CXHtmlConvertable):
         height: int = CHART_HEIGHT_DEFAULT,
         **kwargs: Any,
     ) -> None:
-        """
-        Initializes a new CanvasXpress object.  Default values are provided for
-        all parameters if values are not specified; otherwise the arguments are
-        treated as if an appropriate setter were used.
-        :param render_to: See `render_to` property, except that on default
-            initialization the object will be assigned an UUID4 value.
-        :param data: See the `data` property
-        :param events: See the `events` property
-        :param config: See the `config` property
-        :param after_render: See the `after_render` property
-        :param other_init_params: See the 'other_init_params` property
-        :param width: See the `width` property
-        :param height: See the `height` property
-        :param kwargs: `Any`
-            Additional keyword arguments for CanvasXpress. Secondary keywords are
-            added to the `config` property, overriding any existing items of the
-            same name. Primary keywords `renderTo` or `afterRender` are mapped to
-            the corresponding property (`render_to` or `after_render`).
+        """Initializes a new CanvasXpress object. Default values are provided
+        for all parameters if values are not specified; otherwise the
+        arguments are treated as if an appropriate setter were used.
+
+        Args:
+            render_to: See `render_to` property, except that on default
+                initialization the object will be assigned an UUID4 value.
+            data: See the `data` property
+            sample_annotation: See the `sample_annotation` property
+            variable_annotation: See the `variable_annotation` property
+            events: See the `events` property
+            config: See the `config` property
+            after_render: See the `after_render` property
+            other_init_params: See the `other_init_params` property
+            width: See the `width` property
+            height: See the `height` property
+            kwargs: `Any` Additional keyword arguments for CanvasXpress.
+                Secondary keywords are added to the `config` property,
+                overriding any existing items of the same name. Primary
+                keywords `renderTo` or `afterRender` are mapped to the
+                corresponding property (`render_to` or `after_render`).
         """
 
         super().__init__()
@@ -880,6 +882,15 @@ class CanvasXpress(CXHtmlConvertable):
         self.height = height
 
     def provide_data_object(self) -> CXData:
+        """Provides the data object to be used by the CanvasXpress chart.
+
+        If the associated data is a CXDataframeData, the data is merged with
+        sample and variable annotations into an XYZ object. Otherwise, the
+        raw data is returned.
+
+        Returns:
+            `CXData`: The data object to be rendered.
+        """
         if isinstance(self.data, CXDataframeData):
             return CXDictData(
                 merge_dataframes_into_xyz_object(
@@ -893,17 +904,18 @@ class CanvasXpress(CXHtmlConvertable):
             return self.data
 
     def prepare_html_element_parts(self) -> dict:
-        """
-        Converts the CanvasXpress object into CanvasXpress element components in
-        anticipation of further use in renderable objects or conversion into HTML.
+        """Converts the CanvasXpress object into CanvasXpress element
+        components in anticipation of further use in renderable objects or
+        conversion into HTML.
 
         If the associated `CXData` is a type of `CXProfiledData` and a profile
         has yet to be assigned then a profile can be assigned according to the
-        `CXConfig` labelled `graphType`.  If a profile is assigned but is not
+        `CXConfig` labelled `graphType`. If a profile is assigned but is not
         `CXRawProfile` then the `graphType` can be reassessed, and if
         appropriate a new profile better aligned to the data can be provided.
 
-        :returns: `dict` A map of values in anticipation of further conversion
+        Returns:
+            `dict`: A map of values in anticipation of further conversion
             into html or a renderable.
         """
         cx_element_params = {
@@ -926,92 +938,24 @@ class CanvasXpress(CXHtmlConvertable):
         return cx_element_params
 
     def render_to_html_parts(self, fix_missing_profile: bool = True) -> dict:
-        """
-        Converts the CanvasXpress object into HTML5 complant script.
+        """Converts the CanvasXpress object into HTML5 compliant script.
 
         If the associated `CXData` is a type of `CXProfiledData` and a profile
         has yet to be assigned then a profile can be assigned according to the
-        `CXConfig` labelled `graphType`.  If a profile is assigned but is not
+        `CXConfig` labelled `graphType`. If a profile is assigned but is not
         `CXRawProfile` then the `graphType` can be reassessed, and if
         appropriate a new profile better aligned to the data can be provided.
 
-        :returns: `dict` A map of values appropriate for use in HTML, such as
-            via a jinja template typical of flask apps.
+        Args:
+            fix_missing_profile: `bool` Defaults to `True`. If `True` then
+                CXData used for the chart will be provided with a data profile
+                appropriate to the `graphType` (or CXStandardProfile if no
+                graphType is provided). If `False` then no profile will be
+                applied to those data objects without profiles.
 
-        Assuming a jinja template such as this:
-        ```html
-        <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Flask CanvasXpress Example</title>
-            </head>
-            <body>
-                <!-- 1. DOM element where the visualization will be appear -->
-                {{canvas_element|safe}}
-
-                <!-- 2. Include the CanvasXpress library -->
-                <link
-                    href='https://www.canvasxpress.org/dist/canvasXpress.css'
-                    rel='stylesheet' type='text/css'/>
-                <script
-                    src='https://www.canvasxpress.org/dist/canvasXpress.min.js'
-                    type='text/javascript'>
-                </script>
-
-                <!-- 3. Include script to initialize object -->
-                <script type="text/javascript">
-                    onReady(function () {
-                        {{bar_graph|safe}}
-                    })
-                </script>
-            </body>
-        </html>
-        ```
-
-        A flask function could create_element a page with a chart such as:
-        ```python
-        @app.route('/pythonexample')
-        def get_simple_chart() -> str:
-            chart: CanvasXpress = CanvasXpress(
-                render_to="example_chart",
-                data=CXDictData(
-                    {
-                        "y": {
-                        "vars": ["Gene1"],
-                        "smps": ["Smp1", "Smp2", "Smp3"],
-                        "data": [[10, 35, 88]],
-                    }
-                ),
-                config=CXConfigs(
-                    CXGraphType(CXGraphTypeOptions.Bar)
-                )
-            )
-
-            html_parts = chart.render_to_html_parts()
-
-            return render_template(
-                "bar.html",
-                canvas_element=html_parts["cx_canvas"],
-                bar_graph=html_parts["cx_js"]
-            )
-        ```
-
-        :param fix_missing_profile: `bool`
-            Defaults to `True`.  If `True` then CXData used for the chart will
-            be provided with a data profile appropriate to the `graphType`
-            (or CXStandardProfile if no graphType is provided).  If `False`
-            then no profile will be applied to those data objects without
-            profiles.
-
-        :param match_profile_to_graphtype: `bool`
-            Defaults to `True`.  If `True` then the `graphType` will be
-            inspected and an appropriate data profile will be applied to
-            the data object.  If a profile of an appropriate type is already
-            associated then nothing is changed.  If a CXRawProfile is associated
-            then no change is made regardless of the paranmeter value.
-            Missing profiles are ignored unless fix_missing_profile is also
-            `True`.  If `False` then no change to the data profile will be made
-            if a profile is already associated with the data object.
+        Returns:
+            `dict`: A map of values appropriate for use in HTML, such as via
+            a jinja template typical of flask apps.
         """
         #  Capture the ID once to avoid anonymous object calls producing different IDs.
         render_id = self.render_to
@@ -1096,11 +1040,11 @@ class CanvasXpress(CXHtmlConvertable):
         return cx_web_data
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the `CanvasXpress` object into a JSON
-         representation.
-        :returns" `str`
-            JSON form of the `CanvasXpress` object.
+        """*str* function. Converts the `CanvasXpress` object into a JSON
+        representation.
+
+        Returns:
+            `str`: JSON form of the `CanvasXpress` object.
         """
         data = str(type(self.data)).split(".")[-1][:-2] if self.data else "None"
 
@@ -1112,14 +1056,15 @@ class CanvasXpress(CXHtmlConvertable):
             f" after_render {len(self.after_render)} item(s));"
             f" other_init_params"
             f" {len(self.other_init_params)} item(s);"
-            f" events {len(self.events.events)} function(s)."
+            f" events {len(self.events.events) if self.events else 0} function(s)."
         )
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the `CanvasXpress` object into a pickle
+        """*repr* function. Converts the `CanvasXpress` object into a pickle
         string that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
 
         normalized_data = self.data.render_to_dict(config=self.config)

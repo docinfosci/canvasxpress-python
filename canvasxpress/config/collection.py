@@ -19,18 +19,13 @@ from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
 @total_ordering
 class CXConfigs(CXDictConvertable, CXListConvertable):
-    """
-    CXConfigs provides support for addressing a collection of `CXConfig` values.
-    """
+    """CXConfigs provides support for addressing a collection of `CXConfig` values."""
 
     __configs: List[CXConfig] = None
-    """
-    The `CXConfig` objects associated with this collection.
-    """
+    """The `CXConfig` objects associated with this collection."""
 
     def __init__(self, *configs: Union[CXConfig, tuple, dict, list]):
-        """
-        Initializes a new `CXConfigs` object with zero or more `CXConfig`
+        """Initializes a new `CXConfigs` object with zero or more `CXConfig`
         objects.
 
         Example:
@@ -42,21 +37,24 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         )
         ```
 
-        :param configs: `Union[CXConfig, tuple, dict], ...`
-            A list of zero or more `CXConfig` objects to associate.
+        Args:
+            configs: `Union[CXConfig, tuple, dict], ...` A list of zero or
+                more `CXConfig` objects to associate.
         """
         self.__configs: List[CXConfig] = list()
         for config in configs:
             self.add(config)
 
     def remove(self, label: str) -> Union[CXConfig, None]:
-        """
-        Removes the CXConfig if found, and if found the removed config is
+        """Removes the CXConfig if found, and if found the removed config is
         provided.
-        :param label: 'str`
-            The label of the CXConfig to remove.
-        :returns: `Union[CXConfig, None]`
-            If a CXConfig is removed then it is returned, otherwise None.
+
+        Args:
+            label: `str` The label of the CXConfig to remove.
+
+        Returns:
+            `Union[CXConfig, None]` If a CXConfig is removed then it is
+            returned, otherwise None.
         """
         candidate = None
         for config in self.configs:
@@ -68,8 +66,7 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         return candidate
 
     def add(self, config: Union[CXConfig, tuple, dict, list]) -> "CXConfigs":
-        """
-        Adds the specified configuration to the collection.  This method
+        """Adds the specified configuration to the collection. This method
         supports chaining for efficient additions of `CXConfig` objects.
 
         Example:
@@ -81,11 +78,15 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
             .add({ "objectColorTransparency": 0.3 })
         ```
 
-        :param config: `Union[CXConfig, tuple, dict, list]`
-            The `CXConfig` to associate.  Cannot be `None`.  `tuple` an d`list`
-            config values are expected to be two elements in length, with the
-            first representing the label and the second representing the value.
-            The label portion will be converted to a string using `str`.
+        Args:
+            config: `Union[CXConfig, tuple, dict, list]` The `CXConfig` to
+                associate. Cannot be `None`. `tuple` and `list` config values
+                are expected to be two elements in length, with the first
+                representing the label and the second representing the value.
+                The label portion will be converted to a string using `str`.
+
+        Returns:
+            `CXConfigs`: self for chaining.
         """
         if config is None:
             raise ValueError("configs cannot be None.")
@@ -124,12 +125,14 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         return self
 
     def get_param(self, label: str) -> Union[CXConfig, None]:
-        """
-        Provides the CXConfig with the indicated label.
-        :param label: `str`
-            The name of the congig to find.
-        :returns: `Union[CXConfig, None]`
-            The CXConfig or None if such a labelled item is not associated.
+        """Provides the CXConfig with the indicated label.
+
+        Args:
+            label: `str` The name of the config to find.
+
+        Returns:
+            `Union[CXConfig, None]` The CXConfig or None if such a labelled
+            item is not associated.
         """
         candidate = None
         for config in self.configs:
@@ -140,11 +143,11 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         return candidate
 
     def set_param(self, label: str, value: Any) -> "CXConfigs":
-        """
-        Adds a parameter to the configs.  Attempts to infer the kind of param to
-        add, and if a type can be deduced then an appropriate CXConfig is used.
-        If a type cannot be inferred the a text type is assumed. This method
-        supports chaining for efficient additions of `CXConfig` objects.
+        """Adds a parameter to the configs. Attempts to infer the kind of
+        param to add, and if a type can be deduced then an appropriate CXConfig
+        is used. If a type cannot be inferred then a text type is assumed.
+        This method supports chaining for efficient additions of `CXConfig`
+        objects.
 
         Example:
         ```python
@@ -155,9 +158,14 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
             .set_param("3", True)
         ```
 
-        :param value: `Any`
-            The parameter to infer and associate.  Cannot be `None`.  Defaults
-            to `str` if the type cannot otherwise be deduced.
+        Args:
+            label: `str` The label for the parameter.
+            value: `Any` The parameter to infer and associate. Cannot be
+                `None`. Defaults to `str` if the type cannot otherwise be
+                deduced.
+
+        Returns:
+            `CXConfigs`: self for chaining.
         """
         if label is None:
             raise ValueError("Label cannot be None.")
@@ -207,50 +215,53 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
 
     @property
     def configs(self) -> List[CXConfig]:
-        """
-        Provides access to the list of associated `CXConfig` objects.
-        :returns: `List[CXConfig]`
+        """Provides access to the list of associated `CXConfig` objects.
+
+        Returns:
+            `List[CXConfig]`: The list of CXConfig objects.
         """
         return self.__configs
 
     def __iter__(self) -> Iterator[CXConfig]:
-        """
-        Iterates over `CXConfig` objects.
-        :returns: `Iterator[CXConfig]`
+        """Iterates over `CXConfig` objects.
+
+        Returns:
+            `Iterator[CXConfig]`: An iterator over the CXConfig objects.
         """
         return iter(self.__configs)
 
     def __len__(self) -> int:
-        """
-        Provides the number of `CXConfig` objects.
-        :returns: `int`
+        """Provides the number of `CXConfig` objects.
+
+        Returns:
+            `int`: The number of CXConfig objects.
         """
         return len(self.__configs)
 
     def render_to_dict(self) -> dict:
-        """
-        Provides a `dict` representation of the configuration values.
-        :returns: `dict`
-            A `dict` representing the configuration values arranged as a map
-            of keys and values.
+        """Provides a `dict` representation of the configuration values.
 
-            Given:
-            ```python
-            configs = CXConfigs()
-            configs \
-                .set_param("1", "rgb(3, 172, 198)") \
-                .set_param("2", 2) \
-                .set_param("3", True)
-            ```
+        Given:
+        ```python
+        configs = CXConfigs()
+        configs \
+            .set_param("1", "rgb(3, 172, 198)") \
+            .set_param("2", 2) \
+            .set_param("3", True)
+        ```
 
-            Then `render_to_dict()` results in:
-            ```python
-            {
-                "1": "rgb(3, 172, 198)",
-                "2": 2,
-                "3": True,
-            }
-            ```
+        Then `render_to_dict()` results in:
+        ```python
+        {
+            "1": "rgb(3, 172, 198)",
+            "2": 2,
+            "3": True,
+        }
+        ```
+
+        Returns:
+            `dict`: A `dict` representing the configuration values arranged as
+            a map of keys and values.
         """
         merged_configs = CXConfigs.merge_configs(self.configs)
 
@@ -261,29 +272,29 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         return merged_configs
 
     def render_to_list(self, **kwargs) -> list:
-        """
-        Provides a `list` representation of the configuration values.
-        :returns: `list`
-            A `list` representing the configuration values arranged as a map
-            of keys and values.
+        """Provides a `list` representation of the configuration values.
 
-            Given:
-            ```python
-            configs = CXConfigs()
-            configs \
-                .set_param("1", "rgb(3, 172, 198)") \
-                .set_param("2", 2) \
-                .set_param("3", True)
-            ```
+        Given:
+        ```python
+        configs = CXConfigs()
+        configs \
+            .set_param("1", "rgb(3, 172, 198)") \
+            .set_param("2", 2) \
+            .set_param("3", True)
+        ```
 
-            Then `render_to_list()` results in:
-            ```python
-            [
-                ["1", "rgb(3, 172, 198)"],
-                ["2": 2],
-                ["3": True],
-            ]
-            ```
+        Then `render_to_list()` results in:
+        ```python
+        [
+            ["1", "rgb(3, 172, 198)"],
+            ["2": 2],
+            ["3": True],
+        ]
+        ```
+
+        Returns:
+            `list`: A `list` representing the configuration values arranged as
+            a map of keys and values.
         """
         configs = self.render_to_dict()
         return [
@@ -293,14 +304,17 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
 
     @classmethod
     def merge_configs(cls, configs: List[CXConfig]) -> dict:
-        """
-        Given a list of CXConfig objects, a dictionary of unique attributes is
-        generated and provided.
-        :returns: `dict`
-            A dict of zero or more keys representing the CXConfigs.
+        """Given a list of CXConfig objects, a dictionary of unique
+        attributes is generated and provided.
+
+        Args:
+            configs: `List[CXConfig]` The list of CXConfig objects to merge.
+
+        Returns:
+            `dict`: A dict of zero or more keys representing the CXConfigs.
         """
         unique_configs = list()
-        if not configs is None:
+        if configs is not None:
             for config in configs:
                 if not config in unique_configs:
                     unique_configs.append(config)
@@ -312,31 +326,33 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         return dict_configs
 
     def __copy__(self) -> "CXConfigs":
-        """
-        *copy* constructor.  Returns the `CXConfig` objects within a new
+        """*copy* constructor. Returns the `CXConfig` objects within a new
         `CXConfigs` object.
+
+        Returns:
+            `CXConfigs`: A shallow copy of this CXConfigs object.
         """
         return CXConfigs(*self.configs)
 
     def __deepcopy__(self, memo) -> "CXConfigs":
-        """
-        *deepcopy* constructor.  Returns a deepcopy of the `CXConfig` objects
-         within a new `CXConfigs` object.
+        """*deepcopy* constructor. Returns a deepcopy of the `CXConfig` objects
+        within a new `CXConfigs` object.
+
+        Returns:
+            `CXConfigs`: A deep copy of this CXConfigs object.
         """
         return CXConfigs(*([deepcopy(config) for config in self.configs]))
 
     def __lt__(self, other: "CXConfigs") -> bool:
-        """
-        *less than* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXConfigs` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXConfigs` object then False
-            <li> If `other` is a `CXConfigs` object then True of all `CXConfig`
-                objects are also less than the events tracked by `self`.
-            </ul>
+        """*less than* comparison. Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: `CXConfigs` The object to compare.
+
+        Returns:
+            `bool`: True if self is less than other. False if `other` is
+                `None`, if `other` is not a `CXConfigs` object, or if not all
+                `CXConfig` objects are also less than those tracked by `self`.
         """
         if other is None:
             return False
@@ -359,17 +375,15 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                 return len(self.configs) < len(other.configs)
 
     def __eq__(self, other: "CXConfigs") -> bool:
-        """
-        *equals* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXConfigs` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXConfigs` object then False
-            <li> If `other` is a `CXConfigs` object then True of all `CXConfig`
-                objects are also equal to the events tracked by `self`.
-            </ul>
+        """*equals* comparison. Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: `CXConfigs` The object to compare.
+
+        Returns:
+            `bool`: True if self equals other. False if `other` is `None`,
+                if `other` is not a `CXConfigs` object, or if not all `CXConfig`
+                objects are also equal to those tracked by `self`.
         """
         if other is None:
             return False
@@ -392,19 +406,20 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
                 return len(self.configs) == len(other.configs)
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the `CXConfigs` object into a JSON
-         representation.
-        :returns" `str`
-            JSON form of the collection.
+        """*str* function. Converts the `CXConfigs` object into a JSON
+        representation.
+
+        Returns:
+            `str`: JSON form of the collection.
         """
         return json.dumps(self.render_to_dict())
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the `CXConfigs` object into a pickle string
-        that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """*repr* function. Converts the `CXConfigs` object into a pickle
+        string that can be used with `eval` to establish a copy of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
         config_rep_list = ", ".join([repr(config) for config in self.configs])
         rep_candidate = f"CXConfigs(" f"{config_rep_list}" f")"

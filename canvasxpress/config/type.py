@@ -12,38 +12,32 @@ from deprecated import deprecated
 
 @total_ordering
 class CXConfig(ABC):
-    """
-    CXConfig provides the means by which CanvasXpress objects can be configured for
-    customized rendering and interaction.
-    """
+    """CXConfig provides the means by which CanvasXpress objects can be
+    configured for customized rendering and interaction."""
 
     __label: str = ""
-    """
-    The configuration object's label.
-    """
+    """The configuration object's label."""
 
     __extra: tuple = ()
-    """
-    Additional trailing elements beyond `label` and `value` that were imported
-    when the configuration was created from a multi-element list
-    """
+    """Additional trailing elements beyond `label` and `value` that were
+    imported when the configuration was created from a multi-element list."""
 
     @property
     def extra(self) -> tuple:
-        """
-        Provides any trailing elements beyond `label` and `value` that were
+        """Provides any trailing elements beyond `label` and `value` that were
         originally imported with the configuration.
-        :returns: `tuple`
-            The trailing elements, if any, otherwise an empty `tuple`.
+
+        Returns:
+            `tuple`: The trailing elements, if any, otherwise an empty `tuple`.
         """
         return self.__extra
 
     @extra.setter
     def extra(self, extra: Union[tuple, list]) -> None:
-        """
-        Sets the trailing elements associated with the configuration.
-        :param extra: `Union[tuple, list]`
-            The trailing elements to associate.
+        """Sets the trailing elements associated with the configuration.
+
+        Args:
+            extra: `Union[tuple, list]` The trailing elements to associate.
         """
         if extra is None:
             self.__extra = ()
@@ -52,64 +46,65 @@ class CXConfig(ABC):
 
     @property
     def label(self) -> str:
-        """
-        Provides the label for the configuration.
-        :returns: `str`
+        """Provides the label for the configuration.
+
+        Returns:
+            `str`: The label for the configuration.
         """
         return self.__label
 
     @property
     @abstractmethod
     def value(self) -> Any:
-        """
-        Provides the value for the configuration.  Must be implemented by
+        """Provides the value for the configuration. Must be implemented by
         concrete classes.
-        :returns: `Any`
-            The relevant type of value.
+
+        Returns:
+            `Any`: The relevant type of value.
         """
         pass
 
     @value.setter
     @abstractmethod
     def value(self, value: Any) -> None:
-        """
-        Sets the value of the configuration.  Must be implemented by concrete
-        classes.
-        :param value: `Any`
-            The value to be accepted.  Will be more specific with concrete
-            implementations, such as `str` for string configurations.
+        """Sets the value of the configuration. Must be implemented by
+        concrete classes.
+
+        Args:
+            value: `Any` The value to be accepted. Will be more specific with
+                concrete implementations, such as `str` for string
+                configurations.
         """
         pass
 
     def render(self) -> dict:
-        """
-        Renders the value in a form suitable for use in preparing Javascript.
+        """Renders the value in a form suitable for use in preparing Javascript.
         Typically, this will be the native `value`.
 
-        :returns: `dict`
-            A version of the `value` most appropriate for use in prepating the
-            Javascript rendering.
+        Returns:
+            `dict`: A version of the `value` most appropriate for use in
+            preparing the Javascript rendering.
         """
         return {self.label: self.value}
 
     def __init__(self, label: str, value: Any):
-        """
-        Initializes a new CXConfig object with a label and value.
-        :param label: `str`
-            The label for the configuration.
-        :param value: `Any`
-            The value for the configuration.  See the `value` property for the
-            concrete implementation for allowed types.
+        """Initializes a new CXConfig object with a label and value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `Any` The value for the configuration. See the `value`
+                property for the concrete implementation for allowed types.
         """
         if label is None:
             raise ValueError("label cannot be None")
         self.__label = label
 
     def __copy__(self) -> "CXConfig":
-        """
-        *copy constructor* that provides a new CXConfig of the same type with
-        the data referenced.
-        :returns: `CXConfig` of the proper type
+        """*copy constructor* that provides a new CXConfig of the same type
+        with the data referenced.
+
+        Returns:
+            `CXConfig` of the proper type
         """
         cls = self.__class__
         result = cls.__new__(cls)
@@ -117,10 +112,11 @@ class CXConfig(ABC):
         return result
 
     def __deepcopy__(self, memo):
-        """
-        *deepcopy constructor* that provides a new CXConfig of the same type with
-        the a deepcopy of the data.
-        :returns: `CXConfig` of the proper type
+        """*deepcopy constructor* that provides a new CXConfig of the same
+        type with a deepcopy of the data.
+
+        Returns:
+            `CXConfig` of the proper type
         """
         cls = self.__class__
         result = cls.__new__(cls)
@@ -130,24 +126,24 @@ class CXConfig(ABC):
         return result
 
     def __hash__(self) -> int:
-        """
-        Provides a hash proxy for the object as converted into its `repr` form.
-        :returns: `int`
+        """Provides a hash proxy for the object as converted into its `repr`
+        form.
+
+        Returns:
+            `int`: The hash value of the object's repr form.
         """
         return hash(repr(self))
 
     def __lt__(self, other: "CXConfig") -> bool:
-        """
-        *less than* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXConfig` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXConfig` object then `False`
-            <li> If `other` is a `CXConfig` object then True if label and value
-                of `other` are less than that of `self`.
-            </ul>
+        """*less than* comparison. Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: `CXConfig` The object to compare.
+
+        Returns:
+            `bool`: True if self is less than other. False if `other` is
+                `None`, if `other` is not a `CXConfig` object of the same
+                class, or if label/value of `other` is not less than `self`.
         """
         if other is None:
             return False
@@ -166,17 +162,15 @@ class CXConfig(ABC):
                 return False
 
     def __eq__(self, other: "CXConfig") -> bool:
-        """
-        *equals* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXConfig` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXConfig` object then `False`
-            <li> If `other` is a `CXConfig` object then True if label and value
-                of `other` are equal to that of `self`.
-            </ul>
+        """*equals* comparison. Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: `CXConfig` The object to compare.
+
+        Returns:
+            `bool`: True if self equals other. False if `other` is `None`,
+                if `other` is not a `CXConfig` object of the same class, or
+                if label/value of `other` is not equal to `self`.
         """
         if other is None:
             return False
@@ -198,10 +192,11 @@ class CXConfig(ABC):
         )
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXConfig object into a pickle string
+        """*repr* function. Converts the CXConfig object into a pickle string
         that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
         return (
             f"{str(self.__class__).split('.')[-1][:-2]}("
@@ -212,29 +207,26 @@ class CXConfig(ABC):
 
 
 class CXString(CXConfig):
-    """
-    A `CXConfig` object that manages `str` values.
-    """
+    """A `CXConfig` object that manages `str` values."""
 
     __value: str = ""
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     @property
     def value(self) -> str:
-        """
-        Provides the value for the configuration.
-        :returns: `str`
+        """Provides the value for the configuration.
+
+        Returns:
+            `str`: The string value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[object, str]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `str`
-            If `None` then an empty `str` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `str` If `None` then an empty `str` will be used.
         """
         if value is None:
             self.__value = ""
@@ -242,37 +234,37 @@ class CXString(CXConfig):
             self.__value = str(value)
 
     def __init__(self, label: str, value: str):
-        """
-        Initializes the configuration with a `str` value.
+        """Initializes the configuration with a `str` value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `str` The string value for the configuration.
         """
         super().__init__(label, value)
         self.value = value
 
 
 class CXNone(CXConfig):
-    """
-    A `CXConfig` object that manages `None` values.
-    """
+    """A `CXConfig` object that manages `None` values."""
 
     __value: Any = None
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     @property
     def value(self) -> None:
-        """
-        Provides the value for the configuration.
-        :returns: `str`
+        """Provides the value for the configuration.
+
+        Returns:
+            `None`: Always returns None.
         """
         return self.__value
 
     @value.setter
     def value(self, value=None) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `None`
-            Only None can be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `None` Only None can be used.
         """
         if value is not None:
             raise ValueError("CXNone only accepts None values")
@@ -280,37 +272,37 @@ class CXNone(CXConfig):
         self.__value = None
 
     def __init__(self, label: str, value=None):
-        """
-        Initializes the configuration with a None value.
+        """Initializes the configuration with a None value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `None` The None value for the configuration.
         """
         super().__init__(label, value)
         self.value = value
 
 
 class CXBool(CXConfig):
-    """
-    A `CXConfig` object that manages `bool` values.
-    """
+    """A `CXConfig` object that manages `bool` values."""
 
     __value: bool = False
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     @property
     def value(self) -> bool:
-        """
-        Provides the value for the configuration.
-        :returns: `bool`
+        """Provides the value for the configuration.
+
+        Returns:
+            `bool`: The boolean value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[object, bool]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `bool`
-            If `None` then `False` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `bool` If `None` then `False` will be used.
         """
         if value is None:
             self.__value = False
@@ -318,15 +310,20 @@ class CXBool(CXConfig):
             self.__value = bool(value)
 
     def __init__(self, label: str, value: bool):
-        """
-        Initializes the configuration with a `bool` value.
+        """Initializes the configuration with a `bool` value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `bool` The boolean value for the configuration.
         """
         super().__init__(label, value)
         self.value = value
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the object into a Javascript statement.
+        """*str* function. Converts the object into a Javascript statement.
+
+        Returns:
+            `str`: JSON string representation of the label and value.
         """
         return str(
             {
@@ -336,10 +333,11 @@ class CXBool(CXConfig):
         )
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXBool object into a pickle string
+        """*repr* function. Converts the CXBool object into a pickle string
         that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
         return (
             f"{str(self.__class__).split('.')[-1][:-2]}("
@@ -350,29 +348,26 @@ class CXBool(CXConfig):
 
 
 class CXFloat(CXConfig):
-    """
-    A `CXConfig` object that manages `float` values.
-    """
+    """A `CXConfig` object that manages `float` values."""
 
     __value: float = 0.0
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     @property
     def value(self) -> float:
-        """
-        Provides the value for the configuration.
-        :returns: `float`
+        """Provides the value for the configuration.
+
+        Returns:
+            `float`: The float value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[object, float]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `float`
-            If `None` then `float(0.0)` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `float` If `None` then `float(0.0)` will be used.
         """
         if value is None:
             self.__value = 0.0
@@ -380,39 +375,37 @@ class CXFloat(CXConfig):
             self.__value = float(value)
 
     def __init__(self, label: str, value: float):
-        """
-        Initializes the configuration with a `float` value.
+        """Initializes the configuration with a `float` value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `float` The float value for the configuration.
         """
         super().__init__(label, value)
-        self.__value = 0.0
-
         self.value = value
 
 
 class CXInt(CXConfig):
-    """
-    A `CXConfig` object that manages `int` values.
-    """
+    """A `CXConfig` object that manages `int` values."""
 
     __value: int = 0
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     @property
     def value(self) -> int:
-        """
-        Provides the value for the configuration.
-        :returns: `int`
+        """Provides the value for the configuration.
+
+        Returns:
+            `int`: The integer value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[object, int]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `int`
-            If `None` then `int(0)` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `int` If `None` then `int(0)` will be used.
         """
         if value is None:
             self.__value = 0
@@ -420,39 +413,37 @@ class CXInt(CXConfig):
             self.__value = int(value)
 
     def __init__(self, label: str, value: int):
-        """
-        Initializes the configuration with an `int` value.
+        """Initializes the configuration with an `int` value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `int` The integer value for the configuration.
         """
         super().__init__(label, value)
-        self.__value = 0
-
         self.value = value
 
 
 class CXDict(CXConfig):
-    """
-    A `CXConfig` object that manages `dict` values.
-    """
+    """A `CXConfig` object that manages `dict` values."""
 
     __value: dict = dict()
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     @property
     def value(self) -> dict:
-        """
-        Provides the value for the configuration.
-        :returns: `dict`
+        """Provides the value for the configuration.
+
+        Returns:
+            `dict`: The dictionary value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[dict, str, None]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `dict`
-            If `None` then `dict()` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `dict` If `None` then `dict()` will be used.
         """
         if value is None:
             self.__value = dict()
@@ -473,25 +464,25 @@ class CXDict(CXConfig):
             self.__value = deepcopy(clean_value)
 
     def __init__(self, label: str, value: Union[dict, str, None]) -> None:
-        """
-        Initializes the CXData object with data.  Only dict or compatible data
-        types are accepted.
+        """Initializes the CXData object with data. Only dict or compatible
+        data types are accepted.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `Union[dict, str, None]` The dictionary, string, or None
+                value for the configuration.
         """
         super().__init__(label, value)
         self.value = value
 
     def __lt__(self, other: "CXDict") -> bool:
-        """
-        *less than* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDict` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDict` object then `False`
-            <li> If `other` is a `CXDict` object then True if the label and
-                value parts are less than that of self.
-            </ul>
+        """*less than* comparison. Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: `CXDict` The object to compare.
+
+        Returns:
+            `bool`: True if self is less than other.
         """
         if other is None:
             return False
@@ -526,17 +517,13 @@ class CXDict(CXConfig):
                 return (other_added - other_removed) > 0
 
     def __eq__(self, other: "CXDict") -> bool:
-        """
-        *equals* comparison.  Also see `@total_ordering` in `functools`.
-        :param other:
-            `CXDict` The object to compare.
-        :returns: `bool`
-            <ul>
-            <li> If `other` is `None` then `False`
-            <li> If `other` is not a `CXDict` object then `False`
-            <li> If `other` is a `CXDict` object then True if the label and
-                value parts are equal to that of self.
-            </ul>
+        """*equals* comparison. Also see `@total_ordering` in `functools`.
+
+        Args:
+            other: `CXDict` The object to compare.
+
+        Returns:
+            `bool`: True if self equals other.
         """
         if other is None:
             return False
@@ -569,18 +556,17 @@ class CXDict(CXConfig):
                 return False
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXDict object into a pickle string
+        """*repr* function. Converts the CXDict object into a pickle string
         that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
         return f"CXDict(label='{self.label}', value={json.dumps(self.value)})"
 
 
 class CXList(CXConfig):
-    """
-    A `CXConfig` object that manages `list` values.
-    """
+    """A `CXConfig` object that manages `list` values."""
 
     __value: list = list()
     """
@@ -589,18 +575,19 @@ class CXList(CXConfig):
 
     @property
     def value(self) -> list:
-        """
-        Provides the value for the configuration.
-        :returns: `list`
+        """Provides the value for the configuration.
+
+        Returns:
+            `list`: The list value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[object, list]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `list`
-            If `None` then `list()` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `list` If `None` then `list()` will be used.
         """
         if value is None:
             self.__value = list()
@@ -608,8 +595,11 @@ class CXList(CXConfig):
             self.__value = list(value)
 
     def __init__(self, label: str, value: list):
-        """
-        Initializes the configuration with a `list` value.
+        """Initializes the configuration with a `list` value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `list` The list value for the configuration.
         """
         super().__init__(label, value)
         self.__value = list()
@@ -618,29 +608,25 @@ class CXList(CXConfig):
 
 
 class CXGraphWeight(CXConfig):
-    """
-    A `CXConfig` object that manages and normalizes `CXGraphWeight list` values.
-    """
+    """A `CXConfig` object that manages and normalizes `CXGraphWeight list` values."""
 
     __value: list = list()
-    """
-    The managed value.
-    """
+    """The managed value."""
 
     def is_graph_weight_list(label: str, value: list):
-        """
-        A static method that evaluates a given list and label to check
-        if it represents  graph weight list.
-        :param label: 'str'
-            A string represents the value label i.e "ringGraphWeight".
-            It must contain "weight" word
-        :param value: `list`
-            A list to evaluate.  It must be:
-              - non-empty list
-              - all its values are numeric
-              - summation of its values is 100
-        :returns: `bool`
-            True if all conditions are valid
+        """A static method that evaluates a given list and label to check
+        if it represents a graph weight list.
+
+        Args:
+            label: `str` A string representing the value label (e.g.
+                "ringGraphWeight"). It must contain the word "weight".
+            value: `list` A list to evaluate. It must be:
+                - a non-empty list
+                - all its values are numeric
+                - summation of its values is 100 or 1
+
+        Returns:
+            `bool`: True if all conditions are valid.
         """
         valid_label = False
         if label is not None:
@@ -661,18 +647,19 @@ class CXGraphWeight(CXConfig):
 
     @property
     def value(self) -> list:
-        """
-        Provides the value for the configuration.
-        :returns: `list`
+        """Provides the value for the configuration.
+
+        Returns:
+            `list`: The list value for the configuration.
         """
         return self.__value
 
     @value.setter
     def value(self, value: Union[object, list]) -> None:
-        """
-        Sets the value of the configuration.
-        :param value: `list`
-            If `None` then `list()` will be used.
+        """Sets the value of the configuration.
+
+        Args:
+            value: `list` If `None` then `list()` will be used.
         """
         # return empty value if the weight list or its sum is invalid
         final_value = list()
@@ -687,8 +674,11 @@ class CXGraphWeight(CXConfig):
         self.__value = final_value
 
     def __init__(self, label: str, value: list):
-        """
-        Initializes the configuration with a `list` value.
+        """Initializes the configuration with a `list` value.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `list` The list value for the configuration.
         """
         super().__init__(label, value)
         self.__value = list()
@@ -698,21 +688,20 @@ class CXGraphWeight(CXConfig):
 
 @deprecated(action="ignore")
 class CXRGBAColor(CXDict):
-    """
-    A `CXConfig` object that manages `str` Javascript rgba() values.
-    """
+    """A `CXConfig` object that manages `str` Javascript rgba() values."""
 
     @staticmethod
     def is_color_str(value: str):
-        """
-        A static method that evaluates a given string to see if it represents a
-        Javascript rgba() statement.
-        :param value: `str`
-            A string to evaluate.  A valid Javascript value has the form
-            `rgba(r, g, b, a)` where RGB values are `int` from 0-255 and A is a
-            `float` from 0.0 to 1.0.
-        :returns: `bool`
-            True if the string represents a Javascript rgba() statement.
+        """A static method that evaluates a given string to see if it represents
+        a Javascript rgba() statement.
+
+        Args:
+            value: `str` A string to evaluate. A valid Javascript value has the
+                form `rgba(r, g, b, a)` where RGB values are `int` from 0-255
+                and A is a `float` from 0.0 to 1.0.
+
+        Returns:
+            `bool`: True if the string represents a Javascript rgba() statement.
         """
         if isinstance(value, str):
             if not value.startswith("rgba"):
@@ -737,7 +726,7 @@ class CXRGBAColor(CXDict):
 
                 return True
 
-            except:
+            except Exception:
                 return False
 
         else:
@@ -745,15 +734,16 @@ class CXRGBAColor(CXDict):
 
     @staticmethod
     def is_color_list(value: list):
-        """
-        A static method that evaluates a given list to see if it represents a
-        Javascript rgba() statement.
-        :param value: `list`
-            A list to evaluate.  A valid Javascript value has the form
-            `rgba(r, g, b, a)` where RGB values are `int` from 0-255 and A is a
-            `float` from 0.0 to 1.0.
-        :returns: `bool`
-            True if the list represents a Javascript rgba() statement.
+        """A static method that evaluates a given list to see if it represents
+        a Javascript rgba() statement.
+
+        Args:
+            value: `list` A list to evaluate. A valid Javascript value has the
+                form `rgba(r, g, b, a)` where RGB values are `int` from 0-255
+                and A is a `float` from 0.0 to 1.0.
+
+        Returns:
+            `bool`: True if the list represents a Javascript rgba() statement.
         """
         if isinstance(value, list):
             try:
@@ -775,7 +765,7 @@ class CXRGBAColor(CXDict):
 
                 return True
 
-            except:
+            except Exception:
                 return False
 
         else:
@@ -783,16 +773,17 @@ class CXRGBAColor(CXDict):
 
     @staticmethod
     def is_color_dict(value: dict):
-        """
-        A static method that evaluates a given dict to see if it represents a
-        Javascript rgba() statement.
-        :param value: `dict`
-            A dict to evaluate.  A valid Javascript value has the form
-            `rgba(r, g, b, a)` where RGB values are `int` from 0-255 and A is a
-            `float` from 0.0 to 1.0.  For the dict to be valid its keys must be
-            lower case r, g, b, and a characters.
-        :returns: `bool`
-            True if the dict represents a Javascript rgba() statement.
+        """A static method that evaluates a given dict to see if it represents
+        a Javascript rgba() statement.
+
+        Args:
+            value: `dict` A dict to evaluate. A valid Javascript value has the
+                form `rgba(r, g, b, a)` where RGB values are `int` from 0-255
+                and A is a `float` from 0.0 to 1.0. For the dict to be valid
+                its keys must be lower case r, g, b, and a characters.
+
+        Returns:
+            `bool`: True if the dict represents a Javascript rgba() statement.
         """
         if isinstance(value, dict):
             list_len = len(value.keys())
@@ -828,12 +819,12 @@ class CXRGBAColor(CXDict):
 
     @CXDict.value.setter
     def value(self, value: Union["CXRGBAColor", dict, list, str]) -> None:
-        """
-        Sets the RGBA value from an existing `CXRGBAColor` object, or a `dict`,
-        `list`, or `string` following the Javascript `rgba()` format.
-        :param value: `Union['CXRGBAColor', dict, list, str]`
-            The value to be accepted.  See the `is_color_*()` methods for
-            acceptable formats.
+        """Sets the RGBA value from an existing `CXRGBAColor` object, or a
+        `dict`, `list`, or `string` following the Javascript `rgba()` format.
+
+        Args:
+            value: `Union['CXRGBAColor', dict, list, str]` The value to be
+                accepted. See the `is_color_*()` methods for acceptable formats.
         """
         if value is None:
             CXDict.value.fset(
@@ -902,13 +893,12 @@ class CXRGBAColor(CXDict):
             CXDict.value.fset(self, candidate)
 
     def render(self) -> Any:
-        """
-        Renders the value in a form suitable for use in preparing Javascript.
+        """Renders the value in a form suitable for use in preparing Javascript.
         Typically, this will be the native `value`.
 
-        :returns: `Any`
-            A version of the `value` most appropriate for use in prepating the
-            Javascript rendering.
+        Returns:
+            `Any`: A version of the `value` most appropriate for use in
+            preparing the Javascript rendering.
         """
         r = self.value["r"]
         g = self.value["g"]
@@ -917,28 +907,32 @@ class CXRGBAColor(CXDict):
         return {self.label: f"rgba({r},{g},{b},{a})"}
 
     def __init__(self, label: str, value: Union["CXRGBAColor", dict, list, str]):
-        """
-        Initializes a new CXRGBAColor object using the RGBA value from an
-         existing `CXRGBAColor` object, or a `dict`, `list`, or `string`
-         following the Javascript `rgba()` format.
-        :param value: `Union['CXRGBAColor', dict, list, str]`
-            The value to be accepted.  See the `is_color_*()` methods for
-            acceptable formats.
+        """Initializes a new CXRGBAColor object using the RGBA value from an
+        existing `CXRGBAColor` object, or a `dict`, `list`, or `string`
+        following the Javascript `rgba()` format.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `Union['CXRGBAColor', dict, list, str]` The value to be
+                accepted. See the `is_color_*()` methods for acceptable formats.
         """
         super().__init__(label, {"r": 0, "g": 0, "b": 0, "a": 1})
         self.value = value
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the object into a JSON string.
+        """*str* function. Converts the object into a JSON string.
+
+        Returns:
+            `str`: JSON string representation of the rendered value.
         """
         return json.dumps(self.render())
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXRGBAColor object into a pickle string
-        that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """*repr* function. Converts the CXRGBAColor object into a pickle
+        string that can be used with `eval` to establish a copy of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
         r = self.value["r"]
         g = self.value["g"]
@@ -954,20 +948,19 @@ class CXRGBAColor(CXDict):
 
 @deprecated(action="ignore")
 class CXRGBColor(CXDict):
-    """
-    A `CXConfig` object that manages `str` Javascript rgb() values.
-    """
+    """A `CXConfig` object that manages `str` Javascript rgb() values."""
 
     @staticmethod
     def is_color_str(value: str):
-        """
-        A static method that evaluates a given string to see if it represents a
-        Javascript rgb() statement.
-        :param value: `str`
-            A string to evaluate.  A valid Javascript value has the form
-            `rgb(r, g, b)` where RGB values are `int` from 0-255.
-        :returns: `bool`
-            True if the string represents a Javascript rgb() statement.
+        """A static method that evaluates a given string to see if it represents
+        a Javascript rgb() statement.
+
+        Args:
+            value: `str` A string to evaluate. A valid Javascript value has the
+                form `rgb(r, g, b)` where RGB values are `int` from 0-255.
+
+        Returns:
+            `bool`: True if the string represents a Javascript rgb() statement.
         """
         if isinstance(value, str):
             if not value.startswith("rgb"):
@@ -988,7 +981,7 @@ class CXRGBColor(CXDict):
 
                 return True
 
-            except:
+            except Exception:
                 return False
 
         else:
@@ -996,14 +989,15 @@ class CXRGBColor(CXDict):
 
     @staticmethod
     def is_color_list(value: list):
-        """
-        A static method that evaluates a given list to see if it represents a
-        Javascript rgb() statement.
-        :param value: `list`
-            A list to evaluate.  A valid Javascript value has the form
-            `rgb(r, g, b)` where RGB values are `int` from 0-255.
-        :returns: `bool`
-            True if the list represents a Javascript rgb() statement.
+        """A static method that evaluates a given list to see if it represents
+        a Javascript rgb() statement.
+
+        Args:
+            value: `list` A list to evaluate. A valid Javascript value has the
+                form `rgb(r, g, b)` where RGB values are `int` from 0-255.
+
+        Returns:
+            `bool`: True if the list represents a Javascript rgb() statement.
         """
         if isinstance(value, list):
             list_len = len(value)
@@ -1022,15 +1016,17 @@ class CXRGBColor(CXDict):
 
     @staticmethod
     def is_color_dict(value: dict):
-        """
-        A static method that evaluates a given dict to see if it represents a
-        Javascript rgb() statement.
-        :param value: `dict`
-            A dict to evaluate.  A valid Javascript value has the form
-            `rgba(r, g, b)` where RGB values are `int` from 0-255.  For the dict
-             to be valid its keys must be lower case r, g, and b characters.
-        :returns: `bool`
-            True if the dict represents a Javascript rgb() statement.
+        """A static method that evaluates a given dict to see if it represents
+        a Javascript rgb() statement.
+
+        Args:
+            value: `dict` A dict to evaluate. A valid Javascript value has the
+                form `rgb(r, g, b)` where RGB values are `int` from 0-255.
+                For the dict to be valid its keys must be lower case r, g,
+                and b characters.
+
+        Returns:
+            `bool`: True if the dict represents a Javascript rgb() statement.
         """
         if isinstance(value, dict):
             list_len = len(value.keys())
@@ -1067,12 +1063,12 @@ class CXRGBColor(CXDict):
 
     @CXDict.value.setter
     def value(self, value: Union["CXRGBColor", dict, list, str]) -> None:
-        """
-        Sets the RGB value from an existing `CXRGBColor` object, or a `dict`,
-        `list`, or `string` following the Javascript `rgb()` format.
-        :param value: `Union['CXRGBColor', dict, list, str]`
-            The value to be accepted.  See the `is_color_*()` methods for
-            acceptable formats.
+        """Sets the RGB value from an existing `CXRGBColor` object, or a
+        `dict`, `list`, or `string` following the Javascript `rgb()` format.
+
+        Args:
+            value: `Union['CXRGBColor', dict, list, str]` The value to be
+                accepted. See the `is_color_*()` methods for acceptable formats.
         """
         if value is None:
             CXDict.value.fset(
@@ -1135,13 +1131,12 @@ class CXRGBColor(CXDict):
             CXDict.value.fset(self, candidate)
 
     def render(self) -> dict:
-        """
-        Renders the value in a form suitable for use in preparing Javascript.
+        """Renders the value in a form suitable for use in preparing Javascript.
         Typically, this will be the native `value`.
 
-        :returns: `Any`
-            A version of the `value` most appropriate for use in prepating the
-            Javascript rendering.
+        Returns:
+            `dict`: A version of the `value` most appropriate for use in
+            preparing the Javascript rendering.
         """
         r = self.value["r"]
         g = self.value["g"]
@@ -1149,28 +1144,32 @@ class CXRGBColor(CXDict):
         return {self.label: f"rgb({r},{g},{b})"}
 
     def __init__(self, label: str, value: Union["CXRGBColor", dict, list, str]):
-        """
-        Initializes a new CXRGBColor object using the RGB value from an
-         existing `CXRGBColor` object, or a `dict`, `list`, or `string`
-         following the Javascript `rgb()` format.
-        :param value: `Union['CXRGBColor', dict, list, str]`
-            The value to be accepted.  See the `is_color_*()` methods for
-            acceptable formats.
+        """Initializes a new CXRGBColor object using the RGB value from an
+        existing `CXRGBColor` object, or a `dict`, `list`, or `string`
+        following the Javascript `rgb()` format.
+
+        Args:
+            label: `str` The label for the configuration.
+            value: `Union['CXRGBColor', dict, list, str]` The value to be
+                accepted. See the `is_color_*()` methods for acceptable formats.
         """
         super().__init__(label, {"r": 0, "g": 0, "b": 0})
         self.value = value
 
     def __str__(self) -> str:
-        """
-        *str* function.  Converts the object into a JSON string.
+        """*str* function. Converts the object into a JSON string.
+
+        Returns:
+            `str`: JSON string representation of the rendered value.
         """
         return json.dumps(self.render())
 
     def __repr__(self) -> str:
-        """
-        *repr* function.  Converts the CXRGBColor object into a pickle string
-        that can be used with `eval` to establish a copy of the object.
-        :returns: `str` An evaluatable representation of the object.
+        """*repr* function. Converts the CXRGBColor object into a pickle
+        string that can be used with `eval` to establish a copy of the object.
+
+        Returns:
+            `str`: An evaluatable representation of the object.
         """
         r = self.value["r"]
         g = self.value["g"]
@@ -1184,12 +1183,10 @@ class CXRGBColor(CXDict):
 
 
 class CXGraphTypeOptions(Enum):
-    """
-    A set of known chart types permitted for use with CanvasXpress objects.  If
-    a chart not yet identified in this list is required then use a `CXString`
+    """A set of known chart types permitted for use with CanvasXpress objects.
+    If a chart not yet identified in this list is required then use a `CXString`
     object with the label `graphType` and the value set to the name of the
-    chart to be used.
-    """
+    chart to be used."""
 
     Area = "Area"
     AreaLine = "AreaLine"
@@ -1244,16 +1241,17 @@ class CXGraphTypeOptions(Enum):
 
 
 class CXGraphType(CXString):
-    """
-    A CXString that is aware of CanvasXpress types of graphs, such as 'Bar'.
-    """
+    """A CXString that is aware of CanvasXpress types of graphs, such as 'Bar'."""
 
     CX_ATTRIBUTE = "graphType"
 
     @CXString.value.setter
     def value(self, value: Union[CXGraphTypeOptions, str]) -> None:
-        """
-        Sets the value using a known CanvasXpress option.
+        """Sets the value using a known CanvasXpress option.
+
+        Args:
+            value: `Union[CXGraphTypeOptions, str]` A known CanvasXpress graph
+                type option.
         """
         if value is None:
             raise ValueError("value cannot be None.")
@@ -1268,29 +1266,31 @@ class CXGraphType(CXString):
             CXString.value.fset(self, str(value))
 
     def set_custom_value(self, value: str):
-        """
-        Permits a js value to be set, such as if a new option is recently
+        """Permits a js value to be set, such as if a new option is recently
         made available that the Python framework is yet to be aware of.
-        :param value: `str`
-            The string value to set.
+
+        Args:
+            value: `str` The string value to set.
         """
         CXString.value.fset(self, value)
 
     def render(self) -> dict:
-        """
-        Renders the value in a form suitable for use in preparing Javascript.
+        """Renders the value in a form suitable for use in preparing Javascript.
         Typically, this will be the native `value`.
 
-        :returns: `dict`
-            A version of the `value` most appropriate for use in prepating the
-            Javascript rendering.
+        Returns:
+            `dict`: A version of the `value` most appropriate for use in
+            preparing the Javascript rendering.
         """
         return {self.label: self.value}
 
     def __init__(self, type: Union[CXGraphTypeOptions, str] = CXGraphTypeOptions.Bar):
-        """
-        Initializes a new CXGraphType object with a value corresponding to one
-        of the values provided by `CXGraphTypeOptions`.
+        """Initializes a new CXGraphType object with a value corresponding to
+        one of the values provided by `CXGraphTypeOptions`.
+
+        Args:
+            type: `Union[CXGraphTypeOptions, str]` A known CanvasXpress graph
+                type option or a string value.
         """
         if isinstance(type, CXGraphTypeOptions):
             super().__init__(self.CX_ATTRIBUTE, type.value)

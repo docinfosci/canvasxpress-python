@@ -23,6 +23,16 @@ _cx_html_intermixed_template = """
 def output_canvasxpress(id: str) -> ui.TagList:
     """
     Establishes an output reactive placeholder into which a CanvasXpress chart can be rendered.
+
+    Args:
+        id: The identifier for the output placeholder.
+
+    Returns:
+        A ui.TagList containing the CSS/JS headers and the output UI element.
+
+    Raises:
+        ValueError: If id is None.
+        TypeError: If id is not a string.
     """
     if id is None:
         raise ValueError(
@@ -53,9 +63,14 @@ class CXShinyWidget(object):
 
     def __init__(self, canvas: CanvasXpress):
         """
-        Initializes this object with a valid reference to a CanvasXpress object.  An invalid reference will result in
-        a ValueError (`None`) or TypeError (an object not of the type `CanvasXpress`) exception.
-        :param canvas: `CanvasXpress` - A valid CanvasXpress object to be rendered in the shiny UI.
+        Initializes this object with a valid reference to a CanvasXpress object.
+
+        Args:
+            canvas: A valid CanvasXpress object to be rendered in the shiny UI.
+
+        Raises:
+            ValueError: If canvas is None.
+            TypeError: If canvas is not an instance of CanvasXpress.
         """
         if canvas is None:
             raise ValueError("canvas must be an instance of CanvasXpress")
@@ -69,6 +84,9 @@ class CXShinyWidget(object):
     def _repr_html_(self):
         """
         Renders the object as Shiny compliant HTML.
+
+        Returns:
+            An HTML string representation of the CanvasXpress chart.
         """
         # Get the HTML and JS assets.
         html_parts: dict = self._canvas.render_to_html_parts()
@@ -103,7 +121,10 @@ class CXShinyWidget(object):
 
     def _repr_rstudio_viewer_(self):
         """
-        Renders the object as Shiny compliant HTML.
+        Renders the object for display in the RStudio viewer.
+
+        This method writes the chart HTML to a temporary file and opens it
+        in the RStudio viewer pane using rpy2.
         """
         try:
             warnings.filterwarnings("ignore")
