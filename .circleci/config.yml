@@ -226,11 +226,18 @@ jobs:
 
       - run:
           name: Report
-          command: invoke report
+          command: |
+            # Activate virtual environment
+            source ./venv/bin/activate
+
+            invoke report
 
       - run:
           name: Deploy artifacts
           command: |
+            # Activate virtual environment
+            source ./venv/bin/activate
+
             echo "Repository is from $(git config --get remote.origin.url)"
             GIT_REPO_OWNER="$(git config --get remote.origin.url | cut -d: -f2 | cut -d/ -f1)"
             echo "Found repository owner ${GIT_REPO_OWNER}"
