@@ -197,6 +197,9 @@ jobs:
       - run:
           name: Static analysis
           command: |
+            # Activate virtual environment
+            source ./venv/bin/activate
+
             prospector \
                 --zero-exit \
                 --show-profile \
