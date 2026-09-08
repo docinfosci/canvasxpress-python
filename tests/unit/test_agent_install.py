@@ -8,7 +8,26 @@ import pytest
 
 
 class TestDiscoverSkills:
-    def test_discover_skills_returns_both_skills(self):
+    @pytest.fixture
+    def mock_entry_points(self):
+        """Mock entry points for testing."""
+        mock_chart = MagicMock()
+        mock_chart.name = "chart_builder"
+        mock_chart.value = "canvasxpress.agent_skills.chart_builder"
+
+        mock_notebook = MagicMock()
+        mock_notebook.name = "notebook_builder"
+        mock_notebook.value = "canvasxpress.agent_skills.notebook_builder"
+
+        mock_validator = MagicMock()
+        mock_validator.name = "code_validator"
+        mock_validator.value = "canvasxpress.agent_skills.code_validator"
+
+        with patch("canvasxpress.agent_skills.registry._get_entry_points") as mock:
+            mock.return_value = [mock_chart, mock_notebook, mock_validator]
+            yield
+
+    def test_discover_skills_returns_both_skills(self, mock_entry_points):
         """Test that discover_skills returns chart_builder, notebook_builder, and code_validator."""
         from canvasxpress.agent_skills.registry import discover_skills
 
@@ -20,7 +39,7 @@ class TestDiscoverSkills:
         assert "name" in skills["chart_builder"]
         assert skills["chart_builder"]["name"] == "chart_builder"
 
-    def test_discover_skills_content_not_empty(self):
+    def test_discover_skills_content_not_empty(self, mock_entry_points):
         """Test that discovered skills have non-empty content."""
         from canvasxpress.agent_skills.registry import discover_skills
 
@@ -29,7 +48,7 @@ class TestDiscoverSkills:
         assert len(skills["notebook_builder"]["content"]) > 100
         assert len(skills["code_validator"]["content"]) > 100
 
-    def test_discover_skills_has_frontmatter(self):
+    def test_discover_skills_has_frontmatter(self, mock_entry_points):
         """Test that skill content has YAML frontmatter."""
         from canvasxpress.agent_skills.registry import discover_skills
 
