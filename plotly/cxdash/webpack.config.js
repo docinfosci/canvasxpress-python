@@ -86,7 +86,6 @@ module.exports = (env, argv) => {
                 new TerserPlugin({
                     sourceMap: true,
                     parallel: true,
-                    cache: './.build_cache/terser',
                     terserOptions: {
                         warnings: false,
                         ie8: false
