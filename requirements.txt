@@ -5,6 +5,7 @@ pytz
 pandas
 requests
 Deprecated
+importlib_resources>=5.0; python_version < "3.9"
 
 # jupyter
 jupyter
