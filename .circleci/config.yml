@@ -393,6 +393,10 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load NVM for Node.js access (needed by invoke init)
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
             python3 -m ensurepip --default-pip
             pip install --no-cache-dir -U -r ./requirements-project.txt
             pip install --no-cache-dir -U -r ./requirements.txt
