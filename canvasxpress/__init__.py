@@ -9,9 +9,9 @@ for scientific and general-purpose data visualization.
 This package includes agent skills for AI coding assistants. After installation,
 agent skills are automatically available at:
 
-  - ~/.opencode/skills/chart_builder/SKILL.md
+  - ~/.opencode/skills/canvasxpress_skill/SKILL.md
   - ~/.opencode/skills/notebook_builder/SKILL.md
-  - ~/.agents/skills/chart_builder/SKILL.md
+  - ~/.agents/skills/canvasxpress_skill/SKILL.md
   - ~/.agents/skills/notebook_builder/SKILL.md
 
 Programmatic access to skills:
