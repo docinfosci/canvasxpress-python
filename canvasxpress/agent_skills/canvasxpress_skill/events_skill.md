@@ -55,6 +55,8 @@ cx = CanvasXpress(data=data, config={"graphType": "Bar"}, events=events)
 graph(cx)
 ```
 
+> **Important:** CXEvent uses `script=` parameter (not `handler=`). The `script` parameter contains JavaScript code that will be wrapped in `function(o, e, t){...}`. The `id` parameter is the name of the JavaScript event to listen for (e.g., `"click"`, `"mouseover"`, `"mousemove"`).
+
 ## Event Handler Organization Pattern
 
 For complex applications, group handlers into a dedicated structure:
