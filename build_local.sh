@@ -108,6 +108,8 @@ pip install -U -r requirements.txt
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+nvm install 20
+nvm use 20
 
 npm install canvasxpress
 npm install canvasxpress-react
@@ -116,6 +118,10 @@ npm run build
 cp -R ./cxdash ../../
 
 cd ../../
+
+# Switch back to main venv
+deactivate
+source venv/bin/activate
 
 # Static analysis
 echo ""
@@ -133,15 +139,20 @@ echo ""
 echo "Running tests..."
 invoke test
 
-# Run reports
-echo ""
-echo "Generating reports..."
-invoke report
+# Run reports (disabled for local builds - requires CI token)
+# echo ""
+# echo "Generating reports..."
+# invoke report
 
 # Update VERSION file and generate setup.py
 echo ""
 echo "Updating version and generating setup.py..."
 python3 ./build_pkg_setup.py
+
+# Run setup.py
+echo ""
+echo "Running setup.py..."
+python3 setup.py --version
 
 echo ""
 echo "========================================"
