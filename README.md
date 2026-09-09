@@ -68,13 +68,61 @@ In addition to _core_, the following additional targets can be used:
 
 ## CanvasXpress AI Skills
 
-CanvasXpress includes specialized skills for AI coding assistants (such as Claude, Qwen, and OpenCode) to generate production-ready visualization code. Upon installation, three skills are automatically distributed to standard agent directories:
+The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress_skill`) that enable coding assistants (Claude, Cursor, OpenCode, Qwen, and other LLM-based tools) to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories:
 
-1. **`chart_builder`** — Generates production-ready CanvasXpress chart code from DataFrame or XYZ data, converts Plotly or Matplotlib code, and renders to any supported framework (Jupyter, Dash, Shiny, Streamlit, Flask).
+### What the `canvasxpress_skill` can do
 
-2. **`notebook_builder`** — Creates Jupyter notebooks (`.ipynb`) with CanvasXpress charts using jupytext for MyST markdown to notebook conversion. Includes proper cell structure and validation workflows.
+- **Generate charts from natural language** — Describe your data and desired visualization in plain English; the agent produces complete, validated CanvasXpress Python code
+- **Convert from Plotly/Matplotlib** — Paste existing Plotly or Matplotlib code and get the CanvasXpress equivalent with proper data reshaping
+- **Multi-chart dashboards** — Create coordinated dashboards with automatic broadcasting, where clicking data points in one chart highlights corresponding points in others
+- **Advanced metadata visualizations** — Build heatmaps with sample/variable annotations, DOTplots with overlays, network graphs, Venn diagrams, and more
+- **Interactive charts with events** — Add click handlers, hover tooltips, selection callbacks, and Shiny/Streamlit integrations
+- **Highlighting & storytelling** — Create charts that emphasize specific data points using ghost/focus modes, predicates, and custom emphasis colors
+- **Custom styling** — Control colors, fonts, dimensions, orientations, and chart-type-specific styling
+- **Export to images/JSON** — Convert charts to PNG, PDF, or reproducible JSON for sharing and archival
+- **Frame work-agnostic rendering** — Works in Jupyter, Dash, Shiny, Streamlit, Flask, and plain Python scripts
 
-3. **`code_validator`** — Validates generated CanvasXpress code for syntax correctness before presenting solutions to users. Creates temporary validation scripts, runs syntax checks using `convert_to_reproducible_json()`, and iteratively fixes errors until the code is correct.
+### Example Prompts
+
+Use these as inspiration for prompts you can give to your AI coding assistant:
+
+#### Simple Charts
+
+**Prompt:** "Create a vertical bar chart showing monthly sales (Jan-May: 120, 150, 180, 200, 250). Title it 'Monthly Sales', label axes, and make it 600x500 pixels."
+
+**Prompt:** "Generate a horizontal bar chart comparing Var 1 and Var 2 across five categories (Cat 1–Cat 5). Show data values inside each bar in white text. Title: 'Bar Graph Showing Data Values'."
+
+#### Heatmaps & Annotations
+
+**Prompt:** "Create a heatmap of gene expression data with 3 genes (GeneA, GeneB, GeneC) and 3 samples (Sample1, Sample3). Add sample annotations: Treatment (Control/Treatment) and Batch (A/B). Use a diverging color scheme and show the annotation legend."
+
+**Prompt:** "Build a dose-response heatmap showing treatment effects across Sites 1–3 and Doses 0–25. Include sample annotations for Dose, Site, and Treatment. Use navy-white-firebrick color spectrum."
+
+#### Scatter Plots & Highlighting
+
+**Prompt:** "Create a scatter plot of Height vs Weight with 6 individuals (Keith, Nina, Freddy, Tracey, Isabelle, Penny). Add a regression line, highlight Freddy and Isabelle in blue using focus mode, and add histograms on the margins."
+
+**Prompt:** "Generate a scatter plot comparing Age vs Response with 50 data points. Highlight all points where Age > 40 using predicate-based highlighting. Add axis labels, title, and a blue color scheme."
+
+#### Multi-Chart Dashboards
+
+**Prompt:** "Create a dashboard with three coordinated charts: a scatter plot (Height vs Weight), a bar chart (Age by Gender), and a heatmap (Measurements). Clicking a data point in any chart should highlight corresponding data in all others via automatic broadcasting."
+
+**Prompt:** "Build a DOE dashboard using a bar chart with metadata (Height, Weight, Gender, Exercise) that filters all other charts on the page when users interact with the pie charts and histograms."
+
+#### Conversions
+
+**Prompt:** "Convert this Plotly code to CanvasXpress: `go.Figure(data=go.Bar(x=['A','B','C'], y=[10,20,30]))` with title 'My Chart'."
+
+**Prompt:** "Translate this Matplotlib scatter plot to CanvasXpress: `plt.scatter(heights, weights)` with xlabel 'Height', ylabel 'Weight'."
+
+#### Advanced & Specialty Charts
+
+**Prompt:** "Create a Venn diagram with 3 sets (List1: 340, List2: 562, List3: 620) and their pairwise and triple intersections. Include custom legend labels."
+
+**Prompt:** "Build a network graph with 5 nodes and 7 edges. Color nodes by metadata category, label nodes, and use force-directed layout. Title: 'Interaction Network'."
+
+**Prompt:** "Generate a bullet chart comparing actual vs target performance (V1 actual, V5 target) across 6 samples. Use range colors for performance zones and show data values inside bars."
 
 ### Installation
 
@@ -92,10 +140,10 @@ uv add canvasxpress
 
 The skills are automatically installed during package setup to:
 
-- `~/.agents/skills/chart_builder/SKILL.md`
+- `~/.agents/skills/canvasxpress_skill/SKILL.md`
 - `~/.agents/skills/notebook_builder/SKILL.md`
 - `~/.agents/skills/code_validator/SKILL.md`
-- `~/.opencode/skills/chart_builder/SKILL.md`
+- `~/.opencode/skills/canvasxpress_skill/SKILL.md`
 - `~/.opencode/skills/notebook_builder/SKILL.md`
 - `~/.opencode/skills/code_validator/SKILL.md`
 
@@ -120,24 +168,31 @@ CanvasXpress supports multiple rendering frameworks. Install the package with th
 ```terminal
 # For Jupyter notebooks:
 pip install "canvasxpress[jupyter]"
+uv add "canvasxpress[jupyter]"
 
 # For Plotly Dash apps:
 pip install "canvasxpress[dash]"
+uv add "canvasxpress[dash]"
 
 # For Streamlit apps:
 pip install "canvasxpress[streamlit]"
+uv add "canvasxpress[streamlit]"
 
 # For Shiny for Python apps:
 pip install "canvasxpress[shiny]"
+uv add "canvasxpress[shiny]"
 
 # For RStudio IDE:
 pip install "canvasxpress[rstudio]"
+uv add "canvasxpress[rstudio]"
 
 # For all frameworks:
 pip install "canvasxpress[all]"
+uv add "canvasxpress[all]"
 
 # Core only (browser/Flask CLI usage):
 pip install "canvasxpress[core]"
+uv add "canvasxpress[core]"
 ```
 
 Available profiles: `core`, `dash`, `streamlit`, `jupyter`, `shiny`, `rstudio`, `all`.
