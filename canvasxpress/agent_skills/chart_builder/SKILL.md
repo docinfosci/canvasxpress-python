@@ -10,37 +10,51 @@ Primary imports the agent should always include:
 ```python
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph, show_in_browser, convert_to_image, convert_to_reproducible_json
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions, CXString, CXInt, CXFloat, CXBool, CXList, CXDict, CXRGBAColor, CXRGBColor
+from canvasxpress.config.type import CXGraphType, CXString, CXInt, CXFloat, CXBool, CXList, CXDict, CXRGBAColor, CXRGBColor
 from canvasxpress.js.function import CXEvent
 from canvasxpress.js.collection import CXEvents
 ```
 
 ## Chart Type Catalog
 
-| User Request | CXGraphTypeOptions |
-|---|---|
-| Bar chart | `CXGraphTypeOptions.Bar` |
-| Line chart | `CXGraphTypeOptions.Line` |
-| Area chart | `CXGraphTypeOptions.Area` |
-| Scatter plot | `CXGraphTypeOptions.Scatter2D` |
-| 3D Scatter | `CXGraphTypeOptions.Scatter3D` |
-| Heatmap | `CXGraphTypeOptions.Heatmap` |
-| Box plot | `CXGraphTypeOptions.Boxplot` |
-| Violin plot | `CXGraphTypeOptions.Violin` |
-| Histogram | `CXGraphTypeOptions.Histogram` |
-| Pie chart | `CXGraphTypeOptions.Pie` |
-| Donut chart | `CXGraphTypeOptions.Donnut` |
-| Bubble chart | `CXGraphTypeOptions.Bubble` |
-| Network | `CXGraphTypeOptions.Network` |
-| Tree | `CXGraphTypeOptions.Tree` |
-| Sankey | `CXGraphTypeOptions.Sankey` |
-| Dot plot | `CXGraphTypeOptions.Dotplot` |
-| Stacked bar | `CXGraphTypeOptions.Stacked` |
-| Timeline/Gantt | `CXGraphTypeOptions.Gantt` |
-| Radar/Spoke | `CXGraphTypeOptions.Radar` |
-| Venn diagram | `CXGraphTypeOptions.Venn` |
-| SPLOM | `CXGraphTypeOptions.SPLOM` |
-| TCGA oncoprint | `CXGraphTypeOptions.Oncoprint` |
+### Core Chart Types
+
+These are the base `graphType` values that CanvasXpress supports directly:
+
+| Config Value | chartType | User-Requested Meta Charts |
+|---|---|---|
+| `"Bar"` | Bar | Waterfall, Lollipop, Bullet*, Stacked |
+| `"Line"` | Line | Area, Streamgraph |
+| `"Scatter2D"` | Scatter2D | Density, Histogram |
+| `"Scatter3D"` | Scatter3D | (none) |
+| `"Bubble"` | Bubble | (built-in) |
+| `"Heatmap"` | Heatmap | Contour, Correlation |
+| `"Boxplot"` | Boxplot | Violin |
+| `"Pie"` | Pie | Donut |
+| `"Circular"` | Circular | Chord, Sunburst, Radar |
+| `"Network"` | Network | (none) |
+| `"Tree"` | Tree | (none) |
+| `"Sankey"` | Sankey | (none) |
+| `"Dotplot"` | Dotplot | (none) |
+| `"Map"` | Map | (none) |
+| `"Gantt"` | Gantt | Timeline |
+| `"SPLOM"` | SPLOM | (none) |
+| `"Oncoprint"` | Oncoprint | (none) |
+| `"Venn"` | Venn | (built-in) |
+| `"Treemap"` | Treemap | (built-in) |
+| `"Dumbbell"` | Dumbbell | (built-in) |
+| `"Stacked"` | Stacked | (built-in) |
+
+### Standalone Meta Chart Types
+
+These have their own `graphType` values:
+
+| Config Value | Type | Key Config |
+|---|---|---|
+| `"Bullet"` | Bullet (standalone) | `rangeStack`, `bulletTargetVarName`, `rangeColors` |
+| `"Waterfall"` | Waterfall (standalone) | `waterfallType`, range colors |
+
+\* Note: `bar_skill.md` also covers the Bullet style using `barType: 'lollipopBullet'`, but the dedicated `"Bullet"` graphType offers additional features like `rangeStack` and `bulletTargetVarName`.
 
 ## Sub-Skill Specializations
 
@@ -86,9 +100,22 @@ Consult these reference files for detailed guidance on specific topics:
 | Reference File | When to Load |
 |---|---|
 | `reference_conversion.md` | Converting from Plotly/Matplotlib, looking up CXGraphTypeOptions, mapping chart types |
-| `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs |
+| `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs, advanced data wrangling, specialized formats (Venn, Network) |
 
-## Framework Subskills
+## Cross-Chart & Interactive Sub-Skills
+
+For advanced interactive features and multi-chart coordination, load these sub-skills:
+
+| Capability | Sub-Skill | Key Topics |
+|---|---|---|
+| Broadcasting | `broadcast_skill.md` | Automatic broadcast, broadcast groups, filter broadcast, legend broadcast, page-level saved states, DOE dashboard |
+| Highlighting | `highlighting_skill.md` | Declarative highlighting, ghost/focus modes, predicate-based highlighting, interactive selection, emphasis colors |
+| Styling | `styling_skill.md` | Themes, color palettes, object styling, fonts, layout, dimensions, orientation, chart-type-specific styles |
+| Events | `events_skill.md` | Event catalog (15 events), handler patterns, Shiny integration, dynamic listeners, post-render calls |
+
+**Workflow:** When a user requests features covered by these sub-skills (multi-chart dashboards, highlighting storytelling, custom styling, or interactive events), load the corresponding sub-skill for detailed guidance.
+
+## Framework Sub-Skills
 
 For detailed framework-specific guidance, see the subskill files:
 
@@ -107,17 +134,27 @@ For detailed framework-specific guidance, see the subskill files:
 ### Decision Flow
 
 1. **Identify chart type and data source**
-2. **Ask clarifying questions:**
+2. **Load relevant reference/sub-skill:**
+   - Chart type-specific? → Load corresponding chart sub-skill (bar_skill.md, heatmap_skill.md, etc.)
+   - Plotly/Matplotlib conversion? → `reference_conversion.md`
+   - DataFrame/data prep? → `reference_general.md`
+   - Multi-chart coordination? → `broadcast_skill.md`
+   - Highlighting/storytelling? → `highlighting_skill.md`
+   - Custom styling? → `styling_skill.md`
+   - Interactive events? → `events_skill.md`
+3. **Ask clarifying questions:**
    - "What data source should I use? (existing DataFrame, XYZ dict, or sample data?)"
    - "Would you like me to convert your DataFrame to XYZ for manual metadata enhancement?"
    - "What rendering context? (Jupyter, Dash, Shiny, Streamlit, Flask, or browser)"
    - "Any specific styling preferences? (colors, theme, dimensions)"
-3. **If XYZ conversion requested:**
-   - Show the generated XYZ dict
+   - "Do you need multi-chart coordination? (broadcasting, DOE dashboard)"
+   - "Do you need highlighting/storytelling features? (declarative highlight, selection)"
+4. **If XYZ conversion requested:**
+   - Show the generated XYZ dict from `reference_general.md`
    - Explain the x/y/z structure
    - Let user choose between XYZ dict or direct DataFrame
-4. **Generate complete, copy-paste-ready Python code**
-5. **Include framework-specific rendering instructions**
+5. **Generate complete, copy-paste-ready Python code**
+6. **Include framework-specific rendering instructions**
 
 ### Style Guidelines
 
