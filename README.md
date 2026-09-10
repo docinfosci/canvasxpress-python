@@ -70,16 +70,18 @@ In addition to _core_, the following additional targets can be used:
 
 The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress_charts`) that enable coding assistants (Claude, Cursor, OpenCode, Qwen, and other LLM-based tools) to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories:
 
-### What the `canvasxpress_charts` can do
+### What the skills can do
 
 - **Generate charts from natural language** — Describe your data and desired visualization in plain English; the agent produces complete, validated CanvasXpress Python code
 - **Convert from Plotly/Matplotlib** — Paste existing Plotly or Matplotlib code and get the CanvasXpress equivalent with proper data reshaping
 - **Multi-chart dashboards** — Create coordinated dashboards with automatic broadcasting, where clicking data points in one chart highlights corresponding points in others
 - **Advanced metadata visualizations** — Build heatmaps with sample/variable annotations, DOTplots with overlays, network graphs, Venn diagrams, and more
-- **Interactive charts with events** — Add click handlers, hover tooltips, selection callbacks, and Shiny/Streamlit integrations
+- **Interactive charts with events** — Add click handlers, hover tooltips, selection callbacks, and Shiny/Streamlit integrations using `canvasxpress_events`
 - **Highlighting & storytelling** — Create charts that emphasize specific data points using ghost/focus modes, predicates, and custom emphasis colors
 - **Custom styling** — Control colors, fonts, dimensions, orientations, and chart-type-specific styling
 - **Export to images/JSON** — Convert charts to PNG, PDF, or reproducible JSON for sharing and archival
+- **Jupyter notebook creation** — Generate complete Jupyter notebooks with CanvasXpress charts using `canvasxpress_notebooks`
+- **Code validation** — Validate generated code for syntax correctness using `canvasxpress_validator`
 - **Frame work-agnostic rendering** — Works in Jupyter, Dash, Shiny, Streamlit, Flask, and plain Python scripts
 
 ### Example Prompts
@@ -141,11 +143,17 @@ uv add canvasxpress
 The skills are automatically installed during package setup to:
 
 - `~/.agents/skills/canvasxpress_charts/SKILL.md`
-- `~/.agents/skills/notebook_builder/SKILL.md`
-- `~/.agents/skills/code_validator/SKILL.md`
-- `~/.opencode/skills/canvasxpress_charts/SKILL.md`
-- `~/.opencode/skills/notebook_builder/SKILL.md`
-- `~/.opencode/skills/code_validator/SKILL.md`
+- `~/.agents/skills/canvasxpress_events/SKILL.md`
+- `~/.agents/skills/canvasxpress_notebooks/SKILL.md`
+- `~/.agents/skills/canvasxpress_validator/SKILL.md`
+- `~/.config/opencode/skills/canvasxpress_charts/SKILL.md`
+- `~/.config/opencode/skills/canvasxpress_events/SKILL.md`
+- `~/.config/opencode/skills/canvasxpress_notebooks/SKILL.md`
+- `~/.config/opencode/skills/canvasxpress_validator/SKILL.md`
+- `~/.claude/skills/canvasxpress_charts/SKILL.md`
+- `~/.claude/skills/canvasxpress_events/SKILL.md`
+- `~/.claude/skills/canvasxpress_notebooks/SKILL.md`
+- `~/.claude/skills/canvasxpress_validator/SKILL.md`
 
 After installation, restart your AI coding agent to activate the skills.
 
@@ -154,10 +162,10 @@ After installation, restart your AI coding agent to activate the skills.
 To manually reinstall or update the skills, use the CanvasXpress CLI:
 
 ```terminal
-canvasxpress --target both --force
+canvasxpress --force
 ```
 
-Available targets: `opencode`, `claude`, or `both`.
+Available targets: `opencode`, `claude`, `agents`, `all` (default), or `both` (opencode + agents).
 
 For detailed documentation on each skill, refer to the respective `SKILL.md` files in your agent's skill directory.
 

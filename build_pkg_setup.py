@@ -74,8 +74,9 @@ setup(
         ],
         'canvasxpress.skills': [
             'canvasxpress_charts = canvasxpress.agent_skills.canvasxpress_charts',
-            'notebook_builder = canvasxpress.agent_skills.notebook_builder',
-            'code_validator = canvasxpress.agent_skills.code_validator',
+            'canvasxpress_events = canvasxpress.agent_skills.canvasxpress_events',
+            'canvasxpress_notebooks = canvasxpress.agent_skills.canvasxpress_notebooks',
+            'canvasxpress_validator = canvasxpress.agent_skills.canvasxpress_validator',
         ],
         'agent_skills.plugins': [
             'canvasxpress = canvasxpress.agent_skills.registry:discover_skills',

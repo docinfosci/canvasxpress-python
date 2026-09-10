@@ -1,5 +1,5 @@
 ---
-name: notebook_builder
+name: canvasxpress_notebooks
 description: Create Jupyter notebooks (.ipynb) with CanvasXpress charts. Uses jupytext for MyST markdown to notebook conversion. Generates notebooks with proper cell structure for chart visualization.
 category: data-visualization
 tools:

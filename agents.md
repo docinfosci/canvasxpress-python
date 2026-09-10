@@ -29,3 +29,37 @@ The virtual environment is managed using python:
 
 ## Build Process
 The `build_local.sh` script is used to prepare the package for publication. It runs tests and executes various tools such as `build_pkg_setup.py` to ensure the package is ready for distribution.
+
+### Skill Installation Validation
+During local builds, the skill installation is validated to ensure all expected skills are present:
+
+1. **Skills are distributed to three agent directories:**
+   - `~/.agents/skills/` (Standard Agents open standard)
+   - `~/.config/opencode/skills/` (OpenCode native)
+   - `~/.claude/skills/` (Claude-compatible)
+
+2. **Expected skills:**
+   - `canvasxpress_charts` — Core API, chart types, configuration patterns
+   - `canvasxpress_events` — Event handling (click, dblclick, mousemove, mouseout)
+   - `canvasxpress_notebooks` — Jupyter notebook creation and structure
+   - `canvasxpress_validator` — Code syntax validation
+
+3. **Validation process:**
+   - `build_pkg_setup.py` generates `setup.py` with proper entry points
+   - `build_local.sh` runs tests and validates package structure
+   - The `canvasxpress` CLI can be used to reinstall skills: `canvasxpress --force`
+
+4. **Manual skill installation:**
+   ```terminal
+   canvasxpress --target all --force
+   ```
+   Available targets: `opencode`, `claude`, `agents`, `all` (default), or `both` (opencode + agents).
+
+5. **Skill verification:**
+   After installation, verify skills are present:
+   ```terminal
+   ls ~/.agents/skills/
+   ls ~/.config/opencode/skills/
+   ls ~/.claude/skills/
+   ```
+   Each directory should contain: `canvasxpress_charts`, `canvasxpress_events`, `canvasxpress_notebooks`, `canvasxpress_validator`.

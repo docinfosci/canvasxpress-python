@@ -16,25 +16,30 @@ class TestDiscoverSkills:
         mock_chart.value = "canvasxpress.agent_skills.canvasxpress_charts"
 
         mock_notebook = MagicMock()
-        mock_notebook.name = "notebook_builder"
-        mock_notebook.value = "canvasxpress.agent_skills.notebook_builder"
+        mock_notebook.name = "canvasxpress_notebooks"
+        mock_notebook.value = "canvasxpress.agent_skills.canvasxpress_notebooks"
 
         mock_validator = MagicMock()
-        mock_validator.name = "code_validator"
-        mock_validator.value = "canvasxpress.agent_skills.code_validator"
+        mock_validator.name = "canvasxpress_validator"
+        mock_validator.value = "canvasxpress.agent_skills.canvasxpress_validator"
+
+        mock_events = MagicMock()
+        mock_events.name = "canvasxpress_events"
+        mock_events.value = "canvasxpress.agent_skills.canvasxpress_events"
 
         with patch("canvasxpress.agent_skills.registry._get_entry_points") as mock:
-            mock.return_value = [mock_chart, mock_notebook, mock_validator]
+            mock.return_value = [mock_chart, mock_notebook, mock_validator, mock_events]
             yield
 
     def test_discover_skills_returns_both_skills(self, mock_entry_points):
-        """Test that discover_skills returns canvasxpress_charts, notebook_builder, and code_validator."""
+        """Test that discover_skills returns canvasxpress_charts, canvasxpress_notebooks, canvasxpress_validator, and canvasxpress_events."""
         from canvasxpress.agent_skills.registry import discover_skills
 
         skills = discover_skills()
         assert "canvasxpress_charts" in skills
-        assert "notebook_builder" in skills
-        assert "code_validator" in skills
+        assert "canvasxpress_notebooks" in skills
+        assert "canvasxpress_validator" in skills
+        assert "canvasxpress_events" in skills
         assert "content" in skills["canvasxpress_charts"]
         assert "name" in skills["canvasxpress_charts"]
         assert skills["canvasxpress_charts"]["name"] == "canvasxpress_charts"
@@ -45,8 +50,9 @@ class TestDiscoverSkills:
 
         skills = discover_skills()
         assert len(skills["canvasxpress_charts"]["content"]) > 100
-        assert len(skills["notebook_builder"]["content"]) > 100
-        assert len(skills["code_validator"]["content"]) > 100
+        assert len(skills["canvasxpress_notebooks"]["content"]) > 100
+        assert len(skills["canvasxpress_validator"]["content"]) > 100
+        assert len(skills["canvasxpress_events"]["content"]) > 100
 
     def test_discover_skills_has_frontmatter(self, mock_entry_points):
         """Test that skill content has YAML frontmatter."""
@@ -54,8 +60,9 @@ class TestDiscoverSkills:
 
         skills = discover_skills()
         assert skills["canvasxpress_charts"]["content"].startswith("---")
-        assert skills["notebook_builder"]["content"].startswith("---")
-        assert skills["code_validator"]["content"].startswith("---")
+        assert skills["canvasxpress_notebooks"]["content"].startswith("---")
+        assert skills["canvasxpress_validator"]["content"].startswith("---")
+        assert skills["canvasxpress_events"]["content"].startswith("---")
 
 
 class TestInstallSkills:
@@ -80,7 +87,7 @@ class TestInstallSkills:
 
         install_skills(target="opencode", force=True)
 
-        expected_path = mock_home / ".opencode/skills/canvasxpress_charts/SKILL.md"
+        expected_path = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts" / "SKILL.md"
         assert expected_path.exists()
         assert "canvasxpress_charts" in expected_path.read_text()
 
@@ -94,7 +101,7 @@ class TestInstallSkills:
 
         install_skills(target="claude", force=True)
 
-        expected_path = mock_home / ".agents/skills/canvasxpress_charts/SKILL.md"
+        expected_path = mock_home / ".claude" / "skills" / "canvasxpress_charts" / "SKILL.md"
         assert expected_path.exists()
         assert "canvasxpress_charts" in expected_path.read_text()
 
@@ -108,10 +115,10 @@ class TestInstallSkills:
 
         install_skills(target="both", force=True)
 
-        opencode_path = mock_home / ".opencode/skills/canvasxpress_charts/SKILL.md"
-        claude_path = mock_home / ".agents/skills/canvasxpress_charts/SKILL.md"
+        opencode_path = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts" / "SKILL.md"
+        agents_path = mock_home / ".agents" / "skills" / "canvasxpress_charts" / "SKILL.md"
         assert opencode_path.exists()
-        assert claude_path.exists()
+        assert agents_path.exists()
 
     def test_install_skills_no_force(self, mock_entry_points, tmp_path, monkeypatch):
         """Test that existing file is not overwritten without force."""
@@ -122,7 +129,7 @@ class TestInstallSkills:
         monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
         # Create existing file
-        existing_path = mock_home / ".opencode/skills/canvasxpress_charts/SKILL.md"
+        existing_path = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts" / "SKILL.md"
         existing_path.parent.mkdir(parents=True, exist_ok=True)
         existing_path.write_text("Old content")
 
@@ -139,7 +146,7 @@ class TestInstallSkills:
         monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
         # Create existing file
-        existing_path = mock_home / ".opencode/skills/canvasxpress_charts/SKILL.md"
+        existing_path = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts" / "SKILL.md"
         existing_path.parent.mkdir(parents=True, exist_ok=True)
         existing_path.write_text("Old content")
 

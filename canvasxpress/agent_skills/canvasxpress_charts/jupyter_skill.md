@@ -15,13 +15,13 @@ uv add canvasxpress[jupyter]
 
 ## Notebook Creation
 
-For creating Jupyter notebooks from scratch with CanvasXpress charts, use the **notebook_builder** skill which handles:
+For creating Jupyter notebooks from scratch with CanvasXpress charts, use the **canvasxpress_notebooks** skill which handles:
 - Creating `.md` files with MyST markdown format
 - Converting to `.ipynb` using jupytext
 - Proper cell structure (imports, data, config, render)
 - Black formatting and best practices
 
-Load the notebook_builder skill when users request notebook creation. This subskill focuses on **using CanvasXpress within Jupyter notebooks**.
+Load the canvasxpress_notebooks skill when users request notebook creation. This subskill focuses on **using CanvasXpress within Jupyter notebooks**.
 
 ## Core CanvasXpress Jupyter Usage
 
