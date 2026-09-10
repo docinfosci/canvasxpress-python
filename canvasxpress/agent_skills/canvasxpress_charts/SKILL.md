@@ -35,6 +35,8 @@ These are the base `graphType` values that CanvasXpress supports directly:
 | `"Network"` | Network | (none) |
 | `"Tree"` | Tree | (none) |
 | `"Sankey"` | Sankey | (none) |
+
+These are the base `graphType` values that CanvasXpress supports directly:
 | `"Dotplot"` | Dotplot | (none) |
 | `"Map"` | Map | (none) |
 | `"Gantt"` | Gantt | Timeline |
@@ -173,21 +175,33 @@ When generating event code for CanvasXpress:
 3. **ONLY use `o`, `e`, `t`** inside the script - These are provided by the wrapper
 4. **Use `t.showInfoSpan(e, message)`** for tooltips - Never use `alert()` or `console.log()` for user display
 5. **Load `events_skill.md`** when events are requested for detailed patterns
+6. **Validate every event is a `CXEvent(id="<string>", script="<string>")`** - No raw strings, dicts, or other formats
 
 **ABSOLUTELY NEVER use raw JavaScript objects for events:**
 ```python
 # NEVER - raw JavaScript object (this is WRONG)
 events = {"click": "function(dat, el) { ... }"}
 
+# NEVER - nested dict structure (this is WRONG)
+events = {"onClickData": {"callback": "function(data, chart) { ... }"}}
+
 # NEVER - inline JavaScript function pattern (this is WRONG)
 events = {"click": """function(dat, el) { ... }"""}
 ```
 
-**ALWAYS use the CXEvent pattern:**
+**ALWAYS use the CXEvent/CXEvents pattern:**
 ```python
-# ALWAYS - use CXEvent with script parameter
+# ALWAYS - single event
 events = CXEvent(id="click", script="var s = o.y.vars[0]; t.showInfoSpan(e, s);")
+
+# ALWAYS - multiple events
+events = CXEvents(
+    CXEvent(id="click", script="var s = o.y.vars[0]; t.showInfoSpan(e, s);"),
+    CXEvent(id="mousemove", script="t.hideInfoSpan();")
+)
 ```
+
+> **Validation Rule:** Every event must be `CXEvent(id="<string>", script="<string>")` wrapped in `CXEvent` (single) or `CXEvents(...)` (multiple). No raw strings, dicts, or other formats are accepted.
 
 ## Known Limitations
 

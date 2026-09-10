@@ -10,10 +10,11 @@ description: CanvasXpress event handling including the complete event catalog, e
 ```python
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.js.function import CXEvent
+from canvasxpress.js.collection import CXEvents
 from canvasxpress.plot import graph
 ```
 
-> **Note:** You only need to import `CXEvent`. CanvasXpress will automatically convert a single `CXEvent` or a Python list of events. `CXEvents` collection is optional.
+> **Note:** Use `CXEvent` for a single event or `CXEvents` to wrap multiple events. CanvasXpress accepts both `CXEvent` and `CXEvents` as the `events` parameter.
 
 ## Trigger Keywords
 
@@ -70,8 +71,8 @@ graph(cx)
 > **Important:** CXEvent uses `script=` parameter (not `handler=`). The `script` parameter contains JavaScript code that will be wrapped in `function(o, e, t){...}`. The `id` parameter is the name of the JavaScript event to listen for (e.g., `"click"`, `"mouseover"`, `"mousemove"`).
 
 ```python
-# Multiple events as a list
-events = [
+# Multiple events using CXEvents
+events = CXEvents(
     CXEvent(
         id="click",
         script="var s = 'click on var ' + o.y.vars[0] + ' and smp ' + o.y.smps[0]; t.showInfoSpan(e, s);"
@@ -80,7 +81,7 @@ events = [
         id="mousemove",
         script="t.showInfoSpan(e, '<pre>' + t.prettyJSON(o) + '</pre>');"
     )
-]
+)
 
 cx = CanvasXpress(data=data, config={"graphType": "Bar"}, events=events)
 graph(cx)
@@ -136,11 +137,11 @@ CXEvent(id="click", script="var x = someOtherFunction(); t.showInfoSpan(e, x);")
 > # ALWAYS - single event
 > events = CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);")
 > 
-> # ALWAYS - multiple events
-> events = [
+> # ALWAYS - multiple events with CXEvents
+> events = CXEvents(
 >     CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);"),
 >     CXEvent(id="mousemove", script="t.hideInfoSpan();")
-> ]
+> )
 > ```
 > 
 > **Remember:** The CanvasXpress Python API does NOT accept raw JavaScript objects. Only `CXEvent` objects or lists of `CXEvent` objects.
@@ -160,13 +161,13 @@ df = pd.DataFrame({
 cx = CanvasXpress(
     data=df,
     config={"graphType": "Heatmap", "title": "Gene Expression"},
-    events=[
+    events=CXEvents(
         CXEvent(
             id="click",
             # Use o.y.vars and o.y.smps to access the data already in the chart
             script="var gene = o.y.vars[0]; var sample = o.y.smps[0]; t.showInfoSpan(e, gene + ' in ' + sample);"
         )
-    ]
+    )
 )
 ```
 
@@ -190,13 +191,14 @@ from canvasxpress.js.function import CXEvent
 
 ### Forgetting to Wrap Events
 ```python
-# WRONG - single CXEvent must be passed directly or in a list
-events = [CXEvent(id="click", script="...")]  # Use list
-# or
-events = CXEvent(id="click", script="...")     # Single event works
+# WRONG - CXEvent must be wrapped in CXEvent or CXEvents
+events = [CXEvent(id="click", script="...")]  # Don't use lists
 
-# WRONG - don't use CXEvents() unless you specifically need the collection class
-events = CXEvents(CXEvent(id="click", script="..."))  # Unnecessary
+# CORRECT - single event
+events = CXEvent(id="click", script="...")
+
+# CORRECT - multiple events
+events = CXEvents(CXEvent(id="click", script="..."), CXEvent(id="mousemove", script="..."))
 ```
 
 ### Using Undefined Variables in Scripts
@@ -241,15 +243,15 @@ CXEvent(id="click", script="if (o && o.y) { var s = o.y.vars[0]; t.showInfoSpan(
 
 ## Event Handler Organization Pattern
 
-For complex applications with multiple events, use a Python list:
+For complex applications with multiple events, use `CXEvents`:
 
 ```python
-events = [
+events = CXEvents(
     CXEvent(id="click", script="/* handler code */"),
     CXEvent(id="mousemove", script="/* handler code */"),
     CXEvent(id="mouseout", script="/* handler code */"),
     CXEvent(id="dblclick", script="/* handler code */"),
-]
+)
 ```
 
 ## Dynamic Event Listeners (Post-Render)
@@ -318,7 +320,7 @@ For tooltips and hover effects, use `mousemove` or `mouseover` events with `t.sh
 cx = CanvasXpress(
     data=df,
     config={"graphType": "Bar", "title": "Sales Data"},
-    events=[
+    events=CXEvents(
         CXEvent(
             id="mousemove",
             # Tooltip using only o, e, t - accessing data from chart
@@ -328,7 +330,7 @@ cx = CanvasXpress(
             id="mouseout",
             script="t.hideInfoSpan();"
         )
-    ]
+    )
 )
 ```
 
@@ -406,9 +408,43 @@ Before presenting event handler code, verify:
 
 - [ ] **Correct imports** - Only need `from canvasxpress.js.function import CXEvent`
 - [ ] **Events accepted** - Single `CXEvent` or Python list `[CXEvent(...), ...]` both work
-- [ ] Script ONLY uses `o`, `e`, `t` variables (no other identifiers)
-- [ ] Script does NOT declare new parameters or functions with custom arguments
-- [ ] Script references data from the chart's existing data parameter via `o.y`, `o.x`, `o.z`
-- [ ] Variable names in script match the actual data structure in the chart
-- [ ] Tooltips use `t.showInfoSpan(e, message)` pattern
-- [ ] Cleanup events (like `mouseout`) hide tooltips with `t.hideInfoSpan()`
+- [ ] **Proper structure** - Each event is a `CXEvent(id="...", script="...")` object, NOT a raw string, dict, or other format
+- [ ] **Script ONLY uses `o`, `e`, `t`** variables (no other identifiers)
+- [ ] **Script does NOT declare new parameters** or functions with custom arguments
+- [ ] **Script references data** from the chart's existing data parameter via `o.y`, `o.x`, `o.z`
+- [ ] **Variable names in script match** the actual data structure in the chart
+- [ ] **Tooltips use `t.showInfoSpan(e, message)`** pattern
+- [ ] **Cleanup events** (like `mouseout`) hide tooltips with `t.hideInfoSpan()`
+
+### Event Object Validation
+
+Every event in the generated code MUST be a properly constructed `CXEvent` object:
+
+```python
+# VALID - single CXEvent object
+events = CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);")
+
+# VALID - list of CXEvent objects
+events = [
+    CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);"),
+    CXEvent(id="mousemove", script="t.hideInfoSpan();")
+]
+
+# INVALID - raw dict
+events = {"click": "function(dat, el) { ... }"}
+
+# INVALID - nested dict structure
+events = {"onClickData": {"callback": "function(data, chart) { ... }"}}
+
+# INVALID - raw string
+events = "function(dat, el) { ... }"
+
+# INVALID - CXEvent without proper id and script parameters
+events = CXEvent(script="var msg = o.y.vars[0];")  # Missing id parameter
+
+# INVALID - CXEvent with non-string id or script
+events = CXEvent(id=123, script="var msg = o.y.vars[0];")  # id must be string
+events = CXEvent(id="click", script=123)  # script must be string
+```
+
+> **Rule:** Every event must be `CXEvent(id="<string>", script="<string>")` where both `id` and `script` are strings. No raw strings, dicts, or other formats are accepted.
