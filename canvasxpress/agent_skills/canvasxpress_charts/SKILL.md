@@ -67,12 +67,12 @@ When a user requests a specific chart type, consult the corresponding sub-skill 
 | Heatmap | `heatmap_skill.md` | Clustering, color spectra, cell markers, dendrograms, overlays |
 | Line chart | `line_skill.md` | Vertical/horizontal, spline lines, error areas, pattern decorations, segregated panels |
 | Box plot | `boxplot_skill.md` | Vertical/horizontal, notched, single whiskers, segregated, mean markers, custom median, jitter, colored/shaped boxes |
-| Violin plot | `violin_skill.md` | Boxplot type with `showViolinBoxplot: True`, multiple scaling methods, notched boxes, mean markers |
-| Scatter plot | `scatter_skill.md` | (See density_skill.md for histogram overlays) |
-| Network | `network_skill.md` | Force-directed layout, node coloring by metadata, edge weights, Barnes-Hut simulation |
-| Tree | `tree_skill.md` | Hierarchical data, collapsible nodes, circular/bracket layouts, metadata coloring |
-| Sankey | `sankey_skill.md` | (See Stacked for flow visualization) |
-| Radar | `radar_skill.md` | Line/area/bar/dot/stacked rings, half-circle (180°), rotation control, metadata overlays |
+ | Violin plot | `violin_skill.md` | Boxplot type with `showViolinBoxplot: True`, multiple scaling methods, notched boxes, mean markers |
+ | Scatter plot | (See density_skill.md for histogram overlays) | Uses Scatter2D graphType |
+ | Network | `network_skill.md` | Force-directed layout, node coloring by metadata, edge weights, Barnes-Hut simulation |
+ | Tree | `tree_skill.md` | Hierarchical data, collapsible nodes, circular/bracket layouts, metadata coloring |
+ | Sankey | (See Stacked for flow visualization) | Uses Sankey graphType |
+ | Radar | `radar_skill.md` | Line/area/bar/dot/stacked rings, half-circle (180°), rotation control, metadata overlays |
 | Dot plot | `dotplot_skill.md` | Binned data, error bars, jitter, stacked layouts, overlays, metadata color/shape encoding |
 | Bullet | `bullet_skill.md` | Range stacking, target markers, progress bars, custom themes, data value labels |
 | Chord | `chord_skill.md` | Circular type with `circularType: 'chord'`, color highlighting, rotation, arc control |
