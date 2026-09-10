@@ -5,6 +5,8 @@ This script creates test cases with plain English prompts and generates
 CXEvent code to validate the skill's effectiveness.
 """
 
+from __future__ import annotations
+
 import json
 import subprocess
 import sys
