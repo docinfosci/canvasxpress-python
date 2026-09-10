@@ -7,6 +7,25 @@ tools:
   - canvasxpress
 ---
 
+## CRITICAL: Load canvasxpress_charts Skill First
+
+**BEFORE validating ANY CanvasXpress code, you MUST load the `canvasxpress_charts` skill.**
+
+This skill provides the authoritative reference for:
+- Valid import statements for all CanvasXpress classes
+- Correct `CXEvent` and `CXEvents` usage patterns
+- Valid configuration keys and values
+- Proper data structures for all chart types
+
+Without loading `canvasxpress_charts`, you cannot properly validate code because you won't know what patterns are correct.
+
+**Required workflow:**
+1. **Load `canvasxpress_charts` skill** - Access authoritative CanvasXpress patterns
+2. **Receive code to validate** - From canvasxpress_charts skill or other agent
+3. **Validate against loaded skill** - Check imports, patterns, and structure
+4. **Iterate until correct** - Fix errors using patterns from canvasxpress_charts
+5. **Clean up** - Remove temporary validation files
+
 ## Purpose
 
 Before presenting any CanvasXpress chart code to the user, validate that it is syntactically correct and can be executed without errors. This prevents users from receiving broken code that won't run.
@@ -173,20 +192,23 @@ Before presenting code to the user, verify:
 
 ## Best Practices
 
-1. **Be thorough** - Always validate before showing code to users
-2. **Be efficient** - Don't show the validation process to users, only the final working code
-3. **Be clear** - If code needs multiple iterations to fix, document what was learned
-4. **Be clean** - Always delete temporary validation files
-5. **Be safe** - Use `convert_to_reproducible_json` instead of rendering functions for validation
+1. **Load canvasxpress_charts first** - Always load the canvasxpress_charts skill before validating any code
+2. **Be thorough** - Always validate before showing code to users
+3. **Be efficient** - Don't show the validation process to users, only the final working code
+4. **Be clear** - If code needs multiple iterations to fix, document what was learned
+5. **Be clean** - Always delete temporary validation files
+6. **Be safe** - Use `convert_to_reproducible_json` instead of rendering functions for validation
 
 ## When to Skip Validation
 
 Validation can be skipped when:
-- Using well-known patterns from the chart_builder or notebook_builder skills
+- `canvasxpress_charts` skill is loaded and you're using well-known patterns from it
 - The user is providing their own data/code and just needs CanvasXpress integration tips
-- The code is already known to work from previous successful generations
+- The code is already known to work from previous successful validations
 
-However, **always validate when generating new or modified code** for the first time.
+**However, you must always have `canvasxpress_charts` loaded before any validation**, as it provides the authoritative patterns for correctness.
+
+**Always validate when generating new or modified code** for the first time.
 
 ## Example: Full Validation Cycle
 
@@ -233,4 +255,4 @@ cx = CanvasXpress(data=df, config={"graphType": "Bar", "title": "Sales"})
 graph(cx)
 ```
 
-<small>This skill should be used in conjunction with chart_builder and notebook_builder skills to ensure all generated CanvasXpress code is syntactically correct.</small>
+<small>This skill should be used in conjunction with canvasxpress_charts and notebook_builder skills to ensure all generated CanvasXpress code is syntactically correct.</small>

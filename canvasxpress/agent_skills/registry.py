@@ -40,7 +40,7 @@ def discover_skills():
 
     Returns:
         dict: Mapping of skill names to their content with metadata.
-              Example: {"chart_builder": {"name": "chart_builder", "content": "..."}, ...}
+              Example: {"canvasxpress_charts": {"name": "canvasxpress_charts", "content": "..."}, ...}
     """
     skills_map = {}
     eps = _get_entry_points()

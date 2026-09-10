@@ -217,6 +217,255 @@ cx = CanvasXpress(
 graph(cx)
 ```
 
+## Advanced Data Wrangling
+
+CanvasXpress supports in-browser data manipulation via configuration parameters and after-render function calls.
+
+### Grouping Data
+
+Group data points by a metadata factor (e.g., show all males together in a boxplot):
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={
+        "graphType": "Boxplot",
+        "groupingFactors": ["Gender"]  # Group by this metadata field
+    }
+)
+graph(cx)
+```
+
+### Faceting (Segregation)
+
+Split the chart into sub-plots by a metadata factor:
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={
+        "graphType": "Bar",
+        "segregateSamplesBy": ["Excercise"]  # Creates sub-plots for Low/Moderate/Intense
+    }
+)
+graph(cx)
+```
+
+### Sorting Data
+
+Sort samples or variables by a specific field:
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={
+        "graphType": "Bar",
+        # sortData: [['var'|'cat', 'smp'|'var', 'fieldName']]
+        "sortData": [["var", "smp", "Age"]]   # Sort samples by Age
+        # "sortData": [["cat", "smp", "Height"]]  # Sort by category Height
+    }
+)
+graph(cx)
+```
+
+### Clustering Data
+
+Hierarchical clustering with dendrograms:
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={
+        "graphType": "Heatmap",
+        "samplesClustered": True,    # Cluster samples (columns)
+        "variablesClustered": True,  # Cluster variables (rows)
+        "sortSmpByTree": True,       # Order samples by cluster tree
+        "sortVarByTree": True        # Order variables by cluster tree
+    }
+)
+graph(cx)
+```
+
+### Transposing Data
+
+Swap rows and columns:
+
+```python
+# Via configuration
+cx = CanvasXpress(
+    data=df,
+    config={
+        "graphType": "Bar",
+        "transposeData": True
+    }
+)
+graph(cx)
+
+# Or after rendering
+# cx.transpose()
+```
+
+### Transforming Data
+
+Apply transformations like log-scale:
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={
+        "graphType": "Heatmap",
+        # Data transforms happen automatically in the browser
+        # Use log scale via yAxisScale / xAxisScale if needed
+        "yAxisScale": "log"
+    }
+)
+graph(cx)
+```
+
+### Pivoting Data
+
+Pivot metadata fields into axes via after-render function:
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={"graphType": "Bar"},
+    # afterRender parameter applies functions after initial draw
+    after_render=[
+        ["pivotX", ["Gender"]]  # Pivot by Gender metadata
+    ]
+)
+graph(cx)
+```
+
+### Correlation / Regression
+
+Add regression lines after rendering:
+
+```python
+cx = CanvasXpress(
+    data=df,
+    config={"graphType": "Scatter2D"},
+    after_render=[
+        ["createRegression", [True, "Hip"]]  # Enable regression, correlate with Hip
+    ]
+)
+graph(cx)
+```
+
+## Specialized Data Formats
+
+### Venn Diagram Data
+
+Two formats supported:
+
+```python
+# Format 1: 2D array (simple, fewer sets)
+venn_data = [
+    ["Id", "Value"],
+    ["A", 340], ["B", 562], ["C", 620],
+    ["AB", 639], ["AC", 456], ["BC", 915],
+    ["ABC", 552]
+]
+
+cx = CanvasXpress(
+    data={"y": venn_data},
+    config={"graphType": "Venn"}
+)
+
+# Format 2: JSON object with legend (custom set names)
+venn_data = {
+    "venn": {
+        "data": {
+            "A": 340, "B": 562, "C": 620,
+            "AB": 639, "AC": 456, "BC": 915,
+            "ABC": 552
+        },
+        "legend": {
+            "A": "List1", "B": "List2", "C": "List3"
+        }
+    }
+}
+
+cx = CanvasXpress(
+    data=venn_data,
+    config={"graphType": "Venn"}
+)
+```
+
+### Network Data
+
+```python
+network_data = {
+    "nodes": [
+        {"id": "Node1", "color": "red"},
+        {"id": "Node2", "color": "green"},
+        {"id": "Node3", "color": "blue"}
+    ],
+    "edges": [
+        {"id1": "Node1", "id2": "Node2", "color": "yellow"},
+        {"id1": "Node2", "id2": "Node3", "color": "orange"}
+    ]
+}
+
+cx = CanvasXpress(
+    data=network_data,
+    config={"graphType": "Network"}
+)
+```
+
+### Simple 2D Array Format
+
+Quick prototyping with minimal metadata:
+
+```python
+simple_data = [
+    ["Variable", "Sample1", "Sample2", "Sample3"],
+    ["Gene1", 10, 20, 30],
+    ["Gene2", 35, 25, 15]
+]
+
+cx = CanvasXpress(
+    data={"y": simple_data},
+    config={"graphType": "Heatmap"}
+)
+```
+
+### Long-Form Data for Scatter Plots
+
+CanvasXpress prefers "short and wide" format for categorical comparisons (Bar, Boxplot) but "long and skinny" format when comparing two numerical columns (Scatter):
+
+```python
+# Long-form: each row = one observation with both X and Y coordinates
+df_long = pd.DataFrame({
+    "Height": [174, 161, 194, 160, 173, 151],
+    "Weight": [65.6, 51.6, 80.7, 49.2, 55.2, 48.7],
+    "Name": ["Keith", "Nina", "Freddy", "Tracey", "Isabelle", "Penny"]
+})
+
+# Convert to XYZ for Scatter2D
+xyz = {
+    "y": {
+        "vars": ["Weight"],  # One variable for Y
+        "smps": ["Keith", "Nina", "Freddy", "Tracey", "Isabelle", "Penny"],
+        "data": [[65.6], [51.6], [80.7], [49.2], [55.2], [48.7]]
+    },
+    "x": {
+        "Height": [174, 161, 194, 160, 173, 151]  # X from annotation
+    }
+}
+
+cx = CanvasXpress(
+    data=xyz,
+    config={
+        "graphType": "Scatter2D",
+        "xAxisTitle": "Height",
+        "yAxisTitle": "Weight"
+    }
+)
+graph(cx)
+```
+
 ## Known Limitations
 
 1. **3D charts:** Plotly 3D and Matplotlib 3D require careful data reshaping; CanvasXpress Scatter3D is supported but complex geometries may not map perfectly

@@ -1,22 +1,25 @@
 from invoke import task
+import sys
+import os
 
 
 @task
-def clean(c, docs=False, bytecode=False, extra=""):
+def clean(c, docs=False, bytecode=False, extra="", yes=False):
     """
     Cleans the project in terms of build items and directories.
     :param c:
     :param docs: True if docs should be cleaned
     :param bytecode: True if bytecode should be cleaned
     :param extra:
+    :param yes: If True, skip confirmation
     :return:
     """
-    c.run("pip freeze | xargs pip uninstall -y")
-
     patterns = [
         "dist",
         "*.egg-info",
         ".requirements",
+        "build",
+        "__pycache__",
     ]
     if docs:
         patterns.append("docs/build")

@@ -8,6 +8,25 @@ tools:
   - jupytext
 ---
 
+## CRITICAL: Load canvasxpress_charts Skill First
+
+**BEFORE writing any CanvasXpress code, you MUST load the `canvasxpress_charts` skill.**
+
+This skill provides the authoritative reference for:
+- Correct import statements for all CanvasXpress classes
+- Chart type mappings and configuration patterns
+- Event handling with `CXEvent` and `CXEvents`
+- Framework-specific rendering (Jupyter, Dash, Shiny, etc.)
+
+Without loading `canvasxpress_charts`, you risk generating incorrect code that uses wrong imports, invalid patterns, or non-existent classes.
+
+**Required workflow:**
+1. **Load `canvasxpress_charts` skill** - Access authoritative CanvasXpress patterns
+2. **Determine chart type** - Load specific chart sub-skill if needed (bar_skill.md, heatmap_skill.md, etc.)
+3. **Load `events_skill.md`** if user requests interactive events
+4. **Generate code** using patterns from loaded skills
+5. **Convert to notebook** using the workflow below
+
 ## Workflow
 
 ### 1. Plan the Notebook Structure
@@ -131,12 +150,13 @@ graph(cx)
 
 ## Best Practices
 
-1. **Black Formatting:** Use trailing commas, proper indentation, and wrapped lines for long lists
-2. **Explicit Dimensions:** Always set `width` and `height` in CanvasXpress config
-3. **Descriptive Titles:** Include meaningful chart titles and axis labels
-4. **Legend Settings:** Set `showLegend=True` when there are multiple series/groups
-5. **Cell Order:** Maintain logical flow: imports → data → config → render
-6. **Markdown Context:** Provide sufficient context in markdown cells for users to understand the chart purpose
+1. **Load canvasxpress_charts first** - Always load the canvasxpress_charts skill before generating any code
+2. **Black Formatting:** Use trailing commas, proper indentation, and wrapped lines for long lists
+3. **Explicit Dimensions:** Always set `width` and `height` in CanvasXpress config
+4. **Descriptive Titles:** Include meaningful chart titles and axis labels
+5. **Legend Settings:** Set `showLegend=True` when there are multiple series/groups
+6. **Cell Order:** Maintain logical flow: imports → data → config → render
+7. **Markdown Context:** Provide sufficient context in markdown cells for users to understand the chart purpose
 
 ## Example Notebook Creation
 
