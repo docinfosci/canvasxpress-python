@@ -59,25 +59,38 @@ def discover_skills():
     return skills_map
 
 
-def install_skills(target: str = 'both', force: bool = False) -> None:
+def install_skills(target: str = 'all', force: bool = False) -> None:
     """
-    Install CanvasXpress agent skills to OpenCode and/or Claude Code directories.
+    Install CanvasXpress agent skills to OpenCode, Claude Code, oMLX, and/or Ollama directories.
 
     Args:
-        target: Where to install skills. Options: 'opencode', 'claude', 'both'.
+        target: Where to install skills. Options:
+            - 'opencode': ~/.config/opencode/skills/ or ~/.opencode/skills/
+            - 'claude': ~/.claude/skills/
+            - 'agents': ~/.agents/skills/
+            - 'all': Install to all directories (default)
+            - 'both': Install to opencode and agents only
         force: If True, overwrite existing skill files.
     """
     import importlib.resources
     from pathlib import Path
 
-    targets = []
-    if target in ('opencode', 'both'):
-        targets.append(Path.home() / '.opencode/skills')
-    if target in ('claude', 'both'):
-        targets.append(Path.home() / '.agents/skills')
+    home = Path.home()
+    target_map = {
+        'opencode': home / '.config' / 'opencode' / 'skills',
+        'claude': home / '.claude' / 'skills',
+        'agents': home / '.agents' / 'skills',
+    }
 
-    if not targets:
-        print(f"Invalid target: {target}. Use 'opencode', 'claude', or 'both'.")
+    targets = []
+    if target == 'all':
+        targets = list(target_map.values())
+    elif target == 'both':
+        targets = [target_map['opencode'], target_map['agents']]
+    elif target in target_map:
+        targets.append(target_map[target])
+    else:
+        print(f"Invalid target: {target}. Use 'opencode', 'claude', 'agents', 'all', or 'both'.")
         sys.exit(1)
 
     eps = _get_entry_points()
@@ -89,21 +102,35 @@ def install_skills(target: str = 'both', force: bool = False) -> None:
         module_path = ep.value
         try:
             skill_content = _read_module_file(module_path, "SKILL.md")
+            # Handle sub-skills: if name contains '.', install as subdirectory
+            skill_name = ep.name
+            parts = skill_name.split('.')
+            if len(parts) > 1:
+                # Sub-skill: use full path (e.g., canvasxpress_charts.events -> canvasxpress_charts/events)
+                relative_path = '/'.join(parts)
+            else:
+                relative_path = skill_name
+
             for skills_dir in targets:
-                dest = skills_dir / ep.name / "SKILL.md"
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                if dest.exists() and not force:
-                    print(f"Skill file already exists at {dest}. Use --force to overwrite.")
-                    continue
-                dest.write_text(skill_content, encoding="utf-8")
-                print(f"CanvasXpress skill '{ep.name}' installed to: {dest}")
+                try:
+                    dest = skills_dir / relative_path / "SKILL.md"
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    if dest.exists() and not force:
+                        print(f"Skill file already exists at {dest}. Use --force to overwrite.")
+                        continue
+                    dest.write_text(skill_content, encoding="utf-8")
+                    print(f"CanvasXpress skill '{skill_name}' installed to: {dest}")
+                except PermissionError:
+                    print(f"Permission denied: Cannot write to {skills_dir}. Skipping.")
+                except OSError as e:
+                    print(f"OS error writing to {skills_dir}: {e}. Skipping.")
         except Exception as e:
-            print(f"Failed to install skill '{ep.name}': {e}")
+            print(f"Failed to install skill '{skill_name}': {e}")
 
 
 def cli() -> None:
     """Command-line interface for installing CanvasXpress agent skills."""
-    target = 'both'
+    target = 'all'
     force = False
 
     args = sys.argv[1:]
@@ -123,9 +150,11 @@ def cli() -> None:
             print("Usage: canvasxpress [--target TARGET] [--force]")
             print("")
             print("Options:")
-            print("  --target, -t TARGET  Where to install: 'opencode', 'claude', 'both' (default: 'both')")
+            print("  --target, -t TARGET  Where to install:")
+            print("                       'opencode', 'claude', 'agents'")
+            print("                       'all' (all frameworks), 'both' (opencode + agents)")
             print("  --force, -f          Overwrite existing skill files")
-            print("  --help, -h           Show this help message")
+            print("  --help, -h           Show this help")
             sys.exit(0)
         else:
             print(f"Unknown argument: {args[i]}")

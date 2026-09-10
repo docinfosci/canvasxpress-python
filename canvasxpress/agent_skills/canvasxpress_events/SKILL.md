@@ -1,5 +1,5 @@
 ---
-name: events
+name: canvasxpress_events
 description: CanvasXpress event handling for the four supported hooks (click, dblclick, mousemove, mouseout), event handler patterns using JavaScript context variables (o, e, t), and post-render function calls. Use when creating interactive charts with custom click/double-click/hover behaviors, tooltips, effects, or any interactive event handling.
 ---
 

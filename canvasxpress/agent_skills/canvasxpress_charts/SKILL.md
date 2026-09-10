@@ -124,7 +124,7 @@ For detailed framework-specific guidance, see the subskill files:
 | Framework | Subskill File | Key Topics |
 |---|---|---|
 | Streamlit | `streamlit_skill.md` | Prerequisites, `graph(cx)`, caching, session state, architecture, API, databases, testing |
-| Jupyter | `jupyter_skill.md` | Widgets, caching, annotations, events, multiple charts, `notebook_builder` skill integration |
+| Jupyter | `jupyter_skill.md` | Widgets, caching, annotations, events, multiple charts, `canvasxpress_notebooks` skill integration |
 | Dash | `dash_skill.md` | Callbacks, layouts, events, export, dcc components, auto-generated IDs |
 | Shiny | `shiny_skill.md` | Reactive effects, sidebar, events, export, `@render.ui` decorator |
 | Flask/FastAPI | `flask_skill.md` | Templates, HTMLResponse, API endpoints, `render_to_html_parts()`, unique chart IDs |

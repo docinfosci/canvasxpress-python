@@ -1,5 +1,5 @@
 ---
-name: code_validator
+name: canvasxpress_validator
 description: Validates generated CanvasXpress Python code for syntax correctness before presenting solutions to users. Creates temporary validation scripts, runs syntax checks using convert_to_reproducible_json, iteratively fixes errors until code is correct, and cleans up temporary files. ALWAYS iterate on the code until validation passes - never present broken code to the user.
 category: code-quality
 tools:
@@ -255,4 +255,4 @@ cx = CanvasXpress(data=df, config={"graphType": "Bar", "title": "Sales"})
 graph(cx)
 ```
 
-<small>This skill should be used in conjunction with canvasxpress_charts and notebook_builder skills to ensure all generated CanvasXpress code is syntactically correct.</small>
+<small>This skill should be used in conjunction with canvasxpress_charts and canvasxpress_notebooks skills to ensure all generated CanvasXpress code is syntactically correct.</small>
