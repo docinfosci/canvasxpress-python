@@ -182,7 +182,7 @@ Before presenting code to the user, verify:
 ## When to Skip Validation
 
 Validation can be skipped when:
-- Using well-known patterns from the canvasxpress_skill or notebook_builder skills
+- Using well-known patterns from the canvasxpress_charts or notebook_builder skills
 - The user is providing their own data/code and just needs CanvasXpress integration tips
 - The code is already known to work from previous successful generations
 
@@ -233,4 +233,4 @@ cx = CanvasXpress(data=df, config={"graphType": "Bar", "title": "Sales"})
 graph(cx)
 ```
 
-<small>This skill should be used in conjunction with canvasxpress_skill and notebook_builder skills to ensure all generated CanvasXpress code is syntactically correct.</small>
+<small>This skill should be used in conjunction with canvasxpress_charts and notebook_builder skills to ensure all generated CanvasXpress code is syntactically correct.</small>

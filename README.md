@@ -68,9 +68,9 @@ In addition to _core_, the following additional targets can be used:
 
 ## CanvasXpress AI Skills
 
-The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress_skill`) that enable coding assistants (Claude, Cursor, OpenCode, Qwen, and other LLM-based tools) to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories:
+The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress_charts`) that enable coding assistants (Claude, Cursor, OpenCode, Qwen, and other LLM-based tools) to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories:
 
-### What the `canvasxpress_skill` can do
+### What the `canvasxpress_charts` can do
 
 - **Generate charts from natural language** — Describe your data and desired visualization in plain English; the agent produces complete, validated CanvasXpress Python code
 - **Convert from Plotly/Matplotlib** — Paste existing Plotly or Matplotlib code and get the CanvasXpress equivalent with proper data reshaping
@@ -140,10 +140,10 @@ uv add canvasxpress
 
 The skills are automatically installed during package setup to:
 
-- `~/.agents/skills/canvasxpress_skill/SKILL.md`
+- `~/.agents/skills/canvasxpress_charts/SKILL.md`
 - `~/.agents/skills/notebook_builder/SKILL.md`
 - `~/.agents/skills/code_validator/SKILL.md`
-- `~/.opencode/skills/canvasxpress_skill/SKILL.md`
+- `~/.opencode/skills/canvasxpress_charts/SKILL.md`
 - `~/.opencode/skills/notebook_builder/SKILL.md`
 - `~/.opencode/skills/code_validator/SKILL.md`
 

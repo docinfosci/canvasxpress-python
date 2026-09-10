@@ -31,7 +31,7 @@ class PostInstallCommand(install):
             import canvasxpress
 
             package_dir = os.path.dirname(canvasxpress.__file__)
-            skill_names = ['canvasxpress_skill', 'notebook_builder', 'code_validator']
+            skill_names = ['canvasxpress_charts', 'notebook_builder', 'code_validator']
 
             for skill_name in skill_names:
                 skill_file = os.path.join(package_dir, 'agent_skills', skill_name, 'SKILL.md')
@@ -73,7 +73,7 @@ setup(
             'canvasxpress = canvasxpress.agent_skills.registry:cli',
         ],
         'canvasxpress.skills': [
-            'canvasxpress_skill = canvasxpress.agent_skills.canvasxpress_skill',
+            'canvasxpress_charts = canvasxpress.agent_skills.canvasxpress_charts',
             'notebook_builder = canvasxpress.agent_skills.notebook_builder',
             'code_validator = canvasxpress.agent_skills.code_validator',
         ],
