@@ -7,40 +7,44 @@ description: "CanvasXpress chart type mappings, Plotly/Matplotlib conversions, a
 
 ## Chart Type Catalog
 
-| User Request | CXGraphTypeOptions |
-|---|---|
-| Bar chart | `CXGraphTypeOptions.Bar` |
-| Line chart | `CXGraphTypeOptions.Line` |
-| Area chart | `CXGraphTypeOptions.Area` |
-| Scatter plot | `CXGraphTypeOptions.Scatter2D` |
-| 3D Scatter | `CXGraphTypeOptions.Scatter3D` |
-| Heatmap | `CXGraphTypeOptions.Heatmap` |
-| Box plot | `CXGraphTypeOptions.Boxplot` |
-| Violin plot | `CXGraphTypeOptions.Violin` |
-| Histogram | `CXGraphTypeOptions.Histogram` |
-| Pie chart | `CXGraphTypeOptions.Pie` |
-| Donut chart | `CXGraphTypeOptions.Donnut` |
-| Bubble chart | `CXGraphTypeOptions.Bubble` |
-| Network | `CXGraphTypeOptions.Network` |
-| Tree | `CXGraphTypeOptions.Tree` |
-| Sankey | `CXGraphTypeOptions.Sankey` |
-| Dot plot | `CXGraphTypeOptions.Dotplot` |
-| Stacked bar | `CXGraphTypeOptions.Stacked` |
-| Timeline/Gantt | `CXGraphTypeOptions.Gantt` |
-| Radar/Spoke | `CXGraphTypeOptions.Radar` |
-| Venn diagram | `CXGraphTypeOptions.Venn` |
-| SPLOM | `CXGraphTypeOptions.SPLOM` |
-| TCGA oncoprint | `CXGraphTypeOptions.Oncoprint` |
-| Treemap | `CXGraphTypeOptions.Treemap` |
-| Sunburst | `CXGraphTypeOptions.Sunburst` |
-| Chord | `CXGraphTypeOptions.Circular` (with `circularType: 'chord'`) |
-| Contour | `CXGraphTypeOptions.Heatmap` or `CXGraphTypeOptions.ScatterBubble2D` |
-| Correlation | `CXGraphTypeOptions.Heatmap` or `CXGraphTypeOptions.Scatter2D` |
-| Map | `CXGraphTypeOptions.Map` |
-| Waterfall | `CXGraphTypeOptions.Bar` or `CXGraphTypeOptions.Waterfall` |
-| Lollipop | `CXGraphTypeOptions.Bar` (with `barType: 'lollipop'`) |
-| Bullet | `CXGraphTypeOptions.Bar` (with `barType: 'lollipopBullet'`) |
-| Density | `CXGraphTypeOptions.Scatter2D` (with histogram overlays) |
+### Core Chart Types
+
+These are the base `graphType` values that CanvasXpress supports directly:
+
+| Config Value | chartType | User-Requested Meta Charts |
+|---|---|---|
+| `"Bar"` | Bar | Waterfall, Lollipop, Bullet*, Stacked |
+| `"Line"` | Line | Area, Streamgraph |
+| `"Scatter2D"` | Scatter2D | Density, Histogram |
+| `"Scatter3D"` | Scatter3D | (none) |
+| `"Bubble"` | Bubble | (built-in) |
+| `"Heatmap"` | Heatmap | Contour, Correlation |
+| `"Boxplot"` | Boxplot | Violin |
+| `"Pie"` | Pie | Donut |
+| `"Circular"` | Circular | Chord, Sunburst, Radar |
+| `"Network"` | Network | (none) |
+| `"Tree"` | Tree | (none) |
+| `"Sankey"` | Sankey | (none) |
+| `"Dotplot"` | Dotplot | (none) |
+| `"Map"` | Map | (none) |
+| `"Gantt"` | Gantt | Timeline |
+| `"SPLOM"` | SPLOM | (none) |
+| `"Oncoprint"` | Oncoprint | (none) |
+| `"Venn"` | Venn | (built-in) |
+| `"Treemap"` | Treemap | (built-in) |
+| `"Dumbbell"` | Dumbbell | (built-in) |
+| `"Stacked"` | Stacked | (built-in) |
+
+### Standalone Meta Chart Types
+
+These have their own `graphType` values:
+
+| Config Value | Type | Key Config |
+|---|---|---|
+| `"Bullet"` | Bullet (standalone) | `rangeStack`, `bulletTargetVarName`, `rangeColors` |
+| `"Waterfall"` | Waterfall (standalone) | `waterfallType`, range colors |
+
+\* Note: `bar_skill.md` also covers the Bullet style using `barType: 'lollipopBullet'`, but the dedicated `"Bullet"` graphType offers additional features like `rangeStack` and `bulletTargetVarName`.
 
 ## Sub-Skill Specializations
 
@@ -81,26 +85,26 @@ When a user requests a specific chart type, consult the corresponding sub-skill 
 
 ## Plotly to CanvasXpress Conversion
 
-### Trace-to-Chart Type Mapping
+### Plotly Trace Mapping
 
-| Plotly Trace | CanvasXpress Type |
+| Plotly Trace | CanvasXpress Config |
 |---|---|
-| `go.Bar()` | `CXGraphTypeOptions.Bar` |
-| `go.Scatter(mode='markers')` | `CXGraphTypeOptions.Scatter2D` |
-| `go.Scatter(mode='lines')` | `CXGraphTypeOptions.Line` |
-| `go.Scatter(mode='area')` | `CXGraphTypeOptions.Area` |
-| `go.Scatter3d()` | `CXGraphTypeOptions.Scatter3D` |
-| `go.Box()` | `CXGraphTypeOptions.Boxplot` |
-| `go.Violin()` | `CXGraphTypeOptions.Violin` |
-| `go.Histogram()` | `CXGraphTypeOptions.Histogram` |
-| `go.Pie()` | `CXGraphTypeOptions.Pie` |
-| `go.Bubble()` | `CXGraphTypeOptions.Bubble` |
-| `go.Heatmap()` | `CXGraphTypeOptions.Heatmap` |
-| `go.Treemap()` | `CXGraphTypeOptions.Treemap` |
-| `go.Sunburst()` | `CXGraphTypeOptions.Sunburst` |
-| `go.Sankey()` | `CXGraphTypeOptions.Sankey` |
-| `go.Parcoords()` | `CXGraphTypeOptions.ParallelCoordinates` |
-| `go.Scattergeo()` | `CXGraphTypeOptions.Map` |
+| `go.Bar()` | `"Bar"` |
+| `go.Scatter(mode='markers')` | `"Scatter2D"` |
+| `go.Scatter(mode='lines')` | `"Line"` |
+| `go.Scatter(mode='area')` | `"Area"` |
+| `go.Scatter3d()` | `"Scatter3D"` |
+| `go.Box()` | `"Boxplot"` |
+| `go.Violin()` | `"Violin"` |
+| `go.Histogram()` | `"Histogram"` |
+| `go.Pie()` | `"Pie"` |
+| `go.Bubble()` | `"Bubble"` |
+| `go.Heatmap()` | `"Heatmap"` |
+| `go.Treemap()` | `"Treemap"` |
+| `go.Sunburst()` | `"Sunburst"` |
+| `go.Sankey()` | `"Sankey"` |
+| `go.Parcoords()` | `"ParallelCoordinates"` |
+| `go.Scattergeo()` | `"Map"` |
 
 ### Styling Mapping
 
@@ -143,18 +147,126 @@ xyz = {
 
 ## Matplotlib to CanvasXpress Conversion
 
-### Plot-to-Chart Type Mapping
+### Matplotlib Plot Mapping
 
-| Matplotlib | CanvasXpress |
+| Matplotlib | CanvasXpress Config |
 |---|---|
-| `plt.bar(x, y)` | `CXGraphTypeOptions.Bar` |
-| `plt.barh(x, y)` | `CXGraphTypeOptions.Bar` + horizontal |
-| `plt.plot(x, y)` | `CXGraphTypeOptions.Line` |
-| `plt.plot(x, y, 'o')` | `CXGraphTypeOptions.Scatter2D` |
-| `plt.scatter(x, y)` | `CXGraphTypeOptions.Scatter2D` |
-| `plt.hist(data, bins=n)` | `CXGraphTypeOptions.Histogram` |
-| `plt.boxplot(data)` | `CXGraphTypeOptions.Boxplot` |
-| `plt.violinplot(data)` | `CXGraphTypeOptions.Violin` |
-| `plt.pie(values, labels=...)` | `CXGraphTypeOptions.Pie` |
-| `plt.imshow(data)` | `CXGraphTypeOptions.Heatmap` |
-| `plt.pcolormesh(data)` | `CXGraphTypeOptions.Heatmap` |
+| `plt.bar(x, y)` | `"Bar"` |
+| `plt.barh(x, y)` | `"Bar"` + horizontal |
+| `plt.plot(x, y)` | `"Line"` |
+| `plt.plot(x, y, 'o')` | `"Scatter2D"` |
+| `plt.scatter(x, y)` | `"Scatter2D"` |
+| `plt.hist(data, bins=n)` | `"Histogram"` |
+| `plt.boxplot(data)` | `"Boxplot"` |
+| `plt.violinplot(data)` | `"Violin"` |
+| `plt.pie(values, labels=...)` | `"Pie"` |
+| `plt.imshow(data)` | `"Heatmap"` |
+| `plt.pcolormesh(data)` | `"Heatmap"` |
+
+### Complete Plotly Conversion Example
+
+**Original Plotly code:**
+```python
+import plotly.graph_objects as go
+fig = go.Figure(data=go.Bar(x=['A', 'B', 'C'], y=[10, 20, 30]))
+fig.update_layout(title='My Chart', xaxis_title='Category', yaxis_title='Value')
+```
+
+**Converted to CanvasXpress:**
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+
+data = {
+    "y": {
+        "vars": ["Series1"],
+        "smps": ["A", "B", "C"],
+        "data": [[10, 20, 30]]
+    }
+}
+
+cx = CanvasXpress(
+    data=data,
+    config={
+        "graphType": "Bar",
+        "title": "My Chart",
+        "xAxisTitle": "Category",
+        "yAxisTitle": "Value"
+    }
+)
+graph(cx)
+```
+
+### Complete Matplotlib Conversion Example
+
+**Original Matplotlib code:**
+```python
+import matplotlib.pyplot as plt
+plt.bar(['A', 'B', 'C'], [10, 20, 30])
+plt.title('My Chart')
+plt.xlabel('Category')
+plt.ylabel('Value')
+plt.show()
+```
+
+**Converted to CanvasXpress:**
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+
+data = {
+    "y": {
+        "vars": ["Series1"],
+        "smps": ["A", "B", "C"],
+        "data": [[10, 20, 30]]
+    }
+}
+
+cx = CanvasXpress(
+    data=data,
+    config={
+        "graphType": "Bar",
+        "title": "My Chart",
+        "xAxisTitle": "Category",
+        "yAxisTitle": "Value"
+    }
+)
+graph(cx)
+```
+
+### Scatter Conversion Example
+
+**Original Matplotlib code:**
+```python
+import matplotlib.pyplot as plt
+plt.scatter([174, 161, 194], [65.6, 51.6, 80.7])
+plt.xlabel('Height')
+plt.ylabel('Weight')
+```
+
+**Converted to CanvasXpress:**
+```python
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+
+xyz = {
+    "y": {
+        "vars": ["Weight"],
+        "smps": ["S1", "S2", "S3"],
+        "data": [[65.6], [51.6], [80.7]]
+    },
+    "x": {
+        "Height": [174, 161, 194]
+    }
+}
+
+cx = CanvasXpress(
+    data=xyz,
+    config={
+        "graphType": "Scatter2D",
+        "xAxisTitle": "Height",
+        "yAxisTitle": "Weight"
+    }
+)
+graph(cx)
+```

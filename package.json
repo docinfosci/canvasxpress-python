@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "canvasxpress": "^67.6.0",
+    "canvasxpress": "^67.9.0",
     "canvasxpress-cli": "^67.6.0",
-    "canvasxpress-react": "^67.6.0"
+    "canvasxpress-react": "^67.9.0"
   }
 }

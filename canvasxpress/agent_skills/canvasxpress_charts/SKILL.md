@@ -1,5 +1,5 @@
 ---
-name: chart_builder
+name: canvasxpress_charts
 description: Generate production-ready CanvasXpress Python charts. Supports creating charts from scratch with DataFrame or XYZ data, converting DataFrames to XYZ for metadata enhancement, translating Plotly or Matplotlib code to CanvasXpress equivalents, rendering to any framework (Jupyter, Dash, Shiny, Streamlit, Flask, browser), and exporting to images or JSON. Use when creating data visualizations, charts, or converting from Plotly/Matplotlib.
 ---
 
@@ -10,37 +10,53 @@ Primary imports the agent should always include:
 ```python
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph, show_in_browser, convert_to_image, convert_to_reproducible_json
-from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions, CXString, CXInt, CXFloat, CXBool, CXList, CXDict, CXRGBAColor, CXRGBColor
+from canvasxpress.config.type import CXGraphType, CXString, CXInt, CXFloat, CXBool, CXList, CXDict, CXRGBAColor, CXRGBColor
 from canvasxpress.js.function import CXEvent
 from canvasxpress.js.collection import CXEvents
 ```
 
 ## Chart Type Catalog
 
-| User Request | CXGraphTypeOptions |
-|---|---|
-| Bar chart | `CXGraphTypeOptions.Bar` |
-| Line chart | `CXGraphTypeOptions.Line` |
-| Area chart | `CXGraphTypeOptions.Area` |
-| Scatter plot | `CXGraphTypeOptions.Scatter2D` |
-| 3D Scatter | `CXGraphTypeOptions.Scatter3D` |
-| Heatmap | `CXGraphTypeOptions.Heatmap` |
-| Box plot | `CXGraphTypeOptions.Boxplot` |
-| Violin plot | `CXGraphTypeOptions.Violin` |
-| Histogram | `CXGraphTypeOptions.Histogram` |
-| Pie chart | `CXGraphTypeOptions.Pie` |
-| Donut chart | `CXGraphTypeOptions.Donnut` |
-| Bubble chart | `CXGraphTypeOptions.Bubble` |
-| Network | `CXGraphTypeOptions.Network` |
-| Tree | `CXGraphTypeOptions.Tree` |
-| Sankey | `CXGraphTypeOptions.Sankey` |
-| Dot plot | `CXGraphTypeOptions.Dotplot` |
-| Stacked bar | `CXGraphTypeOptions.Stacked` |
-| Timeline/Gantt | `CXGraphTypeOptions.Gantt` |
-| Radar/Spoke | `CXGraphTypeOptions.Radar` |
-| Venn diagram | `CXGraphTypeOptions.Venn` |
-| SPLOM | `CXGraphTypeOptions.SPLOM` |
-| TCGA oncoprint | `CXGraphTypeOptions.Oncoprint` |
+### Core Chart Types
+
+These are the base `graphType` values that CanvasXpress supports directly:
+
+| Config Value | chartType | User-Requested Meta Charts |
+|---|---|---|
+| `"Bar"` | Bar | Waterfall, Lollipop, Bullet*, Stacked |
+| `"Line"` | Line | Area, Streamgraph |
+| `"Scatter2D"` | Scatter2D | Density, Histogram |
+| `"Scatter3D"` | Scatter3D | (none) |
+| `"Bubble"` | Bubble | (built-in) |
+| `"Heatmap"` | Heatmap | Contour, Correlation |
+| `"Boxplot"` | Boxplot | Violin |
+| `"Pie"` | Pie | Donut |
+| `"Circular"` | Circular | Chord, Sunburst, Radar |
+| `"Network"` | Network | (none) |
+| `"Tree"` | Tree | (none) |
+| `"Sankey"` | Sankey | (none) |
+
+These are the base `graphType` values that CanvasXpress supports directly:
+| `"Dotplot"` | Dotplot | (none) |
+| `"Map"` | Map | (none) |
+| `"Gantt"` | Gantt | Timeline |
+| `"SPLOM"` | SPLOM | (none) |
+| `"Oncoprint"` | Oncoprint | (none) |
+| `"Venn"` | Venn | (built-in) |
+| `"Treemap"` | Treemap | (built-in) |
+| `"Dumbbell"` | Dumbbell | (built-in) |
+| `"Stacked"` | Stacked | (built-in) |
+
+### Standalone Meta Chart Types
+
+These have their own `graphType` values:
+
+| Config Value | Type | Key Config |
+|---|---|---|
+| `"Bullet"` | Bullet (standalone) | `rangeStack`, `bulletTargetVarName`, `rangeColors` |
+| `"Waterfall"` | Waterfall (standalone) | `waterfallType`, range colors |
+
+\* Note: `bar_skill.md` also covers the Bullet style using `barType: 'lollipopBullet'`, but the dedicated `"Bullet"` graphType offers additional features like `rangeStack` and `bulletTargetVarName`.
 
 ## Sub-Skill Specializations
 
@@ -53,12 +69,12 @@ When a user requests a specific chart type, consult the corresponding sub-skill 
 | Heatmap | `heatmap_skill.md` | Clustering, color spectra, cell markers, dendrograms, overlays |
 | Line chart | `line_skill.md` | Vertical/horizontal, spline lines, error areas, pattern decorations, segregated panels |
 | Box plot | `boxplot_skill.md` | Vertical/horizontal, notched, single whiskers, segregated, mean markers, custom median, jitter, colored/shaped boxes |
-| Violin plot | `violin_skill.md` | Boxplot type with `showViolinBoxplot: True`, multiple scaling methods, notched boxes, mean markers |
-| Scatter plot | `scatter_skill.md` | (See density_skill.md for histogram overlays) |
-| Network | `network_skill.md` | Force-directed layout, node coloring by metadata, edge weights, Barnes-Hut simulation |
-| Tree | `tree_skill.md` | Hierarchical data, collapsible nodes, circular/bracket layouts, metadata coloring |
-| Sankey | `sankey_skill.md` | (See Stacked for flow visualization) |
-| Radar | `radar_skill.md` | Line/area/bar/dot/stacked rings, half-circle (180°), rotation control, metadata overlays |
+ | Violin plot | `violin_skill.md` | Boxplot type with `showViolinBoxplot: True`, multiple scaling methods, notched boxes, mean markers |
+ | Scatter plot | (See density_skill.md for histogram overlays) | Uses Scatter2D graphType |
+ | Network | `network_skill.md` | Force-directed layout, node coloring by metadata, edge weights, Barnes-Hut simulation |
+ | Tree | `tree_skill.md` | Hierarchical data, collapsible nodes, circular/bracket layouts, metadata coloring |
+ | Sankey | (See Stacked for flow visualization) | Uses Sankey graphType |
+ | Radar | `radar_skill.md` | Line/area/bar/dot/stacked rings, half-circle (180°), rotation control, metadata overlays |
 | Dot plot | `dotplot_skill.md` | Binned data, error bars, jitter, stacked layouts, overlays, metadata color/shape encoding |
 | Bullet | `bullet_skill.md` | Range stacking, target markers, progress bars, custom themes, data value labels |
 | Chord | `chord_skill.md` | Circular type with `circularType: 'chord'`, color highlighting, rotation, arc control |
@@ -86,9 +102,22 @@ Consult these reference files for detailed guidance on specific topics:
 | Reference File | When to Load |
 |---|---|
 | `reference_conversion.md` | Converting from Plotly/Matplotlib, looking up CXGraphTypeOptions, mapping chart types |
-| `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs |
+| `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs, advanced data wrangling, specialized formats (Venn, Network) |
 
-## Framework Subskills
+## Cross-Chart & Interactive Sub-Skills
+
+For advanced interactive features and multi-chart coordination, load these sub-skills:
+
+| Capability | Sub-Skill | Key Topics |
+|---|---|---|
+| Broadcasting | `broadcast_skill.md` | Automatic broadcast, broadcast groups, filter broadcast, legend broadcast, page-level saved states, DOE dashboard |
+| Highlighting | `highlighting_skill.md` | Declarative highlighting, ghost/focus modes, predicate-based highlighting, interactive selection, emphasis colors |
+| Styling | `styling_skill.md` | Themes, color palettes, object styling, fonts, layout, dimensions, orientation, chart-type-specific styles |
+| Events | `events_skill.md` | Event catalog (15 events), handler patterns, Shiny integration, dynamic listeners, post-render calls |
+
+**Workflow:** When a user requests features covered by these sub-skills (multi-chart dashboards, highlighting storytelling, custom styling, or interactive events), load the corresponding sub-skill for detailed guidance.
+
+## Framework Sub-Skills
 
 For detailed framework-specific guidance, see the subskill files:
 
@@ -107,17 +136,27 @@ For detailed framework-specific guidance, see the subskill files:
 ### Decision Flow
 
 1. **Identify chart type and data source**
-2. **Ask clarifying questions:**
+2. **Load relevant reference/sub-skill:**
+   - Chart type-specific? → Load corresponding chart sub-skill (bar_skill.md, heatmap_skill.md, etc.)
+   - Plotly/Matplotlib conversion? → `reference_conversion.md`
+   - DataFrame/data prep? → `reference_general.md`
+   - Multi-chart coordination? → `broadcast_skill.md`
+   - Highlighting/storytelling? → `highlighting_skill.md`
+   - Custom styling? → `styling_skill.md`
+   - Interactive events? → `events_skill.md`
+3. **Ask clarifying questions:**
    - "What data source should I use? (existing DataFrame, XYZ dict, or sample data?)"
    - "Would you like me to convert your DataFrame to XYZ for manual metadata enhancement?"
    - "What rendering context? (Jupyter, Dash, Shiny, Streamlit, Flask, or browser)"
    - "Any specific styling preferences? (colors, theme, dimensions)"
-3. **If XYZ conversion requested:**
-   - Show the generated XYZ dict
+   - "Do you need multi-chart coordination? (broadcasting, DOE dashboard)"
+   - "Do you need highlighting/storytelling features? (declarative highlight, selection)"
+4. **If XYZ conversion requested:**
+   - Show the generated XYZ dict from `reference_general.md`
    - Explain the x/y/z structure
    - Let user choose between XYZ dict or direct DataFrame
-4. **Generate complete, copy-paste-ready Python code**
-5. **Include framework-specific rendering instructions**
+5. **Generate complete, copy-paste-ready Python code**
+6. **Include framework-specific rendering instructions**
 
 ### Style Guidelines
 
@@ -126,6 +165,43 @@ For detailed framework-specific guidance, see the subskill files:
 - Always include a descriptive title
 - Use appropriate color schemes for the data type
 - Set `showLegend=True` when there are multiple series/groups
+
+### Events Guidelines
+
+When generating event code for CanvasXpress:
+
+1. **ALWAYS use `CXEvent(id="...", script="...")`** - NEVER generate raw JavaScript objects
+2. **The script string is automatically wrapped** in `function(o, e, t){...}` by CanvasXpress
+3. **ONLY use `o`, `e`, `t`** inside the script - These are provided by the wrapper
+4. **Use `t.showInfoSpan(e, message)`** for tooltips - Never use `alert()` or `console.log()` for user display
+5. **Load `events_skill.md`** when events are requested for detailed patterns
+6. **Validate every event is a `CXEvent(id="<string>", script="<string>")`** - No raw strings, dicts, or other formats
+
+**ABSOLUTELY NEVER use raw JavaScript objects for events:**
+```python
+# NEVER - raw JavaScript object (this is WRONG)
+events = {"click": "function(dat, el) { ... }"}
+
+# NEVER - nested dict structure (this is WRONG)
+events = {"onClickData": {"callback": "function(data, chart) { ... }"}}
+
+# NEVER - inline JavaScript function pattern (this is WRONG)
+events = {"click": """function(dat, el) { ... }"""}
+```
+
+**ALWAYS use the CXEvent/CXEvents pattern:**
+```python
+# ALWAYS - single event
+events = CXEvent(id="click", script="var s = o.y.vars[0]; t.showInfoSpan(e, s);")
+
+# ALWAYS - multiple events
+events = CXEvents(
+    CXEvent(id="click", script="var s = o.y.vars[0]; t.showInfoSpan(e, s);"),
+    CXEvent(id="mousemove", script="t.hideInfoSpan();")
+)
+```
+
+> **Validation Rule:** Every event must be `CXEvent(id="<string>", script="<string>")` wrapped in `CXEvent` (single) or `CXEvents(...)` (multiple). No raw strings, dicts, or other formats are accepted.
 
 ## Known Limitations
 
