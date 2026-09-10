@@ -1,5 +1,5 @@
 ---
-name: canvasxpress_skill
+name: canvasxpress_charts
 description: Generate production-ready CanvasXpress Python charts. Supports creating charts from scratch with DataFrame or XYZ data, converting DataFrames to XYZ for metadata enhancement, translating Plotly or Matplotlib code to CanvasXpress equivalents, rendering to any framework (Jupyter, Dash, Shiny, Streamlit, Flask, browser), and exporting to images or JSON. Use when creating data visualizations, charts, or converting from Plotly/Matplotlib.
 ---
 
