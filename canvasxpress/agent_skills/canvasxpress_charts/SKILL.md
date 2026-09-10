@@ -164,6 +164,31 @@ For detailed framework-specific guidance, see the subskill files:
 - Use appropriate color schemes for the data type
 - Set `showLegend=True` when there are multiple series/groups
 
+### Events Guidelines
+
+When generating event code for CanvasXpress:
+
+1. **ALWAYS use `CXEvent(id="...", script="...")`** - NEVER generate raw JavaScript objects
+2. **The script string is automatically wrapped** in `function(o, e, t){...}` by CanvasXpress
+3. **ONLY use `o`, `e`, `t`** inside the script - These are provided by the wrapper
+4. **Use `t.showInfoSpan(e, message)`** for tooltips - Never use `alert()` or `console.log()` for user display
+5. **Load `events_skill.md`** when events are requested for detailed patterns
+
+**ABSOLUTELY NEVER use raw JavaScript objects for events:**
+```python
+# NEVER - raw JavaScript object (this is WRONG)
+events = {"click": "function(dat, el) { ... }"}
+
+# NEVER - inline JavaScript function pattern (this is WRONG)
+events = {"click": """function(dat, el) { ... }"""}
+```
+
+**ALWAYS use the CXEvent pattern:**
+```python
+# ALWAYS - use CXEvent with script parameter
+events = CXEvent(id="click", script="var s = o.y.vars[0]; t.showInfoSpan(e, s);")
+```
+
 ## Known Limitations
 
 1. **3D charts:** Plotly 3D and Matplotlib 3D require careful data reshaping; CanvasXpress Scatter3D is supported but complex geometries may not map perfectly

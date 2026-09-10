@@ -109,6 +109,42 @@ CXEvent(id="click", script="var x = someOtherFunction(); t.showInfoSpan(e, x);")
 # If chart data uses 'Gene1', 'Gene2' as vars, reference them via o.y.vars
 ```
 
+> **CRITICAL: NEVER generate raw JavaScript objects or functions for events.**
+> CanvasXpress Python code must ALWAYS use `CXEvent(id="...", script="...")` pattern.
+> The `script` string is automatically wrapped in `function(o, e, t){...}` by CanvasXpress.
+> 
+> **ABSOLUTELY NEVER use these patterns:**
+> ```python
+> # ABSOLUTELY WRONG - raw JavaScript object
+> events = {"click": "function(dat, el) { ... }"}
+> 
+> # ABSOLUTELY WRONG - inline JavaScript function pattern
+> events = {"click": """function(dat, el) { ... }"""}
+> 
+> # ABSOLUTELY WRONG - nested dict structure with callback
+> events = {"onClickData": {"callback": "function(data, chart) { ... }"}}
+> 
+> # ABSOLUTELY WRONG - custom function signature in script
+> events = CXEvent(id="click", script="function(myData, myEvent) { ... }")
+> 
+> # ABSOLUTELY WRONG - using alert() for display
+> events = CXEvent(id="click", script="alert('Hello');")
+> ```
+> 
+> **ALWAYS use this pattern:**
+> ```python
+> # ALWAYS - single event
+> events = CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);")
+> 
+> # ALWAYS - multiple events
+> events = [
+>     CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);"),
+>     CXEvent(id="mousemove", script="t.hideInfoSpan();")
+> ]
+> ```
+> 
+> **Remember:** The CanvasXpress Python API does NOT accept raw JavaScript objects. Only `CXEvent` objects or lists of `CXEvent` objects.
+
 ## Using Chart Data in Events
 
 Events should leverage the data already defined in the chart's `data` parameter:
@@ -177,11 +213,21 @@ CXEvent(id="click", script="console.log(o.y.vars[0]);")
 # WRONG - invalid event names
 CXEvent(id="onClick", script="...")     # Python style
 CXEvent(id="hover", script="...")       # Not a CanvasXpress event
+CXEvent(id="onClickData", script="...") # Not a CanvasXpress event
 
 # CORRECT - use CanvasXpress event names
 CXEvent(id="click", script="...")       # Valid
 CXEvent(id="mouseover", script="...")   # Valid
 CXEvent(id="mousemove", script="...")   # Valid
+```
+
+### Generating Nested Dict Structures
+```python
+# WRONG - nested dict with callback
+events = {"onClickData": {"callback": "function(data, chart) { ... }"}}
+
+# CORRECT - use CXEvent
+events = CXEvent(id="click", script="var msg = o.y.vars[0]; t.showInfoSpan(e, msg);")
 ```
 
 ### Not Checking for null Data Object
