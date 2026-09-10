@@ -1,6 +1,6 @@
 ---
 name: events
-description: CanvasXpress event handling including the complete event catalog, event handler patterns using JavaScript context variables (o, e, t), Shiny integration, dynamic event listeners, and post-render function calls. Use when creating interactive charts with custom click/hover/select behaviors, tooltips, effects, or any interactive event handling.
+description: CanvasXpress event handling for the four supported hooks (click, dblclick, mousemove, mouseout), event handler patterns using JavaScript context variables (o, e, t), and post-render function calls. Use when creating interactive charts with custom click/double-click/hover behaviors, tooltips, effects, or any interactive event handling.
 ---
 
 # Events & Interactivity
@@ -18,7 +18,7 @@ from canvasxpress.plot import graph
 
 ## Trigger Keywords
 
-Route to this skill when the user mentions: `event`, `events`, `click`, `hover`, `tooltip`, `effect`, `interactive`, `interaction`, `handler`, `callback`, `onclick`, `mouseover`, `mousemove`, `selection`, `dynamic`.
+Route to this skill when the user mentions: `event`, `events`, `click`, `dblclick`, `hover`, `tooltip`, `effect`, `interactive`, `interaction`, `mousemove`, `mouseout`.
 
 ## Event Handler Signature
 
@@ -39,21 +39,102 @@ Every event handler receives three arguments via JavaScript context variables:
 
 | Event | Description |
 |---|---|
-| `click` | Data element clicked |
-| `clicklegend` | Legend item clicked |
-| `contextmenu` | Right-click (prevent default for custom menu) |
-| `dblclick` | Double-click |
-| `drag` | During drag operation |
-| `enddragnode` | Network node drag finished |
-| `enddraw` | Rendering complete |
-| `motion` | Motion complete (motion charts only) |
-| `mousemove` | Mouse moving over chart elements |
-| `mouseout` | Mouse left chart elements |
-| `mouseover` | Mouse entered a data element |
-| `mouseup` | Mouse button released |
-| `remote` | Chart updated by remote source |
-| `select` | Data points selected |
-| `wheel` | Mouse wheel over chart |
+| `click` | Data element clicked - logs data interaction metadata payload via `o` |
+| `dblclick` | Triggers on double-click of data elements |
+| `mousemove` | Essential hook for managing hover/out states over chart elements |
+| `mouseout` | Inherently restricted due to tracking rules; recommended to isolate out-of-bounds states via `mousemove` |
+
+> **Note:** These are the four core event hooks supported by CanvasXpress. All use the same `function(o, e, t)` signature where `o` is the data object, `e` is the DOM event, and `t` is the CanvasXpress instance.
+
+## Simulating Other Events
+
+CanvasXpress overrides the HTML5 `<canvas>` interaction layer, so native event listeners cannot be mapped directly. Use state tracking within the four supported hooks to simulate other interactions:
+
+### Simulating `mouseenter` / `mouseover`
+
+CanvasXpress's `mousemove` triggers continuously. To mimic `mouseenter` (fires once when cursor hits an element), compare against a tracking variable:
+
+```python
+# Simulates mouseenter - fires once per hover
+CXEvent(
+    id="mousemove",
+    script="""
+    if (!window._currentHovered) window._currentHovered = null;
+    if (o && o.y && o.y.vars && o.y.smps) {
+        var targetKey = o.y.vars[0] + '_' + o.y.smps[0];
+        if (window._currentHovered !== targetKey) {
+            window._currentHovered = targetKey;
+            t.showInfoSpan(e, 'Entered: ' + targetKey);
+        }
+    } else {
+        window._currentHovered = null;
+    }
+    """
+)
+```
+
+### Simulating `mouseleave` / `mouseout`
+
+CanvasXpress intercepts native canvas mouse actions. Use state tracking within `mousemove` to catch when cursor leaves a point:
+
+```python
+# Simulates mouseleave - fires when cursor exits data element
+CXEvent(
+    id="mousemove",
+    script="""
+    if (!window._activeItem) window._activeItem = null;
+    if (o && o.y && o.y.vars) {
+        window._activeItem = o.y.vars[0] + '_' + o.y.smps[0];
+    } else if (window._activeItem !== null) {
+        t.hideInfoSpan();
+        window._activeItem = null;
+    }
+    """
+)
+```
+
+### Simulating Selection Toggles (`select` / `deselect`)
+
+Track interactive application state where clicking "locks" or "unlocks" visibility:
+
+```python
+# Simulates select/deselect toggle
+CXEvent(
+    id="click",
+    script="""
+    if (!window._selectedElements) window._selectedElements = new Set();
+    if (o && o.y && o.y.vars) {
+        var itemKey = o.y.vars[0] + '_' + o.y.smps[0];
+        if (window._selectedElements.has(itemKey)) {
+            window._selectedElements.delete(itemKey);
+            console.log('Deselected:', itemKey);
+        } else {
+            window._selectedElements.add(itemKey);
+            console.log('Selected:', itemKey);
+        }
+    }
+    """
+)
+```
+
+### Simulating Context Menu (`right-click`)
+
+Check the native browser `e.button` property to detect right-click:
+
+```python
+# Simulates right-click detection
+CXEvent(
+    id="click",
+    script="""
+    if (e && (e.button === 2 || e.which === 3)) {
+        e.preventDefault();
+        if (o && o.y) {
+            t.showInfoSpan(e, 'Right clicked: ' + o.y.vars[0]);
+        }
+    }
+    """
+)
+```
 
 ## Basic Event Examples
 
@@ -68,7 +149,7 @@ cx = CanvasXpress(data=data, config={"graphType": "Bar"}, events=events)
 graph(cx)
 ```
 
-> **Important:** CXEvent uses `script=` parameter (not `handler=`). The `script` parameter contains JavaScript code that will be wrapped in `function(o, e, t){...}`. The `id` parameter is the name of the JavaScript event to listen for (e.g., `"click"`, `"mouseover"`, `"mousemove"`).
+> **Important:** CXEvent uses `script=` parameter (not `handler=`). The `script` parameter contains JavaScript code that will be wrapped in `function(o, e, t){...}`. The `id` parameter is the name of the JavaScript event to listen for (e.g., `"click"`, `"dblclick"`, `"mousemove"`, `"mouseout"`).
 
 ```python
 # Multiple events using CXEvents
@@ -213,14 +294,15 @@ CXEvent(id="click", script="console.log(o.y.vars[0]);")
 ### Wrong Event ID Values
 ```python
 # WRONG - invalid event names
-CXEvent(id="onClick", script="...")     # Python style
-CXEvent(id="hover", script="...")       # Not a CanvasXpress event
-CXEvent(id="onClickData", script="...") # Not a CanvasXpress event
+CXEvent(id="onClick", script="...")     # Not a CanvasXpress event
+CXEvent(id="mouseover", script="...")   # Not a CanvasXpress event
+CXEvent(id="select", script="...")      # Not a CanvasXpress event
 
-# CORRECT - use CanvasXpress event names
-CXEvent(id="click", script="...")       # Valid
-CXEvent(id="mouseover", script="...")   # Valid
-CXEvent(id="mousemove", script="...")   # Valid
+# CORRECT - use the four supported CanvasXpress event names
+CXEvent(id="click", script="...")       # Valid - data element clicked
+CXEvent(id="dblclick", script="...")    # Valid - double-click
+CXEvent(id="mousemove", script="...")   # Valid - essential for hover states
+CXEvent(id="mouseout", script="...")    # Valid - restrict out-of-bounds states
 ```
 
 ### Generating Nested Dict Structures
@@ -313,7 +395,7 @@ CXEvent(
 
 ## Creating Tooltips with Events
 
-For tooltips and hover effects, use `mousemove` or `mouseover` events with `t.showInfoSpan()`:
+For tooltips and hover effects, use `mousemove` events with `t.showInfoSpan()`:
 
 ```python
 # Simple tooltip showing data on hover
