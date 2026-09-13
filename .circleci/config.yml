@@ -79,15 +79,10 @@ jobs:
       - run:
           name: Install R for rpy2
           command: |
-            # Import R project key to new keyring location
-            gpg --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-            gpg --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | tee /etc/apt/trusted.gpg.d/r-project.gpg > /dev/null
-
-            # Add CRAN repository directly (Debian Bullseye)
-            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/debian bullseye-cran40/" | tee /etc/apt/sources.list.d/r-project.list
-
-            # Update and install R
+            # Update package lists
             apt-get update -y -o Acquire::Retries=3 || true
+
+            # Install R from Debian Bullseye repos (no CRAN repo needed)
             apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
 
             # Save R_HOME to a file for use in subsequent CI steps
@@ -385,15 +380,10 @@ jobs:
       - run:
           name: Install R for rpy2
           command: |
-            # Import R project key to new keyring location
-            gpg --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-            gpg --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | tee /etc/apt/trusted.gpg.d/r-project.gpg > /dev/null
-
-            # Add CRAN repository directly (Debian Bullseye)
-            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/debian bullseye-cran40/" | tee /etc/apt/sources.list.d/r-project.list
-
-            # Update and install R
+            # Update package lists
             apt-get update -y -o Acquire::Retries=3 || true
+
+            # Install R from Debian Bullseye repos (no CRAN repo needed)
             apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
 
             # Save R_HOME to a file for use in subsequent CI steps
@@ -630,15 +620,10 @@ jobs:
       - run:
           name: Install R for rpy2
           command: |
-            # Import R project key to new keyring location
-            gpg --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-            gpg --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | tee /etc/apt/trusted.gpg.d/r-project.gpg > /dev/null
-
-            # Add CRAN repository directly (Debian Bullseye)
-            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/debian bullseye-cran40/" | tee /etc/apt/sources.list.d/r-project.list
-
-            # Update and install R
+            # Update package lists
             apt-get update -y -o Acquire::Retries=3 || true
+
+            # Install R from Debian Bullseye repos (no CRAN repo needed)
             apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
 
             # Save R_HOME to a file for use in subsequent CI steps

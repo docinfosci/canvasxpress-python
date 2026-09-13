@@ -32,12 +32,21 @@ The `build_local.sh` script is used to prepare the package for publication. It r
 
 ### Build Platforms
 - **Local development (macOS)**: Uses Homebrew to install R (`brew install r`) and Node.js (`nvm install`). Run `./build_local.sh` to build.
-- **CI/CD (Ubuntu)**: CircleCI builds install R via CRAN repository and Node.js via NVM. Three build profiles: `build-python-oldest`, `build-python-latest`, `build-python-general`.
+- **CI/CD (Debian Bullseye)**: CircleCI builds use `python:3.10.12-bullseye` Docker image (Debian 11, not Ubuntu). Three build profiles: `build-python-oldest`, `build-python-latest`, `build-python-general`.
+
+**Important:** CircleCI uses Debian Bullseye, NOT Ubuntu. When installing packages:
+- Use `https://cloud.r-project.org/bin/linux/debian bullseye-cran40/` for R (NOT jammy-cran40)
+- Use `apt-get` with Debian packages, NOT Ubuntu packages
+- Docker image is `python:3.10.12-bullseye` (Debian 11)
 
 ### R Dependency
 The `rpy2` package requires R to be installed:
 - **macOS**: `brew install r` (via Homebrew)
-- **Ubuntu/CI**: Added via CRAN repository in CircleCI config
+- **CI/Debian Bullseye**: Added via CRAN Debian repository (`bullseye-cran40`), NOT Ubuntu Jammy
+
+**R in CI:** Each `run:` step in CircleCI runs in a separate shell. To persist R_HOME across steps:
+1. R installation step: saves R_HOME to `$HOME/.r_home`
+2. Steps needing R (Python deps, tests): reads `$HOME/.r_home` and exports R_HOME
 
 ### Skill Installation Validation
 During local builds, the skill installation is validated to ensure all expected skills are present:
