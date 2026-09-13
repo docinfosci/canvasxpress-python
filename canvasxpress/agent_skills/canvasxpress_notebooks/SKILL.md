@@ -8,6 +8,21 @@ tools:
   - jupytext
 ---
 
+## Trigger Keywords
+
+Route to this skill when the user wants to create a Jupyter notebook with CanvasXpress charts. Common phrases include:
+
+- "create a Jupyter notebook with {chart type}"
+- "generate a notebook for {data visualization}"
+- "make a .ipynb file with {chart type}"
+- "convert this code to a Jupyter notebook"
+- "export to Jupyter notebook"
+- "create a notebook showing {data}"
+- "save as notebook format"
+- "generate notebook with visualizations"
+
+> **Note:** This skill handles notebook structure and conversion, but you MUST also load `canvasxpress_charts` for chart-specific code patterns.
+
 ## CRITICAL: Load canvasxpress_charts Skill First
 
 **BEFORE writing any CanvasXpress code, you MUST load the `canvasxpress_charts` skill.**

@@ -64,18 +64,44 @@ class TestDiscoverSkills:
         assert skills["canvasxpress_validator"]["content"].startswith("---")
         assert skills["canvasxpress_events"]["content"].startswith("---")
 
+    def test_discover_skills_returns_path(self, mock_entry_points):
+        """Test that discover_skills returns 'path' alongside content."""
+        from canvasxpress.agent_skills.registry import discover_skills
+
+        skills = discover_skills()
+        assert "path" in skills["canvasxpress_charts"]
+        assert "path" in skills["canvasxpress_notebooks"]
+        assert "path" in skills["canvasxpress_validator"]
+        assert "path" in skills["canvasxpress_events"]
+        assert isinstance(skills["canvasxpress_charts"]["path"], str)
+        assert skills["canvasxpress_charts"]["path"].endswith("canvasxpress_charts")
+
+    def test_discover_skills_path_resolves(self, mock_entry_points):
+        """Test that the returned path resolves to an actual directory."""
+        from canvasxpress.agent_skills.registry import discover_skills
+
+        skills = discover_skills()
+        for name, skill in skills.items():
+            path = Path(skill["path"])
+            assert path.exists(), f"Path {path} for skill {name} does not exist"
+            assert (path / "SKILL.md").exists(), f"SKILL.md not found in {path}"
+
 
 class TestInstallSkills:
     @pytest.fixture
     def mock_entry_points(self):
         """Mock entry points for testing."""
-        mock_ep = MagicMock()
-        mock_ep.name = "canvasxpress_charts"
-        mock_ep.value = "canvasxpress.agent_skills.canvasxpress_charts"
+        mock_chart = MagicMock()
+        mock_chart.name = "canvasxpress_charts"
+        mock_chart.value = "canvasxpress.agent_skills.canvasxpress_charts"
+
+        mock_events = MagicMock()
+        mock_events.name = "canvasxpress_events"
+        mock_events.value = "canvasxpress.agent_skills.canvasxpress_events"
 
         with patch("canvasxpress.agent_skills.registry._get_entry_points") as mock:
-            mock.return_value = [mock_ep]
-            yield mock_ep
+            mock.return_value = [mock_chart, mock_events]
+            yield mock_chart, mock_events
 
     def test_install_skills_opencode(self, mock_entry_points, tmp_path, monkeypatch):
         """Test installing skills to OpenCode directory."""
@@ -121,38 +147,40 @@ class TestInstallSkills:
         assert agents_path.exists()
 
     def test_install_skills_no_force(self, mock_entry_points, tmp_path, monkeypatch):
-        """Test that existing file is not overwritten without force."""
+        """Test that existing directory is not overwritten without force."""
         from canvasxpress.agent_skills.registry import install_skills
 
         mock_home = tmp_path / "home"
         mock_home.mkdir()
         monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
-        # Create existing file
-        existing_path = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts" / "SKILL.md"
-        existing_path.parent.mkdir(parents=True, exist_ok=True)
-        existing_path.write_text("Old content")
+        # Create existing skill directory with custom SKILL.md
+        existing_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
+        existing_dir.mkdir(parents=True, exist_ok=True)
+        (existing_dir / "SKILL.md").write_text("Old content")
 
         install_skills(target="opencode", force=False)
 
-        assert existing_path.read_text() == "Old content"
+        # Directory should not be modified
+        assert (existing_dir / "SKILL.md").read_text() == "Old content"
 
     def test_install_skills_with_force(self, mock_entry_points, tmp_path, monkeypatch):
-        """Test that existing file is overwritten with force."""
+        """Test that existing directory is overwritten with force."""
         from canvasxpress.agent_skills.registry import install_skills
 
         mock_home = tmp_path / "home"
         mock_home.mkdir()
         monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
-        # Create existing file
-        existing_path = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts" / "SKILL.md"
-        existing_path.parent.mkdir(parents=True, exist_ok=True)
-        existing_path.write_text("Old content")
+        # Create existing skill directory with custom SKILL.md
+        existing_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
+        existing_dir.mkdir(parents=True, exist_ok=True)
+        (existing_dir / "SKILL.md").write_text("Old content")
 
         install_skills(target="opencode", force=True)
 
-        assert "canvasxpress_charts" in existing_path.read_text()
+        # Directory should be overwritten with new content
+        assert "canvasxpress_charts" in (existing_dir / "SKILL.md").read_text()
 
     def test_install_skills_invalid_target(self, capsys):
         """Test that invalid target raises exit."""
@@ -160,6 +188,96 @@ class TestInstallSkills:
 
         with pytest.raises(SystemExit):
             install_skills(target="invalid")
+
+    def test_install_skills_copies_all_markdown_files(self, mock_entry_points, tmp_path, monkeypatch):
+        """Test that all markdown files are copied, not just SKILL.md."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        install_skills(target="opencode", force=True)
+
+        # Check that supporting files are present
+        charts_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
+        assert (charts_dir / "SKILL.md").exists()
+        assert (charts_dir / "bar_skill.md").exists()
+        assert (charts_dir / "heatmap_skill.md").exists()
+        assert (charts_dir / "reference_general.md").exists()
+        assert (charts_dir / "reference_conversion.md").exists()
+        assert (charts_dir / "events_skill.md").exists()
+
+        # Check that non-markdown files are excluded
+        assert not (charts_dir / "__init__.py").exists()
+
+    def test_install_skills_no_python_files_in_dest(self, mock_entry_points, tmp_path, monkeypatch):
+        """Test that no .py, .pyc files or __pycache__ exist in destination."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        install_skills(target="opencode", force=True)
+
+        # Check both skill directories
+        for skill_name in ["canvasxpress_charts", "canvasxpress_events"]:
+            skill_dir = mock_home / ".config" / "opencode" / "skills" / skill_name
+            assert skill_dir.exists()
+            for p in skill_dir.rglob("*"):
+                assert not p.suffix == ".py", f"Found .py file: {p}"
+                assert not p.suffix == ".pyc", f"Found .pyc file: {p}"
+                assert not "__pycache__" in str(p), f"Found __pycache__: {p}"
+
+    def test_install_skills_no_force_skips_existing(self, mock_entry_points, tmp_path, monkeypatch, capsys):
+        """Test that without --force, existing skills are skipped."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        # Create existing skill directory
+        existing_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
+        existing_dir.mkdir(parents=True, exist_ok=True)
+        (existing_dir / "SKILL.md").write_text("Old content")
+
+        install_skills(target="opencode", force=False)
+
+        output = capsys.readouterr().out
+        assert "already present" in output or "skip" in output
+
+    def test_install_skills_provenance_stamp(self, mock_entry_points, tmp_path, monkeypatch):
+        """Test that .skill-version file is written during installation."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        install_skills(target="opencode", force=True)
+
+        # Check that provenance stamp exists
+        charts_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
+        skill_version_file = charts_dir / ".skill-version"
+        assert skill_version_file.exists()
+        content = skill_version_file.read_text()
+        assert len(content) > 0
+
+    def test_install_skills_file_count_reported(self, mock_entry_points, tmp_path, monkeypatch, capsys):
+        """Test that file count is reported during installation."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        install_skills(target="opencode", force=True)
+
+        output = capsys.readouterr().out
+        assert "installed" in output
+        assert "markdown files" in output
 
 
 class TestCLI:
