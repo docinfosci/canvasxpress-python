@@ -77,8 +77,6 @@ jobs:
             rm -rf /var/lib/apt/lists/*
 
       - run:
-
-      - run:
           name: Install R for rpy2
           command: |
             # Add CRAN repository for R installation (Ubuntu 22.04/Jammy)
@@ -95,6 +93,8 @@ jobs:
             else
               echo "WARNING: R installation failed, rpy2 may not work"
             fi
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -361,8 +361,6 @@ jobs:
             rm -rf /var/lib/apt/lists/*
 
       - run:
-
-      - run:
           name: Install R for rpy2
           command: |
             # Add CRAN repository for R installation (Ubuntu 22.04/Jammy)
@@ -379,6 +377,8 @@ jobs:
             else
               echo "WARNING: R installation failed, rpy2 may not work"
             fi
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -584,8 +584,6 @@ jobs:
             rm -rf /var/lib/apt/lists/*
 
       - run:
-
-      - run:
           name: Install R for rpy2
           command: |
             # Add CRAN repository for R installation (Ubuntu 22.04/Jammy)
@@ -602,6 +600,8 @@ jobs:
             else
               echo "WARNING: R installation failed, rpy2 may not work"
             fi
+
+      - run:
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
