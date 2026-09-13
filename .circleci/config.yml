@@ -90,6 +90,14 @@ jobs:
             apt-get update -y -o Acquire::Retries=3 || true
             apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
 
+            # Save R_HOME to a file for use in subsequent CI steps
+            R_HOME=$(R RHOME)
+            if [ -n "$R_HOME" ]; then
+              echo "$R_HOME" > $HOME/.r_home
+              export R_HOME
+              echo "R_HOME set to: $R_HOME"
+            fi
+
             # Verify R installation
             if command -v R &> /dev/null; then
               R --version | head -1
@@ -163,6 +171,12 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load R_HOME for rpy2 installation
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+              echo "R_HOME loaded: $R_HOME"
+            fi
+
             # Load NVM for Node.js access (needed by invoke init)
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -233,6 +247,11 @@ jobs:
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Load R_HOME for tests that use rpy2
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+            fi
 
             # Activate virtual environment
             source ./venv/bin/activate
@@ -377,6 +396,14 @@ jobs:
             apt-get update -y -o Acquire::Retries=3 || true
             apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
 
+            # Save R_HOME to a file for use in subsequent CI steps
+            R_HOME=$(R RHOME)
+            if [ -n "$R_HOME" ]; then
+              echo "$R_HOME" > $HOME/.r_home
+              export R_HOME
+              echo "R_HOME set to: $R_HOME"
+            fi
+
             # Verify R installation
             if command -v R &> /dev/null; then
               R --version | head -1
@@ -450,6 +477,12 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load R_HOME for rpy2 installation
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+              echo "R_HOME loaded: $R_HOME"
+            fi
+
             # Load NVM for Node.js access (needed by invoke init)
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -506,6 +539,11 @@ jobs:
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Load R_HOME for tests that use rpy2
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+            fi
 
             # Activate virtual environment
             source ./venv/bin/activate
@@ -603,6 +641,14 @@ jobs:
             apt-get update -y -o Acquire::Retries=3 || true
             apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
 
+            # Save R_HOME to a file for use in subsequent CI steps
+            R_HOME=$(R RHOME)
+            if [ -n "$R_HOME" ]; then
+              echo "$R_HOME" > $HOME/.r_home
+              export R_HOME
+              echo "R_HOME set to: $R_HOME"
+            fi
+
             # Verify R installation
             if command -v R &> /dev/null; then
               R --version | head -1
@@ -676,6 +722,12 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load R_HOME for rpy2 installation
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+              echo "R_HOME loaded: $R_HOME"
+            fi
+
             # Load NVM for Node.js access (needed by invoke init)
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -732,6 +784,11 @@ jobs:
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Load R_HOME for tests that use rpy2
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+            fi
 
             # Activate virtual environment
             source ./venv/bin/activate
