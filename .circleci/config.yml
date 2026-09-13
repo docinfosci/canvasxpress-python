@@ -80,10 +80,10 @@ jobs:
           name: Install R for rpy2
           command: |
             # Update package lists
-            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
 
-            # Install R from Debian Bullseye repos (no CRAN repo needed)
-            apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
+            # Install R from Debian Bullseye repos with fix-missing
+            apt-get install -y -o Acquire::Retries=3 --fix-missing r-base r-base-dev || true
 
             # Save R_HOME to a file for use in subsequent CI steps
             R_HOME=$(R RHOME)
@@ -381,10 +381,10 @@ jobs:
           name: Install R for rpy2
           command: |
             # Update package lists
-            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
 
-            # Install R from Debian Bullseye repos (no CRAN repo needed)
-            apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
+            # Install R from Debian Bullseye repos with fix-missing
+            apt-get install -y -o Acquire::Retries=3 --fix-missing r-base r-base-dev || true
 
             # Save R_HOME to a file for use in subsequent CI steps
             R_HOME=$(R RHOME)
@@ -621,10 +621,10 @@ jobs:
           name: Install R for rpy2
           command: |
             # Update package lists
-            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
 
-            # Install R from Debian Bullseye repos (no CRAN repo needed)
-            apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
+            # Install R from Debian Bullseye repos with fix-missing
+            apt-get install -y -o Acquire::Retries=3 --fix-missing r-base r-base-dev || true
 
             # Save R_HOME to a file for use in subsequent CI steps
             R_HOME=$(R RHOME)
