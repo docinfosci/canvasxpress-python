@@ -83,8 +83,8 @@ jobs:
             gpg --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
             gpg --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | tee /etc/apt/trusted.gpg.d/r-project.gpg > /dev/null
 
-            # Add CRAN repository directly (Ubuntu 22.04/Jammy)
-            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | tee /etc/apt/sources.list.d/r-project.list
+            # Add CRAN repository directly (Debian Bullseye)
+            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/debian bullseye-cran40/" | tee /etc/apt/sources.list.d/r-project.list
 
             # Update and install R
             apt-get update -y -o Acquire::Retries=3 || true
@@ -389,8 +389,8 @@ jobs:
             gpg --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
             gpg --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | tee /etc/apt/trusted.gpg.d/r-project.gpg > /dev/null
 
-            # Add CRAN repository directly (Ubuntu 22.04/Jammy)
-            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | tee /etc/apt/sources.list.d/r-project.list
+            # Add CRAN repository directly (Debian Bullseye)
+            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/debian bullseye-cran40/" | tee /etc/apt/sources.list.d/r-project.list
 
             # Update and install R
             apt-get update -y -o Acquire::Retries=3 || true
@@ -634,8 +634,8 @@ jobs:
             gpg --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
             gpg --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | tee /etc/apt/trusted.gpg.d/r-project.gpg > /dev/null
 
-            # Add CRAN repository directly (Ubuntu 22.04/Jammy)
-            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/" | tee /etc/apt/sources.list.d/r-project.list
+            # Add CRAN repository directly (Debian Bullseye)
+            echo "deb [signed-by=/etc/apt/trusted.gpg.d/r-project.gpg] https://cloud.r-project.org/bin/linux/debian bullseye-cran40/" | tee /etc/apt/sources.list.d/r-project.list
 
             # Update and install R
             apt-get update -y -o Acquire::Retries=3 || true
