@@ -23,31 +23,13 @@ class PostInstallCommand(install):
 
     def run(self):
         install.run(self)
-        import os
-        import shutil
-        from pathlib import Path
-
         try:
-            import canvasxpress
-
-            package_dir = os.path.dirname(canvasxpress.__file__)
-            skill_names = ['canvasxpress_charts', 'notebook_builder', 'code_validator']
-
-            for skill_name in skill_names:
-                skill_file = os.path.join(package_dir, 'agent_skills', skill_name, 'SKILL.md')
-
-                if os.path.exists(skill_file):
-                    opencode_dest = Path.home() / '.opencode/skills' / skill_name / 'SKILL.md'
-                    opencode_dest.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(skill_file, opencode_dest)
-
-                    claude_dest = Path.home() / '.agents/skills' / skill_name / 'SKILL.md'
-                    claude_dest.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(skill_file, claude_dest)
-
+            from canvasxpress.agent_skills.registry import install_skills
+            install_skills(target='all', force=True)
             print("CanvasXpress agent skills installed successfully.")
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Warning: Failed to auto-install agent skills: {e}")
+            print("Skills can be installed manually via: canvasxpress --target all --force")
 
 
 setup(

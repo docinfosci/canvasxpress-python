@@ -1,4 +1,27 @@
 # Python images provided by https://hub.docker.com/_/python
+#
+# Build profiles:
+#   build-python-oldest   : python:3.8.18-bullseye (Debian 11)
+#   build-python-general  : python:3.10.12-bullseye (Debian 11)
+#   build-python-latest   : python:3.13-bullseye   (Debian 11)
+#
+# IMPORTANT: CircleCI uses Debian Bullseye, NOT Ubuntu.
+# - Use https://cloud.r-project.org/bin/linux/debian bullseye-cran40/ for R
+# - Use apt-get with Debian packages, NOT Ubuntu packages
+# - Docker base image is python:3.10.12-bullseye (Debian 11)
+#
+# R Dependency:
+# - rpy2 requires R installed via Debian Bullseye CRAN repo (bullseye-cran40)
+# - MUST use --fix-missing because Bullseye security repos moved packages to archives
+# - CircleCI runs each run: step in a separate shell
+# - R_HOME must be persisted across steps via $HOME/.r_home file
+#   1. Install R step: saves R_HOME to $HOME/.r_home
+#   2. Subsequent steps: load R_HOME from $HOME/.r_home
+#
+# Python 3.8 Compatibility:
+# - importlib.resources.files() was added in Python 3.9
+# - registry.py must use pkg_resources fallback for Python 3.8
+# - _read_module_file() already handles this with sys.version_info check
 
 version: 2.1
 
@@ -69,14 +92,36 @@ jobs:
               make \
               cmake \
               build-essential \
-              r-base \
-              r-base-dev \
               unzip \
               || true
 
             # Clean up apt cache to save disk space
             apt-get clean
             rm -rf /var/lib/apt/lists/*
+
+      - run:
+          name: Install R for rpy2
+          command: |
+            # Update package lists
+            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
+
+            # Install R from Debian Bullseye repos with fix-missing
+            apt-get install -y -o Acquire::Retries=3 --fix-missing r-base r-base-dev || true
+
+            # Save R_HOME to a file for use in subsequent CI steps
+            R_HOME=$(R RHOME)
+            if [ -n "$R_HOME" ]; then
+              echo "$R_HOME" > $HOME/.r_home
+              export R_HOME
+              echo "R_HOME set to: $R_HOME"
+            fi
+
+            # Verify R installation
+            if command -v R &> /dev/null; then
+              R --version | head -1
+            else
+              echo "WARNING: R installation failed, rpy2 may not work"
+            fi
 
       - run:
           name: Install Web drivers
@@ -144,6 +189,12 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load R_HOME for rpy2 installation
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+              echo "R_HOME loaded: $R_HOME"
+            fi
+
             # Load NVM for Node.js access (needed by invoke init)
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -214,6 +265,11 @@ jobs:
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Load R_HOME for tests that use rpy2
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+            fi
 
             # Activate virtual environment
             source ./venv/bin/activate
@@ -337,14 +393,36 @@ jobs:
               make \
               cmake \
               build-essential \
-              r-base \
-              r-base-dev \
               unzip \
               || true
 
             # Clean up apt cache to save disk space
             apt-get clean
             rm -rf /var/lib/apt/lists/*
+
+      - run:
+          name: Install R for rpy2
+          command: |
+            # Update package lists
+            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
+
+            # Install R from Debian Bullseye repos with fix-missing
+            apt-get install -y -o Acquire::Retries=3 --fix-missing r-base r-base-dev || true
+
+            # Save R_HOME to a file for use in subsequent CI steps
+            R_HOME=$(R RHOME)
+            if [ -n "$R_HOME" ]; then
+              echo "$R_HOME" > $HOME/.r_home
+              export R_HOME
+              echo "R_HOME set to: $R_HOME"
+            fi
+
+            # Verify R installation
+            if command -v R &> /dev/null; then
+              R --version | head -1
+            else
+              echo "WARNING: R installation failed, rpy2 may not work"
+            fi
 
       - run:
           name: Install Web drivers
@@ -412,6 +490,12 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load R_HOME for rpy2 installation
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+              echo "R_HOME loaded: $R_HOME"
+            fi
+
             # Load NVM for Node.js access (needed by invoke init)
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -468,6 +552,11 @@ jobs:
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Load R_HOME for tests that use rpy2
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+            fi
 
             # Activate virtual environment
             source ./venv/bin/activate
@@ -544,14 +633,36 @@ jobs:
               make \
               cmake \
               build-essential \
-              r-base \
-              r-base-dev \
               unzip \
               || true
 
             # Clean up apt cache to save disk space
             apt-get clean
             rm -rf /var/lib/apt/lists/*
+
+      - run:
+          name: Install R for rpy2
+          command: |
+            # Update package lists
+            apt-get update -y -o Acquire::Retries=3 -o Acquire::http::No-Cache=true || true
+
+            # Install R from Debian Bullseye repos with fix-missing
+            apt-get install -y -o Acquire::Retries=3 --fix-missing r-base r-base-dev || true
+
+            # Save R_HOME to a file for use in subsequent CI steps
+            R_HOME=$(R RHOME)
+            if [ -n "$R_HOME" ]; then
+              echo "$R_HOME" > $HOME/.r_home
+              export R_HOME
+              echo "R_HOME set to: $R_HOME"
+            fi
+
+            # Verify R installation
+            if command -v R &> /dev/null; then
+              R --version | head -1
+            else
+              echo "WARNING: R installation failed, rpy2 may not work"
+            fi
 
       - run:
           name: Install Web drivers
@@ -619,6 +730,12 @@ jobs:
       - run:
           name: Install Python dependencies
           command: |
+            # Load R_HOME for rpy2 installation
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+              echo "R_HOME loaded: $R_HOME"
+            fi
+
             # Load NVM for Node.js access (needed by invoke init)
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -675,6 +792,11 @@ jobs:
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            # Load R_HOME for tests that use rpy2
+            if [ -f "$HOME/.r_home" ]; then
+              export R_HOME=$(cat $HOME/.r_home)
+            fi
 
             # Activate virtual environment
             source ./venv/bin/activate

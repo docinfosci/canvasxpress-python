@@ -7,6 +7,22 @@ tools:
   - canvasxpress
 ---
 
+## Trigger Keywords
+
+Route to this skill when the user wants to validate or verify CanvasXpress code. Common phrases include:
+
+- "validate this CanvasXpress code"
+- "check if this chart code is correct"
+- "verify the syntax of {chart code}"
+- "test this CanvasXpress example"
+- "make sure this code works"
+- "is this CanvasXpress code valid?"
+- "run syntax check on {code}"
+- "validate the events in this code"
+- "check for errors in {chart code}"
+
+> **Note:** This skill validates code structure but you MUST also load `canvasxpress_charts` to know what patterns are correct.
+
 ## CRITICAL: Load canvasxpress_charts Skill First
 
 **BEFORE validating ANY CanvasXpress code, you MUST load the `canvasxpress_charts` skill.**
