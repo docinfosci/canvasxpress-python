@@ -6,8 +6,9 @@ installed with the canvasxpress package. Uses importlib.resources and
 setuptools entry points for platform-agnostic discovery.
 """
 
+import shutil
 import sys
-from importlib.metadata import entry_points
+from importlib.metadata import entry_points, version as get_version
 from pathlib import Path
 
 
@@ -33,6 +34,18 @@ def _read_module_file(module_path, filename):
         return importlib.resources.read_text(module_path, filename, encoding='utf-8')
 
 
+def _skill_source(ep):
+    """Directory containing the skill's SKILL.md and its supporting files."""
+    import importlib.resources
+    if sys.version_info >= (3, 9):
+        # Python 3.9+ has importlib.resources.files()
+        return Path(str(importlib.resources.files(ep.value)))
+    else:
+        # Python 3.8 uses pkg_resources fallback
+        import pkg_resources
+        return Path(pkg_resources.resource_filename(ep.value, ''))
+
+
 def discover_skills():
     """
     Scan the installed environment for canvasxpress agent skills
@@ -40,28 +53,67 @@ def discover_skills():
 
     Returns:
         dict: Mapping of skill names to their content with metadata.
-              Example: {"canvasxpress_charts": {"name": "canvasxpress_charts", "content": "..."}, ...}
+              Each entry includes:
+              - 'name': The skill name
+              - 'content': The SKILL.md content
+              - 'path': The directory path to supporting files
+              Example: {"canvasxpress_charts": {"name": "canvasxpress_charts", "content": "...", "path": "/path/to/skill"}, ...}
     """
     skills_map = {}
     eps = _get_entry_points()
 
     for ep in eps:
-        module_path = ep.value
         try:
-            content = _read_module_file(module_path, "SKILL.md")
+            source_dir = _skill_source(ep)
+            skill_md_path = source_dir / "SKILL.md"
+            if not skill_md_path.is_file():
+                print(f"skip {ep.name}: no SKILL.md in {source_dir}")
+                continue
+            content = skill_md_path.read_text(encoding='utf-8')
             skills_map[ep.name] = {
                 "name": ep.name,
-                "content": content
+                "content": content,
+                "path": str(source_dir)
             }
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Failed to discover skill '{ep.name}': {e}")
 
     return skills_map
 
 
+def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
+    """Copy one skill directory. Returns the number of markdown files written."""
+    if not (src / "SKILL.md").is_file():
+        print(f"skip {name}: no SKILL.md in {src}")
+        return 0
+
+    target = dest_root / name
+    if target.exists():
+        if not force:
+            print(f"skip {name}: already present at {target} (use --force to replace)")
+            return 0
+        shutil.rmtree(target)
+
+    shutil.copytree(
+        src, target,
+        ignore=shutil.ignore_patterns("__pycache__", "*.py", "*.pyc")
+    )
+
+    # Write provenance stamp
+    try:
+        pkg_version = get_version('canvasxpress')
+    except Exception:
+        pkg_version = 'unknown'
+    (target / ".skill-version").write_text(pkg_version, encoding='utf-8')
+
+    count = len(list(target.rglob("*.md")))
+    print(f"installed {name} -> {target} ({count} markdown files)")
+    return count
+
+
 def install_skills(target: str = 'all', force: bool = False) -> None:
     """
-    Install CanvasXpress agent skills to OpenCode, Claude Code, oMLX, and/or Ollama directories.
+    Install CanvasXpress agent skills to OpenCode, Claude Code, and/or agents directories.
 
     Args:
         target: Where to install skills. Options:
@@ -70,11 +122,8 @@ def install_skills(target: str = 'all', force: bool = False) -> None:
             - 'agents': ~/.agents/skills/
             - 'all': Install to all directories (default)
             - 'both': Install to opencode and agents only
-        force: If True, overwrite existing skill files.
+        force: If True, overwrite existing skill directories.
     """
-    import importlib.resources
-    from pathlib import Path
-
     home = Path.home()
     target_map = {
         'opencode': home / '.config' / 'opencode' / 'skills',
@@ -98,34 +147,18 @@ def install_skills(target: str = 'all', force: bool = False) -> None:
         print("No CanvasXpress skills found. Is the package properly installed?")
         sys.exit(1)
 
+    total_installed = 0
     for ep in eps:
-        module_path = ep.value
-        try:
-            skill_content = _read_module_file(module_path, "SKILL.md")
-            # Handle sub-skills: if name contains '.', install as subdirectory
-            skill_name = ep.name
-            parts = skill_name.split('.')
-            if len(parts) > 1:
-                # Sub-skill: use full path (e.g., canvasxpress_charts.events -> canvasxpress_charts/events)
-                relative_path = '/'.join(parts)
-            else:
-                relative_path = skill_name
+        source_dir = _skill_source(ep)
+        skill_name = ep.name
+        for skills_dir in targets:
+            count = _install_one(source_dir, skills_dir, skill_name, force)
+            total_installed += count
 
-            for skills_dir in targets:
-                try:
-                    dest = skills_dir / relative_path / "SKILL.md"
-                    dest.parent.mkdir(parents=True, exist_ok=True)
-                    if dest.exists() and not force:
-                        print(f"Skill file already exists at {dest}. Use --force to overwrite.")
-                        continue
-                    dest.write_text(skill_content, encoding="utf-8")
-                    print(f"CanvasXpress skill '{skill_name}' installed to: {dest}")
-                except PermissionError:
-                    print(f"Permission denied: Cannot write to {skills_dir}. Skipping.")
-                except OSError as e:
-                    print(f"OS error writing to {skills_dir}: {e}. Skipping.")
-        except Exception as e:
-            print(f"Failed to install skill '{skill_name}': {e}")
+    if total_installed == 0 and not force:
+        print("No skills were installed. All skills are already present. Use --force to replace.")
+    elif total_installed == 0 and force:
+        print("No skills were installed. Check that the package is properly installed.")
 
 
 def cli() -> None:
@@ -153,7 +186,7 @@ def cli() -> None:
             print("  --target, -t TARGET  Where to install:")
             print("                       'opencode', 'claude', 'agents'")
             print("                       'all' (all frameworks), 'both' (opencode + agents)")
-            print("  --force, -f          Overwrite existing skill files")
+            print("  --force, -f          Overwrite existing skill directories")
             print("  --help, -h           Show this help")
             sys.exit(0)
         else:

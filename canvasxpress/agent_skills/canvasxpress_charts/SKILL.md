@@ -3,6 +3,30 @@ name: canvasxpress_charts
 description: Generate production-ready CanvasXpress Python charts. Supports creating charts from scratch with DataFrame or XYZ data, converting DataFrames to XYZ for metadata enhancement, translating Plotly or Matplotlib code to CanvasXpress equivalents, rendering to any framework (Jupyter, Dash, Shiny, Streamlit, Flask, browser), and exporting to images or JSON. Use when creating data visualizations, charts, or converting from Plotly/Matplotlib.
 ---
 
+## Trigger Keywords
+
+Route to this skill when the user wants to create or discuss charts, graphs, plots, or data visualizations. Common phrases include:
+
+- "make me a {chart|graph|plot|illustration} of {data}"
+- "I want to plot {data} as a {chart type}"
+- "I want a {chart type} of {data description}"
+- "create a visualization of {data}"
+- "show me a {chart type} of {data}"
+- "visualize the {data type} data"
+- "generate a chart for {purpose}"
+- "display {data} as a {chart type}"
+- "plot {variable} against {variable}"
+- "compare {items} using a {chart type}"
+- "show the distribution of {data}"
+- "illustrate {relationship} with a chart"
+- "draw a {chart type} diagram"
+- "help me create a chart"
+- "convert my Plotly/Matplotlib code to CanvasXpress"
+
+Chart types the user might mention: bar, line, scatter, heatmap, pie, boxplot, violin, network, tree, sunburst, treemap, venn, funnel, radar, area, stacked, streamgraph, lollipop, bullet, waterfall, dotplot, dumbbell, histogram, density, contour, correlation, chord, map, gantt, SPLOM, oncoprint.
+
+> **Note:** The word "graph" can be a noun ("make me a bar graph") or verb ("make a chart and graph it"). Only invoke this skill when the user is requesting chart creation. When "graph" appears as a verb (e.g., "show it", "graph it", "display it", "render it"), this is referring to calling `graph(cx)` to render the chart - which is a secondary step after chart creation.
+
 ## Core API Reference
 
 Primary imports the agent should always include:

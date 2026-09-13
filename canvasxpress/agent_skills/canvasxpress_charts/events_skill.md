@@ -1,8 +1,3 @@
----
-name: canvasxpress_events
-description: CanvasXpress event handling for the four supported hooks (click, dblclick, mousemove, mouseout), event handler patterns using JavaScript context variables (o, e, t), and post-render function calls. Use when creating interactive charts with custom click/double-click/hover behaviors, tooltips, effects, or any interactive event handling.
----
-
 # Events & Interactivity
 
 ## Required Imports
@@ -14,7 +9,7 @@ from canvasxpress.js.collection import CXEvents
 from canvasxpress.plot import graph
 ```
 
-> **Note:** Use `CXEvent` for a single event or `CXEvents` to wrap multiple events. CanvasXpress accepts both `CXEvent` and `CXEvents` as the `events` parameter.
+> **Note:** Use `CXEvent` to define individual event handlers. Events must be wrapped in `CXEvents(...)` or a Python list `[...]` - a single `CXEvent` is NOT accepted directly by CanvasXpress.
 
 ## Trigger Keywords
 
