@@ -69,8 +69,6 @@ jobs:
               make \
               cmake \
               build-essential \
-              r-base \
-              r-base-dev \
               unzip \
               || true
 
@@ -79,6 +77,24 @@ jobs:
             rm -rf /var/lib/apt/lists/*
 
       - run:
+
+      - run:
+          name: Install R for rpy2
+          command: |
+            # Add CRAN repository for R installation (Ubuntu 22.04/Jammy)
+            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+            add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/'
+
+            # Update and install R
+            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
+
+            # Verify R installation
+            if command -v R &> /dev/null; then
+              R --version | head -1
+            else
+              echo "WARNING: R installation failed, rpy2 may not work"
+            fi
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -337,8 +353,6 @@ jobs:
               make \
               cmake \
               build-essential \
-              r-base \
-              r-base-dev \
               unzip \
               || true
 
@@ -347,6 +361,24 @@ jobs:
             rm -rf /var/lib/apt/lists/*
 
       - run:
+
+      - run:
+          name: Install R for rpy2
+          command: |
+            # Add CRAN repository for R installation (Ubuntu 22.04/Jammy)
+            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+            add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/'
+
+            # Update and install R
+            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
+
+            # Verify R installation
+            if command -v R &> /dev/null; then
+              R --version | head -1
+            else
+              echo "WARNING: R installation failed, rpy2 may not work"
+            fi
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive
@@ -544,8 +576,6 @@ jobs:
               make \
               cmake \
               build-essential \
-              r-base \
-              r-base-dev \
               unzip \
               || true
 
@@ -554,6 +584,24 @@ jobs:
             rm -rf /var/lib/apt/lists/*
 
       - run:
+
+      - run:
+          name: Install R for rpy2
+          command: |
+            # Add CRAN repository for R installation (Ubuntu 22.04/Jammy)
+            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+            add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/'
+
+            # Update and install R
+            apt-get update -y -o Acquire::Retries=3 || true
+            apt-get install -y -o Acquire::Retries=3 r-base r-base-dev || true
+
+            # Verify R installation
+            if command -v R &> /dev/null; then
+              R --version | head -1
+            else
+              echo "WARNING: R installation failed, rpy2 may not work"
+            fi
           name: Install Web drivers
           command: |
             export DEBIAN_FRONTEND=noninteractive

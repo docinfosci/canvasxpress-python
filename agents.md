@@ -30,6 +30,15 @@ The virtual environment is managed using python:
 ## Build Process
 The `build_local.sh` script is used to prepare the package for publication. It runs tests and executes various tools such as `build_pkg_setup.py` to ensure the package is ready for distribution.
 
+### Build Platforms
+- **Local development (macOS)**: Uses Homebrew to install R (`brew install r`) and Node.js (`nvm install`). Run `./build_local.sh` to build.
+- **CI/CD (Ubuntu)**: CircleCI builds install R via CRAN repository and Node.js via NVM. Three build profiles: `build-python-oldest`, `build-python-latest`, `build-python-general`.
+
+### R Dependency
+The `rpy2` package requires R to be installed:
+- **macOS**: `brew install r` (via Homebrew)
+- **Ubuntu/CI**: Added via CRAN repository in CircleCI config
+
 ### Skill Installation Validation
 During local builds, the skill installation is validated to ensure all expected skills are present:
 
@@ -50,16 +59,16 @@ During local builds, the skill installation is validated to ensure all expected 
    - The `canvasxpress` CLI can be used to reinstall skills: `canvasxpress --force`
 
 4. **Manual skill installation:**
-   ```terminal
-   canvasxpress --target all --force
-   ```
-   Available targets: `opencode`, `claude`, `agents`, `all` (default), or `both` (opencode + agents).
+    ```terminal
+    canvasxpress --target all --force
+    ```
+    Available targets: `opencode`, `claude`, `agents`, `all` (default), or `both` (opencode + agents).
 
 5. **Skill verification:**
-   After installation, verify skills are present:
-   ```terminal
-   ls ~/.agents/skills/
-   ls ~/.config/opencode/skills/
-   ls ~/.claude/skills/
-   ```
-   Each directory should contain: `canvasxpress_charts`, `canvasxpress_events`, `canvasxpress_notebooks`, `canvasxpress_validator`.
+    After installation, verify skills are present:
+    ```terminal
+    ls ~/.agents/skills/
+    ls ~/.config/opencode/skills/
+    ls ~/.claude/skills/
+    ```
+    Each directory should contain: `canvasxpress_charts`, `canvasxpress_events`, `canvasxpress_notebooks`, `canvasxpress_validator`.

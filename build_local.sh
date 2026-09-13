@@ -54,6 +54,20 @@ if [[ "$OS" == "linux" ]]; then
 
     apt-get clean
     rm -rf /var/lib/apt/lists/*
+
+elif [[ "$OS" == "darwin" ]]; then
+    echo ""
+    echo "Installing system packages via Homebrew..."
+
+    # Install R via Homebrew for rpy2
+    if ! command -v R &> /dev/null; then
+      brew install r || true
+    else
+      echo "R is already installed: $(R --version | head -1)"
+    fi
+
+    # Ensure Node.js installation directory exists for NVM
+    mkdir -p "$HOME/.nvm"
 fi
 
 # Install NVM and Node.js 18
