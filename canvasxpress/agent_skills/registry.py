@@ -8,7 +8,7 @@ setuptools entry points for platform-agnostic discovery.
 
 import shutil
 import sys
-from importlib.metadata import entry_points
+from importlib.metadata import entry_points, version as get_version
 from pathlib import Path
 
 
@@ -95,11 +95,10 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
 
     # Write provenance stamp
     try:
-        import canvasxpress
-        version = getattr(canvasxpress, '__version__', 'unknown')
-    except ImportError:
-        version = 'unknown'
-    (target / ".skill-version").write_text(version, encoding='utf-8')
+        pkg_version = get_version('canvasxpress')
+    except Exception:
+        pkg_version = 'unknown'
+    (target / ".skill-version").write_text(pkg_version, encoding='utf-8')
 
     count = len(list(target.rglob("*.md")))
     print(f"installed {name} -> {target} ({count} markdown files)")
