@@ -1,4 +1,27 @@
 # Python images provided by https://hub.docker.com/_/python
+#
+# Build profiles:
+#   build-python-oldest   : python:3.8.18-bullseye (Debian 11)
+#   build-python-general  : python:3.10.12-bullseye (Debian 11)
+#   build-python-latest   : python:3.13-bullseye   (Debian 11)
+#
+# IMPORTANT: CircleCI uses Debian Bullseye, NOT Ubuntu.
+# - Use https://cloud.r-project.org/bin/linux/debian bullseye-cran40/ for R
+# - Use apt-get with Debian packages, NOT Ubuntu packages
+# - Docker base image is python:3.10.12-bullseye (Debian 11)
+#
+# R Dependency:
+# - rpy2 requires R installed via Debian Bullseye CRAN repo (bullseye-cran40)
+# - MUST use --fix-missing because Bullseye security repos moved packages to archives
+# - CircleCI runs each run: step in a separate shell
+# - R_HOME must be persisted across steps via $HOME/.r_home file
+#   1. Install R step: saves R_HOME to $HOME/.r_home
+#   2. Subsequent steps: load R_HOME from $HOME/.r_home
+#
+# Python 3.8 Compatibility:
+# - importlib.resources.files() was added in Python 3.9
+# - registry.py must use pkg_resources fallback for Python 3.8
+# - _read_module_file() already handles this with sys.version_info check
 
 version: 2.1
 

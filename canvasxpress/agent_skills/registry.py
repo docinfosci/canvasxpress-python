@@ -37,7 +37,13 @@ def _read_module_file(module_path, filename):
 def _skill_source(ep):
     """Directory containing the skill's SKILL.md and its supporting files."""
     import importlib.resources
-    return Path(str(importlib.resources.files(ep.value)))
+    if sys.version_info >= (3, 9):
+        # Python 3.9+ has importlib.resources.files()
+        return Path(str(importlib.resources.files(ep.value)))
+    else:
+        # Python 3.8 uses pkg_resources fallback
+        import pkg_resources
+        return Path(pkg_resources.resource_filename(ep.value, ''))
 
 
 def discover_skills():
