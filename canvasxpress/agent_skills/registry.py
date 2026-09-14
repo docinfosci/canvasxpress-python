@@ -81,10 +81,11 @@ def discover_skills():
     return skills_map
 
 
-def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
+def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bool = True) -> int:
     """Copy one skill directory. Returns the number of markdown files written."""
     if not (src / "SKILL.md").is_file():
-        print(f"skip {name}: no SKILL.md in {src}")
+        if verbose:
+            print(f"skip {name}: no SKILL.md in {src}")
         return 0
 
     target = dest_root / name
@@ -102,9 +103,11 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
             except Exception:
                 pass
             if not needs_update:
-                print(f"skip {name}: up to date at {target}")
+                if verbose:
+                    print(f"skip {name}: up to date at {target}")
                 return 0
-            print(f"replace {name}: out of date at {target}")
+            if verbose:
+                print(f"replace {name}: out of date at {target}")
         shutil.rmtree(target)
 
     shutil.copytree(
@@ -120,11 +123,12 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
     (target / ".skill-version").write_text(pkg_version, encoding='utf-8')
 
     count = len(list(target.rglob("*.md")))
-    print(f"installed {name} -> {target} ({count} markdown files)")
+    if verbose:
+        print(f"installed {name} -> {target} ({count} markdown files)")
     return count
 
 
-def install_skills(target: str = 'all', force: bool = False) -> bool:
+def install_skills(target: str = 'all', force: bool = False, verbose: bool = True) -> bool:
     """
     Install CanvasXpress agent skills to OpenCode, Claude Code, and/or agents directories.
 
@@ -136,6 +140,7 @@ def install_skills(target: str = 'all', force: bool = False) -> bool:
             - 'all': Install to all directories (default)
             - 'both': Install to opencode and agents only
         force: If True, overwrite existing skill directories.
+        verbose: If True, print status messages.
 
     Returns:
         True if all skills are installed and up to date, False otherwise.
@@ -168,7 +173,7 @@ def install_skills(target: str = 'all', force: bool = False) -> bool:
         source_dir = _skill_source(ep)
         skill_name = ep.name
         for skills_dir in targets:
-            count = _install_one(source_dir, skills_dir, skill_name, force)
+            count = _install_one(source_dir, skills_dir, skill_name, force, verbose)
             total_installed += count
 
     if total_installed == 0 and not force:
