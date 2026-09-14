@@ -147,19 +147,22 @@ class TestInstallSkills:
         assert agents_path.exists()
 
     def test_install_skills_no_force(self, mock_entry_points, tmp_path, monkeypatch):
-        """Test that existing directory is not overwritten without force."""
+        """Test that existing directory is not overwritten without force when up to date."""
         from canvasxpress.agent_skills.registry import install_skills
 
         mock_home = tmp_path / "home"
         mock_home.mkdir()
         monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
-        # Create existing skill directory with custom SKILL.md
+        # Create existing skill directory with matching version stamp
         existing_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
         existing_dir.mkdir(parents=True, exist_ok=True)
         (existing_dir / "SKILL.md").write_text("Old content")
+        (existing_dir / ".skill-version").write_text("0.0.0", encoding="utf-8")
 
-        install_skills(target="opencode", force=False)
+        with patch("canvasxpress.agent_skills.registry.get_version") as mock_get_version:
+            mock_get_version.return_value = "0.0.0"
+            install_skills(target="opencode", force=False)
 
         # Directory should not be modified
         assert (existing_dir / "SKILL.md").read_text() == "Old content"
@@ -231,22 +234,25 @@ class TestInstallSkills:
                 assert not "__pycache__" in str(p), f"Found __pycache__: {p}"
 
     def test_install_skills_no_force_skips_existing(self, mock_entry_points, tmp_path, monkeypatch, capsys):
-        """Test that without --force, existing skills are skipped."""
+        """Test that without --force, existing skills are skipped when up to date."""
         from canvasxpress.agent_skills.registry import install_skills
 
         mock_home = tmp_path / "home"
         mock_home.mkdir()
         monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
 
-        # Create existing skill directory
+        # Create existing skill directory with matching version stamp
         existing_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
         existing_dir.mkdir(parents=True, exist_ok=True)
         (existing_dir / "SKILL.md").write_text("Old content")
+        (existing_dir / ".skill-version").write_text("0.0.0", encoding="utf-8")
 
-        install_skills(target="opencode", force=False)
+        with patch("canvasxpress.agent_skills.registry.get_version") as mock_get_version:
+            mock_get_version.return_value = "0.0.0"
+            install_skills(target="opencode", force=False)
 
         output = capsys.readouterr().out
-        assert "already present" in output or "skip" in output
+        assert "skip" in output or "up to date" in output
 
     def test_install_skills_provenance_stamp(self, mock_entry_points, tmp_path, monkeypatch):
         """Test that .skill-version file is written during installation."""
