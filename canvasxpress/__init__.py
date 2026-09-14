@@ -9,4 +9,7 @@ from canvasxpress.agent_skills.registry import install_skills
 
 __all__ = ['install_skills']
 
-_skills_up_to_date: bool = install_skills(force=False)
+try:
+    _skills_up_to_date: bool = install_skills(force=False)
+except SystemExit:
+    _skills_up_to_date = False
