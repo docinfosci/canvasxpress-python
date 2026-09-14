@@ -25,7 +25,7 @@ class PostInstallCommand(install):
         install.run(self)
         try:
             from canvasxpress.agent_skills.registry import install_skills
-            install_skills(target='all', force=True)
+            install_skills(target='all', force=True, verbose=False)
             print("CanvasXpress agent skills installed successfully.")
         except Exception as e:
             print(f"Warning: Failed to auto-install agent skills: {e}")
@@ -195,3 +195,7 @@ if __name__ == "__main__":
     setup_py_file = open("setup.py", "w")
     setup_py_file.writelines(setup_instructions)
     setup_py_file.close()
+
+    version_file = open("canvasxpress/version.ini", "w")
+    version_file.write(f"__version__ = '{package_version}'\n")
+    version_file.close()
