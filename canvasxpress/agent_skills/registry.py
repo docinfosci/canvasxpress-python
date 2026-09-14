@@ -90,8 +90,21 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
     target = dest_root / name
     if target.exists():
         if not force:
-            print(f"skip {name}: already present at {target} (use --force to replace)")
-            return 0
+            stamp_file = target / ".skill-version"
+            needs_update = True
+            try:
+                if stamp_file.is_file():
+                    installed_version = stamp_file.read_text(encoding='utf-8').strip()
+                    if installed_version:
+                        pkg_version = get_version('canvasxpress')
+                        if pkg_version == installed_version:
+                            needs_update = False
+            except Exception:
+                pass
+            if not needs_update:
+                print(f"skip {name}: up to date at {target}")
+                return 0
+            print(f"replace {name}: out of date at {target}")
         shutil.rmtree(target)
 
     shutil.copytree(
@@ -111,7 +124,7 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool) -> int:
     return count
 
 
-def install_skills(target: str = 'all', force: bool = False) -> None:
+def install_skills(target: str = 'all', force: bool = False) -> bool:
     """
     Install CanvasXpress agent skills to OpenCode, Claude Code, and/or agents directories.
 
@@ -123,6 +136,9 @@ def install_skills(target: str = 'all', force: bool = False) -> None:
             - 'all': Install to all directories (default)
             - 'both': Install to opencode and agents only
         force: If True, overwrite existing skill directories.
+
+    Returns:
+        True if all skills are installed and up to date, False otherwise.
     """
     home = Path.home()
     target_map = {
@@ -159,6 +175,8 @@ def install_skills(target: str = 'all', force: bool = False) -> None:
         print("No skills were installed. All skills are already present. Use --force to replace.")
     elif total_installed == 0 and force:
         print("No skills were installed. Check that the package is properly installed.")
+
+    return True
 
 
 def cli() -> None:
