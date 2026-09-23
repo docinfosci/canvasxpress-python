@@ -1,7 +1,7 @@
 import json
 import uuid
 from copy import deepcopy
-from typing import Union, List, Any
+from typing import Union, List, Any, Dict, Iterable, Optional
 from warnings import warn
 
 from pandas import DataFrame
@@ -55,6 +55,64 @@ from the Python edition.
 _CX_LICENSE_TEMPLATE = "<script src='@cx_license@' type='text/javascript'></script>"
 """The template for declaring a CanvasXpress license file so that charts do
 not render with unlicensed watermarks.
+"""
+
+_CX_MIME_TYPE: str = "application/canvasxpress+json"
+"""The mime type under which a chart specification is published, for notebook
+frontends that render CanvasXpress natively rather than through HTML.
+"""
+
+_CX_MIMEBUNDLE_HTML_TEMPLATE = """<div class="cx-chart">
+@cx_license@
+@cx_canvas@
+<div id="@cx_target_id@-cx-fallback" style="font: 13px system-ui; color: #666">
+CanvasXpress chart &mdash; this notebook frontend did not run the chart script.
+</div>
+<script type="text/javascript">
+(function () {
+  var cssUrl = "@cx_css_url@";
+  var jsUrl = "@cx_js_url@";
+
+  function draw() {
+    var fallback = document.getElementById("@cx_target_id@-cx-fallback");
+    if (fallback && fallback.parentNode) {
+      fallback.parentNode.removeChild(fallback);
+    }
+    if (!document.querySelector('link[href="' + cssUrl + '"]')) {
+      var sheet = document.createElement("link");
+      sheet.rel = "stylesheet";
+      sheet.href = cssUrl;
+      document.head.appendChild(sheet);
+    }
+    @cx_js@
+  }
+
+  if (window.CanvasXpress) {
+    draw();
+    return;
+  }
+
+  var pending = document.querySelector('script[data-cx-loader="1"]');
+  if (pending) {
+    pending.addEventListener("load", draw);
+    return;
+  }
+
+  var loader = document.createElement("script");
+  loader.src = jsUrl;
+  loader.setAttribute("data-cx-loader", "1");
+  loader.onload = draw;
+  loader.onerror = function () {
+    console.error("CanvasXpress: could not load " + jsUrl);
+  };
+  document.head.appendChild(loader);
+})();
+</script>
+</div>
+"""
+"""The template for a self-contained chart suitable for a `text/html` mime
+bundle entry. Frontends that do not execute script in HTML output show the
+fallback text instead of an empty canvas.
 """
 
 _CX_REPR_TEMPLATE = """CanvasXpress(
@@ -1038,6 +1096,74 @@ class CanvasXpress(CXHtmlConvertable):
             cx_web_data["cx_license"] = cx_license
 
         return cx_web_data
+
+    def _repr_mimebundle_(
+        self,
+        include: Optional[Iterable[str]] = None,
+        exclude: Optional[Iterable[str]] = None,
+    ) -> Dict[str, Any]:
+        """*IPython display* hook. Describes the chart in each of the forms a
+        notebook frontend might know how to show, so that a `CanvasXpress`
+        object renders when it is the result of a cell without being passed
+        through a renderer first.
+
+        Three representations are offered, richest last:
+
+        * `text/plain` — the same text `repr()` produces, so frontends that
+          understand neither of the others behave exactly as before.
+        * `text/html` — a self-contained canvas plus the script that draws it.
+          Frontends that do not execute script in HTML output (JupyterLab and
+          Notebook 7 assign output through `innerHTML`, which never runs
+          `<script>`) show a short fallback line instead of an empty canvas.
+        * `application/canvasxpress+json` — the `{data, config}` specification,
+          for frontends with a native CanvasXpress renderer. Event handlers are
+          Javascript and cannot cross a JSON bundle, so they are carried by the
+          `text/html` entry only.
+
+        Args:
+            include: If given, only these mime types are returned.
+            exclude: If given, these mime types are omitted.
+
+        Returns:
+            `dict`: A map of mime type to representation.
+        """
+        element_parts = self.prepare_html_element_parts()
+        specification = {
+            key: element_parts[key]
+            for key in ("data", "config", "afterRender", "width", "height")
+            if element_parts.get(key) is not None
+        }
+
+        html_parts = self.render_to_html_parts()
+        html = render_from_template(
+            _CX_MIMEBUNDLE_HTML_TEMPLATE,
+            {
+                "cx_target_id": self.render_to,
+                "cx_css_url": CanvasXpress.css_library_url(),
+                "cx_js_url": CanvasXpress.js_library_url(),
+                "cx_license": html_parts.get("cx_license", ""),
+                "cx_canvas": html_parts["cx_canvas"],
+            },
+        )
+        # Substituted outside the template helper because the chart script
+        # carries JSON that may legitimately contain '@', which the helper
+        # escapes.
+        html = html.replace("@cx_js@", html_parts["cx_js"])
+
+        bundle = {
+            "text/plain": repr(self),
+            "text/html": html,
+            _CX_MIME_TYPE: specification,
+        }
+
+        if include is not None:
+            included = set(include)
+            bundle = {k: v for k, v in bundle.items() if k in included}
+        if exclude is not None:
+            excluded = set(exclude)
+            bundle = {k: v for k, v in bundle.items() if k not in excluded}
+
+        return bundle
 
     def __str__(self) -> str:
         """*str* function. Converts the `CanvasXpress` object into a JSON
