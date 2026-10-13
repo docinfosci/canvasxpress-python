@@ -19,7 +19,7 @@ jupytext
 dash
 
 # streamlit
-streamlit>=1.52
+streamlit>=1.31
 
 # shiny
 shiny
