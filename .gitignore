@@ -321,7 +321,9 @@ allure-results/
 coverage-results/
 
 # Python Project Ignores
-setup.py
+
+# Generated version file (created by build_pkg_setup.py at build time)
+canvasxpress/version.ini
 
 # Documentation Ignores
 build/**
