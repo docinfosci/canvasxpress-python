@@ -7,7 +7,7 @@ echo "  CanvasXpress Python Build (Local)"
 echo "========================================"
 echo ""
 
-# Detect OS
+# ── OS detection and system dependencies ────────────────────────────────────
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     OS="linux"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -19,14 +19,11 @@ fi
 
 echo "Detected OS: $OS"
 
-# Install system dependencies
 if [[ "$OS" == "linux" ]]; then
-    echo ""
     echo "Installing system packages..."
     export DEBIAN_FRONTEND=noninteractive
     export DEBIAN_PRIORITY=critical
 
-    # Fix expired repository issue by synchronizing clock
     if command -v ntpdate &> /dev/null; then
       ntpdate -s time.nist.gov 2>/dev/null || true
     elif command -v chronyc &> /dev/null; then
@@ -41,36 +38,25 @@ if [[ "$OS" == "linux" ]]; then
     apt-get update -y -o Acquire::Retries=3 || true
 
     apt-get install -y -o Acquire::Retries=3 \
-      debconf-utils \
-      dialog \
-      apt-utils \
-      wget \
-      curl \
-      gcc \
-      make \
-      cmake \
-      build-essential \
+      debconf-utils dialog apt-utils wget curl gcc make cmake build-essential \
       || true
 
     apt-get clean
     rm -rf /var/lib/apt/lists/*
 
 elif [[ "$OS" == "darwin" ]]; then
-    echo ""
     echo "Installing system packages via Homebrew..."
 
-    # Install R via Homebrew for rpy2
     if ! command -v R &> /dev/null; then
       brew install r || true
     else
       echo "R is already installed: $(R --version | head -1)"
     fi
 
-    # Ensure Node.js installation directory exists for NVM
     mkdir -p "$HOME/.nvm"
 fi
 
-# Install NVM and Node.js 18
+# ── Node.js (needed by Dash component build) ────────────────────────────────
 echo ""
 echo "Installing Node.js 18..."
 export NVM_DIR="$HOME/.nvm"
@@ -87,7 +73,7 @@ nvm alias default 18
 echo "Node.js version: $(node --version)"
 echo "NPM version: $(npm --version)"
 
-# Create virtual environment
+# ── Python virtual environment & dependencies ───────────────────────────────
 echo ""
 echo "Setting up Python virtual environment..."
 if ! [[ -d ./venv ]] ; then
@@ -97,17 +83,22 @@ source ./venv/bin/activate
 
 echo "Python version: $(python3 --version)"
 
-# Install Python dependencies
-echo ""
-echo "Installing Python dependencies..."
-pip config set global.root-user-action ignore 2>/dev/null || true
-pip install --no-cache-dir -U pip==24.3.1 setuptools wheel
-pip install --no-cache-dir -U -r ./requirements-project.txt
-pip install --no-cache-dir -U -r ./requirements.txt
-pip install --no-cache-dir -U -r ./requirements-dev.txt
+# Bootstrap build tools (replaces requirements-project.txt)
+echo "Installing build dependencies..."
+pip install --no-cache-dir -U pip setuptools wheel
+
+# Install project + all extras (replaces requirements.txt)
+echo "Installing project dependencies..."
+uv pip install --no-cache-dir ".[all]"
+
+# Install dev tools (replaces requirements-dev.txt — handled by uv tools)
+echo "Installing dev tools..."
+uv sync
+
+# Run the invoke init step
 invoke init --dev --list
 
-# Build Dash components
+# ── Build Dash components ───────────────────────────────────────────────────
 echo ""
 echo "Building Dash components..."
 cd plotly/cxdash/
@@ -118,7 +109,7 @@ fi
 source ./venv/bin/activate
 
 pip install -U pip setuptools wheel
-pip install -U -r requirements.txt
+uv pip install --no-cache-dir -r requirements.txt
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -127,48 +118,38 @@ nvm use 20
 
 npm install canvasxpress
 npm install canvasxpress-react
-
 npm run build
 cp -R ./cxdash ../../
 
 cd ../../
 
-# Switch back to main venv
+# ── Back to main venv ───────────────────────────────────────────────────────
 deactivate
 source venv/bin/activate
 
-# Static analysis
+# ── Static analysis (replaces prospector → ruff) ────────────────────────────
 echo ""
-echo "Running static analysis..."
-prospector \
-    --zero-exit \
-    --show-profile \
-    --no-autodetect \
-    --strictness low \
-    -o text \
-    ./canvasxpress
+echo "Running static analysis (ruff)..."
+uvx ruff check ./canvasxpress
 
-# Run tests
+# ── Run tests ───────────────────────────────────────────────────────────────
 echo ""
 echo "Running tests..."
 invoke test
 
-# Run reports (disabled for local builds - requires CI token)
-# echo ""
-# echo "Generating reports..."
-# invoke report
-
-# Update VERSION file and generate setup.py
+# ── Update version & build distribution ─────────────────────────────────────
 echo ""
-echo "Updating version and generating setup.py..."
+echo "Generating version.ini..."
 python3 ./build_pkg_setup.py
 
-# Run setup.py
 echo ""
-echo "Running setup.py..."
-python3 setup.py --version
+echo "Building distribution..."
+uv build
 
 echo ""
 echo "========================================"
 echo "  Build Complete!"
 echo "========================================"
+echo ""
+echo "Distributions in ./dist/:"
+ls -la dist/ 2>/dev/null || true

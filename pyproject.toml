@@ -1,6 +1,195 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Project metadata — single source of truth for packaging, publishing and tool
+# configuration.  Replaces the requirements-*.txt chain that previously drove
+# the pip-based build.
+# ─────────────────────────────────────────────────────────────────────────────
+[project]
+name = "canvasxpress"
+dynamic = ["version"]
+description = "CanvasXpress for Python"
+readme = "README.md"
+license.text = "MIT"
+requires-python = ">=3.10"
+
+authors = [
+    { name = "Dr. Isaac Neuhaus", email = "isaac@canvasxpress.org" },
+    { name = "Dr. Constance M. Brett", email = "constance@canvasxpress.org" },
+    { name = "Dr. Todd C. Brett", email = "todd@aggregate-genius.com" },
+    { name = "Dr. Jennifer Walker", email = "jennifer@aggregate-genius.com" },
+    { name = "Eng. Mennahtullah Mabrouk", email = "mennahtullah@aggregate-genius.com" },
+    { name = "Eng. Mohamed Ali", email = "mohamed@aggregate-genius.com" },
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Environment :: Web Environment",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+keywords = [
+    "visualization",
+    "canvas",
+    "charts",
+    "data",
+    "plotting",
+    "science",
+    "statistics",
+    "dash",
+    "shiny",
+    "streamlit",
+    "jupyter",
+]
+
+# ── Core dependencies ───────────────────────────────────────────────────────
+# These are the packages always installed (equivalent to pip install canvasxpress)
+dependencies = [
+    "deepdiff",
+    "gitpython",
+    "pytz",
+    "pandas",
+    "requests",
+    "Deprecated",
+    "importlib_resources>=5.0; python_version < '3.9'",
+]
+
+# ── Optional dependencies (extras) ─────────────────────────────────────────
+# pip install canvasxpress[<extra>]  or  uv add "canvasxpress[<extra>]"
+
+[project.optional-dependencies]
+core = []                              # core dependencies only
+dash = ["dash"]
+jupyter = [
+    "jupyter",
+    "IPython>=7",
+    "beautifulsoup4>=4",
+    "minify-html",
+    "requests",
+    "jupytext",
+]
+streamlit = ["streamlit"]
+shiny = [
+    "shiny",
+    "htmltools",
+    "ipywidgets",
+    "shinywidgets",
+]
+rstudio = ["rpy2"]
+all = [
+    "dash",
+    "jupyter",
+    "streamlit",
+    "shiny",
+    "htmltools",
+    "ipywidgets",
+    "shinywidgets",
+    "rpy2",
+]
+
+# ── Entry points (CLI) ──────────────────────────────────────────────────────
+[project.scripts]
+canvasxpress = "canvasxpress.agent_skills.registry:cli"
+
+# ── Entry points (legacy plugin registry — kept for compatibility) ───────────
+[project.entry-points."canvasxpress.skills"]
+canvasxpress_charts = "canvasxpress.agent_skills.canvasxpress_charts"
+canvasxpress_events = "canvasxpress.agent_skills.canvasxpress_events"
+canvasxpress_notebooks = "canvasxpress.agent_skills.canvasxpress_notebooks"
+canvasxpress_validator = "canvasxpress.agent_skills.canvasxpress_validator"
+
+[project.entry-points."agent_skills.plugins"]
+canvasxpress = "canvasxpress.agent_skills.registry:discover_skills"
+
+# ── Project URLs ────────────────────────────────────────────────────────────
+[project.urls]
+Homepage = "https://github.com/docinfosci/canvasxpress-python"
+Documentation = "https://github.com/docinfosci/canvasxpress-python"
+Repository = "https://github.com/docinfosci/canvasxpress-python.git"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Build system
+# ─────────────────────────────────────────────────────────────────────────────
 [build-system]
 requires = [
     "setuptools>=58.2",
-    "wheel>=0.37"
+    "wheel>=0.37",
+    "hatch-vcs>=0.4",
 ]
 build-backend = "setuptools.build_meta"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Dynamic version — read from canvasxpress/version.ini
+#
+# build_pkg_setup.py generates version.ini at build time with a date-based
+# version (e.g. 2026.10.19.dev142356).  hatch-vcs reads this file when it
+# exists; otherwise it derives the version from git tags.
+# ─────────────────────────────────────────────────────────────────────────────
+[tool.hatch.version]
+path = "canvasxpress/version.ini"
+pattern = ".*__version__\\s*=\\s*['\\\"](?P<version>[^'\\\"]+)['\\\"]"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# UV configuration
+# Dev dependencies from requirements-dev.txt live here, not as PyPI extras.
+# They are installed as uv tools and run via `uvx <name>`.
+# ─────────────────────────────────────────────────────────────────────────────
+[tool.uv]
+# Typical usage:
+#   uv sync          # install project + dev tools into venv
+#   uv build         # build source/wheel distribution
+#   uv add canvasxpress[<extra>]   # use as dependency in another project
+
+# Standalone tools (replaces requirements-dev.txt)
+[tool.uv.tool-dependencies]
+pytest = "^8.0"
+pytest-cov = "^6.0"
+pytest-flask = "^1.3"
+prospector = "^1.11"
+hypothesis = "^6.0"
+coveralls = "^4.0"
+click = "^8.0"
+flask = "^3.0"
+selenium = ">=4.0,<4.9.2"
+scikit-image = "^0.25"
+psutil = "^7.0"
+"dash[dev]" = "^2.0"
+pandas-stubs = "^2.0"
+ruff = "^0.9"
+twine = "^6.0"
+invoke = "^2.0"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Ruff — linting and formatting (Black-compatible)
+# ─────────────────────────────────────────────────────────────────────────────
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "W",    # pycodestyle warnings
+    "I",    # isort
+    "UP",   # pyupgrade
+]
+ignore = [
+    "E501",  # line-length — handled by formatter
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["canvasxpress", "cxdash"]
