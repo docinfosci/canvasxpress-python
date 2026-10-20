@@ -8,8 +8,8 @@ from pandas import DataFrame  # Required for eval
 FORCE_INCLUDE_DATAFRAME_IN_PYCHARM = DataFrame()  # Prevents clean=up removal
 
 import pytest
-from hypothesis import given, settings, HealthCheck
-from hypothesis.extra.pandas import data_frames, column
+from hypothesis import HealthCheck, given, settings
+from hypothesis.extra.pandas import column, data_frames
 
 from canvasxpress.data.matrix import CXDataframeData, merge_dataframes_into_xyz_object
 from tests.util.hypothesis_support import everything_except
@@ -97,7 +97,7 @@ def test_CXDataframeData_repr_perspective():
 def test_CXDataframeData_equality_None():
     sample_a: CXDataframeData = CXDataframeData(df_sample)
 
-    assert sample_a != None
+    assert sample_a is not None
     assert None < sample_a
     assert sample_a > None
 

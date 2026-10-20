@@ -1,10 +1,11 @@
 import json
 from random import random
 
-from cxdash import CXDashElement
 import dash
-from dash.dependencies import Input, Output
 from dash import html
+from dash.dependencies import Input, Output
+
+from cxdash import CXDashElement
 
 app = dash.Dash(__name__)
 
@@ -14,7 +15,7 @@ app.layout = html.Div(
             CXDashElement(
                 width="300",
                 height="400",
-                id=f"example_cx",
+                id="example_cx",
                 data=json.dumps(
                     {
                         "y": {
@@ -42,7 +43,7 @@ app.layout = html.Div(
                         "smpLabelRotate": 90,
                         "smpTitle": "Samples",
                         "theme": "CanvasXpress",
-                        "title": f"Bar Graph Title",
+                        "title": "Bar Graph Title",
                         "xAxis": ["V1"],
                         "xAxisTitle": "Value",
                     }
@@ -96,7 +97,7 @@ def change(n):
                     "smpLabelRotate": 90,
                     "smpTitle": "Samples",
                     "theme": "CanvasXpress",
-                    "title": f"Bar Graph Title",
+                    "title": "Bar Graph Title",
                     "xAxis": ["V1"],
                     "xAxisTitle": "Value",
                 }

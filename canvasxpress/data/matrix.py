@@ -329,7 +329,7 @@ def merge_dataframes_into_xyz_object(
                                 index if isinstance(index, str) else (index.item() if hasattr(index, 'item') else str(index))
                             ] = sample_annotation.dataframe.loc[index]
 
-        except Exception as e:
+        except Exception:
             raise ValueError(
                 "Sample Annotation data (x) cannot be parsed or aligned with Chart data (y)"
             )
@@ -406,7 +406,7 @@ def merge_dataframes_into_xyz_object(
                                 index if isinstance(index, str) else (index.item() if hasattr(index, 'item') else str(index))
                             ] = variable_annotation.dataframe.loc[index]
 
-        except Exception as e:
+        except Exception:
             raise ValueError(
                 "Variable Annotation data (z) cannot be parsed or aligned with Chart data (y)"
             )

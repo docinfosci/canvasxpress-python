@@ -67,7 +67,7 @@ def test_CXEvent_str_perspective(id, script):
 def test_CXEvent_repr_perspective(id, script):
     event = CXEvent(id, script)
     event_repr = repr(event)
-    event_rep = eval(r"{}".format(event_repr))
+    event_rep = eval(rf"{event_repr}")
     assert event_rep == event
 
 
@@ -107,7 +107,7 @@ def test_CXEvent_equality_by_None():
     event: CXEvent = CXEvent("a", "a()")
 
     assert not event < None
-    assert event != None
+    assert event is not None
     assert event > None
     assert None < event
 

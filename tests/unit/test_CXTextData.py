@@ -1,12 +1,9 @@
 import json
-import csv
-from io import StringIO
-from unittest.mock import MagicMock
 
-import pytest
 import pandas as pd
+import pytest
 
-from canvasxpress.data.text import CXTextData, CXDataframeData
+from canvasxpress.data.text import CXDataframeData, CXTextData
 
 
 def test_cx_text_data_init_with_string():
@@ -253,7 +250,7 @@ def test_cx_dataframe_data_equals():
 def test_cx_dataframe_data_equals_none():
     """Test CXDataframeData equality with None."""
     data = CXDataframeData()
-    result = data == None
+    result = data is None
     assert result is False
 
 

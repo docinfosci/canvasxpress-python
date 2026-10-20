@@ -1,11 +1,7 @@
-import tempfile
-from unittest.mock import patch, MagicMock, mock_open
-
-import pytest
+from unittest.mock import patch
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.popup import CXBrowserPopup
-
 
 CX_SIMPLE = CanvasXpress(
     render_to="popup_test",
@@ -61,10 +57,10 @@ def test_cx_browser_popup_init_list():
 def test_cx_browser_popup_render_creates_html_file(tmp_path):
     """Test that render creates an HTML file in temp directory."""
     popup = CXBrowserPopup(CX_SIMPLE)
-    
+
     with patch("canvasxpress.render.popup.webbrowser.open") as mock_open:
         popup.render()
-    
+
     mock_open.assert_called_once()
     call_arg = mock_open.call_args[0][0]
     assert "file://" in call_arg
@@ -134,7 +130,7 @@ def test_cx_browser_popup_render_single_no_copy(tmp_path):
     popup = CXBrowserPopup(CX_SIMPLE)
     original_id = CX_SIMPLE.render_to
 
-    with patch("canvasxpress.render.popup.webbrowser.open") as mock_open:
+    with patch("canvasxpress.render.popup.webbrowser.open"):
         popup.render()
 
     assert CX_SIMPLE.render_to == original_id

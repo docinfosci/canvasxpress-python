@@ -1,18 +1,16 @@
 import json
-import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import (
-    convert_to_reproducible_json,
     convert_from_reproducible_json,
     convert_to_image,
-    show_in_browser,
+    convert_to_reproducible_json,
     graph,
+    show_in_browser,
 )
-
 
 CX_SIMPLE = CanvasXpress(
     render_to="test_chart",

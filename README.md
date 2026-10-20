@@ -1,76 +1,68 @@
-# CanvasXpress for Python
+<div align="left">
 
-<a href="https://www.canvasxpress.org">
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175" style="vertical-align:middle;margin:10px 10px"> 
-</a>
-<br>
+<h1><a href="https://www.canvasxpress.org"><img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" width="48" style="margin:0 8px 0 0; vertical-align:bottom"> CanvasXpress for Python</a></h1>
+
+</div>
 
 **CanvasXpress** is a comprehensive visualization library developed by Dr. Isaac Neuhaus for bioinformatics and systems biology analysis at Bristol-Myers Squibb. It supports more than 30 chart types to display scientific and non-scientific data, with a sophisticated user interface for exploring complex datasets, reproducible research auditing, and broadcasting capabilities to synchronize data points across plots.
 
-The CanvasXpress Python package is maintained by [Dr. Todd C. Brett](https://github.com/docinfosci), with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com). Dr. Constance Brett leads the R library development, while Dr. Isaac Neuhaus maintains the original JavaScript library along with the PHP and R implementations.
-
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
-
-***CanvasXpress*** can be used for native Python integration for the following environments:
-
-- [Shiny for Python](https://shiny.posit.co/py/)
-- [Streamlit](https://streamlit.io/)
-- [Plotly Dash](https://dash.plotly.com/)
-- [Jupyter](https://jupyter.org/)
-- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
-- [Django](https://www.djangoproject.com/)
-
-The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
-
 ## Project Status
 
-[![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
-[![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
-[![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress)
-[![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main)
-[![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
-[![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python)
+[![Release](https://img.shields.io/pypi/v/canvasxpress.svg?style=flat-square)](https://pypi.org/project/canvasxpress)
+[![Python 3.8+](https://img.shields.io/pypi/pyversions/canvasxpress.svg?style=flat-square)](https://pypi.org/project/canvasxpress)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Coverage](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?style=flat-square&branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
 
-## Documentation and Installation
+[![Dash](https://img.shields.io/badge/Dash-000?style=flat-square)](https://dash.plotly.com/)
+[![Shiny](https://img.shields.io/badge/Shiny-1A5FB4?style=flat-square)](https://shiny.posit.co/py/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square)](https://streamlit.io/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square)](https://jupyter.org/)
+[![Flask](https://img.shields.io/badge/Flask-000?style=flat-square)](https://flask.palletsprojects.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square)](https://fastapi.tiangolo.com/)
+[![RStudio](https://img.shields.io/badge/RStudio-75AADB?style=flat-square)](https://posit.co/)
+[![Browser](https://img.shields.io/badge/Browser-4285F4?style=flat-square)](https://en.wikipedia.org/wiki/Web_browser)
 
-### Documentation
+[![Claude](https://img.shields.io/badge/Claude-000?style=flat-square)](https://www.anthropic.com/)
+[![Qwen](https://img.shields.io/badge/Qwen-000?style=flat-square)](https://tongyi.aliyun.com/qwen/)
+[![OpenCode](https://img.shields.io/badge/OpenCode-000?style=flat-square)](https://opencode.ai/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-000?style=flat-square)](https://chatgpt.com/)
+[![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square)](https://cursor.com/)
+[![Gemini](https://img.shields.io/badge/Gemini-4285F4?style=flat-square)](https://gemini.google.com/)
 
-Documentation is maintained on this page and at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
+[![JSON](https://img.shields.io/badge/JSON-000?style=flat-square)](https://www.json.org/)
+[![PNG](https://img.shields.io/badge/PNG-6992B1?style=flat-square)](https://en.wikipedia.org/wiki/PNG)
+[![SVG](https://img.shields.io/badge/SVG-FFB13B?style=flat-square)](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics)
+[![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square)](https://en.wikipedia.org/wiki/HTML)
 
-- [Introduction to CanvasXpress for Python](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
+## Authors & Contributors
 
-### Installation
+| Role | Name |
+|---|---|
+| **Platform Designer & Package Development Lead** | [Dr. Isaac Neuhaus](https://www.linkedin.com/in/isaac-neuhaus-3b3ab5/) |
+| **Python Package Author & Maintainer** | [Dr. Todd C. Brett](https://www.linkedin.com/in/toddbrett/) |
+| **R Package Author & Maintainer** | [Dr. Constance M. Brett](https://www.linkedin.com/in/conniebprofile/) |
+| **Contributors** | Dr. Jennifer Walker · Eng. Mennahtullah Mabrouk · Eng. Mohamed Ali |
 
-CanvasXpress for Python can be installed using _pip_:
+### Quick Start
 
-The essential CanvasXpress package, for use with the CLI or flask and similar environments, can be installed using:
+Create your first chart in five lines:
 
-```terminal
-pip install canvasxpress
+```python
+from canvasxpress import CanvasXpress, plot
+
+chart = CanvasXpress(
+    data={"y": {"data": [[10, 20, 30]], "vars": ["A"]}},
+    config={"graphType": "Bar"}
+)
+plot.show_in_browser(chart)
 ```
-
-or
-
-```terminal
-pip install "canvasxpress[core]"
-```
-
-In addition to _core_, the following additional targets can be used:
-
-- _jupyter_ - installs additional packages to support rendering in Jupyter, Quarto, and IPython documents
-- _dash_ - installs additional packages to support rendering in Plotly Dash applications
-- _streamlit_ - installs additional packages to support rendering in Snowflake Streamlit applications
-- _shiny_ - installs additional packages to support rendering in Posit Shiny for Python applications
-- _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same
-  packages for jupyter and shiny
-- _all_ - installs all additional packages to support rendering in any supported document or application
 
 ## CanvasXpress AI Skills
 
-The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress_charts`) that enable coding assistants (Claude, Cursor, OpenCode, Qwen, and other LLM-based tools) to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories:
+The CanvasXpress Python package ships with built-in AI agent skills (`canvasxpress_charts`, `canvasxpress_events`, `canvasxpress_notebooks`, `canvasxpress_validator`) that enable coding assistants — Claude, Cursor, OpenCode, Qwen, OpenAI, Gemini, and others — to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories (`~/.agents/`, `~/.config/opencode/skills/`, `~/.claude/skills/`).
 
-### What the skills can do
+<details>
+<summary>Click to see what the skills can do</summary>
 
 - **Generate charts from natural language** — Describe your data and desired visualization in plain English; the agent produces complete, validated CanvasXpress Python code
 - **Convert from Plotly/Matplotlib** — Paste existing Plotly or Matplotlib code and get the CanvasXpress equivalent with proper data reshaping
@@ -82,80 +74,26 @@ The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress
 - **Export to images/JSON** — Convert charts to PNG, PDF, or reproducible JSON for sharing and archival
 - **Jupyter notebook creation** — Generate complete Jupyter notebooks with CanvasXpress charts using `canvasxpress_notebooks`
 - **Code validation** — Validate generated code for syntax correctness using `canvasxpress_validator`
-- **Frame work-agnostic rendering** — Works in Jupyter, Dash, Shiny, Streamlit, Flask, and plain Python scripts
+- **Framework-agnostic rendering** — Works in Jupyter, Dash, Shiny, Streamlit, Flask, and plain Python scripts
 
-### Example Prompts
+</details>
 
-Use these as inspiration for prompts you can give to your AI coding assistant:
+<details>
+<summary>Click to see example prompts</summary>
 
-#### Simple Charts
+**Simple Charts:** *"Create a vertical bar chart showing monthly sales (Jan–May: 120, 150, 180, 200, 250). Title it 'Monthly Sales', label axes, and make it 600×500 pixels."*
 
-**Prompt:** "Create a vertical bar chart showing monthly sales (Jan-May: 120, 150, 180, 200, 250). Title it 'Monthly Sales', label axes, and make it 600x500 pixels."
+**Heatmaps & Annotations:** *"Create a heatmap of gene expression data with 3 genes and 3 samples. Add sample annotations for Treatment (Control/Treatment) and Batch (A/B). Use a diverging color scheme and show the annotation legend."*
 
-**Prompt:** "Generate a horizontal bar chart comparing Var 1 and Var 2 across five categories (Cat 1–Cat 5). Show data values inside each bar in white text. Title: 'Bar Graph Showing Data Values'."
+**Scatter Plots & Highlighting:** *"Create a scatter plot of Height vs Weight with 6 individuals. Add a regression line, highlight two individuals in blue using focus mode, and add histograms on the margins."*
 
-#### Heatmaps & Annotations
+**Multi-Chart Dashboards:** *"Create a dashboard with three coordinated charts: a scatter plot, a bar chart, and a heatmap. Clicking a data point in any chart should highlight corresponding data in all others via automatic broadcasting."*
 
-**Prompt:** "Create a heatmap of gene expression data with 3 genes (GeneA, GeneB, GeneC) and 3 samples (Sample1, Sample3). Add sample annotations: Treatment (Control/Treatment) and Batch (A/B). Use a diverging color scheme and show the annotation legend."
+**Conversions:** *"Convert this Plotly code to CanvasXpress: `go.Figure(data=go.Bar(x=['A','B','C'], y=[10,20,30]))` with title 'My Chart'."*
 
-**Prompt:** "Build a dose-response heatmap showing treatment effects across Sites 1–3 and Doses 0–25. Include sample annotations for Dose, Site, and Treatment. Use navy-white-firebrick color spectrum."
+**Advanced Charts:** *"Create a Venn diagram with 3 sets and their pairwise and triple intersections. Include custom legend labels."* / *"Build a network graph with 5 nodes and 7 edges. Color nodes by metadata category, label nodes, and use force-directed layout."*
 
-#### Scatter Plots & Highlighting
-
-**Prompt:** "Create a scatter plot of Height vs Weight with 6 individuals (Keith, Nina, Freddy, Tracey, Isabelle, Penny). Add a regression line, highlight Freddy and Isabelle in blue using focus mode, and add histograms on the margins."
-
-**Prompt:** "Generate a scatter plot comparing Age vs Response with 50 data points. Highlight all points where Age > 40 using predicate-based highlighting. Add axis labels, title, and a blue color scheme."
-
-#### Multi-Chart Dashboards
-
-**Prompt:** "Create a dashboard with three coordinated charts: a scatter plot (Height vs Weight), a bar chart (Age by Gender), and a heatmap (Measurements). Clicking a data point in any chart should highlight corresponding data in all others via automatic broadcasting."
-
-**Prompt:** "Build a DOE dashboard using a bar chart with metadata (Height, Weight, Gender, Exercise) that filters all other charts on the page when users interact with the pie charts and histograms."
-
-#### Conversions
-
-**Prompt:** "Convert this Plotly code to CanvasXpress: `go.Figure(data=go.Bar(x=['A','B','C'], y=[10,20,30]))` with title 'My Chart'."
-
-**Prompt:** "Translate this Matplotlib scatter plot to CanvasXpress: `plt.scatter(heights, weights)` with xlabel 'Height', ylabel 'Weight'."
-
-#### Advanced & Specialty Charts
-
-**Prompt:** "Create a Venn diagram with 3 sets (List1: 340, List2: 562, List3: 620) and their pairwise and triple intersections. Include custom legend labels."
-
-**Prompt:** "Build a network graph with 5 nodes and 7 edges. Color nodes by metadata category, label nodes, and use force-directed layout. Title: 'Interaction Network'."
-
-**Prompt:** "Generate a bullet chart comparing actual vs target performance (V1 actual, V5 target) across 6 samples. Use range colors for performance zones and show data values inside bars."
-
-### Installation
-
-Install the package using pip or uv:
-
-```terminal
-pip install canvasxpress
-```
-
-or
-
-```terminal
-uv add canvasxpress
-```
-
-The skills are automatically installed during package setup to:
-
-- `~/.agents/skills/canvasxpress_charts/SKILL.md`
-- `~/.agents/skills/canvasxpress_events/SKILL.md`
-- `~/.agents/skills/canvasxpress_notebooks/SKILL.md`
-- `~/.agents/skills/canvasxpress_validator/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_charts/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_events/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_notebooks/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_validator/SKILL.md`
-- `~/.claude/skills/canvasxpress_charts/SKILL.md`
-- `~/.claude/skills/canvasxpress_events/SKILL.md`
-- `~/.claude/skills/canvasxpress_notebooks/SKILL.md`
-- `~/.claude/skills/canvasxpress_validator/SKILL.md`
-
-After installation, restart your AI coding agent to activate the skills.
+</details>
 
 ### Manual Reinstallation
 
@@ -169,41 +107,19 @@ Available targets: `opencode`, `claude`, `agents`, `all` (default), or `both` (o
 
 For detailed documentation on each skill, refer to the respective `SKILL.md` files in your agent's skill directory.
 
-### Rendering Framework Profiles
+## Install Profiles
 
-CanvasXpress supports multiple rendering frameworks. Install the package with the appropriate profile for your use case:
+Install the base package with `pip install canvasxpress` or `uv add canvasxpress`. For specific frameworks, use extras:
 
-```terminal
-# For Jupyter notebooks:
-pip install "canvasxpress[jupyter]"
-uv add "canvasxpress[jupyter]"
-
-# For Plotly Dash apps:
-pip install "canvasxpress[dash]"
-uv add "canvasxpress[dash]"
-
-# For Streamlit apps:
-pip install "canvasxpress[streamlit]"
-uv add "canvasxpress[streamlit]"
-
-# For Shiny for Python apps:
-pip install "canvasxpress[shiny]"
-uv add "canvasxpress[shiny]"
-
-# For RStudio IDE:
-pip install "canvasxpress[rstudio]"
-uv add "canvasxpress[rstudio]"
-
-# For all frameworks:
-pip install "canvasxpress[all]"
-uv add "canvasxpress[all]"
-
-# Core only (browser/Flask CLI usage):
-pip install "canvasxpress[core]"
-uv add "canvasxpress[core]"
-```
-
-Available profiles: `core`, `dash`, `streamlit`, `jupyter`, `shiny`, `rstudio`, `all`.
+| Extra | Install |
+|---|---|
+| `core` | `pip install "canvasxpress[core]"` — base package, CLI, browser |
+| `jupyter` | `pip install "canvasxpress[jupyter]"` — Jupyter, Quarto, IPython |
+| `dash` | `pip install "canvasxpress[dash]"` — Plotly Dash |
+| `streamlit` | `pip install "canvasxpress[streamlit]"` — Streamlit |
+| `shiny` | `pip install "canvasxpress[shiny]"` — Shiny for Python |
+| `rstudio` | `pip install "canvasxpress[rstudio]"` — RStudio IDE Viewer (includes jupyter + shiny) |
+| `all` | `pip install "canvasxpress[all]"` — all frameworks |
 
 ## Usage
 

@@ -5,16 +5,15 @@ import pytest
 
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import (
-    CXString,
-    CXConfig,
-    CXRGBColor,
-    CXInt,
-    CXFloat,
     CXBool,
+    CXConfig,
     CXDict,
+    CXFloat,
+    CXGraphWeight,
+    CXInt,
     CXList,
     CXNone,
-    CXGraphWeight,
+    CXString,
 )
 
 
@@ -183,7 +182,7 @@ def test_CXConfigs_repr_perspective():
     configs = CXConfigs(config)
 
     configs_repr = repr(configs)
-    configs_rep = eval(r"{}".format(configs_repr))
+    configs_rep = eval(rf"{configs_repr}")
     assert configs_rep == configs
 
 
@@ -220,7 +219,7 @@ def test_CXConfigs_equality():
     assert not configs_d > configs_e
 
     configs: CXConfigs = CXConfigs()
-    assert configs != None
+    assert configs is not None
     assert not configs < None
     assert configs > None
     assert None < configs

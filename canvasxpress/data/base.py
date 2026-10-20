@@ -1,4 +1,4 @@
-from abc import abstractmethod, ABC
+from abc import abstractmethod
 from typing import Union
 
 from canvasxpress.data.convert import CXDictConvertable

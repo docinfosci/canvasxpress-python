@@ -1,10 +1,9 @@
 import uuid
 from pathlib import Path
-from typing import Any, Union, List
+from typing import Any, List, Union
 
-import minify_html
-from IPython.display import display, HTML, Javascript, Code
 from bs4 import BeautifulSoup
+from IPython.display import HTML, Code, Javascript
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -18,7 +17,7 @@ def inject_cx_assets():
         new Promise((cssResolve, cssReject) => {
             const cssUrl = "{{css_url}}";
             let existingLink = document.querySelector(`head link[href="${cssUrl}"]`);
-        
+
             if (!existingLink) {
                 const link = document.createElement("link");
                 link.rel = "stylesheet";
@@ -50,7 +49,7 @@ def inject_cx_assets():
             return new Promise((jsResolve, jsReject) => {
                 const scriptUrl = '{{js_url}}';
                 let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
-        
+
                 if (existingScript) {
                     if (existingScript.dataset.state === "loaded") {
                         jsResolve();
@@ -66,7 +65,7 @@ def inject_cx_assets():
                     script.type = "text/javascript";
                     script.src = scriptUrl;
                     script.dataset.state = "loading";
-        
+
                     script.onload = () => {
                         script.dataset.state = "loaded";
                         script.dispatchEvent(new Event("assetLoaded"));
@@ -162,9 +161,9 @@ new Promise((cssResolve, cssReject) => {
         }
     });
 })
-.then(() => { 
+.then(() => {
     // 3. Both CSS and JS are ready in order. Run user payload.
-    {{code}} 
+    {{code}}
 })
 .catch((error) => {
     console.error("CanvasXpress injection failed:", error);
@@ -195,14 +194,7 @@ class CXNoteBook(CXRenderable):
         super().__init__(*cx)
 
     def display_debug_code(self, code: str):
-        minified_code = minify_html.minify(
-            code,
-            minify_js=True,
-            minify_css=True,
-            remove_processing_instructions=True,
-        )
-
-        pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
+        pretty_code = BeautifulSoup(code, "html.parser").prettify()
         return Code(
             data=pretty_code,
             language="javascript",
@@ -295,7 +287,7 @@ class CXNoteBook(CXRenderable):
                         """
                     )
 
-        except Exception as e:
+        except Exception:
             return HTML("<div>Cannot create output file: {e}</div>")
 
         return code

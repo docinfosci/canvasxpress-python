@@ -1,16 +1,8 @@
 import os
 from unittest.mock import patch
 
-import pytest
-
 from canvasxpress.render.environment import (
-    is_rstudio_active,
-    is_shiny_available,
-    is_dash_available,
-    is_ipython_available,
-    is_streamlit_available,
-    get_target_context,
-    VALID_CONTEXTS,
+    CANVASXPRESS_TARGET_CONTEXT,
     CONTEXT_BROWSER,
     CONTEXT_DASH,
     CONTEXT_JUPYTER,
@@ -18,7 +10,13 @@ from canvasxpress.render.environment import (
     CONTEXT_SHINY,
     CONTEXT_STREAMLIT,
     CONTEXT_UNKNOWN,
-    CANVASXPRESS_TARGET_CONTEXT,
+    VALID_CONTEXTS,
+    get_target_context,
+    is_dash_available,
+    is_ipython_available,
+    is_rstudio_active,
+    is_shiny_available,
+    is_streamlit_available,
 )
 
 

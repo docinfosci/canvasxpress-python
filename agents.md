@@ -12,7 +12,12 @@ The project overview is documented in the `README.md` file located in the root d
 Automated tests are maintained in the `./tests` directory. These tests ensure that the project functions as expected and cover various scenarios.
 
 ## Python Version Compatibility
-The project is developed using Python 3.13 but must be compatible with Python 3.8+ to maintain broad compatibility across different environments.
+The project is developed using Python 3.13 and officially supports Python 3.8 through 3.14. Python 3.15 is not yet fully supported by all dependencies.
+
+### Python 3.15 To-Do
+- `deepdiff<9.0.0` is temporarily pinned in `pyproject.toml` because deepdiff 9.x depends on `cachebox` which uses PyO3 that doesn't support Python 3.15 yet.
+- **TODO**: Periodically check if deepdiff 9.x has released a version that supports Python 3.15. When it does, remove the `<9.0.0` ceiling and regenerate `uv.lock`.
+- Also check `scikit-image` compatibility on Python 3.15 when testing upgrades.
 
 ## Code Formatting
 Code formatting adheres to the Black style guide, ensuring consistent and readable code throughout the project.

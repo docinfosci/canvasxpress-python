@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from copy import deepcopy
 from enum import Enum
 from functools import total_ordering
-from typing import Union, Any
+from typing import Any, Union
 
 from deepdiff import DeepDiff
 from deprecated import deprecated

@@ -2,9 +2,8 @@ import json
 import string
 from copy import copy, deepcopy
 
-import requests
-
 import pytest
+import requests
 from deepdiff import DeepDiff
 from hypothesis import given, settings
 from hypothesis.strategies import dictionaries, text
@@ -194,7 +193,7 @@ def test_CXJSONData_get_raw_dict_form(sample):
 def test_CXJSONData_equality_None():
     sample_a: CXJSONData = CXJSONData({"a": 1})
 
-    assert sample_a != None
+    assert sample_a is not None
     assert None < sample_a
     assert sample_a > None
 

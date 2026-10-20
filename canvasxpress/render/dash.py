@@ -4,10 +4,13 @@ rich integration with Plotly's Dash framework.
 """
 
 import json
-from typing import List, Union, Any
+from typing import TYPE_CHECKING, Any, List, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderFactory
+
+if TYPE_CHECKING:
+    from cxdash import CXDashElement
 
 
 class CXElementFactory(CXRenderFactory):
@@ -82,7 +85,6 @@ class CXElementFactory(CXRenderFactory):
         Returns:
             A list of CXDashElement objects, one for each tracked CanvasXpress object.
         """
-        from cxdash import CXDashElement
 
         if isinstance(self.canvas, CanvasXpress):
             return [CXElementFactory.render(self.canvas)]

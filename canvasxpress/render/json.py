@@ -7,16 +7,16 @@ from pathlib import Path
 from typing import Any, Union
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.base import CXRenderable
-from canvasxpress.render.environment import (
-    is_ipython_available,
-    is_shiny_available,
-)
 from canvasxpress.context.platform import (
     DEFAULT_KEY_SYMBOLS,
     MACOS_KEY_SYMBOLS,
     detect_browser,
     detect_os,
+)
+from canvasxpress.render.base import CXRenderable
+from canvasxpress.render.environment import (
+    is_ipython_available,
+    is_shiny_available,
 )
 from canvasxpress.util.template import render_from_template
 

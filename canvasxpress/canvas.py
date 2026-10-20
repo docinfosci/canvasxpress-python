@@ -1,7 +1,7 @@
 import json
 import uuid
 from copy import deepcopy
-from typing import Union, List, Any
+from typing import Any, List, Union
 from warnings import warn
 
 from pandas import DataFrame
@@ -31,7 +31,7 @@ _CX_JS_TEMPLATE = """
 try {
   // 1. Get the chart object using the HTML element ID
   let myChart = CanvasXpress.getObject("@cx_target_id@");
-  
+
   // 2. Check if the chart exists before trying to delete it
   if (myChart) {
     myChart.destroy();
