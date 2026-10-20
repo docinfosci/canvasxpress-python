@@ -43,24 +43,7 @@ a chart is initially rendered.  CanvasXpress for Python now generates Javascript
 
 #### 2022 March 9: Plotly Dash Support
 [Plotly Dash](https://dash.plotly.com) is now supported!  Integrate CanvasXpress charts into
-Dash applications using a variety of strategies.  Examples are available in github.com at:
-
-[tutorials/dash/](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/dash/)
-
-#### 2021 July 6: Extensive examples for Jupyter Notebooks
-Hundreds of chart examples based on the CanvasXpress site examples are now 
-available in github.com at:
-
-[tutorials/notebook/cx_site_chart_examples/](https://github.com/docinfosci/canvasxpress-python/tree/main/tutorials/notebook/cx_site_chart_examples)
-
-#### 2021 June 30: Example code generation utility
-CanvasXpress for Python now includes `generator.py`, which includes 
-functions for creating example Python code to define and display charts.
-`generate_canvasxpress_code_from_json` will accept a reproducible research 
-JSON `str` and generate the corresponding Python code, and
-`generate_canvasxpress_code_from_json_file` will accept a file path reference
-to a reproducible JSON to achieve the same thing.  Find the functions at 
-`canvasxoress.util.example.generator.py`.
+Dash applications using a variety of strategies.
 
 #### 2021 June 30: Support for raw text data
 CanvasXPress for Javascript can accept text data.  `CXTextData` has been added

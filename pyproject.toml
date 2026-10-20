@@ -171,7 +171,7 @@ pattern = ".*__version__\\s*=\\s*['\\\"](?P<version>[^'\\\"]+)['\\\"]"
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.setuptools.packages.find]
 include = ["canvasxpress*"]
-exclude = ["tests*", "plotly*", "tutorials*", "readme*", "resources*"]
+exclude = ["tests*", "plotly*", "readme*", "resources*"]
 
 [tool.setuptools.package-data]
 "cxdash" = ["**/*"]
