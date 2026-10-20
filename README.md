@@ -1,17 +1,38 @@
-# CanvasXpress for Python
+<div align="left">
 
-<a href="https://www.canvasxpress.org">
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" align="left" width="175" style="vertical-align:middle;margin:10px 10px"> 
-</a>
-<br>
+<h1><a href="https://www.canvasxpress.org"><img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/hexagon.png" width="48" style="margin:0 8px 0 0; vertical-align:bottom"> CanvasXpress for Python</a></h1>
+
+</div>
 
 **CanvasXpress** is a comprehensive visualization library developed by Dr. Isaac Neuhaus for bioinformatics and systems biology analysis at Bristol-Myers Squibb. It supports more than 30 chart types to display scientific and non-scientific data, with a sophisticated user interface for exploring complex datasets, reproducible research auditing, and broadcasting capabilities to synchronize data points across plots.
 
-[![Release](https://img.shields.io/pypi/v/canvasxpress)](https://pypi.org/project/canvasxpress) [![Python 3.8+](https://img.shields.io/pypi/pyversions/canvasxpress)](https://pypi.org/project/canvasxpress) 
-[![License: MIT](https://img.shields.io/pypi/l/canvasxpress)](https://opensource.org/licenses/MIT) [![CircleCI](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) [![Coverage](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
-[![Dash](https://img.shields.io/badge/Dash-000)](https://dash.plotly.com/) [![Shiny](https://img.shields.io/badge/Shiny-1A5FB4)](https://shiny.posit.co/py/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)](https://streamlit.io/) [![Jupyter](https://img.shields.io/badge/Jupyter-F37626)](https://jupyter.org/) [![Flask](https://img.shields.io/badge/Flask-000)](https://flask.palletsprojects.com/) 
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688)](https://fastapi.tiangolo.com/) [![RStudio](https://img.shields.io/badge/RStudio-75AADB)](https://posit.co/) [![Browser](https://img.shields.io/badge/Browser-4285F4)](https://en.wikipedia.org/wiki/Web_browser) [![Claude](https://img.shields.io/badge/Claude-000)](https://www.anthropic.com/) [![Qwen](https://img.shields.io/badge/Qwen-000)](https://tongyi.aliyun.com/qwen/) [![OpenCode](https://img.shields.io/badge/OpenCode-000)](https://opencode.ai/) [![OpenAI](https://img.shields.io/badge/OpenAI-000)](https://chatgpt.com/) [![Cursor](https://img.shields.io/badge/Cursor-000)](https://cursor.com/) [![Gemini](https://img.shields.io/badge/Gemini-4285F4)](https://gemini.google.com/)
-[![JSON](https://img.shields.io/badge/JSON-000)](https://www.json.org/) [![PNG](https://img.shields.io/badge/PNG-6992B1)](https://en.wikipedia.org/wiki/PNG) [![SVG](https://img.shields.io/badge/SVG-FFB13B)](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) [![HTML](https://img.shields.io/badge/HTML-E34F26)](https://en.wikipedia.org/wiki/HTML)
+## Project Status
+
+[![Release](https://img.shields.io/pypi/v/canvasxpress.svg?style=flat-square)](https://pypi.org/project/canvasxpress)
+[![Python 3.8+](https://img.shields.io/pypi/pyversions/canvasxpress.svg?style=flat-square)](https://pypi.org/project/canvasxpress)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Coverage](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?style=flat-square&branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
+
+[![Dash](https://img.shields.io/badge/Dash-000?style=flat-square)](https://dash.plotly.com/)
+[![Shiny](https://img.shields.io/badge/Shiny-1A5FB4?style=flat-square)](https://shiny.posit.co/py/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square)](https://streamlit.io/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square)](https://jupyter.org/)
+[![Flask](https://img.shields.io/badge/Flask-000?style=flat-square)](https://flask.palletsprojects.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square)](https://fastapi.tiangolo.com/)
+[![RStudio](https://img.shields.io/badge/RStudio-75AADB?style=flat-square)](https://posit.co/)
+[![Browser](https://img.shields.io/badge/Browser-4285F4?style=flat-square)](https://en.wikipedia.org/wiki/Web_browser)
+
+[![Claude](https://img.shields.io/badge/Claude-000?style=flat-square)](https://www.anthropic.com/)
+[![Qwen](https://img.shields.io/badge/Qwen-000?style=flat-square)](https://tongyi.aliyun.com/qwen/)
+[![OpenCode](https://img.shields.io/badge/OpenCode-000?style=flat-square)](https://opencode.ai/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-000?style=flat-square)](https://chatgpt.com/)
+[![Cursor](https://img.shields.io/badge/Cursor-000?style=flat-square)](https://cursor.com/)
+[![Gemini](https://img.shields.io/badge/Gemini-4285F4?style=flat-square)](https://gemini.google.com/)
+
+[![JSON](https://img.shields.io/badge/JSON-000?style=flat-square)](https://www.json.org/)
+[![PNG](https://img.shields.io/badge/PNG-6992B1?style=flat-square)](https://en.wikipedia.org/wiki/PNG)
+[![SVG](https://img.shields.io/badge/SVG-FFB13B?style=flat-square)](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics)
+[![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square)](https://en.wikipedia.org/wiki/HTML)
 
 ## Authors & Contributors
 
@@ -22,52 +43,23 @@
 | **R Package Author & Maintainer** | [Dr. Constance M. Brett](https://www.linkedin.com/in/conniebprofile/) |
 | **Contributors** | Dr. Jennifer Walker · Eng. Mennahtullah Mabrouk · Eng. Mohamed Ali |
 
-<img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
+### Quick Start
 
-***CanvasXpress*** can be used for native Python integration for the following environments:
+Create your first chart in five lines:
 
-- [Shiny for Python](https://shiny.posit.co/py/)
-- [Streamlit](https://streamlit.io/)
-- [Plotly Dash](https://dash.plotly.com/)
-- [Jupyter](https://jupyter.org/)
-- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
-- [Django](https://www.djangoproject.com/)
+```python
+from canvasxpress import CanvasXpress, plot
 
-The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
-
-## Documentation and Installation
-
-### Documentation
-
-Documentation is maintained on this page and at [CanvasXpress.org](https://www.canvasxpress.org) and LinkedIn:
-
-- [Introduction to CanvasXpress for Python](https://www.linkedin.com/pulse/introducing-canvasxpress-python-todd-brett-hew0f/?trackingId=G8kTE2QyRH%2BrcVSzxJc8Hg%3D%3D)
-
-### Installation
-
-CanvasXpress for Python can be installed using _pip_:
-
-The essential CanvasXpress package, for use with the CLI or flask and similar environments, can be installed using:
-
-```terminal
-pip install canvasxpress
+chart = CanvasXpress(
+    data={"y": {"data": [[10, 20, 30]], "vars": ["A"]}},
+    config={"graphType": "Bar"}
+)
+plot.show_in_browser(chart)
 ```
 
-or
+**Integrations:** Dash · Shiny · Streamlit · Jupyter · Flask · FastAPI · RStudio
 
-```terminal
-pip install "canvasxpress[core]"
-```
-
-In addition to _core_, the following additional targets can be used:
-
-- _jupyter_ - installs additional packages to support rendering in Jupyter, Quarto, and IPython documents
-- _dash_ - installs additional packages to support rendering in Plotly Dash applications
-- _streamlit_ - installs additional packages to support rendering in Snowflake Streamlit applications
-- _shiny_ - installs additional packages to support rendering in Posit Shiny for Python applications
-- _rstudio_ - installs additional packages to support rendering in the Posit RStudio IDE Viewer, plus includes the same
-  packages for jupyter and shiny
-- _all_ - installs all additional packages to support rendering in any supported document or application
+**Export:** JSON · PNG · SVG · HTML
 
 ## CanvasXpress AI Skills
 
@@ -129,37 +121,6 @@ Use these as inspiration for prompts you can give to your AI coding assistant:
 
 **Prompt:** "Generate a bullet chart comparing actual vs target performance (V1 actual, V5 target) across 6 samples. Use range colors for performance zones and show data values inside bars."
 
-### Installation
-
-Install the package using pip or uv:
-
-```terminal
-pip install canvasxpress
-```
-
-or
-
-```terminal
-uv add canvasxpress
-```
-
-The skills are automatically installed during package setup to:
-
-- `~/.agents/skills/canvasxpress_charts/SKILL.md`
-- `~/.agents/skills/canvasxpress_events/SKILL.md`
-- `~/.agents/skills/canvasxpress_notebooks/SKILL.md`
-- `~/.agents/skills/canvasxpress_validator/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_charts/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_events/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_notebooks/SKILL.md`
-- `~/.config/opencode/skills/canvasxpress_validator/SKILL.md`
-- `~/.claude/skills/canvasxpress_charts/SKILL.md`
-- `~/.claude/skills/canvasxpress_events/SKILL.md`
-- `~/.claude/skills/canvasxpress_notebooks/SKILL.md`
-- `~/.claude/skills/canvasxpress_validator/SKILL.md`
-
-After installation, restart your AI coding agent to activate the skills.
-
 ### Manual Reinstallation
 
 To manually reinstall or update the skills, use the CanvasXpress CLI:
@@ -172,41 +133,19 @@ Available targets: `opencode`, `claude`, `agents`, `all` (default), or `both` (o
 
 For detailed documentation on each skill, refer to the respective `SKILL.md` files in your agent's skill directory.
 
-### Rendering Framework Profiles
+## Install Profiles
 
-CanvasXpress supports multiple rendering frameworks. Install the package with the appropriate profile for your use case:
+Install the base package with `pip install canvasxpress` or `uv add canvasxpress`. For specific frameworks, use extras:
 
-```terminal
-# For Jupyter notebooks:
-pip install "canvasxpress[jupyter]"
-uv add "canvasxpress[jupyter]"
-
-# For Plotly Dash apps:
-pip install "canvasxpress[dash]"
-uv add "canvasxpress[dash]"
-
-# For Streamlit apps:
-pip install "canvasxpress[streamlit]"
-uv add "canvasxpress[streamlit]"
-
-# For Shiny for Python apps:
-pip install "canvasxpress[shiny]"
-uv add "canvasxpress[shiny]"
-
-# For RStudio IDE:
-pip install "canvasxpress[rstudio]"
-uv add "canvasxpress[rstudio]"
-
-# For all frameworks:
-pip install "canvasxpress[all]"
-uv add "canvasxpress[all]"
-
-# Core only (browser/Flask CLI usage):
-pip install "canvasxpress[core]"
-uv add "canvasxpress[core]"
-```
-
-Available profiles: `core`, `dash`, `streamlit`, `jupyter`, `shiny`, `rstudio`, `all`.
+| Extra | Install |
+|---|---|
+| `core` | `pip install "canvasxpress[core]"` — base package, CLI, browser |
+| `jupyter` | `pip install "canvasxpress[jupyter]"` — Jupyter, Quarto, IPython |
+| `dash` | `pip install "canvasxpress[dash]"` — Plotly Dash |
+| `streamlit` | `pip install "canvasxpress[streamlit]"` — Streamlit |
+| `shiny` | `pip install "canvasxpress[shiny]"` — Shiny for Python |
+| `rstudio` | `pip install "canvasxpress[rstudio]"` — RStudio IDE Viewer (includes jupyter + shiny) |
+| `all` | `pip install "canvasxpress[all]"` — all frameworks |
 
 ## Usage
 
