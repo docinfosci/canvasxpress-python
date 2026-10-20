@@ -9,7 +9,7 @@ dynamic = ["version"]
 description = "CanvasXpress for Python"
 readme = "README.md"
 license.text = "MIT"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 
 authors = [
     { name = "Dr. Isaac Neuhaus", email = "isaac@canvasxpress.org" },
@@ -29,6 +29,8 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -137,34 +139,45 @@ path = "canvasxpress/version.ini"
 pattern = ".*__version__\\s*=\\s*['\\\"](?P<version>[^'\\\"]+)['\\\"]"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# UV configuration
-# Dev dependencies from requirements-dev.txt live here, not as PyPI extras.
-# They are installed as uv tools and run via `uvx <name>`.
-# ─────────────────────────────────────────────────────────────────────────────
 [tool.uv]
 # Typical usage:
-#   uv sync          # install project + dev tools into venv
+#   uv sync          # install project + dev dependencies into venv
 #   uv build         # build source/wheel distribution
 #   uv add canvasxpress[<extra>]   # use as dependency in another project
 
-# Standalone tools (replaces requirements-dev.txt)
-[tool.uv.tool-dependencies]
-pytest = "^8.0"
-pytest-cov = "^6.0"
-pytest-flask = "^1.3"
-prospector = "^1.11"
-hypothesis = "^6.0"
-coveralls = "^4.0"
-click = "^8.0"
-flask = "^3.0"
-selenium = ">=4.0,<4.9.2"
-scikit-image = "^0.25"
-psutil = "^7.0"
-"dash[dev]" = "^2.0"
-pandas-stubs = "^2.0"
-ruff = "^0.9"
-twine = "^6.0"
-invoke = "^2.0"
+# ─────────────────────────────────────────────────────────────────────────────
+# Dev dependencies (replaces requirements-dev.txt)
+# Installed via `uv sync` — available in the project venv.
+# ─────────────────────────────────────────────────────────────────────────────
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=6.0",
+    "pytest-flask>=1.3",
+    "prospector>=1.11",
+    "hypothesis>=6.0",
+    "coveralls>=4.0",
+    "click>=8.0",
+    "flask>=3.0",
+    "selenium>=4.0,<4.9.2",
+    "scikit-image>=0.25",
+    "psutil>=7.0",
+    "dash[dev]>=2.0",
+    "pandas-stubs>=2.0",
+    "ruff>=0.9",
+    "twine>=6.0",
+    "invoke>=2.0",
+]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Setuptools — explicit package discovery (avoids multiple-top-level-package error)
+# ─────────────────────────────────────────────────────────────────────────────
+[tool.setuptools]
+packages = ["canvasxpress", "canvasxpress.agent_skills", "canvasxpress.config",
+            "canvasxpress.context", "canvasxpress.data", "canvasxpress.js",
+            "canvasxpress.render", "canvasxpress.render.dash",
+            "canvasxpress.render.shiny", "canvasxpress.util",
+            "cxdash"]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Ruff — linting and formatting (Black-compatible)
