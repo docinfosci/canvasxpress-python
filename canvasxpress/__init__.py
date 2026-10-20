@@ -11,7 +11,7 @@ from canvasxpress.agent_skills.registry import install_skills
 
 
 def _read_version() -> str:
-    version_file = os.path.join(os.path.dirname(__file__), 'version.ini')
+    version_file = os.path.join(os.path.dirname(__file__), 'version.py')
     try:
         with open(version_file) as f:
             content = f.read().strip()

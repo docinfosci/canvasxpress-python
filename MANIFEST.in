@@ -1,0 +1,2 @@
+# Include generated version.py even though it's gitignored
+global-include canvasxpress/version.py
