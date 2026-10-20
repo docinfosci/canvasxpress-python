@@ -222,7 +222,7 @@ jobs:
             uv sync
 
             # Bootstrap build tools
-            uv pip install --no-cache-dir setuptools wheel
+            uv pip install --no-cache-dir setuptools wheel invoke
 
             invoke init --dev --list
 
@@ -532,7 +532,7 @@ jobs:
             uv sync
 
             # Bootstrap build tools
-            uv pip install --no-cache-dir setuptools wheel
+            uv pip install --no-cache-dir setuptools wheel invoke
 
             invoke init --dev --list
 
@@ -780,7 +780,7 @@ jobs:
             uv sync
 
             # Bootstrap build tools
-            uv pip install --no-cache-dir setuptools wheel
+            uv pip install --no-cache-dir setuptools wheel invoke
 
             invoke init --dev --list
 
