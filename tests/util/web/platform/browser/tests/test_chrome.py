@@ -1,4 +1,3 @@
-from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
 
 
 # def test_chrome_browser():

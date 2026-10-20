@@ -19,7 +19,7 @@ def test_CXEvents_init_cxevent_list():
 
 def test_CXEvents_init_junk():
     with pytest.raises(TypeError):
-        events = CXEvents([("1", "hi")])
+        CXEvents([("1", "hi")])
 
 
 def test_CXEvents_copy():
@@ -114,7 +114,7 @@ def test_CXEvents_repr_perspective():
     events = CXEvents(event)
 
     events_repr = repr(events)
-    events_rep = eval(r"{}".format(events_repr))
+    events_rep = eval(rf"{events_repr}")
     assert events_rep == events
 
 
@@ -151,7 +151,7 @@ def test_CXEvents_equality():
     assert not events_d > events_e
 
     events: CXEvents = CXEvents()
-    assert events != None
+    assert events is not None
     assert not events < None
     assert events > None
     assert None < events

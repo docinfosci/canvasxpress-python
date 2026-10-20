@@ -18,6 +18,7 @@ development of dynamic Dash, Flask, Django, Jupyter, and similar solutions easie
 # visit http://127.0.0.1:8050/ in your web browser.=
 
 from dash import Dash, html
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.dash import CXElementFactory
 

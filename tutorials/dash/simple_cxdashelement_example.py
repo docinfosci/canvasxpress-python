@@ -14,7 +14,9 @@ cxdash package that is bundled with the canvasxpress[dash] and canvasxpress[all]
 # visit http://127.0.0.1:8050/ in your web browser.
 
 import json
+
 from dash import Dash, html
+
 import cxdash
 
 g_app = Dash(__name__)

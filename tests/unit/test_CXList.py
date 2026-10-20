@@ -3,7 +3,7 @@ from copy import copy, deepcopy
 
 import pytest
 
-from canvasxpress.config.type import CXList, CXBool
+from canvasxpress.config.type import CXBool, CXList
 
 
 def test_CXList_init():

@@ -1,9 +1,9 @@
 import json
 
-import cxdash
 import dash
-from dash.dependencies import Input, Output
 import dash_html_components as html
+
+import cxdash
 
 app = dash.Dash(__name__)
 

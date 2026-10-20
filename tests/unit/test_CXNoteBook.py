@@ -3,11 +3,11 @@ import pytest
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import (
+    CXBool,
     CXGraphType,
     CXGraphTypeOptions,
-    CXString,
     CXList,
-    CXBool,
+    CXString,
 )
 from canvasxpress.data.keypair import CXDictData
 from canvasxpress.js.collection import CXEvents

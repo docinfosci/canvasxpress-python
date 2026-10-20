@@ -1,10 +1,10 @@
-import os
-import subprocess
 import json
+import os
 import shlex
-from typing import Any, Union, List
-from tempfile import gettempdir
+import subprocess
 from pathlib import Path
+from tempfile import gettempdir
+from typing import Any, List, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -169,7 +169,7 @@ def render_html_as_image(
                         }
                     )
 
-        except subprocess.TimeoutExpired as te:
+        except subprocess.TimeoutExpired:
             pass
 
     return rendered_images

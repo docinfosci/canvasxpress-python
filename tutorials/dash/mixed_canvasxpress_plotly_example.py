@@ -1,8 +1,8 @@
-from math import log, isnan
+from math import isnan, log
 
-from dash import Dash, html, dcc, Input, Output
 import pandas as pd
 import plotly.express as px
+from dash import Dash, Input, Output, dcc, html
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.data.matrix import CXDataframeData
@@ -67,7 +67,7 @@ _g_app.layout = html.Div(
         html.Div(
             """
             This Dash application demonstrates a mixture of CanvasXpress and Plotly elements coordinating data
-            exchange and UI refresh.  The CanvasXpress class is used for preparing CanvasXpress charts, and the 
+            exchange and UI refresh.  The CanvasXpress class is used for preparing CanvasXpress charts, and the
             CXDashElementFactory is used to provide properly configured Dash elements for display.
             """
         ),

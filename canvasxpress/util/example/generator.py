@@ -30,7 +30,7 @@ def generate_canvasxpress_code_from_json_file(
     Returns:
         A string containing the generated Python code example.
     """
-    with open(cx_json_path, "r") as cx_json_file:
+    with open(cx_json_path) as cx_json_file:
         cx_json = cx_json_file.read()
 
         return generate_canvasxpress_code(

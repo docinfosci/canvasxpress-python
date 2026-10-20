@@ -18,14 +18,14 @@ _cx_html_template = """
 
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
-        <link 
-                href='@css_url@' 
-                rel='stylesheet' 
+        <link
+                href='@css_url@'
+                rel='stylesheet'
                 type='text/css'
                 referrerpolicy='origin-when-cross-origin'
         />
-        <script 
-                src='@js_url@' 
+        <script
+                src='@js_url@'
                 type='text/javascript'>
                 referrerpolicy='origin-when-cross-origin'
         </script>
@@ -87,13 +87,12 @@ def plot(cx: CanvasXpress) -> None:
     Raises:
         TypeError: If cx is not a CanvasXpress object.
     """
-    import streamlit.components.v1 as components
 
     if cx is None:
         return None
 
     elif not isinstance(cx, CanvasXpress):
-        raise TypeError(f"Argument 'cx' is not a CanvasXpress object")
+        raise TypeError("Argument 'cx' is not a CanvasXpress object")
 
     html, iframe_width, iframe_height = _get_chart_display_code(cx)
 

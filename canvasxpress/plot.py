@@ -2,13 +2,13 @@ from typing import Any, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.environment import (
-    get_target_context,
-    CONTEXT_RSTUDIO,
-    CONTEXT_SHINY,
+    CONTEXT_BROWSER,
     CONTEXT_DASH,
     CONTEXT_JUPYTER,
+    CONTEXT_RSTUDIO,
+    CONTEXT_SHINY,
     CONTEXT_STREAMLIT,
-    CONTEXT_BROWSER,
+    get_target_context,
 )
 from canvasxpress.render.image import CXImage
 from canvasxpress.render.json import CXJSON
@@ -115,8 +115,9 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
         return plotter.render(canvas)
 
     elif _g_context == CONTEXT_JUPYTER:
-        from canvasxpress.render.jupyter import CXNoteBook
         from IPython.core.display_functions import display
+
+        from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
         content = plotter.render(debug=debug, **kwargs)

@@ -3,7 +3,7 @@ import tempfile
 import uuid
 import webbrowser
 from copy import deepcopy
-from typing import Any, Union, List
+from typing import Any, List, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
@@ -22,14 +22,14 @@ _cx_html_template = """
 
         <!-- 1. Include the CanvasXpress library -->
         @canvasxpress_license@
-        <link 
-                href='@css_url@' 
-                rel='stylesheet' 
+        <link
+                href='@css_url@'
+                rel='stylesheet'
                 type='text/css'
                 referrerpolicy='origin-when-cross-origin'
         />
-        <script 
-                src='@js_url@' 
+        <script
+                src='@js_url@'
                 type='text/javascript'>
                 referrerpolicy='origin-when-cross-origin'
         </script>

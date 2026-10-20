@@ -1,10 +1,10 @@
 import json
 import uuid
-from math import log, isnan
+from math import isnan, log
 
-from dash import Dash, html, dcc, Input, Output
 import pandas as pd
 import plotly.express as px
+from dash import Dash, Input, Output, dcc, html
 
 from cxdash import CXDashElement
 
@@ -28,7 +28,7 @@ _g_app.layout = html.Div(
             """
             This Dash application demonstrates a mixture of CanvasXpress and Plotly elements coordinating data
             exchange and UI refresh.  The CXDashElement class is used for preparing CanvasXpress charts, which is
-            a straightforward mechanism to use but can require additional work on the developer's part to process 
+            a straightforward mechanism to use but can require additional work on the developer's part to process
             or format data, configurations, and events.  Also see the advanced CanvasXpress edition of this example.
             """
         ),
@@ -260,7 +260,7 @@ def update_y_timeseries(hoverData, xaxis_column_name, axis_type):
         _g_country_indicators_df["Country Name"] == country_name
     ]
     dff = dff[dff["Indicator Name"] == xaxis_column_name]
-    title = "{} {}".format(country_name, xaxis_column_name)
+    title = f"{country_name} {xaxis_column_name}"
     return create_time_series("x", dff, axis_type, title)
 
 

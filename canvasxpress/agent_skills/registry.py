@@ -8,7 +8,8 @@ setuptools entry points for platform-agnostic discovery.
 
 import shutil
 import sys
-from importlib.metadata import entry_points, version as get_version
+from importlib.metadata import entry_points
+from importlib.metadata import version as get_version
 from pathlib import Path
 
 

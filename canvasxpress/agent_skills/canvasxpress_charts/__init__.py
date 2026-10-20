@@ -4,8 +4,7 @@ try:
     from importlib.resources import files
 except ImportError:
     from importlib_resources import files
-from pathlib import Path
-from typing import Optional, List
+from typing import List, Optional
 
 CHART_SKILLS = [
     "area_skill.md",

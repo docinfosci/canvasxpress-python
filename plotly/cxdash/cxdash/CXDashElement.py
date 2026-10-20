@@ -1,8 +1,10 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 import typing  # noqa: F401
-from typing_extensions import TypedDict, NotRequired, Literal # noqa: F401
+from typing import Literal  # noqa: F401
+
 from dash.development.base_component import Component, _explicitize_args
+
 try:
     from dash.types import NumberType  # noqa: F401
 except ImportError:
@@ -58,7 +60,7 @@ Keyword arguments:
 
 - width (string; optional):
     The element width."""
-    _children_props: typing.List[str] = []
+    _children_props: list[str] = []
     _base_nodes = ['children']
     _namespace = 'cxdash'
     _type = 'CXDashElement'
@@ -66,15 +68,15 @@ Keyword arguments:
 
     def __init__(
         self,
-        id: typing.Optional[typing.Union[str, dict]] = None,
-        data: typing.Optional[str] = None,
-        config: typing.Optional[str] = None,
-        events: typing.Optional[str] = None,
-        after_render: typing.Optional[str] = None,
-        js_url: typing.Optional[str] = None,
-        css_url: typing.Optional[str] = None,
-        width: typing.Optional[str] = None,
-        height: typing.Optional[str] = None,
+        id: str | dict | None = None,
+        data: str | None = None,
+        config: str | None = None,
+        events: str | None = None,
+        after_render: str | None = None,
+        js_url: str | None = None,
+        css_url: str | None = None,
+        width: str | None = None,
+        height: str | None = None,
         **kwargs
     ):
         self._prop_names = ['id', 'after_render', 'config', 'css_url', 'data', 'events', 'height', 'js_url', 'width']
@@ -91,6 +93,6 @@ Keyword arguments:
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
 
-        super(CXDashElement, self).__init__(**args)
+        super().__init__(**args)
 
 setattr(CXDashElement, "__init__", _explicitize_args(CXDashElement.__init__))

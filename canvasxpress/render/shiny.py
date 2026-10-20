@@ -55,7 +55,7 @@ def output_canvasxpress(id: str) -> ui.TagList:
         )
 
 
-class CXShinyWidget(object):
+class CXShinyWidget:
     """
     A Shiny for Python compatible class that can be used with Shiny syntax to establish CanvasXpress charts in the
     shiny UI.
@@ -131,7 +131,7 @@ class CXShinyWidget(object):
             logging.getLogger("rpy2.rinterface_lib.embedded").setLevel(logging.ERROR)
 
             from rpy2 import robjects
-        except:
+        except Exception:
             robjects = None
 
         # Get the header assets.

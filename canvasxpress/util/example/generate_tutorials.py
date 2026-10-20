@@ -111,7 +111,7 @@ def create_jupyer_template_text(
         The JSON string representation of the full Jupyter Notebook
         example with instructions and code.
     """
-    with open(JUPYTER_TEMPLATE_PATH, "r") as template_file:
+    with open(JUPYTER_TEMPLATE_PATH) as template_file:
         example_text = template_file.read()
         example_text = example_text.replace("@type@", chart_type)
         example_text = example_text.replace("@index@", chart_index)

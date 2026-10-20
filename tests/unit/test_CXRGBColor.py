@@ -3,7 +3,7 @@ from copy import copy, deepcopy
 
 import pytest
 
-from canvasxpress.config.type import CXRGBColor, CXBool
+from canvasxpress.config.type import CXBool, CXRGBColor
 
 
 def test_CXRGBColor_init():

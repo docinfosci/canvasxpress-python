@@ -1,6 +1,6 @@
 import pytest
 
-from canvasxpress.config.type import CXGraphTypeOptions, CXGraphType
+from canvasxpress.config.type import CXGraphType, CXGraphTypeOptions
 
 
 def test_CXGraphType_init():

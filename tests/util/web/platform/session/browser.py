@@ -1,4 +1,3 @@
-from typing import List
 
 import pytest
 
@@ -8,7 +7,7 @@ from tests.util.web.platform.browser.generic import ManagedBrowser
 TEST_SERVER_URL = "http://localhost:8080"
 
 
-def get_target_urls() -> List[str]:
+def get_target_urls() -> list[str]:
     return [
         TEST_SERVER_URL,
     ]

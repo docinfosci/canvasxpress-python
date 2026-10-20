@@ -1,7 +1,7 @@
+import pandas as pd
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.popup import CXBrowserPopup
-
-import pandas as pd
 
 # Each file is a tab-delimited matrix with columns and an index, and we can
 # use pandas to read each at their URL to create dataframes
