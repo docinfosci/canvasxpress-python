@@ -2,7 +2,6 @@ import uuid
 from pathlib import Path
 from typing import Any, Union, List
 
-import minify_html
 from IPython.display import display, HTML, Javascript, Code
 from bs4 import BeautifulSoup
 
@@ -195,14 +194,7 @@ class CXNoteBook(CXRenderable):
         super().__init__(*cx)
 
     def display_debug_code(self, code: str):
-        minified_code = minify_html.minify(
-            code,
-            minify_js=True,
-            minify_css=True,
-            remove_processing_instructions=True,
-        )
-
-        pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
+        pretty_code = BeautifulSoup(code, "html.parser").prettify()
         return Code(
             data=pretty_code,
             language="javascript",
