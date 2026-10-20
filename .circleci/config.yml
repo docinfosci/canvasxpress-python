@@ -219,7 +219,7 @@ jobs:
             uv pip install --no-cache-dir ".[all]"
 
             # Install dev tools (replaces requirements-dev.txt)
-            uv sync
+            uv sync --all-groups
 
             # Bootstrap build tools
             uv pip install --no-cache-dir setuptools wheel invoke
@@ -532,7 +532,7 @@ jobs:
             uv pip install --no-cache-dir ".[all]"
 
             # Install dev tools (replaces requirements-dev.txt)
-            uv sync
+            uv sync --all-groups
 
             # Bootstrap build tools
             uv pip install --no-cache-dir setuptools wheel invoke
@@ -783,7 +783,7 @@ jobs:
             uv pip install --no-cache-dir ".[all]"
 
             # Install dev tools (replaces requirements-dev.txt)
-            uv sync
+            uv sync --all-groups
 
             # Bootstrap build tools
             uv pip install --no-cache-dir setuptools wheel invoke
