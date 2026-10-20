@@ -56,7 +56,7 @@ elif [[ "$OS" == "darwin" ]]; then
     mkdir -p "$HOME/.nvm"
 fi
 
-# ── Node.js (needed by Dash component build) ────────────────────────────────
+# ── Node.js (needed for Dash component builds) ──────────────────────────────
 echo ""
 echo "Installing Node.js 18..."
 export NVM_DIR="$HOME/.nvm"
