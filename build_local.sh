@@ -94,6 +94,7 @@ uv pip install --no-cache-dir ".[all]"
 # Install dev tools (replaces requirements-dev.txt — handled by uv tools)
 echo "Installing dev tools..."
 uv sync
+uv pip install ".[dev]"
 
 # Run the invoke init step
 invoke init --dev --list

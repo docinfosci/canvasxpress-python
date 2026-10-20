@@ -2,7 +2,6 @@ import uuid
 from pathlib import Path
 from typing import Any, List, Union
 
-import htmlmin
 from bs4 import BeautifulSoup
 from IPython.display import HTML
 
@@ -71,8 +70,7 @@ class CXHtml(CXRenderable):
         return header_html_text
 
     def display_debug_code(self, code: str):
-        minified_code = htmlmin.Minifier().minify(code)
-        pretty_code = BeautifulSoup(minified_code, "html.parser").prettify()
+        pretty_code = BeautifulSoup(code, "html.parser").prettify()
         return pretty_code
 
     def get_chart_display_code(self, columns: int) -> str:
