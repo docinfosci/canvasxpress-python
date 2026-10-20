@@ -171,17 +171,15 @@ dev = [
 ]
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Setuptools — explicit package discovery (avoids multiple-top-level-package error)
+# Setuptools — explicit package discovery
+# find_packages() will include cxdash when generated during build.
 # ─────────────────────────────────────────────────────────────────────────────
-[tool.setuptools]
-packages = ["canvasxpress", "canvasxpress.agent_skills",
-            "canvasxpress.agent_skills.canvasxpress_charts",
-            "canvasxpress.agent_skills.canvasxpress_events",
-            "canvasxpress.agent_skills.canvasxpress_notebooks",
-            "canvasxpress.agent_skills.canvasxpress_validator",
-            "canvasxpress.config", "canvasxpress.context", "canvasxpress.data",
-            "canvasxpress.js", "canvasxpress.render", "canvasxpress.util",
-            "canvasxpress.util.example", "cxdash"]
+[tool.setuptools.packages.find]
+include = ["canvasxpress*"]
+exclude = ["tests*", "plotly*", "tutorials*", "readme*", "resources*"]
+
+[tool.setuptools.package-data]
+"cxdash" = ["**/*"]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Ruff — linting and formatting (Black-compatible)
