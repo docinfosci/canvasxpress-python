@@ -3,6 +3,15 @@
 <a href="https://www.canvasxpress.org">
 <img src="images/hexagon.png" align="left" width="175"></a>
 
+| **Version** | [![Release](https://img.shields.io/pypi/v/canvasxpress)](https://pypi.org/project/canvasxpress) |
+| **Python** | [![Python 3.8+](https://img.shields.io/pypi/pyversions/canvasxpress)](https://pypi.org/project/canvasxpress) |
+| **License** | [![License: MIT](https://img.shields.io/pypi/l/canvasxpress)](https://opensource.org/licenses/MIT) |
+| **Build** | [![CircleCI](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) |
+| **Tests** | [![Coverage](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main) |
+| **Integrations** | Dash · Shiny · Streamlit · Jupyter · Flask · FastAPI · RStudio · Browser |
+| **Agent Skills** | Claude · Qwen · OpenCode · OpenAI · Cursor · Gemini |
+| **Export** | JSON · PNG · SVG · HTML |
+
 ## About this Package
 
 ***This package was recently released for general use.  We maintain thorough code coverage and use the package ourselves,
@@ -35,6 +44,19 @@ zooming, and broadcasting capabilities are included in this package.  This
 ***CanvasXpress*** team.
 
 The maintainer of the Python edition of this package is [Dr. Todd C. Brett](https://github.com/docinfosci).
+
+## Authors & Contributors
+
+This package is a Python binding for the [CanvasXpress](https://www.canvasxpress.org) visualization library.
+
+| Role | Name |
+|---|---|
+| **Platform Designer & Package Development Lead** | [Dr. Isaac Neuhaus](https://github.com/docinfosci) |
+| **Python Package Author & Maintainer** | [Dr. Todd C. Brett](https://github.com/docinfosci) |
+| **R Package Author & Maintainer** | [Dr. Constance M. Brett](https://github.com/docinfosci) |
+| **Contributors** | [Dr. Jennifer Walker](mailto:jennifer@aggregate-genius.com) · [Eng. Mennahtullah Mabrouk](mailto:mennahtullah@aggregate-genius.com) · [Eng. Mohamed Ali](mailto:mohamed@aggregate-genius.com) |
+
+CanvasXpress was originally developed at [Bristol-Myers Squibb](https://www.bms.com) for bioinformatics and systems biology analysis.
 
 ## Getting Started
 

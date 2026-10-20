@@ -11,9 +11,9 @@ readme = "README.md"
 requires-python = ">=3.8"
 
 authors = [
+    { name = "Dr. Todd C. Brett", email = "todd@aggregate-genius.com" },
     { name = "Dr. Isaac Neuhaus", email = "isaac@canvasxpress.org" },
     { name = "Dr. Constance M. Brett", email = "constance@canvasxpress.org" },
-    { name = "Dr. Todd C. Brett", email = "todd@aggregate-genius.com" },
     { name = "Dr. Jennifer Walker", email = "jennifer@aggregate-genius.com" },
     { name = "Eng. Mennahtullah Mabrouk", email = "mennahtullah@aggregate-genius.com" },
     { name = "Eng. Mohamed Ali", email = "mohamed@aggregate-genius.com" },

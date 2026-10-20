@@ -7,7 +7,20 @@
 
 **CanvasXpress** is a comprehensive visualization library developed by Dr. Isaac Neuhaus for bioinformatics and systems biology analysis at Bristol-Myers Squibb. It supports more than 30 chart types to display scientific and non-scientific data, with a sophisticated user interface for exploring complex datasets, reproducible research auditing, and broadcasting capabilities to synchronize data points across plots.
 
-The CanvasXpress Python package is maintained by [Dr. Todd C. Brett](https://github.com/docinfosci), with support from [Aggregate Genius Inc.](https://www.aggregate-genius.com). Dr. Constance Brett leads the R library development, while Dr. Isaac Neuhaus maintains the original JavaScript library along with the PHP and R implementations.
+[![Release](https://img.shields.io/pypi/v/canvasxpress)](https://pypi.org/project/canvasxpress) [![Python 3.8+](https://img.shields.io/pypi/pyversions/canvasxpress)](https://pypi.org/project/canvasxpress) 
+[![License: MIT](https://img.shields.io/pypi/l/canvasxpress)](https://opensource.org/licenses/MIT) [![CircleCI](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=svg)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main) [![Coverage](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
+[![Dash](https://img.shields.io/badge/Dash-000)](https://dash.plotly.com/) [![Shiny](https://img.shields.io/badge/Shiny-1A5FB4)](https://shiny.posit.co/py/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)](https://streamlit.io/) [![Jupyter](https://img.shields.io/badge/Jupyter-F37626)](https://jupyter.org/) [![Flask](https://img.shields.io/badge/Flask-000)](https://flask.palletsprojects.com/) 
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688)](https://fastapi.tiangolo.com/) [![RStudio](https://img.shields.io/badge/RStudio-75AADB)](https://posit.co/) [![Browser](https://img.shields.io/badge/Browser-4285F4)](https://en.wikipedia.org/wiki/Web_browser) [![Claude](https://img.shields.io/badge/Claude-000)](https://www.anthropic.com/) [![Qwen](https://img.shields.io/badge/Qwen-000)](https://tongyi.aliyun.com/qwen/) [![OpenCode](https://img.shields.io/badge/OpenCode-000)](https://opencode.ai/) [![OpenAI](https://img.shields.io/badge/OpenAI-000)](https://chatgpt.com/) [![Cursor](https://img.shields.io/badge/Cursor-000)](https://cursor.com/) [![Gemini](https://img.shields.io/badge/Gemini-4285F4)](https://gemini.google.com/)
+[![JSON](https://img.shields.io/badge/JSON-000)](https://www.json.org/) [![PNG](https://img.shields.io/badge/PNG-6992B1)](https://en.wikipedia.org/wiki/PNG) [![SVG](https://img.shields.io/badge/SVG-FFB13B)](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics) [![HTML](https://img.shields.io/badge/HTML-E34F26)](https://en.wikipedia.org/wiki/HTML)
+
+## Authors & Contributors
+
+| Role | Name |
+|---|---|
+| **Platform Designer & Package Development Lead** | [Dr. Isaac Neuhaus](https://www.linkedin.com/in/isaac-neuhaus-3b3ab5/) |
+| **Python Package Author & Maintainer** | [Dr. Todd C. Brett](https://www.linkedin.com/in/toddbrett/) |
+| **R Package Author & Maintainer** | [Dr. Constance M. Brett](https://www.linkedin.com/in/conniebprofile/) |
+| **Contributors** | Dr. Jennifer Walker · Eng. Mennahtullah Mabrouk · Eng. Mohamed Ali |
 
 <img src="https://raw.githubusercontent.com/docinfosci/canvasxpress-python/main/readme/images/sample_graphs.png" align="center" width="726"></a>
 
@@ -21,16 +34,6 @@ The CanvasXpress Python package is maintained by [Dr. Todd C. Brett](https://git
 - [Django](https://www.djangoproject.com/)
 
 The RStudio IDE Viewer is also used when running code chunks in Jupyter, Quarto, and RMD Python code chunks.
-
-## Project Status
-
-[![Release](https://img.shields.io/pypi/v/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
-[![Compatibility](https://img.shields.io/pypi/pyversions/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
-[![Implementations](https://img.shields.io/pypi/implementation/canvasxpress.svg)](https://pypi.org/project/canvasxpress)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/canvasxpress)](https://pypi.org/project/canvasxpress)
-[![docinfosci](https://circleci.com/gh/docinfosci/canvasxpress-python/tree/main.svg?style=shield)](https://circleci.com/gh/docinfosci/canvasxpress-python/?branch=main)
-[![Coverage Status](https://coveralls.io/repos/github/docinfosci/canvasxpress-python/badge.svg?branch=main)](https://coveralls.io/github/docinfosci/canvasxpress-python?branch=main)
-[![Activity](https://img.shields.io/github/last-commit/docinfosci/canvasxpress-python/develop)](https://github.com/docinfosci/canvasxpress-python)
 
 ## Documentation and Installation
 
