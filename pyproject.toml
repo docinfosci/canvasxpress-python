@@ -55,7 +55,7 @@ keywords = [
 # ── Core dependencies ───────────────────────────────────────────────────────
 # These are the packages always installed (equivalent to pip install canvasxpress)
 dependencies = [
-    "deepdiff",
+    "deepdiff<9.0.0",
     "gitpython",
     "pytz",
     "pandas",
