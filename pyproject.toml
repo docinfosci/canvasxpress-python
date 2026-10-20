@@ -55,6 +55,7 @@ keywords = [
 # ── Core dependencies ───────────────────────────────────────────────────────
 # These are the packages always installed (equivalent to pip install canvasxpress)
 dependencies = [
+    # TODO: Remove <9.0.0 ceiling when deepdiff 9.x supports Python 3.15 (cachebox/PyO3 caught up).
     "deepdiff<9.0.0",
     "gitpython",
     "pytz",
@@ -180,7 +181,11 @@ exclude = ["tests*", "plotly*", "tutorials*", "readme*", "resources*"]
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.ruff]
 line-length = 88
-target-version = "py310"
+target-version = "py38"
+exclude = [
+    "tests",           # Test suite — style differences acceptable
+    "plotly/cxdash",   # Generated build artifact
+]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -198,6 +203,11 @@ select = [
 ]
 ignore = [
     "E501",  # line-length — handled by formatter
+    "E721",  # type() comparisons — acceptable in assertions
+    "UP006", # use built-in generics (List → list) — incompatible with Python 3.8
+    "UP007", # use X | Y union syntax — incompatible with Python 3.8
+    "UP035", # typing.X is deprecated — but List/Union needed for 3.8 compat
+    "UP036", # version block outdated — would remove 3.8 compatibility guards
 ]
 
 [tool.ruff.lint.isort]
