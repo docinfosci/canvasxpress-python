@@ -8,7 +8,7 @@ name = "canvasxpress"
 dynamic = ["version"]
 description = "CanvasXpress for Python"
 readme = "README.md"
-license.text = "MIT"
+license = "MIT"
 requires-python = ">=3.8"
 
 authors = [
@@ -27,7 +27,6 @@ classifiers = [
     "Environment :: Web Environment",
     "Topic :: Multimedia :: Graphics",
     "Topic :: Scientific/Engineering :: Information Analysis",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -173,11 +172,14 @@ dev = [
 # Setuptools — explicit package discovery (avoids multiple-top-level-package error)
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.setuptools]
-packages = ["canvasxpress", "canvasxpress.agent_skills", "canvasxpress.config",
-            "canvasxpress.context", "canvasxpress.data", "canvasxpress.js",
-            "canvasxpress.render", "canvasxpress.render.dash",
-            "canvasxpress.render.shiny", "canvasxpress.util",
-            "cxdash"]
+packages = ["canvasxpress", "canvasxpress.agent_skills",
+            "canvasxpress.agent_skills.canvasxpress_charts",
+            "canvasxpress.agent_skills.canvasxpress_events",
+            "canvasxpress.agent_skills.canvasxpress_notebooks",
+            "canvasxpress.agent_skills.canvasxpress_validator",
+            "canvasxpress.config", "canvasxpress.context", "canvasxpress.data",
+            "canvasxpress.js", "canvasxpress.render", "canvasxpress.util",
+            "canvasxpress.util.example", "cxdash"]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Ruff — linting and formatting (Black-compatible)
