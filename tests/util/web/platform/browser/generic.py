@@ -168,14 +168,14 @@ class ManagedBrowser(GenericBrowser):
     """
 
     # _session tracks a WebDriver instance.
-    _session: WebDriver | None = None
+    _session: Union[WebDriver, None] = None
 
     @property
-    def session(self) -> WebDriver | None:
+    def session(self) -> Union[WebDriver, None]:
         return self._session
 
     @abstractmethod
-    def get_new_session(self) -> WebDriver | None:
+    def get_new_session(self) -> Union[WebDriver, None]:
         """
         Provides a new session with established configurations applied.  This
         implementation is abstract and must be defined for specific drivers
