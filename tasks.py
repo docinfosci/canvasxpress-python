@@ -41,17 +41,15 @@ def init(c, dev=False, list=False):
     :param list: True if a list of all installed requirements should be printed
     :return:
     """
-    c.run("pip install --no-cache-dir -U -r ./requirements-project.txt")
-    c.run("pip install --no-cache-dir -U -r ./requirements.txt")
+    # Bootstrap already done: uv pip install setuptools wheel invoke
+    # Project deps already done: uv pip install ".[all]"
+    # Dev deps already done: uv sync
 
     c.run("npm install canvasxpress")
     c.run("npm install canvasxpress-react")
 
-    if dev:
-        c.run("pip install --no-cache-dir -U -r ./requirements-dev.txt")
-
     if list:
-        c.run("pip list")
+        c.run("uv pip list")
 
 
 @task
