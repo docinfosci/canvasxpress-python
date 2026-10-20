@@ -229,6 +229,9 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             cd plotly/cxdash/
 
             #  Ensure the presence of a virtual environment
@@ -539,6 +542,9 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             cd plotly/cxdash/
 
             #  Ensure the presence of a virtual environment
@@ -787,6 +793,9 @@ jobs:
       - run:
           name: Generate Dash Component
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             cd plotly/cxdash/
 
             #  Ensure the presence of a virtual environment
