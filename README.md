@@ -57,15 +57,12 @@ chart = CanvasXpress(
 plot.show_in_browser(chart)
 ```
 
-**Integrations:** Dash · Shiny · Streamlit · Jupyter · Flask · FastAPI · RStudio
-
-**Export:** JSON · PNG · SVG · HTML
-
 ## CanvasXpress AI Skills
 
-The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress_charts`) that enable coding assistants (Claude, Cursor, OpenCode, Qwen, and other LLM-based tools) to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories:
+The CanvasXpress Python package ships with built-in AI agent skills (`canvasxpress_charts`, `canvasxpress_events`, `canvasxpress_notebooks`, `canvasxpress_validator`) that enable coding assistants — Claude, Cursor, OpenCode, Qwen, OpenAI, Gemini, and others — to generate production-ready visualization code. Upon installation, the skills are automatically distributed to standard agent directories (`~/.agents/`, `~/.config/opencode/skills/`, `~/.claude/skills/`).
 
-### What the skills can do
+<details>
+<summary>Click to see what the skills can do</summary>
 
 - **Generate charts from natural language** — Describe your data and desired visualization in plain English; the agent produces complete, validated CanvasXpress Python code
 - **Convert from Plotly/Matplotlib** — Paste existing Plotly or Matplotlib code and get the CanvasXpress equivalent with proper data reshaping
@@ -77,49 +74,26 @@ The CanvasXpress Python package includes built-in AI agent skills (`canvasxpress
 - **Export to images/JSON** — Convert charts to PNG, PDF, or reproducible JSON for sharing and archival
 - **Jupyter notebook creation** — Generate complete Jupyter notebooks with CanvasXpress charts using `canvasxpress_notebooks`
 - **Code validation** — Validate generated code for syntax correctness using `canvasxpress_validator`
-- **Frame work-agnostic rendering** — Works in Jupyter, Dash, Shiny, Streamlit, Flask, and plain Python scripts
+- **Framework-agnostic rendering** — Works in Jupyter, Dash, Shiny, Streamlit, Flask, and plain Python scripts
 
-### Example Prompts
+</details>
 
-Use these as inspiration for prompts you can give to your AI coding assistant:
+<details>
+<summary>Click to see example prompts</summary>
 
-#### Simple Charts
+**Simple Charts:** *"Create a vertical bar chart showing monthly sales (Jan–May: 120, 150, 180, 200, 250). Title it 'Monthly Sales', label axes, and make it 600×500 pixels."*
 
-**Prompt:** "Create a vertical bar chart showing monthly sales (Jan-May: 120, 150, 180, 200, 250). Title it 'Monthly Sales', label axes, and make it 600x500 pixels."
+**Heatmaps & Annotations:** *"Create a heatmap of gene expression data with 3 genes and 3 samples. Add sample annotations for Treatment (Control/Treatment) and Batch (A/B). Use a diverging color scheme and show the annotation legend."*
 
-**Prompt:** "Generate a horizontal bar chart comparing Var 1 and Var 2 across five categories (Cat 1–Cat 5). Show data values inside each bar in white text. Title: 'Bar Graph Showing Data Values'."
+**Scatter Plots & Highlighting:** *"Create a scatter plot of Height vs Weight with 6 individuals. Add a regression line, highlight two individuals in blue using focus mode, and add histograms on the margins."*
 
-#### Heatmaps & Annotations
+**Multi-Chart Dashboards:** *"Create a dashboard with three coordinated charts: a scatter plot, a bar chart, and a heatmap. Clicking a data point in any chart should highlight corresponding data in all others via automatic broadcasting."*
 
-**Prompt:** "Create a heatmap of gene expression data with 3 genes (GeneA, GeneB, GeneC) and 3 samples (Sample1, Sample3). Add sample annotations: Treatment (Control/Treatment) and Batch (A/B). Use a diverging color scheme and show the annotation legend."
+**Conversions:** *"Convert this Plotly code to CanvasXpress: `go.Figure(data=go.Bar(x=['A','B','C'], y=[10,20,30]))` with title 'My Chart'."*
 
-**Prompt:** "Build a dose-response heatmap showing treatment effects across Sites 1–3 and Doses 0–25. Include sample annotations for Dose, Site, and Treatment. Use navy-white-firebrick color spectrum."
+**Advanced Charts:** *"Create a Venn diagram with 3 sets and their pairwise and triple intersections. Include custom legend labels."* / *"Build a network graph with 5 nodes and 7 edges. Color nodes by metadata category, label nodes, and use force-directed layout."*
 
-#### Scatter Plots & Highlighting
-
-**Prompt:** "Create a scatter plot of Height vs Weight with 6 individuals (Keith, Nina, Freddy, Tracey, Isabelle, Penny). Add a regression line, highlight Freddy and Isabelle in blue using focus mode, and add histograms on the margins."
-
-**Prompt:** "Generate a scatter plot comparing Age vs Response with 50 data points. Highlight all points where Age > 40 using predicate-based highlighting. Add axis labels, title, and a blue color scheme."
-
-#### Multi-Chart Dashboards
-
-**Prompt:** "Create a dashboard with three coordinated charts: a scatter plot (Height vs Weight), a bar chart (Age by Gender), and a heatmap (Measurements). Clicking a data point in any chart should highlight corresponding data in all others via automatic broadcasting."
-
-**Prompt:** "Build a DOE dashboard using a bar chart with metadata (Height, Weight, Gender, Exercise) that filters all other charts on the page when users interact with the pie charts and histograms."
-
-#### Conversions
-
-**Prompt:** "Convert this Plotly code to CanvasXpress: `go.Figure(data=go.Bar(x=['A','B','C'], y=[10,20,30]))` with title 'My Chart'."
-
-**Prompt:** "Translate this Matplotlib scatter plot to CanvasXpress: `plt.scatter(heights, weights)` with xlabel 'Height', ylabel 'Weight'."
-
-#### Advanced & Specialty Charts
-
-**Prompt:** "Create a Venn diagram with 3 sets (List1: 340, List2: 562, List3: 620) and their pairwise and triple intersections. Include custom legend labels."
-
-**Prompt:** "Build a network graph with 5 nodes and 7 edges. Color nodes by metadata category, label nodes, and use force-directed layout. Title: 'Interaction Network'."
-
-**Prompt:** "Generate a bullet chart comparing actual vs target performance (V1 actual, V5 target) across 6 samples. Use range colors for performance zones and show data values inside bars."
+</details>
 
 ### Manual Reinstallation
 
