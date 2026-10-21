@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 [project]
 name = "canvasxpress"
-version = "2026.10.20.dev163828"
+version = "2026.10.21.dev115541023"
 description = "CanvasXpress for Python"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -147,14 +147,9 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Dynamic version — read from canvasxpress/version.py
-#
-# build_pkg_setup.py generates version.py at build time with a date-based
-# version (e.g. 2026.10.19.dev142356).  The version is also written to
-# pyproject.toml so setuptools uses the correct version.
-# ─────────────────────────────────────────────────────────────────────────────
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Build system
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.uv]
 # Typical usage:
