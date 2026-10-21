@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 [project]
 name = "canvasxpress"
-dynamic = ["version"]
+version = "2026.10.20.dev163828"
 description = "CanvasXpress for Python"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -172,7 +172,7 @@ build-backend = "setuptools.build_meta"
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.setuptools.packages.find]
 include = ["canvasxpress*"]
-exclude = ["tests*", "plotly*", "readme*", "resources*"]
+exclude = ["tests*", "plotly*", "readme*", "resources*", "venv*", ".venv*", "node_modules*"]
 
 [tool.setuptools.package-data]
 "cxdash" = ["**/*"]

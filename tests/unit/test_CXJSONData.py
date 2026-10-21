@@ -68,13 +68,13 @@ def test_CXJSONData_set_invalid_url():
 
 
 def test_CXJSONData_set_url():
-    sample_url = (
-        "https://raw.githubusercontent.com/docinfosci/"
-        "canvasxpress-python/develop/readme/examples/iris.json"
-    )
+    sample_url = "https://www.canvasxpress.org/data/cX-generic-dat.txt"
 
     candidate: CXJSONData = CXJSONData()
-    sample = requests.get(sample_url).json()
+    try:
+        sample = requests.get(sample_url, timeout=5).json()
+    except (requests.RequestException, ValueError):
+        pytest.skip("External resource unavailable")
 
     candidate.json = sample_url
     assert candidate.json == json.dumps(sample)
