@@ -316,6 +316,13 @@ jobs:
               # Establish package components
               rm -rf ./dist
               python ./build_pkg_setup.py
+
+              # Clear uv build cache to ensure the newly generated version
+              # is picked up (avoiding stale-version "File already exists"
+              # errors caused by cached egg-info metadata).
+              uv cache clean 2>/dev/null || true
+              rm -rf canvasxpress.egg-info build
+
               uv build
 
               # Confirm the installation user account

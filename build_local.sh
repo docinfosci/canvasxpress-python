@@ -140,8 +140,12 @@ invoke test
 
 # ── Update version & build distribution ─────────────────────────────────────
 echo ""
-echo "Generating version.ini..."
+echo "Generating version.py..."
 python3 ./build_pkg_setup.py
+
+# Clear uv build cache and stale metadata to ensure fresh build
+uv cache clean 2>/dev/null || true
+rm -rf canvasxpress.egg-info build
 
 echo ""
 echo "Building distribution..."
