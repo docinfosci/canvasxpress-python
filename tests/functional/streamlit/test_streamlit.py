@@ -5,9 +5,9 @@ import streamlit as st
 st.set_page_config(layout="wide")
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph
 from canvasxpress.config.collection import CXConfigs
 from canvasxpress.config.type import CXList
+from canvasxpress.plot import graph
 
 st.title("CanvasXpress in Streamlit!")
 

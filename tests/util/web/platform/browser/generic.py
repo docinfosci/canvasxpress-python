@@ -203,8 +203,8 @@ class ManagedBrowser(GenericBrowser):
         available for use in tests.
         :return: True if a session is active.
         """
-        if self._session != None:
-            return self._session.session_id != None
+        if self._session is not None:
+            return self._session.session_id is not None
         else:
             return False
 

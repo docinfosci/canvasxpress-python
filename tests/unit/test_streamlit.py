@@ -27,7 +27,7 @@ def test_valid_chart_argument():
     assert type(iframe_height) == int
 
     # check that template strings "@canvases@", etc. have all been replaced
-    assert not "@" in html
+    assert "@" not in html
 
 
 def test_invalid_chart_argument():

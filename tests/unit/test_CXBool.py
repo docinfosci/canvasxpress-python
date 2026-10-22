@@ -2,17 +2,17 @@ from copy import copy, deepcopy
 
 import pytest
 
-from canvasxpress.config.type import CXString, CXBool
+from canvasxpress.config.type import CXBool, CXString
 
 
 def test_CXBool_init():
     subject: CXBool = CXBool(label="1", value=True)
     assert subject.label == "1"
-    assert subject.value == True
+    assert subject.value
 
     subject: CXBool = CXBool(label="1", value=None)
     assert subject.label == "1"
-    assert subject.value == False
+    assert not subject.value
 
     with pytest.raises(ValueError):
         CXBool(label=None, value=True)
@@ -30,15 +30,15 @@ def test_CXBool_label():
 def test_CXBool_value():
     subject: CXBool = CXBool("1", False)
     subject.value = True
-    assert subject.value == True
+    assert subject.value
 
     subject: CXBool = CXBool("1", True)
     subject.value = None
-    assert subject.value == False
+    assert not subject.value
 
     subject: CXBool = CXBool("1", True)
     subject.value = False
-    assert subject.value == False
+    assert not subject.value
 
 
 def test_CXBool_copy():

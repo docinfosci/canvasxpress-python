@@ -10,7 +10,6 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 # Test chart examples and plain English prompts
@@ -205,13 +204,13 @@ def generate_python_code(test_case: dict) -> str:
     code += "from canvasxpress.js.function import CXEvent\n"
     code += "from canvasxpress.js.collection import CXEvents\n"
     code += "from canvasxpress.plot import convert_to_reproducible_json\n\n"
-    
+
     # Add data
     code += f"data = {json.dumps(test_case['data'])}\n"
-    
+
     # Add config
     code += f"config = {json.dumps(test_case['config'])}\n"
-    
+
     # Add events
     if "expected_events" in test_case:
         # Multiple events
@@ -223,10 +222,10 @@ def generate_python_code(test_case: dict) -> str:
         # Single event
         evt = test_case["expected_event"]
         code += f'\nevents = CXEvent(id="{evt["id"]}", script="{evt["script"]}")\n'
-    
+
     # Add CanvasXpress object
     code += "\ncx = CanvasXpress(data=data, config=config, events=events)\n"
-    
+
     # Validation
     code += """
 try:
@@ -236,7 +235,7 @@ except Exception as e:
     print(f"VALIDATION FAILED: {e}")
     raise
 """
-    
+
     return code
 
 
@@ -244,7 +243,7 @@ def run_ruff_check(code: str, test_id: str) -> tuple[bool, str]:
     """Run ruff check on the code."""
     temp_file = Path(f"/tmp/ruff_test_{test_id}.py")
     temp_file.write_text(code)
-    
+
     try:
         result = subprocess.run(
             ["ruff", "check", str(temp_file)],
@@ -265,7 +264,7 @@ def run_canvasxpress_validation(code: str, test_id: str) -> tuple[bool, str]:
     """Validate CanvasXpress code executes without exceptions."""
     temp_file = Path(f"/tmp/cx_test_{test_id}.py")
     temp_file.write_text(code)
-    
+
     try:
         result = subprocess.run(
             [sys.executable, str(temp_file)],
@@ -287,28 +286,28 @@ def main():
     print("=" * 80)
     print("CanvasXpress Events Skill Testing - Direct Code Validation")
     print("=" * 80)
-    
+
     results = []
-    
+
     for test_case in TEST_CASES:
         print(f"\n{'='*80}")
         print(f"Test: {test_case['id']}")
         print(f"Chart: {test_case['chart_type']} - {test_case['description']}")
         print(f"Prompt: {test_case['prompt']}")
         print(f"{'='*80}")
-        
+
         # Generate code
         code = generate_python_code(test_case)
-        
+
         print("\nGenerated Code:")
         print("-" * 80)
         print(code)
         print("-" * 80)
-        
+
         # Run validations
         ruff_ok, ruff_output = run_ruff_check(code, test_case['id'])
         cx_ok, cx_output = run_canvasxpress_validation(code, test_case['id'])
-        
+
         result = {
             "id": test_case["id"],
             "chart": test_case["chart_type"],
@@ -321,30 +320,30 @@ def main():
             "code": code,
         }
         results.append(result)
-        
+
         # Print results
         print(f"\nRuff Check: {'PASS' if ruff_ok else 'FAIL'}")
         if ruff_output:
             print(f"  {ruff_output[:300]}")
-        
+
         print(f"CanvasXpress Validation: {'PASS' if cx_ok else 'FAIL'}")
         if cx_output:
             print(f"  {cx_output[:300]}")
-    
+
     # Summary
     print(f"\n\n{'='*80}")
     print("SUMMARY")
     print(f"{'='*80}")
-    
+
     passed = sum(1 for r in results if r['ruff_valid'] and r['cx_valid'])
     total = len(results)
-    
+
     print(f"\nPassed: {passed}/{total}")
-    
+
     for r in results:
         status = "PASS" if (r['ruff_valid'] and r['cx_valid']) else "FAIL"
         print(f"  [{status}] {r['id']} ({r['chart']})")
-    
+
     # Save results
     results_file = Path("/tmp/events_direct_test_results.json")
     results_to_save = []
@@ -358,7 +357,7 @@ def main():
         })
     results_file.write_text(json.dumps(results_to_save, indent=2))
     print(f"\nResults saved to: {results_file}")
-    
+
     return 0 if passed == total else 1
 
 

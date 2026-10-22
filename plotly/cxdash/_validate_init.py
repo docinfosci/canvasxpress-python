@@ -2,12 +2,10 @@
 DO NOT MODIFY
 This file is used to validate your publish settings.
 """
-from __future__ import print_function
 
+import importlib
 import os
 import sys
-import importlib
-
 
 components_package = "cxdash"
 
@@ -19,7 +17,7 @@ Warning {} was not found in `MANIFEST.in`!
 It will not be included in the build!
 """
 
-with open("MANIFEST.in", "r") as f:
+with open("MANIFEST.in") as f:
     manifest = f.read()
 
 

@@ -1,0 +1,17 @@
+# Include generated version.py even though it's gitignored
+global-include canvasxpress/version.py
+
+# Exclude build artifacts and environments
+global-exclude venv/**
+global-exclude .venv/**
+global-exclude node_modules/**
+global-exclude __pycache__/**
+global-exclude *.egg-info/**
+global-exclude .pytest_cache/**
+global-exclude .hypothesis/**
+global-exclude .ruff_cache/**
+global-exclude coverage-results/**
+global-exclude cxdash/**
+
+# Exclude egg-info (setuptools artifact, not source)
+global-exclude canvasxpress.egg-info/**

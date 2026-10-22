@@ -126,9 +126,9 @@ def is_streamlit_available() -> bool:
         True if streamlit is available, False otherwise.
     """
     try:
-        import streamlit
+        import importlib.util
 
-        return True
+        return importlib.util.find_spec("streamlit") is not None
 
     except ModuleNotFoundError:
         return False

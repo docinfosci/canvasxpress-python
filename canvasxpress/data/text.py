@@ -19,7 +19,7 @@ class CXTextData(CXData):
 
     __raw_text = ""
     """
-    `__raw_text` tracks a block of text to be passed directly to the 
+    `__raw_text` tracks a block of text to be passed directly to the
     CanvasXpress for Javascript constructor.
     """
 
@@ -86,7 +86,7 @@ class CXTextData(CXData):
             else:
                 return {"raw": self.text}
 
-        except Exception as e:
+        except Exception:
             return {"raw": self.text}
 
     def render_to_dict(self, **kwargs) -> dict:

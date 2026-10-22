@@ -1,5 +1,5 @@
 import logging
-from os import path, environ
+from os import environ, path
 from pathlib import Path
 
 import git

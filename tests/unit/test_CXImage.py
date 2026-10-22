@@ -1,9 +1,8 @@
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.image import (
-    CXImage,
     PNG_IMAGE,
     SVG_IMAGE,
-    render_html_as_image,
+    CXImage,
 )
 
 cx_example = CanvasXpress(

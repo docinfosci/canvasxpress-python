@@ -3,7 +3,7 @@ from copy import copy, deepcopy
 
 import pytest
 
-from canvasxpress.config.type import CXDict, CXBool
+from canvasxpress.config.type import CXBool, CXDict
 
 
 def test_CXDict_init():

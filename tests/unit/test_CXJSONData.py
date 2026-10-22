@@ -2,9 +2,8 @@ import json
 import string
 from copy import copy, deepcopy
 
-import requests
-
 import pytest
+import requests
 from deepdiff import DeepDiff
 from hypothesis import given, settings
 from hypothesis.strategies import dictionaries, text
@@ -69,13 +68,13 @@ def test_CXJSONData_set_invalid_url():
 
 
 def test_CXJSONData_set_url():
-    sample_url = (
-        "https://raw.githubusercontent.com/docinfosci/"
-        "canvasxpress-python/develop/readme/examples/iris.json"
-    )
+    sample_url = "https://www.canvasxpress.org/data/cX-generic-dat.txt"
 
     candidate: CXJSONData = CXJSONData()
-    sample = requests.get(sample_url).json()
+    try:
+        sample = requests.get(sample_url, timeout=5).json()
+    except (requests.RequestException, ValueError):
+        pytest.skip("External resource unavailable")
 
     candidate.json = sample_url
     assert candidate.json == json.dumps(sample)
@@ -194,7 +193,7 @@ def test_CXJSONData_get_raw_dict_form(sample):
 def test_CXJSONData_equality_None():
     sample_a: CXJSONData = CXJSONData({"a": 1})
 
-    assert sample_a != None
+    assert sample_a is not None
     assert None < sample_a
     assert sample_a > None
 

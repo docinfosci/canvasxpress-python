@@ -40,7 +40,7 @@ class CXDictData(CXKeyPairData):
         if value is None:
             self.__data = dict()
 
-        elif not type(value) in [dict, CXDictData]:
+        elif type(value) not in [dict, CXDictData]:
             raise TypeError("value must be type dict or compatible.")
 
         elif isinstance(value, CXDictData):
@@ -128,7 +128,7 @@ class CXDictData(CXKeyPairData):
 
             if (other_added - other_removed) == 0:
                 for skey in self.data.keys():
-                    if not skey in other.data.keys():
+                    if skey not in other.data.keys():
                         for okey in other.data.keys():
                             if skey < okey:
                                 return True
@@ -167,7 +167,7 @@ class CXDictData(CXKeyPairData):
 
             if (other_added - other_removed) == 0:
                 for skey in self.data.keys():
-                    if not skey in other.data.keys():
+                    if skey not in other.data.keys():
                         return False
 
                     elif self.data[skey] != other.data[skey]:
@@ -227,7 +227,7 @@ class CXJSONData(CXDictData):
                 result = requests.get(value, allow_redirects=True)
                 self.data = result.json()
 
-            except Exception as e:
+            except Exception:
                 raise ValueError(
                     "Detected URL but cannot access JSON data at endpoint."
                 )

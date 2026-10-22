@@ -1,18 +1,18 @@
 import json
 from copy import deepcopy
 from functools import total_ordering
-from typing import Iterator, List, Any, Union
+from typing import Any, Iterator, List, Union
 
 from canvasxpress.config.type import (
-    CXConfig,
-    CXString,
-    CXInt,
-    CXFloat,
     CXBool,
-    CXList,
+    CXConfig,
     CXDict,
-    CXNone,
+    CXFloat,
     CXGraphWeight,
+    CXInt,
+    CXList,
+    CXNone,
+    CXString,
 )
 from canvasxpress.data.convert import CXDictConvertable, CXListConvertable
 
@@ -316,7 +316,7 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
         unique_configs = list()
         if configs is not None:
             for config in configs:
-                if not config in unique_configs:
+                if config not in unique_configs:
                     unique_configs.append(config)
 
         dict_configs = dict()

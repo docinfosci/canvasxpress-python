@@ -1,6 +1,3 @@
-import os
-import sys
-import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -231,7 +228,7 @@ class TestInstallSkills:
             for p in skill_dir.rglob("*"):
                 assert not p.suffix == ".py", f"Found .py file: {p}"
                 assert not p.suffix == ".pyc", f"Found .pyc file: {p}"
-                assert not "__pycache__" in str(p), f"Found __pycache__: {p}"
+                assert "__pycache__" not in str(p), f"Found __pycache__: {p}"
 
     def test_install_skills_no_force_skips_existing(self, mock_entry_points, tmp_path, monkeypatch, capsys):
         """Test that without --force, existing skills are skipped when up to date."""

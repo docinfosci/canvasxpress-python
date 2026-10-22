@@ -187,6 +187,15 @@ jobs:
             node --version
             npm --version
       - run:
+          name: Install uv
+          command: |
+            # Install uv for root access in the CI container
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+            export PATH="$HOME/.local/bin:$PATH"
+            uv --version
+
+      - run:
           name: Install Python dependencies
           command: |
             # Load R_HOME for rpy2 installation
@@ -199,27 +208,30 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            # Create virtual environment for isolated Python installation
-            if ! [[ -d ./venv ]] ; then
-              python3 -m venv ./venv
-            fi
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
+            # Create virtual environment with uv
+            uv venv ./venv --python python3
             source ./venv/bin/activate
 
-            # Configure pip to ignore root user warnings
-            pip config set global.root-user-action ignore
+            # Install project + all extras (replaces requirements.txt)
+            uv pip install --no-cache-dir ".[all]"
 
-            # Upgrade pip in virtual environment
-            pip install --no-cache-dir -U pip setuptools wheel
+            # Install dev tools (replaces requirements-dev.txt)
+            uv pip install --no-cache-dir ".[dev]"
 
-            # Install dependencies in order
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            pip install --no-cache-dir -U -r ./requirements.txt
-            pip install --no-cache-dir -U -r ./requirements-dev.txt
+            # Bootstrap build tools
+            uv pip install --no-cache-dir setuptools wheel invoke
+
             invoke init --dev --list
 
       - run:
           name: Generate Dash Component
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             cd plotly/cxdash/
 
             #  Ensure the presence of a virtual environment
@@ -230,8 +242,7 @@ jobs:
 
             # Ensure that essential project utilities are available
             echo "Install Python components"
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
+            uv pip install --no-cache-dir -r requirements.txt
 
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
@@ -248,16 +259,14 @@ jobs:
       - run:
           name: Static analysis
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             # Activate virtual environment
             source ./venv/bin/activate
 
-            prospector \
-                --zero-exit \
-                --show-profile \
-                --no-autodetect \
-                --strictness low \
-                -o text \
-                ./canvasxpress
+            # Run ruff (replaces prospector)
+            uvx ruff check ./canvasxpress
 
       - run:
           name: Test
@@ -291,6 +300,9 @@ jobs:
       - run:
           name: Deploy artifacts
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             # Activate virtual environment
             source ./venv/bin/activate
 
@@ -304,7 +316,14 @@ jobs:
               # Establish package components
               rm -rf ./dist
               python ./build_pkg_setup.py
-              python setup.py sdist
+
+              # Clear uv build cache to ensure the newly generated version
+              # is picked up (avoiding stale-version "File already exists"
+              # errors caused by cached egg-info metadata).
+              uv cache clean 2>/dev/null || true
+              rm -rf canvasxpress.egg-info build
+
+              uv build
 
               # Confirm the installation user account
               echo "Deploying via TWINE user ${TWINE_USERNAME}"
@@ -329,7 +348,7 @@ jobs:
 
   build-python-latest:
     docker:
-      - image: python:3.13-bullseye
+      - image: python:3.15
 
     steps:
       - checkout
@@ -488,6 +507,15 @@ jobs:
             node --version
             npm --version
       - run:
+          name: Install uv
+          command: |
+            # Install uv for root access in the CI container
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+            export PATH="$HOME/.local/bin:$PATH"
+            uv --version
+
+      - run:
           name: Install Python dependencies
           command: |
             # Load R_HOME for rpy2 installation
@@ -500,27 +528,30 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            # Create virtual environment for isolated Python installation
-            if ! [[ -d ./venv ]] ; then
-              python3 -m venv ./venv
-            fi
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
+            # Create virtual environment with uv
+            uv venv ./venv --python python3
             source ./venv/bin/activate
 
-            # Configure pip to ignore root user warnings
-            pip config set global.root-user-action ignore
+            # Install project + all extras (replaces requirements.txt)
+            uv pip install --no-cache-dir ".[all]"
 
-            # Upgrade pip in virtual environment
-            pip install --no-cache-dir -U pip setuptools wheel
+            # Install dev tools (replaces requirements-dev.txt)
+            uv pip install --no-cache-dir ".[dev]"
 
-            # Install dependencies in order
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            pip install --no-cache-dir -U -r ./requirements.txt
-            pip install --no-cache-dir -U -r ./requirements-dev.txt
+            # Bootstrap build tools
+            uv pip install --no-cache-dir setuptools wheel invoke
+
             invoke init --dev --list
 
       - run:
           name: Generate Dash Component
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             cd plotly/cxdash/
 
             #  Ensure the presence of a virtual environment
@@ -531,8 +562,7 @@ jobs:
 
             # Ensure that essential project utilities are available
             echo "Install Python components"
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
+            uv pip install --no-cache-dir -r requirements.txt
 
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"
@@ -728,6 +758,15 @@ jobs:
             node --version
             npm --version
       - run:
+          name: Install uv
+          command: |
+            # Install uv for root access in the CI container
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+            export PATH="$HOME/.local/bin:$PATH"
+            uv --version
+
+      - run:
           name: Install Python dependencies
           command: |
             # Load R_HOME for rpy2 installation
@@ -740,27 +779,30 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            # Create virtual environment for isolated Python installation
-            if ! [[ -d ./venv ]] ; then
-              python3 -m venv ./venv
-            fi
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
+            # Create virtual environment with uv
+            uv venv ./venv --python python3
             source ./venv/bin/activate
 
-            # Configure pip to ignore root user warnings
-            pip config set global.root-user-action ignore
+            # Install project + all extras (replaces requirements.txt)
+            uv pip install --no-cache-dir ".[all]"
 
-            # Upgrade pip in virtual environment
-            pip install --no-cache-dir -U pip setuptools wheel
+            # Install dev tools (replaces requirements-dev.txt)
+            uv pip install --no-cache-dir ".[dev]"
 
-            # Install dependencies in order
-            pip install --no-cache-dir -U -r ./requirements-project.txt
-            pip install --no-cache-dir -U -r ./requirements.txt
-            pip install --no-cache-dir -U -r ./requirements-dev.txt
+            # Bootstrap build tools
+            uv pip install --no-cache-dir setuptools wheel invoke
+
             invoke init --dev --list
 
       - run:
           name: Generate Dash Component
           command: |
+            # Ensure uv is on PATH
+            export PATH="$HOME/.local/bin:$PATH"
+
             cd plotly/cxdash/
 
             #  Ensure the presence of a virtual environment
@@ -771,8 +813,7 @@ jobs:
 
             # Ensure that essential project utilities are available
             echo "Install Python components"
-            pip install -U pip setuptools wheel
-            pip install -U -r requirements.txt
+            uv pip install --no-cache-dir -r requirements.txt
 
             # Load NVM for Node.js access
             export NVM_DIR="$HOME/.nvm"

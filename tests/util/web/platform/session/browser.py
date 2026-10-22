@@ -1,6 +1,6 @@
-from typing import List
 
 import pytest
+from typing import List
 
 from tests.util.web.platform.browser.chrome import ChromeManagedBrowser
 from tests.util.web.platform.browser.generic import ManagedBrowser

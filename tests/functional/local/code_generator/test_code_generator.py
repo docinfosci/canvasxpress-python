@@ -1,8 +1,4 @@
-import os
 
-from canvasxpress.util.example.generator import (
-    generate_canvasxpress_code_from_json_file,
-)
 
 
 # Commented out as Menna's work has spilled into develop but the tests are not yet fixed.

@@ -1,8 +1,8 @@
 import pytest
 
-from canvasxpress.canvas import CanvasXpress, _DEFAULT_JS_URL, _DEFAULT_CSS_URL
+from canvasxpress.canvas import _DEFAULT_CSS_URL, _DEFAULT_JS_URL, CanvasXpress
 from canvasxpress.config.collection import CXConfigs
-from canvasxpress.config.type import CXString, CXList
+from canvasxpress.config.type import CXList, CXString
 from canvasxpress.data.keypair import CXDictData
 from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
@@ -13,7 +13,7 @@ def test_cdn_edition():
     assert CanvasXpress.cdn_edition() == "2.3"
 
     CanvasXpress.set_cdn_edition(None)
-    assert CanvasXpress.cdn_edition() == None
+    assert CanvasXpress.cdn_edition() is None
 
 
 def test_js_library_url():
