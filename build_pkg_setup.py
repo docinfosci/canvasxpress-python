@@ -39,7 +39,7 @@ def get_version() -> str:
 if __name__ == "__main__":
     version = get_version()
 
-    # Write version.py (read by setuptools via [tool.setuptools.dynamic])
+    # Write version.py (read by setuptools via [tool.setuptools.dynamic] file:)
     with open("canvasxpress/version.py", "w") as fh:
-        fh.write(f"__version__ = '{version}'\n")
+        fh.write(f"{version}\n")
     print(f"Generated version.py: __version__ = '{version}'")
