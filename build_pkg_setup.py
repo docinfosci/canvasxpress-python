@@ -16,6 +16,7 @@ from datetime import datetime
 import re
 
 import pytz
+from git import Repo
 
 buildtime = pytz.utc.localize(datetime.now())
 
@@ -23,13 +24,18 @@ buildtime = pytz.utc.localize(datetime.now())
 def get_version() -> str:
     """Return a PEP 440-compliant date-based version string.
 
-    All branches  →  2026.10.21.dev181512345  (always includes time)
+    main/master  →  2026.10.21.200702292       (date + time, no .dev)
+    other        →  2026.10.21.dev200702292    (date + .dev + time)
     """
-    ms = buildtime.strftime('%f')[:3]  # milliseconds (3 digits)
-    return (
-        f"{buildtime.year}.{buildtime.month}.{buildtime.day}"
-        f".dev{buildtime.strftime('%H%M%S')}{ms}"
-    )
+    repo = Repo(".")
+    branch = repo.active_branch
+
+    time_suffix = buildtime.strftime('%H%M%S') + buildtime.strftime('%f')[:3]
+
+    if branch.name in ('main', 'master'):
+        return f"{buildtime.year}.{buildtime.month}.{buildtime.day}.{time_suffix}"
+    else:
+        return f"{buildtime.year}.{buildtime.month}.{buildtime.day}.dev{time_suffix}"
 
 
 if __name__ == "__main__":
