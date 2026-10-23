@@ -157,7 +157,7 @@ class TestInstallSkills:
         (existing_dir / "SKILL.md").write_text("Old content")
         (existing_dir / ".skill-version").write_text("0.0.0", encoding="utf-8")
 
-        with patch("canvasxpress.agent_skills.registry.get_version") as mock_get_version:
+        with patch("canvasxpress.agent_skills.registry.read_package_version") as mock_get_version:
             mock_get_version.return_value = "0.0.0"
             install_skills(target="opencode", force=False)
 
@@ -244,12 +244,31 @@ class TestInstallSkills:
         (existing_dir / "SKILL.md").write_text("Old content")
         (existing_dir / ".skill-version").write_text("0.0.0", encoding="utf-8")
 
-        with patch("canvasxpress.agent_skills.registry.get_version") as mock_get_version:
+        with patch("canvasxpress.agent_skills.registry.read_package_version") as mock_get_version:
             mock_get_version.return_value = "0.0.0"
             install_skills(target="opencode", force=False)
 
         output = capsys.readouterr().out
         assert "skip" in output or "up to date" in output
+
+    def test_install_skills_quiet_when_current(self, mock_entry_points, tmp_path, monkeypatch, capsys):
+        """Importing canvasxpress uses verbose=False; current skills must print nothing."""
+        from canvasxpress.agent_skills.registry import install_skills
+
+        mock_home = tmp_path / "home"
+        mock_home.mkdir()
+        monkeypatch.setattr("pathlib.Path.home", lambda: mock_home)
+
+        existing_dir = mock_home / ".config" / "opencode" / "skills" / "canvasxpress_charts"
+        existing_dir.mkdir(parents=True, exist_ok=True)
+        (existing_dir / "SKILL.md").write_text("Old content")
+        (existing_dir / ".skill-version").write_text("0.0.0", encoding="utf-8")
+
+        with patch("canvasxpress.agent_skills.registry.read_package_version") as mock_get_version:
+            mock_get_version.return_value = "0.0.0"
+            install_skills(target="opencode", force=False, verbose=False)
+
+        assert capsys.readouterr().out == ""
 
     def test_install_skills_provenance_stamp(self, mock_entry_points, tmp_path, monkeypatch):
         """Test that .skill-version file is written during installation."""
