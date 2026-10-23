@@ -6,7 +6,9 @@ The project overview is documented in the `README.md` file located in the root d
 ## Source Code Structure
 - The source code for the project is primarily located in the following directories:
   - `./canvasxpress`: Contains the core functionality related to CanvasXpress.
-  - `./plotly`: Includes integration with Plotly, specifically for Dash applications.
+  - `./canvasxpress/render`: Renderers for each target framework (Jupyter, Dash, Shiny, Streamlit, browser, images).
+  - `./canvasxpress/render/resources`: JavaScript shipped with the package: `canvasxpress-react.js` (the CanvasXpress React wrapper) and `canvasxpress-dash.js` (the `CXDashElement` Dash component, defined in Python in `render/dash.py`). These are plain JavaScript using the host page's global React; there is no build step, bundler, or `npm` dependency.
+- Non-Python files must be listed in `[tool.setuptools.package-data]` in `pyproject.toml` (and `MANIFEST.in`), or they are left out of the wheel.
 
 ## Automated Tests
 Automated tests are maintained in the `./tests` directory. These tests ensure that the project functions as expected and cover various scenarios.
