@@ -130,7 +130,7 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
     elif _g_context == CONTEXT_STREAMLIT:
         from canvasxpress.render import streamlit
 
-        streamlit.plot(canvas)
+        streamlit.plot(canvas, key=kwargs.get("key"))
 
     elif _g_context == CONTEXT_BROWSER:
         plotter = CXBrowserPopup(canvas)
