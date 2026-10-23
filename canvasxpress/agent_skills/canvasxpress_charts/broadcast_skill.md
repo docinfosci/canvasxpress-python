@@ -9,7 +9,7 @@ CanvasXpress provides automatic broadcast mechanisms for linking multiple visual
 
 ## Basic Broadcasting (Automatic)
 
-By default, clicking a data point in one chart highlights corresponding points in ALL charts on the page. No configuration needed:
+By default, clicking a data point in one chart highlights corresponding points in ALL charts on the page. No configuration needed. Charts must share the same data and be visible to each other in the page's DOM; charts isolated in separate iframes (for example, Streamlit releases without `st.components.v2`) do not broadcast:
 
 ```python
 # Chart 1: Scatter
