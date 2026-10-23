@@ -6,26 +6,19 @@
 ::                  Python (via uv, if the requested version is missing)
 :: Checks only:     R (optional, for rpy2)
 ::
+:: Creates a single development venv on Python 3.13. Python 3.8 compliance of
+:: the package logic is enforced by vermin (see vermin.ini), and CircleCI
+:: tests 3.8 / 3.10 / 3.15 at runtime.
+::
 :: Usage (from cmd or PowerShell, in the project root):
-::   .\setup_windows.bat [python-version] [venv-dir]
-::
-::   python-version  Defaults to 3.13 (development). Use 3.8 or 3.10 to mirror
-::                   the CircleCI build-python-oldest / build-python-general
-::                   profiles. Must be 3.8+.
-::   venv-dir        Defaults to venv.
-::
-:: Examples:
 ::   .\setup_windows.bat
-::   .\setup_windows.bat 3.8 venv38
 :: ---------------------------------------------------------------------------
 setlocal EnableExtensions EnableDelayedExpansion
 
 cd /d "%~dp0"
 
-set "PY_REQ=%~1"
-if not defined PY_REQ set "PY_REQ=3.13"
-set "VENV_DIR=%~2"
-if not defined VENV_DIR set "VENV_DIR=venv"
+set "PY_REQ=3.13"
+set "VENV_DIR=venv"
 
 echo ============================================================
 echo   CanvasXpress Python - Windows Setup
@@ -161,9 +154,8 @@ if not exist "!VENV_DIR!\Scripts\python.exe" (
 :: Refuse to reuse a venv built on a different Python version.
 for /f "delims=" %%v in ('call "!VENV_DIR!\Scripts\python.exe" -c "import sys; print('.'.join(map(str, sys.version_info[:2])))"') do set "VENV_PY_VER=%%v"
 if not "!VENV_PY_VER!"=="!PY_VER!" (
-    echo   [ERROR] !VENV_DIR! uses Python !VENV_PY_VER!, but !PY_VER! was requested.
-    echo   Delete !VENV_DIR! or pass a different venv-dir, e.g.:
-    echo   .\setup_windows.bat !PY_REQ! venv!PY_VER:.=!
+    echo   [ERROR] !VENV_DIR! uses Python !VENV_PY_VER!, but !PY_VER! is required.
+    echo   Delete !VENV_DIR! and re-run this script.
     exit /b 1
 )
 
