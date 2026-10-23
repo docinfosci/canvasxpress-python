@@ -169,14 +169,21 @@ version = {file = "canvasxpress/version.py"}
 # ─────────────────────────────────────────────────────────────────────────────
 # ─────────────────────────────────────────────────────────────────────────────
 # Setuptools — explicit package discovery
-# find_packages() will include cxdash when generated during build.
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.setuptools.packages.find]
 include = ["canvasxpress*"]
-exclude = ["tests*", "plotly*", "readme*", "resources*", "venv*", ".venv*", "node_modules*"]
+exclude = ["tests*", "readme*", "resources*", "venv*", ".venv*", "node_modules*"]
 
 [tool.setuptools.package-data]
-"cxdash" = ["**/*"]
+# Non-Python files that must ship in the wheel:
+# - util/*.json: templates loaded at import time
+# - agent_skills/*/*.md: the agent skills installed by the canvasxpress CLI
+# - render/resources/*.js: CanvasXpress React wrapper and Dash component, served by Dash
+"canvasxpress" = [
+    "util/*.json",
+    "agent_skills/*/*.md",
+    "render/resources/*.js",
+]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Ruff — linting and formatting (Black-compatible)
@@ -186,7 +193,6 @@ line-length = 88
 target-version = "py38"
 exclude = [
     "tests",           # Test suite — style differences acceptable
-    "plotly/cxdash",   # Generated build artifact
 ]
 
 [tool.ruff.format]
@@ -213,4 +219,4 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["canvasxpress", "cxdash"]
+known-first-party = ["canvasxpress"]
