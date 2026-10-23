@@ -282,7 +282,8 @@ Generally speaking, a `CanvasXpress` object accepts the following parameters:
 access the chart and perform CanvasXpress operations within the browser. Omitting `render_to` or setting it to
 `None` will make the `CanvasXpress` object assume an anonymous mode in which a new GUID will be generated each time
 `graph()` is called. If the chart will not be maniluated using JavaScript in the browser it is fine for charts to be
-anonymous.
+anonymous. In Streamlit, a chart whose `render_to` is already used by another chart on the page is rendered under a
+suffixed ID; see the Streamlit example for details.
 
 __NOTE:__ React environments regularly destroy and rebuild objects as the page is updated. In these environments it is
 possible for the timing of object destruction and JavaScript execution to cause a crash. The best defense is to either
@@ -916,6 +917,21 @@ with column2:
     # This plots the CanvasXpress chart into the UI.
     graph(bar_chart)
 ```
+
+#### How Charts Are Rendered
+
+With Streamlit releases that provide Custom Components v2 (`st.components.v2`), `graph()` renders each chart
+directly in the app page rather than in an iframe. Charts size to their content and share a single copy of the
+CanvasXpress library, and because they are visible to each other in the page, charts with the same data broadcast to
+each other. Older Streamlit releases, such as those available for Python 3.8, continue to render each chart in its own
+iframe, which isolates charts from each other. No code changes are needed for either.
+
+Because charts share the page, their `render_to` IDs share it too. If two charts use the same ID, one of them is
+rendered under a suffixed ID (for example, `my_chart_1`) so that both display, but JavaScript that looks up `my_chart`
+reaches only one of them. Give charts distinct `render_to` values when they will be accessed by ID.
+
+`graph()` also accepts an optional Streamlit element `key`, such as `graph(bar_chart, key="sales_chart")`. It is not
+required, even when the same chart is rendered more than once, but keeps a chart's identity stable as its data changes.
 
 #### Run the App and View the Page
 
