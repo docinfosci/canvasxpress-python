@@ -133,6 +133,10 @@ echo ""
 echo "Running static analysis (ruff)..."
 uvx ruff check ./canvasxpress
 
+echo ""
+echo "Checking Python 3.8 compatibility (vermin)..."
+uvx vermin ./canvasxpress
+
 # ── Run tests ───────────────────────────────────────────────────────────────
 echo ""
 echo "Running tests..."
