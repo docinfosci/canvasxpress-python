@@ -53,7 +53,6 @@ def init(c, dev=False, list=False):
     # Dev deps already done: uv sync
 
     c.run("npm install canvasxpress")
-    c.run("npm install canvasxpress-react")
 
     if list:
         c.run("uv pip list")
