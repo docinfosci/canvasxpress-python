@@ -1,7 +1,7 @@
 """CanvasXpress chart builder skill for AI coding agents."""
 
 try:
-    from importlib.resources import files
+    from importlib.resources import files  # novermin
 except ImportError:
     from importlib_resources import files
 from typing import List, Optional
