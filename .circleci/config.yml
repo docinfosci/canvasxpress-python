@@ -3,7 +3,7 @@
 # Build profiles:
 #   build-python-oldest   : python:3.8.18-bullseye (Debian 11)
 #   build-python-general  : python:3.10.12-bullseye (Debian 11)
-#   build-python-latest   : python:3.13-bullseye   (Debian 11)
+#   build-python-latest   : python:3.15-trixie     (Debian 13, Python 3.15 beta)
 #
 # IMPORTANT: CircleCI uses Debian Bullseye, NOT Ubuntu.
 # - Use https://cloud.r-project.org/bin/linux/debian bullseye-cran40/ for R
@@ -268,6 +268,9 @@ jobs:
             # Run ruff (replaces prospector)
             uvx ruff check ./canvasxpress
 
+            # Enforce Python 3.8 compatibility of the package logic (see vermin.ini)
+            uvx vermin ./canvasxpress
+
       - run:
           name: Test
           command: |
@@ -348,7 +351,9 @@ jobs:
 
   build-python-latest:
     docker:
-      - image: python:3.15
+      # No bullseye image exists for 3.15; pin the Debian release so the base
+      # OS does not change when the floating python:3.15 tag moves to a new one.
+      - image: python:3.15-trixie
 
     steps:
       - checkout
