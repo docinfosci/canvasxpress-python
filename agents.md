@@ -39,9 +39,8 @@ Packages are declared in `pyproject.toml` (which replaced the former `requiremen
 - `[project.optional-dependencies]`: framework extras (`dash`, `jupyter`, `streamlit`, `shiny`, `rstudio`, `all`) and `dev` for local development and testing.
 
 The virtual environment:
-- Use Python 3.13 for day-to-day development; use 3.8 (or 3.10) to reproduce the CI oldest (or deploy) profile.
+- A single environment on Python 3.13. Do not create per-version venvs: 3.8 compliance is enforced by vermin, and CircleCI tests 3.8, 3.10 and 3.15 at runtime.
 - Created in the project root as `venv` by the platform setup scripts (`setup_mac.sh`, `setup_linux.sh`, `setup_windows.bat`).
-- On Windows, `setup_windows.bat [python-version] [venv-dir]` selects the interpreter (uv downloads it if missing), e.g. `.\setup_windows.bat 3.8 venv38`.
 
 ## Build Process
 The `build_local.sh` script is used to prepare the package for publication. It runs tests and executes various tools such as `build_pkg_setup.py` to ensure the package is ready for distribution.
