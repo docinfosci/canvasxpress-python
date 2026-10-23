@@ -9,8 +9,9 @@ setuptools entry points for platform-agnostic discovery.
 import shutil
 import sys
 from importlib.metadata import entry_points
-from importlib.metadata import version as get_version
 from pathlib import Path
+
+from canvasxpress.util.package_version import read_package_version
 
 
 def _get_entry_points():
@@ -98,7 +99,7 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bo
                 if stamp_file.is_file():
                     installed_version = stamp_file.read_text(encoding='utf-8').strip()
                     if installed_version:
-                        pkg_version = get_version('canvasxpress')
+                        pkg_version = read_package_version()
                         if pkg_version == installed_version:
                             needs_update = False
             except Exception:
@@ -118,7 +119,7 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bo
 
     # Write provenance stamp
     try:
-        pkg_version = get_version('canvasxpress')
+        pkg_version = read_package_version()
     except Exception:
         pkg_version = 'unknown'
     (target / ".skill-version").write_text(pkg_version, encoding='utf-8')
@@ -178,7 +179,9 @@ def install_skills(target: str = 'all', force: bool = False, verbose: bool = Tru
             total_installed += count
 
     if total_installed == 0 and not force:
-        print("No skills were installed. All skills are already present. Use --force to replace.")
+        # The normal case on import once skills are current, so only on request.
+        if verbose:
+            print("No skills were installed. All skills are already present. Use --force to replace.")
     elif total_installed == 0 and force:
         print("No skills were installed. Check that the package is properly installed.")
 
