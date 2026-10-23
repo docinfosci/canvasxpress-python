@@ -136,7 +136,15 @@ def test_graph_streamlit_context():
     with patch("canvasxpress.plot._g_context", "streamlit"):
         with patch("canvasxpress.render.streamlit.plot") as mock_plot:
             graph(CX_SIMPLE)
-            mock_plot.assert_called_once_with(CX_SIMPLE)
+            mock_plot.assert_called_once_with(CX_SIMPLE, key=None)
+
+
+def test_graph_streamlit_context_passes_key():
+    """Test that graph in streamlit context passes the element key to plot."""
+    with patch("canvasxpress.plot._g_context", "streamlit"):
+        with patch("canvasxpress.render.streamlit.plot") as mock_plot:
+            graph(CX_SIMPLE, key="chart-key")
+            mock_plot.assert_called_once_with(CX_SIMPLE, key="chart-key")
 
 
 def test_graph_shiny_context():
