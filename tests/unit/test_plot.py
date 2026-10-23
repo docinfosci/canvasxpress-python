@@ -139,6 +139,25 @@ def test_graph_streamlit_context():
             mock_plot.assert_called_once_with(CX_SIMPLE, key=None)
 
 
+def test_graph_detects_context_at_call_when_unknown_at_import():
+    """A Dash app usually exists only after canvasxpress.plot is imported."""
+    with patch("canvasxpress.plot._g_context", "UNKNOWN"):
+        with patch("canvasxpress.plot.get_target_context", return_value="dash"):
+            with patch("canvasxpress.render.dash.CXElementFactory") as mock_factory:
+                mock_factory.return_value.render.return_value = "dash_element"
+                assert graph(CX_SIMPLE) == "dash_element"
+
+
+def test_graph_prefers_dash_app_over_installed_streamlit():
+    """With Streamlit installed, import-time detection reports Streamlit even in a
+    Dash script; once the Dash app exists, graph() must render for Dash."""
+    with patch("canvasxpress.plot._g_context", "streamlit"):
+        with patch("canvasxpress.plot.get_target_context", return_value="dash"):
+            with patch("canvasxpress.render.dash.CXElementFactory") as mock_factory:
+                mock_factory.return_value.render.return_value = "dash_element"
+                assert graph(CX_SIMPLE) == "dash_element"
+
+
 def test_graph_streamlit_context_passes_key():
     """Test that graph in streamlit context passes the element key to plot."""
     with patch("canvasxpress.plot._g_context", "streamlit"):
