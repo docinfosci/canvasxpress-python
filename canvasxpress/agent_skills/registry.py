@@ -29,7 +29,7 @@ def _read_module_file(module_path, filename):
     import importlib.resources
     if sys.version_info >= (3, 9):
         # Python 3.9+ has importlib.resources.files()
-        return importlib.resources.files(module_path).joinpath(filename).read_text(encoding='utf-8')
+        return importlib.resources.files(module_path).joinpath(filename).read_text(encoding='utf-8')  # novermin
     else:
         # Python 3.8 uses read_text()
         return importlib.resources.read_text(module_path, filename, encoding='utf-8')
@@ -40,7 +40,7 @@ def _skill_source(ep):
     import importlib.resources
     if sys.version_info >= (3, 9):
         # Python 3.9+ has importlib.resources.files()
-        return Path(str(importlib.resources.files(ep.value)))
+        return Path(str(importlib.resources.files(ep.value)))  # novermin
     else:
         # Python 3.8 uses pkg_resources fallback
         import pkg_resources
