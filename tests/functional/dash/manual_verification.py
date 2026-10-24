@@ -5,7 +5,7 @@ import dash
 from dash import html
 from dash.dependencies import Input, Output
 
-from cxdash import CXDashElement
+from canvasxpress.render.dash import CXDashElement
 
 app = dash.Dash(__name__)
 
@@ -106,4 +106,4 @@ def change(n):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

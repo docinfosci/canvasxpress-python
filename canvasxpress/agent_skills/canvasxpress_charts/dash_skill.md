@@ -13,6 +13,8 @@ If you use `uv`:
 uv add canvasxpress[dash]
 ```
 
+No other package, JavaScript build, or `npm` step is required.
+
 ## Core CanvasXpress Dash Usage
 
 ### Imports
@@ -23,49 +25,26 @@ from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph, convert_to_reproducible_json
 ```
 
-### Basic Graph Call in Dash
+### How Charts Render in Dash
+
+- `graph(cx)` returns a Dash component (`CXDashElement`). Place it directly in a layout, or return it from a
+  callback, like any other Dash component.
+- **Do not wrap it in `dcc.Graph`.** `dcc.Graph(figure=...)` is for Plotly figures and cannot display a
+  CanvasXpress chart.
+- The component's JavaScript ships inside the canvasxpress package and Dash serves it automatically. The
+  CanvasXpress library itself loads from `CanvasXpress.js_library_url()` (the CanvasXpress CDN by default).
+- The chart's `render_to` becomes its Dash component `id`. Dash requires IDs to be unique, so omit `render_to`
+  (each chart gets a generated ID) or give every chart a distinct one.
+- Charts render in the page's DOM, so charts with the same data broadcast to each other (see `broadcast_skill.md`).
+- Set `width` and `height` on the `CanvasXpress` object, not on `graph()`.
+- Use `app.run(...)`; `app.run_server` was removed in Dash 3.
+
+The component can also be created explicitly, without `graph()`'s context detection:
 
 ```python
-cx = CanvasXpress(
-    data={
-        "y": {"vars": ["GeneA", "GeneB"], "smps": ["S1", "S2", "S3"], "data": [[10, 20, 30], [15, 25, 35]]}
-    },
-    config={"graphType": "Scatter2D", "title": "My Chart"}
-)
+from canvasxpress.render.dash import CXElementFactory
 
-# For Dash, use empty render_to for auto-generated IDs
-cx = CanvasXpress(
-    data=data,
-    config={"graphType": "Scatter2D"},
-    render_to=""
-)
-```
-
-### Rendering CanvasXpress in Dash
-
-```python
-from dash import Dash, html, dcc
-from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph
-
-app = Dash(__name__)
-
-cx = CanvasXpress(
-    data=data,
-    config={"graphType": "Heatmap"},
-    render_to=""
-)
-
-app.layout = html.Div([
-    html.H1("My CanvasXpress Dashboard"),
-    dcc.Graph(
-        id="chart",
-        figure=graph(cx)
-    )
-])
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
+chart_component = CXElementFactory.render(cx)
 ```
 
 ## Essential Dash Concepts for CanvasXpress
@@ -73,387 +52,291 @@ if __name__ == "__main__":
 ### 1. Minimal Dash App with CanvasXpress
 
 ```python
-from dash import Dash, html, dcc, Input, Output, callback
+from dash import Dash, html
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
-import pandas as pd
 
 app = Dash(__name__)
 
-# Create chart
 cx = CanvasXpress(
     data={
         "y": {
             "vars": ["Sales"],
             "smps": ["Jan", "Feb", "Mar", "Apr", "May"],
-            "data": [[120, 150, 180, 200, 250]]
+            "data": [[120, 150, 180, 200, 250]],
         }
     },
     config={"graphType": "Bar", "title": "Monthly Sales"},
-    render_to=""
+    width=600,
+    height=400,
 )
 
-app.layout = html.Div([
-    html.H1("Sales Dashboard", style={'textAlign': 'center'}),
-    dcc.Graph(
-        id="sales_chart",
-        figure=graph(cx),
-        style={'width': '80%', 'margin': 'auto'}
-    )
-])
+app.layout = html.Div(
+    [
+        html.H1("Sales dashboard", style={"textAlign": "center"}),
+        # graph(cx) returns a Dash component; place it directly in the layout
+        html.Div(graph(cx), style={"display": "flex", "justifyContent": "center"}),
+    ]
+)
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
 ```
+
+**Key documentation:** [Dash Layout](https://dash.plotly.com/layout)
 
 ### 2. Dash App with Callbacks and Dynamic Charts
 
 ```python
-from dash import Dash, html, dcc, Input, Output, callback
+import numpy as np
+import pandas as pd
+from dash import Dash, Input, Output, callback, dcc, html
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
-import pandas as pd
-import numpy as np
 
 app = Dash(__name__)
 
-# Generate data
 df = pd.DataFrame(
-    np.random.randn(100, 5),
-    columns=['A', 'B', 'C', 'D', 'E'],
-    index=[f'S{i}' for i in range(100)]
+    np.random.randn(20, 5),
+    columns=["A", "B", "C", "D", "E"],
+    index=[f"S{i}" for i in range(20)],
 )
 
-# State management
-app.layout = html.Div([
-    html.H1("Interactive Dashboard", style={'textAlign': 'center'}),
-    
-    html.Div([
-        html.Label("Chart Type:"),
+app.layout = html.Div(
+    [
+        html.H1("Interactive dashboard"),
         dcc.Dropdown(
             id="chart_type",
-            options=['Scatter2D', 'Heatmap', 'Bar', 'Line', 'Boxplot'],
-            value='Scatter2D',
-            style={'width': '300px'}
-        )
-    ], style={'padding': '20px', 'textAlign': 'center'}),
-    
-    html.Div(id="chart_container")
-])
-
-@callback(
-    Output("chart_container", "children"),
-    Input("chart_type", "value")
+            options=["Scatter2D", "Heatmap", "Bar", "Line", "Boxplot"],
+            value="Scatter2D",
+            style={"width": "300px"},
+        ),
+        html.Div(id="chart_container"),
+    ]
 )
+
+
+@callback(Output("chart_container", "children"), Input("chart_type", "value"))
 def update_chart(chart_type):
     cx = CanvasXpress(
         data=df,
-        config={
-            "graphType": chart_type,
-            "title": f"Analysis: {chart_type}",
-            "showLegend": True
-        },
-        render_to=""
+        config={"graphType": chart_type, "title": f"Analysis: {chart_type}"},
+        width=700,
+        height=500,
     )
-    return dcc.Graph(figure=graph(cx))
+    # Return the component itself; Dash replaces the previous chart
+    return graph(cx)
+
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
 ```
 
-### 3. Dash App with Multiple Charts
+**Key documentation:** [Dash Basic Callbacks](https://dash.plotly.com/basic-callbacks)
+
+### 3. Dash App with Multiple, Coordinated Charts
 
 ```python
-from dash import Dash, html, dcc, Input, Output, callback
+from dash import Dash, html
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph
-import pandas as pd
 
 app = Dash(__name__)
 
-# Generate sample data
-df1 = pd.DataFrame(np.random.randn(50, 3), columns=['A', 'B', 'C'])
-df2 = pd.DataFrame(np.random.randn(50, 3), columns=['X', 'Y', 'Z'])
+people = ["Keith", "Nina", "Freddy", "Tracey", "Isabelle", "Penny"]
 
-app.layout = html.Div([
-    html.H1("Multi-Chart Dashboard"),
-    
-    html.Div([
-        dcc.Graph(
-            id="chart1",
-            figure=graph(CanvasXpress(
-                data=df1,
-                config={"graphType": "Scatter2D", "title": "Dataset 1"},
-                render_to=""
-            )),
-            style={'width': '48%', 'display': 'inline-block'}
-        ),
-        dcc.Graph(
-            id="chart2",
-            figure=graph(CanvasXpress(
-                data=df2,
-                config={"graphType": "Heatmap", "title": "Dataset 2"},
-                render_to=""
-            )),
-            style={'width': '48%', 'display': 'inline-block'}
-        )
-    ])
-])
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
-```
-
-### 4. Dash App with Layout Components
-
-```python
-from dash import Dash, html, dcc
-from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph
-import pandas as pd
-
-app = Dash(__name__)
-
-df = pd.DataFrame(np.random.randn(30, 4), columns=['A', 'B', 'C', 'D'])
-
-app.layout = html.Div([
-    # Header
-    html.Div([
-        html.H1("Analytics Dashboard", style={'textAlign': 'center', 'marginBottom': '20px'}),
-        dcc.Dropdown(
-            id="filter",
-            options=['All', 'Group A', 'Group B'],
-            value='All'
-        )
-    ], style={'padding': '20px', 'backgroundColor': '#f0f0f0'}),
-    
-    # Main content in columns
-    html.Div([
-        html.Div([
-            dcc.Graph(
-                id="main_chart",
-                figure=graph(CanvasXpress(
-                    data=df,
-                    config={"graphType": "Scatter2D", "title": "Main Analysis"},
-                    render_to=""
-                ))
-            )
-        ], style={'width': '65%', 'display': 'inline-block', 'padding': '10px'}),
-        
-        html.Div([
-            html.H3("Summary"),
-            html.P("Total Records: 30"),
-            html.P("Variables: 4")
-        ], style={'width': '30%', 'display': 'inline-block', 'padding': '10px'})
-    ])
-])
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
-```
-
-### 5. Dash App with Tabbed Interface
-
-```python
-from dash import Dash, html, dcc, Input, Output, callback
-from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph
-import pandas as pd
-
-app = Dash(__name__)
-
-df1 = pd.DataFrame(np.random.randn(30, 3), columns=['A', 'B', 'C'])
-df2 = pd.DataFrame(np.random.randn(30, 3), columns=['X', 'Y', 'Z'])
-
-app.layout = html.Div([
-    html.H1("Tabbed Dashboard"),
-    
-    dcc.Tabs(id="tabs", children=[
-        dcc.Tab(label="Dataset 1", value="tab1"),
-        dcc.Tab(label="Dataset 2", value="tab2"),
-    ]),
-    
-    dcc.TabChildren(id="tab_content")
-])
-
-@callback(
-    Output("tab_content", "children"),
-    Input("tabs", "value")
+# Charts share the page's DOM, so charts with the same data broadcast to each
+# other (see broadcast_skill.md).
+scatter = CanvasXpress(
+    render_to="body_chart",
+    data={
+        "y": {
+            "vars": people,
+            "smps": ["Height", "Weight"],
+            "data": [
+                [174, 65.6],
+                [161, 51.6],
+                [194, 80.7],
+                [160, 49.2],
+                [173, 55.2],
+                [151, 48.7],
+            ],
+        }
+    },
+    config={"graphType": "Scatter2D", "xAxis": ["Height"], "yAxis": ["Weight"]},
+    width=400,
+    height=400,
 )
+
+bar = CanvasXpress(
+    render_to="age_chart",
+    data={"y": {"vars": ["Age"], "smps": people, "data": [[21, 22, 28, 19, 32, 35]]}},
+    config={"graphType": "Bar", "title": "Age"},
+    width=400,
+    height=400,
+)
+
+app.layout = html.Div(
+    [
+        html.H1("Multi-chart dashboard"),
+        html.Div([graph(scatter), graph(bar)], style={"display": "flex", "gap": "24px"}),
+    ]
+)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+### 4. Dash App with a Tabbed Interface
+
+```python
+import numpy as np
+import pandas as pd
+from dash import Dash, Input, Output, callback, dcc, html
+
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import graph
+
+app = Dash(__name__)
+
+df1 = pd.DataFrame(np.random.randn(10, 3), columns=["A", "B", "C"])
+df2 = pd.DataFrame(np.random.randn(10, 3), columns=["X", "Y", "Z"])
+
+app.layout = html.Div(
+    [
+        html.H1("Tabbed dashboard"),
+        dcc.Tabs(
+            id="tabs",
+            value="tab1",
+            children=[
+                dcc.Tab(label="Dataset 1", value="tab1"),
+                dcc.Tab(label="Dataset 2", value="tab2"),
+            ],
+        ),
+        html.Div(id="tab_content"),
+    ]
+)
+
+
+@callback(Output("tab_content", "children"), Input("tabs", "value"))
 def render_tab(tab_value):
     if tab_value == "tab1":
-        return dcc.Graph(
-            figure=graph(CanvasXpress(
-                data=df1,
-                config={"graphType": "Heatmap", "title": "Dataset 1"},
-                render_to=""
-            ))
-        )
+        cx = CanvasXpress(data=df1, config={"graphType": "Heatmap", "title": "Dataset 1"})
     else:
-        return dcc.Graph(
-            figure=graph(CanvasXpress(
-                data=df2,
-                config={"graphType": "Bar", "title": "Dataset 2"},
-                render_to=""
-            ))
-        )
+        cx = CanvasXpress(data=df2, config={"graphType": "Bar", "title": "Dataset 2"})
+    return graph(cx)
+
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
 ```
 
-### 6. Dash App with Event Handling
+### 5. Dash App with Chart Events
+
+CanvasXpress events run in the browser. They are not Dash callbacks and do not send data back to Python.
 
 ```python
-from dash import Dash, html, dcc, Input, Output, callback
+from dash import Dash, html
+
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph
-from canvasxpress.js.function import CXEvent
 from canvasxpress.js.collection import CXEvents
-import pandas as pd
+from canvasxpress.js.function import CXEvent
+from canvasxpress.plot import graph
 
 app = Dash(__name__)
 
-df = pd.DataFrame(np.random.randn(50, 3), columns=['A', 'B', 'C'])
-
-app.layout = html.Div([
-    html.H1("Interactive Chart with Callbacks"),
-    dcc.Graph(
-        id="chart",
-        figure=graph(CanvasXpress(
-            data=df,
-            config={"graphType": "Scatter2D", "title": "Click Points"},
-            render_to="",
-            events=CXEvents(
-                CXEvent(
-                    id="click",
-                    script="DashClient.call('plot_click', {var: o.y.vars[0], smp: o.y.smps[0]});"
-                )
-            )
-        ))
-    ),
-    html.Div(id="selection_info")
-])
-
-@callback(
-    Output("selection_info", "children"),
-    Input({"type": "plot_click", "index": dash.ALL}, "data")
+# Event scripts run in the browser with the CanvasXpress context variables
+# o (the clicked object), e (the DOM event) and t (the chart).
+events = CXEvents(
+    CXEvent(
+        id="click",
+        script="t.showInfoSpan(e, 'Clicked ' + o.y.vars[0] + ', ' + o.y.smps[0]);",
+    )
 )
-def update_info(click_data):
-    if not any(click_data):
-        return "Click on a data point to see details"
-    return f"Selected: {click_data}"
+
+cx = CanvasXpress(
+    data={
+        "y": {
+            "vars": ["V1", "V2"],
+            "smps": ["S1", "S2", "S3"],
+            "data": [[10, 20, 30], [15, 25, 35]],
+        }
+    },
+    config={"graphType": "Bar", "title": "Click a bar"},
+    events=events,
+    width=600,
+    height=400,
+)
+
+app.layout = html.Div([html.H1("Chart events"), graph(cx)])
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
 ```
 
-### 7. Dash App with Data Export
+See the `canvasxpress_events` skill for event patterns. Event scripts run in the app page, so never build them
+from user input.
+
+### 6. Dash App with Data Export
 
 ```python
-from dash import Dash, html, dcc, callback, Input, Output
+import json
+
+from dash import Dash, Input, Output, callback, dcc, html
+
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph, convert_to_reproducible_json
-import pandas as pd
+from canvasxpress.plot import convert_to_reproducible_json, graph
 
 app = Dash(__name__)
 
-df = pd.DataFrame(np.random.randn(50, 3), columns=['A', 'B', 'C'])
 
-app.layout = html.Div([
-    html.H1("Export Dashboard"),
-    
-    dcc.Graph(
-        id="chart",
-        figure=graph(CanvasXpress(
-            data=df,
-            config={"graphType": "Scatter2D", "title": "Your Chart"},
-            render_to=""
-        ))
-    ),
-    
-    html.Button("Export JSON", id="export_btn", n_clicks=0),
-    dcc.Download(id="download-json")
-])
+def make_chart():
+    return CanvasXpress(
+        render_to="export_chart",
+        data={"y": {"vars": ["V1"], "smps": ["S1", "S2", "S3"], "data": [[3, 1, 2]]}},
+        config={"graphType": "Bar", "title": "Your chart"},
+    )
+
+
+app.layout = html.Div(
+    [
+        html.H1("Export dashboard"),
+        graph(make_chart()),
+        html.Button("Export JSON", id="export_btn", n_clicks=0),
+        dcc.Download(id="download_json"),
+    ]
+)
+
 
 @callback(
-    Output("download-json", "data"),
+    Output("download_json", "data"),
     Input("export_btn", "n_clicks"),
-    prevent_initial_call=True
+    prevent_initial_call=True,
 )
 def export_json(n_clicks):
-    cx = CanvasXpress(
-        data=df,
-        config={"graphType": "Scatter2D", "title": "Exported Chart"}
-    )
-    return convert_to_reproducible_json(cx)
+    reproducible = convert_to_reproducible_json(make_chart())
+    content = reproducible if isinstance(reproducible, str) else json.dumps(reproducible)
+    return dict(content=content, filename="chart.json")
+
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
 ```
 
-### 8. Complete Dash Application Template
-
-```python
-"""
-CanvasXpress Dash Application Template
-"""
-from dash import Dash, html, dcc, Input, Output, callback
-from canvasxpress.canvas import CanvasXpress
-from canvasxpress.plot import graph
-import pandas as pd
-
-app = Dash(__name__)
-
-# Initialize data
-@callback(
-    Output("chart-placeholder", "children"),
-    Input("dropdown", "value"),
-    prevent_initial_call=False
-)
-def update_chart(chart_type):
-    cx = CanvasXpress(
-        data=df,
-        config={
-            "graphType": chart_type,
-            "title": f"{chart_type} Analysis",
-            "showLegend": True
-        },
-        render_to=""
-    )
-    return dcc.Graph(figure=graph(cx))
-
-# App layout
-app.layout = html.Div([
-    html.Header([
-        html.H1("CanvasXpress Dash Dashboard", className="title"),
-        html.P("Interactive Data Visualization", className="subtitle")
-    ]),
-    
-    html.Div([
-        dcc.Dropdown(
-            id="dropdown",
-            options=["Scatter2D", "Heatmap", "Bar", "Line"],
-            value="Scatter2D"
-        )
-    ], className="controls"),
-    
-    html.Div(id="chart-placeholder", className="chart-container")
-])
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
-```
+**Key documentation:** [dcc.Download](https://dash.plotly.com/dash-core-components/download)
 
 ## Key Takeaways
 
-1. **Always install canvasxpress with the dash extra** (`pip install canvasxpress[dash]`) before building Dash apps
-2. **Use `graph(cx)`** for rendering CanvasXpress charts in Dash
-3. **Use `render_to=""`** (empty string) for auto-generated IDs in Dash
-4. **Wrap charts in `dcc.Graph(figure=graph(cx))`** for proper rendering
-5. **Use Dash callbacks** for interactive chart updates based on user input
-6. **Leverage Dash layout components** (`dcc.Tabs`, `dcc.Dropdown`, `dcc.Slider`) for controls
-7. **CanvasXpress events can trigger Dash callbacks** using `DashClient.call()`
-8. **Export functionality** with `convert_to_reproducible_json()` and `dcc.Download`
-9. **Use HTML styling** for professional-looking dashboards
-10. **Multiple charts** can coexist using `dcc.Graph` with different IDs
+1. **Always install canvasxpress with the dash extra** (`pip install canvasxpress[dash]`); no other package or build is needed
+2. **Use `graph(cx)`** to create the chart component, and place it directly in the layout or return it from a callback
+3. **Never wrap charts in `dcc.Graph`**, which only displays Plotly figures
+4. **Give each chart a unique `render_to`**, or omit it for a generated ID; it becomes the Dash component `id`
+5. **Set `width` and `height` on `CanvasXpress`**, not on `graph()`
+6. **Use Dash callbacks** to rebuild charts from user input; return `graph(cx)` as the output
+7. **Charts with the same data broadcast** to each other because they share the page's DOM
+8. **CanvasXpress events run in the browser**; they do not trigger Dash callbacks
+9. **Export** with `convert_to_reproducible_json()` and `dcc.Download(dict(content=..., filename=...))`
+10. **Run apps with `app.run()`**; `app.run_server` no longer exists

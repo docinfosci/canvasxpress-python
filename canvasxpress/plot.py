@@ -8,6 +8,7 @@ from canvasxpress.render.environment import (
     CONTEXT_RSTUDIO,
     CONTEXT_SHINY,
     CONTEXT_STREAMLIT,
+    CONTEXT_UNKNOWN,
     get_target_context,
 )
 from canvasxpress.render.image import CXImage
@@ -96,25 +97,32 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
         `Any`: An object or None depending on the target context. In the
         case of `browser` a popup browser will be launched.
     """
-    if _g_context == CONTEXT_RSTUDIO:
+    # A Dash app can only be detected once it exists, which is usually after this
+    # module is imported. At import such an app is then seen as unknown, or as
+    # Streamlit when Streamlit is merely installed, so detect again for those.
+    _context = _g_context
+    if _context in (CONTEXT_UNKNOWN, CONTEXT_STREAMLIT):
+        _context = get_target_context()
+
+    if _context == CONTEXT_RSTUDIO:
         from canvasxpress.render.shiny import CXShinyWidget
 
         plotter = CXShinyWidget(canvas)
         plotter._repr_rstudio_viewer_()
 
-    elif _g_context == CONTEXT_SHINY:
+    elif _context == CONTEXT_SHINY:
         from canvasxpress.render.shiny import CXShinyWidget
 
         plotter = CXShinyWidget(canvas)
         return plotter
 
-    elif _g_context == CONTEXT_DASH:
+    elif _context == CONTEXT_DASH:
         from canvasxpress.render.dash import CXElementFactory
 
         plotter = CXElementFactory()
         return plotter.render(canvas)
 
-    elif _g_context == CONTEXT_JUPYTER:
+    elif _context == CONTEXT_JUPYTER:
         from IPython.core.display_functions import display
 
         from canvasxpress.render.jupyter import CXNoteBook
@@ -127,12 +135,12 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
         else:
             display(content)
 
-    elif _g_context == CONTEXT_STREAMLIT:
+    elif _context == CONTEXT_STREAMLIT:
         from canvasxpress.render import streamlit
 
-        streamlit.plot(canvas)
+        streamlit.plot(canvas, key=kwargs.get("key"))
 
-    elif _g_context == CONTEXT_BROWSER:
+    elif _context == CONTEXT_BROWSER:
         plotter = CXBrowserPopup(canvas)
         plotter.render(**kwargs)
 

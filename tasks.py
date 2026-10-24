@@ -1,3 +1,6 @@
+import glob
+import os
+import shutil
 
 from invoke import task
 
@@ -27,8 +30,13 @@ def clean(c, docs=False, bytecode=False, extra="", yes=False):
     if extra:
         patterns.append(extra)
 
+    # Use Python rather than `rm -rf` so this also works on Windows.
     for pattern in patterns:
-        c.run(f"rm -rf ./{pattern}")
+        for path in glob.glob(f"./{pattern}", recursive=True):
+            if os.path.isdir(path):
+                shutil.rmtree(path, ignore_errors=True)
+            else:
+                os.remove(path)
 
 
 @task(pre=[clean])
@@ -45,7 +53,6 @@ def init(c, dev=False, list=False):
     # Dev deps already done: uv sync
 
     c.run("npm install canvasxpress")
-    c.run("npm install canvasxpress-react")
 
     if list:
         c.run("uv pip list")
