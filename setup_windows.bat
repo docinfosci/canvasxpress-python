@@ -166,8 +166,8 @@ call :print_info "Installing build dependencies..."
 uv pip install --no-cache-dir setuptools wheel pytz gitpython || goto :fail
 
 :: pyproject.toml reads the version from this generated, git-ignored file.
-if not exist "canvasxpress\version.py" (
-    call :print_info "Generating canvasxpress\version.py..."
+if not exist "canvasxpress\version.txt" (
+    call :print_info "Generating canvasxpress\version.txt..."
     python build_pkg_setup.py || goto :fail
 )
 

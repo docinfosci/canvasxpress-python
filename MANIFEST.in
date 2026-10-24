@@ -1,5 +1,5 @@
-# Include generated version.py even though it's gitignored
-global-include canvasxpress/version.py
+# Include generated version.txt even though it's gitignored
+global-include canvasxpress/version.txt
 
 # Exclude build artifacts and environments
 global-exclude venv/**

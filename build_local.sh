@@ -88,9 +88,9 @@ echo "Installing build dependencies..."
 pip install --no-cache-dir -U pip setuptools wheel
 uv pip install --no-cache-dir pytz gitpython
 
-# Generate version.py once, before installing the project, so that the installed,
+# Generate version.txt once, before installing the project, so that the installed,
 # tested and skill-stamped package has the same version as the built distribution.
-echo "Generating version.py..."
+echo "Generating version.txt..."
 python3 ./build_pkg_setup.py
 
 # Install project + all extras (replaces requirements.txt)
@@ -121,9 +121,9 @@ echo "Running tests..."
 invoke test
 
 # ── Build distribution ──────────────────────────────────────────────────────
-# Uses the version.py generated above, so the distribution matches what was tested.
+# Uses the version.txt generated above, so the distribution matches what was tested.
 echo ""
-echo "Building distribution version $(cat canvasxpress/version.py)..."
+echo "Building distribution version $(cat canvasxpress/version.txt)..."
 
 # Clear uv build cache and stale metadata to ensure fresh build
 uv cache clean 2>/dev/null || true

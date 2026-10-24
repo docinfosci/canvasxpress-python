@@ -1,16 +1,21 @@
-"""Generate canvasxpress/version.py at build time.
+"""Generate canvasxpress/version.txt at build time.
 
-The date-based version string is written to canvasxpress/version.py, which
+The date-based version string is written to canvasxpress/version.txt, which
 setuptools reads dynamically via [tool.setuptools.dynamic] in pyproject.toml.
 
+The file has a non-Python extension on purpose: a bare version string is not
+valid Python, and coverage/coveralls would try to parse any ``.py`` file in
+the package and fail (see coveralls NotPython errors on canvasxpress/version.py).
+
 Usage:
-    python build_pkg_setup.py       # generate version.py
-    uv build                        # build the package (reads version.py dynamically)
+    python build_pkg_setup.py       # generate version.txt
+    uv build                        # build the package (reads version.txt dynamically)
 
 Build process (CI / build_local.sh):
     python build_pkg_setup.py && uv build
 """
 
+import os
 from datetime import datetime
 
 import pytz
@@ -39,7 +44,12 @@ def get_version() -> str:
 if __name__ == "__main__":
     version = get_version()
 
-    # Write version.py (read by setuptools via [tool.setuptools.dynamic] file:)
-    with open("canvasxpress/version.py", "w") as fh:
+    # Remove the legacy version.py (a bare string in a .py file broke coveralls).
+    legacy_py = os.path.join("canvasxpress", "version.py")
+    if os.path.exists(legacy_py):
+        os.remove(legacy_py)
+
+    # Write version.txt (read by setuptools via [tool.setuptools.dynamic] file:)
+    with open("canvasxpress/version.txt", "w") as fh:
         fh.write(f"{version}\n")
-    print(f"Generated version.py: __version__ = '{version}'")
+    print(f"Generated version.txt: '{version}'")

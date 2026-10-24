@@ -148,10 +148,11 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Dynamic version — read from canvasxpress/version.py
+# Dynamic version — read from canvasxpress/version.txt (generated, git-ignored;
+# non-.py so coverage/coveralls never try to parse it as Python source)
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.setuptools.dynamic]
-version = {file = "canvasxpress/version.py"}
+version = {file = "canvasxpress/version.txt"}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -180,6 +181,7 @@ exclude = ["tests*", "readme*", "resources*", "venv*", ".venv*", "node_modules*"
 # - agent_skills/*/*.md: the agent skills installed by the canvasxpress CLI
 # - render/resources/*.js: CanvasXpress React wrapper and Dash component, served by Dash
 "canvasxpress" = [
+    "version.txt",
     "util/*.json",
     "agent_skills/*/*.md",
     "render/resources/*.js",

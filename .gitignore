@@ -312,7 +312,7 @@ coverage-results/
 # Python Project Ignores
 
 # Generated version file (created by build_pkg_setup.py at build time)
-canvasxpress/version.py
+canvasxpress/version.txt
 
 # Documentation Ignores
 build/**

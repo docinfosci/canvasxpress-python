@@ -215,7 +215,7 @@ jobs:
             uv venv ./venv --python python3
             source ./venv/bin/activate
 
-            # Generate version.py once, before installing the project, so that the
+            # Generate version.txt once, before installing the project, so that the
             # installed, tested and skill-stamped package has the same version as
             # the distribution deployed below.
             uv pip install --no-cache-dir pytz gitpython
@@ -293,15 +293,15 @@ jobs:
             # Only attempt the deployment for the project owner/committer
             if [ $GIT_REPO_OWNER == "docinfosci" ]
             then
-              # Establish package components using the version.py generated
+              # Establish package components using the version.txt generated
               # before installation, so the deployed version is the tested one.
               rm -rf ./dist
-              if [ ! -s canvasxpress/version.py ]
+              if [ ! -s canvasxpress/version.txt ]
               then
-                  echo "canvasxpress/version.py is missing; it is generated in 'Install Python dependencies'"
+                  echo "canvasxpress/version.txt is missing; it is generated in 'Install Python dependencies'"
                   exit 1
               fi
-              echo "Deploying version $(cat canvasxpress/version.py)"
+              echo "Deploying version $(cat canvasxpress/version.txt)"
 
               # Clear uv build cache to ensure the generated version
               # is picked up (avoiding stale-version "File already exists"

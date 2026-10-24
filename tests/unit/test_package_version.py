@@ -9,7 +9,7 @@ from canvasxpress.util.package_version import DEV_VERSION, read_package_version
 
 @pytest.fixture
 def version_file(tmp_path):
-    path = tmp_path / "version.py"
+    path = tmp_path / "version.txt"
     with patch.object(package_version, "_VERSION_FILE", str(path)):
         yield path
 
