@@ -74,6 +74,21 @@ def test_is_ipython_available_returns_bool():
     assert isinstance(result, bool)
 
 
+def test_is_ipython_available_false_when_not_installed():
+    """IPython is optional (jupyter extra); its absence must not raise."""
+    import builtins
+
+    real_import = builtins.__import__
+
+    def fake_import(name, *args, **kwargs):
+        if name == "IPython":
+            raise ModuleNotFoundError("No module named 'IPython'")
+        return real_import(name, *args, **kwargs)
+
+    with patch("builtins.__import__", side_effect=fake_import):
+        assert is_ipython_available() is False
+
+
 def test_get_target_context_with_env_var():
     """Test get_target_context respects CANVASXPRESS_TARGET_CONTEXT env var."""
     with patch.dict(os.environ, {CANVASXPRESS_TARGET_CONTEXT: "browser"}):

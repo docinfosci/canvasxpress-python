@@ -103,6 +103,9 @@ def is_ipython_available() -> bool:
         else:
             return False  # Other type (?)
 
+    except ImportError:
+        return False  # IPython is not installed, e.g. without the jupyter extra
+
     except NameError:
         return False
 

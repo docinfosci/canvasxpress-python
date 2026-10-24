@@ -48,14 +48,34 @@
 Create your first chart in five lines:
 
 ```python
-from canvasxpress import CanvasXpress, plot
+from canvasxpress.canvas import CanvasXpress
+from canvasxpress.plot import show_in_browser
 
 chart = CanvasXpress(
     data={"y": {"data": [[10, 20, 30]], "vars": ["A"]}},
     config={"graphType": "Bar"}
 )
-plot.show_in_browser(chart)
+show_in_browser(chart)
 ```
+
+In Jupyter, Dash, Shiny, and Streamlit use `graph(chart)` from `canvasxpress.plot` instead; it renders the chart in
+the way each framework expects.
+
+## What's New: Modernized Streamlit and Dash Support
+
+Both integrations are drop-in: existing `graph()` calls work unchanged.
+
+**Streamlit** — With Streamlit releases that provide Custom Components v2 (`st.components.v2`), charts render
+directly in the app page instead of in iframes. Charts size to their content, share a single copy of the CanvasXpress
+library, and charts with the same data broadcast to each other. Older Streamlit releases, such as those available for
+Python 3.8, keep the iframe rendering with the same app code. `graph()` also accepts an optional Streamlit element
+`key`. See _A Streamlit Example_ below.
+
+**Plotly Dash** — The Dash component is now built into the package: `pip install "canvasxpress[dash]"` is all that is
+needed, with no separate component package or JavaScript build. `graph()` returns a `CXDashElement` backed by a
+CanvasXpress React wrapper that ships with the package and is served by Dash. It works with current Dash releases on
+Python 3.8 and later, `graph()` detects a running Dash app without needing `CANVASXPRESS_TARGET_CONTEXT`, and charts
+with the same data broadcast to each other. See _A Dash Example_ below.
 
 ## CanvasXpress AI Skills
 
@@ -115,8 +135,8 @@ Install the base package with `pip install canvasxpress` or `uv add canvasxpress
 |---|---|
 | `core` | `pip install "canvasxpress[core]"` — base package, CLI, browser |
 | `jupyter` | `pip install "canvasxpress[jupyter]"` — Jupyter, Quarto, IPython |
-| `dash` | `pip install "canvasxpress[dash]"` — Plotly Dash |
-| `streamlit` | `pip install "canvasxpress[streamlit]"` — Streamlit |
+| `dash` | `pip install "canvasxpress[dash]"` — Plotly Dash; the Dash component is built in, no JavaScript build needed |
+| `streamlit` | `pip install "canvasxpress[streamlit]"` — Streamlit; renders in the app page with `st.components.v2` |
 | `shiny` | `pip install "canvasxpress[shiny]"` — Shiny for Python |
 | `rstudio` | `pip install "canvasxpress[rstudio]"` — RStudio IDE Viewer (includes jupyter + shiny) |
 | `all` | `pip install "canvasxpress[all]"` — all frameworks |
@@ -282,7 +302,8 @@ Generally speaking, a `CanvasXpress` object accepts the following parameters:
 access the chart and perform CanvasXpress operations within the browser. Omitting `render_to` or setting it to
 `None` will make the `CanvasXpress` object assume an anonymous mode in which a new GUID will be generated each time
 `graph()` is called. If the chart will not be maniluated using JavaScript in the browser it is fine for charts to be
-anonymous.
+anonymous. In Streamlit, a chart whose `render_to` is already used by another chart on the page is rendered under a
+suffixed ID; see the Streamlit example for details.
 
 __NOTE:__ React environments regularly destroy and rebuild objects as the page is updated. In these environments it is
 possible for the timing of object destruction and JavaScript execution to cause a crash. The best defense is to either
@@ -295,8 +316,9 @@ chart.render_to = str(guid4()).replace("-", "_")
 return graph(chart)
 ```
 
-Plotly's Dash framework uses React, and Dash applications should consider using only anonymous charts or assigning
-unique values as the ID similar to the above code. Shiny for Python does not seem to suffer from this challenge.
+In Plotly Dash a chart's `render_to` becomes its Dash component `id`, which Dash requires to be unique on the page, so
+use anonymous charts or give each chart a distinct `render_to`. Shiny for Python does not seem to suffer from this
+challenge.
 
 #### data
 
@@ -917,6 +939,21 @@ with column2:
     graph(bar_chart)
 ```
 
+#### How Charts Are Rendered
+
+With Streamlit releases that provide Custom Components v2 (`st.components.v2`), `graph()` renders each chart
+directly in the app page rather than in an iframe. Charts size to their content and share a single copy of the
+CanvasXpress library, and because they are visible to each other in the page, charts with the same data broadcast to
+each other. Older Streamlit releases, such as those available for Python 3.8, continue to render each chart in its own
+iframe, which isolates charts from each other. No code changes are needed for either.
+
+Because charts share the page, their `render_to` IDs share it too. If two charts use the same ID, one of them is
+rendered under a suffixed ID (for example, `my_chart_1`) so that both display, but JavaScript that looks up `my_chart`
+reaches only one of them. Give charts distinct `render_to` values when they will be accessed by ID.
+
+`graph()` also accepts an optional Streamlit element `key`, such as `graph(bar_chart, key="sales_chart")`. It is not
+required, even when the same chart is rendered more than once, but keeps a chart's identity stable as its data changes.
+
 #### Run the App and View the Page
 
 On the command line, execute:
@@ -1036,7 +1073,23 @@ g_app.layout = html.Div(
 )
 
 if __name__ == "__main__":
-    g_app.run_server(debug=True)
+    g_app.run(debug=True)
+```
+
+#### How Charts Are Rendered
+
+`graph()` returns a `CXDashElement` Dash component, so it can be placed directly in a layout or returned from a
+callback like any other component. It is not a Plotly figure, so don't wrap it in `dcc.Graph`. The component's
+JavaScript, a CanvasXpress React wrapper, ships inside the canvasxpress package and Dash serves it automatically; no
+separate package or JavaScript build is needed. The CanvasXpress library itself is loaded from
+`CanvasXpress.js_library_url()`. Charts share the page's DOM, so charts with the same data broadcast to each other.
+
+The component can also be created without `graph()`'s context detection:
+
+```python
+from canvasxpress.render.dash import CXElementFactory
+
+chart_component = CXElementFactory.render(chart)
 ```
 
 #### Run the App and View the Page

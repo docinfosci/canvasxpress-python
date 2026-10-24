@@ -52,6 +52,8 @@ cx = CanvasXpress(
 graph(cx)
 ```
 
+Set `width` and `height` on the `CanvasXpress` object, not on `graph()`.
+
 ### Chart with Unique Identifier
 
 ```python
@@ -64,13 +66,31 @@ cx = CanvasXpress(
 graph(cx)
 ```
 
+### How Charts Render in Streamlit
+
+- With Streamlit releases that provide Custom Components v2 (`st.components.v2`), `graph(cx)` renders the chart
+  directly in the app page (no iframe). Charts size to their content and share one copy of the CanvasXpress library.
+  Because the charts are visible to each other in the page, charts with the same data broadcast to each other (see
+  `broadcast_skill.md`).
+- Older Streamlit releases (such as those available for Python 3.8) render each chart in its own iframe, which
+  isolates charts from each other, so they do not broadcast. App code is the
+  same for both.
+- `graph(cx, key="...")` accepts an optional Streamlit element key. Rendering the same chart more than once works
+  without one; pass a key when the chart's identity should stay stable as its data changes.
+- `render_to` IDs share the page. If two charts use the same `render_to`, one of them renders under a suffixed ID
+  (e.g. `my_chart_1`) so both display, but JavaScript that looks up `my_chart` reaches only one of them. Use distinct
+  `render_to` values for charts that event scripts or other JavaScript access by ID.
+- Do not wrap `graph(cx)` in `st.components.v1.html`, `st.iframe`, or `st.html`; `graph(cx)` already renders the chart.
+- Charts are trusted page content: CanvasXpress event scripts run in the app page. Never build event scripts from
+  user input.
+
 ## Essential Streamlit Concepts for CanvasXpress Apps
 
 ### 1. Minimal Streamlit App
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 st.set_page_config(page_title="CanvasXpress App", page_icon="📊", layout="wide")
@@ -117,7 +137,7 @@ When building Streamlit apps with CanvasXpress, you'll commonly use:
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 # Cache expensive data loading
@@ -146,7 +166,7 @@ graph(cx)
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 if "selected_graph_type" not in st.session_state:
@@ -171,7 +191,7 @@ graph(cx)
 ```python
 import streamlit as st
 import pandas as pd
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import convert_to_reproducible_json
 
@@ -205,8 +225,8 @@ with col1:
         "title": f"{chart_type} View",
         "showLegend": show_legend
     }
-    cx = CanvasXpress(data=df, config=config)
-    graph(cx, width=700, height=500)
+    cx = CanvasXpress(data=df, config=config, width=700, height=500)
+    graph(cx)
 
 with col2:
     st.subheader("Data Preview")
@@ -229,7 +249,7 @@ Streamlit charts are embedded in the app and support CanvasXpress events:
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.js.function import CXEvent
 from canvasxpress.js.collection import CXEvents
@@ -255,7 +275,7 @@ graph(cx)
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 st.title("Multiple Charts")
@@ -282,7 +302,7 @@ graph(cx2)
 ```python
 import streamlit as st
 import pandas as pd
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 st.title("Filtered Dashboard")
@@ -320,7 +340,7 @@ For apps that load and visualize data from databases:
 ```python
 import streamlit as st
 import pandas as pd
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 @st.cache_data
@@ -348,25 +368,22 @@ if st.button("Run Query"):
 
 ## Testing Streamlit Apps with CanvasXpress
 
-```python
-import streamlit as st
-from canvasxpress.streamlit import plot
-from canvasxpress.canvas import CanvasXpress
+Use Streamlit's `AppTest` to run an app headlessly with pytest and check that it renders without errors:
 
-def test_chart():
-    cx = CanvasXpress(
-        data={"y": {"vars": ["A"], "smps": ["S1"], "data": [[1]]}},
-        config={"graphType": "Bar"}
-    )
-    # Verify the chart object is created correctly
-    assert cx is not None
-    assert cx.config["graphType"] == "Bar"
+```python
+# test_app.py
+from streamlit.testing.v1 import AppTest
+
+
+def test_app_renders_chart():
+    at = AppTest.from_file("app.py", default_timeout=60).run()
+    assert not at.exception
 ```
 
-Run with Streamlit's test utilities:
+Run with pytest:
 
 ```bash
-streamlit test your_app.py
+pytest test_app.py
 ```
 
 **Key documentation:** [Streamlit App Testing](https://docs.streamlit.io/develop/concepts/app-testing/get-started)
@@ -377,19 +394,19 @@ streamlit test your_app.py
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 tab1, tab2, tab3 = st.tabs(["Scatter", "Heatmap", "Bar"])
 
 with tab1:
-    plot(CanvasXpress(data=data1, config={"graphType": "Scatter2D"}))
+    graph(CanvasXpress(data=data1, config={"graphType": "Scatter2D"}))
 
 with tab2:
-    plot(CanvasXpress(data=data2, config={"graphType": "Heatmap"}))
+    graph(CanvasXpress(data=data2, config={"graphType": "Heatmap"}))
 
 with tab3:
-    plot(CanvasXpress(data=data3, config={"graphType": "Bar"}))
+    graph(CanvasXpress(data=data3, config={"graphType": "Bar"}))
 ```
 
 ### Pattern 2: Expandable Sections
@@ -414,7 +431,7 @@ with st.expander("Advanced Options", expanded=False):
 
 ```python
 import streamlit as st
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 
 if "update_count" not in st.session_state:
@@ -442,7 +459,7 @@ CanvasXpress Streamlit Application Template
 """
 import streamlit as st
 import pandas as pd
-from canvasxpress.streamlit import plot
+from canvasxpress.plot import graph
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import convert_to_reproducible_json
 
@@ -510,11 +527,13 @@ def render_dashboard():
                 "title": f"{chart_type} Analysis",
                 "showLegend": True,
                 "showSmpOverlaysLegend": True
-            }
+            },
+            width=800,
+            height=600
         )
         
         # Render chart
-        graph(cx, width=800, height=600)
+        graph(cx)
     
     with col2:
         st.subheader("Data Summary")
@@ -541,8 +560,8 @@ elif page == "Settings":
 3. **Streamlit reruns the entire script** on every interaction - use caching wisely
 4. **Use `st.session_state`** to preserve state across reruns
 5. **Cache expensive operations** with `@st.cache_data` or `@st.cache_resource`
-6. **Each chart needs a unique `render_to` ID** if displaying multiple charts
+6. **Give each chart its own `render_to` ID** when JavaScript references it by name; repeated IDs still render, but one chart gets a suffixed ID
 7. **CanvasXpress events work** within Streamlit apps for interactivity
 8. **Use Streamlit layout components** (`columns`, `tabs`, `expander`) to organize charts
 9. **Export functionality** is easy with `convert_to_reproducible_json()` and `st.download_button()`
-10. **Test your app** using `streamlit test` for reliable deployments
+10. **Test your app** with `streamlit.testing.v1.AppTest` and pytest for reliable deployments

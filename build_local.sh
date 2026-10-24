@@ -86,6 +86,12 @@ echo "Python version: $(python3 --version)"
 # Bootstrap build tools (replaces requirements-project.txt)
 echo "Installing build dependencies..."
 pip install --no-cache-dir -U pip setuptools wheel
+uv pip install --no-cache-dir pytz gitpython
+
+# Generate version.txt once, before installing the project, so that the installed,
+# tested and skill-stamped package has the same version as the built distribution.
+echo "Generating version.txt..."
+python3 ./build_pkg_setup.py
 
 # Install project + all extras (replaces requirements.txt)
 echo "Installing project dependencies..."
@@ -99,49 +105,25 @@ uv pip install ".[dev]"
 # Run the invoke init step
 invoke init --dev --list
 
-# ── Build Dash components ───────────────────────────────────────────────────
-echo ""
-echo "Building Dash components..."
-cd plotly/cxdash/
-
-if ! [[ -d ./venv ]] ; then
-    python3 -m venv ./venv
-fi
-source ./venv/bin/activate
-
-pip install -U pip setuptools wheel
-uv pip install --no-cache-dir -r requirements.txt
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-nvm install 20
-nvm use 20
-
-npm install canvasxpress
-npm install canvasxpress-react
-npm run build
-cp -R ./cxdash ../../
-
-cd ../../
-
-# ── Back to main venv ───────────────────────────────────────────────────────
-deactivate
-source venv/bin/activate
 
 # ── Static analysis (replaces prospector → ruff) ────────────────────────────
 echo ""
 echo "Running static analysis (ruff)..."
 uvx ruff check ./canvasxpress
 
+echo ""
+echo "Checking Python 3.8 compatibility (vermin)..."
+uvx vermin ./canvasxpress
+
 # ── Run tests ───────────────────────────────────────────────────────────────
 echo ""
 echo "Running tests..."
 invoke test
 
-# ── Update version & build distribution ─────────────────────────────────────
+# ── Build distribution ──────────────────────────────────────────────────────
+# Uses the version.txt generated above, so the distribution matches what was tested.
 echo ""
-echo "Generating version.py..."
-python3 ./build_pkg_setup.py
+echo "Building distribution version $(cat canvasxpress/version.txt)..."
 
 # Clear uv build cache and stale metadata to ensure fresh build
 uv cache clean 2>/dev/null || true

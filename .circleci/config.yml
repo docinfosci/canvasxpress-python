@@ -3,7 +3,7 @@
 # Build profiles:
 #   build-python-oldest   : python:3.8.18-bullseye (Debian 11)
 #   build-python-general  : python:3.10.12-bullseye (Debian 11)
-#   build-python-latest   : python:3.13-bullseye   (Debian 11)
+#   build-python-latest   : python:3.15-trixie     (Debian 13, Python 3.15 beta)
 #
 # IMPORTANT: CircleCI uses Debian Bullseye, NOT Ubuntu.
 # - Use https://cloud.r-project.org/bin/linux/debian bullseye-cran40/ for R
@@ -167,7 +167,7 @@ jobs:
             rm -rf /tmp/chromium-packages
 
       - run:
-          name: Install Node and NPM for Dash and General Python
+          name: Install Node and NPM
           command: |
             # Install NVM (Node Version Manager) to avoid apt repository issues
             export NVM_DIR="$HOME/.nvm"
@@ -215,6 +215,12 @@ jobs:
             uv venv ./venv --python python3
             source ./venv/bin/activate
 
+            # Generate version.txt once, before installing the project, so that the
+            # installed, tested and skill-stamped package has the same version as
+            # the distribution deployed below.
+            uv pip install --no-cache-dir pytz gitpython
+            python ./build_pkg_setup.py
+
             # Install project + all extras (replaces requirements.txt)
             uv pip install --no-cache-dir ".[all]"
 
@@ -226,35 +232,6 @@ jobs:
 
             invoke init --dev --list
 
-      - run:
-          name: Generate Dash Component
-          command: |
-            # Ensure uv is on PATH
-            export PATH="$HOME/.local/bin:$PATH"
-
-            cd plotly/cxdash/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-            python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-
-            # Ensure that essential project utilities are available
-            echo "Install Python components"
-            uv pip install --no-cache-dir -r requirements.txt
-
-            # Load NVM for Node.js access
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-            echo "Install CanvasXpress NodeJS components"
-            npm install canvasxpress
-            npm install canvasxpress-react
-
-            echo "Run build"
-            npm run build
-            cp -R ./cxdash ../../
 
       - run:
           name: Static analysis
@@ -267,6 +244,9 @@ jobs:
 
             # Run ruff (replaces prospector)
             uvx ruff check ./canvasxpress
+
+            # Enforce Python 3.8 compatibility of the package logic (see vermin.ini)
+            uvx vermin ./canvasxpress
 
       - run:
           name: Test
@@ -313,11 +293,17 @@ jobs:
             # Only attempt the deployment for the project owner/committer
             if [ $GIT_REPO_OWNER == "docinfosci" ]
             then
-              # Establish package components
+              # Establish package components using the version.txt generated
+              # before installation, so the deployed version is the tested one.
               rm -rf ./dist
-              python ./build_pkg_setup.py
+              if [ ! -s canvasxpress/version.txt ]
+              then
+                  echo "canvasxpress/version.txt is missing; it is generated in 'Install Python dependencies'"
+                  exit 1
+              fi
+              echo "Deploying version $(cat canvasxpress/version.txt)"
 
-              # Clear uv build cache to ensure the newly generated version
+              # Clear uv build cache to ensure the generated version
               # is picked up (avoiding stale-version "File already exists"
               # errors caused by cached egg-info metadata).
               uv cache clean 2>/dev/null || true
@@ -348,7 +334,9 @@ jobs:
 
   build-python-latest:
     docker:
-      - image: python:3.15
+      # No bullseye image exists for 3.15; pin the Debian release so the base
+      # OS does not change when the floating python:3.15 tag moves to a new one.
+      - image: python:3.15-trixie
 
     steps:
       - checkout
@@ -487,7 +475,7 @@ jobs:
             rm -rf /tmp/chromium-packages
 
       - run:
-          name: Install Node and NPM for Dash and General Python
+          name: Install Node and NPM
           command: |
             # Install NVM (Node Version Manager) to avoid apt repository issues
             export NVM_DIR="$HOME/.nvm"
@@ -546,35 +534,6 @@ jobs:
 
             invoke init --dev --list
 
-      - run:
-          name: Generate Dash Component
-          command: |
-            # Ensure uv is on PATH
-            export PATH="$HOME/.local/bin:$PATH"
-
-            cd plotly/cxdash/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-            python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-
-            # Ensure that essential project utilities are available
-            echo "Install Python components"
-            uv pip install --no-cache-dir -r requirements.txt
-
-            # Load NVM for Node.js access
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-            echo "Install CanvasXpress NodeJS components"
-            npm install canvasxpress
-            npm install canvasxpress-react
-
-            echo "Run build"
-            npm run build
-            cp -R ./cxdash ../../
 
       - run:
           name: Test
@@ -738,7 +697,7 @@ jobs:
             rm -rf /tmp/chromium-packages
 
       - run:
-          name: Install Node and NPM for Dash and General Python
+          name: Install Node and NPM
           command: |
             # Install NVM (Node Version Manager) to avoid apt repository issues
             export NVM_DIR="$HOME/.nvm"
@@ -797,35 +756,6 @@ jobs:
 
             invoke init --dev --list
 
-      - run:
-          name: Generate Dash Component
-          command: |
-            # Ensure uv is on PATH
-            export PATH="$HOME/.local/bin:$PATH"
-
-            cd plotly/cxdash/
-
-            #  Ensure the presence of a virtual environment
-            if ! [[ -d ./venv ]] ; then
-            python3 -m venv ./venv
-            fi
-            source ./venv/bin/activate
-
-            # Ensure that essential project utilities are available
-            echo "Install Python components"
-            uv pip install --no-cache-dir -r requirements.txt
-
-            # Load NVM for Node.js access
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-            echo "Install CanvasXpress NodeJS components"
-            npm install canvasxpress
-            npm install canvasxpress-react
-
-            echo "Run build"
-            npm run build
-            cp -R ./cxdash ../../
 
       - run:
           name: Test
