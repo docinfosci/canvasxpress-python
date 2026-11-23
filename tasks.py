@@ -59,10 +59,13 @@ def init(c, dev=False, list=False):
 
 
 @task
-def test(c):
+def test(c, platform=False):
     """
     Runs the test suite.
     :param c:
+    :param platform: True if the platform visual tests (tests/functional/platform)
+        should also run. They need headless Chromium and network access, so they
+        run in build_local.sh but not in CircleCI.
     :return:
     """
     c.run(
@@ -73,7 +76,8 @@ def test(c):
         " --cov-report xml"
         " --cov-report term"
         " --cov-report html:./coverage-results"
-        " ./tests"
+        + ("" if platform else " --ignore=./tests/functional/platform")
+        + " ./tests"
     )
 
 
