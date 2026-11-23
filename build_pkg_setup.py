@@ -33,9 +33,9 @@ def get_version() -> str:
     repo = Repo(".")
     branch = repo.active_branch
 
-    time_suffix = buildtime.strftime('%H%M%S') + buildtime.strftime('%f')[:3]
+    time_suffix = buildtime.strftime("%H%M%S") + buildtime.strftime("%f")[:3]
 
-    if branch.name in ('main', 'master'):
+    if branch.name in ("main", "master"):
         return f"{buildtime.year}.{buildtime.month}.{buildtime.day}.{time_suffix}"
     else:
         return f"{buildtime.year}.{buildtime.month}.{buildtime.day}.dev{time_suffix}"
