@@ -202,6 +202,87 @@ returned. See the Shiny for Python and Dash examples for specific usage.
 `show_in_browser()` is similar to `graph()` except that it opens a browser window on the local system and displays the
 chart. It's used to facilitate learning and debugging.
 
+### Arranging Multiple Charts and Producing HTML
+
+The browser, Jupyter, and RStudio renderers accept several charts at once and arrange them in a grid, in the order
+given, with `columns` charts per row. Charts that share a `render_to` ID are displayed under unique IDs, and the
+`CanvasXpress` objects passed in are not changed. For example:
+
+```python
+from canvasxpress.render.popup import CXBrowserPopup
+
+CXBrowserPopup(chart1, chart2, chart3).render(columns=2)
+```
+
+The browser page is saved in a `canvasxpress-python-<user>` folder in the system temporary directory, never in the
+package, and is named after its charts: `chart1_chart2_chart3.html` for the example above, or `anonymous.html` for a
+chart without a `render_to` ID. Showing the same charts again replaces their page, so files do not accumulate. The
+Jupyter and RStudio renderers use the same names when `output_file` is a directory.
+
+Every renderer builds its HTML through `canvasxpress.render.context`, which can also be used directly, for example to
+serve charts from a Web framework or to save them as a standalone page:
+
+```python
+from canvasxpress.render.context import CXHtmlDocument, LIBRARY_TAGS
+
+document = CXHtmlDocument([chart1, chart2], columns=2, title="My Charts")
+
+page = document.page()                   # A complete HTML page
+snippet = document.fragment(LIBRARY_TAGS)  # Charts plus the tags that load CanvasXpress
+```
+
+`fragment()` can also leave the CanvasXpress library to the page (`LIBRARY_NONE`), or load it on demand with
+JavaScript (`LIBRARY_LOADER`) for HTML inserted into a page that is already displayed.
+
+### Charts That Fill Their Container
+
+A CanvasXpress chart is drawn at a fixed size in pixels. In live Python frameworks a chart often sits in a container
+whose size changes: a Streamlit or Dash column, a Shiny card, a notebook output area, the RStudio viewer pane, or the
+browser window, any of which can change when the window resizes or a sidebar or expander opens. Two options of
+`graph()`, both off by default, size the chart to its container instead and redraw it whenever that container is
+resized:
+
+- `fill_to_width=True`: the chart takes the width of its container.
+- `fill_to_height=True`: the chart takes the height of its container.
+
+```python
+from canvasxpress.plot import graph
+
+graph(chart, fill_to_width=True)                       # Width follows the container
+graph(chart, fill_to_width=True, fill_to_height=True)  # Width and height follow it
+```
+
+- Each dimension is chosen separately. One that is not filled keeps its configured size, and a filled one starts at
+  its configured size until the container has been measured.
+- Several charts arranged with `columns` share a filled width equally between columns and a filled height equally
+  between rows.
+- The container must have the size to give. Almost every container has a width, but most take their height from
+  their content, which leaves no height to fill. `fill_to_height` therefore needs a container whose height is set by
+  the layout: the browser window (the `browser` context and the RStudio viewer), a Streamlit
+  `st.container(height=...)`, a Dash element with a fixed or flex-grown height, or a fillable Shiny card with an
+  `output_canvasxpress(id, fill=True)` placeholder. Where there is no height to fill, such as a notebook output, the
+  chart keeps its configured height rather than growing. Likewise a container that sizes its width to its content
+  (such as an item in a `display: flex` row without `flex: 1` or a width) leaves no width to fill.
+- After each redraw a bubbling `canvasxpress:resize` event, with `detail` of `{targetId, width, height}`, is
+  dispatched from the chart's container, for pages that need to measure their content again.
+
+| Context | `fill_to_width` | `fill_to_height` |
+|---|---|---|
+| Browser (`browser`) and RStudio viewer | Window width | Window height |
+| Jupyter | Output area width | No effect (outputs size to content); applies to a page saved with `output_file` |
+| Streamlit (Custom Components v2) | Container width | Height of a container with a set height |
+| Streamlit (older, iframe) | Container width | Not supported (iframes have a fixed height) |
+| Dash | Parent element width | Parent element height, when set by the layout |
+| Shiny | Card or column width | Fillable card height, with `output_canvasxpress(id, fill=True)` |
+
+This is behaviour of the canvasxpress Python package, not of the CanvasXpress JavaScript library, and is separate
+from the CanvasXpress `resizable` configuration, which lets a user resize a chart by dragging it. Leave both options
+off for a chart that must keep its size, such as one drawn wider than its container to be scrolled. The renderers
+accept them directly too: `CXNoteBook(...).render(fill_to_width=True)`, `CXHtml(...).render(...)`,
+`CXBrowserPopup(...).render(...)`, `CXShinyWidget(chart, fill_to_width=True)`,
+`CXElementFactory.render(chart, fill_to_width=True)`, `canvasxpress.render.streamlit.plot(chart, fill_to_width=True)`
+and `CXHtmlDocument(..., fill_to_width=True)`, each with `fill_to_height` alongside.
+
 `graph()` does a good job of determining the runtime context to choose how the chart should be rendered, but in the case
 installed packages or runtime configurations confuse the function an environment variable can be set to override
 how `graph()` performs the rendering. Set `CANVASXPRESS_TARGET_CONTEXT` to be one of these values as appropriate for
