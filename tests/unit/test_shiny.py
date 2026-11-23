@@ -59,3 +59,35 @@ class TestCxShinyWidget:
         assert len(html) > 0
         # Should contain CanvasXpress chart elements
         assert "canvasxpress" in html.lower() or "CanvasXpress" in html
+
+    def test_repr_html_uses_page_library_and_includes_license(self):
+        chart = CanvasXpress(render_to="shiny_licensed", data={"y": {"data": [[1]]}})
+        chart.license_url = "https://example.org/CanvasXpressLicense.js"
+        html = CXShinyWidget(chart)._repr_html_()
+        assert "https://example.org/CanvasXpressLicense.js" in html
+        assert CanvasXpress.js_library_url() not in html
+        assert 'id="shiny_licensed"' in html
+
+
+class TestCxShinyWidgetFill:
+    def test_off_by_default(self):
+        html = CXShinyWidget(CX_EXAMPLE)._repr_html_()
+        assert "fillContainer(" not in html
+        assert "html-fill-item" not in html
+
+    def test_fill_to_width(self):
+        html = CXShinyWidget(CX_EXAMPLE, fill_to_width=True)._repr_html_()
+        assert "grid-template-columns: repeat(1, minmax(0, 1fr))" in html
+        assert '"fillToWidth": true, "fillToHeight": false' in html
+        assert "html-fill-item" not in html
+
+    def test_fill_to_height_fills_a_fillable_container(self):
+        html = CXShinyWidget(CX_EXAMPLE, fill_to_height=True)._repr_html_()
+        assert '"fillToWidth": false, "fillToHeight": true' in html
+        assert "html-fill-item" in html
+
+    def test_output_fill(self):
+        assert "html-fill-item" not in str(output_canvasxpress("plain"))
+        filled = str(output_canvasxpress("filled", fill=True))
+        assert "html-fill-item" in filled
+        assert "html-fill-container" in filled

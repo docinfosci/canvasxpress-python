@@ -36,6 +36,10 @@ def test_component_data_anonymous_chart():
         "js_url",
         "css_url",
         "license_url",
+        "width",
+        "height",
+        "fill_to_width",
+        "fill_to_height",
     }
     assert data["target_id"].startswith("cX")
     # The canvas and JS reference the chart only through the placeholder ID,
@@ -47,6 +51,9 @@ def test_component_data_anonymous_chart():
     assert data["js_url"] == CanvasXpress.js_library_url()
     assert data["css_url"] == CanvasXpress.css_library_url()
     assert data["license_url"] is None
+    assert (data["width"], data["height"]) == (500, 500)
+    assert data["fill_to_width"] is False
+    assert data["fill_to_height"] is False
 
 
 def test_component_data_named_chart():
@@ -79,7 +86,7 @@ def test_plot_repeated_chart_gets_generated_keys(monkeypatch):
     mounted_ids = set()
     mounted_keys = []
 
-    def fake_component(data, width, key=None):
+    def fake_component(data, width, height, key=None):
         if key is None:
             element_id = repr(sorted(data.items()))
             if element_id in mounted_ids:
@@ -102,7 +109,7 @@ def test_plot_repeated_chart_gets_generated_keys(monkeypatch):
 def test_plot_explicit_key_is_not_retried(monkeypatch):
     from streamlit.errors import StreamlitDuplicateElementKey
 
-    def fake_component(data, width, key=None):
+    def fake_component(data, width, height, key=None):
         raise StreamlitDuplicateElementKey(key)
 
     monkeypatch.setattr(cx_streamlit, "_cx_component", fake_component)
@@ -172,3 +179,84 @@ def test_invalid_chart_argument():
 
 def test_none_chart_argument():
     assert plot(cx=None) is None
+
+
+def test_iframe_page_loads_library_before_chart():
+    html, _, _ = _get_chart_display_code(_bar_chart(render_to="iframe_chart"))
+
+    assert html.startswith("<!DOCTYPE html>")
+    assert html.index(CanvasXpress.js_library_url()) < html.index('id="iframe_chart"')
+    assert html.index('id="iframe_chart"') < html.index("new CanvasXpress(")
+
+
+def test_component_js_uses_shared_loader():
+    from canvasxpress.render.context import LOADER_JS
+
+    assert cx_streamlit._cx_component_js.startswith(LOADER_JS)
+    assert "window.canvasxpress" in cx_streamlit._cx_component_js
+    assert ".loadLibrary(" in cx_streamlit._cx_component_js
+
+
+def test_component_data_license():
+    chart = _bar_chart(render_to="licensed")
+    chart.license_url = "https://example.org/CanvasXpressLicense.js"
+
+    data = _get_chart_component_data(chart)
+
+    assert data["license_url"] == "https://example.org/CanvasXpressLicense.js"
+
+
+def test_plot_fill_sizes_component(monkeypatch):
+    calls = []
+    monkeypatch.setattr(
+        cx_streamlit, "_cx_component", lambda **kwargs: calls.append(kwargs)
+    )
+
+    plot(_bar_chart(render_to="fixed"), key="fixed")
+    plot(_bar_chart(render_to="wide"), key="wide", fill_to_width=True)
+    plot(_bar_chart(render_to="tall", height=300), key="tall", fill_to_height=True)
+
+    sizes = [(call["width"], call["height"]) for call in calls]
+    assert sizes == [
+        ("content", "content"),
+        ("stretch", "content"),
+        ("content", "stretch"),
+    ]
+    assert [
+        (call["data"]["fill_to_width"], call["data"]["fill_to_height"])
+        for call in calls
+    ] == [(False, False), (True, False), (False, True)]
+    assert calls[2]["data"]["height"] == 300
+
+
+def test_plot_fill_iframe_takes_container_width_but_not_height(monkeypatch):
+    import streamlit.components.v1 as components
+
+    calls = []
+    monkeypatch.setattr(cx_streamlit, "_cx_component", None)
+    monkeypatch.setattr(
+        components, "html", lambda html, **kwargs: calls.append((html, kwargs))
+    )
+
+    plot(
+        _bar_chart(render_to="filled", width=400, height=300),
+        fill_to_width=True,
+        fill_to_height=True,
+    )
+
+    html, kwargs = calls[0]
+    assert kwargs == {"width": None, "height": 350}
+    assert '"fillToWidth": true, "fillToHeight": false' in html
+    assert "html, body { height: 100%" not in html
+
+
+def test_component_js_fills_container_after_creating_chart():
+    from canvasxpress.render.context import FILL_JS
+
+    js = cx_streamlit._cx_component_js
+    assert FILL_JS in js
+    assert js.index("new Function(chartJs)()") < js.index(
+        "window.canvasxpress.fillContainer(root"
+    )
+    assert "fillToHeight: data.fill_to_height" in js
+    assert "stopFilling(instance)" in js

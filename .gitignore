@@ -331,3 +331,6 @@ pytest_result.xml
 plan.md
 
 uv.lock
+
+# Platform visual test captures (approved images live in <framework>/expected/)
+tests/functional/platform/captures/

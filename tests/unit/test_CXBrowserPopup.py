@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.render.context import temp_directory
 from canvasxpress.render.popup import CXBrowserPopup
 
 CX_SIMPLE = CanvasXpress(
@@ -161,3 +162,64 @@ def test_cx_browser_popup_render_license_handling(tmp_path):
         popup.render()
 
     mock_open.assert_called_once()
+
+
+def test_cx_browser_popup_writes_page_that_survives_render():
+    """The page stays on disk for the browser and holds every chart in order."""
+    popup = CXBrowserPopup(CX_SIMPLE, CX_SECOND)
+
+    with patch("canvasxpress.render.popup.webbrowser.open") as mock_open:
+        page_path = popup.render(columns=2)
+
+    url = mock_open.call_args[0][0]
+    assert url.startswith("file://")
+    assert url.endswith(page_path.name)
+    assert page_path.exists()
+
+    page = page_path.read_text(encoding="utf-8")
+    page_path.unlink()
+    assert page_path.parent == temp_directory()
+    assert page_path.name == "popup_test_popup_test_2.html"
+    assert page.startswith("<!DOCTYPE html>")
+    assert CanvasXpress.js_library_url() in page
+    assert "repeat(2, max-content)" in page
+    assert page.index('id="popup_test"') < page.index('id="popup_test_2"')
+
+
+def test_cx_browser_popup_rendering_again_replaces_page():
+    """Rendering the same charts again reuses their page instead of adding one."""
+    with patch("canvasxpress.render.popup.webbrowser.open"):
+        first = CXBrowserPopup(CX_SIMPLE).render()
+        second = CXBrowserPopup(CX_SIMPLE).render()
+
+    second.unlink()
+    assert first == second
+    assert first.name == "popup_test.html"
+
+
+def test_cx_browser_popup_anonymous_chart_page():
+    """An anonymous chart's page is called anonymous.html, not a random ID."""
+    chart = CanvasXpress(data={"y": {"data": [[1]], "vars": ["A"], "smps": ["X"]}})
+
+    with patch("canvasxpress.render.popup.webbrowser.open"):
+        page_path = CXBrowserPopup(chart).render()
+
+    page_path.unlink()
+    assert page_path.name == "anonymous.html"
+
+
+def test_cx_browser_popup_fill():
+    """The page has the charts follow the window in the dimensions asked for."""
+    with patch("canvasxpress.render.popup.webbrowser.open"):
+        fixed = CXBrowserPopup(CX_SIMPLE).render().read_text(encoding="utf-8")
+        wide = CXBrowserPopup(CX_SIMPLE).render(fill_to_width=True)
+        wide_page = wide.read_text(encoding="utf-8")
+        tall = CXBrowserPopup(CX_SIMPLE).render(fill_to_height=True)
+        tall_page = tall.read_text(encoding="utf-8")
+
+    tall.unlink()
+    assert "fillContainer(" not in fixed
+    assert '"fillToWidth": true, "fillToHeight": false' in wide_page
+    assert "html, body { height: 100%" not in wide_page
+    assert '"fillToWidth": false, "fillToHeight": true' in tall_page
+    assert "html, body { height: 100%" in tall_page
