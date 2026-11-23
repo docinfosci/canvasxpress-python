@@ -11,8 +11,7 @@ from canvasxpress.data.base import CXKeyPairData
 
 @total_ordering
 class CXDictData(CXKeyPairData):
-    """A CXData class dedicated to processing Python dict-structured data.
-    """
+    """A CXData class dedicated to processing Python dict-structured data."""
 
     __data: dict = dict()
     """
@@ -201,8 +200,7 @@ class CXDictData(CXKeyPairData):
 
 
 class CXJSONData(CXDictData):
-    """A CXData class dedicated to processing JSON data.
-    """
+    """A CXData class dedicated to processing JSON data."""
 
     @property
     def json(self) -> str:

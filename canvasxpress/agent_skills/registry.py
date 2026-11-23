@@ -17,35 +17,42 @@ from canvasxpress.util.package_version import read_package_version
 def _get_entry_points():
     """Get entry points for canvasxpress.skills namespace (Python 3.8+)."""
     eps = entry_points()
-    if hasattr(eps, 'select'):
+    if hasattr(eps, "select"):
         # Python 3.10+ has select() method
-        return eps.select(group='canvasxpress.skills')
+        return eps.select(group="canvasxpress.skills")
     else:
         # Python 3.8-3.9 requires get() method
-        return eps.get('canvasxpress.skills', [])
+        return eps.get("canvasxpress.skills", [])
 
 
 def _read_module_file(module_path, filename):
     """Read a file from a module (Python 3.8+ compatible)."""
     import importlib.resources
+
     if sys.version_info >= (3, 9):
         # Python 3.9+ has importlib.resources.files()
-        return importlib.resources.files(module_path).joinpath(filename).read_text(encoding='utf-8')  # novermin
+        return (
+            importlib.resources.files(module_path)
+            .joinpath(filename)
+            .read_text(encoding="utf-8")
+        )  # novermin
     else:
         # Python 3.8 uses read_text()
-        return importlib.resources.read_text(module_path, filename, encoding='utf-8')
+        return importlib.resources.read_text(module_path, filename, encoding="utf-8")
 
 
 def _skill_source(ep):
     """Directory containing the skill's SKILL.md and its supporting files."""
     import importlib.resources
+
     if sys.version_info >= (3, 9):
         # Python 3.9+ has importlib.resources.files()
         return Path(str(importlib.resources.files(ep.value)))  # novermin
     else:
         # Python 3.8 uses pkg_resources fallback
         import pkg_resources
-        return Path(pkg_resources.resource_filename(ep.value, ''))
+
+        return Path(pkg_resources.resource_filename(ep.value, ""))
 
 
 def discover_skills():
@@ -71,11 +78,11 @@ def discover_skills():
             if not skill_md_path.is_file():
                 print(f"skip {ep.name}: no SKILL.md in {source_dir}")
                 continue
-            content = skill_md_path.read_text(encoding='utf-8')
+            content = skill_md_path.read_text(encoding="utf-8")
             skills_map[ep.name] = {
                 "name": ep.name,
                 "content": content,
-                "path": str(source_dir)
+                "path": str(source_dir),
             }
         except Exception as e:
             print(f"Failed to discover skill '{ep.name}': {e}")
@@ -83,7 +90,9 @@ def discover_skills():
     return skills_map
 
 
-def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bool = True) -> int:
+def _install_one(
+    src: Path, dest_root: Path, name: str, force: bool, verbose: bool = True
+) -> int:
     """Copy one skill directory. Returns the number of markdown files written."""
     if not (src / "SKILL.md").is_file():
         if verbose:
@@ -97,7 +106,7 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bo
             needs_update = True
             try:
                 if stamp_file.is_file():
-                    installed_version = stamp_file.read_text(encoding='utf-8').strip()
+                    installed_version = stamp_file.read_text(encoding="utf-8").strip()
                     if installed_version:
                         pkg_version = read_package_version()
                         if pkg_version == installed_version:
@@ -113,16 +122,15 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bo
         shutil.rmtree(target)
 
     shutil.copytree(
-        src, target,
-        ignore=shutil.ignore_patterns("__pycache__", "*.py", "*.pyc")
+        src, target, ignore=shutil.ignore_patterns("__pycache__", "*.py", "*.pyc")
     )
 
     # Write provenance stamp
     try:
         pkg_version = read_package_version()
     except Exception:
-        pkg_version = 'unknown'
-    (target / ".skill-version").write_text(pkg_version, encoding='utf-8')
+        pkg_version = "unknown"
+    (target / ".skill-version").write_text(pkg_version, encoding="utf-8")
 
     count = len(list(target.rglob("*.md")))
     if verbose:
@@ -130,7 +138,9 @@ def _install_one(src: Path, dest_root: Path, name: str, force: bool, verbose: bo
     return count
 
 
-def install_skills(target: str = 'all', force: bool = False, verbose: bool = True) -> bool:
+def install_skills(
+    target: str = "all", force: bool = False, verbose: bool = True
+) -> bool:
     """
     Install CanvasXpress agent skills to OpenCode, Claude Code, and/or agents directories.
 
@@ -149,20 +159,22 @@ def install_skills(target: str = 'all', force: bool = False, verbose: bool = Tru
     """
     home = Path.home()
     target_map = {
-        'opencode': home / '.config' / 'opencode' / 'skills',
-        'claude': home / '.claude' / 'skills',
-        'agents': home / '.agents' / 'skills',
+        "opencode": home / ".config" / "opencode" / "skills",
+        "claude": home / ".claude" / "skills",
+        "agents": home / ".agents" / "skills",
     }
 
     targets = []
-    if target == 'all':
+    if target == "all":
         targets = list(target_map.values())
-    elif target == 'both':
-        targets = [target_map['opencode'], target_map['agents']]
+    elif target == "both":
+        targets = [target_map["opencode"], target_map["agents"]]
     elif target in target_map:
         targets.append(target_map[target])
     else:
-        print(f"Invalid target: {target}. Use 'opencode', 'claude', 'agents', 'all', or 'both'.")
+        print(
+            f"Invalid target: {target}. Use 'opencode', 'claude', 'agents', 'all', or 'both'."
+        )
         sys.exit(1)
 
     eps = _get_entry_points()
@@ -181,7 +193,9 @@ def install_skills(target: str = 'all', force: bool = False, verbose: bool = Tru
     if total_installed == 0 and not force:
         # The normal case on import once skills are current, so only on request.
         if verbose:
-            print("No skills were installed. All skills are already present. Use --force to replace.")
+            print(
+                "No skills were installed. All skills are already present. Use --force to replace."
+            )
     elif total_installed == 0 and force:
         print("No skills were installed. Check that the package is properly installed.")
 
@@ -190,29 +204,31 @@ def install_skills(target: str = 'all', force: bool = False, verbose: bool = Tru
 
 def cli() -> None:
     """Command-line interface for installing CanvasXpress agent skills."""
-    target = 'all'
+    target = "all"
     force = False
 
     args = sys.argv[1:]
     i = 0
     while i < len(args):
-        if args[i] in ('--target', '-t'):
+        if args[i] in ("--target", "-t"):
             if i + 1 < len(args):
                 target = args[i + 1]
                 i += 2
             else:
                 print("Error: --target requires a value")
                 sys.exit(1)
-        elif args[i] in ('--force', '-f'):
+        elif args[i] in ("--force", "-f"):
             force = True
             i += 1
-        elif args[i] in ('--help', '-h'):
+        elif args[i] in ("--help", "-h"):
             print("Usage: canvasxpress [--target TARGET] [--force]")
             print("")
             print("Options:")
             print("  --target, -t TARGET  Where to install:")
             print("                       'opencode', 'claude', 'agents'")
-            print("                       'all' (all frameworks), 'both' (opencode + agents)")
+            print(
+                "                       'all' (all frameworks), 'both' (opencode + agents)"
+            )
             print("  --force, -f          Overwrite existing skill directories")
             print("  --help, -h           Show this help")
             sys.exit(0)
@@ -223,5 +239,5 @@ def cli() -> None:
     install_skills(target=target, force=force)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

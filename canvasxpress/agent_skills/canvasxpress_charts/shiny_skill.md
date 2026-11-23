@@ -435,3 +435,7 @@ app = App(app_ui, server)
 8. **React to chart interactions** using `@reactive.event(input.event_name)`
 9. **Export with `convert_to_reproducible_json()`** and `ui.download_button()`
 10. **Leverage Shiny's nav panels** for multi-page applications
+11. **Use `graph(cx, fill_to_width=True)`** for a chart that spans its card or column and redraws at the new width as
+    the layout resizes (such as when the sidebar collapses). Add `fill_to_height=True` to follow the height of a
+    fillable card with a set height, using an `output_canvasxpress(id, fill=True)` placeholder; elsewhere the chart
+    keeps its configured `height`

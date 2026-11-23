@@ -77,6 +77,12 @@ graph(cx)
   same for both.
 - `graph(cx, key="...")` accepts an optional Streamlit element key. Rendering the same chart more than once works
   without one; pass a key when the chart's identity should stay stable as its data changes.
+- `graph(cx, fill_to_width=True)` makes the chart span the width of its Streamlit container (the page, an
+  `st.columns` column, an expander) and redraw at the new width whenever that container changes, including when the
+  sidebar opens or closes. `fill_to_height=True` does the same for height, but only in a container with a set
+  height, such as `st.container(height=500)`; other Streamlit containers size to their content, and there the chart
+  keeps its configured `height`. Height filling needs Custom Components v2; older iframe releases support only
+  `fill_to_width`. Both are off by default, keeping the configured `width` and `height`.
 - `render_to` IDs share the page. If two charts use the same `render_to`, one of them renders under a suffixed ID
   (e.g. `my_chart_1`) so both display, but JavaScript that looks up `my_chart` reaches only one of them. Use distinct
   `render_to` values for charts that event scripts or other JavaScript access by ID.

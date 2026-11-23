@@ -422,5 +422,5 @@ class CXConfigs(CXDictConvertable, CXListConvertable):
             `str`: An evaluatable representation of the object.
         """
         config_rep_list = ", ".join([repr(config) for config in self.configs])
-        rep_candidate = f"CXConfigs(" f"{config_rep_list}" f")"
+        rep_candidate = f"CXConfigs({config_rep_list})"
         return rep_candidate

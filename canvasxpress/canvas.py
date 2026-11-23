@@ -210,8 +210,7 @@ class CanvasXpress(CXHtmlConvertable):
             candidate = str(value)
             if "CanvasXpressLicense.js" not in candidate:
                 raise ValueError(
-                    "CanvasXpress license files must be named "
-                    "'CanvasXpressLicense.js'"
+                    "CanvasXpress license files must be named 'CanvasXpressLicense.js'"
                 )
 
             else:
@@ -439,9 +438,7 @@ class CanvasXpress(CXHtmlConvertable):
         return self.__sample_annotation
 
     @sample_annotation.setter
-    def sample_annotation(
-        self, value: Union[CXDataframeData, DataFrame, None]
-    ) -> None:
+    def sample_annotation(self, value: Union[CXDataframeData, DataFrame, None]) -> None:
         """Sets the CXData associated with this CanvasXpress chart.
 
         Args:
@@ -789,8 +786,7 @@ class CanvasXpress(CXHtmlConvertable):
 
         except Exception:
             raise ValueError(
-                "cx_json must be a valid CanvasXpress reproducable"
-                " research JSON"
+                "cx_json must be a valid CanvasXpress reproducable research JSON"
             )
 
     def __init__(
