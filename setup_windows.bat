@@ -176,6 +176,12 @@ call :print_info "Installing project with extras [!EXTRAS!]..."
 :: older Pythons and an sdist that fails to build, so only accept wheels.
 uv pip install --no-cache-dir --only-binary pywinpty -e ".[!EXTRAS!]" || goto :fail
 
+:: Headless Chromium for the platform visual tests (tests\functional\platform)
+python -c "import playwright" >nul 2>&1 && (
+    call :print_info "Installing headless Chromium for Playwright..."
+    python -m playwright install chromium || goto :fail
+)
+
 where invoke >nul 2>&1 && (
     invoke init --dev --list || goto :fail
 ) || (

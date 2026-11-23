@@ -98,8 +98,10 @@ print_header "R"
 if ! command_exists R; then
     print_info "R not found — rpy2 extras will be skipped."
     print_info "Install via Homebrew if needed: brew install r"
+    EXTRAS="dash,jupyter,streamlit,shiny,dev"
 else
     print_ok "R $(R --version | head -1)"
+    EXTRAS="all,dev"
 fi
 
 # ── Git ─────────────────────────────────────────────────────────────────────
@@ -114,24 +116,35 @@ print_ok "Git $(git --version)"
 # ── Virtual environment & dependencies ──────────────────────────────────────
 print_header "Project Setup"
 
+# The project environment is ./venv (see agents.md), not uv's default .venv.
+# Everything is installed into it with `uv pip`; `uv sync` would build a
+# separate .venv instead.
 if [ ! -d "venv" ]; then
     print_info "Creating virtual environment..."
-    $PYTHON_CMD -m venv venv
+    uv venv venv --python "$(command -v $PYTHON_CMD)"
 fi
 source ./venv/bin/activate
 print_ok "Virtual environment activated"
 
 # Bootstrap tools
 print_info "Installing build dependencies..."
-uv pip install --no-cache-dir setuptools wheel
+uv pip install --no-cache-dir setuptools wheel pytz gitpython
 
-# Install project + all extras
-print_info "Installing project dependencies..."
-uv pip install --no-cache-dir ".[all]"
+# pyproject.toml reads the version from this generated, git-ignored file.
+if [ ! -f "canvasxpress/version.txt" ]; then
+    print_info "Generating canvasxpress/version.txt..."
+    python build_pkg_setup.py
+fi
 
-# Install dev tools
-print_info "Installing development tools..."
-uv sync
+# Install the project, its framework extras and the dev tools
+print_info "Installing project with extras [$EXTRAS]..."
+uv pip install --no-cache-dir -e ".[$EXTRAS]"
+
+# Headless Chromium for the platform visual tests (tests/functional/platform)
+if python -c "import playwright" 2>/dev/null; then
+    print_info "Installing headless Chromium for Playwright..."
+    python -m playwright install chromium
+fi
 
 # Run invoke init
 if command_exists invoke; then
@@ -149,4 +162,4 @@ echo "Next steps:"
 echo "  source venv/bin/activate"
 echo "  uv build            # build distribution"
 echo "  uvx ruff check .     # lint"
-echo "  uvx pytest           # test"
+echo "  invoke test          # test"
