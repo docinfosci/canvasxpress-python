@@ -97,10 +97,19 @@ python3 ./build_pkg_setup.py
 echo "Installing project dependencies..."
 uv pip install --no-cache-dir ".[all]"
 
-# Install dev tools (replaces requirements-dev.txt — handled by uv tools)
+# Install dev tools into ./venv (not `uv sync`, which builds a separate .venv)
 echo "Installing dev tools..."
-uv sync
 uv pip install ".[dev]"
+
+# Headless Chromium for the platform visual tests (tests/functional/platform),
+# which run here but not in CircleCI. On Linux, also the system libraries it needs.
+if python -c "import playwright" 2>/dev/null; then
+    if [[ "$OS" == "linux" ]]; then
+        python -m playwright install --with-deps chromium
+    else
+        python -m playwright install chromium
+    fi
+fi
 
 # Run the invoke init step
 invoke init --dev --list
@@ -117,8 +126,8 @@ uvx vermin ./canvasxpress
 
 # ── Run tests ───────────────────────────────────────────────────────────────
 echo ""
-echo "Running tests..."
-invoke test
+echo "Running tests, including the platform visual tests..."
+invoke test --platform
 
 # ── Build distribution ──────────────────────────────────────────────────────
 # Uses the version.txt generated above, so the distribution matches what was tested.
