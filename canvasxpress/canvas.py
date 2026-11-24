@@ -17,8 +17,6 @@ from canvasxpress.js.collection import CXEvents
 from canvasxpress.js.function import CXEvent
 from canvasxpress.util.template import render_from_template
 
-# from deprecated import deprecated
-
 _DEFAULT_JS_URL: str = "https://www.canvasxpress.org/dist/canvasXpress.min.js"
 _DEFAULT_VERSIONED_JS_URL = "https://cdnjs.cloudflare.com/ajax/libs/canvasXpress/@cx_version@/canvasXpress.min.js"
 
@@ -92,9 +90,7 @@ class CanvasXpress(CXHtmlConvertable):
                     }
                 }
             ),
-            config=CXConfigs(
-                CXGraphType(CXGraphTypeOptions.Bar)
-            )
+            config={"graphType": "Bar"}
         )
 
         html_parts = chart.render_to_html_parts()
