@@ -11,6 +11,14 @@ import sys
 from importlib.metadata import entry_points
 from pathlib import Path
 
+try:
+    # Python 3.9+ has importlib.resources.files()
+    from importlib.resources import files  # novermin
+except ImportError:
+    # Python 3.8 uses the importlib_resources backport (declared in
+    # pyproject.toml for python_version < '3.9')
+    from importlib_resources import files
+
 from canvasxpress.util.package_version import read_package_version
 
 
@@ -27,32 +35,12 @@ def _get_entry_points():
 
 def _read_module_file(module_path, filename):
     """Read a file from a module (Python 3.8+ compatible)."""
-    import importlib.resources
-
-    if sys.version_info >= (3, 9):
-        # Python 3.9+ has importlib.resources.files()
-        return (
-            importlib.resources.files(module_path)
-            .joinpath(filename)
-            .read_text(encoding="utf-8")
-        )  # novermin
-    else:
-        # Python 3.8 uses read_text()
-        return importlib.resources.read_text(module_path, filename, encoding="utf-8")
+    return files(module_path).joinpath(filename).read_text(encoding="utf-8")
 
 
 def _skill_source(ep):
     """Directory containing the skill's SKILL.md and its supporting files."""
-    import importlib.resources
-
-    if sys.version_info >= (3, 9):
-        # Python 3.9+ has importlib.resources.files()
-        return Path(str(importlib.resources.files(ep.value)))  # novermin
-    else:
-        # Python 3.8 uses pkg_resources fallback
-        import pkg_resources
-
-        return Path(pkg_resources.resource_filename(ep.value, ""))
+    return Path(str(files(ep.value)))
 
 
 def discover_skills():

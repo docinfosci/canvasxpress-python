@@ -14,12 +14,12 @@ The project overview is documented in the `README.md` file located in the root d
 ## Automated Tests
 Automated tests are maintained in the `./tests` directory. These tests ensure that the project functions as expected and cover various scenarios. `invoke test` (used by CircleCI) runs everything under `./tests` except the platform visual tests below; `invoke test --platform` (used by `build_local.sh`) runs them too.
 
-- `./tests/unit`: unit tests, including `test_render_context.py` for the shared HTML/CSS/JS layer. Run with `venv/bin/python -m pytest tests/unit` (Windows: `venv\Scripts\python.exe`).
+- `./tests/unit`: unit tests, including `test_render_context.py` for the shared HTML/CSS/JS layer. Run with `.venv/bin/python -m pytest tests/unit` (Windows: `.venv\Scripts\python.exe`), or `uv run python -m pytest tests/unit`.
 - Known issue: image export (`canvasxpress/render/image.py`) cannot find `npm` on Windows (it is `npm.cmd`) and uses POSIX-only `shlex.quote`, so `test_CXImage.py::test_cx_converst_to_image_base64` and `test_plot.py::test_convert_to_image_returns_none_when_no_nodejs` fail on Windows.
 - `./tests/functional/platform/{streamlit,dash,shiny,jupyter,rstudio}`: platform visual tests, run locally (`build_local.sh`, or `python -m pytest tests/functional/platform`) and not in CircleCI, which would need Chromium's system libraries on its Debian images. Each renders a minimal live app (or executed notebook / saved page) in headless Chromium via Playwright at a 1920x1080 window (device pixel ratio 1), captures the window and each chart's on-page box, and compares them to canon: chart boxes within 4 px, and the drawn-on 32 px cells overlapping canon's by >= 0.85 (whole-window SSIM is not used: a blank page scores ~0.95). Streamlit, Dash, Shiny and Jupyter each have a stacked layout (`app.py`: a fixed-size control chart above a `fill_to_width` chart) and a columns layout (`app_columns.py`: two `fill_to_width` charts in the framework's own columns), each captured `initial` and `resized`; RStudio's page is already two filling charts side by side. One canon per case (`expected/<case>.png` and `.json`) is shared by all platforms; Windows and Linux captures match it. A case without canon is skipped and its capture kept in `tests/functional/platform/captures/` (git-ignored) for a person to review; approve with `python -m tests.functional.platform.approve <framework>/<case>`. Never approve a capture on the user's behalf. The tests skip where Playwright or scikit-image is not installed (Python 3.15) and fail with install instructions where Playwright is installed without its Chromium (`python -m playwright install chromium`; on Linux add `--with-deps`). They load CanvasXpress from its CDN, so they need network access. See `tests/functional/platform/README.md`.
 
 ## Python Version Compatibility
-The project is developed using Python 3.13 and officially supports Python 3.8 through 3.14, with Python 3.15 supported as beta (not yet fully supported by all dependencies).
+The project is developed using Python 3.13 (the local dev interpreter is pinned by the tracked `.python-version` file, which uv reads) and officially supports Python 3.8 through 3.14, with Python 3.15 supported as beta (not yet fully supported by all dependencies).
 
 - **Python 3.8 is the minimum** and is required by a client. All package logic under `./canvasxpress` must be pure Python 3.8 — any 3.9+ syntax or stdlib API breaks the package on 3.8 systems. Do not use e.g. `list[int]`/`dict[str, int]`/`X | Y` annotations (use `typing.List`, `Dict`, `Optional`, `Union`), `str.removeprefix()`, parenthesized multi-item `with`, `match`, or `importlib.resources.files()` without a guarded fallback.
   - Enforced by ruff `target-version = "py38"` (syntax) and **vermin** (`vermin.ini`; syntax, stdlib APIs and annotations). Run `uvx vermin canvasxpress` before committing; it runs in `build_local.sh` and the CircleCI deploy job.
@@ -42,30 +42,40 @@ The project is developed using Python 3.13 and officially supports Python 3.8 th
 Code formatting adheres to the Black style guide, ensuring consistent and readable code throughout the project.
 
 ## Package Management
-Packages are declared in `pyproject.toml` (which replaced the former `requirements*.txt` files) and installed with `uv pip`:
+Dependencies are declared in `pyproject.toml` (which replaced the former `requirements*.txt` files) and managed with `uv`:
 - `dependencies`: packages necessary for the published package.
 - `[project.optional-dependencies]`: framework extras (`dash`, `jupyter`, `streamlit`, `shiny`, `rstudio`, `all`) and `dev` for local development and testing.
 
-Adding a dependency: record it with `uv add` so that CI and every workspace install it, e.g. `uv add --optional dev --no-sync "<package>"` for a dev tool. Never only `pip install` / `uv pip install` it. `--no-sync` is needed because the project environment is `venv`, not uv's default `.venv`, which `uv add`/`uv sync` would otherwise create; install into `venv` with `uv pip install -e ".[<extras>]"` afterwards. `uv.lock` is git-ignored.
+### Local development environment (uv-managed `.venv`)
+- The local environment is uv's default `.venv`, pinned to Python 3.13 by the tracked `.python-version` file (uv downloads the interpreter if it is missing). The project is installed editable, so source edits take effect immediately.
+- `uv.lock` is committed and is the source of truth for local resolutions; keep it in step with `pyproject.toml` (commit both together).
+- Sync the environment after `git pull` or any dependency change:
+  - `uv sync --extra all --extra dev` (R available), or `uv sync --extra dash --extra jupyter --extra streamlit --extra shiny --extra dev` (no R, skips rpy2).
+  - The setup scripts (`setup_mac.sh`, `setup_linux.sh`, `setup_windows.bat`) do this on fresh machines.
+- `canvasxpress/version.txt` (generated, git-ignored) must exist before `uv sync`/`uv build` can build the project; the setup scripts and `build_local.sh` generate it first with `uv run --no-project --with pytz --with gitpython python build_pkg_setup.py`.
+- Prefer `uv run <command>` over activating the venv: it uses the synced `.venv` without shell state.
+- Do not create per-version venvs for day-to-day work: 3.8 compliance is enforced by vermin, and CircleCI tests 3.8, 3.10 and 3.15 at runtime. To verify 3.8 *runtime* behaviour (e.g. a stdlib-version fallback), create a throwaway venv outside the project: `uv venv /tmp/cx38 --python 3.8 && uv pip install --python /tmp/cx38/bin/python -e ".[all,dev]"`, then run the tests with that interpreter.
 
-The virtual environment:
-- A single environment on Python 3.13. Do not create per-version venvs: 3.8 compliance is enforced by vermin, and CircleCI tests 3.8, 3.10 and 3.15 at runtime.
-- Created in the project root as `venv` by the platform setup scripts (`setup_mac.sh`, `setup_linux.sh`, `setup_windows.bat`), which install the project editable with its framework extras and `dev` (`all,dev` when R is available) using `uv pip`, and Playwright's Chromium. Do not use `uv sync` or a `.venv`.
+### Adding a dependency
+Record it with `uv add` so that `pyproject.toml` and `uv.lock` update together, e.g. `uv add --optional dev "<package>"` for a dev tool, then `uv sync --extra all --extra dev` to refresh the full development environment. Never only `pip install` / `uv pip install` it into the environment.
+
+### CircleCI (separate `./venv`, `uv pip`)
+CI does not use `uv sync`: each job creates `./venv` with `uv venv` and installs `.[all]` and `.[dev]` with `uv pip install` against the job's fixed Python image (fresh resolution; `uv.lock` is not consulted). `build_local.sh` simulates the CircleCI build locally on the shared `.venv` and additionally runs the platform visual tests (`invoke test --platform`).
 
 ## Build Process
-The `build_local.sh` script is used to prepare the package for publication. It runs tests and executes various tools such as `build_pkg_setup.py` to ensure the package is ready for distribution.
+The `build_local.sh` script is used to prepare the package for publication. It generates `canvasxpress/version.txt` (via `build_pkg_setup.py`), syncs the uv-managed `.venv`, runs ruff and vermin, runs the test suite including the platform visual tests, and builds the distribution.
 
 ### Build Platforms
-- **Local development (macOS)**: Run `./setup_mac.sh` to create `venv`. Uses Homebrew to install R (`brew install r`) and Node.js (`nvm install`). Run `./build_local.sh` to build.
-- **Local development (Linux, Debian/Ubuntu)**: Run `./setup_linux.sh` to create `venv`; it installs build tools and Chromium's system libraries with apt.
-- **Local development (Windows)**: Run `.\setup_windows.bat` from cmd or PowerShell. Installs Node.js, uv and Git via winget or Chocolatey; R is optional (rpy2 is skipped if R is not found). An editor's Ruff server running from `venv\Scripts\ruff.exe` locks the venv; close it before deleting or rebuilding `venv`.
-- All three setup scripts skip the `rstudio` extra (rpy2) when R is not found, and install Playwright's Chromium for the platform visual tests.
+- **Local development (macOS)**: Run `./setup_mac.sh` to create the uv-managed `.venv` (Python 3.13 per `.python-version`; uv downloads the interpreter if missing). Uses Homebrew to install R (`brew install r`) and Node.js (`nvm install`). Run `./build_local.sh` to build.
+- **Local development (Linux, Debian/Ubuntu)**: Run `./setup_linux.sh` to create `.venv`; it installs build tools and Chromium's system libraries with apt.
+- **Local development (Windows)**: Run `.\setup_windows.bat` from cmd or PowerShell. Installs Node.js, uv and Git via winget or Chocolatey; R is optional (rpy2 is skipped if R is not found). An editor's Ruff server running from `.venv\Scripts\ruff.exe` locks the environment; close it before deleting or rebuilding `.venv`.
+- All three setup scripts skip rpy2 (they install the individual framework extras instead of `all`) when R is not found, and install Playwright's Chromium for the platform visual tests.
 - **CI/CD (Debian Bullseye)**: CircleCI builds use Debian Docker images (not Ubuntu). Three build profiles:
   - `build-python-oldest`: `python:3.8.18-bullseye`
   - `build-python-latest`: `python:3.15-trixie` (beta; Debian 13, since no bullseye image exists for 3.15)
   - `build-python-general`: `python:3.10.12-bullseye` (runs only after oldest and latest pass, so a failure in either intentionally blocks deployment; deploys the package)
 - Each job installs `.[all]` and `.[dev]` into `./venv` with `uv pip` and runs `invoke test`, which leaves out the platform visual tests; no browser is installed.
-- `build_local.sh` simulates the CircleCI build locally, and also installs Playwright's Chromium (`--with-deps` on Linux) and runs the platform visual tests (`invoke test --platform`).
+- `build_local.sh` simulates the CircleCI build locally (on the shared `.venv`), and additionally installs Playwright's Chromium (`--with-deps` on Linux) and runs the platform visual tests (`invoke test --platform`).
 
 **Important:** CircleCI uses Debian Bullseye, NOT Ubuntu. When installing packages:
 - Use `https://cloud.r-project.org/bin/linux/debian bullseye-cran40/` for R (NOT jammy-cran40)
@@ -114,3 +124,8 @@ During local builds, the skill installation is validated to ensure all expected 
     ls ~/.claude/skills/
     ```
     Each directory should contain: `canvasxpress_charts`, `canvasxpress_events`, `canvasxpress_notebooks`, `canvasxpress_validator`.
+
+### Internal project skills
+This repository carries two skills for working *on* the project itself. They are not part of the shipped skill bundle above: they are tracked in git, live in the project's own OpenCode config (`.opencode/skills/`), and are never installed into user skill directories.
+- `.opencode/skills/project_development/SKILL.md` — local environment setup, dependency management, Python 3.8 compatibility rules, and packaging/versioning workflow.
+- `.opencode/skills/project_testing/SKILL.md` — test suites, the coverage gate, platform visual tests and canon approval, CircleCI job mapping, and 3.8 runtime verification.

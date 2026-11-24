@@ -48,9 +48,9 @@ def init(c, dev=False, list=False):
     :param list: True if a list of all installed requirements should be printed
     :return:
     """
-    # Bootstrap already done: uv pip install setuptools wheel invoke
-    # Project deps already done: uv pip install ".[all]"
-    # Dev deps already done: uv sync
+    # Dependencies are installed before this task runs:
+    # local: `uv sync --extra all --extra dev` (uv-managed .venv);
+    # CI: `uv venv ./venv` + `uv pip install ".[all]"` / `".[dev]"`.
 
     c.run("npm install canvasxpress")
 

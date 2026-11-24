@@ -20,8 +20,8 @@
 #
 # Python 3.8 Compatibility:
 # - importlib.resources.files() was added in Python 3.9
-# - registry.py must use pkg_resources fallback for Python 3.8
-# - _read_module_file() already handles this with sys.version_info check
+# - registry.py and the skill modules fall back to the importlib_resources
+#   backport (declared in pyproject.toml for python_version < '3.9')
 
 version: 2.1
 

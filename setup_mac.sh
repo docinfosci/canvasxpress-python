@@ -3,7 +3,7 @@
 # setup_mac.sh — macOS development environment setup
 #
 # Checks/installs: Homebrew, Node.js, uv, R, Git
-# User manages their own Python (3.8+) — uv creates the venv.
+# The dev interpreter is uv-managed (pinned by .python-version).
 #
 # Usage:
 #   chmod +x setup_mac.sh && ./setup_mac.sh
@@ -36,7 +36,7 @@ if ! command_exists brew; then
 fi
 print_ok "Homebrew $(brew --version | head -1)"
 
-# ── Python 3.8+ (check only — user manages their own) ──────────────────────
+# ── Python 3.8+ (check only — the dev interpreter is uv-managed) ────────────
 print_header "Python"
 
 PYTHON_CMD=""
@@ -96,12 +96,12 @@ print_ok "uv $(uv --version)"
 print_header "R"
 
 if ! command_exists R; then
-    print_info "R not found — rpy2 extras will be skipped."
+    print_info "R not found — rpy2 extra will be skipped."
     print_info "Install via Homebrew if needed: brew install r"
-    EXTRAS="dash,jupyter,streamlit,shiny,dev"
+    EXTRA_ARGS=(--extra dash --extra jupyter --extra streamlit --extra shiny --extra dev)
 else
     print_ok "R $(R --version | head -1)"
-    EXTRAS="all,dev"
+    EXTRA_ARGS=(--extra all --extra dev)
 fi
 
 # ── Git ─────────────────────────────────────────────────────────────────────
@@ -113,32 +113,25 @@ if ! command_exists git; then
 fi
 print_ok "Git $(git --version)"
 
-# ── Virtual environment & dependencies ──────────────────────────────────────
+# ── Project environment & dependencies (uv-managed .venv) ───────────────────
 print_header "Project Setup"
 
-# The project environment is ./venv (see agents.md), not uv's default .venv.
-# Everything is installed into it with `uv pip`; `uv sync` would build a
-# separate .venv instead.
-if [ ! -d "venv" ]; then
-    print_info "Creating virtual environment..."
-    uv venv venv --python "$(command -v $PYTHON_CMD)"
-fi
-source ./venv/bin/activate
-print_ok "Virtual environment activated"
-
-# Bootstrap tools
-print_info "Installing build dependencies..."
-uv pip install --no-cache-dir setuptools wheel pytz gitpython
-
-# pyproject.toml reads the version from this generated, git-ignored file.
+# pyproject.toml reads the version from this generated, git-ignored file, so
+# generate it before `uv sync` (which builds the project).
 if [ ! -f "canvasxpress/version.txt" ]; then
     print_info "Generating canvasxpress/version.txt..."
-    python build_pkg_setup.py
+    uv run --no-project --with pytz --with gitpython python build_pkg_setup.py
 fi
 
-# Install the project, its framework extras and the dev tools
-print_info "Installing project with extras [$EXTRAS]..."
-uv pip install --no-cache-dir -e ".[$EXTRAS]"
+# The local development environment is uv-managed: `uv sync` creates/updates
+# .venv (interpreter pinned by .python-version; uv downloads it if missing),
+# installs the project plus the chosen extras from pyproject.toml, and
+# refreshes uv.lock (committed). CircleCI uses a separate ./venv built with
+# `uv pip install` — see AGENTS.md.
+print_info "Syncing project environment with extras ${EXTRA_ARGS[*]}"
+uv sync "${EXTRA_ARGS[@]}"
+source ./.venv/bin/activate
+print_ok "Virtual environment activated (.venv)"
 
 # Headless Chromium for the platform visual tests (tests/functional/platform)
 if python -c "import playwright" 2>/dev/null; then
@@ -159,7 +152,7 @@ echo "  macOS Setup Complete!"
 echo "============================================================"
 echo ""
 echo "Next steps:"
-echo "  source venv/bin/activate"
+echo "  source .venv/bin/activate"
 echo "  uv build            # build distribution"
 echo "  uvx ruff check .     # lint"
 echo "  invoke test          # test"

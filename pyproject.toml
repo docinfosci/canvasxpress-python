@@ -155,20 +155,24 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.dynamic]
 version = {file = "canvasxpress/version.txt"}
 
-
 # ─────────────────────────────────────────────────────────────────────────────
-# Build system
+# uv — local development workflow
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.uv]
-# Typical usage:
-#   uv sync          # install project + dev dependencies into venv
-#   uv build         # build source/wheel distribution
-#   uv add canvasxpress[<extra>]   # use as dependency in another project
+# The local development environment is uv-managed (.venv; interpreter pinned
+# by .python-version). `uv sync` installs the project plus the chosen extras
+# from pyproject.toml and keeps uv.lock (committed) in step with it:
+#   uv sync --extra all --extra dev    # local dev (R available)
+#   uv build                           # build source/wheel distribution
+#   uv add <package>                   # record a dependency (updates uv.lock)
+# CircleCI does not use `uv sync`: each job creates ./venv and runs
+# `uv pip install ".[all]"` / `".[dev]"` against its fixed Python image.
+no-build = [
+    # pywinpty (Windows-only, via jupyter-server) has an sdist that requires
+    # MSVC; accept wheels only so resolution and sync never try to build it.
+    "pywinpty",
+]
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Dev dependencies (replaces requirements-dev.txt)
-# Installed via `uv sync` — available in the project venv.
-# ─────────────────────────────────────────────────────────────────────────────
 # ─────────────────────────────────────────────────────────────────────────────
 # Setuptools — explicit package discovery
 # ─────────────────────────────────────────────────────────────────────────────
