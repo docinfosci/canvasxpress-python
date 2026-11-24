@@ -34,12 +34,18 @@ Primary imports the agent should always include:
 ```python
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.plot import graph, show_in_browser, convert_to_image, convert_to_reproducible_json
-from canvasxpress.config.type import CXGraphType, CXString, CXInt, CXFloat, CXBool, CXList, CXDict, CXRGBAColor, CXRGBColor
+from canvasxpress.config.type import CXString, CXInt, CXFloat, CXBool, CXList, CXDict, CXRGBAColor, CXRGBColor
 from canvasxpress.js.function import CXEvent
 from canvasxpress.js.collection import CXEvents
 ```
 
 ## Chart Type Catalog
+
+> **Specify chart types with plain `str` values.** Pass the values in this catalog directly as the
+> `graphType` config value, for example `config={"graphType": "Bar"}` or `CXString("graphType", "Bar")`.
+> Do **not** use the `CXGraphType` / `CXGraphTypeOptions` classes — their support ends January 2027 and
+> their use emits deprecation warnings. The full list of chart types is documented on the
+> [canvasxpress.org](https://www.canvasxpress.org) home page.
 
 ### Core Chart Types
 
@@ -125,7 +131,7 @@ Consult these reference files for detailed guidance on specific topics:
 
 | Reference File | When to Load |
 |---|---|
-| `reference_conversion.md` | Converting from Plotly/Matplotlib, looking up CXGraphTypeOptions, mapping chart types |
+| `reference_conversion.md` | Converting from Plotly/Matplotlib, mapping chart types to the `graphType` str values supported by the CanvasXpress JavaScript library |
 | `reference_general.md` | DataFrame handling, XYZ conversion, production config patterns, data loading from URLs, advanced data wrangling, specialized formats (Venn, Network) |
 
 ## Cross-Chart & Interactive Sub-Skills
