@@ -1,5 +1,6 @@
 import html
 import json
+import logging
 from abc import ABC, abstractmethod
 from copy import deepcopy
 from enum import Enum
@@ -8,6 +9,19 @@ from typing import Any, Union
 
 from deepdiff import DeepDiff
 from deprecated import deprecated
+
+from canvasxpress.util.cx_logger import get_logger
+
+_logger: "logging.Logger" = get_logger()
+"""The CanvasXpress for Python logger, identified as ``canvasxpress-python``."""
+
+CX_GRAPHTYPE_DEPRECATION_MESSAGE: str = (
+    "Support will end January 2027.  Use a CanvasXpress JavaScript library "
+    "recognized str value for the chart type instead."
+)
+"""The deprecation message for `CXGraphType` and `CXGraphTypeOptions`. Use a
+`str` value for the chart type recognized by the CanvasXpress JavaScript
+library (as documented on the canvasxpress.org home page) instead."""
 
 
 @total_ordering
@@ -1176,11 +1190,17 @@ class CXRGBColor(CXDict):
         return f"CXRGBColor( label={json.dumps(self.label)}, value='rgb({r},{g},{b})')"
 
 
+@deprecated(reason=CX_GRAPHTYPE_DEPRECATION_MESSAGE)
 class CXGraphTypeOptions(Enum):
     """A set of known chart types permitted for use with CanvasXpress objects.
     If a chart not yet identified in this list is required then use a `CXString`
     object with the label `graphType` and the value set to the name of the
-    chart to be used."""
+    chart to be used.
+
+    **Deprecated.** Support will end January 2027.  Use a CanvasXpress
+    JavaScript library recognized str value for the chart type instead; pass
+    it as the `graphType` configuration value, such as
+    `config={"graphType": "Bar"}`."""
 
     Area = "Area"
     AreaLine = "AreaLine"
@@ -1235,18 +1255,28 @@ class CXGraphTypeOptions(Enum):
 
 
 class CXGraphType(CXString):
-    """A CXString that is aware of CanvasXpress types of graphs, such as 'Bar'."""
+    """A CXString that is aware of CanvasXpress types of graphs, such as 'Bar'.
+
+    **Deprecated.** Support will end January 2027.  Use a CanvasXpress
+    JavaScript library recognized str value for the chart type instead; pass
+    it as the `graphType` configuration value, such as
+    `config={"graphType": "Bar"}`."""
 
     CX_ATTRIBUTE = "graphType"
 
     @CXString.value.setter
+    @deprecated(reason=CX_GRAPHTYPE_DEPRECATION_MESSAGE)
     def value(self, value: Union[CXGraphTypeOptions, str]) -> None:
         """Sets the value using a known CanvasXpress option.
+
+        **Deprecated.** Support will end January 2027.
 
         Args:
             value: `Union[CXGraphTypeOptions, str]` A known CanvasXpress graph
                 type option.
         """
+        _logger.warning(CX_GRAPHTYPE_DEPRECATION_MESSAGE)
+
         if value is None:
             raise ValueError("value cannot be None.")
 
@@ -1259,33 +1289,48 @@ class CXGraphType(CXString):
         else:
             CXString.value.fset(self, str(value))
 
+    @deprecated(reason=CX_GRAPHTYPE_DEPRECATION_MESSAGE)
     def set_custom_value(self, value: str):
         """Permits a js value to be set, such as if a new option is recently
         made available that the Python framework is yet to be aware of.
 
+        **Deprecated.** Support will end January 2027.
+
         Args:
             value: `str` The string value to set.
         """
+        _logger.warning(CX_GRAPHTYPE_DEPRECATION_MESSAGE)
+
         CXString.value.fset(self, value)
 
+    @deprecated(reason=CX_GRAPHTYPE_DEPRECATION_MESSAGE)
     def render(self) -> dict:
         """Renders the value in a form suitable for use in preparing Javascript.
         Typically, this will be the native `value`.
+
+        **Deprecated.** Support will end January 2027.
 
         Returns:
             `dict`: A version of the `value` most appropriate for use in
             preparing the Javascript rendering.
         """
+        _logger.warning(CX_GRAPHTYPE_DEPRECATION_MESSAGE)
+
         return {self.label: self.value}
 
+    @deprecated(reason=CX_GRAPHTYPE_DEPRECATION_MESSAGE)
     def __init__(self, type: Union[CXGraphTypeOptions, str] = CXGraphTypeOptions.Bar):
         """Initializes a new CXGraphType object with a value corresponding to
         one of the values provided by `CXGraphTypeOptions`.
+
+        **Deprecated.** Support will end January 2027.
 
         Args:
             type: `Union[CXGraphTypeOptions, str]` A known CanvasXpress graph
                 type option or a string value.
         """
+        _logger.warning(CX_GRAPHTYPE_DEPRECATION_MESSAGE)
+
         if isinstance(type, CXGraphTypeOptions):
             super().__init__(self.CX_ATTRIBUTE, type.value)
 
