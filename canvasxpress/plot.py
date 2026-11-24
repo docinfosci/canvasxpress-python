@@ -72,13 +72,19 @@ def show_in_browser(canvas: CanvasXpress) -> None:
     plotter.render()
 
 
-def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
+def graph(
+    canvas: CanvasXpress,
+    debug: bool = False,
+    fill_to_width: bool = False,
+    fill_to_height: bool = False,
+    **kwargs: Any,
+) -> Any:
     """Displays the CanvasXpress object as a visualized chart in a manner
     appropriate to the running context.
 
     To override an assumed context the ENV variable
     `CANVASXPRESS_TARGET_CONTEXT` can be set to one of the following values,
-    in which case `show` will attempt to illustrate the chart of the set
+    in which case `graph` will attempt to illustrate the chart of the set
     target.
 
     - rstudio
@@ -88,9 +94,41 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
     - streamlit
     - browser
 
+    By default a chart is drawn at the `width` and `height` it was configured
+    with. `fill_to_width` and `fill_to_height` instead size the chart to the
+    element that holds it, such as a notebook output area, a Streamlit or Dash
+    column, a Shiny card, the RStudio viewer pane or the browser window, and
+    redraw it whenever that element is resized, including when a sidebar or
+    expander changes the layout without the window resizing. Each dimension is
+    chosen separately; one that is not filled keeps its configured size, and a
+    filled one starts at its configured size until the container is measured.
+
+    - `fill_to_width` follows the container's width. Almost every container has
+      a width to give, so this works wherever the chart is placed.
+    - `fill_to_height` follows the container's height. Most containers take
+      their height from their content, which leaves no height to fill, so it
+      only has an effect where the container's height is set by the layout:
+      the browser window (`browser` and the RStudio viewer), a Streamlit
+      `st.container(height=...)`, a Dash element with a fixed or flex height, or
+      a fillable Shiny card. Elsewhere, such as a notebook output, the chart
+      keeps its configured height rather than growing.
+
+    This is provided by the canvasxpress package for live Python framework
+    contexts and is separate from CanvasXpress's own `resizable` setting, which
+    lets a user resize a chart by dragging it. Leave both off for a chart that
+    must keep its size, such as one drawn wider than its container to be
+    scrolled.
+
     Args:
         canvas: `CanvasXpress` The CanvasXpress object to display.
         debug: `bool` Whether to enable debug mode. Defaults to False.
+        fill_to_width: `bool` Whether the chart follows the width of its
+            container as it is resized, rather than keeping the width it was
+            configured with. Defaults to False.
+        fill_to_height: `bool` Whether the chart follows the height of its
+            container as it is resized, rather than keeping the height it was
+            configured with. Only has an effect where the container's height is
+            set by the layout rather than by its content. Defaults to False.
         **kwargs: Additional keyword arguments passed to the renderer.
 
     Returns:
@@ -107,20 +145,26 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
     if _context == CONTEXT_RSTUDIO:
         from canvasxpress.render.shiny import CXShinyWidget
 
-        plotter = CXShinyWidget(canvas)
+        plotter = CXShinyWidget(
+            canvas, fill_to_width=fill_to_width, fill_to_height=fill_to_height
+        )
         plotter._repr_rstudio_viewer_()
 
     elif _context == CONTEXT_SHINY:
         from canvasxpress.render.shiny import CXShinyWidget
 
-        plotter = CXShinyWidget(canvas)
+        plotter = CXShinyWidget(
+            canvas, fill_to_width=fill_to_width, fill_to_height=fill_to_height
+        )
         return plotter
 
     elif _context == CONTEXT_DASH:
         from canvasxpress.render.dash import CXElementFactory
 
         plotter = CXElementFactory()
-        return plotter.render(canvas)
+        return plotter.render(
+            canvas, fill_to_width=fill_to_width, fill_to_height=fill_to_height
+        )
 
     elif _context == CONTEXT_JUPYTER:
         from IPython.core.display_functions import display
@@ -128,7 +172,12 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
         from canvasxpress.render.jupyter import CXNoteBook
 
         plotter = CXNoteBook(canvas)
-        content = plotter.render(debug=debug, **kwargs)
+        content = plotter.render(
+            debug=debug,
+            fill_to_width=fill_to_width,
+            fill_to_height=fill_to_height,
+            **kwargs,
+        )
         if isinstance(content, list):
             for element in content:
                 display(element)
@@ -138,11 +187,18 @@ def graph(canvas: CanvasXpress, debug: bool = False, **kwargs: Any) -> Any:
     elif _context == CONTEXT_STREAMLIT:
         from canvasxpress.render import streamlit
 
-        streamlit.plot(canvas, key=kwargs.get("key"))
+        streamlit.plot(
+            canvas,
+            key=kwargs.get("key"),
+            fill_to_width=fill_to_width,
+            fill_to_height=fill_to_height,
+        )
 
     elif _context == CONTEXT_BROWSER:
         plotter = CXBrowserPopup(canvas)
-        plotter.render(**kwargs)
+        plotter.render(
+            fill_to_width=fill_to_width, fill_to_height=fill_to_height, **kwargs
+        )
 
     else:
         raise RuntimeError(

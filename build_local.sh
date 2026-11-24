@@ -73,34 +73,37 @@ nvm alias default 18
 echo "Node.js version: $(node --version)"
 echo "NPM version: $(npm --version)"
 
-# ── Python virtual environment & dependencies ───────────────────────────────
+# ── Project environment & dependencies (uv-managed .venv) ───────────────────
 echo ""
-echo "Setting up Python virtual environment..."
-if ! [[ -d ./venv ]] ; then
-    python3 -m venv ./venv
-fi
-source ./venv/bin/activate
-
-echo "Python version: $(python3 --version)"
-
-# Bootstrap build tools (replaces requirements-project.txt)
-echo "Installing build dependencies..."
-pip install --no-cache-dir -U pip setuptools wheel
-uv pip install --no-cache-dir pytz gitpython
+echo "Syncing project environment (uv-managed .venv)..."
 
 # Generate version.txt once, before installing the project, so that the installed,
 # tested and skill-stamped package has the same version as the built distribution.
 echo "Generating version.txt..."
-python3 ./build_pkg_setup.py
+uv run --no-project --with pytz --with gitpython python ./build_pkg_setup.py
 
-# Install project + all extras (replaces requirements.txt)
-echo "Installing project dependencies..."
-uv pip install --no-cache-dir ".[all]"
+# `uv sync` creates/updates .venv (interpreter pinned by .python-version) and
+# installs the project plus the chosen extras from pyproject.toml, keeping
+# uv.lock in step. CircleCI uses a separate ./venv built with `uv pip install`.
+EXTRA_ARGS=(--extra dash --extra jupyter --extra streamlit --extra shiny --extra dev)
+if command -v R &> /dev/null; then
+    EXTRA_ARGS=(--extra all --extra dev)
+fi
+echo "Installing project with extras ${EXTRA_ARGS[*]}"
+uv sync "${EXTRA_ARGS[@]}"
+source ./.venv/bin/activate
 
-# Install dev tools (replaces requirements-dev.txt — handled by uv tools)
-echo "Installing dev tools..."
-uv sync
-uv pip install ".[dev]"
+echo "Python version: $(python --version)"
+
+# Headless Chromium for the platform visual tests (tests/functional/platform),
+# which run here but not in CircleCI. On Linux, also the system libraries it needs.
+if python -c "import playwright" 2>/dev/null; then
+    if [[ "$OS" == "linux" ]]; then
+        python -m playwright install --with-deps chromium
+    else
+        python -m playwright install chromium
+    fi
+fi
 
 # Run the invoke init step
 invoke init --dev --list
@@ -117,8 +120,8 @@ uvx vermin ./canvasxpress
 
 # ── Run tests ───────────────────────────────────────────────────────────────
 echo ""
-echo "Running tests..."
-invoke test
+echo "Running tests, including the platform visual tests..."
+invoke test --platform
 
 # ── Build distribution ──────────────────────────────────────────────────────
 # Uses the version.txt generated above, so the distribution matches what was tested.

@@ -10,7 +10,7 @@ from canvasxpress.util.package_version import DEV_VERSION, read_package_version
 
 __version__: str = read_package_version()
 
-__all__ = ['install_skills', '__version__']
+__all__ = ["install_skills", "__version__"]
 
 try:
     # An unbuilt source tree has no version to compare stamps against, so

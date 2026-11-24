@@ -1,9 +1,14 @@
-import copy
 import hashlib
 from itertools import count
 from typing import Optional
 
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.render.context import (
+    FILL_JS,
+    LOADER_JS,
+    CXChartAssets,
+    CXHtmlDocument,
+)
 
 try:
     # Custom Components v2 (CCv2): renders in the app's DOM rather than an iframe.
@@ -15,87 +20,23 @@ except ImportError:
 
 _cx_iframe_padding = 50
 
-_cx_fx_template = """
-<script type="text/javascript">
-    @code@
-</script>
-"""
-
-_cx_html_template = """
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>CanvasXpress</title>
-
-        <!-- 1. Include the CanvasXpress library -->
-        @canvasxpress_license@
-        <link
-                href='@css_url@'
-                rel='stylesheet'
-                type='text/css'
-                referrerpolicy='origin-when-cross-origin'
-        />
-        <script
-                src='@js_url@'
-                type='text/javascript'>
-                referrerpolicy='origin-when-cross-origin'
-        </script>
-    </head>
-    <body>
-        <!-- 3. DOM element where the visualization will be displayed -->
-        @canvases@
-        <!-- 2. Include script to initialize object -->
-        @js_functions@
-     </body>
-</html>
-"""
-
 _cx_component_html = """
 <div class="canvasxpress-streamlit"></div>
 """
 
-_cx_component_js = """
-// Library loads are shared by every chart on the page, keyed by URL.
-const libraryLoads = new Map();
-
+# The shared loader defines window.canvasxpress.loadLibrary(), which loads the
+# CanvasXpress library once for every chart on the page, and the fill script
+# defines window.canvasxpress.fillContainer() for the fill_to_width and
+# fill_to_height options.
+_cx_component_js = (
+    LOADER_JS
+    + FILL_JS
+    + """
 // Per-instance state, keyed by the component's parent element.
 const instances = new WeakMap();
 
 // Suffix counter for charts whose ID is already in use on the page.
 let duplicateCount = 0;
-
-function loadScript(url) {
-  if (!libraryLoads.has(url)) {
-    libraryLoads.set(url, new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = url;
-      script.type = "text/javascript";
-      script.referrerPolicy = "origin-when-cross-origin";
-      script.onload = () => resolve();
-      script.onerror = () => {
-        libraryLoads.delete(url);
-        reject(new Error("Unable to load " + url));
-      };
-      document.head.appendChild(script);
-    }));
-  }
-  return libraryLoads.get(url);
-}
-
-function loadStylesheet(url) {
-  const links = document.head.querySelectorAll("link[rel='stylesheet']");
-  for (const link of links) {
-    if (link.getAttribute("href") === url) {
-      return;
-    }
-  }
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = url;
-  link.referrerPolicy = "origin-when-cross-origin";
-  document.head.appendChild(link);
-}
 
 function destroyChart(targetId) {
   if (!targetId || !window.CanvasXpress) {
@@ -111,6 +52,13 @@ function destroyChart(targetId) {
   }
 }
 
+function stopFilling(instance) {
+  if (instance.stopFill) {
+    instance.stopFill();
+    instance.stopFill = null;
+  }
+}
+
 export default function (component) {
   const { data, parentElement } = component;
   const root = parentElement.querySelector(".canvasxpress-streamlit");
@@ -119,9 +67,14 @@ export default function (component) {
   }
 
   // Each run replaces the previous chart for this instance.
-  const instance = instances.get(parentElement) || { run: 0, targetId: null };
+  const instance = instances.get(parentElement) || {
+    run: 0,
+    targetId: null,
+    stopFill: null,
+  };
   instance.run += 1;
   const run = instance.run;
+  stopFilling(instance);
   destroyChart(instance.targetId);
 
   // Charts share the page's DOM, so give a chart a unique ID if another chart
@@ -137,11 +90,13 @@ export default function (component) {
   const chartJs = data.js.split(data.placeholder_id).join(targetId);
 
   root.innerHTML = data.canvas.split(data.placeholder_id).join(targetId);
-  loadStylesheet(data.css_url);
 
-  const license = data.license_url ? loadScript(data.license_url) : Promise.resolve();
-  license
-    .then(() => loadScript(data.js_url))
+  window.canvasxpress
+    .loadLibrary({
+      jsUrl: data.js_url,
+      cssUrl: data.css_url,
+      licenseUrl: data.license_url,
+    })
     .then(
       () => {
         // Skip if a newer run has replaced this chart while the library loaded.
@@ -155,6 +110,18 @@ export default function (component) {
         } catch (error) {
           console.error("CanvasXpress chart " + targetId + " failed:", error);
         }
+        if (data.fill_to_width || data.fill_to_height) {
+          if (data.fill_to_height && parentElement.style) {
+            // Passes the height Streamlit gives the element on to the chart.
+            parentElement.style.height = "100%";
+          }
+          instance.stopFill = window.canvasxpress.fillContainer(root, targetId, {
+            fillToWidth: data.fill_to_width,
+            fillToHeight: data.fill_to_height,
+            width: data.width,
+            height: data.height,
+          });
+        }
       },
       (error) => {
         console.error(error);
@@ -163,11 +130,13 @@ export default function (component) {
     );
 
   return () => {
+    stopFilling(instance);
     destroyChart(instance.targetId);
     instances.delete(parentElement);
   };
 }
 """
+)
 
 # Declared once at import so that Streamlit registers the component a single time.
 _cx_component = (
@@ -184,54 +153,54 @@ _cx_component = (
 )
 
 
-def _get_chart_display_code(cx: CanvasXpress) -> tuple:
+def _get_chart_display_code(cx: CanvasXpress, fill_to_width: bool = False) -> tuple:
     """
     Get the html display code and iframe dimensions for rendering a CanvasXpress
     object in a Streamlit application that predates Custom Components v2.
 
+    An iframe is given a fixed height, so there is no container height for the
+    chart to fill; it is drawn at its configured height.
+
     Args:
         cx: The CanvasXpress object to be rendered.
+        fill_to_width: Whether the chart follows the width of the iframe, which
+            then takes the width of its Streamlit container.
 
     Returns:
         A tuple of (html, iframe_width, iframe_height) containing the HTML string,
-        the iframe width in pixels, and the iframe height in pixels.
+        the iframe width in pixels or None for the container width, and the
+        iframe height in pixels.
     """
-    html_parts = cx.render_to_html_parts()
-    canvases = html_parts["cx_canvas"]
-    js_functions = _cx_fx_template.replace("@code@", html_parts["cx_js"])
+    document = CXHtmlDocument(cx, fill_to_width=fill_to_width)
+    width, height = document.size
 
-    cx_license = ""
-    if html_parts.get("cx_license"):
-        cx_license = html_parts["cx_license"]
-
-    css_url = CanvasXpress.css_library_url()
-    js_url = CanvasXpress.js_library_url()
-
-    html = (
-        _cx_html_template.replace("@canvases@", canvases)
-        .replace("@canvasxpress_license@", cx_license)
-        .replace("@js_functions@", js_functions)
-        .replace("@css_url@", css_url)
-        .replace("@js_url@", js_url)
+    return (
+        document.page(),
+        None if fill_to_width else width + _cx_iframe_padding,
+        height + _cx_iframe_padding,
     )
 
-    iframe_width = cx.width + _cx_iframe_padding
-    iframe_height = cx.height + _cx_iframe_padding
 
-    return html, iframe_width, iframe_height
-
-
-def _get_chart_component_data(cx: CanvasXpress) -> dict:
+def _get_chart_component_data(
+    cx: CanvasXpress,
+    fill_to_width: bool = False,
+    fill_to_height: bool = False,
+) -> dict:
     """
     Get the data passed to the Custom Components v2 CanvasXpress component.
 
     Args:
         cx: The CanvasXpress object to be rendered.
+        fill_to_width: Whether the chart follows the width of its Streamlit
+            container.
+        fill_to_height: Whether the chart follows the height of its Streamlit
+            container.
 
     Returns:
         A dict with the chart's target ID, the placeholder ID used in the canvas
-        element HTML and initialization JavaScript, and the CanvasXpress library,
-        stylesheet and license URLs.
+        element HTML and initialization JavaScript, the CanvasXpress library,
+        stylesheet and license URLs, the chart's configured width and height,
+        and which of them follow the container.
     """
     # Captured once because anonymous charts generate a new ID on each access.
     target_id = cx.render_to
@@ -240,18 +209,20 @@ def _get_chart_component_data(cx: CanvasXpress) -> dict:
     # or with a unique variant if another chart on the page already uses it.
     # IDs are limited to alphanumerics and "_", so the placeholder is exact.
     placeholder_id = "cXplaceholder" + hashlib.sha1(target_id.encode()).hexdigest()
-    rendered = copy.copy(cx)
-    rendered.render_to = placeholder_id
-    html_parts = rendered.render_to_html_parts()
+    chart = CXChartAssets.from_canvas(cx, target_id=placeholder_id)
 
     return {
         "target_id": target_id,
         "placeholder_id": placeholder_id,
-        "canvas": html_parts["cx_canvas"],
-        "js": html_parts["cx_js"],
+        "canvas": chart.canvas,
+        "js": chart.js,
         "js_url": CanvasXpress.js_library_url(),
         "css_url": CanvasXpress.css_library_url(),
-        "license_url": cx.license_url if cx.license_available else None,
+        "license_url": chart.license_url,
+        "width": chart.width,
+        "height": chart.height,
+        "fill_to_width": bool(fill_to_width),
+        "fill_to_height": bool(fill_to_height),
     }
 
 
@@ -267,8 +238,15 @@ def _mount_chart_component(data: dict, key: Optional[str]) -> None:
         data: The component data from `_get_chart_component_data`.
         key: The caller's Streamlit element key, or None.
     """
+    # A chart that fills a dimension needs the container's full extent in it;
+    # otherwise the element is sized to the chart.
+    size = {
+        "width": "stretch" if data.get("fill_to_width") else "content",
+        "height": "stretch" if data.get("fill_to_height") else "content",
+    }
+
     if key is not None:
-        _cx_component(data=data, key=key, width="content")
+        _cx_component(data=data, key=key, **size)
         return
 
     from streamlit.errors import (
@@ -277,7 +255,7 @@ def _mount_chart_component(data: dict, key: Optional[str]) -> None:
     )
 
     try:
-        _cx_component(data=data, width="content")
+        _cx_component(data=data, **size)
         return
 
     except StreamlitDuplicateElementId:
@@ -288,7 +266,7 @@ def _mount_chart_component(data: dict, key: Optional[str]) -> None:
             _cx_component(
                 data=data,
                 key=f"canvasxpress_{data['target_id']}_{occurrence}",
-                width="content",
+                **size,
             )
             return
 
@@ -296,7 +274,12 @@ def _mount_chart_component(data: dict, key: Optional[str]) -> None:
             continue
 
 
-def plot(cx: CanvasXpress, key: Optional[str] = None) -> None:
+def plot(
+    cx: CanvasXpress,
+    key: Optional[str] = None,
+    fill_to_width: bool = False,
+    fill_to_height: bool = False,
+) -> None:
     """
     Renders the provided CanvasXpress object for display in a Streamlit application.
 
@@ -309,6 +292,17 @@ def plot(cx: CanvasXpress, key: Optional[str] = None) -> None:
         key: An optional Streamlit element key that keeps the chart's identity
             stable across reruns. Ignored by Streamlit releases that predate
             Custom Components v2.
+        fill_to_width: True to have the chart take the full width of its
+            Streamlit container, such as the page or a column, and follow it as
+            it changes, rather than keeping its configured width. Default is
+            False.
+        fill_to_height: True to have the chart take the full height of its
+            Streamlit container and follow it as it changes, rather than keeping
+            its configured height. This needs a container with a height, such
+            as `st.container(height=500)`; most Streamlit containers take their
+            height from their content, and there the chart keeps its configured
+            height. Ignored by Streamlit releases that predate Custom Components
+            v2, whose iframes have a fixed height. Default is False.
 
     Raises:
         TypeError: If cx is not a CanvasXpress object.
@@ -321,10 +315,12 @@ def plot(cx: CanvasXpress, key: Optional[str] = None) -> None:
         raise TypeError("Argument 'cx' is not a CanvasXpress object")
 
     if _cx_component is not None:
-        _mount_chart_component(_get_chart_component_data(cx), key)
+        _mount_chart_component(
+            _get_chart_component_data(cx, fill_to_width, fill_to_height), key
+        )
 
     else:
         import streamlit.components.v1 as components
 
-        html, iframe_width, iframe_height = _get_chart_display_code(cx)
+        html, iframe_width, iframe_height = _get_chart_display_code(cx, fill_to_width)
         components.html(html, width=iframe_width, height=iframe_height)

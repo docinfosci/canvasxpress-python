@@ -2,8 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class CXHtmlConvertable(ABC):
-    """CXHtmlConvertable represents an object that can be converted into HTML.
-    """
+    """CXHtmlConvertable represents an object that can be converted into HTML."""
 
     @abstractmethod
     def render_to_html_parts(self) -> dict:
@@ -18,8 +17,7 @@ class CXHtmlConvertable(ABC):
 
 
 class CXDictConvertable(ABC):
-    """CXDictConvertable represents an object that can be converted into a dict.
-    """
+    """CXDictConvertable represents an object that can be converted into a dict."""
 
     @abstractmethod
     def render_to_dict(self, **kwargs) -> dict:
@@ -37,8 +35,7 @@ class CXDictConvertable(ABC):
 
 
 class CXListConvertable(ABC):
-    """CXListConvertable represents an object that can be converted into a list.
-    """
+    """CXListConvertable represents an object that can be converted into a list."""
 
     @abstractmethod
     def render_to_list(self, **kwargs) -> list:
@@ -56,8 +53,7 @@ class CXListConvertable(ABC):
 
 
 class CXJavascriptConvertable(ABC):
-    """CXJavascriptConvertable represents an object that can be converted into JS.
-    """
+    """CXJavascriptConvertable represents an object that can be converted into JS."""
 
     @abstractmethod
     def render_to_js(self) -> str:

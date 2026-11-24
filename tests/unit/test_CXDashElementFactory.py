@@ -99,6 +99,8 @@ def test_component_javascript_is_registered():
     paths = [dist["relative_package_path"] for dist in canvasxpress._js_dist]
 
     assert paths == [
+        "render/resources/canvasxpress-loader.js",
+        "render/resources/canvasxpress-fill.js",
         "render/resources/canvasxpress-react.js",
         "render/resources/canvasxpress-dash.js",
     ]
@@ -107,4 +109,40 @@ def test_component_javascript_is_registered():
         assert dist["namespace"] == "canvasxpress"
         resource = os.path.join(package_dir, dist["relative_package_path"])
         with open(resource, encoding="utf-8") as fh:
-            assert "root.canvasxpress." in fh.read()
+            assert "root.canvasxpress" in fh.read()
+
+
+def test_render_fill():
+    element = CXElementFactory.render(_g_cx)
+    assert (element.fill_to_width, element.fill_to_height) == (False, False)
+
+    element = CXElementFactory.render(_g_cx, fill_to_width=True)
+    assert (element.fill_to_width, element.fill_to_height) == (True, False)
+
+    element = CXElementFactory.render(_g_cx, fill_to_height=True)
+    props = element.to_plotly_json()["props"]
+    assert (props["fill_to_width"], props["fill_to_height"]) == (False, True)
+
+
+def test_render_all_fill():
+    elements = CXElementFactory(_g_cx, _g_cx).render_all(
+        fill_to_width=True, fill_to_height=True
+    )
+    assert [(e.fill_to_width, e.fill_to_height) for e in elements] == [
+        (True, True),
+        (True, True),
+    ]
+
+
+def test_react_wrapper_fills_container_after_creating_chart():
+    package_dir = os.path.dirname(canvasxpress.__file__)
+    resources = os.path.join(package_dir, "render", "resources")
+    with open(os.path.join(resources, "canvasxpress-react.js"), encoding="utf-8") as fh:
+        react = fh.read()
+    with open(os.path.join(resources, "canvasxpress-dash.js"), encoding="utf-8") as fh:
+        dash_js = fh.read()
+
+    assert react.index("new CanvasXpress(") < react.index("fillContainer(host")
+    assert "fillToHeight: props.fillToHeight" in react
+    assert "stopFill()" in react
+    assert "fillToWidth: Boolean(props.fill_to_width)" in dash_js

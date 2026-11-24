@@ -116,7 +116,9 @@ def test_graph_dash_context():
             mock_instance.render.return_value = "dash_element"
             result = graph(CX_SIMPLE)
             assert result == "dash_element"
-            mock_instance.render.assert_called_once_with(CX_SIMPLE)
+            mock_instance.render.assert_called_once_with(
+                CX_SIMPLE, fill_to_width=False, fill_to_height=False
+            )
 
 
 def test_graph_jupyter_context():
@@ -136,7 +138,9 @@ def test_graph_streamlit_context():
     with patch("canvasxpress.plot._g_context", "streamlit"):
         with patch("canvasxpress.render.streamlit.plot") as mock_plot:
             graph(CX_SIMPLE)
-            mock_plot.assert_called_once_with(CX_SIMPLE, key=None)
+            mock_plot.assert_called_once_with(
+                CX_SIMPLE, key=None, fill_to_width=False, fill_to_height=False
+            )
 
 
 def test_graph_detects_context_at_call_when_unknown_at_import():
@@ -163,7 +167,12 @@ def test_graph_streamlit_context_passes_key():
     with patch("canvasxpress.plot._g_context", "streamlit"):
         with patch("canvasxpress.render.streamlit.plot") as mock_plot:
             graph(CX_SIMPLE, key="chart-key")
-            mock_plot.assert_called_once_with(CX_SIMPLE, key="chart-key")
+            mock_plot.assert_called_once_with(
+                CX_SIMPLE,
+                key="chart-key",
+                fill_to_width=False,
+                fill_to_height=False,
+            )
 
 
 def test_graph_shiny_context():
@@ -184,3 +193,66 @@ def test_graph_rstudio_context():
             mock_widget.return_value = mock_instance
             graph(CX_SIMPLE)
             mock_instance._repr_rstudio_viewer_.assert_called_once()
+
+
+_NO_FILL = {"fill_to_width": False, "fill_to_height": False}
+
+_FILL_CASES = pytest.mark.parametrize(
+    "fill",
+    [
+        {"fill_to_width": True, "fill_to_height": False},
+        {"fill_to_width": False, "fill_to_height": True},
+        {"fill_to_width": True, "fill_to_height": True},
+    ],
+)
+
+
+class TestGraphFill:
+    """graph(fill_to_width=..., fill_to_height=...) reaches every live renderer."""
+
+    @_FILL_CASES
+    def test_dash(self, fill):
+        with patch("canvasxpress.plot._g_context", "dash"):
+            with patch("canvasxpress.render.dash.CXElementFactory") as mock_factory:
+                graph(CX_SIMPLE, **fill)
+                mock_factory.return_value.render.assert_called_once_with(
+                    CX_SIMPLE, **fill
+                )
+
+    @_FILL_CASES
+    def test_streamlit(self, fill):
+        with patch("canvasxpress.plot._g_context", "streamlit"):
+            with patch("canvasxpress.render.streamlit.plot") as mock_plot:
+                graph(CX_SIMPLE, key="k", **fill)
+                mock_plot.assert_called_once_with(CX_SIMPLE, key="k", **fill)
+
+    @_FILL_CASES
+    def test_jupyter(self, fill):
+        with patch("canvasxpress.plot._g_context", "jupyter"):
+            with patch("canvasxpress.render.jupyter.CXNoteBook") as mock_notebook:
+                mock_notebook.return_value.render.return_value = []
+                graph(CX_SIMPLE, columns=2, **fill)
+                mock_notebook.return_value.render.assert_called_once_with(
+                    debug=False, columns=2, **fill
+                )
+
+    @_FILL_CASES
+    @pytest.mark.parametrize("context", ["shiny", "rstudio"])
+    def test_shiny_and_rstudio(self, context, fill):
+        with patch("canvasxpress.plot._g_context", context):
+            with patch("canvasxpress.render.shiny.CXShinyWidget") as mock_widget:
+                graph(CX_SIMPLE, **fill)
+                mock_widget.assert_called_once_with(CX_SIMPLE, **fill)
+
+    @_FILL_CASES
+    def test_browser(self, fill):
+        with patch("canvasxpress.plot._g_context", "browser"):
+            with patch("canvasxpress.plot.CXBrowserPopup") as mock_popup:
+                graph(CX_SIMPLE, **fill)
+                mock_popup.return_value.render.assert_called_once_with(**fill)
+
+    def test_both_off_by_default(self):
+        with patch("canvasxpress.plot._g_context", "shiny"):
+            with patch("canvasxpress.render.shiny.CXShinyWidget") as mock_widget:
+                graph(CX_SIMPLE)
+                mock_widget.assert_called_once_with(CX_SIMPLE, **_NO_FILL)

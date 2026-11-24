@@ -1,5 +1,3 @@
-import uuid
-from pathlib import Path
 from typing import Any, List, Union
 
 from bs4 import BeautifulSoup
@@ -7,169 +5,24 @@ from IPython.display import HTML, Code, Javascript
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
+from canvasxpress.render.context import (
+    CXHtmlDocument,
+    CXLibraryAssets,
+    write_html_file,
+)
 
-_cx_iframe_padding = 50
 
-
-def inject_cx_assets():
-    injection_script = """
-        // 1. First, handle CSS Insertion and wait for it to be completely ready
-        new Promise((cssResolve, cssReject) => {
-            const cssUrl = "{{css_url}}";
-            let existingLink = document.querySelector(`head link[href="${cssUrl}"]`);
-
-            if (!existingLink) {
-                const link = document.createElement("link");
-                link.rel = "stylesheet";
-                link.type = "text/css";
-                link.href = cssUrl;
-                link.onload = () => {
-                    link.dataset.state = "loaded";
-                    link.dispatchEvent(new Event("assetLoaded"));
-                    cssResolve();
-                };
-                link.onerror = () => {
-                    link.dataset.state = "failed";
-                    link.dispatchEvent(new Event("assetFailed"));
-                    cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
-                };
-                document.head.appendChild(link);
-            } else if (existingLink.dataset.state === "loaded") {
-                cssResolve();
-            } else if (existingLink.dataset.state === "failed") {
-                cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
-            } else {
-                // Safe queueing for subsequent runs initiated while CSS is downloading
-                existingLink.addEventListener('assetLoaded', () => cssResolve(), { once: true });
-                existingLink.addEventListener('assetFailed', () => cssReject(new Error(`Failed to load CSS: ${cssUrl}`)), { once: true });
-            }
-        })
-        .then(() => {
-            // 2. CSS is guaranteed ready. Now handle JS Insertion
-            return new Promise((jsResolve, jsReject) => {
-                const scriptUrl = '{{js_url}}';
-                let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
-
-                if (existingScript) {
-                    if (existingScript.dataset.state === "loaded") {
-                        jsResolve();
-                    } else if (existingScript.dataset.state === "failed") {
-                        jsReject(new Error(`Failed to load script: ${scriptUrl}`));
-                    } else {
-                        // Safe queueing for subsequent runs initiated while JS is downloading
-                        existingScript.addEventListener('assetLoaded', () => jsResolve(), { once: true });
-                        existingScript.addEventListener('assetFailed', () => jsReject(new Error(`Failed to load script: ${scriptUrl}`)), { once: true });
-                    }
-                } else {
-                    const script = document.createElement("script");
-                    script.type = "text/javascript";
-                    script.src = scriptUrl;
-                    script.dataset.state = "loading";
-
-                    script.onload = () => {
-                        script.dataset.state = "loaded";
-                        script.dispatchEvent(new Event("assetLoaded"));
-                        jsResolve();
-                    };
-                    script.onerror = () => {
-                        script.dataset.state = "failed";
-                        script.dispatchEvent(new Event("assetFailed"));
-                        jsReject(new Error(`Failed to load script: ${scriptUrl}`));
-                    };
-                    document.head.appendChild(script);
-                }
-            });
-        })
-        .catch((error) => {
-            console.error("CanvasXpress injection failed:", error);
-        });
+def inject_cx_assets() -> Javascript:
     """
-    return Javascript(
-        data=(
-            injection_script.replace(
-                "{{css_url}}", CanvasXpress.css_library_url()
-            ).replace("{{js_url}}", CanvasXpress.js_library_url())
-        ),
-    )
+    Provides JavaScript that loads the CanvasXpress library and stylesheet into
+    the notebook page, if they are not loaded already. Charts rendered by
+    `CXNoteBook` load them on their own, so this is only needed for other
+    CanvasXpress JavaScript.
 
-
-_cx_js_intermixed_template = """
-// 1. First, handle CSS Insertion and wait for it to be completely ready
-new Promise((cssResolve, cssReject) => {
-    const cssUrl = "{{css_url}}";
-    let existingLink = document.querySelector(`head link[href="${cssUrl}"]`);
-
-    if (!existingLink) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.type = "text/css";
-        link.href = cssUrl;
-        link.onload = () => {
-            link.dataset.state = "loaded";
-            link.dispatchEvent(new Event("assetLoaded"));
-            cssResolve();
-        };
-        link.onerror = () => {
-            link.dataset.state = "failed";
-            link.dispatchEvent(new Event("assetFailed"));
-            cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
-        };
-        document.head.appendChild(link);
-    } else if (existingLink.dataset.state === "loaded") {
-        cssResolve();
-    } else if (existingLink.dataset.state === "failed") {
-        cssReject(new Error(`Failed to load CSS: ${cssUrl}`));
-    } else {
-        // Safe queueing for subsequent runs initiated while CSS is downloading
-        existingLink.addEventListener('assetLoaded', () => cssResolve(), { once: true });
-        existingLink.addEventListener('assetFailed', () => cssReject(new Error(`Failed to load CSS: ${cssUrl}`)), { once: true });
-    }
-})
-.then(() => {
-    // 2. CSS is guaranteed ready. Now handle JS Insertion
-    return new Promise((jsResolve, jsReject) => {
-        const scriptUrl = '{{js_url}}';
-        let existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
-
-        if (existingScript) {
-            if (existingScript.dataset.state === "loaded") {
-                jsResolve();
-            } else if (existingScript.dataset.state === "failed") {
-                jsReject(new Error(`Failed to load script: ${scriptUrl}`));
-            } else {
-                // Safe queueing for subsequent runs initiated while JS is downloading
-                existingScript.addEventListener('assetLoaded', () => jsResolve(), { once: true });
-                existingScript.addEventListener('assetFailed', () => jsReject(new Error(`Failed to load script: ${scriptUrl}`)), { once: true });
-            }
-        } else {
-            const script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = scriptUrl;
-            script.dataset.state = "loading";
-
-            script.onload = () => {
-                script.dataset.state = "loaded";
-                script.dispatchEvent(new Event("assetLoaded"));
-                jsResolve();
-            };
-            script.onerror = () => {
-                script.dataset.state = "failed";
-                script.dispatchEvent(new Event("assetFailed"));
-                jsReject(new Error(`Failed to load script: ${scriptUrl}`));
-            };
-            document.head.appendChild(script);
-        }
-    });
-})
-.then(() => {
-    // 3. Both CSS and JS are ready in order. Run user payload.
-    {{code}}
-})
-.catch((error) => {
-    console.error("CanvasXpress injection failed:", error);
-});
-
-"""
+    Returns:
+        An IPython Javascript display object.
+    """
+    return Javascript(data=CXLibraryAssets.current().loader_js(""))
 
 
 class CXNoteBook(CXRenderable):
@@ -193,111 +46,63 @@ class CXNoteBook(CXRenderable):
         """
         super().__init__(*cx)
 
-    def display_debug_code(self, code: str):
+    def display_debug_code(self, code: str) -> Code:
+        """
+        Provides HTML code for display, formatted for reading.
+
+        Args:
+            code: The HTML code.
+
+        Returns:
+            An IPython Code display object.
+        """
         pretty_code = BeautifulSoup(code, "html.parser").prettify()
         return Code(
             data=pretty_code,
-            language="javascript",
+            language="html",
         )
 
-    def get_chart_display_code(self, columns: int) -> list:
-        render_targets = list()
+    def get_chart_display_code(
+        self,
+        columns: int,
+        fill_to_width: bool = False,
+        fill_to_height: bool = False,
+    ) -> list:
+        """
+        Provides the display objects that render the charts in a notebook: the
+        arranged canvases, then JavaScript that loads CanvasXpress, if needed,
+        and creates the charts.
 
-        if self.canvas is None:
-            pass
+        Args:
+            columns: The number of charts per row.
+            fill_to_width: Whether the charts follow the width of the output
+                area.
+            fill_to_height: Whether the charts follow the height of the output
+                area, where the notebook gives it one.
 
-        elif isinstance(self.canvas, CanvasXpress):
-            render_targets.append(self.canvas)
+        Returns:
+            A list of IPython display objects, empty if there are no charts.
+        """
+        document = CXHtmlDocument(
+            self.canvas,
+            columns=columns,
+            fill_to_width=fill_to_width,
+            fill_to_height=fill_to_height,
+        )
+        if not document.charts:
+            return []
 
-        else:
-            render_targets.extend(self.canvas)
-
-        used_render_targets = list()
-        for target in render_targets:
-            original_render_target = target.render_to
-            if original_render_target in used_render_targets:
-                target.render_to = (
-                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
-                )
-
-            used_render_targets.append(target.render_to)
-
-        render_targets.reverse()
-
-        html_parts = [target.render_to_html_parts() for target in render_targets]
-
-        canvases = [part["cx_canvas"] for part in html_parts]
-        if len(canvases) < columns:
-            columns = len(canvases)
-
-        functions = [part["cx_js"] for part in html_parts]
-
-        cx_license = ""
-        for part in html_parts:
-            if part.get("cx_license"):
-                cx_license = part["cx_license"]
-                break
-
-        canvas_table = f'\n<div style="display: grid; grid-template-columns: repeat({columns}, 1fr); gap: 10px; width: 100%;">'
-
-        for canvas in reversed(canvases):
-            canvas_table += f"\n  <div>{canvas}</div>"
-
-        canvas_table += "\n</div>"
-
-        content: list = [
-            HTML(data=cx_license),
-            HTML(data=canvas_table),
+        return [
+            HTML(data=document.layout_html()),
+            Javascript(data=document.loader_js()),
         ]
-
-        for fx in functions:
-            content.append(
-                Javascript(
-                    data=(
-                        _cx_js_intermixed_template.replace("{{code}}", fx)
-                        .replace("{{css_url}}", CanvasXpress.css_library_url())
-                        .replace("{{js_url}}", CanvasXpress.js_library_url())
-                    ),
-                ),
-            )
-
-        return content
-
-    def display_charts(self, code: str, output_file: str):
-        try:
-            if output_file is not None:
-                file_path_candidate = str(output_file)
-                file_path = Path(file_path_candidate)
-                if file_path.is_dir():
-                    file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
-
-                with open(str(file_path), "w") as render_file:
-                    render_file.write(
-                        """
-                        <html>
-                        <body>
-                        """
-                    )
-                    for element in code:
-                        render_file.write(str(element))
-                    render_file.write(
-                        """
-                        </body>
-                        </html>
-                        """
-                    )
-
-        except Exception:
-            return HTML("<div>Cannot create output file: {e}</div>")
-
-        return code
 
     def render(self, **kwargs: Any):
         """
         Renders the associated CanvasXpress objects for display in
         an IPython (e.g., Jupyter NoteBook/Lab) environment. Charts cannot
-        have the same name, so render_to will be updated with a uuid for each
-        conflicting chart.
+        have the same name, so conflicting charts are displayed under unique
+        IDs.
 
         Args:
             kwargs: Supports the following parameters:
@@ -305,40 +110,62 @@ class CXNoteBook(CXRenderable):
                     value of 1. Values less than 1 are ignored. Indicates
                     how many charts should be rendered horizontally in the
                     Jupyter Notebook if more than one chart is being tracked.
-                output_file: A string for a path at which the output should
-                    be saved. If a file exists at the specified path then
-                    it will be overwritten. This permits Jupyter sessions
-                    to render output that is saved and accessible in later
-                    sessions.
-                debug: True indicates that the HTML code shall be displayed
-                    prior to the parsed output. Default is False.
+                output_file: A string for a path at which the charts should
+                    also be saved as a standalone HTML page. If a file exists
+                    at the specified path then it will be overwritten, and if
+                    the path is a directory the page is saved in it under the
+                    chart names, such as `scatter_heatmap.html`, or
+                    `anonymous.html` for a chart without a `render_to` ID.
+                    This permits Jupyter sessions to render output that
+                    is saved and accessible in later sessions.
+                debug: True indicates that the HTML page for the charts shall
+                    be displayed as code instead of the charts. Default is
+                    False.
+                fill_to_width: True to have the charts share the width of the
+                    notebook output area and follow it as it changes, rather
+                    than keeping their configured widths. Default is False.
+                fill_to_height: True to have the charts follow the height of
+                    the output area. A notebook output takes its height from
+                    its content, so charts there keep their configured heights;
+                    it applies to the page saved with output_file, which fills
+                    the browser window. Default is False.
 
         Returns:
-            IPython display objects containing the rendered charts, or debug
-            code output if debug is True.
+            A list of IPython display objects containing the rendered charts, or
+            a Code display object if debug is True.
         """
         try:
-            debug_output_arg = kwargs.get("debug")
-            debug_output = (
-                bool(debug_output_arg) if debug_output_arg is not None else False
-            )
+            debug_output = bool(kwargs.get("debug") or False)
+            fill_to_width = bool(kwargs.get("fill_to_width") or False)
+            fill_to_height = bool(kwargs.get("fill_to_height") or False)
 
             columns_arg = int(kwargs.get("columns", 1))
             columns = columns_arg if columns_arg > 0 else 1
 
-            output_file_arg = kwargs.get("output_file")
-            output_file = (
-                output_file_arg
-                if output_file_arg is not None and isinstance(output_file_arg, str)
-                else None
-            )
+            output_file = kwargs.get("output_file")
+            if not isinstance(output_file, str):
+                output_file = None
 
-            code = self.get_chart_display_code(columns)
+            if debug_output or output_file is not None:
+                document = CXHtmlDocument(
+                    self.canvas,
+                    columns=columns,
+                    fill_to_width=fill_to_width,
+                    fill_to_height=fill_to_height,
+                )
+                page = document.page()
 
-            if debug_output:
-                return self.display_debug_code(code)
-            else:
-                return self.display_charts(code, output_file)
+                if output_file is not None:
+                    try:
+                        write_html_file(page, output_file, document.file_name)
+
+                    except Exception as e:
+                        return HTML(f"<div>Cannot create output file: {e}</div>")
+
+                if debug_output:
+                    return self.display_debug_code(page)
+
+            return self.get_chart_display_code(columns, fill_to_width, fill_to_height)
 
         except Exception as e:
             return HTML(f"<div>Cannot create output cell: {e}</div>")

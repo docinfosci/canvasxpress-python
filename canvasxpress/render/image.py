@@ -3,11 +3,11 @@ import os
 import shlex
 import subprocess
 from pathlib import Path
-from tempfile import gettempdir
 from typing import Any, List, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
+from canvasxpress.render.context import temp_directory
 from canvasxpress.render.json import CXJSON
 
 PNG_IMAGE: str = "png"
@@ -45,7 +45,7 @@ def install_cx_in_nodejs() -> None:
 
     except subprocess.TimeoutExpired as te:
         raise RuntimeError(
-            f"Image rendering is unavailable. " f"Cannot interact with Node: {str(te)}"
+            f"Image rendering is unavailable. Cannot interact with Node: {str(te)}"
         )
 
 
@@ -137,9 +137,7 @@ def render_html_as_image(
                 "format must be one of PNG_IMAGE or SVG_IMAGE, or a list of each."
             )
 
-        work_dir = Path(gettempdir()) / "canvasxpress-python"
-        work_dir.mkdir(exist_ok=True)
-        work_image_path = work_dir
+        work_image_path = temp_directory()
 
         try:
             cmd = f"{get_nodejs_path()} {image_format}{width_text}{height_text} -i {shlex.quote(url)} -o {shlex.quote(str(work_image_path))}"
@@ -151,7 +149,6 @@ def render_html_as_image(
                 timeout=MAX_NODE_WAIT_SECONDS,
             )
             if result.returncode == 0:
-
                 image_file_options = list(work_image_path.glob(f"**/*.{image_format}"))
                 for image_file_path in image_file_options:
                     with open(Path(image_file_path), "rb") as image_file:
@@ -229,9 +226,7 @@ class CXImage(CXRenderable):
                 )
 
             for reproducible_json in reproducible_jsons:
-                work_dir = Path(gettempdir()) / "canvasxpress-python"
-                work_dir.mkdir(exist_ok=True)
-                work_image_path = work_dir
+                work_image_path = temp_directory()
 
                 reproducible_data = json.loads(reproducible_json)
                 data_text = json.dumps(reproducible_data.get("data"))
@@ -245,7 +240,6 @@ class CXImage(CXRenderable):
                     timeout=MAX_NODE_WAIT_SECONDS,
                 )
                 if result.returncode == 0:
-
                     image_file_options = list(
                         work_image_path.glob(f"**/*.{image_format}")
                     )

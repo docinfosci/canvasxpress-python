@@ -98,13 +98,14 @@ dev = [
     "click>=8.0",
     "flask>=3.0",
     "selenium>=4.0,<4.9.2",
-
     "psutil>=7.0",
     "dash[dev]>=2.0",
     "pandas-stubs>=2.0",
     "ruff>=0.9",
     "twine>=6.0",
     "invoke>=2.0",
+    "playwright>=1.40 ; python_full_version < '3.15'",
+    "scikit-image>=0.19 ; python_full_version < '3.15'",
 ]
 all = [
     "dash",
@@ -154,20 +155,24 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.dynamic]
 version = {file = "canvasxpress/version.txt"}
 
-
 # ─────────────────────────────────────────────────────────────────────────────
-# Build system
+# uv — local development workflow
 # ─────────────────────────────────────────────────────────────────────────────
 [tool.uv]
-# Typical usage:
-#   uv sync          # install project + dev dependencies into venv
-#   uv build         # build source/wheel distribution
-#   uv add canvasxpress[<extra>]   # use as dependency in another project
+# The local development environment is uv-managed (.venv; interpreter pinned
+# by .python-version). `uv sync` installs the project plus the chosen extras
+# from pyproject.toml and keeps uv.lock (committed) in step with it:
+#   uv sync --extra all --extra dev    # local dev (R available)
+#   uv build                           # build source/wheel distribution
+#   uv add <package>                   # record a dependency (updates uv.lock)
+# CircleCI does not use `uv sync`: each job creates ./venv and runs
+# `uv pip install ".[all]"` / `".[dev]"` against its fixed Python image.
+no-build = [
+    # pywinpty (Windows-only, via jupyter-server) has an sdist that requires
+    # MSVC; accept wheels only so resolution and sync never try to build it.
+    "pywinpty",
+]
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Dev dependencies (replaces requirements-dev.txt)
-# Installed via `uv sync` — available in the project venv.
-# ─────────────────────────────────────────────────────────────────────────────
 # ─────────────────────────────────────────────────────────────────────────────
 # Setuptools — explicit package discovery
 # ─────────────────────────────────────────────────────────────────────────────
@@ -179,7 +184,9 @@ exclude = ["tests*", "readme*", "resources*", "venv*", ".venv*", "node_modules*"
 # Non-Python files that must ship in the wheel:
 # - util/*.json: templates loaded at import time
 # - agent_skills/*/*.md: the agent skills installed by the canvasxpress CLI
-# - render/resources/*.js: CanvasXpress React wrapper and Dash component, served by Dash
+# - render/resources/*.js: the shared loader and fill scripts (read at
+#   import time and served by Dash), and the CanvasXpress React wrapper and Dash
+#   component, served by Dash
 "canvasxpress" = [
     "version.txt",
     "util/*.json",

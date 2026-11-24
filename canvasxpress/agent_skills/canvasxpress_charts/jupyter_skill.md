@@ -47,21 +47,36 @@ graph(cx)
 
 `graph(cx)` auto-detects the Jupyter environment and renders the CanvasXpress chart inline.
 
+Use `graph(cx, fill_to_width=True)` to have the chart span the width of the output area and redraw as the notebook
+is resized. `fill_to_height` has no effect in a notebook output, which sizes to its content, so the chart keeps its
+configured `height`; it does apply to a page saved with `output_file`, which fills the browser window.
+
 ### Explicit Jupyter Rendering
 
 For more control or when auto-detection fails:
 
 ```python
-from canvasxpress.plot import graph
+from IPython.display import display
+
 from canvasxpress.canvas import CanvasXpress
+from canvasxpress.render.jupyter import CXNoteBook
 
 cx = CanvasXpress(
     data=data,
     config={"graphType": "Heatmap"}
 )
 
-# Explicit Jupyter rendering
-CXNoteBook(cx).render()
+# Explicit Jupyter rendering: render() returns display objects
+for element in CXNoteBook(cx).render():
+    display(element)
+```
+
+`CXNoteBook` accepts several charts, arranged in a grid with `columns` charts per
+row, and `output_file` also saves them as a standalone HTML page:
+
+```python
+for element in CXNoteBook(cx1, cx2, cx3).render(columns=2, output_file="charts.html"):
+    display(element)
 ```
 
 ### Chart with Unique Identifier

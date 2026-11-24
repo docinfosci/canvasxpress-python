@@ -1,6 +1,7 @@
 """
 This module provides functionality for detecting the platform context that is active, such as RStudio.
 """
+
 import os
 from os import environ
 

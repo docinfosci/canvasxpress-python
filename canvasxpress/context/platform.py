@@ -252,9 +252,7 @@ def browser_version_windows(prog_id: str) -> str:
                 command, _ = winreg.QueryValueEx(key, "")
                 if command:
                     app_path = (
-                        command.split('"')[1]
-                        if '"' in command
-                        else command.split()[0]
+                        command.split('"')[1] if '"' in command else command.split()[0]
                     )
         except (AttributeError, OSError):
             return UNKNOWN_VERSION
@@ -399,10 +397,7 @@ def detect_browser_installed() -> Tuple[str, str]:
         for browser in installed_browsers.browsers():
             name = browser.get("name") or ""
             description = browser.get("description") or ""
-            if (
-                name.lower() == default_lower
-                or description.lower() == default_lower
-            ):
+            if name.lower() == default_lower or description.lower() == default_lower:
                 browser_name = description or name
                 browser_version = browser.get("version") or UNKNOWN_VERSION
                 return browser_name, browser_version
