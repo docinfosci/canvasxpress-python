@@ -1361,3 +1361,152 @@ def test_from_json():
     assert candidate.other_init_params == alt_candidate.other_init_params
 
     assert repr(candidate) == repr(alt_candidate)
+
+
+def test_CanvasXpress_render_to_sanitization():
+    subject: CanvasXpress = CanvasXpress()
+    subject.render_to = "###"
+    assert subject.anonymous
+
+    subject: CanvasXpress = CanvasXpress()
+    subject.render_to = "42test"
+    assert subject.render_to == "_42test"
+
+
+def test_CanvasXpress_data_dataframe_and_str():
+    import pandas as pd
+
+    from canvasxpress.data.matrix import CXDataframeData
+    from canvasxpress.data.text import CXTextData
+
+    subject: CanvasXpress = CanvasXpress()
+    subject.data = pd.DataFrame({"a": [1, 2]})
+    assert isinstance(subject.data, CXDataframeData)
+
+    subject: CanvasXpress = CanvasXpress()
+    subject.data = "some text"
+    assert isinstance(subject.data, CXTextData)
+    assert subject.data.render_to_dict() == {"raw": "some text"}
+
+
+def test_CanvasXpress_sample_annotation():
+    import pandas as pd
+
+    from canvasxpress.data.matrix import CXDataframeData
+
+    subject: CanvasXpress = CanvasXpress()
+    assert subject.sample_annotation is None
+
+    with pytest.raises(ValueError):
+        subject.sample_annotation = CXDataframeData(pd.DataFrame({"a": [1]}))
+
+    subject: CanvasXpress = CanvasXpress(data=pd.DataFrame({"a": [1, 2]}))
+    subject.sample_annotation = pd.DataFrame({"a": ["x", "y"]})
+    assert isinstance(subject.sample_annotation, CXDataframeData)
+
+    subject.sample_annotation = CXDataframeData(pd.DataFrame({"a": ["z"]}))
+    assert isinstance(subject.sample_annotation, CXDataframeData)
+
+    subject.sample_annotation = None
+    assert subject.sample_annotation is None
+
+    with pytest.raises(TypeError):
+        subject.sample_annotation = "bad"
+
+
+def test_CanvasXpress_variable_annotation():
+    import pandas as pd
+
+    from canvasxpress.data.matrix import CXDataframeData
+
+    subject: CanvasXpress = CanvasXpress()
+    assert subject.variable_annotation is None
+
+    with pytest.raises(ValueError):
+        subject.variable_annotation = CXDataframeData(pd.DataFrame({"a": [1]}))
+
+    subject: CanvasXpress = CanvasXpress(data=pd.DataFrame({"a": [1, 2]}))
+    subject.variable_annotation = pd.DataFrame({"a": ["x", "y"]})
+    assert isinstance(subject.variable_annotation, CXDataframeData)
+
+    subject.variable_annotation = CXDataframeData(pd.DataFrame({"a": ["z"]}))
+    assert isinstance(subject.variable_annotation, CXDataframeData)
+
+    subject.variable_annotation = None
+    assert subject.variable_annotation is None
+
+    with pytest.raises(TypeError):
+        subject.variable_annotation = "bad"
+
+
+def test_CanvasXpress_config_dict():
+    subject: CanvasXpress = CanvasXpress()
+    subject.config = {"graphType": "Pie"}
+    assert isinstance(subject.config, CXConfigs)
+    assert any(item.label == "graphType" for item in subject.config)
+
+
+def test_CanvasXpress_after_render_initial_and_dict():
+    subject: CanvasXpress = CanvasXpress()
+    assert subject.after_render == CXConfigs()
+
+    subject.after_render = {"plotBox": True}
+    assert isinstance(subject.after_render, CXConfigs)
+    assert any(item.label == "plotBox" for item in subject.after_render)
+
+
+def test_CanvasXpress_set_dimensions():
+    result = CanvasXpress.set_dimensions(100, 200)
+    assert result == CXList("setDimensions", [100, 200])
+
+    result = CanvasXpress.set_dimensions(100, 200, "extra")
+    assert result == CXList("setDimensions", [100, 200, "extra"])
+
+
+def test_CanvasXpress_other_init_params_instance_and_type():
+    subject: CanvasXpress = CanvasXpress()
+    params = CXConfigs(CXString("afterRenderInit", 1))
+    subject.other_init_params = params
+    assert any(item.label == "afterRenderInit" for item in subject.other_init_params)
+
+    with pytest.raises(TypeError):
+        subject.other_init_params = -1
+
+
+def test_CanvasXpress_init_config_type_error():
+    with pytest.raises(TypeError):
+        CanvasXpress(config=-1)
+
+
+def test_CanvasXpress_provide_data_object_dataframe():
+    import pandas as pd
+
+    subject: CanvasXpress = CanvasXpress(
+        data=pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+    )
+    data = subject.provide_data_object()
+    assert isinstance(data, CXDictData)
+
+
+def test_CanvasXpress_prepare_html_element_parts_raw_data():
+    subject: CanvasXpress = CanvasXpress(data="some text")
+    parts = subject.prepare_html_element_parts()
+    assert parts["data"] == "some text"
+
+
+def test_CanvasXpress_str():
+    subject: CanvasXpress = CanvasXpress(data={"a": [1]})
+    text = str(subject)
+    assert "CanvasXpress" in text
+    assert "render_to" in text
+    assert "CXDictData" in text
+
+    text = str(CanvasXpress())
+    assert "CanvasXpress" in text
+
+
+def test_CanvasXpress_repr_raw_data():
+    subject: CanvasXpress = CanvasXpress(data="some text")
+    text = repr(subject)
+    assert "CanvasXpress" in text
+    assert '"some text"' in text
