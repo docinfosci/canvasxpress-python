@@ -28,7 +28,11 @@ def inject_cx_assets() -> Javascript:
 class CXNoteBook(CXRenderable):
     """
     CXNoteBook is a CXRenderable that renders CanvasXpress objects into
-    IPython containers (Jupyter Notebooks).
+    IPython containers (Jupyter Notebooks). A `CanvasXpress` object that is
+    the result of a cell also renders on its own, via its IPython display
+    hook, which emits the same HTML and JavaScript built by the shared
+    `CXHtmlDocument`; `CXNoteBook` adds multi-chart `columns`,
+    `fill_to_width` and `fill_to_height`, `output_file`, and `debug`.
     """
 
     def __init__(self, *cx: Union[List[CanvasXpress], CanvasXpress, None]):
