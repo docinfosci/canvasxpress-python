@@ -63,6 +63,13 @@ the way each framework expects.
 
 ## What's New: Modernized Streamlit and Dash Support
 
+> **Deprecation warning:** Support for `CXGraphType` and `CXGraphTypeOptions` ends **January 2027**.
+> Migrate chart type declarations to the `str` values recognized by the CanvasXpress JavaScript library,
+> as listed on the [canvasxpress.org](https://www.canvasxpress.org) home page, and pass them directly as the
+> `graphType` config value, for example `config={"graphType": "Bar"}`. Both classes remain fully functional
+> until support ends, but their use now emits a `DeprecationWarning` and a `WARNING` entry on the
+> `canvasxpress-python` logger.
+
 Both integrations are drop-in: existing `graph()` calls work unchanged.
 
 **Streamlit** — With Streamlit releases that provide Custom Components v2 (`st.components.v2`), charts render
