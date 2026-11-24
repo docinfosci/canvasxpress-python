@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 
 import pandas as pd
 import pytest
@@ -315,3 +316,62 @@ def test_cx_dataframe_data_text_property():
     data = CXDataframeData(df)
     result = data.text
     assert isinstance(result, str)
+
+
+def test_cx_text_data_get_raw_dict_form_with_json_number():
+    """Test get_raw_dict_form falls back to raw text for JSON non-container types."""
+    text_data = CXTextData("42")
+    result = text_data.get_raw_dict_form()
+    assert result == {"raw": "42"}
+
+
+def test_cx_dataframe_data_deepcopy_dunder():
+    """The text-matrix __deepcopy__ re-initializes from the raw dict form,
+    which the dataframe setter rejects."""
+    df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
+    data = CXDataframeData(df)
+    with pytest.raises(TypeError):
+        deepcopy(data)
+
+
+def test_cx_dataframe_data_less_than_same_columns():
+    """Test less-than comparison with the same columns."""
+    df1 = pd.DataFrame({"A": [1], "B": [2]})
+    df2 = pd.DataFrame({"A": [3], "B": [4]})
+    data1 = CXDataframeData(df1)
+    data2 = CXDataframeData(df2)
+    assert data1 < data2
+    assert not (data2 < data1)
+
+    equal = CXDataframeData(df1)
+    assert not (data1 < equal)
+
+
+def test_cx_dataframe_data_less_than_disjoint_columns():
+    """Test less-than comparison with the same column count but disjoint names."""
+    df1 = pd.DataFrame({"B": [1], "C": [2]})
+    df2 = pd.DataFrame({"A": [1], "D": [2]})
+    data1 = CXDataframeData(df1)
+    data2 = CXDataframeData(df2)
+    assert data1 < data2
+
+
+def test_cx_dataframe_data_less_than_different_column_count():
+    """Test less-than comparison with different column counts."""
+    data1 = CXDataframeData(pd.DataFrame({"A": [1]}))
+    data2 = CXDataframeData(pd.DataFrame({"A": [1], "B": [2]}))
+    assert data1 < data2
+    assert not (data2 < data1)
+
+
+def test_cx_dataframe_data_equals_none_dunder():
+    """Test CXDataframeData __eq__ with None."""
+    data = CXDataframeData(pd.DataFrame({"A": [1]}))
+    assert not (data == None)  # noqa: E711
+
+
+def test_cx_dataframe_data_equals_different_column_count():
+    """Test CXDataframeData equality with different column counts."""
+    data1 = CXDataframeData(pd.DataFrame({"A": [1]}))
+    data2 = CXDataframeData(pd.DataFrame({"A": [1], "B": [2]}))
+    assert data1 != data2
