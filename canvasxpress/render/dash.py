@@ -4,6 +4,8 @@ rich integration with Plotly's Dash framework.
 
 `CXDashElement` is a Dash component backed by the CanvasXpress React wrapper shipped in
 `canvasxpress/render/resources`, so no separate JavaScript build or package is required.
+The wrapper loads CanvasXpress with the loader shared by every renderer (see
+`canvasxpress.render.context`).
 """
 
 import json
@@ -18,7 +20,16 @@ _DASH_NAMESPACE: str = "canvasxpress"
 `window` object under which the component is registered in the browser."""
 
 _DASH_JS_DIST: List[dict] = [
-    # The React wrapper must load before the Dash component that uses it.
+    # Each script uses the ones before it: the shared CanvasXpress loader and
+    # fill support, the React wrapper, and then the Dash component.
+    {
+        "relative_package_path": "render/resources/canvasxpress-loader.js",
+        "namespace": _DASH_NAMESPACE,
+    },
+    {
+        "relative_package_path": "render/resources/canvasxpress-fill.js",
+        "namespace": _DASH_NAMESPACE,
+    },
     {
         "relative_package_path": "render/resources/canvasxpress-react.js",
         "namespace": _DASH_NAMESPACE,
@@ -73,6 +84,14 @@ if Component is not None:
         - events (string; optional):
             The events functions for increased reactivity.
 
+        - fill_to_height (boolean; optional):
+            True to keep the chart as tall as its container, redrawing it as
+            that changes. Needs a container whose height is set by the layout.
+
+        - fill_to_width (boolean; optional):
+            True to keep the chart as wide as its container, redrawing it as
+            that changes.
+
         - height (string; optional):
             The element height.
 
@@ -103,6 +122,8 @@ if Component is not None:
             width: Optional[str] = None,
             height: Optional[str] = None,
             license_url: Optional[str] = None,
+            fill_to_width: Optional[bool] = None,
+            fill_to_height: Optional[bool] = None,
             **kwargs,
         ):
             self._prop_names = [
@@ -112,6 +133,8 @@ if Component is not None:
                 "css_url",
                 "data",
                 "events",
+                "fill_to_height",
+                "fill_to_width",
                 "height",
                 "js_url",
                 "license_url",
@@ -166,13 +189,28 @@ class CXElementFactory(CXRenderFactory):
         super().__init__(*cx)
 
     @classmethod
-    def render(cls, cx: CanvasXpress) -> CXDashElement:
+    def render(
+        cls,
+        cx: CanvasXpress,
+        fill_to_width: bool = False,
+        fill_to_height: bool = False,
+    ) -> CXDashElement:
         """
         Converts the provided CanvasXpress object into a CXDashElement object that is
         primed by the configuration represented by the CanvasXpress object.
 
         Args:
             cx: The CanvasXpress object to render.
+            fill_to_width: True to have the chart take the width of the element
+                that holds it, such as a Dash column or card, and follow it as it
+                changes, rather than keeping its configured width. Default is
+                False.
+            fill_to_height: True to have the chart take the height of the
+                element that holds it and follow it as it changes, rather than
+                keeping its configured height. The element needs a height set by
+                the layout, such as a fixed `height` or a flex item that grows;
+                one that takes its height from its content leaves the chart at
+                its configured height. Default is False.
 
         Returns:
             A CXDashElement with the configuration as represented by cx.
@@ -198,6 +236,8 @@ class CXElementFactory(CXRenderFactory):
             width=str(element_parts["width"]),
             height=str(element_parts["height"]),
             license_url=cx.license_url if cx.license_available else None,
+            fill_to_width=bool(fill_to_width),
+            fill_to_height=bool(fill_to_height),
         )
 
         return dash_element
@@ -211,13 +251,18 @@ class CXElementFactory(CXRenderFactory):
             kwargs: Parameters specific to implementations are supported.
                 The essential create_element call should work with no extra parameters,
                 and with parameters that do not apply to the implementation.
+                Supports `fill_to_width` and `fill_to_height`; see `render()`.
 
         Returns:
             A list of CXDashElement objects, one for each tracked CanvasXpress object.
         """
+        fill = {
+            "fill_to_width": bool(kwargs.get("fill_to_width") or False),
+            "fill_to_height": bool(kwargs.get("fill_to_height") or False),
+        }
 
         if isinstance(self.canvas, CanvasXpress):
-            return [CXElementFactory.render(self.canvas)]
+            return [CXElementFactory.render(self.canvas, **fill)]
 
         else:
-            return [CXElementFactory.render(cx) for cx in self.canvas]
+            return [CXElementFactory.render(cx, **fill) for cx in self.canvas]

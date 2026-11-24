@@ -330,4 +330,12 @@ pytest_result.xml
 # Agent plan file
 plan.md
 
-uv.lock
+# uv.lock is committed (source of truth for local resolutions) — see AGENTS.md.
+# uv-managed dev environment (local development, see AGENTS.md)
+.venv/
+
+# Track the dev interpreter pin read by uv (overrides the pyenv ignore above)
+!.python-version
+
+# Platform visual test captures (approved images live in <framework>/expected/)
+tests/functional/platform/captures/

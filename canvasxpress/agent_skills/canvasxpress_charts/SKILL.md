@@ -186,6 +186,12 @@ For detailed framework-specific guidance, see the subskill files:
 
 - Use keyword arguments for config when possible (more readable)
 - Set dimensions explicitly: `CanvasXpress(..., width=800, height=600)`
+- For a chart that should span its container (a column, card, notebook output or window) and follow it as it resizes,
+  use `graph(cx, fill_to_width=True)`, and add `fill_to_height=True` to follow the container's height too. Both are
+  off by default; a dimension that is not filled keeps its configured size. `fill_to_height` only has an effect in a
+  container whose height is set by the layout (the browser window, `st.container(height=...)`, a fixed-height Dash
+  element, a fillable Shiny card), not one that sizes to its content such as a notebook output. These are
+  canvasxpress-python features for live frameworks, separate from the CanvasXpress `resizable` config.
 - Always include a descriptive title
 - Use appropriate color schemes for the data type
 - Set `showLegend=True` when there are multiple series/groups

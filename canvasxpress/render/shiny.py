@@ -4,28 +4,32 @@ import warnings
 from shiny import ui
 
 from canvasxpress.canvas import CanvasXpress
-
-_cx_js_intermixed_template = """
-<script type="text/javascript">
-    @code@
-</script>
-"""
-
-_cx_html_intermixed_template = """
-<div>
-    @canvasxpress_license@
-    @canvase@
-    @js_functions@
-</div>
-"""
+from canvasxpress.render.context import LIBRARY_NONE, CXHtmlDocument, CXLibraryAssets
 
 
-def output_canvasxpress(id: str) -> ui.TagList:
+def _as_fill_item(tag: ui.Tag) -> ui.Tag:
+    """
+    Marks a tag as one that fills a fillable Shiny container, such as a card.
+    Releases of Shiny without fill support give it the full height instead.
+    """
+    fill = getattr(ui, "fill", None)
+    if fill is not None:
+        return fill.as_fill_item(tag)
+
+    tag.attrs["style"] = "height: 100%;"
+    return tag
+
+
+def output_canvasxpress(id: str, fill: bool = False) -> ui.TagList:
     """
     Establishes an output reactive placeholder into which a CanvasXpress chart can be rendered.
 
     Args:
         id: The identifier for the output placeholder.
+        fill: True to have the placeholder fill a fillable container, such as a
+            card or a fillable page, and pass that height on to its chart. This
+            is needed for a chart rendered with `fill_to_height` to take the
+            container's height. Default is False.
 
     Returns:
         A ui.TagList containing the CSS/JS headers and the output UI element.
@@ -43,15 +47,14 @@ def output_canvasxpress(id: str) -> ui.TagList:
         raise TypeError("output_canvasxpress requires that id be of type str.")
 
     else:
-        css_url = CanvasXpress.css_library_url()
-        js_url = CanvasXpress.js_library_url()
+        library = CXLibraryAssets.current()
 
         return ui.TagList(
             ui.head_content(
-                ui.tags.link(href=css_url, rel="stylesheet"),
-                ui.tags.script(src=js_url),
+                ui.tags.link(href=library.css_url, rel="stylesheet"),
+                ui.tags.script(src=library.js_url),
             ),
-            ui.output_ui(id),
+            ui.output_ui(id, fill=bool(fill), fillable=bool(fill)),
         )
 
 
@@ -61,12 +64,28 @@ class CXShinyWidget:
     shiny UI.
     """
 
-    def __init__(self, canvas: CanvasXpress):
+    def __init__(
+        self,
+        canvas: CanvasXpress,
+        fill_to_width: bool = False,
+        fill_to_height: bool = False,
+    ):
         """
         Initializes this object with a valid reference to a CanvasXpress object.
 
         Args:
             canvas: A valid CanvasXpress object to be rendered in the shiny UI.
+            fill_to_width: True to have the chart take the width of the element
+                that holds it, such as a Shiny card or column, or the RStudio
+                viewer pane, and follow it as it changes, rather than keeping
+                its configured width. Default is False.
+            fill_to_height: True to have the chart take the height of the
+                element that holds it and follow it as it changes, rather than
+                keeping its configured height. In a Shiny app this needs a
+                container with a height, such as a card with a set height or a
+                fillable page, and an `output_canvasxpress(id, fill=True)`
+                placeholder; the RStudio viewer fills the pane. Default is
+                False.
 
         Raises:
             ValueError: If canvas is None.
@@ -80,99 +99,56 @@ class CXShinyWidget:
 
         else:
             self._canvas = canvas
+            self._fill_to_width = bool(fill_to_width)
+            self._fill_to_height = bool(fill_to_height)
+
+    def _document(self) -> CXHtmlDocument:
+        return CXHtmlDocument(
+            self._canvas,
+            fill_to_width=self._fill_to_width,
+            fill_to_height=self._fill_to_height,
+        )
 
     def _repr_html_(self):
         """
-        Renders the object as Shiny compliant HTML.
+        Renders the object as Shiny compliant HTML. The CanvasXpress library is
+        provided by the page head, see `output_canvasxpress()`.
 
         Returns:
             An HTML string representation of the CanvasXpress chart.
         """
-        # Get the HTML and JS assets.
-        html_parts: dict = self._canvas.render_to_html_parts()
+        document = self._document()
+        wrapper = ui.div(ui.HTML(document.fragment(LIBRARY_NONE)))
+        if self._fill_to_height:
+            # The wrapper passes the height of a fillable container to the chart.
+            wrapper = _as_fill_item(wrapper)
 
-        # Provide the taglist.
-        components = ui.TagList(
-            [
-                ui.div(
-                    ui.HTML(
-                        _cx_html_intermixed_template.replace(
-                            "@canvasxpress_license@",
-                            html_parts.get("cx_license", ""),
-                        )
-                        .replace(
-                            "@canvase@",
-                            html_parts["cx_canvas"],
-                        )
-                        .replace(
-                            "@js_functions@",
-                            _cx_js_intermixed_template.replace(
-                                "@code@",
-                                html_parts["cx_js"],
-                            ),
-                        )
-                    ),
-                ),
-            ]
-        )
+        components = ui.TagList([wrapper])
 
-        # Generate the chart DIV and provide it for rendering.
         return components.get_html_string()
 
     def _repr_rstudio_viewer_(self):
         """
         Renders the object for display in the RStudio viewer.
 
-        This method writes the chart HTML to a temporary file and opens it
+        This method writes the chart to a temporary HTML page and opens it
         in the RStudio viewer pane using rpy2.
+
+        Raises:
+            RuntimeError: If rpy2 is not available.
         """
         try:
             warnings.filterwarnings("ignore")
             logging.getLogger("rpy2.rinterface_lib.embedded").setLevel(logging.ERROR)
 
             from rpy2 import robjects
-        except Exception:
-            robjects = None
 
-        # Get the header assets.
-        css_url = CanvasXpress.css_library_url()
-        js_url = CanvasXpress.js_library_url()
+        except Exception as e:
+            raise RuntimeError(
+                "The RStudio viewer requires rpy2: pip install canvasxpress[rstudio]"
+            ) from e
 
-        # Get the HTML and JS assets.
-        html_parts: dict = self._canvas.render_to_html_parts()
-
-        # Provide the taglist.
-        components = [
-            ui.div(
-                ui.head_content(
-                    ui.tags.link(href=css_url, rel="stylesheet"),
-                    ui.tags.script(src=js_url),
-                ),
-                ui.HTML(
-                    _cx_html_intermixed_template.replace(
-                        "@canvasxpress_license@",
-                        html_parts.get("cx_license", ""),
-                    )
-                    .replace(
-                        "@canvase@",
-                        html_parts["cx_canvas"],
-                    )
-                    .replace(
-                        "@js_functions@",
-                        _cx_js_intermixed_template.replace(
-                            "@code@",
-                            html_parts["cx_js"],
-                        ),
-                    )
-                ),
-            ),
-        ]
-
-        # Generate the chart DIV and provide it for rendering.
-        ui_components = ui.TagList(components)
-        html = ui_components.get_html_string().replace("\n", "")
-
-        robjects.globalenv["html"] = html
+        robjects.globalenv["html"] = self._document().page()
         robjects.r(
             """
             tf <- tempfile(fileext = ".html")

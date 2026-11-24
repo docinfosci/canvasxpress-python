@@ -1,47 +1,14 @@
-import os
-import tempfile
-import uuid
 import webbrowser
-from copy import deepcopy
+from pathlib import Path
 from typing import Any, List, Union
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
-
-_cx_fx_template = """
-<script type="text/javascript">
-    @code@
-</script>
-"""
-
-_cx_html_template = """
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>CanvasXpress</title>
-
-        <!-- 1. Include the CanvasXpress library -->
-        @canvasxpress_license@
-        <link
-                href='@css_url@'
-                rel='stylesheet'
-                type='text/css'
-                referrerpolicy='origin-when-cross-origin'
-        />
-        <script
-                src='@js_url@'
-                type='text/javascript'>
-                referrerpolicy='origin-when-cross-origin'
-        </script>
-    </head>
-    <body>
-        <!-- 3. DOM element where the visualization will be displayed -->
-        @canvases@
-        <!-- 2. Include script to initialize object -->
-        @js_functions@
-     </body>
-</html>
-"""
+from canvasxpress.render.context import (
+    CXHtmlDocument,
+    temp_directory,
+    write_html_file,
+)
 
 
 class CXBrowserPopup(CXRenderable):
@@ -65,106 +32,45 @@ class CXBrowserPopup(CXRenderable):
         """
         super().__init__(*cx)
 
-    def render(self, **kwargs: Any):
+    def render(self, **kwargs: Any) -> Path:
         """
         Renders the associated CanvasXpress objects for display in
         a pop-up browser window. Charts cannot have the same name,
-        so render_to will be updated with a uuid for each conflicting chart.
+        so conflicting charts are displayed under unique IDs.
+
+        The page is written to the user's `canvasxpress-python-<user>` folder in
+        the system temporary directory, where it remains so that the browser can
+        load it. It is named after the charts, such as `scatter_heatmap.html`, or
+        `anonymous.html` for a chart without a `render_to` ID, so rendering the
+        same charts again replaces the page rather than adding a file.
 
         Args:
-            kwargs: Supports the following parameter:
+            kwargs: Supports the following parameters:
                 columns: Any positive int of 1 or greater, with a default
                     value of 1. Values less than 1 are ignored. Indicates
                     how many charts should be rendered horizontally in the
                     browser if more than one chart is being tracked.
+                fill_to_width: True to have the charts share the width of the
+                    browser window and follow it as it is resized, rather than
+                    keeping their configured widths. Default is False.
+                fill_to_height: True to have the charts share the height of the
+                    browser window and follow it as it is resized, rather than
+                    keeping their configured heights. Default is False.
+
+        Returns:
+            The path of the page displayed.
         """
-        render_targets = list()
-
-        if self.canvas is None:
-            pass
-
-        elif isinstance(self.canvas, CanvasXpress):
-            render_targets.append(deepcopy(self.canvas))
-
-        else:
-            for chart in self.canvas:
-                render_targets.append(deepcopy(chart))
-
-        used_render_targets = list()
-        for target in render_targets:
-            original_render_target = target.render_to
-            if original_render_target in used_render_targets:
-                target.render_to = (
-                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
-                )
-
-            used_render_targets.append(target.render_to)
-
-        render_targets.reverse()
-
-        html_parts = [target.render_to_html_parts() for target in render_targets]
-
-        canvases = [part["cx_canvas"] for part in html_parts]
-
-        functions = [part["cx_js"] for part in html_parts]
-
-        cx_license = ""
-        for part in html_parts:
-            if part.get("cx_license"):
-                cx_license = part["cx_license"]
-                break
-
-        columns_arg = int(kwargs.get("columns", 1))
-        columns = columns_arg if columns_arg > 0 else 1
-        if len(canvases) < columns:
-            columns = len(canvases)
-
-        page_width = 0
-        page_height = 0
-        chart_count = len(canvases)
-        canvas_table = '<table style="width:100%">'
-
-        while chart_count > 0:
-            candidate_width = 0
-            candidate_height = 0
-
-            canvas_table += "<tr>"
-            for c in range(columns):
-                canvas_table += "<td>"
-                if chart_count > 0:
-                    canvas_table += canvases[chart_count - 1]
-
-                    candidate_width += render_targets[chart_count - 1].width
-                    if render_targets[chart_count - 1].height > candidate_height:
-                        candidate_height = render_targets[chart_count - 1].height
-
-                canvas_table += "</td>"
-                chart_count = chart_count - 1
-
-            canvas_table += "</tr>"
-
-            if candidate_width > page_width:
-                page_width = candidate_width
-            page_height += candidate_height
-
-        js_functions = "\n".join(
-            [_cx_fx_template.replace("@code@", fx) for fx in functions]
+        document = CXHtmlDocument(
+            self.canvas,
+            columns=kwargs.get("columns", 1),
+            fill_to_width=bool(kwargs.get("fill_to_width", False)),
+            fill_to_height=bool(kwargs.get("fill_to_height", False)),
         )
 
-        css_url = CanvasXpress.css_library_url()
-        js_url = CanvasXpress.js_library_url()
-
-        html = (
-            _cx_html_template.replace("@canvases@", canvas_table)
-            .replace("@canvasxpress_license@", cx_license)
-            .replace("@js_functions@", js_functions)
-            .replace("@css_url@", css_url)
-            .replace("@js_url@", js_url)
+        page_path = write_html_file(
+            document.page(), temp_directory() / document.file_name
         )
 
-        with tempfile.TemporaryDirectory() as tempdir:
-            temp_filename = os.path.join(tempdir, f"{str(uuid.uuid4())}.html")
-            with open(temp_filename, "w") as temp_file:
-                temp_file.write(html)
+        webbrowser.open(page_path.resolve().as_uri(), new=1)
 
-            webbrowser.open("file://" + temp_filename, new=1)
+        return page_path

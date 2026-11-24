@@ -37,6 +37,12 @@ from canvasxpress.plot import graph, convert_to_reproducible_json
   (each chart gets a generated ID) or give every chart a distinct one.
 - Charts render in the page's DOM, so charts with the same data broadcast to each other (see `broadcast_skill.md`).
 - Set `width` and `height` on the `CanvasXpress` object, not on `graph()`.
+- For a chart that spans its container (such as a `html.Div` column or card) and redraws as the layout resizes, use
+  `graph(cx, fill_to_width=True)` and/or `fill_to_height=True` (also accepted by `CXElementFactory.render`). Both are
+  off by default; a dimension that is not filled keeps its configured size. The container must have the size to
+  give: inside a `display: flex` row, give each item `flex: 1` (or a width); for height, give the container a
+  `height` (e.g. `style={"height": "60vh"}`) or make it a growing flex item, since a `Div` otherwise sizes to its
+  content and leaves the chart at its configured height.
 - Use `app.run(...)`; `app.run_server` was removed in Dash 3.
 
 The component can also be created explicitly, without `graph()`'s context detection:

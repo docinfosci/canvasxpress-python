@@ -162,3 +162,51 @@ class TestCxHtmlDisplayCharts:
         code = '<div>test</div>'
         result = html.display_charts(code, output_file=str(tmp_path))
         assert result == code
+        assert (tmp_path / "anonymous.html").read_text(encoding="utf-8") == code
+
+    def test_render_to_directory_names_page_after_charts(self, tmp_path):
+        CXHtml(CX_EXAMPLE).render(output_file=str(tmp_path))
+        expected = tmp_path / f"{CX_EXAMPLE.render_to}.html"
+        assert [path.name for path in tmp_path.iterdir()] == [expected.name]
+
+
+class TestCxHtmlRenderContent:
+    """Test the HTML produced by CXHtml.render()."""
+
+    def test_library_precedes_charts(self):
+        result = CXHtml(CX_EXAMPLE).render()
+        assert result.data.index(CanvasXpress.js_library_url()) < result.data.index(
+            'id="rstudiotest1"'
+        )
+
+    def test_charts_keep_order(self):
+        second = CanvasXpress(render_to="rstudio_second", data={"y": {"data": [[1]]}})
+        result = CXHtml([CX_EXAMPLE, second]).render(columns=2)
+        assert result.data.index('id="rstudiotest1"') < result.data.index(
+            'id="rstudio_second"'
+        )
+
+    def test_output_file_is_standalone_page(self, tmp_path):
+        output_file = tmp_path / "chart.html"
+        CXHtml(CX_EXAMPLE).render(output_file=str(output_file))
+        page = output_file.read_text(encoding="utf-8")
+        assert page.startswith("<!DOCTYPE html>")
+        assert CanvasXpress.js_library_url() in page
+        assert 'id="rstudiotest1"' in page
+
+    def test_get_chart_display_code_excludes_library(self):
+        code = CXHtml(CX_EXAMPLE).get_chart_display_code(columns=1)
+        assert CanvasXpress.js_library_url() not in code
+        assert 'id="rstudiotest1"' in code
+
+
+class TestCxHtmlFill:
+    def test_render_fill(self):
+        fixed = CXHtml(CX_EXAMPLE).render().data
+        filled = CXHtml(CX_EXAMPLE).render(fill_to_width=True, fill_to_height=True).data
+        assert "fillContainer(" not in fixed
+        assert '"fillToWidth": true, "fillToHeight": true' in filled
+
+    def test_chart_display_code_fill(self):
+        code = CXHtml(CX_EXAMPLE).get_chart_display_code(1, fill_to_height=True)
+        assert '"fillToWidth": false, "fillToHeight": true' in code

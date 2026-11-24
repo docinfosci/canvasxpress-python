@@ -260,11 +260,9 @@ def merge_dataframes_into_xyz_object(
         xyz_data["y"]["vars"] = data.dataframe.index.tolist()
 
     if sample_annotation is not None and sample_annotation.dataframe.size > 0:
-
         xyz_data["x"] = {}
 
         try:
-
             # 1.  Scan first column - use values in each row.
             # 2.  Else use first row - use values in each column
             # 3.  Else scan index for a matching sample identifier - use values in each row.
@@ -283,7 +281,7 @@ def merge_dataframes_into_xyz_object(
                 for row_index in range(sample_annotation.dataframe.shape[0]):
                     key = sample_annotation.dataframe.iloc[row_index, 0]
                     if not isinstance(key, str):
-                        key = key.item() if hasattr(key, 'item') else str(key)
+                        key = key.item() if hasattr(key, "item") else str(key)
                     xyz_data["x"][key] = sample_annotation.dataframe.iloc[row_index][1:]
 
             # 2.  Else use first row - use values in each column
@@ -302,7 +300,11 @@ def merge_dataframes_into_xyz_object(
                         column = sample_annotation.dataframe.columns[column_index]
                         meta_name = sample_annotation.dataframe[column][0]
                         if not isinstance(meta_name, str):
-                            meta_name = meta_name.item() if hasattr(meta_name, 'item') else str(meta_name)
+                            meta_name = (
+                                meta_name.item()
+                                if hasattr(meta_name, "item")
+                                else str(meta_name)
+                            )
                         meta_data = sample_annotation.dataframe[column][1:]
                         xyz_data["x"][meta_name] = meta_data
 
@@ -319,14 +321,26 @@ def merge_dataframes_into_xyz_object(
                             sample_annotation.dataframe.columns.values
                         ):
                             xyz_data["x"][
-                                column if isinstance(column, str) else (column.item() if hasattr(column, 'item') else str(column))
+                                column
+                                if isinstance(column, str)
+                                else (
+                                    column.item()
+                                    if hasattr(column, "item")
+                                    else str(column)
+                                )
                             ] = sample_annotation.dataframe[column]
 
                     # 4.  Else scan the index - use values in each row
                     else:
                         for index in sample_annotation.dataframe.index.values:
                             xyz_data["x"][
-                                index if isinstance(index, str) else (index.item() if hasattr(index, 'item') else str(index))
+                                index
+                                if isinstance(index, str)
+                                else (
+                                    index.item()
+                                    if hasattr(index, "item")
+                                    else str(index)
+                                )
                             ] = sample_annotation.dataframe.loc[index]
 
         except Exception:
@@ -335,11 +349,9 @@ def merge_dataframes_into_xyz_object(
             )
 
     if variable_annotation is not None and variable_annotation.dataframe.size > 0:
-
         xyz_data["z"] = {}
 
         try:
-
             # 1.  Scan first column - use values in each row.
             # 2.  Else use first row - use values in each column
             # 3.  Else scan index for a matching sample identifier - use values in each row.
@@ -358,7 +370,7 @@ def merge_dataframes_into_xyz_object(
                 for row_index in range(variable_annotation.dataframe.shape[0]):
                     key = variable_annotation.dataframe.iloc[row_index, 0]
                     if not isinstance(key, str):
-                        key = key.item() if hasattr(key, 'item') else str(key)
+                        key = key.item() if hasattr(key, "item") else str(key)
                     xyz_data["z"][key] = variable_annotation.dataframe.iloc[row_index][
                         1:
                     ]
@@ -379,7 +391,11 @@ def merge_dataframes_into_xyz_object(
                         column = variable_annotation.dataframe.columns[column_index]
                         meta_name = variable_annotation.dataframe[column][0]
                         if not isinstance(meta_name, str):
-                            meta_name = meta_name.item() if hasattr(meta_name, 'item') else str(meta_name)
+                            meta_name = (
+                                meta_name.item()
+                                if hasattr(meta_name, "item")
+                                else str(meta_name)
+                            )
                         meta_data = variable_annotation.dataframe[column][1:]
                         xyz_data["z"][meta_name] = meta_data
 
@@ -396,14 +412,26 @@ def merge_dataframes_into_xyz_object(
                             variable_annotation.dataframe.columns.values
                         ):
                             xyz_data["z"][
-                                column if isinstance(column, str) else (column.item() if hasattr(column, 'item') else str(column))
+                                column
+                                if isinstance(column, str)
+                                else (
+                                    column.item()
+                                    if hasattr(column, "item")
+                                    else str(column)
+                                )
                             ] = variable_annotation.dataframe[column]
 
                     # 4.  Else scan the index - use values in each rpw
                     else:
                         for index in variable_annotation.dataframe.index.values:
                             xyz_data["z"][
-                                index if isinstance(index, str) else (index.item() if hasattr(index, 'item') else str(index))
+                                index
+                                if isinstance(index, str)
+                                else (
+                                    index.item()
+                                    if hasattr(index, "item")
+                                    else str(index)
+                                )
                             ] = variable_annotation.dataframe.loc[index]
 
         except Exception:
@@ -416,14 +444,18 @@ def merge_dataframes_into_xyz_object(
     if "x" in xyz_data:
         for annotation in xyz_data["x"].keys():
             xyz_data["x"][annotation] = [
-                element if isinstance(element, str) else (element.item() if hasattr(element, 'item') else str(element))
+                element
+                if isinstance(element, str)
+                else (element.item() if hasattr(element, "item") else str(element))
                 for element in xyz_data["x"][annotation]
             ]
 
     if "z" in xyz_data:
         for annotation in xyz_data["z"].keys():
             xyz_data["z"][annotation] = [
-                element if isinstance(element, str) else (element.item() if hasattr(element, 'item') else str(element))
+                element
+                if isinstance(element, str)
+                else (element.item() if hasattr(element, "item") else str(element))
                 for element in xyz_data["z"][annotation]
             ]
 

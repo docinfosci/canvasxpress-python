@@ -48,9 +48,9 @@ def init(c, dev=False, list=False):
     :param list: True if a list of all installed requirements should be printed
     :return:
     """
-    # Bootstrap already done: uv pip install setuptools wheel invoke
-    # Project deps already done: uv pip install ".[all]"
-    # Dev deps already done: uv sync
+    # Dependencies are installed before this task runs:
+    # local: `uv sync --extra all --extra dev` (uv-managed .venv);
+    # CI: `uv venv ./venv` + `uv pip install ".[all]"` / `".[dev]"`.
 
     c.run("npm install canvasxpress")
 
@@ -59,10 +59,13 @@ def init(c, dev=False, list=False):
 
 
 @task
-def test(c):
+def test(c, platform=False):
     """
     Runs the test suite.
     :param c:
+    :param platform: True if the platform visual tests (tests/functional/platform)
+        should also run. They need headless Chromium and network access, so they
+        run in build_local.sh but not in CircleCI.
     :return:
     """
     c.run(
@@ -73,7 +76,8 @@ def test(c):
         " --cov-report xml"
         " --cov-report term"
         " --cov-report html:./coverage-results"
-        " ./tests"
+        + ("" if platform else " --ignore=./tests/functional/platform")
+        + " ./tests"
     )
 
 

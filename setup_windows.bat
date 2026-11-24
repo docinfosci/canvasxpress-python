@@ -6,9 +6,10 @@
 ::                  Python (via uv, if the requested version is missing)
 :: Checks only:     R (optional, for rpy2)
 ::
-:: Creates a single development venv on Python 3.13. Python 3.8 compliance of
-:: the package logic is enforced by vermin (see vermin.ini), and CircleCI
-:: tests 3.8 / 3.10 / 3.15 at runtime.
+:: Creates a single uv-managed development environment (.venv) on Python 3.13
+:: (pinned by .python-version; uv downloads it if missing). Python 3.8
+:: compliance of the package logic is enforced by vermin (see vermin.ini),
+:: and CircleCI tests 3.8 / 3.10 / 3.15 at runtime.
 ::
 :: Usage (from cmd or PowerShell, in the project root):
 ::   .\setup_windows.bat
@@ -18,7 +19,7 @@ setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 
 set "PY_REQ=3.13"
-set "VENV_DIR=venv"
+set "VENV_DIR=.venv"
 
 echo ============================================================
 echo   CanvasXpress Python - Windows Setup
@@ -111,10 +112,12 @@ if defined R_FOUND (
     for /f "tokens=3" %%v in ('R --version 2^>^&1 ^| findstr /b /c:"R version"') do set "R_VER=%%v"
     call :print_ok "R !R_VER!"
     set "EXTRAS=all,dev"
+    set "EXTRA_ARGS=--extra all --extra dev"
 ) else (
-    call :print_info "R not found - rpy2 extras will be skipped."
+    call :print_info "R not found - rpy2 extra will be skipped."
     call :print_info "Install if needed: winget install RProject.R"
     set "EXTRAS=dash,jupyter,streamlit,shiny,dev"
+    set "EXTRA_ARGS=--extra dash --extra jupyter --extra streamlit --extra shiny --extra dev"
 )
 
 :: -- Git ---------------------------------------------------------------------
@@ -143,38 +146,32 @@ where cl >nul 2>&1 && (
     call :print_info "https://visualstudio.microsoft.com/visual-cpp-build-tools/"
 )
 
-:: -- Virtual environment & dependencies --------------------------------------
+:: -- Project environment & dependencies (uv-managed .venv) -------------------
 call :print_header "Project Setup"
 
-if not exist "!VENV_DIR!\Scripts\python.exe" (
-    call :print_info "Creating virtual environment !VENV_DIR!..."
-    uv venv "!VENV_DIR!" --python "!PYTHON_EXE!" || goto :fail
-)
-
-:: Refuse to reuse a venv built on a different Python version.
-for /f "delims=" %%v in ('call "!VENV_DIR!\Scripts\python.exe" -c "import sys; print('.'.join(map(str, sys.version_info[:2])))"') do set "VENV_PY_VER=%%v"
-if not "!VENV_PY_VER!"=="!PY_VER!" (
-    echo   [ERROR] !VENV_DIR! uses Python !VENV_PY_VER!, but !PY_VER! is required.
-    echo   Delete !VENV_DIR! and re-run this script.
-    exit /b 1
-)
-
-call "!VENV_DIR!\Scripts\activate.bat" || goto :fail
-call :print_ok "Virtual environment !VENV_DIR! activated [Python !VENV_PY_VER!]"
-
-call :print_info "Installing build dependencies..."
-uv pip install --no-cache-dir setuptools wheel pytz gitpython || goto :fail
-
-:: pyproject.toml reads the version from this generated, git-ignored file.
+:: pyproject.toml reads the version from this generated, git-ignored file, so
+:: generate it before `uv sync` (which builds the project).
 if not exist "canvasxpress\version.txt" (
     call :print_info "Generating canvasxpress\version.txt..."
-    python build_pkg_setup.py || goto :fail
+    uv run --no-project --with pytz --with gitpython python build_pkg_setup.py || goto :fail
 )
 
-call :print_info "Installing project with extras [!EXTRAS!]..."
-:: pywinpty (Windows-only, via jupyter-server) has releases with no wheel for
-:: older Pythons and an sdist that fails to build, so only accept wheels.
-uv pip install --no-cache-dir --only-binary pywinpty -e ".[!EXTRAS!]" || goto :fail
+:: The local development environment is uv-managed: `uv sync` creates/updates
+:: .venv (interpreter pinned by .python-version), installs the project plus
+:: the chosen extras from pyproject.toml, and refreshes uv.lock (committed).
+:: CircleCI uses a separate .\venv built with `uv pip install` - see AGENTS.md.
+:: (pywinpty's sdist needs MSVC; [tool.uv] no-build in pyproject.toml keeps
+:: resolution and sync on wheels only.)
+call :print_info "Syncing project environment with extras [!EXTRAS!]..."
+uv sync !EXTRA_ARGS! || goto :fail
+call "!VENV_DIR!\Scripts\activate.bat" || goto :fail
+call :print_ok "Virtual environment !VENV_DIR! activated"
+
+:: Headless Chromium for the platform visual tests (tests\functional\platform)
+python -c "import playwright" >nul 2>&1 && (
+    call :print_info "Installing headless Chromium for Playwright..."
+    python -m playwright install chromium || goto :fail
+)
 
 where invoke >nul 2>&1 && (
     invoke init --dev --list || goto :fail

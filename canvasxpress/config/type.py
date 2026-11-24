@@ -848,8 +848,7 @@ class CXRGBAColor(CXDict):
             if isinstance(value, str):
                 if not CXRGBAColor.is_color_str(value):
                     raise ValueError(
-                        "str RGBA values must be in the format"
-                        " rgb(int,int,int,float)"
+                        "str RGBA values must be in the format rgb(int,int,int,float)"
                     )
                 else:
                     components = value.split(",")
@@ -868,7 +867,7 @@ class CXRGBAColor(CXDict):
             elif isinstance(value, list):
                 if not CXRGBAColor.is_color_list(value):
                     raise ValueError(
-                        "list RGBA values must be in the format" " (int,int,int,float)"
+                        "list RGBA values must be in the format (int,int,int,float)"
                     )
                 else:
                     candidate = {
@@ -1091,7 +1090,7 @@ class CXRGBColor(CXDict):
             if isinstance(value, str):
                 if not CXRGBColor.is_color_str(value):
                     raise ValueError(
-                        "str RGB values must be in the format" " rgb(int,int,int)"
+                        "str RGB values must be in the format rgb(int,int,int)"
                     )
                 else:
                     components = value.split(",")
@@ -1108,7 +1107,7 @@ class CXRGBColor(CXDict):
             elif isinstance(value, list):
                 if not CXRGBColor.is_color_list(value):
                     raise ValueError(
-                        "list RGB values must be in the format" " (int,int,int)"
+                        "list RGB values must be in the format (int,int,int)"
                     )
                 else:
                     candidate = {
@@ -1120,7 +1119,7 @@ class CXRGBColor(CXDict):
             elif isinstance(value, dict):
                 if not CXRGBColor.is_color_dict(value):
                     raise ValueError(
-                        "RGB dict must have three int values for keys" " 'r', 'g', 'b'"
+                        "RGB dict must have three int values for keys 'r', 'g', 'b'"
                     )
                 else:
                     candidate = dict(value)
@@ -1174,12 +1173,7 @@ class CXRGBColor(CXDict):
         r = self.value["r"]
         g = self.value["g"]
         b = self.value["b"]
-        return (
-            f"CXRGBColor("
-            f" label={json.dumps(self.label)},"
-            f" value='rgb({r},{g},{b})'"
-            f")"
-        )
+        return f"CXRGBColor( label={json.dumps(self.label)}, value='rgb({r},{g},{b})')"
 
 
 class CXGraphTypeOptions(Enum):

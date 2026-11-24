@@ -74,8 +74,7 @@ class CXEvents(CXJavascriptConvertable):
 
         if unique and self.has(event):
             raise ValueError(
-                f"A CXEvent of ID '{event.id}' is already part "
-                f"of this CXEvent object."
+                f"A CXEvent of ID '{event.id}' is already part of this CXEvent object."
             )
 
         self.__events.append(event)
@@ -279,5 +278,5 @@ class CXEvents(CXJavascriptConvertable):
             `str` An evaluatable representation of the object.
         """
         event_rep_list = ", ".join([repr(event) for event in self.events])
-        rep_candidate = f"CXEvents(" f"{event_rep_list}" f")"
+        rep_candidate = f"CXEvents({event_rep_list})"
         return rep_candidate

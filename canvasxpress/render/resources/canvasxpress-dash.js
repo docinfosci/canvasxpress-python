@@ -4,7 +4,8 @@
  * The CXDashElement Dash component, shipped with the canvasxpress Python
  * package (see canvasxpress/render/dash.py). It adapts the component's string
  * properties to window.canvasxpress.CanvasXpressReact, which must be loaded
- * first.
+ * first, as must canvasxpress-fill.js for the fill_to_width and
+ * fill_to_height properties.
  *
  * Exposed as window.canvasxpress.CXDashElement, the Dash namespace and type
  * declared by the Python component.
@@ -82,9 +83,15 @@
       [props.after_render]
     );
 
+    var fillToHeight = Boolean(props.fill_to_height);
+
     return e(
       "div",
-      { id: id + "-dcxc-parent-context" },
+      {
+        id: id + "-dcxc-parent-context",
+        // Passes the height of the component's container on to the chart.
+        style: fillToHeight ? { height: "100%" } : undefined,
+      },
       e(CanvasXpressReact, {
         id: id,
         data: data,
@@ -96,6 +103,8 @@
         jsUrl: props.js_url,
         cssUrl: props.css_url,
         licenseUrl: props.license_url,
+        fillToWidth: Boolean(props.fill_to_width),
+        fillToHeight: fillToHeight,
       })
     );
   }

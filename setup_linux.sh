@@ -3,7 +3,7 @@
 # setup_linux.sh — Ubuntu / Debian development environment setup
 #
 # Checks/installs: Node.js, uv, R, Git, build tools
-# User manages their own Python (3.8+) — uv creates the venv.
+# The dev interpreter is uv-managed (pinned by .python-version).
 #
 # Package manager: apt (Debian/Ubuntu)
 # R installation:   official CRAN repository
@@ -30,7 +30,7 @@ apt_install() {
     sudo apt-get install -y "$@"
 }
 
-# ── Python 3.8+ (check only — user manages their own) ──────────────────────
+# ── Python 3.8+ (check only — the dev interpreter is uv-managed) ────────────
 print_header "Python"
 
 PYTHON_CMD=""
@@ -90,10 +90,12 @@ print_ok "uv $(uv --version)"
 print_header "R"
 
 if ! command_exists R; then
-    print_info "R not found — rpy2 extras will be skipped."
+    print_info "R not found — rpy2 extra will be skipped."
     print_info "Install via CRAN: sudo apt install r-base r-base-dev"
+    EXTRA_ARGS=(--extra dash --extra jupyter --extra streamlit --extra shiny --extra dev)
 else
     print_ok "R $(R --version | head -1)"
+    EXTRA_ARGS=(--extra all --extra dev)
 fi
 
 # ── Git ─────────────────────────────────────────────────────────────────────
@@ -111,27 +113,32 @@ print_header "Build tools"
 print_info "Installing build dependencies..."
 apt_install build-essential gcc g++ make cmake pkg-config
 
-# ── Virtual environment & dependencies ──────────────────────────────────────
+# ── Project environment & dependencies (uv-managed .venv) ───────────────────
 print_header "Project Setup"
 
-if [ ! -d "venv" ]; then
-    print_info "Creating virtual environment..."
-    $PYTHON_CMD -m venv venv
+# pyproject.toml reads the version from this generated, git-ignored file, so
+# generate it before `uv sync` (which builds the project).
+if [ ! -f "canvasxpress/version.txt" ]; then
+    print_info "Generating canvasxpress/version.txt..."
+    uv run --no-project --with pytz --with gitpython python build_pkg_setup.py
 fi
-source ./venv/bin/activate
-print_ok "Virtual environment activated"
 
-# Bootstrap tools
-print_info "Installing build dependencies..."
-uv pip install --no-cache-dir setuptools wheel
+# The local development environment is uv-managed: `uv sync` creates/updates
+# .venv (interpreter pinned by .python-version; uv downloads it if missing),
+# installs the project plus the chosen extras from pyproject.toml, and
+# refreshes uv.lock (committed). CircleCI uses a separate ./venv built with
+# `uv pip install` — see AGENTS.md.
+print_info "Syncing project environment with extras ${EXTRA_ARGS[*]}"
+uv sync "${EXTRA_ARGS[@]}"
+source ./.venv/bin/activate
+print_ok "Virtual environment activated (.venv)"
 
-# Project + all extras
-print_info "Installing project dependencies..."
-uv pip install --no-cache-dir ".[all]"
-
-# Dev tools
-print_info "Installing development tools..."
-uv sync
+# Headless Chromium, and the system libraries it needs, for the platform
+# visual tests (tests/functional/platform)
+if python -c "import playwright" 2>/dev/null; then
+    print_info "Installing headless Chromium for Playwright..."
+    python -m playwright install --with-deps chromium
+fi
 
 # Run invoke init
 if command_exists invoke; then
@@ -146,7 +153,7 @@ echo "  Linux Setup Complete!"
 echo "============================================================"
 echo ""
 echo "Next steps:"
-echo "  source venv/bin/activate"
+echo "  source .venv/bin/activate"
 echo "  uv build            # build distribution"
 echo "  uvx ruff check .     # lint"
-echo "  uvx pytest           # test"
+echo "  invoke test          # test"

@@ -263,5 +263,5 @@ class CXEvent(CXJavascriptConvertable):
         """
         clean_id = CXEvent.__clean_string(self.id)
         clean_script = CXEvent.__clean_string(self.script)
-        rep_candidate = f"CXEvent(" f'id="{clean_id}", ' f'script="{clean_script}"' f")"
+        rep_candidate = f'CXEvent(id="{clean_id}", script="{clean_script}")'
         return rep_candidate

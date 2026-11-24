@@ -7,9 +7,10 @@
  * as Plotly Dash.
  *
  * The CanvasXpress library, stylesheet and license are loaded on demand from
- * the given URLs, once per page. The component creates its own <canvas> so
- * that React never reconciles the DOM that CanvasXpress manages, and it
- * recreates the chart whenever its inputs change.
+ * the given URLs, once per page, by window.canvasxpress.loadLibrary from
+ * canvasxpress-loader.js, which must be loaded first. The component creates
+ * its own <canvas> so that React never reconciles the DOM that CanvasXpress
+ * manages, and it recreates the chart whenever its inputs change.
  *
  * Exposed as window.canvasxpress.CanvasXpressReact.
  *
@@ -24,6 +25,16 @@
  *   jsUrl       CanvasXpress library URL, if CanvasXpress is not yet loaded.
  *   cssUrl      CanvasXpress stylesheet URL.
  *   licenseUrl  CanvasXpress license script URL.
+ *   fillToWidth True to keep the chart as wide as the component's container,
+ *               redrawing it as that changes.
+ *   fillToHeight
+ *               True to keep the chart as tall as the component's container,
+ *               redrawing it as that changes. The container needs a height
+ *               set by the layout.
+ *
+ * Either fill option uses window.canvasxpress.fillContainer from
+ * canvasxpress-fill.js, which must then be loaded first. A dimension that is
+ * not filled keeps its width or height prop.
  */
 (function (root) {
   "use strict";
@@ -31,63 +42,8 @@
   var React = root.React;
   var e = React.createElement;
 
-  // Script loads are shared by every chart on the page, keyed by URL.
-  var scriptLoads = {};
-
-  function loadScript(url) {
-    if (!scriptLoads[url]) {
-      scriptLoads[url] = new Promise(function (resolve, reject) {
-        var script = document.createElement("script");
-        script.src = url;
-        script.type = "text/javascript";
-        script.referrerPolicy = "origin-when-cross-origin";
-        script.onload = function () {
-          resolve();
-        };
-        script.onerror = function () {
-          delete scriptLoads[url];
-          reject(new Error("Unable to load " + url));
-        };
-        document.head.appendChild(script);
-      });
-    }
-    return scriptLoads[url];
-  }
-
-  function loadStylesheet(url) {
-    var links = document.head.querySelectorAll("link[rel='stylesheet']");
-    for (var i = 0; i < links.length; i++) {
-      if (links[i].getAttribute("href") === url) {
-        return;
-      }
-    }
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.type = "text/css";
-    link.href = url;
-    link.referrerPolicy = "origin-when-cross-origin";
-    document.head.appendChild(link);
-  }
-
-  function loadLibrary(jsUrl, cssUrl, licenseUrl) {
-    if (cssUrl) {
-      loadStylesheet(cssUrl);
-    }
-    if (root.CanvasXpress) {
-      return Promise.resolve(root.CanvasXpress);
-    }
-    var license = licenseUrl ? loadScript(licenseUrl) : Promise.resolve();
-    return license
-      .then(function () {
-        return jsUrl ? loadScript(jsUrl) : undefined;
-      })
-      .then(function () {
-        if (!root.CanvasXpress) {
-          throw new Error("CanvasXpress is not available; provide jsUrl");
-        }
-        return root.CanvasXpress;
-      });
-  }
+  // The shared CanvasXpress loader (canvasxpress-loader.js), loaded first.
+  var loadLibrary = root.canvasxpress.loadLibrary;
 
   function applyAfterRender(chart, afterRender) {
     if (!Array.isArray(afterRender)) {
@@ -118,15 +74,20 @@
         var host = hostRef.current;
         var cancelled = false;
         var chart = null;
+        var stopFill = null;
 
         var canvas = document.createElement("canvas");
         canvas.id = props.id;
-        canvas.width = props.width || 500;
-        canvas.height = props.height || 500;
+        // Kept as numbers: hosts such as Dash pass sizes as strings, and
+        // CanvasXpress may rescale the canvas element once it draws.
+        var width = Number(props.width) || 500;
+        canvas.width = width;
+        var height = Number(props.height) || 500;
+        canvas.height = height;
         host.appendChild(canvas);
         setError(null);
 
-        loadLibrary(props.jsUrl, props.cssUrl, props.licenseUrl)
+        loadLibrary({ jsUrl: props.jsUrl, cssUrl: props.cssUrl, licenseUrl: props.licenseUrl })
           .then(function (CanvasXpress) {
             if (cancelled) {
               return;
@@ -138,6 +99,18 @@
               events: props.events || false,
             });
             applyAfterRender(chart, props.afterRender);
+            if (props.fillToWidth || props.fillToHeight) {
+              if (typeof root.canvasxpress.fillContainer === "function") {
+                stopFill = root.canvasxpress.fillContainer(host, props.id, {
+                  fillToWidth: props.fillToWidth,
+                  fillToHeight: props.fillToHeight,
+                  width: width,
+                  height: height,
+                });
+              } else {
+                console.error("CanvasXpress fillContainer requires canvasxpress-fill.js");
+              }
+            }
           })
           .catch(function (err) {
             console.error(err);
@@ -148,6 +121,9 @@
 
         return function () {
           cancelled = true;
+          if (stopFill) {
+            stopFill();
+          }
           try {
             var existing = chart || (root.CanvasXpress && root.CanvasXpress.getObject(props.id));
             if (existing) {
@@ -172,12 +148,18 @@
         props.jsUrl,
         props.cssUrl,
         props.licenseUrl,
+        props.fillToWidth,
+        props.fillToHeight,
       ]
     );
 
     return e(
       "div",
-      { className: "canvasxpress-react" },
+      {
+        className: "canvasxpress-react",
+        // Passes a height given to the component on to the chart's container.
+        style: props.fillToHeight ? { height: "100%" } : undefined,
+      },
       error ? e("div", { role: "alert" }, "CanvasXpress could not be loaded: " + error) : null,
       e("div", { ref: hostRef })
     );

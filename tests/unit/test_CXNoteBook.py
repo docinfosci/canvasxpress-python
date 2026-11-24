@@ -168,3 +168,89 @@ def test_complex_chart_arrangements():
     nb.render(columns=3)
     nb.render(columns=4)
     nb.render(columns=5)
+
+
+def _named_chart(render_to):
+    return CanvasXpress(
+        render_to=render_to,
+        data=CXDictData({"y": {"vars": ["Gene1"], "smps": ["Smp1"], "data": [[10]]}}),
+        config=CXConfigs(CXGraphType(CXGraphTypeOptions.Bar)),
+    )
+
+
+def test_CXNoteBook_render_returns_layout_then_loader():
+    from IPython.display import HTML, Javascript
+
+    content = CXNoteBook(_named_chart("nb_one"), _named_chart("nb_two")).render(
+        columns=2
+    )
+
+    assert isinstance(content[0], HTML)
+    assert isinstance(content[1], Javascript)
+    assert 'id="nb_one"' in content[0].data
+    assert "repeat(2, max-content)" in content[0].data
+    assert "window.canvasxpress.loadLibrary(" in content[1].data
+    assert "nb_two" in content[1].data
+
+
+def test_CXNoteBook_render_does_not_change_duplicate_charts():
+    first, second = _named_chart("nb_same"), _named_chart("nb_same")
+    content = CXNoteBook([first, second]).render()
+
+    assert first.render_to == second.render_to == "nb_same"
+    assert content[0].data.count('id="nb_same') == 2
+
+
+def test_CXNoteBook_render_none():
+    assert CXNoteBook(None).render() == []
+
+
+def test_CXNoteBook_render_output_file(tmp_path):
+    output_file = tmp_path / "chart.html"
+    content = CXNoteBook(_named_chart("nb_file")).render(output_file=str(output_file))
+
+    assert len(content) == 2
+    page = output_file.read_text(encoding="utf-8")
+    assert page.startswith("<!DOCTYPE html>")
+    assert 'id="nb_file"' in page
+    assert CanvasXpress.js_library_url() in page
+
+
+def test_CXNoteBook_render_output_directory(tmp_path):
+    notebook = CXNoteBook(_named_chart("nb_one"), _named_chart("nb_two"))
+    notebook.render(output_file=str(tmp_path))
+    notebook.render(output_file=str(tmp_path))
+
+    assert [path.name for path in tmp_path.iterdir()] == ["nb_one_nb_two.html"]
+
+
+def test_CXNoteBook_render_debug():
+    from IPython.display import Code
+
+    content = CXNoteBook(_named_chart("nb_debug")).render(debug=True)
+
+    assert isinstance(content, Code)
+    assert "nb_debug" in content.data
+
+
+def test_CXNoteBook_fill():
+    fixed = CXNoteBook(_named_chart("nb_fixed")).render()
+    wide = CXNoteBook(_named_chart("nb_wide")).render(fill_to_width=True)
+    tall = CXNoteBook(_named_chart("nb_tall")).render(fill_to_height=True)
+
+    assert "fillContainer(" not in fixed[1].data
+    assert "grid-template-columns: repeat(1, minmax(0, 1fr))" in wide[0].data
+    assert '"fillToWidth": true, "fillToHeight": false' in wide[1].data
+    assert "grid-template-rows: repeat(1, minmax(0, 1fr))" in tall[0].data
+    assert '"fillToWidth": false, "fillToHeight": true' in tall[1].data
+
+
+def test_CXNoteBook_fill_output_file(tmp_path):
+    output_file = tmp_path / "chart.html"
+    CXNoteBook(_named_chart("nb_fill")).render(
+        fill_to_width=True, fill_to_height=True, output_file=str(output_file)
+    )
+
+    page = output_file.read_text(encoding="utf-8")
+    assert '"fillToWidth": true, "fillToHeight": true' in page
+    assert "html, body { height: 100%" in page

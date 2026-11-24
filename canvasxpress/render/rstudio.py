@@ -1,41 +1,18 @@
-import uuid
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Any, List, Optional, Union
 
 from bs4 import BeautifulSoup
 from IPython.display import HTML
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.base import CXRenderable
-
-_cx_intermixed_header = """
-<html>
-    <meta charset="UTF-8">
-    <link
-        href='@css_url@'
-        rel='stylesheet'
-        type='text/css'
-    />
-    <script
-        src='@js_url@'
-        type='text/javascript'>
-    </script>
-</html>
-"""
-
-_cx_js_intermixed_template = """
-<script type="text/javascript">
-    @code@
-</script>
-"""
-
-_cx_html_intermixed_template = """
-<html>
-    @canvasxpress_license@
-    @canvases@
-    @js_functions@
-</html>
-"""
+from canvasxpress.render.context import (
+    LIBRARY_NONE,
+    LIBRARY_TAGS,
+    CXHtmlDocument,
+    CXLibraryAssets,
+    write_html_file,
+)
 
 
 class CXHtml(CXRenderable):
@@ -59,96 +36,79 @@ class CXHtml(CXRenderable):
         """
         super().__init__(*cx)
 
-    def display_canvasxpress_header(self):
-        css_url = CanvasXpress.css_library_url()
-        js_url = CanvasXpress.js_library_url()
+    def display_canvasxpress_header(self) -> str:
+        """
+        Provides the HTML elements that load the CanvasXpress stylesheet and
+        library.
 
-        header_html_text = _cx_intermixed_header.replace("@css_url@", css_url).replace(
-            "@js_url@", js_url
-        )
+        Returns:
+            The HTML elements.
+        """
+        library = CXLibraryAssets.current()
+        return "\n".join([library.stylesheet_tag(), library.library_tag()])
 
-        return header_html_text
+    def display_debug_code(self, code: str) -> str:
+        """
+        Formats HTML code for reading.
 
-    def display_debug_code(self, code: str):
+        Args:
+            code: The HTML code.
+
+        Returns:
+            The formatted HTML code.
+        """
         pretty_code = BeautifulSoup(code, "html.parser").prettify()
         return pretty_code
 
-    def get_chart_display_code(self, columns: int) -> str:
-        render_targets = list()
+    def get_chart_display_code(
+        self,
+        columns: int,
+        fill_to_width: bool = False,
+        fill_to_height: bool = False,
+    ) -> str:
+        """
+        Provides the arranged charts as HTML for a page that already loads the
+        CanvasXpress library, such as after `display_canvasxpress_header()`.
 
-        if self.canvas is None:
-            pass
+        Args:
+            columns: The number of charts per row.
+            fill_to_width: Whether the charts follow the width of the element
+                that holds them.
+            fill_to_height: Whether the charts follow the height of the element
+                that holds them, where the layout gives it one.
 
-        elif isinstance(self.canvas, CanvasXpress):
-            render_targets.append(self.canvas)
+        Returns:
+            The HTML, or "" if there are no charts.
+        """
+        return CXHtmlDocument(
+            self.canvas,
+            columns=columns,
+            fill_to_width=fill_to_width,
+            fill_to_height=fill_to_height,
+        ).fragment(LIBRARY_NONE)
 
-        else:
-            render_targets.extend(self.canvas)
+    def display_charts(
+        self, code: str, output_file: Optional[str], file_name: Optional[str] = None
+    ) -> str:
+        """
+        Writes code to output_file, if provided, and returns it.
 
-        used_render_targets = list()
-        for target in render_targets:
-            original_render_target = target.render_to
-            if original_render_target in used_render_targets:
-                target.render_to = (
-                    original_render_target + "_" + str(uuid.uuid4()).replace("-", "_")
-                )
+        Args:
+            code: The HTML code.
+            output_file: The file path, or a directory in which to write
+                file_name, or None.
+            file_name: The file name to use when output_file is a directory.
+                Defaults to `anonymous.html`.
 
-            used_render_targets.append(target.render_to)
+        Returns:
+            The code.
 
-        render_targets.reverse()
-
-        html_parts = [target.render_to_html_parts() for target in render_targets]
-
-        canvases = [part["cx_canvas"] for part in html_parts]
-        if len(canvases) < columns:
-            columns = len(canvases)
-
-        functions = [part["cx_js"] for part in html_parts]
-
-        cx_license = ""
-        for part in html_parts:
-            if part.get("cx_license"):
-                cx_license = part["cx_license"]
-                break
-
-        canvas_table = "<table>"
-        column_index = 0
-        for chart_index in range(len(canvases)):
-            if column_index == 0:
-                canvas_table += "<tr>"
-
-            canvas_table += '<td style="padding: 5px"><div>'
-            canvas_table += canvases[chart_index]
-            canvas_table += "</div></td>"
-
-            column_index += 1
-            if column_index == columns:
-                column_index = 0
-                canvas_table += "</tr>"
-
-        canvas_table += "</table>"
-
-        js_functions = "\n".join(
-            [_cx_js_intermixed_template.replace("@code@", fx) for fx in functions]
-        )
-        html_text = (
-            _cx_html_intermixed_template.replace("@canvases@", canvas_table)
-            .replace("@canvasxpress_license@", cx_license)
-            .replace("@js_functions@", js_functions)
-        )
-
-        return html_text
-
-    def display_charts(self, code: str, output_file: str):
+        Raises:
+            RuntimeError: If the file cannot be written.
+        """
         try:
             if output_file is not None:
-                file_path_candidate = str(output_file)
-                file_path = Path(file_path_candidate)
-                if file_path.is_dir():
-                    file_path = file_path.joinpath(f"cx_{str(uuid.uuid4())}.html")
-
-                with open(str(file_path), "w") as render_file:
-                    render_file.write(code)
+                write_html_file(code, Path(str(output_file)), file_name)
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output file: {e}")
@@ -158,8 +118,8 @@ class CXHtml(CXRenderable):
     def render(self, **kwargs: Any):
         """
         Renders the associated CanvasXpress objects for display in
-        a RStudio environment. Charts cannot have the same name, so render_to
-        will be updated with a uuid for each conflicting chart.
+        a RStudio environment. Charts cannot have the same name, so
+        conflicting charts are displayed under unique IDs.
 
         Args:
             kwargs: Supports the following parameters:
@@ -167,11 +127,23 @@ class CXHtml(CXRenderable):
                     value of 1. Values less than 1 are ignored. Indicates
                     how many charts should be rendered horizontally if more
                     than one chart is being tracked.
-                output_file: A string for a path at which the output should
-                    be saved. If a file exists at the specified path then
-                    it will be overwritten.
-                debug: True indicates that the HTML code shall be displayed
-                    prior to the parsed output. Default is False.
+                output_file: A string for a path at which the charts should
+                    also be saved as a standalone HTML page. If a file exists
+                    at the specified path then it will be overwritten, and if
+                    the path is a directory the page is saved in it under the
+                    chart names, such as `scatter_heatmap.html`.
+                debug: True indicates that the formatted HTML code shall be
+                    printed. Default is False.
+                fill_to_width: True to have the charts share the width of the
+                    element that holds them, such as the viewer pane or a Quarto
+                    column, and follow it as it changes, rather than keeping
+                    their configured widths. Default is False.
+                fill_to_height: True to have the charts follow the height of
+                    the element that holds them, rather than keeping their
+                    configured heights. This only has an effect where the
+                    layout sets that height, as it does for the page saved with
+                    output_file, which fills the browser window. Default is
+                    False.
 
         Returns:
             An IPython HTML object containing the rendered chart(s).
@@ -179,28 +151,35 @@ class CXHtml(CXRenderable):
         Raises:
             RuntimeError: If there is an error creating the output cell.
         """
-        debug_output_arg = kwargs.get("debug")
-        debug_output = bool(debug_output_arg) if debug_output_arg is not None else False
+        debug_output = bool(kwargs.get("debug") or False)
+        fill_to_width = bool(kwargs.get("fill_to_width") or False)
+        fill_to_height = bool(kwargs.get("fill_to_height") or False)
 
         columns_arg = int(kwargs.get("columns", 1))
         columns = columns_arg if columns_arg > 0 else 1
 
-        output_file_arg = kwargs.get("output_file")
-        output_file = (
-            output_file_arg
-            if output_file_arg is not None and isinstance(output_file_arg, str)
-            else None
+        output_file = kwargs.get("output_file")
+        if not isinstance(output_file, str):
+            output_file = None
+
+        document = CXHtmlDocument(
+            self.canvas,
+            columns=columns,
+            fill_to_width=fill_to_width,
+            fill_to_height=fill_to_height,
         )
 
-        code = self.get_chart_display_code(columns)
-
         try:
-            header = self.display_canvasxpress_header()
-            body = self.display_charts(code, output_file)
-            if debug_output:
-                self.display_debug_code(code)
+            # Elements that load the library precede the charts, as the HTML is
+            # parsed as a whole, such as in a Quarto document.
+            code = document.fragment(LIBRARY_TAGS)
+            if output_file is not None:
+                self.display_charts(document.page(), output_file, document.file_name)
 
-            return HTML(header + body)
+            if debug_output:
+                print(self.display_debug_code(code))
+
+            return HTML(code)
 
         except Exception as e:
             raise RuntimeError(f"Cannot create output cell: {e}")
