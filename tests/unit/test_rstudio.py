@@ -1,10 +1,11 @@
 """Tests for CanvasXpress HTML rendering (RStudio/HTML context)."""
 
+from unittest.mock import patch
+
 import pytest
 
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.rstudio import CXHtml
-
 
 CX_EXAMPLE = CanvasXpress(
     render_to="rstudio-test-1",
@@ -80,6 +81,12 @@ class TestCxHtmlRender:
         result = html.render(debug=True)
         # Returns HTML object
         assert hasattr(result, 'data') or hasattr(result, '_repr_html_')
+
+    def test_render_fragment_failure_raises_runtime_error(self):
+        with patch("canvasxpress.render.rstudio.CXHtmlDocument") as mock_document:
+            mock_document.return_value.fragment.side_effect = OSError("boom")
+            with pytest.raises(RuntimeError, match="Cannot create output cell"):
+                CXHtml(CX_EXAMPLE).render()
 
 
 class TestCxHtmlDisplayCanvasxpressHeader:
@@ -168,6 +175,17 @@ class TestCxHtmlDisplayCharts:
         CXHtml(CX_EXAMPLE).render(output_file=str(tmp_path))
         expected = tmp_path / f"{CX_EXAMPLE.render_to}.html"
         assert [path.name for path in tmp_path.iterdir()] == [expected.name]
+
+    def test_display_charts_write_failure_raises_runtime_error(self, tmp_path):
+        html = CXHtml(CX_EXAMPLE)
+        output_file = tmp_path / "out" / "chart.html"
+
+        with patch(
+            "canvasxpress.render.rstudio.write_html_file",
+            side_effect=OSError("disk full"),
+        ):
+            with pytest.raises(RuntimeError, match="Cannot create output file"):
+                html.display_charts("<div>test</div>", output_file=str(output_file))
 
 
 class TestCxHtmlRenderContent:

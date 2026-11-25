@@ -59,7 +59,8 @@ show_in_browser(chart)
 ```
 
 In Jupyter, Dash, Shiny, and Streamlit use `graph(chart)` from `canvasxpress.plot` instead; it renders the chart in
-the way each framework expects.
+the way each framework expects. In a notebook, a `CanvasXpress` object that is the last line of a cell renders on its
+own with the same HTML and JavaScript; use `graph(chart)` for multiple charts, `fill_to_width`, or a saved page.
 
 ## What's New: Modernized Streamlit and Dash Support
 

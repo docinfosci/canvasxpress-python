@@ -1,8 +1,18 @@
+import subprocess
+from pathlib import Path
+from unittest.mock import MagicMock, patch
+
+import pytest
+
 from canvasxpress.canvas import CanvasXpress
 from canvasxpress.render.image import (
     PNG_IMAGE,
     SVG_IMAGE,
     CXImage,
+    get_nodejs_path,
+    install_cx_in_nodejs,
+    nodejs_modules_path,
+    render_html_as_image,
 )
 
 cx_example = CanvasXpress(
@@ -129,3 +139,189 @@ def test_cx_converst_to_image_base64():
 #     )
 #     assert len(images_found) == 1
 #     assert images_found[0]["id"] == "area1"
+
+
+class TestInstallCxInNodejs:
+    def test_already_available(self):
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            install_cx_in_nodejs()
+        assert mock_run.call_count == 1
+        assert mock_run.call_args[0][0] == ["npm", "ls", "canvasxpress-cli"]
+
+    def test_installs_when_missing(self):
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.side_effect = [MagicMock(returncode=1), MagicMock(returncode=0)]
+            install_cx_in_nodejs()
+        assert mock_run.call_count == 2
+        assert mock_run.call_args[0][0] == ["npm", "install", "canvasxpress-cli", "--save"]
+
+    def test_raises_when_install_fails(self):
+        failed_install = MagicMock(returncode=2)
+        failed_install.stderr = b"npm error boom"
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.side_effect = [MagicMock(returncode=1), failed_install]
+            with pytest.raises(RuntimeError, match="Cannot install canvasxpress"):
+                install_cx_in_nodejs()
+
+    def test_raises_on_timeout(self):
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.side_effect = subprocess.TimeoutExpired("npm", 60)
+            with pytest.raises(RuntimeError, match="Cannot interact with Node"):
+                install_cx_in_nodejs()
+
+
+class TestNodejsModulesPath:
+    def test_found_in_cwd(self, tmp_path, monkeypatch):
+        (tmp_path / "node_modules").mkdir()
+        monkeypatch.chdir(tmp_path)
+        with patch("canvasxpress.render.image.install_cx_in_nodejs"):
+            assert nodejs_modules_path() == tmp_path / "node_modules"
+
+    def test_found_upward(self, tmp_path, monkeypatch):
+        (tmp_path / "node_modules").mkdir()
+        cwd = tmp_path / "a" / "b"
+        cwd.mkdir(parents=True)
+        monkeypatch.chdir(cwd)
+        with patch("canvasxpress.render.image.install_cx_in_nodejs"):
+            assert nodejs_modules_path() == tmp_path / "node_modules"
+
+
+class TestGetNodejsPath:
+    def test_builds_path_from_modules_path(self, tmp_path, monkeypatch):
+        import canvasxpress.render.image as image
+
+        monkeypatch.setattr(image, "CX_NODEJS_PATH", None)
+        with patch(
+            "canvasxpress.render.image.nodejs_modules_path",
+            return_value=tmp_path / "node_modules",
+        ):
+            assert (
+                get_nodejs_path()
+                == tmp_path / "node_modules" / "canvasxpress-cli" / "bin" / "canvasxpress"
+            )
+
+    def test_memoized(self, tmp_path, monkeypatch):
+        import canvasxpress.render.image as image
+
+        monkeypatch.setattr(image, "CX_NODEJS_PATH", None)
+        with patch(
+            "canvasxpress.render.image.nodejs_modules_path",
+            return_value=tmp_path / "node_modules",
+        ):
+            first = get_nodejs_path()
+        second = get_nodejs_path()
+        assert first == second
+
+
+class TestRenderHtmlAsImage:
+    def test_invalid_width(self):
+        with pytest.raises(ValueError, match="width must be an int or None"):
+            render_html_as_image("http://example.com", width="600")
+
+    def test_invalid_height(self):
+        with pytest.raises(ValueError, match="height must be an int or None"):
+            render_html_as_image("http://example.com", height=1.5)
+
+    def test_invalid_format(self):
+        with pytest.raises(ValueError, match="format must be one of"):
+            render_html_as_image("http://example.com", format="gif")
+
+    def test_success(self, tmp_path, monkeypatch):
+        chart_path = tmp_path / "chart.png"
+        chart_path.write_bytes(b"fake png")
+        monkeypatch.setattr(
+            "canvasxpress.render.image.temp_directory", lambda: tmp_path
+        )
+        monkeypatch.setattr(
+            "canvasxpress.render.image.get_nodejs_path", lambda: Path("/fake/canvasxpress")
+        )
+
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            images = render_html_as_image("http://example.com", width=100, height=200)
+
+        assert len(images) == 1
+        assert images[0]["id"] == "chart"
+        assert images[0]["image"]["binary"] == b"fake png"
+        assert images[0]["image"]["format"] == PNG_IMAGE
+        command = mock_run.call_args[0][0]
+        assert "-x 100" in command
+        assert "-y 200" in command
+        assert "http://example.com" in command
+        assert not chart_path.exists()
+
+    def test_list_format(self, tmp_path, monkeypatch):
+        chart_path = tmp_path / "chart.svg"
+        chart_path.write_bytes(b"fake svg")
+        monkeypatch.setattr(
+            "canvasxpress.render.image.temp_directory", lambda: tmp_path
+        )
+        monkeypatch.setattr(
+            "canvasxpress.render.image.get_nodejs_path", lambda: Path("/fake/canvasxpress")
+        )
+
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            images = render_html_as_image("http://example.com", format=[SVG_IMAGE])
+
+        assert len(images) == 1
+        assert images[0]["image"]["format"] == SVG_IMAGE
+
+    def test_timeout_returns_empty(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(
+            "canvasxpress.render.image.temp_directory", lambda: tmp_path
+        )
+        monkeypatch.setattr(
+            "canvasxpress.render.image.get_nodejs_path", lambda: Path("/fake/canvasxpress")
+        )
+
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.side_effect = subprocess.TimeoutExpired("canvasxpress", 60)
+            images = render_html_as_image("http://example.com")
+
+        assert images == []
+
+
+class TestCXImageRender:
+    def test_invalid_format(self):
+        image_renderer = CXImage(cx_example)
+        with pytest.raises(ValueError, match="format must be one of"):
+            image_renderer.render(format="gif")
+
+    def test_success(self, tmp_path, monkeypatch):
+        image_path = tmp_path / "area2.png"
+        image_path.write_bytes(b"fake png")
+        monkeypatch.setattr(
+            "canvasxpress.render.image.temp_directory", lambda: tmp_path
+        )
+        monkeypatch.setattr(
+            "canvasxpress.render.image.get_nodejs_path", lambda: Path("/fake/canvasxpress")
+        )
+
+        image_renderer = CXImage(cx_example)
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            results = image_renderer.render()
+
+        assert len(results) == 1
+        assert results[0]["id"] == "area2"
+        assert results[0]["image"]["binary"] == b"fake png"
+        assert results[0]["image"]["format"] == PNG_IMAGE
+        assert "-d " in mock_run.call_args[0][0]
+        assert not image_path.exists()
+
+    def test_nonzero_returncode_returns_empty(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(
+            "canvasxpress.render.image.temp_directory", lambda: tmp_path
+        )
+        monkeypatch.setattr(
+            "canvasxpress.render.image.get_nodejs_path", lambda: Path("/fake/canvasxpress")
+        )
+
+        image_renderer = CXImage(cx_example)
+        with patch("canvasxpress.render.image.subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=1)
+            results = image_renderer.render()
+
+        assert results == []

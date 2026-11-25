@@ -299,6 +299,95 @@ def test_CXDataFrameData_xyz_assembly_meta_in_first_row():
     assert all([key in xyz["y"]["vars"] for key in xyz["z"].keys()])
 
 
+def test_CXDataframeData_dataframe_setter_type_error():
+    cxdata = CXDataframeData(df_sample)
+    with pytest.raises(TypeError):
+        cxdata.dataframe = "junk"
+
+
+def test_CXDataframeData_dataframe_setter_none():
+    cxdata = CXDataframeData(df_sample)
+    cxdata.dataframe = None
+    assert cxdata.dataframe.equals(DataFrame())
+
+
+def test_CXDataframeData_data_property():
+    cxdata = CXDataframeData(df_sample)
+    assert cxdata.data == df_sample.to_dict(orient="list")
+
+
+def test_CXDataframeData_data_setter_from_other():
+    cxdata1 = CXDataframeData(df_sample)
+    cxdata2 = CXDataframeData()
+    cxdata2.data = cxdata1
+    assert cxdata2.dataframe.equals(df_sample)
+
+
+def test_CXDataFrameData_xyz_assembly_numeric_sample_keys():
+    """Sample annotation strategy 1 with non-string keys in the first column."""
+    data = DataFrame([[10, 20], [30, 40]], columns=[0, 1])
+    sample_annotation = DataFrame({0: [0, 1], 1: ["a", "b"]})
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+    )
+
+    assert xyz["x"] == {0: ["a"], 1: ["b"]}
+
+
+def test_CXDataFrameData_xyz_assembly_numeric_sample_meta_first_row():
+    """Sample annotation strategy 2 with non-string meta names in the first row."""
+    data = DataFrame([[10, 20], [30, 40]], columns=[0, 1])
+    sample_annotation = DataFrame({0: [0, 100], 1: [1, 200]})
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        sample_annotation=CXDataframeData(sample_annotation),
+    )
+
+    # Non-string meta names are converted via .item(); values are stringified
+    # by the final serialization pass.
+    assert xyz["x"] == {0: ["100"], 1: ["200"]}
+
+
+def test_CXDataFrameData_xyz_assembly_sample_annotation_misaligned():
+    """Sample annotation without chart data to align against."""
+    sample_annotation = DataFrame({"C1": ["a"]})
+
+    with pytest.raises(ValueError, match="Sample Annotation"):
+        merge_dataframes_into_xyz_object(
+            data=None,
+            sample_annotation=CXDataframeData(sample_annotation),
+        )
+
+
+def test_CXDataFrameData_xyz_assembly_numeric_variable_meta_first_row():
+    """Variable annotation strategy 2 with non-string meta names in the first row."""
+    data = DataFrame([[10, 20], [30, 40]], columns=["C1", "C2"])
+    variable_annotation = DataFrame({0: [0, 100], 1: [1, 200]})
+
+    xyz = merge_dataframes_into_xyz_object(
+        data=CXDataframeData(data),
+        variable_annotation=CXDataframeData(variable_annotation),
+    )
+
+    # Non-string meta names are converted via .item(); values are stringified
+    # by the final serialization pass.
+    assert xyz["z"] == {0: ["100"], 1: ["200"]}
+
+
+def test_CXDataFrameData_xyz_assembly_variable_annotation_misaligned():
+    """Variable annotation without chart data to align against."""
+    variable_annotation = DataFrame({"C1": ["a"]})
+
+    with pytest.raises(ValueError, match="Variable Annotation"):
+        merge_dataframes_into_xyz_object(
+            data=None,
+            variable_annotation=CXDataframeData(variable_annotation),
+        )
+
+
 def test_CXDataFrameData_xyz_assembly_empty_annotations():
     data = pandas.read_csv(
         StringIO('"C1","C2","C3"\n1,2,3\n4,5,6'),
