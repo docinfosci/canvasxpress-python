@@ -7,7 +7,10 @@ class TestGetSkillContent:
         assert len(content) > 100
 
     def test_known_skill_content_matches_file(self):
-        from importlib.resources import files
+        try:
+            from importlib.resources import files  # novermin
+        except ImportError:
+            from importlib_resources import files
 
         from canvasxpress.agent_skills import canvasxpress_charts
         from canvasxpress.agent_skills.canvasxpress_charts import get_skill_content
