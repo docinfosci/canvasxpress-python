@@ -1,7 +1,7 @@
 import json
 import uuid
 from copy import deepcopy
-from typing import Any, List, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 from warnings import warn
 
 from pandas import DataFrame
@@ -1030,6 +1030,65 @@ class CanvasXpress(CXHtmlConvertable):
             cx_web_data["cx_license"] = cx_license
 
         return cx_web_data
+
+    def _repr_mimebundle_(
+        self,
+        include: Optional[Iterable[str]] = None,
+        exclude: Optional[Iterable[str]] = None,
+    ) -> Dict[str, Any]:
+        """*IPython display* hook. Describes the chart in each of the forms a
+        notebook frontend might know how to show, so that the object renders
+        when it is the result of a cell without being passed through a renderer
+        first.
+
+        Three representations are offered:
+
+        * `text/plain` — the same text `repr()` produces, so frontends that
+          understand neither of the others behave exactly as before.
+        * `text/html` — the chart's canvas plus the shared on-demand loader as
+          a `<script>` element, self-contained for contexts that parse and
+          execute the output's scripts, such as classic Notebooks and
+          nbconvert-exported pages.
+        * `application/javascript` — the same loader JavaScript as its own
+          representation, exactly what `IPython.display.Javascript` emits.
+          Frontends that execute JavaScript output draw the chart from this
+          entry alone: when the chart's `renderTo` is not already in the
+          document, the CanvasXpress JS creates its own `<canvas>` element and
+          appends it to the page.
+
+        The HTML and JavaScript entries are the same pair of representations
+        that `CXNoteBook` emits, assembled by the shared `CXHtmlDocument`, so
+        the two paths cannot drift.
+
+        Args:
+            include: If given, only these mime types are returned.
+            exclude: If given, these mime types are omitted.
+
+        Returns:
+            `dict`: A map of mime type to representation.
+        """
+        # Imported here rather than at module level: canvasxpress.render.context
+        # imports this module, and the hook only ever runs at display time.
+        from canvasxpress.render.context import LIBRARY_LOADER, CXHtmlDocument
+
+        document = CXHtmlDocument(self)
+
+        bundle: Dict[str, Any] = {
+            "text/plain": repr(self),
+            "text/html": document.fragment(LIBRARY_LOADER),
+            "application/javascript": document.loader_js(),
+        }
+
+        if include is not None:
+            included = set(include)
+            bundle = {key: value for key, value in bundle.items() if key in included}
+        if exclude is not None:
+            excluded = set(exclude)
+            bundle = {
+                key: value for key, value in bundle.items() if key not in excluded
+            }
+
+        return bundle
 
     def __str__(self) -> str:
         """*str* function. Converts the `CanvasXpress` object into a JSON

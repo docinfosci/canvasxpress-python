@@ -51,6 +51,19 @@ Use `graph(cx, fill_to_width=True)` to have the chart span the width of the outp
 is resized. `fill_to_height` has no effect in a notebook output, which sizes to its content, so the chart keeps its
 configured `height`; it does apply to a page saved with `output_file`, which fills the browser window.
 
+### Bare Cell Results
+
+A `CanvasXpress` object that is the last expression of a cell renders directly, without
+calling `graph()`:
+
+```python
+cx  # renders the chart in the notebook frontend
+```
+
+The object renders the same HTML and JavaScript that `graph(cx)` produces, built by the
+shared `CXHtmlDocument` layer. Use `graph(cx)` or `CXNoteBook` when you need `columns`,
+`fill_to_width`, `fill_to_height`, `output_file`, or `debug` rendering.
+
 ### Explicit Jupyter Rendering
 
 For more control or when auto-detection fails:

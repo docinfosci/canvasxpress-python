@@ -20,6 +20,14 @@ UNKNOWN_BROWSER_NAME = "CanvasXpress"
 UNKNOWN_VERSION = "0"
 UNKNOWN_BROWSER = (UNKNOWN_BROWSER_NAME, UNKNOWN_VERSION)
 
+# Errors raised when a plist file cannot be parsed.  The invalid-file
+# exceptions derive from ValueError on every version, but on Python 3.10 and
+# earlier the format errors derive from plistlib.Error, which was removed
+# from the module in Python 3.13.
+PLIST_PARSE_ERRORS = (OSError, ValueError)
+if hasattr(plistlib, "Error"):
+    PLIST_PARSE_ERRORS = PLIST_PARSE_ERRORS + (plistlib.Error,)
+
 # macOS browser bundle identifiers mapped to (name, application path).
 BROWSER_APPS_MACOS = {
     "com.google.Chrome": ("Chrome", "/Applications/Google Chrome.app"),
@@ -119,7 +127,7 @@ def detect_browser_macos() -> Tuple[str, str]:
     try:
         with open(launch_services_path, "rb") as file_handle:
             launch_services_plist = plistlib.load(file_handle)
-    except (OSError, plistlib.Error):
+    except PLIST_PARSE_ERRORS:
         return UNKNOWN_BROWSER
 
     for handler in launch_services_plist.get("LSHandlers", []):
@@ -151,7 +159,7 @@ def app_version_macos(app_path: Union[str, None]) -> str:
         with open(info_plist_path, "rb") as file_handle:
             info_plist_data = plistlib.load(file_handle)
         return info_plist_data.get("CFBundleShortVersionString", UNKNOWN_VERSION)
-    except (OSError, plistlib.Error):
+    except PLIST_PARSE_ERRORS:
         return UNKNOWN_VERSION
 
 

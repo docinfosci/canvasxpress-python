@@ -163,6 +163,11 @@ cx = CanvasXpress(
 graph(cx)
 ```
 
+A `CanvasXpress` object as the last line of a cell also renders directly (it provides the
+same HTML and JavaScript that `graph(cx)` produces). Use `graph(cx)` in generated notebooks
+for consistency, and when `columns`, `fill_to_width`, `fill_to_height`, `output_file`, or
+`debug` rendering is needed.
+
 ## Best Practices
 
 1. **Load canvasxpress_charts first** - Always load the canvasxpress_charts skill before generating any code

@@ -1,12 +1,17 @@
 """Tests for CanvasXpress Shiny integration."""
 
+import sys
+import types
 from unittest.mock import MagicMock, patch
 
 import pytest
 
 from canvasxpress.canvas import CanvasXpress
-from canvasxpress.render.shiny import output_canvasxpress, CXShinyWidget
-
+from canvasxpress.render.shiny import (
+    CXShinyWidget,
+    _as_fill_item,
+    output_canvasxpress,
+)
 
 CX_EXAMPLE = CanvasXpress(
     render_to="shiny-test-1",
@@ -91,3 +96,37 @@ class TestCxShinyWidgetFill:
         filled = str(output_canvasxpress("filled", fill=True))
         assert "html-fill-item" in filled
         assert "html-fill-container" in filled
+
+
+class TestAsFillItem:
+    def test_uses_shiny_fill_when_available(self):
+        from shiny import ui
+
+        result = _as_fill_item(ui.div("hi"))
+        assert "html-fill-item" in str(result)
+
+    def test_fallback_when_shiny_has_no_fill(self, monkeypatch):
+        from shiny import ui
+
+        monkeypatch.setattr(ui, "fill", None, raising=False)
+        result = _as_fill_item(ui.div("hi"))
+        assert result.attrs["style"] == "height: 100%;"
+
+
+class TestCxShinyWidgetRStudioViewer:
+    def test_raises_without_rpy2(self):
+        with patch.dict(sys.modules, {"rpy2": None, "rpy2.robjects": None}):
+            with pytest.raises(RuntimeError, match="rpy2"):
+                CXShinyWidget(CX_EXAMPLE)._repr_rstudio_viewer_()
+
+    def test_opens_page_in_rstudio_viewers(self):
+        fake_robjects = MagicMock()
+        fake_rpy2 = types.ModuleType("rpy2")
+        fake_rpy2.robjects = fake_robjects
+
+        with patch.dict(
+            sys.modules, {"rpy2": fake_rpy2, "rpy2.robjects": fake_robjects}
+        ):
+            CXShinyWidget(CX_EXAMPLE)._repr_rstudio_viewer_()
+
+        fake_robjects.r.assert_called_once()
